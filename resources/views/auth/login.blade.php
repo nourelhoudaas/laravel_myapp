@@ -24,7 +24,7 @@
                     </div>
                 @enderror
 
-                <label for="username">Username</label>
+                <label for="username" >Username</label>
                 <input type="text" name="username" id="username" class="form-control mb-3 @error ('username') is-invalid @enderror" value="{{ old('username')}}" required autocomplete="username" autofocus>
 
                 <label for="password" > Password</label>
@@ -40,11 +40,12 @@
                     </div>
 
                     <div class="col-md-6 text-end">
-                        <a href="#">Forgot your password?</a>
+                        <a href="{{route('app_forgotPassword')}}">Forgot your password?</a>
                     </div>
                 </div>
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary" type="submit" > Sign in</button>
+
                 </div>
 
                 <p class="text-center text-muted mt-5">Not registered yet ? <a href="{{ route('register')}}">Create an account</a></p>

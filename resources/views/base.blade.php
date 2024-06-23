@@ -11,13 +11,16 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="{{ asset('assets/app.css')}}">
-
-        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    </head>
+        <script src="assets/lib/jquery/jquery.min.js"></script>
+        <script src="assets/lib/bootstrap/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+       </head>
     <body >
 
         {{-- barre de navigation--}}
         @include('navbar.navbar')
+
+        {{-- barre de navigation a gauche--}}
+        @include('navbar.sidebar')
 
          {{--On inclus les messages d'alert--}}
          @include('alerts.alert-message')

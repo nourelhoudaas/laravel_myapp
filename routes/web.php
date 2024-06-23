@@ -2,6 +2,8 @@
 
 use App\Http\controllers\HomeController;
 use App\Http\controllers\LoginController;
+use App\Http\controllers\EmployeesController;
+use App\Http\controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +33,14 @@ Route::controller(LoginController::class)->group(function(){
     Route::get('/resend_activation_code/{token}','resendActivateCode')->name('app_resend_activation_code');
     Route::get('/activation_account_link/{token}','activationAccountLink')->name('app_activation_account_link');
     Route::match(['get', 'post'],'/activation_account_change_email/{token}','activateAccountChangeEmail')->name('app_activation_account_change_email');
+    Route::match(['get', 'post'], '/forgot_password', 'forgotPassword')->name('app_forgotPassword');
+    //[app_..] nom de la route dans la page; [forgotPassword]  nom de la fonction dans le controller; [forgot_password] nom de la page dans la quelle il vas t etre renvoyer
+});
+
+Route::controller(EmployeesController::class)->group(function(){
+    Route::get('\liste','ListeEmply')->name('app_liste_emply');
+});
+
+Route::controller(DepartmentController::class)->group(function(){
+    Route::get('\list_depart','ListeDepart')->name('app_depart');
 });
