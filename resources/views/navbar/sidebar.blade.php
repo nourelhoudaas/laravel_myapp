@@ -2,7 +2,7 @@
     <!-- start top -->
     <div class="top">
         <div class="logo">
-            <h2><span class="danger"><b>Ministry</b> of communication</span></h2>
+            <h2><span class="success"><b>Ministry of</b> Communication</span></h2>
 
         </div>
         <div class="close">
