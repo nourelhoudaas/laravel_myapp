@@ -10,7 +10,7 @@
 :root {
     --clr-primary: #7380ec;
     --clr-danger: #ff7782;
-    --clr-success: #41f1b6;
+    --clr-success: #138827;
     --clr-white: #fff;
     --clr-info-dark: #7d8da1;
     --clr-info-light: #dce1eb;
@@ -171,7 +171,7 @@ aside .sidebar a:last-child{
 }
 aside .sidebar a.active{
     background: var(--clr-light);
-    color: var(--clr-primary);
+    color: var(--clr-success);
     margin-left: 0;
     /* border-left: 5px solid var(--clr-primary); */
 }
@@ -180,7 +180,7 @@ aside .sidebar a.active::before{
     content: '';
     width: 6px;
     height: 100%;
-    background-color: var(--clr-primary);
+    background-color: var(--clr-success);
 }
 
 aside .sidebar a:hover{
