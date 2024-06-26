@@ -36,6 +36,38 @@
                     </table>
                 </div>
             </main>
+
+             <!-- right section start -->
+             <div class="right">
+
+<!-- start top -->
+<div class="top">
+    <button id="menu_bar">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+    <div class="theme-toggler">
+        <span class="material-symbols-outlined active">light_mode</span>
+        <span class="material-symbols-outlined">dark_mode</span>
+    </div>
+    <div class="profile">
+        <div class="info">
+            <p><b>SAYAH</b></p>
+            <p>Admin</p>
+            <small class="text-muted"></small>
+        </div>
+        <div class="profile-photo">
+            <img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="">
+        </div>
+    </div>
+</div>
+<!-- end top -->
+
+<!-- start recent update -->
+<!-- ------------------------------ -->
+<!-- end recent update -->
+
+</div>
+<!-- end right section -->
     </div>
 </body>
 @endsection
