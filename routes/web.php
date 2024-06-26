@@ -44,4 +44,7 @@ Route::controller(EmployeesController::class)->group(function(){
 
 Route::controller(DepartmentController::class)->group(function(){
     Route::get('\list_depart','ListeDepart')->name('app_depart');
+    Route::match(['get', 'post'], '/dashboard_depart','dashboard_depart')
+    ->middleware('auth') //pour acceder a cette page il faut s'authentifier
+    ->name('app_dashboard_depart');
 });

@@ -17,7 +17,7 @@
             <span class="material-symbols-outlined">grid_view</span>
             <h3>Dashboard</h3>
         </a>
-        <a href="{{route('app_dashboard')}}">
+        <a href="{{route('app_dashboard_depart')}}">
             <span class="material-symbols-outlined">dataset</span>
             <h3>Directions</h3>
         </a>

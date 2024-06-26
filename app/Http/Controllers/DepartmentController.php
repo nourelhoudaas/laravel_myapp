@@ -10,4 +10,10 @@ class DepartmentController extends Controller
     {
         return view('Department.list_depart');
     }
+
+    //la page dashboard_depart.blade.php
+    public function dashboard_depart()
+    {
+        return view('department.dashboard_depart');
+    }
 }
