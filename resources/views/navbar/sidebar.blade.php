@@ -2,7 +2,7 @@
     <!-- start top -->
     <div class="top">
         <div class="logo">
-            {{-- <h2><span class="danger"><b>Ministry</b> of communication</span></h2> --}}
+            <h2><span class="danger"><b>Ministry</b> of communication</span></h2>
 
         </div>
         <div class="close">
@@ -40,4 +40,6 @@
         </a>
     </div>
 </aside>
+
+
 <!-- end aside -->

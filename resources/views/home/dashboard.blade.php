@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', 'Dashboard')
+@section('title', 'Dashboard_depart')
 
 @section('content')
 
@@ -125,7 +125,7 @@
                             <small class="text-muted"></small>
                         </div>
                         <div class="profile-photo">
-                            <img src="images/profile.jpg " alt="">
+                            <img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="">
                         </div>
                     </div>
                 </div>
