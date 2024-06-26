@@ -1,7 +1,9 @@
 @extends('base')
 
-@section('title', 'Ministere de la communication')
+@section('title', 'Add')
 
 @section('content')
+
+<h1>Ajout</h1>
 
 @endsection

@@ -10,4 +10,9 @@ class EmployeesController extends Controller
     {
         return view('employees.liste');
     }
+
+    public function AddEmply()
+    {
+        return view('employees.add');
+    }
 }
