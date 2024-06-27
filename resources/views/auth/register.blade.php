@@ -4,7 +4,7 @@
 
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">--}}
+         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <div class="container">
     <div class="row">
         <div class="col-md-5  mx-auto">
@@ -31,6 +31,18 @@
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required autocomplete="email" url-emailExist="{{ route('app_exist_email') }}" token="{{ csrf_token() }}"autofocus>
                     <small class="text-danger fw-bold" id="error-register-email"></small>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="username" class="form-label">ID NIN</label>
+                    <input type="text" class="form-control" id="id_nin" name="id_nin" value="{{old('id_nin')}}" required autocomplete="id_nin"  url-IDNINExist="{{ route('app_exist_id_nin') }}" autofocus>
+                    <small class="text-danger fw-bold" id="error-register-id_nin"></small>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="id_p" class="form-label">ID P</label>
+                    <input type="text" class="form-control" id="id_p" name="id_p" value="{{old('id_p')}}" required autocomplete="id_p" url-IDPExist="{{ route('app_exist_id_p') }}" autofocus>
+                    <small class="text-danger fw-bold" id="error-register-id_p"></small>
                 </div>
 
                 <div class="col-md-12">

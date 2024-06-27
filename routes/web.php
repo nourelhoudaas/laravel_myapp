@@ -28,6 +28,8 @@ Route::controller(LoginController::class)->group(function(){
     Route::get('/logout','logout')->name('app_logout');
     Route::post('/exist_email','existEmail')->name('app_exist_email');
     Route::post('/exist_username','existUsername')->name('app_exist_username');
+    Route::post('/exist_id_nin','existIDNIN')->name('app_exist_id_nin');
+    Route::post('/exist_id_p','existIDP')->name('app_exist_id_p');
     Route::match(['get', 'post'], '/activation_code/{token}','activationCode')->name('app_activation_code');
     Route::get('/user_checker','userChecker')->name('app_user_checker');
     Route::get('/resend_activation_code/{token}','resendActivateCode')->name('app_resend_activation_code');

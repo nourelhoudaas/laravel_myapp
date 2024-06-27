@@ -76,6 +76,50 @@ protected $request;
     }
 
 
+
+//---------------------------------------------------------------------EXIST USERNAME---------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+public function existIDP()
+{
+    //recuperation de l email inserer a partir de input
+    $id_p = $this->request->input('ID_P');
+
+    // verifier si email est deja utilisé
+    $user= User::where('ID_P', $id_p)
+                        ->first(); // La méthode first() renvoie le premier utilisateur trouvé ou null s'il n'y en a pas.
+
+    $response="";
+    ($user) ? $response="exist" : $response="not_exist";
+
+    return response()->json([
+        'code'=> 200,
+        'data_response4'=>$response,
+    ]);
+}
+
+
+
+//---------------------------------------------------------------------EXIST ID NIN---------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+public function existIDNIN()
+{
+    //recuperation de l email inserer a partir de input
+    $id_nin = $this->request->input('ID_NIN');
+
+    // verifier si email est deja utilisé
+    $user= User::where('ID_NIN', $id_nin)
+                        ->first(); // La méthode first() renvoie le premier utilisateur trouvé ou null s'il n'y en a pas.
+
+    $response="";
+    ($user) ? $response="exist" : $response="not_exist";
+
+    return response()->json([
+        'code'=> 200,
+        'data_response3'=>$response,
+    ]);
+}
+
+
 //---------------------------------------------------------------------VERIFICATION DE L'AUTHENTIFICATION DU USER---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 public function userChecker()

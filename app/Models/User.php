@@ -27,6 +27,8 @@ class User extends Authenticatable
         'is_verified',
         'activation_code',
         'activation_token',
+        'ID_NIN',
+        'ID_P',
 
     ];
 

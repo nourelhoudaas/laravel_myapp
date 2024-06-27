@@ -56,6 +56,8 @@ class CreateNewUser implements CreatesNewUsers
     // insertion les infos du nouveau user dans la table users
         return User::create([
             'name' => $name,
+            'ID_NIN' => $id_nin,
+            'ID_P' => $id_p,
             'username' => $input['username'],
             'email' => $email,
             'password' => Hash::make($input['password']),
