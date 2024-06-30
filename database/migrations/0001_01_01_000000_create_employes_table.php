@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('Lieu_nais_ar');
             $table->string('adress');
             $table->string('adress_ar');
-            $table->string('email')->unique()->nullable();;
+            $table->string('email')->nullable();;
             $table->string('Phone_num')->unique();
 
         });
