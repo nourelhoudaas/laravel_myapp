@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contients', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('id_contient')->primary();
+            $table->string('id_post');
+            $table->foreign('id_post')->references('id_post')->on('Post');
+            $table->string('id_sous_depart');
+            $table->foreign('id_sous_depart')->references('id_sous_depart')->on('Sous_departement');
         });
     }
 
