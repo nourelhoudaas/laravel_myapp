@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('Prenom_emp');
             $table->string('Nom_ar_emp');
             $table->string('Prenom_ar_emp');
-            $table->string('Date_nais');
+            $table->date('Date_nais');
             $table->string('Lieu_nais');
             $table->string('Lieu_nais_ar');
             $table->string('adress');
