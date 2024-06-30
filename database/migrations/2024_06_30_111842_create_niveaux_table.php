@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('id_niv')->primary();
             $table->string('Nom_niv')->unique();
             $table->string('Specialité')->unique();
-            $table->string('Descriptif')->unique();
+            $table->string('Descriptif_niv')->unique();
         });
     }
 
