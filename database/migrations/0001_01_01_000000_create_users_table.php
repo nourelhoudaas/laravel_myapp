@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_nin')->unique();
             $table->foreign('id_nin')->references('id_nin')->on('Employe');
             $table->unsignedBigInteger('id_p')->unique();
-            $table->foreign('id_p')->references('id_p')->on('Employe')->unique();
+            $table->foreign('id_p')->references('id_p')->on('Employe');
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
