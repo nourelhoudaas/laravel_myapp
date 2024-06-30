@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('travails', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('id_travail')->primary();
+            $table->date('date_chang');
+            $table->date('date_installation');
+            $table->float('notation');
+            $table->integer('id_nin')->unique();
+            $table->integer('id_p')->unique();
+            $table->string('id_bureau')->unique();
+            $table->integer('id_nin')->references('id_nin')->on('Employe');
+            $table->integer('id_p')->references('id_p')->on('Employe');
+            $table->integer('id_bureau')->references('id_bureau')->on('Bureau');
         });
     }
 
