@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('logins', function (Blueprint $table) {
             $table->string('id_log')->primary();
             $table->date('date_login');
-            $table->date('date_logout')-nullable();
+            $table->date('date_logout')->nullable();
             $table->integer('id_nin')->unique();
             $table->integer('id_p')->unique();
             $table->foreign('id_nin')->references('id_nin')->on('Employe');
