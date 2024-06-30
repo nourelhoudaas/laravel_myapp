@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->string('id_user')->primary();
             $table->string('name');
-            $table->integer('id_nin')->foreign('id_nin')->references('id_nin')->on('Employe');
-            $table->integer('id_p')->foreign('id_p')->references('id_p')->on('Employe');
+            $table->integer('id_nin')->unique()->foreign('id_nin')->references('id_nin')->on('Employe');
+            $table->integer('id_p')->unique()->foreign('id_p')->references('id_p')->on('Employe');
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
