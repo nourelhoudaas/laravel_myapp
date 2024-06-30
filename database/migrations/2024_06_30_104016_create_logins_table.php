@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('logins', function (Blueprint $table) {
             $table->string('id_log')->primary();
             $table->timestamp('date_login');
-            $table->timestamps('date_logout')->nullable();
+            $table->timestamps('date_logout');
             $table->integer('id_nin')->unique();
             $table->integer('id_p')->unique();
             $table->foreign('id_nin')->references('id_nin')->on('Employe');
             $table->foreign('id_p')->references('id_p')->on('Employe');
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 
