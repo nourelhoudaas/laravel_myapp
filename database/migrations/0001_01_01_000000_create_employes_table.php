@@ -16,6 +16,10 @@ return new class extends Migration
             $table->integer('id_nin')->unique();
             $table->string('Nom_emp');
             $table->string('Prenom_emp');
+            $table->string('Nom_ar_emp');
+            $table->string('Prenom_ar_emp');
+            $table->string('Prenom_ar_emp');
+            $table->string('Date_nais');
 
         });
     }
