@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departements', function (Blueprint $table) {
-            $table->string('id_depart')->primary();
-            $table->string('Nom_depart')->unique();
-            $table->string('Descriptif_depart')->unique();
+        Schema::create('sous_departements', function (Blueprint $table) {
+            $table->string('id_sous_depart')->primary();
+            $table->string('Nom_sous_depart')->unique();
+            $table->string('Descriptif_sous_depart')->unique();
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departements');
+        Schema::dropIfExists('sous_departements');
     }
 };
