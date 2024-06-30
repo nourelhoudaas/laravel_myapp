@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('generes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('id_genr')->primary();
+            $table->date('date_creation');
+            $table->string('ref_Dossier')->unique();
+            $table->integer('id_nin')->unique();
+            $table->integer('id_p')->unique();
+            $table->foreign('id_nin')->references('id_nin')->on('Employe');
+            $table->foreign('id_p')->references('id_p')->on('Employe');
+            $table->foreign('ref_Dossier')->references('ref_Dossier')->on('Dossier');
         });
     }
 
