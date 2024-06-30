@@ -19,9 +19,9 @@ return new class extends Migration
             $table->integer('id_nin')->unique();
             $table->integer('id_p')->unique();
             $table->string('id_bureau')->unique();
-            $table->integer('id_nin')->references('id_nin')->on('Employe');
-            $table->integer('id_p')->references('id_p')->on('Employe');
-            $table->integer('id_bureau')->references('id_bureau')->on('Bureau');
+            $table->foreign('id_nin')->references('id_nin')->on('Employe');
+            $table->foreign('id_p')->references('id_p')->on('Employe');
+            $table->foreign('id_bureau')->references('id_bureau')->on('Bureau');
         });
     }
 
