@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->string('id_post')->primary();
-            $table->string('Nom_post');
-            $table->string('Grade_post');
+            $table->string('Nom_post')->unique();
+            $table->string('Grade_post')->unique();
         });
     }
 
