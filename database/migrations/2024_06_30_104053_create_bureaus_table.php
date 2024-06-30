@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bureaus', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('id_bureau')->primary();
+            $table->integer('Num_bureau')->unique();
         });
     }
 
