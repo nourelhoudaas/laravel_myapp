@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <label for="username" class="form-label">ID NIN</label>
+                    <label for="id_p" class="form-label">ID NIN</label>
                     <input type="text" class="form-control" id="id_nin" name="id_nin" value="{{old('id_nin')}}" required autocomplete="id_nin"  url-IDNINExist="{{ route('app_exist_id_nin') }}" autofocus>
                     <small class="text-danger fw-bold" id="error-register-id_nin"></small>
                 </div>

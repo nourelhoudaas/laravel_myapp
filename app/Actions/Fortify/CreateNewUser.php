@@ -33,6 +33,8 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();*/
 
         $email=$input['email'];
+        $id_nin=$input['id_nin'];
+        $id_p=$input['id_p'];
         $name = $input['firstname']. ' '.$input['lastname'];
 
     // Generer un token d'activation

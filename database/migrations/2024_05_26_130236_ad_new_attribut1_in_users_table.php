@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->string('activation_token', 255)
                     ->nullable();
+
         });
     }
 

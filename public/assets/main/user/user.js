@@ -207,14 +207,16 @@ $('#register-user').click(function(){
                                     $('#error-register-id_p').text("");
 
                             var data_response= existEmail(email);
-                            var data_response= existIDP(id_p);
-                            var data_response= existIDNIN(id_nin);
+                            var data_response4= existIDP(id_p);
+                            console.log("data_response4= $data_response4") ;
+                            var data_response3= existIDNIN(id_nin);
                             var data_response2= existUsername(username);
 
                             (data_response!= "exist" && data_response2!= "exist"  && data_response3!= "exist"  && data_response4!= "exist")?  $('#form-register').submit()
                            : ( $('#email').addClass('is-invalid'),
                                 $('#email').removeClass('is-valid'),
                                 $('#error-register-email').text("email is already used!"),
+
                                 $('#username').addClass('is-invalid'),
                                 $('#username').removeClass('is-valid'),
                                 $('#error-register-username').text("Username is already used! "),
