@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('Lieu_nais_ar');
             $table->string('adress');
             $table->string('adress_ar');
+            $table->string('sexe');
             $table->string('email')->nullable();;
             $table->string('Phone_num')->unique();
 
