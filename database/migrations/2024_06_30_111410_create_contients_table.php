@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('contients', function (Blueprint $table) {
             $table->string('id_contient')->primary();
             $table->string('id_post');
-            $table->foreign('id_post')->references('id_post')->on('Post');
+            $table->foreign('id_post')->references('id_post')->on('posts');
             $table->string('id_sous_depart');
-            $table->foreign('id_sous_depart')->references('id_sous_depart')->on('Sous_departement');
+            $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
         });
     }
 

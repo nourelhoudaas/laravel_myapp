@@ -15,11 +15,11 @@ return new class extends Migration
             $table->string('id_appar')->primary();
             $table->date('Date_op');
             $table->string('id_niv')->unique();
-            $table->foreign('id_niv')->references('id_niv')->on('Niveau');
-            $table->string('id_nin')->unique();
-            $table->foreign('id_nin')->references('id_nin')->on('Employe');
-            $table->string('id_p')->unique();
-            $table->foreign('id_p')->references('id_p')->on('Employe');
+            $table->foreign('id_niv')->references('id_niv')->on('niveaux');
+            $table->integer('id_nin')->unique();
+            $table->foreign('id_nin')->references('id_nin')->on('employes');
+            $table->integer('id_p')->unique();
+            $table->foreign('id_p')->references('id_p')->on('employes');
         });
     }
 

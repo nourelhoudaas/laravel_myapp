@@ -17,8 +17,8 @@ return new class extends Migration
             $table->date('date_logout')->nullable();
             $table->integer('id_nin');
             $table->integer('id_p');
-            $table->foreign('id_nin')->references('id_nin')->on('Employe');
-            $table->foreign('id_p')->references('id_p')->on('Employe');
+            $table->foreign('id_nin')->references('id_nin')->on('employes');
+            $table->foreign('id_p')->references('id_p')->on('employes');
         });
     }
 

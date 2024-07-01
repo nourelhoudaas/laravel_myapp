@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sous_departements', function (Blueprint $table) {
             $table->string('id_sous_depart')->primary();
             $table->string('id_depart');
-            $table->foreign('id_depart')->references('id_depart')->on('Departement');
+            $table->foreign('id_depart')->references('id_depart')->on('departements');
             $table->string('Nom_sous_depart')->unique();
             $table->string('Descriptif_sous_depart')->unique();
         });

@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('ref_cong')->unique();
             $table->integer('id_nin')->unique();
             $table->integer('id_p')->unique();
-            $table->foreign('id_nin')->references('id_nin')->on('Employe');
-            $table->foreign('id_p')->references('id_p')->on('Employe');
-            $table->foreign('ref_cong')->references('ref_cong')->on('Type_cong');
+            $table->foreign('id_nin')->references('id_nin')->on('employes');
+            $table->foreign('id_p')->references('id_p')->on('employes');
+            $table->foreign('ref_cong')->references('ref_cong')->on('type_congs');
         });
     }
 

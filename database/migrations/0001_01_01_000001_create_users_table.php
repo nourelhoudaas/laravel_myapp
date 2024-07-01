@@ -15,9 +15,9 @@ return new class extends Migration
             $table->string('id_user')->primary();
             $table->string('name');
             $table->integer('id_nin');
-            $table->foreign('id_nin')->references('id_nin')->on('Employe');
+            $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->integer('id_p')->unique();
-            $table->foreign('id_p')->references('id_p')->on('Employe');
+            $table->foreign('id_p')->references('id_p')->on('employes');
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
