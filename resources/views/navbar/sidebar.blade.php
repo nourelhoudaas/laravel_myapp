@@ -3,7 +3,7 @@
             <div class="header__container">
                 <img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="" class="header__img">
 
-                <a href="#" class="header__logo">Bedimcode</a>
+                <a href="#" class="header__logo">Ministry Of Communication</a>
     
                 <div class="header__search">
                     <input type="search" placeholder="Search" class="header__input">
@@ -111,7 +111,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="nav__link nav__logout">
+                <a href="{{route('app_logout')}}" class="nav__link nav__logout">
                     <i class='bx bx-log-out nav__icon' ></i>
                     <span class="nav__name">Log Out</span>
                 </a>
