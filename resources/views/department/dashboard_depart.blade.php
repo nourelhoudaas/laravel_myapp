@@ -91,6 +91,7 @@
                     <th>NOM</th>
                     <th>PRENOM</th>
                     <th>Poste</th>
+                    <th>Sous direction</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -100,9 +101,10 @@
 
 
 
-                    <td><a href="{{route('BioTemplate.detail',['id'=>$emp->ID_NIN])}}">{{ $emp->NOM_P }}</a></td>
-                    <td>{{ $emp->PRENOM_O }}</td>
-                    <td>{{ $emp->NOM_POST }}</td>
+                    <td><a href="{{route('BioTemplate.detail',['id'=>$emp->id_nin])}}">{{ $emp->Nom_emp }}</a></td>
+                    <td>{{ $emp->Prenom_emp }}</td>
+                    <td>{{ $emp->Nom_post }}</td>
+                    <td>{{ $emp->Nom_sous_depart }}</td>
 
                 </tr>
                 @endforeach
@@ -115,28 +117,7 @@
             <!-- main section end -->
 
             <!-- right section start -->
-            <div class="right">
-
-                <!-- start top -->
-                <div class="top">
-                    <button id="menu_bar">
-                        <span class="material-symbols-outlined">menu</span>
-                    </button>
-                    <div class="theme-toggler">
-                        <span class="material-symbols-outlined active">light_mode</span>
-                        <span class="material-symbols-outlined">dark_mode</span>
-                    </div>
-                    <div class="profile">
-                        <div class="info">
-                            <p><b>SAYAH</b></p>
-                            <p>Admin</p>
-                            <small class="text-muted"></small>
-                        </div>
-                        <div class="profile-photo">
-                            <img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="">
-                        </div>
-                    </div>
-                </div>
+           
                 <!-- end top -->
 
                 <!-- start recent update -->

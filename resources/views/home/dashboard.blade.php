@@ -87,6 +87,7 @@
                             <tr>
                                 <th>Nom Prenom</th>
                                 <th>poste</th>
+                                <th>Sous Direction</th>
                                 <th>Direction</th>
                             </tr>
                         </thead>
@@ -98,6 +99,7 @@
                                 <td><a href="{{route('BioTemplate.detail',['id'=>$employe->id_nin])}}">{{$employe->Nom_emp}} {{$employe->Prenom_emp}}</a></td>
                                 <td>{{$employe->Nom_post}}</td>
                                 <td>{{$employe->Nom_sous_depart}}</td>
+                                <td>{{$employe->Nom_depart}}</td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -28,12 +28,12 @@ class HomeController extends Controller
         ->join('contients','sous_departements.id_sous_depart','=','contients.id_sous_depart')
         ->join('departements','sous_departements.id_depart','=','departements.id_depart')
         ->join('posts','contients.id_post','=','posts.id_post')
-        ->select('employes.id_nin','employes.id_p','employes.Nom_emp','employes.Prenom_emp','sous_departements.id_sous_depart','sous_departements.Nom_sous_depart','posts.Nom_post')
+        ->select('employes.id_nin','employes.id_p','employes.Nom_emp','employes.Prenom_emp','sous_departements.id_sous_depart','sous_departements.Nom_sous_depart','departements.Nom_depart','posts.Nom_post')
         ->get();
 
         $empdepart= DB::table('departements')
           ->get();
-
+        
 //le nbr total des employés
         $totalEmployes = $employe->count();
 

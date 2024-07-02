@@ -45,19 +45,29 @@
                                 <div class="nav__dropdown-collapse">
                                     <div class="nav__dropdown-content">
                                        
-                                            <a >hvj
-                                            </a>
-                                        
-                                        
-                                        <div class="nav__dropdown-collapse">
-                                    <div class="nav__dropdown-content">
-                                       
-                                            <a>jhvghg
-                                            </a>
-                                        
-                                        
+                                    @foreach($empdepart as $empdepart)
+                                        <a href="{{route('app_dashboard_depart',['dep_id'=>$empdepart->id_depart])}}" 
+                                        class="nav__dropdown-item">{{$empdepart->Nom_depart}}
+                                        </a>
+                                    @endforeach
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="nav__dropdown">
+                                <a href="#" class="nav__link">
+                                <i class='bx bxs-group nav__icon'></i>
+                                    <span class="nav__name">Customers</span>
+                                    <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                                </a>
+
+                                <div class="nav__dropdown-collapse">
+                                    <div class="nav__dropdown-content">
+                                    <a href="#" class="nav__link">
+                                    <i class='bx bxs-user-plus nav__icon'></i> 
+                                    <span class="nav__name">Add Customers</span>
+                                    </a>
+                                     <!-- <a href="#" class="nav__dropdown-item"> <i class='bx bxs-user-plus nav__icon'></i> Add Customer</a> -->
                                     </div>
                                 </div>
                             </div>
