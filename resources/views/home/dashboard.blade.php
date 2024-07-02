@@ -5,7 +5,7 @@
 @section('content')
 
     <body>
-        <div class="container2">
+        
 
             <!-- start section aside -->
             @include('./navbar.sidebar')
@@ -107,9 +107,9 @@
             <!-- main section end -->
 
             <!-- right section start -->
-            <div class="right">
+            <!-- <div class="right">
 
-                <!-- start top -->
+                 //start top
                 <div class="top">
                     <button id="menu_bar">
                         <span class="material-symbols-outlined">menu</span>
@@ -128,18 +128,16 @@
                             <img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="">
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- end top -->
 
                 <!-- start recent update -->
                 <!-- ------------------------------ -->
                 <!-- end recent update -->
 
-            </div>
             <!-- end right section -->
 
-        </div>
-
+       
         <!-- appel script -->
         <!--script src="script.js"></script-->
     </body>

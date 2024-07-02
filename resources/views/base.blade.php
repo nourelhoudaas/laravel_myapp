@@ -7,16 +7,12 @@
         <meta name="csrf-token" content=" {{csrf_token()}}">
 
         <title> {{ config('app.name') }} - @yield('title')</title>
-<link rel="stylesheet" href="{{ asset('assets/app.css')}}">
-        <!-- Fonts -->
-        {{-- <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-        <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-         <link rel="stylesheet"
-        --}}
-         <link rel="stylesheet"
+        <link rel="stylesheet" href="{{ asset('assets/app.css')}}">
+       <!--========== BOX ICONS ==========-->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <link rel="stylesheet"
          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
         </head>
     <body >
 

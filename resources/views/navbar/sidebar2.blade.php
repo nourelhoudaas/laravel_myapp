@@ -2,7 +2,7 @@
     <!-- start top -->
     <div class="top">
         <div class="logo">
-            <h2><span class="success"><b>Ministry of</b> Communication</span></h2>
+            <h2><span class="success"><b>Ministry</b> of communication</span></h2>
 
         </div>
         <div class="close">
@@ -14,12 +14,31 @@
     <div class="sidebar">
 
         <a href="{{route('app_dashboard')}}">
-            <span class="material-symbols-outlined">grid_view</span>
+        <span class="material-symbols-outlined">grid_view</span>
             <h3>Dashboard</h3>
         </a>
-        <a href="{{route('app_dashboard_depart')}}">
-            <span class="material-symbols-outlined">dataset</span>
-            <h3>Directions</h3>
+        <a href="#">
+        <div style="
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+">  <span class="material-symbols-outlined">dataset</span>
+            <h3>Direction</h3>
+           {{-- <ul class="menu">
+        <li class="menu-item">
+            <a href="#" class="menu-link"></a>
+            <ul class="dropdown">
+                @if($empdepart!="")
+                @foreach($empdepart as $empdepart)
+                <li><a href="{{route('app_dashboard_depart',['dep_id'=>$empdepart->id_depart])}}" class="dropdown-item" style="position:relative">{{$empdepart->Nom_depart}}</a></li>
+                @endforeach
+            @endif
+            </ul>
+        </li>
+    </ul>
+--}}
+        </div>
         </a>
         <a href="{{route('app_liste_emply')}}" class="active">
             <span class="material-symbols-outlined">person</span>
@@ -40,6 +59,4 @@
         </a>
     </div>
 </aside>
-
-
 <!-- end aside -->
