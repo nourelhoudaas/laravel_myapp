@@ -32,7 +32,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();*/
 
-        $email=$input['email'];
+       // $email=$input['email'];
         $id_nin=$input['id_nin'];
         $id_p=$input['id_p'];
         $name = $input['firstname']. ' '.$input['lastname'];
@@ -58,8 +58,8 @@ class CreateNewUser implements CreatesNewUsers
     // insertion les infos du nouveau user dans la table users
         return User::create([
             'name' => $name,
-            'ID_NIN' => $id_nin,
-            'ID_P' => $id_p,
+            'id_nin' => $id_nin,
+            'id_p' => $id_p,
             'username' => $input['username'],
             //'email' => $email,
             'password' => Hash::make($input['password']),

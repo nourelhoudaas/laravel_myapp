@@ -24,11 +24,11 @@ class User extends Authenticatable
         //'email_verified_at',
         'created_at',
         'updated_at',
-        'is_verified',
-        'activation_code',
-        'activation_token',
-        'ID_NIN',
-        'ID_P',
+        //'is_verified',
+        //'activation_code',
+        //'activation_token',
+        'id_nin',
+        'id_p',
 
     ];
 
