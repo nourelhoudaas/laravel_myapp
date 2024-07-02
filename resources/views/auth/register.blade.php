@@ -27,12 +27,12 @@
                     <small class="text-danger fw-bold" id="error-register-lastname"></small>
                 </div>
 
-                <div class="col-md-12">
+                {{--<div class="col-md-12">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required autocomplete="email" url-emailExist="{{ route('app_exist_email') }}" token="{{ csrf_token() }}"autofocus>
                     <small class="text-danger fw-bold" id="error-register-email"></small>
-                </div>
-
+                </div>-->
+--}}
                 <div class="col-md-12">
                     <label for="id_p" class="form-label">ID NIN</label>
                     <input type="text" class="form-control" id="id_nin" name="id_nin" value="{{old('id_nin')}}" required autocomplete="id_nin"  url-IDNINExist="{{ route('app_exist_id_nin') }}" autofocus>

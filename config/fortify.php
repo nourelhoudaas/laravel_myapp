@@ -46,7 +46,7 @@ return [
 
     'username' => 'username',
 
-    'email' => 'email',
+    //'email' => 'email',
 
     /*
     |--------------------------------------------------------------------------
@@ -72,7 +72,7 @@ return [
     |
     */
 
-    'home' => ('/user_checker'),
+    'home' => ('/dashboard'),
 
 
     /*

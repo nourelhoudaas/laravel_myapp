@@ -37,7 +37,7 @@ protected $request;
 
 //---------------------------------------------------------------------EXIST EMAIL---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
-    public function existEmail()
+   /* public function existEmail()
     {
         //recuperation de l email inserer a partir de input
         $email = $this->request->input('email');
@@ -53,7 +53,7 @@ protected $request;
             'data_response'=>$response,
         ]);
     }
-
+*/
 
 //---------------------------------------------------------------------EXIST USERNAME---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ public function existIDP()
     $id_p = $this->request->input('id_p');
 
     // verifier si email est deja utilisé
-    $user= User::where('ID_P', $id_p)
+    $user= User::where('id_p', $id_p)
                         ->first(); // La méthode first() renvoie le premier utilisateur trouvé ou null s'il n'y en a pas.
 
     $response="";
@@ -104,14 +104,14 @@ public function existIDP()
 public function existIDNIN()
 {
     //recuperation de l email inserer a partir de input
-    $id_nin = $this->request->input('id_p');
+    $id_nin = $this->request->input('id_nin');
 
     // verifier si email est deja utilisé
-    $user= User::where('ID_NIN', $id_nin)
+    $user= User::where('id_nin', $id_nin)
                         ->first(); // La méthode first() renvoie le premier utilisateur trouvé ou null s'il n'y en a pas.
 
                         // verifier si email est deja utilisé
-     $user= User::where('ID_NIN', $id_nin)
+     $user= User::where('id_nin', $id_nin)
      ->first(); // La méthode first() renvoie le premier utilisateur trouvé ou null s'il n'y en a pas.
 
     $response="";
@@ -126,7 +126,7 @@ public function existIDNIN()
 
 //---------------------------------------------------------------------VERIFICATION DE L'AUTHENTIFICATION DU USER---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
-public function userChecker()
+/*public function userChecker()
 {
     // Récupère à partir de la base de donnée le jeton d'activation et le statut de vérification de l'utilisateur connecté
     $activation_token = Auth::user()->activation_token;
@@ -149,10 +149,10 @@ public function userChecker()
         return redirect()->route('app_dashboard');
     }
 }
-
+*/
 //---------------------------------------------------------------------ACTIVATION CODE---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
-    public function activationCode($token)
+   /* public function activationCode($token)
     {
     // Recherche de l'utilisateur correspondant au token d'activation
         $user = User::where('activation_token', $token)->first();
@@ -164,8 +164,8 @@ public function userChecker()
             return redirect()->route('login')->with('danger', 'This token doesn\'t match any user.');
         }
 
-  /* le code à l'intérieur de cette condition sera exécuté uniquement lorsque le formulaire est soumis, car le formulaire utilise la méthode POST pour envoyer les données.
-le code à l'intérieur de cette condition sera exécuté uniquement lorsque le formulaire est soumis, car le formulaire utilise la méthode POST pour envoyer les données. */
+ //le code à l'intérieur de cette condition sera exécuté uniquement lorsque le formulaire est soumis, car le formulaire utilise la méthode POST pour envoyer les données.
+//le code à l'intérieur de cette condition sera exécuté uniquement lorsque le formulaire est soumis, car le formulaire utilise la méthode POST pour envoyer les données.
         if($this->request->isMethod('post'))
         {
          // Récupère de la bd le code d'activation de l'utilisateur
@@ -203,10 +203,10 @@ le code à l'intérieur de cette condition sera exécuté uniquement lorsque le 
         ]);
     }
 
-
+*/
 //---------------------------------------------------------------------RENVOYER LE CODE D'AUTHENTIFICATION---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
-    public function resendActivateCode($token)
+   /* public function resendActivateCode($token)
 {
     // Recherche l'utilisateur par son jeton d'activation
         $user = User::where('activation_token', $token)->first();
@@ -230,10 +230,10 @@ le code à l'intérieur de cette condition sera exécuté uniquement lorsque le 
     // Recherche l'utilisateur par son jeton d'activation
     $user = User::where('activation_token', $token)->first();
 
-/*
-    Si aucun utilisateur n'est trouvé avec ce jeton, redirige vers la page de connexion avec un message d'erreur
-    D'une autre maniere on fait cette condition pour eviter tout changement manuelle dans l'URL.
-*/
+
+   // Si aucun utilisateur n'est trouvé avec ce jeton, redirige vers la page de connexion avec un message d'erreur
+   // D'une autre maniere on fait cette condition pour eviter tout changement manuelle dans l'URL.
+
     if(!$user)
     {
         return redirect()->route('login')->with('danger', 'This token doesn\'t match any user.');
@@ -253,10 +253,10 @@ le code à l'intérieur de cette condition sera exécuté uniquement lorsque le 
     // Redirige vers la page de connexion avec un message de succès
     return redirect()->route('login')->with('success', 'Your e-mail address has been verified!');
 }
-
+*/
 //---------------------------------------------------------------------CHANGE EMAIL ACCOUNT---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+/*
     public function activateAccountChangeEmail($token)
 {
     $user=User::where('activation_token', $token)->first();
@@ -266,11 +266,11 @@ le code à l'intérieur de cette condition sera exécuté uniquement lorsque le 
         $new_email= $this->request->input('new_email');
         $user_exist=User::where('email', $new_email)->first();;
 
-        /*
-            Cette ligne affiche le contenu de $user_existe de manière lisible pour le développeur et arrête l'exécution du script.
-            Cela signifie que toute ligne de code après dd($user_existe); ne sera pas exécutée.
+
+           // Cette ligne affiche le contenu de $user_existe de manière lisible pour le développeur et arrête l'exécution du script.
+           // Cela signifie que toute ligne de code après dd($user_existe); ne sera pas exécutée.
                         //dd($user_existe);
-         */
+
 
         if($user_exist)
         {
@@ -304,7 +304,7 @@ le code à l'intérieur de cette condition sera exécuté uniquement lorsque le 
     return view('auth.activation_account_change_email', [
         'token' => $token
     ]);
-}
+}*/
 
 //---------------------------------------------------------------------FORGOT PASSWORD---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------

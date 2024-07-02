@@ -39,21 +39,21 @@ class CreateNewUser implements CreatesNewUsers
 
     // Generer un token d'activation
     // hasher en md5 un [id] qui  sera unique [uniqid()] et hasher en sha1 l [email] pour qu il soit un token tres unique
-        $activation_token= md5(uniqid()). $email.sha1($email);
+       // $activation_token= md5(uniqid()). $email.sha1($email);
 
     // Generer un token d'activation
-        $activation_code="";
+        /*$activation_code="";
         $length_code=5;
         for ($i=0; $i <$length_code ; $i++)
         {
             $activation_code .=mt_rand(0,9);
-        }
+        }*/
 
     // Envoie du mail
-        $emailSend= new EmailService;
+       /* $emailSend= new EmailService;
         $subject="activate your account";
         $emailSend->sendEmail($subject, $email, $name,true, $activation_code,$activation_token);
-
+*/
 
     // insertion les infos du nouveau user dans la table users
         return User::create([
@@ -61,10 +61,10 @@ class CreateNewUser implements CreatesNewUsers
             'ID_NIN' => $id_nin,
             'ID_P' => $id_p,
             'username' => $input['username'],
-            'email' => $email,
+            //'email' => $email,
             'password' => Hash::make($input['password']),
-            'activation_code' =>$activation_code,
-            'activation_token'=>$activation_token
+           // 'activation_code' =>$activation_code,
+            //'activation_token'=>$activation_token
         ]);
     }
 }

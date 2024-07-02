@@ -159,7 +159,7 @@ $('#register-user').click(function(){
     var id_nin = $('#id_nin').val();
     var id_p = $('#id_p').val();
     var username = $('#username').val();
-    var email = $('#email').val();
+    //var email = $('#email').val();
     var password = $('#password').val();
     var password_confirm = $('#password-confirm').val();
     var passwordLength = password.length;
@@ -176,10 +176,10 @@ $('#register-user').click(function(){
             $('#lastname').addClass('is-valid');
             $('#error-register-lastname').text("");
 
-            if(email != "" && /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$/.test(email)){
+            /*if(email != "" && /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$/.test(email)){
                 $('#email').removeClass('is-invalid');
                 $('#email').addClass('is-valid');
-                $('#error-register-email').text("");
+                $('#error-register-email').text("");*/
 
                 if(passwordLength >= 8){
                     $('#password').removeClass('is-invalid');
@@ -206,16 +206,16 @@ $('#register-user').click(function(){
                                     $('#id_p').addClass('is-valid');
                                     $('#error-register-id_p').text("");
 
-                            var data_response= existEmail(email);
+                            //var data_response= existEmail(email);
                             var data_response4= existIDP(id_p);
                             console.log("data_response4= $data_response4") ;
                             var data_response3= existIDNIN(id_nin);
                             var data_response2= existUsername(username);
 
-                            (data_response!= "exist" && data_response2!= "exist"  && data_response3!= "exist"  && data_response4!= "exist")?  $('#form-register').submit()
-                           : ( $('#email').addClass('is-invalid'),
+                            (/*data_response!= "exist" &&*/ data_response2!= "exist"  && data_response3!= "exist"  && data_response4!= "exist")?  $('#form-register').submit()
+                           : ( /*$('#email').addClass('is-invalid'),
                                 $('#email').removeClass('is-valid'),
-                                $('#error-register-email').text("email is already used!"),
+                                $('#error-register-email').text("email is already used!"),*/
 
                                 $('#username').addClass('is-invalid'),
                                 $('#username').removeClass('is-valid'),
@@ -256,11 +256,11 @@ $('#register-user').click(function(){
                     $('#password').removeClass('is-valid');
                     $('#error-register-password').text("Your password must be at last 8 characteres!");
                 }
-            }else{
+           /* }else{
                 $('#email').addClass('is-invalid');
                 $('#email').removeClass('is-valid');
                 $('#error-register-email').text("Your email address is not valid!");
-            }
+            }*/
         }else{
             $('#lastname').addClass('is-invalid');
             $('#lastname').removeClass('is-valid');
@@ -274,7 +274,7 @@ $('#register-user').click(function(){
 });
 
 
-function existEmail(email) {
+/*function existEmail(email) {
     var url = $('#email').attr('url-emailExist');
     var token = $('#email').attr('token');
     var response = "";
@@ -301,7 +301,7 @@ function existEmail(email) {
     });
 
     return response;
-}
+}*/
 
 function existUsername(username) {
     var url = $('#username').attr('url-usernameExist');
@@ -338,7 +338,7 @@ function existIDNIN(id_nin) {
         type: 'POST',
         url: url,
         data: {
-            ID_NIN : id_nin
+            id_nin : id_nin
         },
 
         success: function (resut) {
@@ -365,7 +365,7 @@ function existIDP(id_p) {
         type: 'POST',
         url: url,
         data: {
-            ID_P : id_p
+            id_p : id_p
         },
 
         success: function (resut) {

@@ -20,16 +20,16 @@ return new class extends Migration
             $table->integer('id_p')->unique();
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            //$table->string('email')->unique();
+           // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            //$table->rememberToken();
             $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('username')->primary();
-            $table->string('token');
+            //$table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
