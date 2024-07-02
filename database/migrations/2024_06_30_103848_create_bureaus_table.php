@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bureaus', function (Blueprint $table) {
-            $table->string('id_bureau')->primary();
+            $table->integer('id_bureau')->primary();
             $table->integer('Num_bureau')->unique();
+        
         });
     }
 

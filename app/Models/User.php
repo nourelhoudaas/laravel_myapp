@@ -54,4 +54,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function compte()
+    {
+        return $this->hasMany(Login::class, ['id','id'], ['id','id']);
+    }
 }

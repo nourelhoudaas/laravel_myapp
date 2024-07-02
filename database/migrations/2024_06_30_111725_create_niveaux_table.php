@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('niveaux', function (Blueprint $table) {
-            $table->string('id_niv')->primary();
+            $table->integer('id_niv')->primary();
             $table->string('Nom_niv')->unique();
             $table->string('Specialité')->unique();
             $table->string('Descriptif_niv')->unique();

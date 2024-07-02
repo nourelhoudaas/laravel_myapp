@@ -12,13 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('logins', function (Blueprint $table) {
-            $table->string('id_log')->primary();
+            $table->integer('id_log')->primary();
             $table->date('date_login');
             $table->date('date_logout')->nullable();
             $table->integer('id_nin');
             $table->integer('id_p');
+            $table->integer('id');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
+            $table->foreign('id')->references('id')->on('users');
+
         });
     }
 

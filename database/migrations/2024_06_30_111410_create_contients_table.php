@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contients', function (Blueprint $table) {
-            $table->string('id_contient')->primary();
+            $table->integer('id_contient')->primary();
             $table->string('id_post');
             $table->foreign('id_post')->references('id_post')->on('posts');
             $table->string('id_sous_depart');

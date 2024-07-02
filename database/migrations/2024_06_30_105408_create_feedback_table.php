@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('feedback', function (Blueprint $table) {
-            $table->string('id_feedback')->primary();
+            $table->integer('id_feedback')->primary();
             $table->string('type_feedback');
             $table->string('Descriptif');
             $table->integer('id_nin')->unique();

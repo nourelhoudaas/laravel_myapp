@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('appartients', function (Blueprint $table) {
-            $table->string('id_appar')->primary();
+            $table->integer('id_appar')->primary();
             $table->date('Date_op');
             $table->string('id_niv')->unique();
             $table->foreign('id_niv')->references('id_niv')->on('niveaux');
