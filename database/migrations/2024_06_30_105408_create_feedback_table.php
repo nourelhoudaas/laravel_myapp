@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('feedback', function (Blueprint $table) {
-            $table->integer('id_feedback')->primary();
+            $table->string('id_feedback')->primary();
             $table->string('type_feedback');
-            $table->string('Descriptif');
+            $table->string('Descriptif_feedback');
             $table->integer('id_nin')->unique();
             $table->integer('id_p')->unique();
             $table->string('id_post');
-            $table->foreign('id_nin')->references('id_nin')->on('employes');
-            $table->foreign('id_p')->references('id_p')->on('employes');
-            $table->foreign('id_post')->references('id_post')->on('posts');
+            $table->foreign('id_nin')->references('id_nin')->on('Employe');
+            $table->foreign('id_p')->references('id_p')->on('Employe');
+            $table->foreign('id_post')->references('id_post')->on('Post');
         });
     }
 
