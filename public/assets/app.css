@@ -365,7 +365,7 @@ img {
     --box-shadow: 0 2rem 3rem var(--clr-right);
 }
 
-*{
+/* *{
     margin: 0;
     padding:0;
     box-sizing: border-box;
@@ -382,17 +382,17 @@ body {
     user-select: none;
     overflow-x: hidden;
     background: var(--clr-color-background);
-}
+} */
 
-.container2{
+/* .container2{
     display: grid;
     width: 96%;
     gap: 1.8rem;
     grid-template-columns: 14rem auto 14rem;
     margin: 0 auto;
-}
+} */
 
-a{
+/* a{
     color: var(--clr-dark);
 }
 h1{
@@ -431,7 +431,7 @@ p{
 
 b{
     color: var(--clr-dark);
-}
+} 
 .primary{
     color: var(--clr-primary);
 }
@@ -445,7 +445,7 @@ b{
     color: var(--clr-warning);
 }
 
-/* aside */
+aside
 aside{
     height: 100vh;
 }
@@ -465,11 +465,11 @@ aside .logo{
 aside .top div.close{
     display: none;
 }
-
+*/
 /* ***********************
 sidebar
 ************************** */
-
+/* 
 aside .sidebar{
     background-color: var(--clr-white);
     display: flex;
@@ -508,8 +508,8 @@ aside .sidebar a.active{
     color: var(--clr-success);
     margin-left: 0;
     /* border-left: 5px solid var(--clr-primary); */
-}
-
+/*}
+ 
 aside .sidebar a.active::before{
     content: '';
     width: 6px;
@@ -530,7 +530,7 @@ aside .sidebar a span.msg_count{
     padding: 2px 5px;
     font-size: 11px;
     border-radius: var(--border-raduis-1);
-}
+} */ 
 
 
 /* *********************************
@@ -683,8 +683,17 @@ main .recent_order table{
 main .recent_order table:hover{
     box-shadow: none;
 }
+main table {
+  border-collapse: separate;
+  text-indent: initial;
+  border-spacing: 2px;
+  -webkit-border-horizontal-spacing: 2px;
+  -webkit-border-vertical-spacing: 2px;
+}
+
 main table tbody tr{
     height: 3.8rem;
+
     border-bottom: 1px solid var(--clr-white);
     color: var(--clr-dark-variant);
 }
@@ -708,7 +717,7 @@ main .recent_order a{
 /* **************************
 start right side style
 ------------------------------ */
-
+/* 
 .right{
     margin-top:1.4rem ;
 }
@@ -763,4 +772,4 @@ start right side style
     color: var(--clr-dark);
 
 }
-
+ */

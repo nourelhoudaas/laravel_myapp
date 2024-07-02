@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('occupes', function (Blueprint $table) {
-            $table->integer('id_occup')->primary();
+            $table->integer('id_occup')->primary()->autoIncrement();
             $table->date('date_recrutement');
             $table->float('echellant');
             $table->integer('id_nin')->unique();

@@ -10,7 +10,7 @@
             <!-- start section aside -->
             @include('./navbar.sidebar')
             <!-- end section aside -->
-
+<div class="container2">
             <!-- main section start -->
             <main>
                 <h1>Dashboard</h1>
@@ -95,15 +95,16 @@
 
 
                             <tr>
-                                <td><a href="{{route('BioTemplate.detail',['id'=>$employe->ID_NIN])}}">{{$employe->NOM_P}} {{$employe->PRENOM_O}}</a></td>
-                                <td>{{$employe->NOM_POST}}</td>
-                                <td>{{$employe->NOM_D}}</td>
+                                <td><a href="{{route('BioTemplate.detail',['id'=>$employe->id_nin])}}">{{$employe->Nom_emp}} {{$employe->Prenom_emp}}</a></td>
+                                <td>{{$employe->Nom_post}}</td>
+                                <td>{{$employe->Nom_sous_depart}}</td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </main>
+            </div>
             <!-- main section end -->
 
             <!-- right section start -->

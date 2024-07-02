@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('logins', function (Blueprint $table) {
-            $table->integer('id_log')->primary();
+            $table->integer('id_log')->primary()->autoIncrement();
             $table->date('date_login');
             $table->date('date_logout')->nullable();
             $table->integer('id_nin');

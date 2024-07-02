@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('absences', function (Blueprint $table) {
-            $table->integer('id_abs')->primary();
+            $table->integer('id_abs')->primary()->autoIncrement();
             $table->date('date_abs');
             $table->date('heure_abs');
             $table->integer('id_nin')->unique();

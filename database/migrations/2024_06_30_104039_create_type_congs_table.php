@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('type_congs', function (Blueprint $table) {
-            $table->string('ref_cong')->primary();
+            $table->string('ref_cong')->primary()->autoIncrement();
             $table->string('titre_cong')->unique();
             $table->string('Descriptif')->unique();
         });

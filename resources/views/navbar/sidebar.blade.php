@@ -28,25 +28,36 @@
     
                     <div class="nav__list">
                         <div class="nav__items">
-                            <h3 class="nav__subtitle">Profile</h3>
+                            <h3 class="nav__subtitle">Menu</h3>
     
-                            <a href="#" class="nav__link active">
-                                <i class='bx bx-home nav__icon' ></i>
-                                <span class="nav__name">Home</span>
+                            <a href="{{route('app_dashboard')}}" class="nav__link active">
+                                <i class='bx bxs-dashboard nav__icon'></i>
+                                <span class="nav__name">Dashboard</span>
                             </a>
                             
                             <div class="nav__dropdown">
                                 <a href="#" class="nav__link">
-                                    <i class='bx bx-user nav__icon' ></i>
-                                    <span class="nav__name">Profile</span>
+                                    <i class='bx bxs-directions nav__icon'></i>
+                                    <span class="nav__name">Directions</span>
                                     <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
                                 </a>
 
                                 <div class="nav__dropdown-collapse">
                                     <div class="nav__dropdown-content">
-                                        <a href="#" class="nav__dropdown-item">Passwords</a>
-                                        <a href="#" class="nav__dropdown-item">Mail</a>
-                                        <a href="#" class="nav__dropdown-item">Accounts</a>
+                                       
+                                            <a >hvj
+                                            </a>
+                                        
+                                        
+                                        <div class="nav__dropdown-collapse">
+                                    <div class="nav__dropdown-content">
+                                       
+                                            <a>jhvghg
+                                            </a>
+                                        
+                                        
+                                    </div>
+                                </div>
                                     </div>
                                 </div>
                             </div>

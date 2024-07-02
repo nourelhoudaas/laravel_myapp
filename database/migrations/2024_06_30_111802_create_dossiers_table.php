@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dossiers', function (Blueprint $table) {
-            $table->integer('ref_Dossier')->primary();
+            $table->integer('ref_Dossier')->primary()->autoIncrement();
             $table->string('fichier_1')->unique();
             $table->string('fichier_2')->unique();
             $table->string('fichier_3')->unique();

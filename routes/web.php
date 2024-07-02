@@ -26,15 +26,9 @@ Route::controller(HomeController::class)->group(function(){
 
 Route::controller(LoginController::class)->group(function(){
     Route::get('/logout','logout')->name('app_logout');
-    //Route::post('/exist_email','existEmail')->name('app_exist_email');
     Route::post('/exist_username','existUsername')->name('app_exist_username');
     Route::post('/exist_id_nin','existIDNIN')->name('app_exist_id_nin');
     Route::post('/exist_id_p','existIDP')->name('app_exist_id_p');
-   // Route::match(['get', 'post'], '/activation_code/{token}','activationCode')->name('app_activation_code');
-   // Route::get('/user_checker','userChecker')->name('app_user_checker');
-    //Route::get('/resend_activation_code/{token}','resendActivateCode')->name('app_resend_activation_code');
-   // Route::get('/activation_account_link/{token}','activationAccountLink')->name('app_activation_account_link');
-   // Route::match(['get', 'post'],'/activation_account_change_email/{token}','activateAccountChangeEmail')->name('app_activation_account_change_email');
     Route::match(['get', 'post'], '/forgot_password', 'forgotPassword')->name('app_forgotPassword');
     //[app_..] nom de la route dans la page; [forgotPassword]  nom de la fonction dans le controller; [forgot_password] nom de la page dans la quelle il vas t etre renvoyer
 });
@@ -42,6 +36,7 @@ Route::controller(LoginController::class)->group(function(){
 Route::controller(EmployeesController::class)->group(function(){
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
     Route::get('\add','AddEmply')->name('app_add_emply');
+    
 });
 
 Route::controller(DepartmentController::class)->group(function(){
@@ -50,3 +45,12 @@ Route::controller(DepartmentController::class)->group(function(){
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
 });
+
+Route::get('/addTemplate',[EmployeControl::class,'create'])->name('Employe.create');
+Route::get('/addTemplate/formulaire',[EmployeControl::class,'createF'])->name('Employe.add');
+//Route::get('/BioTemplate/{id}',[BioEmployeControl::class,'create'])->name('BioTemplate.index');
+Route::post('/Employe/add',[AddEmployeControll::class,'add']);
+Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');
+Route::get('/BioTemplate/search/{id}',[EmployeControl::class,'getall'])->name('BioTemplate.detail');
+Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
+Route::get('/Employe/IsTravaill/{id}',[AddEmployeControll::class,'existToAdd'])->name('Employe.istravaill');

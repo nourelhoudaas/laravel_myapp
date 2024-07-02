@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('conges', function (Blueprint $table) {
-            $table->integer('id_cong')->primary();
+            $table->integer('id_cong')->primary()->autoIncrement();
             $table->date('date_debut_cong');
             $table->date('date_fin_cong');
             $table->string('ref_cong')->unique();
