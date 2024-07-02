@@ -13,7 +13,8 @@
 
             <!-- main section start -->
             <main>
-                <h1>Dashboard of Department</h1>
+
+                <h1> Department of {{ $nom_d}}</h1>
 
                 <div class="date">
                     <input type="date">
@@ -26,7 +27,7 @@
                         <div class="middle">
                             <div class="left">
                                 <h3>Total Employees </h3>
-                                <h1>20</h1>
+                                <h1>{{$totalEmpDep}}</h1>
                             </div>
                             <!-- <div class="progress">
                                 <svg>
@@ -64,7 +65,7 @@
                         <div class="middle">
                             <div class="left">
                                 <h3>Presence</h3>
-                                <h1>20</h1>
+                                <h1>{{$totalEmpDep}}</h1>
                             </div>
                             <!-- <div class="progress">
                                 <svg>
@@ -79,26 +80,32 @@
                 </div>
                 <!-- end inside -->
                 <!-- start resent order -->
-                
+
                 <div class="recent_order">
                     <h1>List Employees</h1>
                     <table>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>First Name</th>
-                                <th>Job</th>
-                                <th>Direction</th>
+
+
+                    <th>NOM</th>
+                    <th>PRENOM</th>
+                    <th>Poste</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            <tr>
-                                <td><a href="#">Mini USB</a></td>
-                                <td>456</td>
-                                <td>due</td>
-                                <td>Personnel</td>
-                            </tr>
+                            @foreach($empdep as $emp)
+                <tr>
+
+
+
+                    <td><a href="{{route('BioTemplate.detail',['id'=>$emp->ID_NIN])}}">{{ $emp->NOM_P }}</a></td>
+                    <td>{{ $emp->PRENOM_O }}</td>
+                    <td>{{ $emp->NOM_POST }}</td>
+
+                </tr>
+                @endforeach
 
                         </tbody>
                     </table>

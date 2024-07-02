@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', 'Dashboard_depart')
+@section('title', 'Dashboard')
 
 @section('content')
 
@@ -26,7 +26,7 @@
                         <div class="middle">
                             <div class="left">
                                 <h3>Total Employees</h3>
-                                <h1>250</h1>
+                                <h1>{{$totalEmployes}}</h1>
                             </div>
                             <!-- <div class="progress">
                                 <svg>
@@ -64,7 +64,7 @@
                         <div class="middle">
                             <div class="left">
                                 <h3>Presence</h3>
-                                <h1>250</h1>
+                                <h1>{{$totalEmployes}}</h1>
                             </div>
                             <!-- <div class="progress">
                                 <svg>
@@ -85,21 +85,21 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>First Name</th>
-                                <th>Job</th>
+                                <th>Nom Prenom</th>
+                                <th>poste</th>
                                 <th>Direction</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($employe as $employe)
+
 
                             <tr>
-                                <td><a href="#">Mini USB</a></td>
-                                <td>456</td>
-                                <td>due</td>
-                                <td>Personnel</td>
+                                <td><a href="{{route('BioTemplate.detail',['id'=>$employe->ID_NIN])}}">{{$employe->NOM_P}} {{$employe->PRENOM_O}}</a></td>
+                                <td>{{$employe->NOM_POST}}</td>
+                                <td>{{$employe->NOM_D}}</td>
                             </tr>
-
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -141,8 +141,7 @@
         </div>
 
         <!-- appel script -->
-        <script src="script.js"></script>
+        <!--script src="script.js"></script-->
     </body>
 
-    </html>
 @endsection
