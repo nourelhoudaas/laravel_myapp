@@ -570,14 +570,14 @@ main .recent_order a{
     padding: 10px;
     display: grid;
     grid-template-columns: 1.5fr 0.9fr;
-    grid-gap: 50px;
-    min-height: 200px;
+    grid-gap: 100px;
+    min-height: 100px;
 }
 .graphBox .box{
     position: relative;
     background-color: var(--clr-white);
     padding: 30px;
-    width: 100%;
+    width: 90%;
     box-shadow: 0 7px 25 rgba(0,0,0,0.8);
     border-radius: 20px;
 }

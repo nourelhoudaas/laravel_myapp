@@ -67,11 +67,9 @@
             }
         }
     });
-</script>
 
+/* chartt2*/
 
-{{-- chartt1 --}}
-<script>
     const ctx2 = document.getElementById('myChart2');
 
     new Chart(ctx2, {
