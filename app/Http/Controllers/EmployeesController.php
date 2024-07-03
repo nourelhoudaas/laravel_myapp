@@ -48,4 +48,31 @@ class EmployeesController extends Controller
         $totalEmployes = $employe->count();
         return view('employees.liste_abs',compact('employe','totalEmployes','empdepart'));
     }
+    public function createF()
+    {
+        return view('addTemplate.add');
+    }public function getall($id)
+    {
+       // dd($id);
+        $detailemp=DB::table('employes')->join('travails','travails.id_nin','=','employes.id_nin')
+                                        ->join('occupes','employes.id_nin',"=",'occupes.id_nin')
+                                       ->join('sous_departements','travails.id_sous_depart',"=","sous_departements.id_sous_depart")
+                                       ->join('posts','posts.id_post','=','occupes.id_post')
+                                       ->join('appartients','appartients.id_nin','=','employes.id_nin')
+                                        ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
+                                        ->where('employes.id_nin',$id)
+                                        ->get();
+                                      //  return response()->json($detailemp);
+                                    //   print_r(compact('detailemp'));
+                                   // dd($detailemp);
+        $nbr=$detailemp->count();
+        if($nbr>0){
+            $nbr=$nbr-1;
+        return view('BioTemplate.index',compact('detailemp','nbr'));}
+        else
+        {
+            return view('404');
+        }
+    }
+
 }

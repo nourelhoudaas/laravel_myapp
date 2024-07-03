@@ -39,8 +39,9 @@ Route::controller(LoginController::class)->group(function(){
 
 Route::controller(EmployeesController::class)->group(function(){
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
-    Route::get('\add','AddEmply')->name('app_add_emply');
+    Route::get('\addTemplate/formulaire','createF')->name('app_add_emply');
     Route::get('\liste_abs','AbsenceEmply')->name('app_abs_emply');
+    Route::get('\/BioTemplate/search/{id}','getall')->name('BioTemplate.detail');
 
 });
 
@@ -52,11 +53,8 @@ Route::controller(DepartmentController::class)->group(function(){
     ->name('app_dashboard_depart');
 });
 
-Route::get('/addTemplate',[EmployeControl::class,'create'])->name('Employe.create');
-Route::get('/addTemplate/formulaire',[EmployeControl::class,'createF'])->name('Employe.add');
 //Route::get('/BioTemplate/{id}',[BioEmployeControl::class,'create'])->name('BioTemplate.index');
 Route::post('/Employe/add',[AddEmployeControll::class,'add']);
 Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');
-Route::get('/BioTemplate/search/{id}',[EmployeControl::class,'getall'])->name('BioTemplate.detail');
 Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
 Route::get('/Employe/IsTravaill/{id}',[AddEmployeControll::class,'existToAdd'])->name('Employe.istravaill');

@@ -23,7 +23,7 @@ class AddEmployeControll extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
 
     public function add(Request $Request)
     {
@@ -34,23 +34,23 @@ class AddEmployeControll extends Controller
         $employees=new Employe();
         $employees=$employees->get();
         $bureau=new Bureau();
-        
+
           $Direction=new Sous_departement();
-        
+
        //   $Containt=new Containt();
        if(isset($employees))
        {
             foreach($employees as $em)
         {
-            
-            dd($em);
-            if($Request->get('ID_NIN') ==  $em->ID_NIN)
+
+
+            if($Request->get('ID_NIN') ==  $em->id_nin)
             {
-              
-                return redirect()->route('Employe.istravaill',["id"=>$em->ID_NIN]);
+
+                return redirect()->route('Employe.istravaill',["id"=>$em->id_nin]);
             }
         }
-     
+
             $Request->validate([
                 'ID_NIN' => 'required|integer',
                 'Nom_P' => 'required|string',
@@ -88,7 +88,7 @@ class AddEmployeControll extends Controller
         {
             //$dbcontaint=$Containt->get();
             $dbbureau=$bureau->get();
-            $dbdirection=$Direction->get(); 
+            $dbdirection=$Direction->get();
             return view('addTemplate.travaill',compact('employe','dbbureau','dbdirection'));
         }
         else
@@ -96,14 +96,14 @@ class AddEmployeControll extends Controller
             return redirect()->back()->with('error', 'Failed to create department. Please try again.');
         }
     }
-        
+
     }
 
 
 
     public function addToDep(Request $Request)
     {
-       
+
         $Request->validate([
             'ID_NIN' => 'required|integer',
             'ID_P' => 'required|integer|',
@@ -112,7 +112,7 @@ class AddEmployeControll extends Controller
             'DatePV'=>'required|date'
         ]);
        // dd($Request);
-        
+
 try {
    $test= DB::table('travails')->insert([
         'id_nin' => $Request->get('ID_NIN'),
@@ -163,7 +163,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
         return view('addTemplate.admin',compact('employe'));
     }
     //---------------- this for add to Level Education and his Diploma -------------------------
-   
+
         $niv=new Niveau();
         $niv=Niveau::where('NOM_N',$Request->get('Dip'))
                      ->where('SPECIAL_N',$Request->get('Spec'))
@@ -182,7 +182,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
              'DATE_OP'	=>$Request->get('DipDate'),
          ]);
          return view('addTemplate.admin',compact('employe','dbbureau','dbdirection'));
-    
+
   }
   protected function existApp($id)
   {

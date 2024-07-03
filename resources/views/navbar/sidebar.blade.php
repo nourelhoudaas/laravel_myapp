@@ -94,18 +94,15 @@
                                             </a>
                                         <a href="{{route('app_add_emply')}}" class="nav__link">
                                     <i class='bx bxs-user-plus nav__icon'></i>
-                                    <span class="nav__name">Add Customers</span>
+                                    <span class="nav__name">Add Customer</span>
                                     </a>
-<<<<<<< HEAD
-                                     <a href="{{route('Employe.add')}}" class="nav__dropdown-item"> <i class='bx bxs-user-plus nav__icon'></i> Add Customer</a>
-=======
+
+                                     {{-- <a href="{{route('Employe.add')}}" class="nav__dropdown-item"> <i class='bx bxs-user-plus nav__icon'></i> Add Customer</a> --}}
+
                                     <a href="{{route('app_abs_emply')}}" class="nav__link">
                                         <i class='bx bxs-user-minus nav__icon' ></i>
                                         <span class="nav__name">Absence</span>
                                         </a>
-
-
->>>>>>> ab98f72086a9f8bff497b461350bc8573ef35b38
                                     </div>
                                 </div>
                             </div>

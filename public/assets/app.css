@@ -562,78 +562,78 @@ main .recent_order a{
     margin: 1rem;
 
 }
-<<<<<<< HEAD
+
 /*-------------- CSS ADD and Bio --------*/
-  
-#progressbar { 
-  margin-bottom: 30px; 
-  overflow: hidden; 
-  color: lightgrey 
-} 
 
-#progressbar .active { 
+#progressbar {
+  margin-bottom: 30px;
+  overflow: hidden;
+  color: lightgrey
+}
+
+#progressbar .active {
   color: #2F8D46
-} 
+}
 
-#progressbar li { 
-  list-style-type: none; 
-  font-size: 15px; 
-  width: 25%; 
-  float: left; 
-  position: relative; 
+#progressbar li {
+  list-style-type: none;
+  font-size: 15px;
+  width: 25%;
+  float: left;
+  position: relative;
   font-weight: 400
-} 
+}
 
-#progressbar #step1:before { 
+#progressbar #step1:before {
   content: "1"
-} 
+}
 
-#progressbar #step2:before { 
+#progressbar #step2:before {
   content: "2"
-} 
+}
 
-#progressbar #step3:before { 
+#progressbar #step3:before {
   content: "3"
-} 
+}
 
-#progressbar #step4:before { 
+#progressbar #step4:before {
   content: "4"
-} 
+}
 
-#progressbar li:before { 
-  width: 50px; 
-  height: 50px; 
-  line-height: 45px; 
-  display: block; 
-  font-size: 20px; 
-  color: #ffffff; 
-  background: lightgray; 
-  border-radius: 50%; 
-  margin: 0 auto 10px auto; 
+#progressbar li:before {
+  width: 50px;
+  height: 50px;
+  line-height: 45px;
+  display: block;
+  font-size: 20px;
+  color: #ffffff;
+  background: lightgray;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
   padding: 2px
-} 
+}
 
-#progressbar li:after { 
-  content: ''; 
-  width: 100%; 
-  height: 2px; 
-  background: lightgray; 
-  position: absolute; 
-  left: 0; 
-  top: 25px; 
+#progressbar li:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: lightgray;
+  position: absolute;
+  left: 0;
+  top: 25px;
   z-index: -1
-} 
+}
 
-#progressbar li.active:before, 
-#progressbar li.active:after { 
+#progressbar li.active:before,
+#progressbar li.active:after {
   background: #2F8D46
-} 
+}
 
-.progress { 
+.progress {
   height: 20px
-} 
+}
 
-.progress-bar { 
+.progress-bar {
   background-color: #2F8D46
 }
 .stepper-wrapper {
@@ -769,7 +769,7 @@ transform: scale(1.05) rotate(-1deg);
 }
 .prog-holder
 {
-  
+
   width: 100%;
 
 }
@@ -798,7 +798,7 @@ transform: scale(1.05) rotate(-1deg);
 }
 .field-holderAR
 {
-  
+
   width: 50%;
   display: flex;
   position: relative;
@@ -818,7 +818,7 @@ transform: scale(1.05) rotate(-1deg);
   background-color: #e0f0eb;
   cursor: pointer;
 }
-=======
+
 /* chart */
 .graphBox{
     margin-top: 2rem;
@@ -827,7 +827,7 @@ transform: scale(1.05) rotate(-1deg);
     padding: 10px;
     display: grid;
     grid-template-columns: 1.5fr 0.9fr;
-    grid-gap: 100px;
+    grid-gap: 200px;
     min-height: 100px;
 }
 .graphBox .box{
@@ -838,4 +838,4 @@ transform: scale(1.05) rotate(-1deg);
     box-shadow: 0 7px 25 rgba(0,0,0,0.8);
     border-radius: 20px;
 }
->>>>>>> ab98f72086a9f8bff497b461350bc8573ef35b38
+
