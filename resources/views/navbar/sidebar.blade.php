@@ -67,7 +67,7 @@
                                     <i class='bx bxs-user-plus nav__icon'></i> 
                                     <span class="nav__name">Add Customers</span>
                                     </a>
-                                     <!-- <a href="#" class="nav__dropdown-item"> <i class='bx bxs-user-plus nav__icon'></i> Add Customer</a> -->
+                                     <a href="{{route('Employe.add')}}" class="nav__dropdown-item"> <i class='bx bxs-user-plus nav__icon'></i> Add Customer</a>
                                     </div>
                                 </div>
                             </div>

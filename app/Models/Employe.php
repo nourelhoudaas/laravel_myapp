@@ -13,6 +13,7 @@ class Employe extends Model
     protected $primaryKey = 'id_emp';
     public $incrementing = true; 
     protected $keyType = 'integer'; 
+    public $timestamps = false;
 
     protected $fillable = [
        'id_emp','id_nin','id_p','Nom_emp','Prenom_emp','Nom_ar_emp','Prenom_ar_emp','Date_nais',

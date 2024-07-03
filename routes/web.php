@@ -4,6 +4,10 @@ use App\Http\controllers\HomeController;
 use App\Http\controllers\LoginController;
 use App\Http\controllers\EmployeesController;
 use App\Http\controllers\DepartmentController;
+use App\Http\controllers\AddEmployeControll;
+use App\Http\controllers\BioEmployeControl;
+use App\Http\controllers\EmployeControl;
+use App\Http\controllers\UploadFile;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +24,7 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/','home')->name('app_home');
     Route::get('/about', 'about')->name('app_about');
     Route::match(['get', 'post'], '/dashboard','dashboard')
-         ->middleware('auth') //pour acceder a cette page il faut s'authentifier
+      //   ->middleware('auth') //pour acceder a cette page il faut s'authentifier
          ->name('app_dashboard');
 });
 
