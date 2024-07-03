@@ -115,8 +115,8 @@
     $('#aft').click(function(e){
         e.preventDefault();
 
-                var id = '{{ $employe->ID_NIN }}';
-                var idp = '{{ $employe->ID_P }}'; // Assuming you are searching by ID_NIN
+                var id = '{{ $employe->id_nin }}';
+                var idp = '{{ $employe->id_p }}'; // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:id,
                     ID_P : idp,
@@ -224,7 +224,7 @@ function uploadFile() {
             formData.append('file', file);
             formData.append('_token', document.querySelector('input[name="_token"]').value);
              
-            var id='{{ $employe->ID_NIN }}';
+            var id='{{ $employe->id_nin }}';
             formData.append('num', id);
             $.ajax({
                 url: '/upload/numdossiers',
