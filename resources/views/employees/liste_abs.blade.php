@@ -12,6 +12,10 @@
 
             <!-- main section start -->
             <main>
+                <div class="date">
+                    <input type="date">
+                </div>
+
                 <div class="recent_order">
                     <h1>List of Customers</h1>
                     <table>

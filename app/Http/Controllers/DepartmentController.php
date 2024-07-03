@@ -37,4 +37,10 @@ class DepartmentController extends Controller
 
 return view('Department.dashboard_depart', compact('empdep','totalEmpDep','empdepart','nom_d'));
     }
+
+
+    public function AddDepart()
+    {
+        return view('Department.add_depart');
+    }
 }
