@@ -58,3 +58,4 @@ Route::post('/Employe/add',[AddEmployeControll::class,'add']);
 Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');
 Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
 Route::get('/Employe/IsTravaill/{id}',[AddEmployeControll::class,'existToAdd'])->name('Employe.istravaill');
+Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploadFile');
