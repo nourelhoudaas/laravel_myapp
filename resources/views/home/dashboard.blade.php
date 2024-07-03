@@ -8,7 +8,6 @@
         <!-- start section aside -->
         @include('./navbar.sidebar')
         <!-- end section aside -->
-        <div class="container2">
             <!-- main section start -->
             <main>
                 <h1>Dashboard</h1>
@@ -48,6 +47,16 @@
                         </div>
                     </div>
                     <!-- end Presence -->
+                </div>
+
+                {{-- chart --}}
+                <div class="graphBox">
+                    <div class="box">
+                        <canvas id="myChart" ></canvas>
+                    </div>
+                    <div class="box">
+                        <canvas id="myChart2" ></canvas>
+                    </div>
                 </div>
             </main>
             <!-- end main -->
