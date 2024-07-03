@@ -36,7 +36,8 @@ Route::controller(LoginController::class)->group(function(){
 Route::controller(EmployeesController::class)->group(function(){
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
     Route::get('\add','AddEmply')->name('app_add_emply');
-    
+    Route::get('\liste_abs','AbsenceEmply')->name('app_abs_emply');
+
 });
 
 Route::controller(DepartmentController::class)->group(function(){

@@ -5,8 +5,6 @@
 @section('content')
 
     <body>
-
-
         <!-- start section aside -->
         @include('./navbar.sidebar')
         <!-- end section aside -->
@@ -14,9 +12,6 @@
             <!-- main section start -->
             <main>
                 <h1>Dashboard</h1>
-
-
-
                 <div class="insights">
                     <!-- start Employees -->
                     <div class="sales">
@@ -26,9 +21,7 @@
                                 <h3>Total Employees</h3>
                                 <h1>{{ $totalEmployes }}</h1>
                             </div>
-
                         </div>
-
                     </div>
                     <!-- end Employees -->
 
@@ -41,7 +34,6 @@
                                 <h1>0</h1>
                             </div>
                         </div>
-
                     </div>
                     <!-- end Absence -->
 
@@ -53,16 +45,12 @@
                                 <h3>Presence</h3>
                                 <h1>{{ $totalEmployes }}</h1>
                             </div>
-
                         </div>
-
                     </div>
                     <!-- end Presence -->
                 </div>
             </main>
-                            <!-- end main -->
+            <!-- end main -->
         </div>
-
     </body>
-
 @endsection
