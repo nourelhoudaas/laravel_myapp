@@ -14,33 +14,28 @@
             <!-- main section start -->
             <main>
 
-                <h1> Department of {{ $nom_d}}</h1>
+                <h1> Department of {{ $nom_d }}</h1>
 
-                <div class="date">
+                {{-- <div class="date">
                     <input type="date">
-                </div>
+                </div> --}}
 
                 <div class="insights">
-                    <!-- start selling -->
+                    <!-- start Employees -->
                     <div class="sales">
                         <span class="material-symbols-outlined">groups</span>
                         <div class="middle">
                             <div class="left">
-                                <h3>Total Employees </h3>
-                                <h1>{{$totalEmpDep}}</h1>
+                                <h3>Total Employees</h3>
+                                <h1>{{ $totalEmpDep }}</h1>
                             </div>
-                            <!-- <div class="progress">
-                                <svg>
-                                    <circle r="30" cy="40" cx="40"></circle>
-                                </svg>
-                                <div class="number">80%</div>
-                            </div> -->
-                        </div>
-                        <!-- <small>Last 24 hours</small> -->
-                    </div>
-                    <!-- end selling -->
 
-                    <!-- start expenses -->
+                        </div>
+
+                    </div>
+                    <!-- end Employees -->
+
+                    <!-- start Absence -->
                     <div class="expenses">
                         <span class="material-symbols-outlined">trending_down</span>
                         <div class="middle">
@@ -48,37 +43,27 @@
                                 <h3>Absence</h3>
                                 <h1>0</h1>
                             </div>
-                            <!-- <div class="progress">
-                                <svg>
-                                    <circle r="30" cy="40" cx="40"></circle>
-                                </svg>
-                                <div class="number">80%</div>
-                            </div>-->
                         </div>
-                        <small>Last 24 hours</small>
-                    </div>
-                    <!-- end expenses -->
 
-                    <!-- start income -->
+                    </div>
+                    <!-- end Absence -->
+
+                    <!-- start Presence -->
                     <div class="income">
                         <span class="material-symbols-outlined">trending_up</span>
                         <div class="middle">
                             <div class="left">
                                 <h3>Presence</h3>
-                                <h1>{{$totalEmpDep}}</h1>
+                                <h1>{{ $totalEmpDep }}</h1>
                             </div>
-                            <!-- <div class="progress">
-                                <svg>
-                                    <circle r="30" cy="40" cx="40"></circle>
-                                </svg>
-                                <div class="number">80%</div>
-                            </div> -->
+
                         </div>
-                        <small>Last 24 hours</small>
+
                     </div>
-                    <!-- end income -->
+                    <!-- end Presence -->
                 </div>
                 <!-- end inside -->
+
                 <!-- start resent order -->
 
                 <div class="recent_order">
@@ -86,28 +71,25 @@
                     <table>
                         <thead>
                             <tr>
-
-
-                    <th>NOM</th>
-                    <th>PRENOM</th>
-                    <th>Poste</th>
-                    <th>Sous direction</th>
+                                <th>NOM</th>
+                                <th>PRENOM</th>
+                                <th>Poste</th>
+                                <th>Sous direction</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach($empdep as $emp)
-                <tr>
+                            @foreach ($empdep as $emp)
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('BioTemplate.detail', ['id' => $emp->id_nin]) }}">{{ $emp->Nom_emp }}</a>
+                                    </td>
+                                    <td>{{ $emp->Prenom_emp }}</td>
+                                    <td>{{ $emp->Nom_post }}</td>
+                                    <td>{{ $emp->Nom_sous_depart }}</td>
 
-
-
-                    <td><a href="{{route('BioTemplate.detail',['id'=>$emp->id_nin])}}">{{ $emp->Nom_emp }}</a></td>
-                    <td>{{ $emp->Prenom_emp }}</td>
-                    <td>{{ $emp->Nom_post }}</td>
-                    <td>{{ $emp->Nom_sous_depart }}</td>
-
-                </tr>
-                @endforeach
+                                </tr>
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -117,15 +99,15 @@
             <!-- main section end -->
 
             <!-- right section start -->
-           
-                <!-- end top -->
 
-                <!-- start recent update -->
-                <!-- ------------------------------ -->
-                <!-- end recent update -->
+            <!-- end top -->
 
-            </div>
-            <!-- end right section -->
+            <!-- start recent update -->
+            <!-- ------------------------------ -->
+            <!-- end recent update -->
+
+        </div>
+        <!-- end right section -->
 
         </div>
 
