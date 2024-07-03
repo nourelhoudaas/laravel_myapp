@@ -14,11 +14,6 @@
         <main>
 
             <h1> Department of {{ $nom_d }}</h1>
-
-            {{-- <div class="date">
-                    <input type="date">
-                </div> --}}
-
             <div class="insights">
                 <!-- start Employees -->
                 <div class="sales">
