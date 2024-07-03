@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('appartients', function (Blueprint $table) {
             $table->integer('id_appar')->primary()->autoIncrement();
             $table->date('Date_op');
-            $table->string('id_niv')->unique();
+            $table->integer('id_niv')->unique();
             $table->foreign('id_niv')->references('id_niv')->on('niveaux');
             $table->integer('id_nin')->unique();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
