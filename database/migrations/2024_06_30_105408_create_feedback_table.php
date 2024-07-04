@@ -15,8 +15,10 @@ return new class extends Migration
             $table->integer('id_feedback')->primary()->autoIncrement();
             $table->string('type_feedback');
             $table->string('Descriptif_feedback');
-            $table->integer('id_nin')->unique();
-            $table->integer('id_p')->unique();
+            $table->string('type_feedback_ar');
+            $table->string('Descriptif_feedback_ar');
+            $table->integer('id_nin');
+            $table->integer('id_p');
             $table->integer('id_post');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');

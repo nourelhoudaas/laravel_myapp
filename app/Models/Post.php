@@ -12,5 +12,17 @@ class Post extends Model
     protected $primaryKey = 'id_post';
     public $incrementing = true; 
     protected $keyType = 'integer'; 
-    protected $fillable=['id_post',	'Nom_post',	'Grade_post'];
+    public $timestamps = false;
+
+    protected $fillable=['id_post',	'Nom_post',	'Grade_post','Nom_post_ar'];
+
+    public function contients ()
+    {
+        return $this->hasMany(Contient::class,'id_post','id_post');
+    }
+
+    public function occupes ()
+    {
+        return $this->hasMany(occupe::class,'id_post','id_post');
+    }
 }

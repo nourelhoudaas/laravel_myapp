@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Models\Employe;
+use App\Models\Departement;
+
 class EmployeesController extends Controller
 {
     public function ListeEmply()
     {
-        $employe= DB::table('employes')
+       /* $employe= DB::table('employes')
         ->join('travails','employes.id_nin','=','travails.id_nin')
         ->join('sous_departements','travails.id_sous_depart','=','sous_departements.id_sous_depart')
         ->join('contients','sous_departements.id_sous_depart','=','contients.id_sous_depart')
@@ -18,11 +21,18 @@ class EmployeesController extends Controller
         ->get();
 
         $empdepart= DB::table('departements')
-          ->get();
+          ->get();*/
 
-//le nbr total des employés
+          $employe=Employe::with([
+            'occupeIdNin.posts.contients.sous_departements.departements',
+            'occupeIdP.posts.contients.sous_departements.departements'
+        ])->get();
+
+        //le nbr total des employés
         $totalEmployes = $employe->count();
-        return view('employees.liste',compact('employe','totalEmployes','empdepart'));
+
+
+        return view('employees.liste',compact('employe','totalEmployes'));
     }
 
     public function AddEmply()
@@ -48,6 +58,8 @@ class EmployeesController extends Controller
         $totalEmployes = $employe->count();
         return view('employees.liste_abs',compact('employe','totalEmployes','empdepart'));
     }
+
+
     public function createF()
     {
         return view('addTemplate.add');

@@ -24,4 +24,22 @@ class Employe extends Model
     {
         return $this->hasMany(Login::class, ['id_nin','id_p'], ['id_nin','id_p']);
     }
+    public function travails()
+    {
+        return $this->hasMany(Travail::class, ['id_nin','id_p'], ['id_nin','id_p']);
+    }
+   /* public function occupes()
+    {
+        return $this->hasMany(Occupe::class, ['id_nin','id_p'], ['id_nin','id_p']);
+        
+    }*/
+    public function occupeIdNin()
+    {
+        return $this->hasMany(Occupe::class, 'id_nin', 'id_nin');
+    }
+    
+    public function occupeIdP()
+    {
+        return $this->hasMany(Occupe::class, 'id_p', 'id_p');
+    }
 }

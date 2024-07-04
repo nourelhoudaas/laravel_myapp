@@ -16,8 +16,8 @@ return new class extends Migration
             $table->date('date_debut_cong');
             $table->date('date_fin_cong');
             $table->string('ref_cong')->unique();
-            $table->integer('id_nin')->unique();
-            $table->integer('id_p')->unique();
+            $table->integer('id_nin');
+            $table->integer('id_p');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('ref_cong')->references('ref_cong')->on('type_congs');

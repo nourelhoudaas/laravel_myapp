@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('type_congs', function (Blueprint $table) {
             $table->string('ref_cong')->primary()->autoIncrement();
-            $table->string('titre_cong')->unique();
-            $table->string('Descriptif')->unique();
+            $table->string('titre_cong');
+            $table->string('Descriptif');
+            $table->string('titre_cong_ar');
+            $table->string('Descriptif_ar');
         });
     }
 

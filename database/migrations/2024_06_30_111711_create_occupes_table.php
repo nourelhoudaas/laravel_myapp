@@ -15,8 +15,8 @@ return new class extends Migration
             $table->integer('id_occup')->primary()->autoIncrement();
             $table->date('date_recrutement');
             $table->float('echellant');
-            $table->integer('id_nin')->unique();
-            $table->integer('id_p')->unique();
+            $table->integer('id_nin');
+            $table->integer('id_p');
             $table->integer('id_post')->unique();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreign('id_depart')->references('id_depart')->on('departements');
             $table->string('Nom_sous_depart')->unique();
             $table->string('Descriptif_sous_depart')->unique();
+            $table->string('Nom_sous_depart_ar')->unique();
+            $table->string('Descriptif_sous_depart_ar')->unique();
+
         });
     }
 

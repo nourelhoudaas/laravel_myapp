@@ -27,13 +27,19 @@
                         </thead>
                         <tbody>
                             @foreach ($employe as $employe)
-                                <tr>
-                                    <td><a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}
-                                            {{ $employe->Prenom_emp }}</a></td>
-                                    <td>{{ $employe->Nom_post }}</td>
-                                    <td>{{ $employe->Nom_sous_depart }}</td>
-                                    <td>{{ $employe->Nom_depart }}</td>
-                                </tr>
+                                 @foreach($employe->occupes as $occup)
+                                    @foreach($occup->posts as $postt)
+                                 <tr>
+                                    <<td> <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</td>
+                                    
+                                    <td>{{ $employe->Prenom_emp }}</td>
+                                    <td>{{ $postt->Nom_post }}</td>
+                                    <td>{{ $postt->contients->sous_departements->Nom_sous_depart }}</td>
+                                    <td>{{ $postt->contients->sous_departements->departements->Nom_depart }}</td>
+
+                                  </tr>
+                                    @endforeach
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>

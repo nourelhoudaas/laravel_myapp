@@ -55,7 +55,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function compte()
+    public function logins()
     {
         return $this->hasMany(Login::class, ['id','id'], ['id','id']);
     }

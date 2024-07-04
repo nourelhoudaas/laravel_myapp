@@ -16,10 +16,10 @@ return new class extends Migration
             $table->date('date_chang');
             $table->date('date_installation');
             $table->float('notation');
-            $table->integer('id_nin')->unique();
+            $table->integer('id_nin');
             $table->integer('id_sous_depart');
-            $table->integer('id_p')->unique();
-            $table->integer('id_bureau')->unique();
+            $table->integer('id_p');
+            $table->integer('id_bureau');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
             $table->foreign('id_p')->references('id_p')->on('employes');

@@ -74,16 +74,21 @@
                     <tbody>
 
                         @foreach ($empdep as $emp)
-                            <tr>
-                                <td>
-                                    <a
+                            @foreach($emp->occupeIdNin  as $occupe)
+                                @foreach($occupe->posts as $post)
+                                 <tr>
+                                    <td>
+                                        <a
                                         href="{{ route('BioTemplate.detail', ['id' => $emp->id_nin]) }}">{{ $emp->Nom_emp }}</a>
-                                </td>
-                                <td>{{ $emp->Prenom_emp }}</td>
-                                <td>{{ $emp->Nom_post }}</td>
-                                <td>{{ $emp->Nom_sous_depart }}</td>
+                                    </td>
+                                    <td>{{ $emp->Prenom_emp }}</td>
+                                    <td>{{ $post->Nom_post }}</td>
+                                    <td>{{ $post->contients->sous_departements->Nom_sous_depart }}</td>
+                                    <td>{{ $post->contients->sous_departements->departements->Nom_sous_depart }}</td>
 
-                            </tr>
+                                  </tr>
+                                @endforeach
+                            @endforeach
                         @endforeach
 
                     </tbody>

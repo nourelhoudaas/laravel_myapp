@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('niveaux', function (Blueprint $table) {
             $table->integer('id_niv')->primary()->autoIncrement();
-            $table->string('Nom_niv')->unique();
-            $table->string('Specialité')->unique();
+            $table->string('Nom_niv');
+            $table->string('Specialité');
             $table->string('Descriptif_niv')->unique();
+            $table->string('Nom_niv_ar');
+            $table->string('Specialité_ar');
+            $table->string('Descriptif_niv_ar')->unique();
         });
     }
 

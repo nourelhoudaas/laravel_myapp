@@ -7,7 +7,6 @@ use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\controllers\AddEmployeControll;
 use App\Http\controllers\BioEmployeControl;
-use App\Http\controllers\EmployeControl;
 use App\Http\controllers\UploadFile;
 
 use Illuminate\Support\Facades\Route;

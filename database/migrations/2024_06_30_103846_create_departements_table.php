@@ -15,6 +15,9 @@ return new class extends Migration
             $table->integer('id_depart')->primary()->autoIncrement();
             $table->string('Nom_depart')->unique();
             $table->string('Descriptif_depart')->unique();
+            $table->string('Nom_depart_ar')->unique();
+            $table->string('Descriptif_depart_ar')->unique();
+
         });
     }
 

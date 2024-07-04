@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //appartient==diplome  dnc id_appr =ref du diplome
         Schema::create('appartients', function (Blueprint $table) {
-            $table->integer('id_appar')->primary()->autoIncrement();
+            $table->string('id_appar')->primary();
             $table->date('Date_op');
-            $table->integer('id_niv')->unique();
+            $table->integer('id_niv');
             $table->foreign('id_niv')->references('id_niv')->on('niveaux');
-            $table->integer('id_nin')->unique();
+            $table->integer('id_nin');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
-            $table->integer('id_p')->unique();
+            $table->integer('id_p');
             $table->foreign('id_p')->references('id_p')->on('employes');
         });
     }
