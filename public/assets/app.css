@@ -265,6 +265,16 @@ img {
   .header__search {
     width: 70%;
   }
+  .graphBox{
+    grid-template-columns: 1fr;
+  }
+  .navigation{
+        left: -300px;
+  }
+  .navigation.active{
+    width: 300px;
+    left: 0;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -418,7 +428,7 @@ Start main section style
 ------------------------------------ */
 
 main{
-    margin-top: 1.4rem;
+    margin-top: 1rem;
     width: auto;
 
 }
@@ -552,3 +562,280 @@ main .recent_order a{
     margin: 1rem;
 
 }
+
+/*-------------- CSS ADD and Bio --------*/
+
+#progressbar {
+  margin-bottom: 30px;
+  overflow: hidden;
+  color: lightgrey
+}
+
+#progressbar .active {
+  color: #2F8D46
+}
+
+#progressbar li {
+  list-style-type: none;
+  font-size: 15px;
+  width: 25%;
+  float: left;
+  position: relative;
+  font-weight: 400
+}
+
+#progressbar #step1:before {
+  content: "1"
+}
+
+#progressbar #step2:before {
+  content: "2"
+}
+
+#progressbar #step3:before {
+  content: "3"
+}
+
+#progressbar #step4:before {
+  content: "4"
+}
+
+#progressbar li:before {
+  width: 50px;
+  height: 50px;
+  line-height: 45px;
+  display: block;
+  font-size: 20px;
+  color: #ffffff;
+  background: lightgray;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  padding: 2px
+}
+
+#progressbar li:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: lightgray;
+  position: absolute;
+  left: 0;
+  top: 25px;
+  z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+  background: #2F8D46
+}
+
+.progress {
+  height: 20px
+}
+
+.progress-bar {
+  background-color: #2F8D46
+}
+.stepper-wrapper {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.stepper-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.stepper-item::before {
+  position: absolute;
+  content: "";
+  border-bottom: 2px solid #ccc;
+  width: 100%;
+  top: 20px;
+  left: -50%;
+  z-index: 2;
+}
+
+.stepper-item::after {
+  position: absolute;
+  content: "";
+  border-bottom: 2px solid #ccc;
+  width: 100%;
+  top: 20px;
+  left: 50%;
+  z-index: 2;
+}
+
+.stepper-item .step-counter {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ccc;
+  margin-bottom: 6px;
+}
+
+.stepper-item.active {
+  font-weight: bold;
+}
+
+.stepper-item.completed .step-counter {
+  background-color: #4bb543;
+}
+
+.stepper-item.completed::after {
+  position: absolute;
+  content: "";
+  border-bottom: 2px solid #4bb543;
+  width: 100%;
+  top: 20px;
+  left: 50%;
+  z-index: 3;
+}
+
+.stepper-item:first-child::before {
+  content: none;
+}
+.stepper-item:last-child::after {
+  content: none;
+}
+.form-holder
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.form-fa
+{
+  display: contents;
+}
+/* button 33 */
+.button-33 {
+background-color: #c2fbd7;
+border-radius: 100px;
+box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+color: green;
+cursor: pointer;
+display: inline-block;
+font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+padding: 7px 20px;
+text-align: center;
+text-decoration: none;
+transition: all 250ms;
+border: 0;
+font-size: 16px;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+}
+
+.button-33:hover {
+box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+transform: scale(1.05) rotate(-1deg);
+}
+.file-holder
+{
+  height: 100%;
+  text-align: center;
+}
+.file-select-holder
+{
+  height: 60%;
+  text-align: center;
+  align-content: center;
+}
+.file-prog
+{
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.prog-holder
+{
+
+  width: 100%;
+
+}
+#progressWrapper {
+  width: 100%;
+  background-color: #f3f3f3;
+  margin-top: 10px;
+}
+
+#progressBar {
+  height: 20px;
+  background-color: #4caf50;
+}
+.field
+{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.field-holder
+{
+  width: 50%;
+  display: flex;
+  width: 40%;
+}
+.field-holderAR
+{
+
+  width: 50%;
+  display: flex;
+  position: relative;
+  width: 40%;
+  direction: rtl;
+}
+.staticent
+{
+  text-align: center;
+
+}
+.mod-but:hover
+{
+  width: 40px;
+  border-radius: 50%;
+  scale: 1.2;
+  background-color: #e0f0eb;
+  cursor: pointer;
+}
+
+/* chart */
+.graphBox{
+    margin-top: 2rem;
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1.5fr 0.9fr;
+    grid-gap: 200px;
+    min-height: 100px;
+}
+.graphBox .box{
+    position: relative;
+    background-color: var(--clr-white);
+    padding: 30px;
+    width: 90%;
+    box-shadow: 0 7px 25 rgba(0,0,0,0.8);
+    border-radius: 20px;
+}
+
