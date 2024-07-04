@@ -12,6 +12,9 @@ class Login extends Model
     protected $primaryKey = 'id_log';
     public $incrementing = true; 
     protected $keyType = 'integer'; 
+      // Désactiver les timestamps automatiques
+      public $timestamps = false;
+
 
     protected $fillable = [
         'id_log', 'date_login', 'date_logout', 'id_nin', 'id_p','id',

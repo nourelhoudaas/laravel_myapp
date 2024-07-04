@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('logins', function (Blueprint $table) {
             $table->integer('id_log')->primary()->autoIncrement();
-            $table->date('date_login');
-            $table->date('date_logout')->nullable();
+            $table->DateTime('date_login');
+            $table->DateTime('date_logout')->nullable();
             $table->integer('id_nin');
             $table->integer('id_p');
             $table->integer('id');

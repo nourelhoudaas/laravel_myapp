@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\controllers\HomeController;
-use App\Http\controllers\LoginController;
-use App\Http\controllers\EmployeesController;
-use App\Http\controllers\DepartmentController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
+use App\Actions\Fortify\LoginUser;
 
 /*
 Formulaires de connexion/inscription: Utiliser Route::match(['get', 'post']) pour permettre l'affichage du formulaire (GET) et le traitement des données soumises (POST).
@@ -24,8 +25,18 @@ Route::controller(HomeController::class)->group(function(){
          ->name('app_dashboard');
 });
 
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->middleware('guest')->name('login');
+
+Route::post('/login', [LoginUser::class, 'authenticateUser'])->middleware('guest')->name('login');
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::controller(LoginController::class)->group(function(){
-    Route::get('/logout','logout')->name('app_logout');
+  
+     Route::get('/logout','logout')->name('app_logout');
     Route::post('/exist_username','existUsername')->name('app_exist_username');
     Route::post('/exist_id_nin','existIDNIN')->name('app_exist_id_nin');
     Route::post('/exist_id_p','existIDP')->name('app_exist_id_p');
@@ -47,7 +58,7 @@ Route::controller(DepartmentController::class)->group(function(){
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
 });
-
+Route::post('/login', [LoginUser::class, 'authenticateUser'])->name('login.attempt');
 Route::get('/addTemplate',[EmployeControl::class,'create'])->name('Employe.create');
 Route::get('/addTemplate/formulaire',[EmployeControl::class,'createF'])->name('Employe.add');
 //Route::get('/BioTemplate/{id}',[BioEmployeControl::class,'create'])->name('BioTemplate.index');

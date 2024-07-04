@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Login;
 use DateTimeImmutable;
 use Illuminate\Http\Request;
 use App\Services\EmailService;
@@ -19,9 +20,32 @@ class LoginController extends Controller
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
     public function logout()
     {
+         // Récupérer l'usr connecté
+    $user = Auth::user();
+
+    if ($user) {
+        // si usr est authntifié
+        $login = Login::where('id', $user->id)
+                            ->whereNull('date_logout')
+                            ->first();
+
+        if ($login) {
+            // Mettre à jour la date de logout
+            $login->update(['date_logout' => new \DateTimeImmutable]);
+        }
+
+        // Déconnecter l'utilisateur and redirect to login
         Auth::logout();
+
         return redirect()->route('login');
+        
     }
+
+    // Si l'utilisateur n'est pas connecté, rediriger vers la page de login
+    return redirect('/login')->withErrors(['message' => 'Aucun utilisateur connecté.']);
+}
+       
+    
 
 
 //---------------------------------------------------------------------CONSTRUCTEURS---------------------------------------------------------------------------------------

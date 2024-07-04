@@ -92,7 +92,7 @@
                                             <i class='bx bx-list-ul nav__icon'></i>
                                             <span class="nav__name">List Customers</span>
                                             </a>
-                                        <a href="{{route('app_add_emply')}}" class="nav__link">
+                                        <a href="{{route('Employe.add')}}" class="nav__link">
                                     <i class='bx bxs-user-plus nav__icon'></i>
                                     <span class="nav__name">Add Customers</span>
                                     </a>
@@ -120,7 +120,7 @@
 
 
 
-                <a href="{{route('app_logout')}}" class="nav__link nav__logout">
+                <a href="{{route('logout')}}" class="nav__link nav__logout">
                     <i class='bx bx-log-out nav__icon' ></i>
                     <span class="nav__name">Log Out</span>
                 </a>
