@@ -24,7 +24,7 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/','home')->name('app_home');
     Route::get('/about', 'about')->name('app_about');
     Route::match(['get', 'post'], '/dashboard','dashboard')
-         ->middleware('auth') //pour acceder a cette page il faut s'authentifier
+    //     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
          ->name('app_dashboard');
 });
 
@@ -41,7 +41,7 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
     Route::get('\addTemplate/formulaire','createF')->name('app_add_emply');
     Route::get('\liste_abs','AbsenceEmply')->name('app_abs_emply');
-    Route::get('\/BioTemplate/search/{id}','getall')->name('BioTemplate.detail');
+    Route::get('\BioTemplate/search/{id}','getall')->name('BioTemplate.detail');
 
 });
 
@@ -59,3 +59,6 @@ Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('
 Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
 Route::get('/Employe/IsTravaill/{id}',[AddEmployeControll::class,'existToAdd'])->name('Employe.istravaill');
 Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploadFile');
+Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp']);
+Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision']);
+Route::get('/Employe/IsEducat/{id}',[AddEmployeControll::class,'existApp'])->name('Employe.iseducat');

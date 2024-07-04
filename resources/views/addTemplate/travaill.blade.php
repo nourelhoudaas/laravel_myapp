@@ -56,7 +56,12 @@
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Specialitie</label>
-                        <input type="text" class="form-control" placeholder="Specialitie" value="" id="Spec">
+                        <select type="text" class="form-select" placeholder="Specialitie" value="" id="Spec">
+                        <option value="">Selection La Specialité</option>
+                            @foreach($dbniv as $niv)
+                                <option value="{{$niv->Specialité}}">{{$niv->Specialité}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Filiere</label>
@@ -66,7 +71,12 @@
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <label class="labels">Diplome</label>
-                        <input type="text" class="form-control" placeholder="Diplome" value="" id="Dip">
+                        <select type="text" class="form-select" placeholder="Diplome" value="" id="Dip">
+                            <option value="">Selection Le Diplome</option>
+                            @foreach($dbniv as $niv)
+                                <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Date Obtenuation de Diplome</label>

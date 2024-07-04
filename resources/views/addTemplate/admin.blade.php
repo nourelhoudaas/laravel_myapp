@@ -52,29 +52,35 @@
                 <div class="row mt-2">
                 <div class="col-md-12">
                         <label class="labels">IDentification Professionnel</label>
-                        <input type="text" class="form-control" placeholder="" value="{{$employe->ID_P}}" id="IDP" disabled>
+                        <input type="text" class="form-control" placeholder="" value="{{$employe->id_p}}" id="IDP" disabled>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Direction</label>
-                        <select type="text" class="form-control" placeholder="Specialitie" value="" id="Dic">
+                        <select type="text" class="form-select" placeholder="Specialitie" value="" id="Dic">
                             <option>Selection la Direction</option>
-                                @foreach($dbdirection as $dic)
-                                <option>{{$dic->NOM_D}}</option>
-                                @endforeach       
+                              @foreach($dbdirection as $dbd)
+                              <option value='{{$dbd->id_depart}}'>{{$dbd->Nom_depart}}</option>  
+                              @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Sous-Direction</label>
-                        <select type="text" class="form-control" value="" placeholder="Filiere" id="SDic">
+                        <select type="text" class="form-select" value="" placeholder="Filiere" id="SDic">
                         <option>Selection la sous Direction</option>
+                        @foreach($dbsdirection as $dic)
+                                <option value="{{$dic->id_sous_depart}}">{{$dic->Nom_sous_depart}}</option>
+                        @endforeach      
                         </select>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <label class="labels">Post</label>
-                        <select type="text" class="form-control" placeholder="Diplome" value="" id="post">
+                        <select type="text" class="form-select" placeholder="Diplome" value="" id="post">
                         <option>Selection Le Post</option>
+                        @foreach($dbpost as $post)
+                        <option value='{{$post->id_post}}'>{{$post->Nom_post}}</option>
+                        @endforeach
                         </select>   
                     </div>
                     <div class="col-md-6">
@@ -124,25 +130,26 @@
     $('#aft').click(function(e){
         e.preventDefault();
 
-                var id = '{{ $employe->ID_NIN }}';
-                var idp = '{{ $employe->ID_P }}'; // Assuming you are searching by ID_NIN
+                var id = '{{ $employe->id_nin }}';
+                var idp = '{{ $employe->id_p }}'; // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:id,
                     ID_P : idp,
-                    Spec: $('#Dic').val(),
-                    filr: $('#SDic').val(),
-                    DipRef :$('#post').val(),
-                    DipDate:$('#PVDate').val(),
+                    Dic: $('#Dic').val(),
+                    SDic: parseInt($('#SDic').val()),
+                    post:$('#post').val(),
+                    PVDate:$('#PVDate').val(),
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     _method: 'POST'
                 };
 
                 $.ajax({
-                    url: '/Employe/addApp',
+                    url: '/Employe/Generat',
                     type: 'POST',
                     data: formData,
                     success: function (response) {
-                        window.location.href="/Employe/IsEducat/"+id;
+                        alert('Generate Success');
+                        //window.location.href="/BioTemplate/search/"+id;
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);
