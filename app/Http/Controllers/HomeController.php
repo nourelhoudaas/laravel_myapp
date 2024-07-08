@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-
+use App\Models\Employe;
+use App\Models\Departement;
 class HomeController extends Controller
 {
     //la page home.blade.php

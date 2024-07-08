@@ -12,6 +12,8 @@ class Niveau extends Model
     protected $primaryKey = 'id_niv';
     public $incrementing = true; 
     protected $keyType = 'integer'; 
+    public $timestamps = false;
+    
     protected $fillablel=['id_niv'	,'Nom_niv'	,'Specialité',	'Descriptif_niv',
     'Nom_niv_ar','Specialité_ar','Descriptif_niv_ar','id_post'];
 

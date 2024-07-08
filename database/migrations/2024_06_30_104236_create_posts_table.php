@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->integer('id_post')->primary()->autoIncrement();
-            $table->string('Nom_post')->unique();
-            $table->integer('Grade_post')->unique();
-            $table->string('Nom_post_ar')->unique();
+            $table->string('Nom_post');
+            $table->integer('Grade_post');
+            $table->string('Nom_post_ar');
         });
 
         DB::table('posts')->insert([

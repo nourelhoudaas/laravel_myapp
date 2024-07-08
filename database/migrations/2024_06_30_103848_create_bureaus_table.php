@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bureaus', function (Blueprint $table) {
             $table->integer('id_bureau')->primary()->autoIncrement();
-            $table->integer('Num_bureau')->unique();
+            $table->integer('Num_bureau');
         
         });
         DB::table('bureaus')->insert([
