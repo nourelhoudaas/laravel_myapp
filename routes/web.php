@@ -49,7 +49,7 @@ Route::controller(LoginController::class)->group(function(){
 });
 
 Route::controller(EmployeesController::class)->group(function(){
-    Route::get('/liste','ListeEmply')->name('app_liste_emply');
+    Route::get('\liste','ListeEmply')->name('app_liste_emply');
     Route::get('/liste_abs','AbsenceEmply')->name('app_abs_emply');
     Route::get('\addTemplate/formulaire','createF')->name('app_add_emply');
     
@@ -77,3 +77,7 @@ Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('
 Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
 Route::get('/Employe/IsTravaill/{id}',[AddEmployeControll::class,'existToAdd'])->name('Employe.istravaill');
 Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploadFile');
+Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp']);
+Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision']);
+Route::get('/Employe/IsEducat/{id}',[AddEmployeControll::class,'existApp'])->name('Employe.iseducat');
+

@@ -9,10 +9,12 @@ use App\Models\Employe;
 use App\Models\Bureau;
 use App\Models\Sous_departement;
 use App\Models\Travail;
+use App\Models\Occupe;
 use App\Models\Contient;
 use App\Models\appartient;
 use App\Models\Niveau;
 use App\Models\Post;
+use App\Models\Departement;
 
 class AddEmployeControll extends Controller
 {
@@ -34,8 +36,8 @@ class AddEmployeControll extends Controller
         $employees=new Employe();
         $employees=$employees->get();
         $bureau=new Bureau();
-
           $Direction=new Sous_departement();
+          $niv=new Niveau();
 
        //   $Containt=new Containt();
        if(isset($employees))
@@ -87,9 +89,12 @@ class AddEmployeControll extends Controller
         if($employe->save())
         {
             //$dbcontaint=$Containt->get();
-            $dbbureau=$bureau->get();
-            $dbdirection=$Direction->get();
-            return view('addTemplate.travaill',compact('employe','dbbureau','dbdirection'));
+          //  $dbbureau=$bureau->get();
+          //  $dbdirection=$Direction->get();
+            $dbniv=$niv->get();
+            $dbempdepart = new Departement();
+            $empdepart =$dbempdepart->get();
+            return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
         }
         else
         {
@@ -134,66 +139,121 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
    function existToAdd($id)
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
-    $bureau=new Bureau();
-    $Direction=new Sous_departement();;
-    $dbbureau=$bureau->get();
-    $dbdirection=$Direction->get();
-    return view('addTemplate.travaill',compact('employe','dbbureau','dbdirection'));
+    $niv=new Niveau();
+    $dbniv=$niv->get();
+    $dbempdepart = new Departement();
+    $empdepart =$dbempdepart->get();
+    return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
   }
 
 //------------- add a appartient table
 
-  protected function existToAddApp(Request $Request)
+   function existToAddApp(Request $Request)
   {
-    $Request->validate([
-        'ID_NIN' => 'required|integer',
-        'ID_P' => 'required|integer|',
-        'Dip'=>'required|string|',
-        'Spec'=>'required|string|',
-        'DipDate'=>'required|date'
-    ]);
+    $niv=new Niveau();
+    $bureau=new Bureau();
+    $Direction= new Departement();
+      $SDirection=new Sous_departement();
+      $dbbureau=$bureau->get();
+      $dbsdirection=$SDirection->get();
+      $dbdirection=$Direction->get();
+      $idn=$niv->ID_N;
+    $post=New Post();
+       $dbpost=$post->get();
     $id=$Request->get('ID_NIN');
-    $Appartient=Appartient::where('ID_NIN', $id)->get();
+    $employe=Employe::where('id_nin', $id)->firstOrFail();
+    $Appartient=Appartient::where('id_nin', $id)->get();
     if($Appartient->count() > 0)
     {
         //----------------- send To next $etp for Donnée Administration ----------------------
        // dd($Appartient);
-        $employe=Employe::where('ID_NIN', $id)->firstOrFail();
+       $post=New Post();
+       $dbpost=$post->get();
+        $employe=Employe::where('id_nin', $id)->firstOrFail();
      //   dd($employe);
-        return view('addTemplate.admin',compact('employe'));
+     $dbempdepart = new Departement();
+        $empdepart =$dbempdepart->get();
+        return view('addTemplate.admin',compact('employe','dbdirection','bureau','dbpost','dbsdirection','empdepart'));
     }
     //---------------- this for add to Level Education and his Diploma -------------------------
-
-        $niv=new Niveau();
-        $niv=Niveau::where('NOM_N',$Request->get('Dip'))
-                     ->where('SPECIAL_N',$Request->get('Spec'))
+    $Request->validate([
+      'ID_NIN' => 'required|integer',
+      'ID_P' => 'required|integer|',
+      'Dip'=>'required|string|',
+      'Spec'=>'required|string|',
+      'DipDate'=>'required|date'
+  ]);
+       
+        $niv=Niveau::where('Nom_niv',$Request->get('Dip'))
+                     ->where('Specialité',$Request->get('Spec'))
                      ->first();
       //dd($niv);
-      $bureau=new Bureau();
-      $Direction=new Direction();
-      $dbbureau=$bureau->get();
-      $dbdirection=$Direction->get();
-      $idn=$niv->ID_N;
-        $test= DB::table('appartient')->insert([
-             'ID_NIN' => $Request->get('ID_NIN'),
-             'ID_P' => $Request->get('ID_P'),
-             'ID_N' => $idn,
-             'Ref_D' => $Request->get('DipRef'),
-             'DATE_OP'	=>$Request->get('DipDate'),
+       $idn=$niv->id_niv;
+        $test= DB::table('appartients')->insert([
+             'id_nin' => $Request->get('ID_NIN'),
+             'id_p' => $Request->get('ID_P'),
+             'id_niv' => $idn,
+             'id_appar' => $Request->get('DipRef'),
+             'Date_op'	=>$Request->get('DipDate'),
          ]);
-         return view('addTemplate.admin',compact('employe','dbbureau','dbdirection'));
+         $dbempdepart = new Departement();
+        $empdepart =$dbempdepart->get();
+         return view('addTemplate.admin',compact('employe','dbbureau','dbsdirection','dbdirection','dbpost','empdepart'));
 
   }
-  protected function existApp($id)
+    function existApp($id)
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $bureau=new Bureau();
-    $Direction=new Sous_departement();
+    $Direction= new Departement();
+    $SDirection=new Sous_departement();
+    $dbsdirection=$SDirection->get();
+    $dbdirection=$Direction->get();
     $dbbureau=$bureau->get();
     $dbdirection=$Direction->get();
     $Appartient=Appartient::where('id_nin', $id)->get();
     $post=New Post();
     $dbpost=$post->get();
-    return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost'));
+    $dbempdepart = new Departement();
+        $empdepart =$dbempdepart->get();
+    return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
+  }
+  function GenDecision(Request $request)
+  { 
+    $request->validate([
+      'ID_NIN' => 'required|integer',
+      'ID_P' => 'required|integer|',
+      'Dic'=>'required|integer|',
+      'SDic'=>'required|integer|',
+      'post'=>'required|integer|',
+      'PVDate'=>'required|date'
+  ]);
+    
+    $travaill=new Travail([
+      'date_chang' => Carbon::now(),
+      'date_installation'=>$request->get('PVDate'),
+      'notation'=>0	,
+      'id_nin'=>$request->get('ID_NIN'),	
+      'id_sous_depart'=>$request->get('SDic'),	
+      'id_p'=>$request->get('ID_P')	,
+      'id_bureau'=>406,
+    ]);
+    //dd($travaill);
+  
+    if($travaill->save())
+    {
+      Occupe::create([
+        'date_recrutement'=>$request->get('PVDate'),
+        'echellant'=>0	,
+        'id_nin'=>$request->get('ID_NIN'),	
+        'id_p'=>$request->get('ID_P')	,
+        'id_post'=>$request->get('post')
+      ]);
+      return redirect()->back()->with('message',"This is Success Message");
+    }
+    else
+    {
+      return redirect()->back()->with('message',"This is UnSuccess Message");
+    }
   }
 }

@@ -2,14 +2,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Education Information </title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <link href="{{ asset('assets/app.css')}}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="{{ asset('assets/main.css')}}" rel="stylesheet" type="text/css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Personnel</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/HRTemplat/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
+@extends('base')
 <body>
+@include('./navbar.sidebar')
 <div class="stepper-wrapper">
   <div class="stepper-item completed">
     <div class="step-counter">1</div>
@@ -52,29 +68,35 @@
                 <div class="row mt-2">
                 <div class="col-md-12">
                         <label class="labels">IDentification Professionnel</label>
-                        <input type="text" class="form-control" placeholder="" value="{{$employe->ID_P}}" id="IDP" disabled>
+                        <input type="text" class="form-control" placeholder="" value="{{$employe->id_p}}" id="IDP" disabled>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Direction</label>
-                        <select type="text" class="form-control" placeholder="Specialitie" value="" id="Dic">
+                        <select type="text" class="form-select" placeholder="Specialitie" value="" id="Dic">
                             <option>Selection la Direction</option>
-                                @foreach($dbdirection as $dic)
-                                <option>{{$dic->NOM_D}}</option>
-                                @endforeach       
+                              @foreach($dbdirection as $dbd)
+                              <option value='{{$dbd->id_depart}}'>{{$dbd->Nom_depart}}</option>  
+                              @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Sous-Direction</label>
-                        <select type="text" class="form-control" value="" placeholder="Filiere" id="SDic">
+                        <select type="text" class="form-select" value="" placeholder="Filiere" id="SDic">
                         <option>Selection la sous Direction</option>
+                        @foreach($dbsdirection as $dic)
+                                <option value="{{$dic->id_sous_depart}}">{{$dic->Nom_sous_depart}}</option>
+                        @endforeach      
                         </select>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <label class="labels">Post</label>
-                        <select type="text" class="form-control" placeholder="Diplome" value="" id="post">
+                        <select type="text" class="form-select" placeholder="Diplome" value="" id="post">
                         <option>Selection Le Post</option>
+                        @foreach($dbpost as $post)
+                        <option value='{{$post->id_post}}'>{{$post->Nom_post}}</option>
+                        @endforeach
                         </select>   
                     </div>
                     <div class="col-md-6">
@@ -124,25 +146,26 @@
     $('#aft').click(function(e){
         e.preventDefault();
 
-                var id = '{{ $employe->ID_NIN }}';
-                var idp = '{{ $employe->ID_P }}'; // Assuming you are searching by ID_NIN
+                var id = '{{ $employe->id_nin }}';
+                var idp = '{{ $employe->id_p }}'; // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:id,
                     ID_P : idp,
-                    Spec: $('#Dic').val(),
-                    filr: $('#SDic').val(),
-                    DipRef :$('#post').val(),
-                    DipDate:$('#PVDate').val(),
+                    Dic: $('#Dic').val(),
+                    SDic: parseInt($('#SDic').val()),
+                    post:$('#post').val(),
+                    PVDate:$('#PVDate').val(),
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     _method: 'POST'
                 };
 
                 $.ajax({
-                    url: '/Employe/addApp',
+                    url: '/Employe/Generat',
                     type: 'POST',
                     data: formData,
                     success: function (response) {
-                        window.location.href="/Employe/IsEducat/"+id;
+                        alert('Generate Success');
+                        window.location.href="/BioTemplate/search/"+id;
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);

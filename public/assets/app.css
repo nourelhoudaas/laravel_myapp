@@ -637,7 +637,7 @@ main .recent_order a{
   background-color: #2F8D46
 }
 .stepper-wrapper {
-  margin-top: auto;
+  margin-top: 90px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
