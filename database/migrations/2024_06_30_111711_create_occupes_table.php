@@ -17,7 +17,7 @@ return new class extends Migration
             $table->float('echellant');
             $table->integer('id_nin');
             $table->integer('id_p');
-            $table->integer('id_post')->unique();
+            $table->integer('id_post');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('id_post')->references('id_post')->on('posts');

@@ -236,7 +236,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
       'id_nin'=>$request->get('ID_NIN'),	
       'id_sous_depart'=>$request->get('SDic'),	
       'id_p'=>$request->get('ID_P')	,
-      'id_bureau'=>406,
+      'id_bureau'=>5,
     ]);
     //dd($travaill);
   
