@@ -24,15 +24,18 @@ class EmployeesController extends Controller
           ->get();*/
 
           $employe=Employe::with([
-            'occupeIdNin.posts.contients.sous_departements.departements',
-            'occupeIdP.posts.contients.sous_departements.departements'
+            'occupeIdNin.post.contient.sous_departement.departement',
+            'occupeIdP.post.contient.sous_departement.departement'
         ])->get();
-
+        
+        //return $employe;
         //le nbr total des employés
         $totalEmployes = $employe->count();
 
+        $empdepart= DB::table('departements')
+        ->get();
 
-        return view('employees.liste',compact('employe','totalEmployes'));
+        return view('employees.liste',compact('employe','totalEmployes','empdepart'));
     }
 
     public function AddEmply()
@@ -41,7 +44,7 @@ class EmployeesController extends Controller
     }
 
     public function AbsenceEmply()
-    {
+    {/*
         $employe= DB::table('employes')
         ->join('travails','employes.id_nin','=','travails.id_nin')
         ->join('sous_departements','travails.id_sous_depart','=','sous_departements.id_sous_depart')
@@ -50,10 +53,15 @@ class EmployeesController extends Controller
         ->join('posts','contients.id_post','=','posts.id_post')
         ->select('employes.id_nin','employes.id_p','employes.Nom_emp','employes.Prenom_emp','sous_departements.id_sous_depart','sous_departements.Nom_sous_depart','departements.Nom_depart','posts.Nom_post')
         ->get();
-
+*/
+$employe=Employe::with([
+    'occupeIdNin.post.contient.sous_departement.departement',
+    'occupeIdP.post.contient.sous_departement.departement'
+])->get();
         $empdepart= DB::table('departements')
           ->get();
-
+          //return $employe
+;
 //le nbr total des employés
         $totalEmployes = $employe->count();
         return view('employees.liste_abs',compact('employe','totalEmployes','empdepart'));
@@ -63,10 +71,14 @@ class EmployeesController extends Controller
     public function createF()
     {
         return view('addTemplate.add');
-    }public function getall($id)
+    }
+    
+    public function getall($id)
     {
+
+
        // dd($id);
-        $detailemp=DB::table('employes')->join('travails','travails.id_nin','=','employes.id_nin')
+       $detailemp=DB::table('employes')->join('travails','travails.id_nin','=','employes.id_nin')
                                         ->join('occupes','employes.id_nin',"=",'occupes.id_nin')
                                        ->join('sous_departements','travails.id_sous_depart',"=","sous_departements.id_sous_depart")
                                        ->join('posts','posts.id_post','=','occupes.id_post')

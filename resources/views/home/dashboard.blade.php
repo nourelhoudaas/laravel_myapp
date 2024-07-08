@@ -18,7 +18,7 @@
                         <div class="middle">
                             <div class="left">
                                 <h3>Total Employees</h3>
-                                <h1>{{ $totalEmployes }}</h1>
+                                <h1>{{ $totalEmployes}}</h1>
                             </div>
                         </div>
                     </div>

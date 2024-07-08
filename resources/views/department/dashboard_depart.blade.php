@@ -74,21 +74,29 @@
                     <tbody>
 
                         @foreach ($empdep as $emp)
-                            @foreach($emp->occupeIdNin  as $occupe)
-                                @foreach($occupe->posts as $post)
-                                 <tr>
-                                    <td>
-                                        <a
-                                        href="{{ route('BioTemplate.detail', ['id' => $emp->id_nin]) }}">{{ $emp->Nom_emp }}</a>
-                                    </td>
-                                    <td>{{ $emp->Prenom_emp }}</td>
-                                    <td>{{ $post->Nom_post }}</td>
-                                    <td>{{ $post->contients->sous_departements->Nom_sous_depart }}</td>
-                                    <td>{{ $post->contients->sous_departements->departements->Nom_sous_depart }}</td>
-
-                                  </tr>
+                        @if ($emp->occupeIdNin)
+                                @foreach ($emp->occupeIdNin as $occupe)
+                                  @if ($occupe && $occupe->post)
+                                      @if ($occupe->post->contient)
+                                         @foreach ($occupe->post->contient as $contient)
+                                             @if ($contient && $contient->sous_departement)
+                            <tr>
+                                <td>
+                                    <a href="{{ route('BioTemplate.detail', ['id' => $emp->id_nin]) }}">{{ $emp->Nom_emp }}</a>
+                                </td>
+                                <td>{{ $emp->Prenom_emp }}</td>
+                                <td>{{ $occupe->post->Nom_post }}</td>
+                                <td>{{ $contient->sous_departement->Nom_sous_depart }}</td>
+                               
+                            </tr>
+                                            @endif
+                                          @endforeach
+                                        @endif
+                                    @endif
                                 @endforeach
-                            @endforeach
+                            @endif
+                           
+                       
                         @endforeach
 
                     </tbody>

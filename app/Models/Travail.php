@@ -15,16 +15,16 @@ class Travail extends Model
 
     protected $fillable=['id_travail','date_chang',	'date_installation','notation'	,'id_nin',	'id_sous_depart',	'id_p'	,'id_bureau'];
 
-    public function employes()
+    public function employe()
     {
         return $this->belongsTo(Employe::class,['id_nin','id_p'],['id_nin','id_p']);
     }
-    public function sous_departements()
+    public function sous_departement()
     {
         return $this->belongsTo(Sous_departement::class,'id_sous_depart','id_sous_depart');
     }
     
-    public function bureaux()
+    public function bureau()
     {
         return $this->belongsTo(Bureau::class,'id_bureau','id_bureau');
     }

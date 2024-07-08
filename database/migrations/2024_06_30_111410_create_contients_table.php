@@ -18,8 +18,29 @@ return new class extends Migration
             $table->integer('id_sous_depart');
             $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
         });
-    }
 
+
+        DB::table('contients')->insert([
+            [
+                'id_contient' => 2,
+                'id_sous_depart' => 10,
+                'id_post' => 20,
+                
+               
+            ],
+            [
+                'id_contient' => 50,
+                'id_sous_depart' => 15,
+                'id_post' => 2,
+            ],
+               
+               
+            ]);
+            
+            
+
+    }
+   
     /**
      * Reverse the migrations.
      */

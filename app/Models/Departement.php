@@ -17,7 +17,7 @@ class Departement extends Model
 
     protected $fillable = ['id_depart','Nom_depart','Descriptif_depart','Nom_depart_ar','Descriptif_depart_ar'];
 
-    public function sous_departements()
+    public function sous_departement()
     {
         return $this-> hasMany(Sous_departement::class,'id_depart','id_depart');
     }

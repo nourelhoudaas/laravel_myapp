@@ -19,8 +19,29 @@ return new class extends Migration
             $table->string('Descriptif_depart_ar')->unique();
 
         });
+        DB::table('departements')->insert([
+            [
+                'id_depart' => 1,
+                'Nom_depart' => 'developpement',
+                'Descriptif_depart' => 'developpement',
+                'Nom_depart_ar' => 'تطوير',
+                'Descriptif_depart_ar' => 'تطوير',
+               
+            ], 
+            [
+                'id_depart' => 2,
+                'Nom_depart' => 'personnel',
+                'Descriptif_depart' => 'personnel',
+                'Nom_depart_ar' => 'ادارة-المستخدمين',
+                'Descriptif_depart_ar' => 'ادارة-المستخدمين',
+            ]
+               
+            ]);
     }
 
+
+
+    
     /**
      * Reverse the migrations.
      */

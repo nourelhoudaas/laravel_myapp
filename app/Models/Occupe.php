@@ -15,12 +15,12 @@ class Occupe extends Model
 
     protected $fillable=['id_occup'	,'date_recrutement',	'echellant','id_post'	,'id_nin','id_p'];
 
-    public function employes()
+    public function employe()
     {
         return $this->belongsTo(Employe::class,['id_nin','id_p'],['id_nin','id_p']);
     }
 
-    public function posts()
+    public function post()
     {
         return $this->belongsTo(Post::class,'id_post','id_post');
     }

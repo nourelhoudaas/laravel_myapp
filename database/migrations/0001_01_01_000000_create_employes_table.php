@@ -28,10 +28,52 @@ return new class extends Migration
             $table->string('email')->nullable();;
             $table->string('Phone_num')->unique();
 
-        });
-    }
 
-    /**
+        
+        });
+
+        DB::table('employes')->insert([
+            [
+                'id_emp' => 1,
+                'id_nin' => 1254953,
+                'id_p' => 123,
+                'Nom_emp' => 'boumediene',
+                'Prenom_emp' => 'fadia',
+                'Nom_ar_emp' => 'بومدين',
+                'Prenom_ar_emp' => 'فادية',
+                'Date_nais' => '2000-01-11',
+                'Lieu_nais' => 'alger',
+                'Lieu_nais_ar' => 'الجزائر',
+                'adress' => 'alger',
+                'adress_ar' => 'الجزائر',
+                'sexe' => 'femme',
+                'email' => 'fagmail.com',
+                'Phone_num' => '0124367555',
+               
+               
+            ],
+            [
+                'id_emp' => 2,
+                'id_nin' => 254896989,
+                'id_p' => 256,
+                'Nom_emp' => 'boum',
+                'Prenom_emp' => 'fad',
+                'Nom_ar_emp' => 'بومد',
+                'Prenom_ar_emp' => 'فاد',
+                'Date_nais' => '2024-07-01',
+                'Lieu_nais' => 'alger',
+                'Lieu_nais_ar' => 'الجزائر',
+                'adress' => 'alger',
+                'adress_ar' =>'الجزائر' ,
+                'sexe' => 'femme',
+                'email' => 'fgmail.com',
+                'Phone_num' => '01573645525',
+            ]
+               
+            ]);
+    }
+    
+     /**
      * Reverse the migrations.
      */
     public function down(): void

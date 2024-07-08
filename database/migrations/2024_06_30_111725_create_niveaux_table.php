@@ -19,9 +19,41 @@ return new class extends Migration
             $table->string('Nom_niv_ar');
             $table->string('Specialité_ar');
             $table->string('Descriptif_niv_ar')->unique();
+            $table->integer('id_post');
+            $table->foreign('id_post')->references('id_post')->on('posts');
+
+
         });
+        DB::table('niveaux')->insert([
+        [
+            'id_niv' => 5,
+            'Nom_niv' => 'master2',
+            'Specialité' => 'rsd',
+            'Descriptif_niv' => 'réseaux et systèmes distribués',
+            'Nom_niv_ar' => 'ماستر2',
+            'Specialité_ar' => 'نظام الشبكات',
+           'Descriptif_niv_ar' => 'ماستر2',
+           'id_post' => 2,
+            
+        ],  
+        [
+            'id_niv' => 12,
+            'Nom_niv' => 'master2',
+            'Specialité' => 'finnance',
+            'Descriptif_niv' => 'finnance',
+            'Nom_niv_ar' => 'ماستر2',
+            'Specialité_ar' => 'مالية',
+           'Descriptif_niv_ar' => 'مالية',
+           'id_post' => 20,
+        ],
+           
+        ]);
     }
 
+   
+   
+   
+    
     /**
      * Reverse the migrations.
      */

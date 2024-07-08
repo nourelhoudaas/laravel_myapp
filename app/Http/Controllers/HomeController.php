@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-
+use App\Models\Employe;
+use App\Models\Departement;
 class HomeController extends Controller
 {
     //la page home.blade.php
@@ -22,7 +23,7 @@ class HomeController extends Controller
     //la page dashboard.blade.php
     public function dashboard()
     {
-        $employe= DB::table('employes')
+        /*$employe= DB::table('employes')
         ->join('travails','employes.id_nin','=','travails.id_nin')
         ->join('sous_departements','travails.id_sous_depart','=','sous_departements.id_sous_depart')
         ->join('contients','sous_departements.id_sous_depart','=','contients.id_sous_depart')
@@ -36,7 +37,16 @@ class HomeController extends Controller
         
 //le nbr total des employés
         $totalEmployes = $employe->count();
+*/
+$employe=Employe::with([
+    'occupeIdNin.post.contient.sous_departement.departement',
+    'occupeIdP.post.contient.sous_departement.departement'
+])->get();
 
+//le nbr total des employés
+$totalEmployes= $employe->count();
+
+$empdepart=Departement::get();
 
         return view('home.dashboard',compact('employe','totalEmployes','empdepart'));
     }

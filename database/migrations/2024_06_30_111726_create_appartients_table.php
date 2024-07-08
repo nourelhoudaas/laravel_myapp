@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //appartient==diplome  dnc id_appr =ref du diplome
         Schema::create('appartients', function (Blueprint $table) {
-            $table->string('id_appar')->primary();
+            $table->integer('id_appar')->primary();
             $table->date('Date_op');
             $table->integer('id_niv');
             $table->foreign('id_niv')->references('id_niv')->on('niveaux');
@@ -22,6 +22,22 @@ return new class extends Migration
             $table->integer('id_p');
             $table->foreign('id_p')->references('id_p')->on('employes');
         });
+        DB::table('appartients')->insert([
+            [
+                'id_appar' => 1,
+                'Date_op' => '2023-07-11',
+                'id_niv' => 5,
+                'id_nin' => 1254953,
+                'id_p' => 123,
+            ],
+            [
+                'id_appar' => 15,
+                'Date_op' => '2024-03-13',
+                'id_niv' => 12,
+                'id_nin' => 254896989,
+                'id_p' => 256,
+            ],
+        ]);
     }
 
     /**

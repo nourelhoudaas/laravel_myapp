@@ -17,11 +17,11 @@ class Contient extends Model
 
     protected $fillable = [ 'id_contient','id_post','id_sous_depart'];
 
-    public function posts()
+    public function post()
     {
         return $this->belongsTo(Post::class, 'id_post', 'id_post');
     }
-    public function sous_departements()
+    public function sous_departement()
     {
         return $this->belongsTo(Sous_departement::class, 'id_sous_depart', 'id_sous_depart');
     }

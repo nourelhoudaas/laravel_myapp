@@ -30,18 +30,17 @@ Route::controller(HomeController::class)->group(function(){
          ->name('app_dashboard');
 });
 
-
 Route::get('/login', function () {
     return view('auth.login');
 })->middleware('guest')->name('login');
 
 Route::post('/login', [LoginUser::class, 'authenticateUser'])->middleware('guest')->name('login');
-
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::controller(LoginController::class)->group(function(){
   
-     Route::get('/logout','logout')->name('app_logout');
+   //  Route::get('/logout','logout')->name('app_logout');
     Route::post('/exist_username','existUsername')->name('app_exist_username');
     Route::post('/exist_id_nin','existIDNIN')->name('app_exist_id_nin');
     Route::post('/exist_id_p','existIDP')->name('app_exist_id_p');
@@ -50,22 +49,23 @@ Route::controller(LoginController::class)->group(function(){
 });
 
 Route::controller(EmployeesController::class)->group(function(){
-    Route::get('\liste','ListeEmply')->name('app_liste_emply');
+    Route::get('/liste','ListeEmply')->name('app_liste_emply');
+    Route::get('/liste_abs','AbsenceEmply')->name('app_abs_emply');
     Route::get('\addTemplate/formulaire','createF')->name('app_add_emply');
-    Route::get('\liste_abs','AbsenceEmply')->name('app_abs_emply');
+    
     Route::get('\/BioTemplate/search/{id}','getall')->name('BioTemplate.detail');
 
 });
 
 Route::controller(DepartmentController::class)->group(function(){
+    Route::get('/list_depart','ListeDepart')->name('app_depart');
     Route::get('\add_depart','AddDepart')->name('app_add_depart');
-    Route::get('\list_depart','ListeDepart')->name('app_depart');
+   
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
 });
 
-Route::post('/login', [LoginUser::class, 'authenticateUser'])->name('login.attempt');
 //Route::get('/addTemplate',[EmployeControl::class,'create'])->name('Employe.create');
 
 

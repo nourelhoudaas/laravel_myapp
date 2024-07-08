@@ -17,8 +17,26 @@ return new class extends Migration
             $table->integer('Grade_post')->unique();
             $table->string('Nom_post_ar')->unique();
         });
-    }
 
+        DB::table('posts')->insert([
+            [
+                'id_post' => 2,
+                'Nom_post' => 'ingénieur en informatique',
+                'Grade_post' => 1,
+                'Nom_post_ar' => 'مهندس دولة في الاعلام الالي',
+             
+               
+            ],
+            [
+                'id_post' => 20,
+                'Nom_post' => 'technicien supérieur en info',
+                'Grade_post' => 2,
+                'Nom_post_ar' => 'تقني في الاعلام الالي',
+            ]
+               
+            ]);
+    }
+  
     /**
      * Reverse the migrations.
      */

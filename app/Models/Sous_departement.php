@@ -18,17 +18,17 @@ protected $primaryKey = 'id_sous_depart';
 
 protected $fillabel=['id_sous_depart',	'id_depart',	'Nom_sous_depart',	'Descriptif_sous_depart','Nom_sous_depart_ar','Descriptif_sous_depart_ar'];
 
-public function travails()
+public function travail()
 {
     return $this->hasMany(Travail::class, 'id_sous_depart', 'id_sous_depart');
 }
 
-public function departements()
+public function departement()
 {
     return $this->belongsTo(Departement::class, 'id_depart', 'id_depart');
 }
 
-public function contients()
+public function contient()
 {
     return $this->hasMany(Contient::class,'id_sous_depart','id_sous_depart');
 }

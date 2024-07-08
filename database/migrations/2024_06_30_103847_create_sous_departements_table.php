@@ -21,7 +21,29 @@ return new class extends Migration
             $table->string('Descriptif_sous_depart_ar')->unique();
 
         });
+
+        DB::table('sous_departements')->insert([
+            [
+                'id_sous_depart' => 10,
+                'id_depart' => 2,
+                'Nom_sous_depart' => 'prsonnl',
+                'Descriptif_sous_depart' => 'psnll',
+                'Nom_sous_depart_ar' => 'المستخدمين',
+                'Descriptif_sous_depart_ar' => 'المستخدمين',
+                
+            ], 
+            [
+                'id_sous_depart' => 15,
+                'id_depart' => 1,
+                'Nom_sous_depart' => 'dev',
+                'Descriptif_sous_depart' => 'dev',
+                'Nom_sous_depart_ar' => 'تطوير',
+                'Descriptif_sous_depart_ar' => 'تطوير',
+            ],
+        ]);
+               
     }
+
 
     /**
      * Reverse the migrations.

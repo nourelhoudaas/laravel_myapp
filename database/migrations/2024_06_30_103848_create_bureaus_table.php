@@ -16,6 +16,14 @@ return new class extends Migration
             $table->integer('Num_bureau')->unique();
         
         });
+        DB::table('bureaus')->insert([
+            [
+                'id_bureau' => 5,
+                'Num_bureau' => 203,
+            ]
+               
+            ]);
+            
     }
 
     /**

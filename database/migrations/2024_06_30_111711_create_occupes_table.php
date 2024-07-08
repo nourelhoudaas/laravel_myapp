@@ -22,8 +22,30 @@ return new class extends Migration
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('id_post')->references('id_post')->on('posts');
         });
-    }
+        DB::table('occupes')->insert([
+            [
+                'id_occup' => 4,
+                'date_recrutement' => '2024-07-03',
+                'echellant' => 13,
+                'id_nin' => 254896989,
+                'id_p' => 256,
+                'id_post' => 20,
+               
+            ],
+            [
+                'id_occup' => 10,
+                'date_recrutement' => '2024-04-14',
+                'echellant' => 13,
+                'id_nin' => 1254953,
+                'id_p' => 123,
+                'id_post' => 2,
+            ]
+            ]);
+            
 
+    }
+    
+    
     /**
      * Reverse the migrations.
      */

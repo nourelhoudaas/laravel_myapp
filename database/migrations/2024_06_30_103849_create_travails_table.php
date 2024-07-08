@@ -25,8 +25,32 @@ return new class extends Migration
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('id_bureau')->references('id_bureau')->on('bureaus');
         });
-    }
 
+        DB::table('travails')->insert([
+            [
+                'id_travail' => 14,
+                'date_chang' => '2024-07-01',
+                'date_installation' => '2023-07-01',
+                'notation' =>17,
+                'id_nin' => 254896989,
+                'id_sous_depart' => 10,
+                'id_p' =>256,
+                'id_bureau' => 5,
+                
+            ], 
+            [
+                'id_travail' => 20,
+                'date_chang' => '2024-04-14',
+                'date_installation' => '2024-04-14',
+                'notation' =>20,
+                'id_nin' => 1254953,
+                'id_sous_depart' => 15,
+                'id_p' =>123,
+                'id_bureau' => 5,
+            ],
+        ]);
+    }
+  
     /**
      * Reverse the migrations.
      */

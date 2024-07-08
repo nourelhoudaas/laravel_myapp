@@ -20,12 +20,12 @@ class Login extends Model
         'id_log', 'date_login', 'date_logout', 'id_nin', 'id_p','id',
     ];
 
-    public function employes()
+    public function employe()
     {
         return $this->belongsTo(Employe::class, ['id_nin','id_p'], ['id_nin','id_p']);
     }
     
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class, ['id','id'], ['id','id']);
     }

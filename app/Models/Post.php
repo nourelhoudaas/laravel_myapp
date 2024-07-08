@@ -16,13 +16,18 @@ class Post extends Model
 
     protected $fillable=['id_post',	'Nom_post',	'Grade_post','Nom_post_ar'];
 
-    public function contients ()
+    public function contient ()
     {
         return $this->hasMany(Contient::class,'id_post','id_post');
     }
 
-    public function occupes ()
+    public function occupe()
     {
         return $this->hasMany(occupe::class,'id_post','id_post');
+    }
+
+    public function niveau()
+    {
+        return $this->hasMany(Niveau::class,'id_post','id_post');
     }
 }

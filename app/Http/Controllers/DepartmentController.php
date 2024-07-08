@@ -11,7 +11,7 @@ class DepartmentController extends Controller
 {
     public function ListeDepart()
     {
-        return view('Department.list_depart');
+        return view('department.list_depart');
     }
 
     //la page dashboard_depart.blade.php
@@ -28,9 +28,13 @@ class DepartmentController extends Controller
         ->get();*/
 
         $empdep=Employe::with([
-            'occupeIdNin.posts.contients.sous_departements.departements',
-            'occupeIdP.posts.contients.sous_departements.departements'
-        ])->get();
+            'occupeIdNin.post.contient.sous_departement.departement',
+            'occupeIdP.post.contient.sous_departement.departement'
+        ])->whereHas('occupeIdNin.post.contient.sous_departement.departement', function ($query) use ($dep_id) {
+            $query->where('id_depart', $dep_id);
+        })->orWhereHas('occupeIdP.post.contient.sous_departement.departement', function ($query) use ($dep_id) {
+            $query->where('id_depart', $dep_id);
+        })->get();
 
         $empdepart=Departement::get();
 
@@ -46,12 +50,12 @@ class DepartmentController extends Controller
 //le nbr total des employe pour chaque depart
         $totalEmpDep = $empdep->count();
 
-return view('Department.dashboard_depart', compact('empdep','totalEmpDep','empdepart','nom_d'));
+return view('department.dashboard_depart', compact('empdep','totalEmpDep','empdepart','nom_d'));
     }
 
 
     public function AddDepart()
     {
-        return view('Department.add_depart');
+        return view('department.add_depart');
     }
 }
