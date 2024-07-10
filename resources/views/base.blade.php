@@ -29,7 +29,7 @@
         @auth
 
         {{-- barre de navigation a gauche--}}
-            {{-- @include('navbar.sidebar') --}}
+            @include('navbar.sidebar')
 
 
         @endauth
