@@ -1,61 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    @php
-    $id=0;
-    @endphp
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="{{ asset('assets/app.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/main.css')}}" rel="stylesheet" type="text/css">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Personnel</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="/HRTemplat/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="../css/main.css" rel="stylesheet" type="text/css">
-</head>
+@php
+$id=0;
+@endphp
 @extends('base')
+
+@section('title', 'Dashboard Direction')
+
+@section('content')
 <body>
-    @include('./navbar.sidebar')  
+   <!-- start section aside -->
+   @include('./navbar.sidebar')
+   <!-- end section aside -->
+
 <div class="stepper-wrapper">
   <div class="stepper-item completed">
     <div class="step-counter">1</div>
-    <div class="step-name">Donneé Personnel</div>
+    <div class="step-name">Données Personnel</div>
   </div>
   <div class="stepper-item active">
     <div class="step-counter">2</div>
-    <div class="step-name">Donneé Educative</div>
+    <div class="step-name">Données Educative</div>
   </div>
   <div class="stepper-item active">
     <div class="step-counter">3</div>
-    <div class="step-name">Donnée Administrative</div>
+    <div class="step-name">Donneés Administrative</div>
   </div>
   <div class="stepper-item">
     <div class="step-counter">4</div>
-    <div class="step-name">Genere Dicision </div>
+    <div class="step-name">Généré une décision </div>
   </div>
 </div>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                <span class="font-weight-bold">ADMIN</span>
-                <span class="text-black-50">ADMIN@mail.com.my</span>
-                <span> 
+                <img class="rounded-circle mt-5" width="150px" src="{{ asset('assets/main/img/profile.jpg')}}">
+                {{-- <span class="font-weight-bold">ADMIN</span>
+                <span class="text-black-50">ADMIN@mail.com.my</span> --}}
 
-                </span>
             </div>
         </div>
         <div class="form-holder">
@@ -64,8 +46,8 @@
         <div class="col-md-10">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-         
-                    <h4 class="text-right">Profile Settings</h4>
+
+                    <h4 class="text-right">Profile informations</h4>
                 </div>
                 <div class="row mt-2">
                 <div class="col-md-12">
@@ -93,7 +75,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12">
-                        <label class="labels">Numero Telephone</label>
+                        <label class="labels">Numéro Telephone</label>
                         <input type="text" class="form-control" placeholder="enter Numero" value="" id="nbrphone">
                     </div>
                     <div class="col-md-12">
@@ -133,7 +115,7 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                       
+
                     </div>
                 </div>
                 <div class="mt-5 text-center">
