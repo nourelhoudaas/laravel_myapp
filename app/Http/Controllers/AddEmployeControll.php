@@ -86,6 +86,7 @@ class AddEmployeControll extends Controller
                 'Phone_num'=>$Request->get('PHONE_NB'),
             ]);
           //  dd($employe);
+          
         if($employe->save())
         {
             //$dbcontaint=$Containt->get();
