@@ -5,9 +5,7 @@
 @section('content')
 
     <body>
-        <!-- start section aside -->
-        @include('./navbar.sidebar')
-        <!-- end section aside -->
+
             <!-- main section start -->
             <main>
                 <h1>Dashboard</h1>
@@ -62,4 +60,54 @@
             <!-- end main -->
         </div>
     </body>
+
+
+{{-- chartt1 --}}
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+           scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+/* chartt2*/
+
+    const ctx2 = document.getElementById('myChart2');
+
+    new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+           scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+
+        }
+    });
+</script>
+
 @endsection

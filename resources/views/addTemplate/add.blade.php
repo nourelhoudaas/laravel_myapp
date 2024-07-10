@@ -4,15 +4,12 @@ $id=0;
 @endphp
 @extends('base')
 
-@section('title', 'Dashboard Direction')
+@section('title', 'Formulaire')
 
 @section('content')
 <body>
-   <!-- start section aside -->
-   @include('./navbar.sidebar')
-   <!-- end section aside -->
 
-<div class="stepper-wrapper">
+{{-- <div class="stepper-wrapper">
   <div class="stepper-item completed">
     <div class="step-counter">1</div>
     <div class="step-name">Données Personnel</div>
@@ -29,7 +26,7 @@ $id=0;
     <div class="step-counter">4</div>
     <div class="step-name">Généré une décision </div>
   </div>
-</div>
+</div> --}}
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md">
@@ -40,13 +37,12 @@ $id=0;
 
             </div>
         </div>
-        <div class="form-holder">
-        <form class="form-fa" action="/Employe/add" method="POST">
+        <div class="form-holder ">
+        <form class="form-fa " action="/Employe/add" method="POST">
             @csrf
-        <div class="col-md-10">
-            <div class="p-3 py-5">
+        <div class="col-md-18">
+            <div class="p-5 py-15">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-
                     <h4 class="text-right">Profile informations</h4>
                 </div>
                 <div class="row mt-2">
@@ -75,11 +71,11 @@ $id=0;
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12">
-                        <label class="labels">Numéro Telephone</label>
+                        <label class="labels">Numéro de téléphone</label>
                         <input type="text" class="form-control" placeholder="enter Numero" value="" id="nbrphone">
                     </div>
                     <div class="col-md-12">
-                        <label class="labels">Address Line 1</label>
+                        <label class="labels">Addresse</label>
                         <input type="text" class="form-control" placeholder="enter address line 1" value="" id="adr1">
                     </div>
                     <div class="col-md-12" style="direction: rtl;">
@@ -92,7 +88,7 @@ $id=0;
                     </div>
                     <div class="row mt-3">
                     <div class="col-md-6">
-                        <label class="labels">Lieu</label>
+                        <label class="labels">Lieu de naissance</label>
                         <input type="text" class="form-control" placeholder="Wilaya" value="" id="plc">
                     </div>
                     <div class="col-md-6" style="direction: rtl;">
@@ -118,36 +114,41 @@ $id=0;
 
                     </div>
                 </div>
-                <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="submit" id="btn-sv">Save Profile</button>
+                <div class="file-holder">
+                    <div class="file-select-holder">
+                      {{-- <label for="file">Choose file:</label> --}}
+                      <input type="file" name="file" id="file"> </br>
+                      <div class="">
+                      <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">Upload</button>
+                      </div>
+                    </div>
+                          <div>
+                              <div class="file-upload">
+                                  <div class="file-prog">
+                                      <div class="file-name" id='file1'>
+                                          <p> Fichier 1 </p>
+                                      </div>
+                                      <div class="prog-holder">
+                                      <div id="progressWrapper" style="display: none;">
+                                         <div id="progressBar" style="width: 0%; height: 20px; background-color: #4caf50;"></div>
+                                      </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                  </div>
+
+                <div class="mt-5 text-end">
+                    <button class="btn btn-primary profile-button" type="submit" id="btn-sv">Next step</button>
                 </div>
             </div>
         </div>
         </form>
-        <div class="file-holder">
-          <div class="file-select-holder">
-            <label for="file">Choose file:</label>
-            <input type="file" name="file" id="file"> </br>
-            <div class="">
-            <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">Upload</button>
-            </div>
-          </div>
-                <div>
-                    <div class="file-upload">
-                        <div class="file-prog">
-                            <div class="file-name" id='file1'>
-                                <p> Fichier 1 </p>
-                            </div>
-                            <div class="prog-holder">
-                            <div id="progressWrapper" style="display: none;">
-                               <div id="progressBar" style="width: 0%; height: 20px; background-color: #4caf50;"></div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
+
 </div>
     </div>
 
 </body>
+
+
+   @endsection
