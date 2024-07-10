@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Departement;
 use App\Models\Employe;
 use DB;
+use Carbon\Carbon;
 class EmployeesController extends Controller
 {
     public function ListeEmply()
@@ -24,9 +25,26 @@ class EmployeesController extends Controller
         $empdepart= DB::table('departements')
           ->get();
      */
-        $employe=Employe::with([
-    'occupeIdNin.post.contient.sous_departement.departement',
-    'occupeIdP.post.contient.sous_departement.departement'])->get();
+    $employe = Employe::with([
+        'occupeIdNin'=>function($query)
+        {
+            $query->orderBy('date_recrutement','desc')->take(1);
+        },
+         'occupeIdNin.post.contient.sous_departement.departement',
+        'occupeIdP'=>function($query)
+        {
+            $query->orderBy('date_recrutement','desc')->take(1);
+        },
+        'occupeIdP.post.contient.sous_departement.departement',
+        'travailByNin' => function ($query) {
+            $query->orderBy('date_installation', 'desc')->take(1);
+        },
+        'travailByNin.sous_departement.departement',
+        'travailByP' => function ($query) {
+            $query->orderBy('date_installation', 'desc')->take(1);
+        },
+        'travailByP.sous_departement.departement'
+    ])->get();
    //return $employe;
     // dd($employe);
 
@@ -48,14 +66,7 @@ class EmployeesController extends Controller
 
     public function AbsenceEmply()
     {
-       /* $employe= DB::table('employes')
-        ->join('travails','employes.id_nin','=','travails.id_nin')
-        ->join('sous_departements','travails.id_sous_depart','=','sous_departements.id_sous_depart')
-        ->join('contients','sous_departements.id_sous_depart','=','contients.id_sous_depart')
-        ->join('departements','sous_departements.id_depart','=','departements.id_depart')
-        ->join('posts','contients.id_post','=','posts.id_post')
-        ->select('employes.id_nin','employes.id_p','employes.Nom_emp','employes.Prenom_emp','sous_departements.id_sous_depart','sous_departements.Nom_sous_depart','departements.Nom_depart','posts.Nom_post')
-        ->get();*/
+      
         $employe=Employe::with([
             'occupeIdNin.post.contient.sous_departement.departement',
             'occupeIdP.post.contient.sous_departement.departement'
@@ -105,4 +116,20 @@ class EmployeesController extends Controller
         }
     }
 
+    //chercher un  employe
+    public function searchemp(Request $request)
+    {
+    $employe=Employe::with([
+    'occupeIdNin.post.contient.sous_departement.departement',
+    'occupeIdP.post.contient.sous_departement.departement',
+    'travailByNin.sous_departement.departement',
+    'travailByP.sous_departement.departement']);
+
+      //chercher by id_nin
+      if($request->id_nin)
+      {
+        $req ->where('id_nin','LIKE','%'.$request -> id_nin.'%');
+        }
+        $employes = $query->get();
+    }
 }

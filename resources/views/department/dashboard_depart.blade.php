@@ -1,3 +1,8 @@
+@php
+    use Carbon\Carbon;
+@endphp
+
+
 @extends('base')
 
 @section('title', 'Dashboard Direction')
@@ -67,38 +72,29 @@
                         <tr>
                             <th>NOM</th>
                             <th>PRENOM</th>
+                            <th> Age</th>
+                            <th> Date Recrutement</th>
                             <th>Poste</th>
                             <th>Sous direction</th>
+                            <th>Date Installation</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        @foreach ($empdep as $emp)
-                        @if ($emp->occupeIdNin)
-                                @foreach ($emp->occupeIdNin as $occupe)
-                                  @if ($occupe && $occupe->post)
-                                      @if ($occupe->post->contient)
-                                         @foreach ($occupe->post->contient as $contient)
-                                             @if ($contient && $contient->sous_departement)
+                    @foreach ($empdep as $emp)
                             <tr>
                                 <td>
-                                    <a href="{{ route('BioTemplate.detail', ['id' => $emp->id_nin]) }}">{{ $emp->Nom_emp }}</a>
+                                    <a
+                                        href="{{ route('BioTemplate.detail', ['id' => $emp->id_nin]) }}">{{ $emp->Nom_emp }}</a>
                                 </td>
                                 <td>{{ $emp->Prenom_emp }}</td>
-                                <td>{{ $occupe->post->Nom_post }}</td>
-                                <td>{{ $contient->sous_departement->Nom_sous_depart }}</td>
-                               
-                            </tr>
-                                            @endif
-                                          @endforeach
-                                        @endif
-                                    @endif
-                                @endforeach
-                            @endif
-                           
-                       
-                        @endforeach
+                                <td>{{ Carbon::parse($emp->Date_nais)->age }}</td>
+                                <td>{{ $emp->date_recrutement }}</td>
+                                <td>{{ $emp->Nom_post }}</td>
+                                <td>{{ $emp->Nom_sous_depart }}</td>
+                                <td>{{ $emp->date_installation }}</td>
 
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

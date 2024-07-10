@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('id_abs')->primary()->autoIncrement();
             $table->date('date_abs');
             $table->date('heure_abs');
+            $table->string('statut');
             $table->integer('id_nin');
             $table->integer('id_p');
             $table->integer('id_sous_depart');

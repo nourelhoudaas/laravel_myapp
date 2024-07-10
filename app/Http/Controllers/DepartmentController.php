@@ -17,25 +17,31 @@ class DepartmentController extends Controller
     //la page dashboard_depart.blade.php
     public function dashboard_depart($dep_id)
     {
-       /* $empdep= DB::table('employes')
+   
+      
+        $empdep = DB::table('employes')
+        ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+        ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+        ->join('contients', 'posts.id_post', '=', 'contients.id_post')
+        ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+
         ->join('travails','employes.id_nin','=','travails.id_nin')
-        ->join('sous_departements','travails.id_sous_depart','=','sous_departements.id_sous_depart')
-        ->join('departements','Sous_departements.id_depart','=','departements.id_depart')
-        ->join('contients','sous_departements.id_sous_depart','=','contients.id_sous_depart')
-        ->join('posts','contients.id_post','=','posts.id_post')
-        ->where ('departements.id_depart','=',$dep_id)
-        ->select('employes.id_nin','employes.id_p','employes.Nom_emp','employes.Prenom_emp','sous_departements.id_sous_depart','sous_departements.Nom_sous_depart','posts.Nom_post')
-        ->get();*/
-
-        $empdep=Employe::with([
-            'occupeIdNin.post.contient.sous_departement.departement',
-            'occupeIdP.post.contient.sous_departement.departement'
-        ])->whereHas('occupeIdNin.post.contient.sous_departement.departement', function ($query) use ($dep_id) {
-            $query->where('id_depart', $dep_id);
-        })->orWhereHas('occupeIdP.post.contient.sous_departement.departement', function ($query) use ($dep_id) {
-            $query->where('id_depart', $dep_id);
-        })->get();
-
+        ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
+        ->where('departements.id_depart', $dep_id)
+        
+        ->get();
+    
+    
+    /*$empdep=Employe::with([
+        'occupeIdNin.post.contient.sous_departement.departement',
+        'occupeIdP.post.contient.sous_departement.departement',
+        'travailByNin.sous_departement.departement',
+        'travailByP.sous_departement.departement'
+    ])->whereHas('travailByNin.sous_departement.departement', function ($query) use ($dep_id) {
+        $query->where('id_depart', $dep_id);
+ 
+    })->get();*/
+//dd($empdep);
         $empdepart=Departement::get();
 
         /*$empdepart= DB::table('departements') 
