@@ -83,19 +83,57 @@ class EmployeesController extends Controller
        // dd($id);
        $dbempdepart = new Departement();
        $empdepart =$dbempdepart->get();
-        $detailemp=DB::table('employes')->join('travails','travails.id_nin','=','employes.id_nin')
+        $result=DB::table('employes')->distinct()
+                                        ->join('travails','travails.id_nin','=','employes.id_nin')
                                         ->join('occupes','employes.id_nin',"=",'occupes.id_nin')
-                                       ->join('sous_departements','travails.id_sous_depart',"=","sous_departements.id_sous_depart")
-                                       ->join('departements','departements.id_depart','=','sous_departements.id_depart')
-                                       ->join('posts','posts.id_post','=','occupes.id_post')
-                                       ->join('appartients','appartients.id_nin','=','employes.id_nin')
+                                        ->join('sous_departements','travails.id_sous_depart',"=","sous_departements.id_sous_depart")
+                                        ->join('departements','departements.id_depart','=','sous_departements.id_depart')
+                                        ->join('posts','posts.id_post','=','occupes.id_post')
+                                        ->join('appartients','appartients.id_nin','=','employes.id_nin')
                                         ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
                                         ->where('employes.id_nin',$id)
+                                        ->select('id_travail')
+                                        ->groupBy('id_travail')
                                         ->get();
                                       //  return response()->json($detailemp);
                                     //   print_r(compact('detailemp'));
                                    // dd($detailemp);
-        $nbr=$detailemp->count();
+        $nbr=$result->count();
+        $detailemp=array();    
+        foreach($result as $res)
+        {
+            $val=$res->id_travail;  
+            $inter=DB::table('employes')->distinct()
+                                        ->join('travails','travails.id_nin','=','employes.id_nin')
+                                        ->join('occupes','employes.id_nin',"=",'occupes.id_nin')
+                                        ->join('sous_departements','travails.id_sous_depart',"=","sous_departements.id_sous_depart")
+                                        ->join('departements','departements.id_depart','=','sous_departements.id_depart')
+                                        ->join('posts','posts.id_post','=','occupes.id_post')
+                                        ->join('appartients','appartients.id_nin','=','employes.id_nin')
+                                        ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
+                                        ->where('id_travail',$val)
+                                        ->select('employes.Nom_emp',
+                                        'employes.Prenom_emp',
+                                        'employes.id_nin',
+                                        'employes.Nom_ar_emp',
+                                        'employes.Prenom_ar_emp',
+                                        'employes.Date_nais',
+                                        'employes.Lieu_nais_ar',
+                                        'employes.adress',
+                                        'employes.adress_ar',
+                                        'employes.sexe',
+                                        'employes.email',
+                                        'employes.Phone_num',
+                                        'posts.Nom_post',
+                                        'departements.Nom_depart',
+                                        'sous_departements.Nom_sous_depart',
+                                        'travails.date_chang',
+                                        'travails.date_installation',
+                                        'travails.notation')
+                                         ->first();
+            array_push($detailemp,$inter)  ;                     
+        }
+      //  dd($detailemp);
         if($nbr>0){
             $nbr=$nbr-1;
         return view('BioTemplate.index',compact('detailemp','nbr','empdepart'));}

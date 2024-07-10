@@ -724,6 +724,7 @@ main .recent_order a{
 }
 /* button 33 */
 .button-33 {
+  margin: 5px;
 background-color: #c2fbd7;
 border-radius: 100px;
 box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
@@ -748,14 +749,20 @@ transform: scale(1.05) rotate(-1deg);
 }
 .file-holder
 {
+  width: 100%;
   height: 100%;
   text-align: center;
 }
 .file-select-holder
 {
+  width: 100%;
   height: 60%;
   text-align: center;
   align-content: center;
+}
+.file-select-holder input[name='file']
+{
+  width: 100%;
 }
 .file-prog
 {
@@ -1030,4 +1037,8 @@ transform: scale(1.05) rotate(-1deg);
         flex: 0 0 auto;
         width: 100%;
     }
+}
+.error-handle
+{
+  box-shadow: 0px 0px 5px 5px #ff13138c
 }

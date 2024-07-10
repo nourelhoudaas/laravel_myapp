@@ -52,63 +52,63 @@ $id=0;
                 <div class="row mt-2">
                 <div class="col-md-12">
                         <label class="labels">NIN</label>
-                        <input type="text" class="form-control" placeholder="enter NIN" value="" id="NIN">
+                        <input type="text" class="form-control" placeholder="enter NIN" value="" id="ID_NIN">
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Nom</label>
-                        <input type="text" class="form-control" placeholder="Nom" value="" id="name">
+                        <input type="text" class="form-control" placeholder="Nom" value="" id="Nom_P">
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Prenom</label>
-                        <input type="text" class="form-control" value="" placeholder="Prenom" id="sname">
+                        <input type="text" class="form-control" value="" placeholder="Prenom" id="Prenom_O">
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">الإسم</label>
-                        <input type="text" class="form-control" placeholder="الإسم" value="" id="nameAR" style="direction: rtl;">
+                        <input type="text" class="form-control" placeholder="الإسم" value="" id="Nom_PAR" style="direction: rtl;">
                     </div>
                     <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">اللقب</label>
-                        <input type="text" class="form-control" value="" placeholder=" ...اللقب" id="prenomAR" style="direction: rtl;">
+                        <input type="text" class="form-control" value="" placeholder=" ...اللقب" id="Prenom_AR" style="direction: rtl;">
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <label class="labels">Numéro Telephone</label>
-                        <input type="text" class="form-control" placeholder="enter Numero" value="" id="nbrphone">
+                        <input type="text" class="form-control" placeholder="enter Numero" value="" id="PHONE_NB">
                     </div>
                     <div class="col-md-12">
                         <label class="labels">Address Line 1</label>
-                        <input type="text" class="form-control" placeholder="enter address line 1" value="" id="adr1">
+                        <input type="text" class="form-control" placeholder="enter address line 1" value="" id="Address">
                     </div>
                     <div class="col-md-12" style="direction: rtl;">
                         <label class="labels">العنوان</label>
-                        <input type="text" class="form-control" placeholder="شارع ..." value="" id="adr1AR" style="direction: rtl;">
+                        <input type="text" class="form-control" placeholder="شارع ..." value="" id="AddressAR" style="direction: rtl;">
                     </div>
                     <div class="col-md-12">
                         <label class="labels">date Naissance</label>
-                        <input type="date" class="form-control" value="" id="brtday">
+                        <input type="date" class="form-control" value="" id="Date_Nais_P">
                     </div>
                     <div class="row mt-3">
                     <div class="col-md-6">
                         <label class="labels">Lieu</label>
-                        <input type="text" class="form-control" placeholder="Wilaya" value="" id="plc">
+                        <input type="text" class="form-control" placeholder="Wilaya" value="" id="Lieu_N">
                     </div>
                     <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">مكان الإزدياد</label>
-                        <input type="text" class="form-control" value="" placeholder="ولاية ..." id="plcAR" style="direction: rtl;">
+                        <input type="text" class="form-control" value="" placeholder="ولاية ..." id="Lieu_AR" style="direction: rtl;">
                     </div>
                 </div>
                     <div class="col-md-12">
                         <label class="labels">Email ID</label>
-                        <input type="text" class="form-control" placeholder="enter email" value="" id="mail">
+                        <input type="text" class="form-control" placeholder="enter email" value="" id="EMAIL">
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
                     <label class="labels">Sexe</label>
-                       <select name="sexe" id="sexe"class="form-select form-select-lg mb-3" aria-label="Default select example">
+                       <select name="sexe" id="Sexe"class="form-select form-select-lg mb-3" aria-label="Default select example">
                             <option value="">--Please choose an option--</option>
                             <option value="Femme">Femme</option>
                             <option value="Homme">Homme</option>
