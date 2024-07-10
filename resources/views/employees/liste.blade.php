@@ -1,3 +1,7 @@
+@php
+    use Carbon\Carbon;
+@endphp
+
 @extends('base')
 
 @section('title', 'Employees')
@@ -21,13 +25,20 @@
                             <tr>
                                 <th>Nom </th>
                                 <th> Prenom</th>
+                                <th> Age</th>
+                                <th> Date Recrutement</th>
                                 <th>poste</th>
                                 <th>Sous Direction</th>
                                 <th>Direction</th>
+                                <th>Date Installation</th>
+                            
                             </tr>
                         </thead>
                         <tbody>
                         @foreach ($employe as $employe)
+                           @if($employe->travailByNin)
+                
+                                @foreach($employe->travailByNin as $travail)
                             @if ($employe->occupeIdNin)
                                 @foreach ($employe->occupeIdNin as $occupe)
                                   @if ($occupe && $occupe->post)
@@ -39,9 +50,12 @@
                                     <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</a>
                                 </td>
                                 <td>{{ $employe->Prenom_emp }}</td>
+                                <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
+                                <td>{{ $occupe->date_recrutement }}</td>
                                 <td>{{ $occupe->post->Nom_post }}</td>
                                 <td>{{ $contient->sous_departement->Nom_sous_depart }}</td>
                                 <td>{{ $contient->sous_departement ->departement->Nom_depart }}</td>
+                                <td>{{ $travail->date_installation }}</td>
                             </tr>
                                             @endif
                                           @endforeach
@@ -49,7 +63,8 @@
                                     @endif
                                 @endforeach
                             @endif
-                           
+                            @endforeach
+                            @endif
                         @endforeach
                         </tbody>
                     </table>
