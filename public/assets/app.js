@@ -1,10 +1,3 @@
-/*import './bootstrap';
-
-const hamBurger = document.querySelector(".toggle-btn");
-
-hamBurger.addEventListener("click", function () {
-  document.querySelector("#sidebar").classList.toggle("expand");
-});*/
 
 function uploadFile() {
   var formData = new FormData();
@@ -49,9 +42,9 @@ function uploadFile() {
 }
 var md=false;
 document.getElementById('mod-but').addEventListener('click',function(){
-var icon= document.getElementById('btn-icon'); 
+var icon= document.getElementById('btn-icon');
 if(md == false){
-icon.classList.remove('fa-times') 
+icon.classList.remove('fa-times')
 icon.classList.add('fa-pencil');
 document.getElementById('Nom_P').disabled=false;
 document.getElementById('Nom_PAR').disabled=false;
@@ -66,7 +59,7 @@ md=true;}
 else
 {
 
-icon.classList.remove('fa-pencil') 
+icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
 document.getElementById('Nom_P').disabled=true;
 document.getElementById('Nom_PAR').disabled=true;
@@ -81,3 +74,44 @@ md=false;
 }
 })
 
+//add profile
+
+     $(document).ready(function(){
+    $('#btn-sv').click(function(e){
+        e.preventDefault();
+                selectElement =document.querySelector('#sexe');
+            output = selectElement.value;
+                // Assuming you are searching by ID_NIN
+                var formData = {
+                    ID_NIN:parseInt($('#NIN').val()),
+                    Nom_P:$('#name').val(),
+                    Prenom_O:$('#sname').val(),
+                    Nom_PAR:$('#nameAR').val(),
+                    Prenom_AR:$('#prenomAR').val(),
+                    PHONE_NB : parseInt($('#nbrphone').val()),
+                    Address :$('#adr1').val(),
+                    AddressAR :$('#adr1AR').val(),
+                    Date_Nais_P: $('#brtday').val(),
+                    Lieu_N:$('#plc').val(),
+                    Lieu_AR:$('#plcAR').val(),
+                    Sexe:output,
+                    EMAIL:$('#mail').val(),
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    _method: 'POST'
+                };
+
+                $.ajax({
+                    url: '/Employe/add/',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        alert('donnee personnel a ajouter')
+                        var id=$('#NIN').val();
+                      window.location.href="/Employe/IsTravaill/"+id;
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+    });
+});
