@@ -44,6 +44,7 @@ function uploadFile() {
 //add profile
 
      $(document).ready(function(){
+
     $('#ID_NIN').focus(function()
     {
         $(this).removeClass('error-handle')
@@ -128,8 +129,9 @@ function uploadFile() {
                     type: 'POST',
                     data: formData,
                     success: function (response) {
+                        
+                        var id=$('#ID_NIN').val();
                         alert('donnee personnel a ajouter')
-                        var id=$('#NIN').val();
                       window.location.href="/Employe/IsTravaill/"+id;
                     },
                     error: function (xhr) {
@@ -144,11 +146,26 @@ function uploadFile() {
                     }
                 });
     });
-});
-
 
 //ADMIN
-$(document).ready(function(){
+
+$('#SDic').focus(function()
+{
+    $(this).removeClass('error-handle')
+});
+$('#Dic').focus(function()
+{
+    $(this).removeClass('error-handle')
+});
+$('#post').focus(function()
+{
+    $(this).removeClass('error-handle')
+});
+$('#PVDate').focus(function()
+{
+    $(this).removeClass('error-handle')
+});
+
     $('#aft').click(function(e){
         e.preventDefault();
 
@@ -175,13 +192,38 @@ $(document).ready(function(){
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);
+                        var error=xhr.responseJSON;
+                        $.each(error.errors,function(key,val)
+                    {
+                        console.log('key'+key);
+                        $('#'+key+'').addClass('error-handle')
+                    })
                     }
                 });
     });
-});
+ 
+//TRAVAIL
 
-//TRAVILL
-$(document).ready(function(){
+$('#DipRef').focus(function()
+{
+    $(this).removeClass('error-handle')
+});
+$('#Spec').focus(function()
+{
+    $(this).removeClass('error-handle')
+});
+$('#Filr').focus(function()
+{
+    $(this).removeClass('error-handle')
+});
+$('#Dip').focus(function()
+{
+    $(this).removeClass('error-handle')
+});
+$('#DipDate').focus(function()
+{
+    $(this).removeClass('error-handle')
+});
     $('#aft2').click(function(e){
         e.preventDefault();
 
@@ -208,10 +250,53 @@ $(document).ready(function(){
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);
+                        var error=xhr.responseJSON;
+                        $.each(error.errors,function(key,val)
+                    {
+                        console.log('key'+key);
+                        $('#'+key+'').addClass('error-handle')
+                    })
                     }
                 });
     });
 });
+
+//TRAVAIL
+function uploadFile2() {
+    var formData = new FormData();
+    var file = document.getElementById('file').files[0];
+    formData.append('file', file);
+    formData.append('_token', document.querySelector('input[name="_token"]').value);
+
+    var id='{{ $employe->id_nin }}';
+    formData.append('num', id);
+    $.ajax({
+        url: '/upload/numdossiers',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        xhr: function() {
+            var xhr = new window.XMLHttpRequest();
+            xhr.upload.addEventListener("progress", function(e) {
+                if (e.lengthComputable) {
+                    var percentComplete = (e.loaded / e.total) * 100;
+                    $('#progressWrapper').show();
+                    $('#progressBar').width(percentComplete + '%');
+                }
+            }, false);
+            return xhr;
+        },
+        success: function(data) {
+            $('#successMessage').show();
+            $('#progressWrapper').hide();
+            $('#progressBar').width('0%');
+        },
+        error: function() {
+            alert('Upload failed');
+        }
+    });
+}
 
 
 $(document).ready(function () {
@@ -316,4 +401,3 @@ document.getElementById('adrAR').disabled=true;
 md=false;
 }
 })
-

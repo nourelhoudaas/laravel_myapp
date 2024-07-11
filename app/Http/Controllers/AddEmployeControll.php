@@ -161,12 +161,14 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     $post=New Post();
        $dbpost=$post->get();
     $id=$Request->get('ID_NIN');
+    dd($id);
     $employe=Employe::where('id_nin', $id)->firstOrFail();
+   
     $Appartient=Appartient::where('id_nin', $id)->get();
     if($Appartient->count() > 0)
     {
         //----------------- send To next $etp for Donnée Administration ----------------------
-       // dd($Appartient);
+        dd($Appartient);
        $post=New Post();
        $dbpost=$post->get();
         $employe=Employe::where('id_nin', $id)->firstOrFail();
@@ -187,8 +189,11 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
         $niv=Niveau::where('Nom_niv',$Request->get('Dip'))
                      ->where('Specialité',$Request->get('Spec'))
                      ->first();
-      //dd($niv);
+      dd($niv);
        $idn=$niv->id_niv;
+       $Request->validate([
+        'DipRef' => 'required|string',
+    ]);
         $test= DB::table('appartients')->insert([
              'id_nin' => $Request->get('ID_NIN'),
              'id_p' => $Request->get('ID_P'),
