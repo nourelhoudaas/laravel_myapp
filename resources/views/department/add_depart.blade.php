@@ -1,9 +1,13 @@
+
 @extends('base')
 
-@section('title', 'Add')
+@section('title', 'Dashboard Direction')
 
 @section('content')
 
-<h1>Ajout</h1>
+    <body>
 
+        <!-- start section aside -->
+        @include('./navbar.sidebar')
+        <!-- end section aside -->
 @endsection
