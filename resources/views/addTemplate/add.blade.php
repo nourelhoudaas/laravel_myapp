@@ -27,6 +27,7 @@ $id=0;
     <div class="step-name">Généré une décision </div>
   </div>
 </div> --}}
+
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md">

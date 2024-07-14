@@ -86,6 +86,7 @@ class AddEmployeControll extends Controller
                 'Phone_num'=>$Request->get('PHONE_NB'),
             ]);
           //  dd($employe);
+          
         if($employe->save())
         {
             //$dbcontaint=$Containt->get();
@@ -117,7 +118,6 @@ class AddEmployeControll extends Controller
             'DatePV'=>'required|date'
         ]);
        // dd($Request);
-
 try {
    $test= DB::table('travails')->insert([
         'id_nin' => $Request->get('ID_NIN'),
@@ -161,14 +161,14 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     $post=New Post();
        $dbpost=$post->get();
     $id=$Request->get('ID_NIN');
-    dd($id);
+   // dd($id);
     $employe=Employe::where('id_nin', $id)->firstOrFail();
    
     $Appartient=Appartient::where('id_nin', $id)->get();
     if($Appartient->count() > 0)
     {
         //----------------- send To next $etp for Donnée Administration ----------------------
-        dd($Appartient);
+      //  dd($Appartient);
        $post=New Post();
        $dbpost=$post->get();
         $employe=Employe::where('id_nin', $id)->firstOrFail();
@@ -189,7 +189,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
         $niv=Niveau::where('Nom_niv',$Request->get('Dip'))
                      ->where('Specialité',$Request->get('Spec'))
                      ->first();
-      dd($niv);
+     // dd($niv);
        $idn=$niv->id_niv;
        $Request->validate([
         'DipRef' => 'required|string',
@@ -241,14 +241,14 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
       'id_nin'=>$request->get('ID_NIN'),	
       'id_sous_depart'=>$request->get('SDic'),	
       'id_p'=>$request->get('ID_P')	,
-      'id_bureau'=>5,
+      'id_bureau'=>206,
     ]);
     //dd($travaill);
   
     if($travaill->save())
     {
       Occupe::create([
-        'date_recrutement'=>$request->get('PVDate'),
+        'date_recrutement'=>$request->get('RecDate'),
         'echellant'=>0	,
         'id_nin'=>$request->get('ID_NIN'),	
         'id_p'=>$request->get('ID_P')	,

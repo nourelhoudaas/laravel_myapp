@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('travails', function (Blueprint $table) {
             $table->integer('id_travail')->primary()->autoIncrement();
-            $table->date('date_chang');
             $table->date('date_installation');
+            $table->date('date_chang');
             $table->float('notation');
             $table->integer('id_nin');
             $table->integer('id_sous_depart');
