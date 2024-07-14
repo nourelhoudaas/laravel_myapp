@@ -279,6 +279,7 @@ $('#PVDate').focus(function()
     $('#aft').click(function(e){
         e.preventDefault();
 
+        
                 // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:id,

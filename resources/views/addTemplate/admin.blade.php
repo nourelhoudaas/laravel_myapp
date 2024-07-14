@@ -124,5 +124,6 @@
 <script>
      var id = '{{ $employe->id_nin }}';
     var idp = '{{ $employe->id_p }}';
+    
 </script>
 @endsection

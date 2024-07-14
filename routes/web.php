@@ -67,6 +67,7 @@ Route::controller(DepartmentController::class)->group(function(){
     ->name('app_dashboard_depart');
 });
 
+
 //Route::get('/addTemplate',[EmployeControl::class,'create'])->name('Employe.create');
 
 

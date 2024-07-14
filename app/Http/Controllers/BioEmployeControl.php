@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 class BioEmployeControl extends Controller
 {
     //
+    
     public function create($id)
     {
         $employe=Employe::where('ID_NIN', $id)->firstOrFail();

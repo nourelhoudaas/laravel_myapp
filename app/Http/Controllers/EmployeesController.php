@@ -153,6 +153,7 @@ class EmployeesController extends Controller
                                          ->first();
             array_push($detailemp,$inter)  ;                     
         }
+        
        //  dd($detailemp);
         if($nbr>0){
             $nbr=$nbr-1;

@@ -169,6 +169,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     {
         //----------------- send To next $etp for Donnée Administration ----------------------
       //  dd($Appartient);
+      
        $post=New Post();
        $dbpost=$post->get();
         $employe=Employe::where('id_nin', $id)->firstOrFail();
