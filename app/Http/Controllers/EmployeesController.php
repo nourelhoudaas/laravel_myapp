@@ -259,6 +259,7 @@ return response()->json($empdep);
      //   dd(intval($request->get('ID_P')));
        // dd($request);
         $heur='13:00:00';
+        $justf="Justifie";
         if($request->get('jour') == '21')
         {
             $heur='08:30:00';
@@ -267,10 +268,15 @@ return response()->json($empdep);
         {
             $heur='16:30:00';
         }
+        if($request->get('justfi')=== 'F2')
+        {
+                $justf="NoJustier";
+        }
         $abs=new Absence([
             'id_nin'=>$id_nin,
             'id_p'=>$id_p,
             'id_sous_depart'=>$soud_dic,
+            'statut'=>$justf,
             'heure_abs'=>$heur,
             'date_abs'=>$request->get('Date_ABS'),
         ]);
