@@ -111,7 +111,7 @@ $id=0;
                 <div class="row mt-3">
                     <div class="col-md-6">
                     <label class="labels">Sexe</label>
-                       <select name="sexe" id="Sexe"class="form-select form-select-lg mb-3" aria-label="Default select example">
+                       <select name="sexe" id="Sexe"class="form-select form-select-lm mb-3" aria-label="Default select example">
                             <option value="">--Please choose an option--</option>
                             <option value="Femme">Femme</option>
                             <option value="Homme">Homme</option>
@@ -141,7 +141,7 @@ $id=0;
                       </div>
                      </div>
                      <div class="row mt-3">
-                     <div class="col-md-6">
+                     <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">لقب الأم</label>
                         <input type="text" class="form-control" placeholder="Prenom" value="" id="Nom_mereAR">
                      </div>
@@ -152,7 +152,7 @@ $id=0;
                      </div>
                      <div class="col-md-6">
                         <label class="labels">Situation :</label>
-                      <select select name="situat" id="situat"class="form-select form-select-lg mb-3" aria-label="Default select example">
+                      <select select name="situat" id="situat"class="form-select form-select-lm mb-3" aria-label="Default select example">
                         <option value="">Selection Situation</option>
                         <option value="cel">Celebtiare</option>
                         <option value="marie">Marie</option>
@@ -162,7 +162,7 @@ $id=0;
                      </div>
                      <div class="col-md-2">
                         <label class="labels">combien d'enfant</label>
-                        <select select name="nbrenfant" id="nbrenfant"class="form-select form-select-lg mb-3" aria-label="Default select example">
+                        <select select name="nbrenfant" id="nbrenfant"class="form-select form-select-lm mb-3" aria-label="Default select example">
                         </select>
                     </div>
                 </div>
