@@ -1,4 +1,5 @@
 
+
 function uploadFile() {
   var formData = new FormData();
   var file = document.getElementById('file').files[0];
@@ -129,7 +130,7 @@ function uploadFile() {
                     type: 'POST',
                     data: formData,
                     success: function (response) {
-                        
+
                         var id=$('#ID_NIN').val();
                         alert('donnee personnel a ajouter')
                       window.location.href="/Employe/IsTravaill/"+id;
@@ -266,7 +267,7 @@ function uploadFile2() {
     formData.append('file', file);
     formData.append('_token', document.querySelector('input[name="_token"]').value);
 
-    
+
     formData.append('num', id);
     $.ajax({
         url: '/upload/numdossiers',

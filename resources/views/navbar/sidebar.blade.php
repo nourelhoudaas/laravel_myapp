@@ -71,7 +71,7 @@
                                         </a>
                                     @endforeach
                                     </div>
-                                    <a href="{{route('app_add_depart')}}" class="nav__link">
+                                    <a href="{{route('app_add_depart',['dep_id'=>$empdepart->id_depart])}}" class="nav__link">
                                         <i class='bx bx-list-plus nav__icon' ></i>
                                             <span class="nav__name">Add Direction</span>
 
