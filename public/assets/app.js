@@ -123,12 +123,16 @@ function closeNav(absensform,id_nin,absens) {
     $('#mySidenav').removeClass('toRight')
     if( soire !=='' || matin !=='')
         {
+            var i = 0;
+            if(i<1){
     $.ajax({
         url: '/add_absence/',
         data:absensform,
         type:'POST',
         success:function(response)
         {
+           
+            var j=1;
             alert('Absens');
             $("#"+id_nin+" i").remove();
             $('#'+id_nin).removeClass('pre');
@@ -138,11 +142,16 @@ function closeNav(absensform,id_nin,absens) {
             soire=''
             justfi=''
             jour='';
+            i++;
+            j++;
+            console.log('i '+i+' j'+ j)
         }
-      })
-    
-        
-      
+      })    
+    }
+    else
+    {
+        alert('close it with '+i);
+    }  
     }
     else
     {
@@ -484,6 +493,7 @@ $(document).ready(function() {
     var absens='<i id="stdout-ic" class="fa fa-user-times" aria-hidden="true"></i>';
     var present='<i id="stdin-ic" class="fa fa-check-circle" aria-hidden="true"></i>';
     var dateabs=new Object();
+    var che=0;
    if(datch === '')
    {
     
@@ -589,7 +599,14 @@ $(document).ready(function() {
                                 }
                                 $("#close").click(function()
                             {
+                                if(che == 0){
                                 closeNav(absensform,id_nin,absens)
+                            che++;
+                            }
+                            else
+                            {
+                                che=0;
+                            }
                             })
                             }
                                 else
@@ -658,7 +675,14 @@ $(document).ready(function() {
                               }
                               $("#close").click(function()
                             {
-                                closeNav(absensform,id_nin,absens)
+                                if(che == 0){
+                                    closeNav(absensform,id_nin,absens)
+                                      che++;
+                                }
+                                else
+                                {
+                                    che=0;
+                                }
                             })
                             }
                               else
