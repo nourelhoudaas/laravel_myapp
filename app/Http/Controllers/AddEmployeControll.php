@@ -71,7 +71,7 @@ class AddEmployeControll extends Controller
           //  dd($Request);
             $employe = new Employe([
                 'id_nin' => $Request->get('ID_NIN'),
-                'id_p' => rand(1, 100),
+                'id_p' => $Request->get('ID_SS'),
                 'Nom_emp' => $Request->get('Nom_P'),
                 'Prenom_emp' => $Request->get('Prenom_O'),
                 'Nom_ar_emp' => $Request->get('Nom_PAR'),

@@ -9,7 +9,7 @@ $id=0;
 @section('content')
 <body>
 
-{{-- <div class="stepper-wrapper">
+<div class="stepper-wrapper">
   <div class="stepper-item completed">
     <div class="step-counter">1</div>
     <div class="step-name">Données Personnel</div>
@@ -26,7 +26,7 @@ $id=0;
     <div class="step-counter">4</div>
     <div class="step-name">Généré une décision </div>
   </div>
-</div> --}}
+</div>
 
 
 <div class="container rounded bg-white mt-5 mb-5">
@@ -51,6 +51,10 @@ $id=0;
                 <div class="col-md-12">
                         <label class="labels">NIN</label>
                         <input type="text" class="form-control" placeholder="enter NIN" value="" id="ID_NIN">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="labels">Numero Securite Social</label>
+                        <input type="text" class="form-control" placeholder="enter NSS" value="" id="ID_SS">
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Nom</label>
@@ -113,12 +117,57 @@ $id=0;
                             <option value="Homme">Homme</option>
                         </select>
                     </div>
-                    <div class="col-md-6">
-
+                    <hr>
+                    <span>Situation Famillaire</span>
+                    <hr>
+                    <div class="row mt-3">
+                     <div class="col-md-6">
+                        <label class="labels">Prenom du Pere</label>
+                        <input type="text" class="form-control" placeholder="Prenom" value="" id="Prenom_Per">
+                     </div>
+                     <div class="col-md-6" style="direction: rtl;">
+                        <label class="labels">إسم الأب</label>
+                        <input type="text" class="form-control" value="" placeholder="إسم" id="Prenom_PerAR" style="direction: rtl;">
+                     </div>
+                     </div>
+                    <div class="row mt-3">
+                     <div class="col-md-6">
+                        <label class="labels">Nom du Mere </label>
+                        <input type="text" class="form-control" placeholder="Nom" value="" id="Nom_mere">
+                     </div>
+                      <div class="col-md-6">
+                        <label class="labels">Prenom du Mere </label>
+                        <input type="text" class="form-control" placeholder="Prenom" value="" id="Prenom_mere">
+                      </div>
+                     </div>
+                     <div class="row mt-3">
+                     <div class="col-md-6">
+                        <label class="labels">لقب الأم</label>
+                        <input type="text" class="form-control" placeholder="Prenom" value="" id="Nom_mereAR">
+                     </div>
+                     <div class="col-md-6" style="direction: rtl;">
+                        <label class="labels">إسم الأم</label>
+                        <input type="text" class="form-control" value="" placeholder="إسم" id="Prenom_mereAR" style="direction: rtl;">
+                     </div>
+                     </div>
+                     <div class="col-md-6">
+                        <label class="labels">Situation :</label>
+                      <select select name="situat" id="situat"class="form-select form-select-lg mb-3" aria-label="Default select example">
+                        <option value="">Selection Situation</option>
+                        <option value="cel">Celebtiare</option>
+                        <option value="marie">Marie</option>
+                        <option value="Divor">Divorce</option>
+                        <option value="veuve">veuve</option>
+                     </select>
+                     </div>
+                     <div class="col-md-2">
+                        <label class="labels">combien d'enfant</label>
+                        <select select name="nbrenfant" id="nbrenfant"class="form-select form-select-lg mb-3" aria-label="Default select example">
+                        </select>
                     </div>
                 </div>
-               
-
+                <div class="col-md-6" id="addf">    
+                      </div>
                 <div class="mt-5 text-end">
                     <button class="btn btn-primary profile-button" type="submit" id="btn-sv">Next step</button>
                 </div>
@@ -156,3 +205,39 @@ $id=0;
 
 
    @endsection
+<script>
+      document.addEventListener('DOMContentLoaded', () => {
+            const dropdown = document.getElementById('nbrenfant');
+            const maxNumber = 10; // Change this to the desired maximum number
+
+            for (let i = 0; i <= maxNumber; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                dropdown.appendChild(option);
+            }
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdown = document.getElementById('situat');
+            const inputContainer = document.getElementById('addf');
+
+            dropdown.addEventListener('change', () => {
+                // Clear previous input if any
+                inputContainer.innerHTML = '';
+
+                if (dropdown.value === 'marie') {
+                    const input = document.createElement('input');
+                    const label = document.createElement('label');
+                    label.classList='labels'
+                    label.textContent ="Prenom du Mari"
+                    input.type = 'text';
+                    input.placeholder = 'Prenom Du marie';
+                    input.classList='form-control'
+                    input.name = 'marie';
+                    inputContainer.appendChild(label);
+                    inputContainer.appendChild(input);
+                }
+                // Add other conditions for different options if needed
+            });
+        });
+</script>

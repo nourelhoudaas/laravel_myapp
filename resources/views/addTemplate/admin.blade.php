@@ -47,7 +47,7 @@
                 <div class="row mt-2">
                 <div class="col-md-12">
                         <label class="labels">IDentification Professionnel</label>
-                        <input type="text" class="form-control" placeholder="" value="{{$employe->id_p}}" id="IDP" disabled>
+                        <input type="text" class="form-control" placeholder="" value="{{$employe->id_emp}}" id="IDP" disabled>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Direction</label>

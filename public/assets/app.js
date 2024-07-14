@@ -227,6 +227,7 @@ function closeNav(absensform,id_nin,absens) {
                 // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:parseInt($('#ID_NIN').val()),
+                    ID_SS:parseInt($('#ID_SS').val()),
                     Nom_P:$('#Nom_P').val(),
                     Prenom_O:$('#Prenom_O').val(),
                     Nom_PAR:$('#Nom_PAR').val(),
