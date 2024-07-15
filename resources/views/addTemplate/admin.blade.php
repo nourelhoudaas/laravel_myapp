@@ -47,7 +47,7 @@
                 <div class="row mt-2">
                 <div class="col-md-12">
                         <label class="labels">IDentification Professionnel</label>
-                        <input type="text" class="form-control" placeholder="" value="{{$employe->id_p}}" id="IDP" disabled>
+                        <input type="text" class="form-control" placeholder="" value="{{$employe->id_emp}}" id="IDP" disabled>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Direction</label>
@@ -83,6 +83,10 @@
                         <input type="date" class="form-control" id="PVDate">
                     </div>
                 </div>
+                <div class="col-md-6">
+                        <label class="labels">Date Recrutement Installation</label>
+                        <input type="date" class="form-control" id="RecDate">
+                    </div>
                 <div class="mt-5 text-center">
                     <button class="btn btn-primary profile-button" type="submit" id="aft">Save Profile</button>
                 </div>
@@ -120,5 +124,6 @@
 <script>
      var id = '{{ $employe->id_nin }}';
     var idp = '{{ $employe->id_p }}';
+    
 </script>
 @endsection

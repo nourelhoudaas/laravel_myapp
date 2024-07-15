@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('absences', function (Blueprint $table) {
             $table->integer('id_abs')->primary()->autoIncrement();
             $table->date('date_abs');
-            $table->date('heure_abs');
+            $table->time('heure_abs');
             $table->string('statut');
             $table->integer('id_nin');
             $table->integer('id_p');

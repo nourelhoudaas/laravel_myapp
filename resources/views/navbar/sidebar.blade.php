@@ -71,7 +71,7 @@
                                         </a>
                                     @endforeach
                                     </div>
-                                    <a href="{{route('app_add_depart')}}" class="nav__link">
+                                    <a href="{{route('app_add_depart',['dep_id'=>$empdepart->id_depart])}}" class="nav__link">
                                         <i class='bx bx-list-plus nav__icon' ></i>
                                             <span class="nav__name">Add Direction</span>
 
@@ -102,6 +102,10 @@
                                     <a href="{{route('app_abs_emply')}}" class="nav__link">
                                         <i class='bx bxs-user-minus nav__icon' ></i>
                                         <span class="nav__name">Absence</span>
+                                        </a>
+                                        <a href="{{route('emp_list_conge')}}" class="nav__link">
+                                        <i class="fa fa-paper-plane" aria-hidden="true" style="margin-right:10px;" ></i>
+                                        <span class="nav__name">Congés</span>
                                         </a>
                                     </div>
                                 </div>

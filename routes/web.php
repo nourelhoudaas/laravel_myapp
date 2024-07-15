@@ -52,19 +52,22 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
     Route::get('/liste_abs','AbsenceEmply')->name('app_abs_emply');
     Route::get('/addTemplate/formulaire','createF')->name('app_add_emply');
-
-    Route::get('\/BioTemplate/search/{id}','getall')->name('BioTemplate.detail');
-
+    Route::get('/liste_abs_deprt/{id_dep}','listabs_depart')->name('list_abs_emply');
+    Route::get('/abense_dates/{date}','absens_date')->name('list_abs_date');
+    Route::get('/BioTemplate/search/{id}','getall')->name('BioTemplate.detail');
+    Route::post('/add_absence','add_absence')->name('emp_add_absence');
+    Route::get('/conge','list_cong')->name('emp_list_conge');
 });
 
 Route::controller(DepartmentController::class)->group(function(){
-    Route::get('/list_depart','ListeDepart')->name('app_depart');
-    Route::get('\add_depart','AddDepart')->name('app_add_depart');
+
+    Route::get('\add_depart{dep_id}','AddDepart')->name('app_add_depart');
 
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
 });
+
 
 //Route::get('/addTemplate',[EmployeControl::class,'create'])->name('Employe.create');
 

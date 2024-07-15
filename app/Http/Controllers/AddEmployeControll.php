@@ -71,7 +71,7 @@ class AddEmployeControll extends Controller
           //  dd($Request);
             $employe = new Employe([
                 'id_nin' => $Request->get('ID_NIN'),
-                'id_p' => rand(1, 100),
+                'id_p' => $Request->get('ID_SS'),
                 'Nom_emp' => $Request->get('Nom_P'),
                 'Prenom_emp' => $Request->get('Prenom_O'),
                 'Nom_ar_emp' => $Request->get('Nom_PAR'),
@@ -118,7 +118,6 @@ class AddEmployeControll extends Controller
             'DatePV'=>'required|date'
         ]);
        // dd($Request);
-
 try {
    $test= DB::table('travails')->insert([
         'id_nin' => $Request->get('ID_NIN'),
@@ -170,6 +169,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     {
         //----------------- send To next $etp for Donnée Administration ----------------------
       //  dd($Appartient);
+      
        $post=New Post();
        $dbpost=$post->get();
         $employe=Employe::where('id_nin', $id)->firstOrFail();
@@ -249,7 +249,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     if($travaill->save())
     {
       Occupe::create([
-        'date_recrutement'=>$request->get('PVDate'),
+        'date_recrutement'=>$request->get('RecDate'),
         'echellant'=>0	,
         'id_nin'=>$request->get('ID_NIN'),	
         'id_p'=>$request->get('ID_P')	,

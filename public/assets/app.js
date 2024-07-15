@@ -1,4 +1,5 @@
 
+
 function uploadFile() {
   var formData = new FormData();
   var file = document.getElementById('file').files[0];
@@ -40,7 +41,125 @@ function uploadFile() {
       }
   });
 }
+///------------------ this function for Nav left side -----------------------------
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    var radios = document.querySelectorAll('input[name="MheureRadio"]');
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+    var radios = document.querySelectorAll('input[name="SheureRadio"]');
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+    var radios = document.querySelectorAll('input[name="StatusRadio"]');
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+}
 
+function closeNav(absensform,id_nin,absens) {
+    document.getElementById("mySidenav").style.width = "0";
+    var matin,soire,jour;
+    var justfi;
+    $(document).ready(function(){
+        var selectedB = $('input[name="MheureRadio"]:checked');
+        if (selectedB.length > 0) {
+            var selectedValues = [];
+            selectedB.each(function() {
+                selectedValues.push({
+                    id: $(this).attr('id'),
+                    value: $(this).val()
+                });
+            });
+            console.log('the data select are '+JSON.stringify(selectedValues))
+            matin=selectedValues[0].value;
+    }
+    else
+    {
+        selectedB='';
+        matin='';
+    }
+    var selectedB = $('input[name="SheureRadio"]:checked');
+        if (selectedB.length > 0) {
+            var selectedValues = [];
+            selectedB.each(function() {
+                selectedValues.push({
+                    id: $(this).attr('id'),
+                    value: $(this).val()
+                });
+            });
+            console.log('the data select are '+JSON.stringify(selectedValues))
+            soire=selectedValues[0].value;
+    }
+    else
+    {
+        selectedB='';
+        soire='';
+    }
+    var selectedB = $('input[name="StatusRadio"]:checked');
+        if (selectedB.length > 0) {
+            var selectedValues = [];
+            selectedB.each(function() {
+                selectedValues.push({
+                    id: $(this).attr('id'),
+                    value: $(this).val()
+                });
+            });
+            console.log('the data select are '+JSON.stringify(selectedValues[0].value))
+            justfi=selectedValues[0].value;
+    }
+    else
+    {
+        selectedB='';
+        justfi=''
+    }
+   
+    
+    jour=soire+matin;
+    absensform.jour=jour
+    absensform.justifie=justfi;
+    console.log('version final is :: -->'+JSON.stringify(absensform));
+    $('#mySidenav').removeClass('toRight')
+    if( soire !=='' || matin !=='')
+        {
+            var i = 0;
+            if(i<1){
+    $.ajax({
+        url: '/add_absence/',
+        data:absensform,
+        type:'POST',
+        success:function(response)
+        {
+           
+            var j=1;
+            alert('Absens');
+            $("#"+id_nin+" i").remove();
+            $('#'+id_nin).removeClass('pre');
+            $('#'+id_nin).append(absens);
+            $('#'+id_nin).addClass('abs');
+            matin=''
+            soire=''
+            justfi=''
+            jour='';
+            i++;
+            j++;
+            console.log('i '+i+' j'+ j)
+        }
+      })    
+    }
+    else
+    {
+        alert('close it with '+i);
+    }  
+    }
+    else
+    {
+        alert('chose time');
+    }
+})
+}
+//------------------------------------------------------------------------------------
 //add profile
 
      $(document).ready(function(){
@@ -108,6 +227,7 @@ function uploadFile() {
                 // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:parseInt($('#ID_NIN').val()),
+                    ID_SS:parseInt($('#ID_SS').val()),
                     Nom_P:$('#Nom_P').val(),
                     Prenom_O:$('#Prenom_O').val(),
                     Nom_PAR:$('#Nom_PAR').val(),
@@ -129,7 +249,7 @@ function uploadFile() {
                     type: 'POST',
                     data: formData,
                     success: function (response) {
-                        
+
                         var id=$('#ID_NIN').val();
                         alert('donnee personnel a ajouter')
                       window.location.href="/Employe/IsTravaill/"+id;
@@ -169,6 +289,7 @@ $('#PVDate').focus(function()
     $('#aft').click(function(e){
         e.preventDefault();
 
+        
                 // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:id,
@@ -177,6 +298,7 @@ $('#PVDate').focus(function()
                     SDic: parseInt($('#SDic').val()),
                     post:$('#post').val(),
                     PVDate:$('#PVDate').val(),
+                    RecDate:$('#RecDate').val(),
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     _method: 'POST'
                 };
@@ -266,7 +388,7 @@ function uploadFile2() {
     formData.append('file', file);
     formData.append('_token', document.querySelector('input[name="_token"]').value);
 
-    
+
     formData.append('num', id);
     $.ajax({
         url: '/upload/numdossiers',
@@ -366,6 +488,223 @@ $(document).ready(function () {
     })
 });
 
+// ------------- getting list empl with his dep ------------
+$(document).ready(function() {
+    var datch= $('#abs_date').val();
+    var absens='<i id="stdout-ic" class="fa fa-user-times" aria-hidden="true"></i>';
+    var present='<i id="stdin-ic" class="fa fa-check-circle" aria-hidden="true"></i>';
+    var dateabs=new Object();
+    var che=0;
+   if(datch === '')
+   {
+    
+    $('#ddate').addClass('error-handle');
+   }
+    $('#abs_date').change(function()
+{
+    var dates=$(this).val();
+    if(dates)
+    {
+        $('#ddate').removeClass('error-handle');
+        $('#Dep option:first').prop('selected', true);
+        $('#AbsTable tbody').empty();
+        $.ajax({
+            url:'/abense_dates/'+dates,
+            method :'GET',
+            success:function(response)
+            {
+                dateabs=response;
+                console.log('dattes'+JSON.stringify(dateabs))
+            }
+        })
+    }
+    else
+    {
+        $(this).aaddClass('error-hadle');
+    }
+});
+   
+       // alert('not empty')
+     //   console.log('tes'+itemsdate.id_nin);
+        $('#Dep').change(function() {
+            let list_abs=new Object()
+            var dep = $(this).val();
+            var dates=$('#abs_date').val();
+            console.log('date'+$.isEmptyObject(dateabs));
+            if(!$.isEmptyObject(dateabs))
+            {
+            if (dep) {
+                $.ajax({
+                    url: '/liste_abs_deprt/' + dep,
+                    method: 'GET',
+                    success: function(response) {
+                        $('#AbsTable tbody').empty();
+                        list_abs=response
+                        list_abs.absens=false;
+                        list_abs.forEach(function(item) {
+                           console.log('--'+JSON.stringify(dateabs));
+                         //  if()
+                     dateabs.forEach(function(itemsdate){
+                            if(item.id_nin === itemsdate.id_nin)
+                            {
+                                item.absens=true;
+                            }
+                             })  
+                });
+                console.log('list'+JSON.stringify(list_abs))
+                list_abs.forEach(function(item){
+                    if(item.absens)
+                    {
+                        $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
+                        + '</td><td>' + item.Prenom_emp 
+                        + '</td><td>' + item.Nom_post 
+                        + '</td><td>' + item.Nom_sous_depart 
+                        + '</td><td>' + item.Nom_depart 
+                        + '</td><td id="stdout'+item.id_nin+'" class="std-handle abs">'+absens+'</td></tr>');
+                    }else
+                    {
+
+                        $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
+                        + '</td><td>' + item.Prenom_emp 
+                        + '</td><td>' + item.Nom_post 
+                        + '</td><td>' + item.Nom_sous_depart 
+                        + '</td><td>' + item.Nom_depart 
+                        + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+
+                    }
+                })
+               
+              
+                        $("#AbsTable tbody tr").each(function(){
+                            var id_p=$(this).attr('id');   
+                            var idme=$(this).find('td:nth-child(6)');
+                            var id_nin=idme.attr('id')
+                              $('#'+id_nin).click(function(){
+                               
+                               //   alert('present')
+                               // console.log('id -> user  '+id_nin);
+                                var check=$('#'+id_nin+' i').attr('id');
+                           //     console.log('icons id'+check);
+                                var checkv2 =  present.split('"');
+                                console.log('gtting data'+checkv2[1]);
+                              if(check === checkv2[1]){
+                                openNav();
+                                var absensform={
+                                  ID_NIN:id_nin,
+                                  ID_P:id_p,
+                                  Dic:dep,
+                                  heur:1,
+                                  Date_ABS:dates,
+                                  _token: $('meta[name="csrf-token"]').attr('content'),
+                                  _method: 'POST'
+                                }
+                                $("#close").click(function()
+                            {
+                                if(che == 0){
+                                closeNav(absensform,id_nin,absens)
+                            che++;
+                            }
+                            else
+                            {
+                                che=0;
+                            }
+                            })
+                            }
+                                else
+                                {
+                                  alert('u don t have permission')
+                                }
+                              })
+                        
+                          }) 
+                    }
+                });
+            } else {
+                $('#AbsTable tbody').empty();
+            }
+       
+ 
+    }else
+    {
+       // alert('empty list');
+            var dep = $(this).val();
+          //  console.log('id'+dep);
+            var datch=$('#abs_date').val();
+           // console.log('-->'+datch)
+            if (dep) {
+                $.ajax({
+                    url: '/liste_abs_deprt/' + dep,
+                    method: 'GET',
+                    success: function(response) {
+                        $('#AbsTable tbody').empty();
+                        response.forEach(function(item) {
+                         //   console.log('--'+JSON.stringify(item));
+                            $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
+                                                      + '</td><td>' + item.Prenom_emp 
+                                                      + '</td><td>' + item.Nom_post 
+                                                      + '</td><td>' + item.Nom_sous_depart 
+                                                      + '</td><td>' + item.Nom_depart 
+                                                      + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                                                      
+                          //  console.log('-->>'+$('#stdin').text())
+                        });
+                         $("#AbsTable tbody tr").each(function(){
+                          var id_p=$(this).attr('id');   
+                          var idme=$(this).find('td:nth-child(6)');
+                          var id_nin=idme.attr('id')
+                            $('#'+id_nin).click(function(){
+                               // openNav();
+                          
+                              //$('#mySidenav').addClass('toRight');
+                             //   alert('present')
+
+                              console.log('id -> user  '+id_nin);
+                              var check=$('#'+id_nin+' i').attr('id');
+                         //     console.log('icons id'+check);
+                              var checkv2 =  present.split('"');
+                              console.log('gtting data'+checkv2[1]);
+                            if(check === checkv2[1]){
+                                openNav();
+                              var absensform={
+                                ID_NIN:id_nin,
+                                ID_P:id_p,
+                                Dic:dep,
+                                heur:1,
+                                Date_ABS:dates,
+                                _token: $('meta[name="csrf-token"]').attr('content'),
+                                _method: 'POST'
+                              }
+                              $("#close").click(function()
+                            {
+                                if(che == 0){
+                                    closeNav(absensform,id_nin,absens)
+                                      che++;
+                                }
+                                else
+                                {
+                                    che=0;
+                                }
+                            })
+                            }
+                              else
+                              {
+                                alert('u don t have permission')
+                              }
+                            })
+                      
+                        }) 
+                    }
+                });
+            } else {
+                $('#AbsTable tbody').empty();
+                $('#ddate').addClass('error-handle');
+            }
+        
+    }
+});
+
+});
+ //------------------------
 var md=false;
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');

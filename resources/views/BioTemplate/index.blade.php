@@ -67,7 +67,7 @@
                           <h4>ID est :<p id="ID_NIN">{{$detailemp[$nbr]->id_nin}}</p></h4>
                           <h4>{{$detailemp[$nbr]->Nom_emp}} {{$detailemp[$nbr]->Prenom_emp}}</h4>
                           <h4>{{$detailemp[$nbr]->Nom_ar_emp}} {{$detailemp[$nbr]->Prenom_ar_emp}}</h4>
-                          <div class="row"><p class="text-secondary mb-1">{{$detailemp[$nbr]->Nom_post}}</p><p class="text-secondary mb-1">العرببية</p></div>
+                          <div class="row"><p class="text-secondary mb-1">{{$detailemp[$nbr]->Nom_post}}</p><p class="text-secondary mb-1">Grade : {{$detailemp[$nbr]->Grade_post}}</p></div>
                           <p class="text-muted font-size-sm">{{$detailemp[$nbr]->Nom_sous_depart}},{{$detailemp[$nbr]->Nom_depart}}, Minister</p>
                         </div>
                       </div>
@@ -81,9 +81,27 @@
                       </li>
                     
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <div >
+                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> la Situation peronnel</span>
+                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
+                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i>Situation : Divorce</h6>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
+                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Nombre d'enfant : 00</h6>
+                        </div>
+                        <div >
+                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> la Situation educationnal</span>
+                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Diplome : {{$detailemp[$nbr]->Nom_niv}}</h6>
+                          </div>  
+                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                           <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Specialité : {{$detailemp[$nbr]->Specialité}}</h6>
+                          </div>
+                        </div>
                       </li>
                     </ul>
                   </div>
+                  
                 </div>
                 <div class="col-md-8">
                   <div class="card mb-3">
@@ -167,6 +185,7 @@
                         value='{{$detailemp[0]->adress_ar}}' disabled>
                       </div>
                       </div>
+                        
                       <hr>
                       <div class="row ">
                         <div class="col-sm-12">
@@ -417,12 +436,12 @@ $(document).ready(function(){
 
     </script>
     <script>
-      function calculateDaysFromStart(startDate) {
+      function calculateDaysFromStart(startDate,datechange) {
     // Parse the start date
     const start = new Date(startDate);
     
     // Get the current date
-    const current = new Date();
+    const current = new Date(datechange);
     
     // Calculate the difference in time
     const differenceInTime = current - start;
@@ -440,10 +459,11 @@ const count =@json($nbr);
 const data =@json($detailemp);
 var i=1;
 data.forEach(function(emp){
-  console.log(''+emp.date_chang)
-const startDate = emp.date_chang;
-document.getElementById(emp.id_nin+''+i).innerText=" La Duree : "+calculateDaysFromStart(startDate)+" Jours";
-const daysElapsed = calculateDaysFromStart(startDate);
+  console.log(''+emp.date_recrutement)
+const startDate = emp.date_recrutement;
+const datechange=emp.date_chang;
+document.getElementById(emp.id_nin+''+i).innerText=" La Duree : "+calculateDaysFromStart(startDate,datechange)+" Jours";
+const daysElapsed = calculateDaysFromStart(startDate,datechange);
 console.log(`Number of days from ${startDate} to today: ${daysElapsed}`);
 i++;
 
