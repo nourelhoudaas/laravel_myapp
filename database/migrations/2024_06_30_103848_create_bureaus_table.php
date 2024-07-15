@@ -20,9 +20,13 @@ return new class extends Migration
             [
                 'id_bureau' => 5,
                 'Num_bureau' => 203,
-            ]
-
-               
+            ],
+           
+                [
+                    'id_bureau' => 6,
+                    'Num_bureau' => 206,
+                ]
+            
             ]);
             
     }

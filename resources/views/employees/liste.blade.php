@@ -23,15 +23,11 @@
                         <thead>
 
                             <tr>
-                                <th>Nom </th>
-                                <th> Prenom</th>
-                                <th> Age</th>
-                                <th> Date Recrutement</th>
-                                <th>poste</th>
-                                <th>Sous Direction</th>
-                                <th>Direction</th>
-                                <th>Date Installation</th>
-                            
+                            <th>Nom </th>
+                            <th> Prenom</th>
+                            <th>poste</th>
+                            <th>Sous Direction</th>
+                            <th>Direction</th>
                             </tr>
                         </thead>
                         <tbody>

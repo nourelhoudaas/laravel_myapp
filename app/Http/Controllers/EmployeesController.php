@@ -9,7 +9,7 @@ use DB;
 use Carbon\Carbon;
 class EmployeesController extends Controller
 {
-    public function ListeEmply()
+    public function ListeEmply(Request $request)
     {
         /*$employe= DB::table('posts')
 
@@ -25,7 +25,9 @@ class EmployeesController extends Controller
         $empdepart= DB::table('departements')
           ->get();
      */
-    $employe = Employe::with([
+
+
+$employe = Employe::with([
         'occupeIdNin'=>function($query)
         {
             $query->orderBy('date_recrutement','desc')->take(1);
@@ -44,7 +46,10 @@ class EmployeesController extends Controller
             $query->orderBy('date_installation', 'desc')->take(1);
         },
         'travailByP.sous_departement.departement'
-    ])->get();
+    ])
+  ->get();
+
+    
    //return $employe;
     // dd($employe);
 
@@ -170,4 +175,7 @@ class EmployeesController extends Controller
         }
         $employes = $query->get();
     }
+
+
+
 }

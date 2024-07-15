@@ -68,4 +68,5 @@ class Employe extends Model
     {
         return $this->hasMany(Travail::class, 'id_p', 'id_p');
     }
+    
 }
