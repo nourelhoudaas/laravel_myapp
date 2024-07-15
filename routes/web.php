@@ -56,6 +56,7 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/abense_dates/{date}','absens_date')->name('list_abs_date');
     Route::get('/BioTemplate/search/{id}','getall')->name('BioTemplate.detail');
     Route::post('/add_absence','add_absence')->name('emp_add_absence');
+    Route::get('/conge','list_cong')->name('emp_list_conge');
 });
 
 Route::controller(DepartmentController::class)->group(function(){

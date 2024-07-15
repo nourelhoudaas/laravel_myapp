@@ -103,6 +103,10 @@
                                         <i class='bx bxs-user-minus nav__icon' ></i>
                                         <span class="nav__name">Absence</span>
                                         </a>
+                                        <a href="{{route('emp_list_conge')}}" class="nav__link">
+                                        <i class="fa fa-paper-plane" aria-hidden="true" style="margin-right:10px;" ></i>
+                                        <span class="nav__name">Congés</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

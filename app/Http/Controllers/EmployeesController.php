@@ -294,4 +294,11 @@ return response()->json($empdep);
             ]);
         }
     }
+    public function list_cong()
+    {
+        
+        $empdepart= DB::table('departements')
+        ->get();
+        return view('employees.list_cong',compact('empdepart'));
+    }
 }
