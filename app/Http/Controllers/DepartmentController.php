@@ -16,7 +16,7 @@ class DepartmentController extends Controller
         return view('department.list_depart');
     }
 
-    //la page dashboard_depart.blade.php
+
     public function dashboard_depart(Request $request,$dep_id)
     {
 
@@ -50,6 +50,7 @@ class DepartmentController extends Controller
             ->on('latest_travails.max_date_installation', '=', 'travails.date_installation');
    })
    ->where('departements.id_depart', $dep_id);
+
     // Appliquer le tri en fonction du champ et de la direction
     if ($sort == 'age') {
         $query->orderByRaw('TIMESTAMPDIFF(YEAR, Date_nais, CURDATE()) ' . $direction);
