@@ -704,6 +704,35 @@ $(document).ready(function() {
 });
 
 });
+/** -------------------------- Absence Partie ---------------------------- */
+/** ---------------------------congé partie Demarer ------------------*/
+
+$(document).ready(function(){
+    var inpt=$('#id_emp')
+      inpt.blur(function()
+          {
+            var val=$(this).val();
+            if(val){
+            $.ajax({
+                url:'/check_droitcg/'+val,
+                method:'GET',
+                success:function(response)
+                {
+                   // console.log('response'+JSON.stringify(response))
+                    $('#Dic').val(response.Nom_depart)
+                    $('#SDic').val(response.Nom_sous_depart)
+                    alert('success')
+                }
+            })
+}else
+{
+    $('#Dic').val('La Direction')
+    $('#SDic').val('La Sous-Direction')
+}
+          })
+})
+
+/**------------------------------ tarmine congé ---------------------*/
  //------------------------
 var md=false;
 document.getElementById('mod-but').addEventListener('click',function(){

@@ -248,7 +248,7 @@
                             </div>
                             <p id="{{$emp->id_nin}}{{$count}}"></p>
                             <div class="card-info">
-                              <p>Depuis : {{$emp->date_chang}}</p>
+                              <p>Depuis : {{$emp->date_installation}}</p>
                             </div>
                             </div>
                           </div>

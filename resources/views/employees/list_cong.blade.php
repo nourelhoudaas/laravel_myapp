@@ -90,5 +90,55 @@
 
             
         </div>
+        <div class='add-handler'>
+        <svg class="svg-icon" viewBox="0 0 21 21">
+		  <path d="M17.218,2.268L2.477,8.388C2.13,8.535,2.164,9.05,2.542,9.134L9.33,10.67l1.535,6.787c0.083,0.377,0.602,0.415,0.745,0.065l6.123-14.74C17.866,2.46,17.539,2.134,17.218,2.268 M3.92,8.641l11.772-4.89L9.535,9.909L3.92,8.641z M11.358,16.078l-1.268-5.613l6.157-6.157L11.358,16.078z"></path>
+		</svg>
+        </div>
+
+        <div class="formcg-overlay" id="formOverlay">
+        <div class="formcg-container">
+            <form action="#" method="post">
+                <input type="number" id="id_emp" name="id_emp" placeholder="ID Profissionnel" required>
+                <input type="text" id="Dic" name="Dic" placeholder="La Direction" disabled>
+                <input type="text" id="SDic" name="SDic" placeholder="La Sous-Direction" disabled>
+                <label class="labels" style="display: flex;">La date De Debut de Congé</label>
+                <input type="date" name="Date_Dcg" id="Date_Dcg" required>
+                <label class="labels" style="display: flex;">La date De Fine de Congé</label>
+                <input type="date" name="Date_Fcg" id="Date_Fcg" required>
+                <label class="labels" style="display: flex;">Selection le Type du Congé</label>
+                <select>
+                    <option>Type De Congé</option>
+                    <option> Annulle</option>
+                    <option> Maladie</option>
+                </select>
+                <hr>
+                <input type="number" id="total_cgj" disabled>
+                <input type="text" id="Situation">
+                <div id="check-box">
+                  <i class="fa fa-check-square" aria-hidden="true"></i>
+                </div>
+                <input type="file" name="file" id="file" required> </br>
+                <button type="submit">Passer Vers L congé</button>
+                <button type="button" class="close-formcg-btn">Annulle  </button>
+            </form>
+        </div>
+    </div>
+
     </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const openFormBtn = document.querySelector(".add-handler");
+    const closeFormBtn = document.querySelector(".close-formcg-btn");
+    const formOverlay = document.getElementById("formOverlay");
+
+    openFormBtn.addEventListener("click", function() {
+        formOverlay.style.display = "flex";
+    });
+
+    closeFormBtn.addEventListener("click", function() {
+        formOverlay.style.display = "none";
+    });
+});
+    </script>
 @endsection
