@@ -24,65 +24,65 @@
 
                         <tr>
     <th>
-    <a href="{{ route('app_liste_emply', [ 'sort' => 'Nom_emp', 'direction' => ($sort == 'Nom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+    <a href="{{ route('app_liste_emply', [ 'champs' => 'Nom_emp', 'direction' => ($champs == 'Nom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
                 NOM
-                @if($sort == 'Nom_emp')
+                @if($champs == 'Nom_emp')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_liste_emply', [ 'sort' => 'Prenom_emp', 'direction' => ($sort == 'Prenom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_liste_emply', [ 'champs' => 'Prenom_emp', 'direction' => ($champs == 'Prenom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
             PRENOM
-                @if($sort == 'Prenom_emp')
+                @if($champs == 'Prenom_emp')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_liste_emply', [ 'sort' => 'age', 'direction' => ($sort == 'age' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_liste_emply', [ 'champs' => 'age', 'direction' => ($champs == 'age' && $direction == 'asc') ? 'desc' : 'asc']) }}">
             Age
-                @if($sort == 'age')
+                @if($champs == 'age')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_liste_emply', [ 'sort' => 'date_recrutement', 'direction' => ($sort == 'date_recrutement' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_liste_emply', [ 'champs' => 'date_recrutement', 'direction' => ($champs == 'date_recrutement' && $direction == 'asc') ? 'desc' : 'asc']) }}">
             Date Recrutement
-                @if($sort == 'date_recrutement')
+                @if($champs == 'date_recrutement')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_liste_emply', ['sort' => 'Nom_post', 'direction' => ($sort == 'Nom_post' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_liste_emply', ['champs' => 'Nom_post', 'direction' => ($champs == 'Nom_post' && $direction == 'asc') ? 'desc' : 'asc']) }}">
             Poste
-                @if($sort == 'Nom_post')
+                @if($champs == 'Nom_post')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_liste_emply', [ 'sort' => 'Nom_depart', 'direction' => ($sort == 'Nom_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_liste_emply', [ 'champs' => 'Nom_depart', 'direction' => ($champs == 'Nom_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
           Direction
-            @if($sort == 'Nom_depart')
+            @if($champs == 'Nom_depart')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_liste_emply', [ 'sort' => 'Nom_sous_depart', 'direction' => ($sort == 'Nom_sous_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_liste_emply', [ 'champs' => 'Nom_sous_depart', 'direction' => ($champs == 'Nom_sous_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
            Sous Direction
-            @if($sort == 'Nom_sous_depart')
+            @if($champs == 'Nom_sous_depart')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_liste_emply', ['sort' => 'date_installation', 'direction' => ($sort == 'date_installation' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_liste_emply', ['champs' => 'date_installation', 'direction' => ($champs == 'date_installation' && $direction == 'asc') ? 'desc' : 'asc']) }}">
            Date Installation
-                @if($sort == 'date_installation')
+                @if($champs == 'date_installation')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
@@ -108,8 +108,8 @@
                                 <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
                                 <td>{{ $occupe->date_recrutement }}</td>
                                 <td>{{ $occupe->post->Nom_post }}</td>
-                                <td>{{ $contient->sous_departement->Nom_sous_depart }}</td>
-                                <td>{{ $contient->sous_departement ->departement->Nom_depart }}</td>
+                                <td>{{ $travail->sous_departement->Nom_sous_depart }}</td>
+                                <td>{{ $travail->sous_departement ->departement->Nom_depart }}</td>
                                 <td>{{ $travail->date_installation }}</td>
                             </tr>
                                             @endif

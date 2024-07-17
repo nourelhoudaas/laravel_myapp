@@ -30,13 +30,14 @@ class EmployeesController extends Controller
           ->get();
      */
 
-     $sort = $request->input('sort', 'Nom_emp'); // Champ par défaut pour le tri
+     $champs = $request->input('champs', 'Nom_emp'); // Champ par défaut pour le tri
      $direction = $request->input('direction', 'asc'); // Ordre par défaut ascendant
- 
-$employe = Employe::with([
+    
+ $employe = Employe::with([
         'occupeIdNin'=>function($query)
         {
             $query->orderBy('date_recrutement','desc')->take(1);
+         
         },
          'occupeIdNin.post.contient.sous_departement.departement',
         'occupeIdP'=>function($query)
@@ -46,29 +47,50 @@ $employe = Employe::with([
         'occupeIdP.post.contient.sous_departement.departement',
         'travailByNin' => function ($query) {
             $query->orderBy('date_installation', 'desc')->take(1);
+            
         },
         'travailByNin.sous_departement.departement',
         'travailByP' => function ($query) {
             $query->orderBy('date_installation', 'desc')->take(1);
+         
         },
-        'travailByP.sous_departement.departement'
-    ])
-    ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-    ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-    ->join('contients', 'posts.id_post', '=', 'contients.id_post')
-    ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-    ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
-    ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
-    
-    ->orderBy($sort, $direction);
-    if ($sort === 'age') {
-        $employe->selectRaw("*, TIMESTAMPDIFF(YEAR, Date_nais, CURDATE()) AS age")
-                  ->orderBy('age', $direction);
-    }
-    $employe = $employe->get();
-
+        'travailByP.sous_departement.departement',
+          
+    ])->get();
  
 
+    if ($champs === 'age') {
+        $employe = $employe->sortBy(function($emp) {
+            return \Carbon\Carbon::parse($emp->Date_nais)->age;
+        }, SORT_REGULAR, $direction === 'desc');
+    } elseif ($champs === 'Nom_post') {
+        $employe = $employe->sortBy(function($emp) {
+            return optional($emp->occupeIdNin->first())->post->Nom_post;
+        }, SORT_REGULAR, $direction === 'desc');
+        
+   
+ } elseif ($champs === 'Nom_depart') {
+    $employe = $employe->sortBy(function($emp) {
+        return optional(optional($emp->travailByNin->first())->sous_departement->departement)->Nom_depart;
+    }, SORT_REGULAR, $direction === 'desc');
+} elseif ($champs === 'Nom_sous_depart') {
+    $employe = $employe->sortBy(function($emp) {
+        return optional($emp->travailByNin->first())->sous_departement->Nom_sous_depart;
+    }, SORT_REGULAR, $direction === 'desc');
+} elseif ($champs === 'date_recrutement') {
+    $employe = $employe->sortBy(function($emp) {
+        return optional($emp->occupeIdNin->first())->date_recrutement;
+    }, SORT_REGULAR, $direction === 'desc');
+} elseif ($champs === 'date_installation') {
+    $employe = $employe->sortBy(function($emp) {
+        return optional($emp->travailByNin->first())->date_installation;
+    }, SORT_REGULAR, $direction === 'desc');
+} else {
+    $employe = $employe->sortBy($champs, SORT_REGULAR, $direction === 'desc');
+}
+    $employe = $employe->values();
+
+ 
     
    //return $employe;
     // dd($employe);
@@ -80,7 +102,7 @@ $employe = Employe::with([
           ->get();
          
 
-        return view('employees.liste',compact('employe','totalEmployes','empdepart','sort','direction'));
+        return view('employees.liste',compact('employe','totalEmployes','empdepart','champs','direction'));
   
         }
 
@@ -266,12 +288,12 @@ $employe = Employe::with([
            // print_r('  |<----date reuc From  ---- '.$empost->date_recrutement.'----> Date form em -----'.$empoc->date_recrutement.'------of emp --'.$empoc->id_nin.'--- his depart----'.$empoc->id_depart);
             if($empoc->id_depart != $id_dep && $empoc->date_recrutement>=$empost->date_recrutement) 
             {
-              //  print_r('  |<----date reuc From  ---- '.$empost->date_recrutement.'----> Date form em -----'.$empoc->date_recrutement.'------of emp --'.$empoc->id_nin.'--- his depart----'.$empoc->id_depart);
+                //print_r('  |<----date reuc From  ---- '.$empost->date_recrutement.'----> Date form em -----'.$empoc->date_recrutement.'------of emp --'.$empoc->id_nin.'--- his depart----'.$empoc->id_depart);
                 array_push($elem,$empost);  
             //print_r('-->> id:'.$empost->id_nin.' Dic :'.$empost->id_depart.'---'.$empoc->date_recrutement.'<<--');
             }
             else {
-                print_r('-->> id:'.$empost->id_nin.' Dic :'.$empost->id_depart.'---'.$empoc->date_recrutement.'<<--');
+               // print_r('-->> id:'.$empost->id_nin.' Dic :'.$empost->id_depart.'---'.$empoc->date_recrutement.'<<--');
             }
         }
     }
@@ -312,7 +334,7 @@ $employe = Employe::with([
 //le nbr total des employe pour chaque depart
         $totalEmpDep = $empdep->count();
       //  dd($exitemp);
-return response()->json($exitemp);
+return response()->json($exitemp[0]);
     }
     public function absens_date($date)
     {

@@ -77,57 +77,57 @@
                         <thead>
     <tr>
     <th>
-    <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'sort' => 'Nom_emp', 'direction' => ($sort == 'Nom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+    <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_emp', 'direction' => ($champs == 'Nom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
                 NOM
-                @if($sort == 'Nom_emp')
+                @if($champs == 'Nom_emp')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'sort' => 'Prenom_emp', 'direction' => ($sort == 'Prenom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Prenom_emp', 'direction' => ($champs == 'Prenom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
             PRENOM
-                @if($sort == 'Prenom_emp')
+                @if($champs == 'Prenom_emp')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'sort' => 'age', 'direction' => ($sort == 'age' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'age', 'direction' => ($champs == 'age' && $direction == 'asc') ? 'desc' : 'asc']) }}">
             Age
-                @if($sort == 'age')
+                @if($champs == 'age')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'sort' => 'date_recrutement', 'direction' => ($sort == 'date_recrutement' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'date_recrutement', 'direction' => ($champs == 'date_recrutement' && $direction == 'asc') ? 'desc' : 'asc']) }}">
             Date Recrutement
-                @if($sort == 'date_recrutement')
+                @if($champs == 'date_recrutement')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'sort' => 'Nom_post', 'direction' => ($sort == 'Nom_post' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_post', 'direction' => ($champs == 'Nom_post' && $direction == 'asc') ? 'desc' : 'asc']) }}">
             Poste
-                @if($sort == 'Nom_post')
+                @if($champs == 'Nom_post')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'sort' => 'Nom_sous_depart', 'direction' => ($sort == 'Nom_sous_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_sous_depart', 'direction' => ($champs == 'Nom_sous_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
            Sous Direction
-            @if($sort == 'Nom_sous_depart')
+            @if($champs == 'Nom_sous_depart')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
         </th>
         <th>
-            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'sort' => 'date_installation', 'direction' => ($sort == 'date_installation' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'date_installation', 'direction' => ($champs == 'date_installation' && $direction == 'asc') ? 'desc' : 'asc']) }}">
            Date Installation
-                @if($sort == 'date_installation')
+                @if($champs == 'date_installation')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
             </a>
@@ -153,7 +153,7 @@
                                   @if ($occupe && $occupe->post)
                                       @if ($occupe->post->contient)
                                          @foreach ($occupe->post->contient as $contient)
-                                         @if ($contient && $contient->sous_departement && $contient->sous_departement->departement &&  $contient->sous_departement->departement->id_depart==$dep_id)
+                                         @if ($travail && $travail->sous_departement && $travail->sous_departement->departement &&  $travail->sous_departement->departement->id_depart==$dep_id)
                             <tr>
                                 <td>
                                     <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</a>
@@ -162,7 +162,7 @@
                                 <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
                                 <td>{{ $occupe->date_recrutement }}</td>
                                 <td>{{ $occupe->post->Nom_post }}</td>
-                                <td>{{ $contient->sous_departement->Nom_sous_depart }}</td>
+                                <td>{{ $travail->sous_departement->Nom_sous_depart }}</td>
                               
                                 <td>{{ $travail->date_installation }}</td>
                             </tr>
