@@ -29,7 +29,9 @@ class EmployeesController extends Controller
           ->get();
      */
 
-
+     $sort = $request->input('sort', 'Nom_emp'); // Champ par défaut pour le tri
+     $direction = $request->input('direction', 'asc'); // Ordre par défaut ascendant
+ 
 $employe = Employe::with([
         'occupeIdNin'=>function($query)
         {
@@ -50,7 +52,21 @@ $employe = Employe::with([
         },
         'travailByP.sous_departement.departement'
     ])
-  ->get();
+    ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+    ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
+    ->join('contients', 'posts.id_post', '=', 'contients.id_post')
+    ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
+    ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
+    ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
+    
+    ->orderBy($sort, $direction);
+    if ($sort === 'age') {
+        $employe->selectRaw("*, TIMESTAMPDIFF(YEAR, Date_nais, CURDATE()) AS age")
+                  ->orderBy('age', $direction);
+    }
+    $employe = $employe->get();
+
+ 
 
     
    //return $employe;
@@ -63,7 +79,7 @@ $employe = Employe::with([
           ->get();
          
 
-        return view('employees.liste',compact('employe','totalEmployes','empdepart'));
+        return view('employees.liste',compact('employe','totalEmployes','empdepart','sort','direction'));
   
         }
 

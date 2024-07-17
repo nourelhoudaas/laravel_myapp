@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('Descriptif_niv')->unique();
             $table->string('Nom_niv_ar');
             $table->string('Specialité_ar');
+            $table->float('moyenne_niv');
+            $table->string('major_niv');
+            $table->Date('date_major');
+            
             $table->string('Descriptif_niv_ar')->unique();
             $table->integer('id_post');
             $table->foreign('id_post')->references('id_post')->on('posts');
