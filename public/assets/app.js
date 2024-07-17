@@ -41,6 +41,22 @@ function uploadFile() {
       }
   });
 }
+/** function pour calcler les Jour */
+function calculateDayscng(startDate,datechange) {
+    // Parse the start date
+    const start = new Date(startDate);
+    
+    // Get the current date
+    const current = new Date(datechange);
+    
+    // Calculate the difference in time
+    const differenceInTime = current - start;
+    
+    // Convert the time difference from milliseconds to days
+    const differenceInDays = Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
+    
+    return differenceInDays;
+}
 ///------------------ this function for Nav left side -----------------------------
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
@@ -709,8 +725,15 @@ $(document).ready(function() {
 
 $(document).ready(function(){
     var inpt=$('#id_emp')
+    var droit='<i class="fa fa-check-square" aria-hidden="true"></i>'
+    var pasrdoit='<i class="fa fa-ban" aria-hidden="true"></i>'
+    var result=new Object()
       inpt.blur(function()
           {
+                    $('#checkcg-box').empty()
+                    $('.date-conge').removeClass('disp')
+                    $('#checkcg-box').removeClass('abs');
+                    $('#checkcg-box').removeClass('droit');
             var val=$(this).val();
             if(val){
             $.ajax({
@@ -718,9 +741,27 @@ $(document).ready(function(){
                 method:'GET',
                 success:function(response)
                 {
-                   // console.log('response'+JSON.stringify(response))
-                    $('#Dic').val(response.Nom_depart)
-                    $('#SDic').val(response.Nom_sous_depart)
+                    result=response;
+                    console.log('response'+JSON.stringify(response))
+                    $('#Dic').val(response.employe.Nom_depart)
+                    $('#SDic').val(response.employe.Nom_sous_depart)
+                    $('#total_cgj').val(response.Jour_congé)
+                    $('#typ_cg option:eq(1)').prop('selected', true)
+                    if(response.Jour_congé == 0 )
+                    {
+                        var currentTime = new Date()
+                       $('#checkcg-box').append(pasrdoit);
+                       $('#checkcg-box').addClass('abs');  
+                       $('.date-conge').addClass('disp') 
+                       $('#date_rec').val(response.employe.date_recrutement)
+                       $('#date_op').val('01-06-'+currentTime.getFullYear()) 
+                    }
+                    else
+                    {
+                       $('#checkcg-box').append(droit);
+                       $('#checkcg-box').addClass('pre');
+                    }
+                    
                     alert('success')
                 }
             })
@@ -730,6 +771,32 @@ $(document).ready(function(){
     $('#SDic').val('La Sous-Direction')
 }
           })
+          $('#conge_confirm').click(function()
+                    {
+                        var date_dcg=$('#Date_Dcg').val();
+                        var date_fcg=$('#Date_Fcg').val();
+                        var totaljour=calculateDayscng(date_dcg,date_fcg)
+                        var congeform={
+                            ID_NIN:parseInt(result.employe.id_nin),
+                            ID_P:parseInt(result.employe.id_p),
+                            Dic:parseInt(result.employe.id_depart),
+                            date_dcg:$('#Date_Dcg').val(),
+                            date_fcg:$('#Date_Fcg').val(),
+                            totaljour:parseInt(totaljour),
+                            type_cg:$('#typ_cg').find(":selected").val(),
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            _method: 'POST'
+                          }
+                        $.ajax({
+                            url:'/add_emp_holiday/',
+                            data:congeform,
+                            type:'POST',
+                            success:function(response)
+                            {
+                                alert('add_to holiday')
+                            }
+                        })
+                    })
 })
 
 /**------------------------------ tarmine congé ---------------------*/

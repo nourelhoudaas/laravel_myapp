@@ -98,7 +98,7 @@
 
         <div class="formcg-overlay" id="formOverlay">
         <div class="formcg-container">
-            <form action="#" method="post">
+            <form>
                 <input type="number" id="id_emp" name="id_emp" placeholder="ID Profissionnel" required>
                 <input type="text" id="Dic" name="Dic" placeholder="La Direction" disabled>
                 <input type="text" id="SDic" name="SDic" placeholder="La Sous-Direction" disabled>
@@ -107,19 +107,28 @@
                 <label class="labels" style="display: flex;">La date De Fine de Congé</label>
                 <input type="date" name="Date_Fcg" id="Date_Fcg" required>
                 <label class="labels" style="display: flex;">Selection le Type du Congé</label>
-                <select>
-                    <option>Type De Congé</option>
-                    <option> Annulle</option>
-                    <option> Maladie</option>
+                <select id="typ_cg">
+                    <option value="0">Type De Congé</option>
+                    <option value="REF0608"> Annulle</option>
+                    <option value="2"> Maladie</option>
                 </select>
                 <hr>
                 <input type="number" id="total_cgj" disabled>
                 <input type="text" id="Situation">
-                <div id="check-box">
-                  <i class="fa fa-check-square" aria-hidden="true"></i>
+                <div id="checkcg-box"></div>
+                </br>
+                <div class='date-conge' >
+                    <div>
+                    <label class="labels" style="display: flex; margin-left: 20px;">La Date Recrutement</label>
+                        <input type="text" value="" id="date_rec" disabled>
+                    </div>
+                    <div>
+                        <label class="labels" style="display: flex; margin-left: 20px;">La date Ovrir Congé</label>
+                        <input type="text" value="" id="date_op" disabled>
+                    </div>
                 </div>
                 <input type="file" name="file" id="file" required> </br>
-                <button type="submit">Passer Vers L congé</button>
+                <button type="button" id="conge_confirm">Passer Vers L congé</button>
                 <button type="button" class="close-formcg-btn">Annulle  </button>
             </form>
         </div>

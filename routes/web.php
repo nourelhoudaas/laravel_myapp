@@ -58,6 +58,7 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::post('/add_absence','add_absence')->name('emp_add_absence');
     Route::get('/conge','list_cong')->name('emp_list_conge');
     Route::get('/check_droitcg/{id_emp}','check_cg')->name('emp_conge_check');
+    Route::post('/add_emp_holiday','add_cng')->name('add_emp_hol');
 });
 
 Route::controller(DepartmentController::class)->group(function(){

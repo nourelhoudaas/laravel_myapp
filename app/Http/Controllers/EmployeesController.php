@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absence;
+use App\Models\Conge;
 use App\Models\Occupe;
 use App\Models\Sous_departement;
 use Illuminate\Http\Request;
@@ -378,6 +379,7 @@ return response()->json($exitemp[0]);
     }
     public function check_cg($id_p)
     {
+        $totaljour=0;
         $emp=Employe::where('employes.id_emp','=',$id_p)
         ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
         ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
@@ -386,7 +388,70 @@ return response()->json($exitemp[0]);
         ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
         ->orderBy('occupes.date_recrutement','desc')
         ->firstOrFail();
-        return response()->json($emp);
+        $cng=Conge::where('id_nin',$emp->id_nin)->orderBy('date_fin_cong','desc')->get();
+      //  dd($cng);
+        if($cng->count() > 0 )
+        {
+            $totaljour=$cng->total_jour+30;
+        }
+        else
+        {
+          //  dd($emp);
+         
+        $startDate = Carbon::parse($emp->date_recrutement);
+
+        
+        $endDate = Carbon::parse('01-06-' . Carbon::now()->year);
+
+        // Calculate the number of months between the two dates
+        $monthsDifference = $startDate->diffInMonths($endDate);
+        if($monthsDifference > 0)
+        {
+            $totaljour = $monthsDifference*2.5;
+        }
+        }
+
+        return response()->json(
+            [
+                'employe'=>$emp,
+                'Jour_congé'=>round($totaljour),
+            ]
+        );
+    }
+    public function add_cng(Request $request)
+    {
+        $request->validate(
+            [
+                'ID_NIN'=>'required|integer',
+                'ID_P'=>'required|integer',
+                'Dic'=>'required|integer',
+                'date_dcg'=>'required|date',
+                'date_fcg'=>'required|date',
+                'type_cg'=>'required|string'
+            ]
+            );
+            $cong=new Conge([
+                'id_nin'=>$request->get('ID_NIN'),
+                'id_p'=>$request->get('ID_P'),
+                'date_debut_cong'=>$request->get('date_dcg'),
+                'date_fin_cong'=>$request->get('date_fcg'),
+                'total_jour'=>$request->get('totaljour'),
+                'ref_cong'=>$request->get('type_cg')
+            ]);
+           // dd($request);
+            if($cong->save())
+            {
+                return response()->json([
+                    'message'=>'Success',
+                    'status'=> 200
+                ]);
+            }else
+            {
+                return response()->json([
+                    'message'=>'Unsuccess',
+                    'status'=> 404
+                ]);
+            }
     }
 }
 
