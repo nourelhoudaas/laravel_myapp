@@ -264,11 +264,14 @@ $employe = Employe::with([
         foreach($post as $empost)
         {
            // print_r('  |<----date reuc From  ---- '.$empost->date_recrutement.'----> Date form em -----'.$empoc->date_recrutement.'------of emp --'.$empoc->id_nin.'--- his depart----'.$empoc->id_depart);
-            if($empoc->id_depart != $id_dep && $empoc->date_recrutement>$empost->date_recrutement) 
+            if($empoc->id_depart != $id_dep && $empoc->date_recrutement>=$empost->date_recrutement) 
             {
               //  print_r('  |<----date reuc From  ---- '.$empost->date_recrutement.'----> Date form em -----'.$empoc->date_recrutement.'------of emp --'.$empoc->id_nin.'--- his depart----'.$empoc->id_depart);
                 array_push($elem,$empost);  
             //print_r('-->> id:'.$empost->id_nin.' Dic :'.$empost->id_depart.'---'.$empoc->date_recrutement.'<<--');
+            }
+            else {
+                print_r('-->> id:'.$empost->id_nin.' Dic :'.$empost->id_depart.'---'.$empoc->date_recrutement.'<<--');
             }
         }
     }
@@ -308,7 +311,8 @@ $employe = Employe::with([
 
 //le nbr total des employe pour chaque depart
         $totalEmpDep = $empdep->count();
-return response()->json($exitemp[0]);
+      //  dd($exitemp);
+return response()->json($exitemp);
     }
     public function absens_date($date)
     {
