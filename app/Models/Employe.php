@@ -18,8 +18,11 @@ class Employe extends Model
     protected $fillable = [
        'id_emp','id_nin','id_p','Nom_emp','Prenom_emp','Nom_ar_emp','Prenom_ar_emp','Date_nais',
        'Lieu_nais','Lieu_nais_ar','adress','adress_ar','sexe','email','Phone_num',
+       'prenom_pere','prenom_mere','nom_mere','prenom_pere_ar','prenom_mere_ar',
+       'nom_mere_ar','Date_nais_pere','Date_nais_mere','situation_familliere','situation_familliere_ar',
+        'nbr_enfants'
     ];
-
+   
     public function login()
     {
         return $this->hasMany(Login::class, ['id_nin','id_p'], ['id_nin','id_p']);
@@ -67,6 +70,16 @@ class Employe extends Model
     public function travailByP()
     {
         return $this->hasMany(Travail::class, 'id_p', 'id_p');
+    }
+
+    public function congeIdNin()
+    {
+        return $this->hasMany(Conge::class, 'id_nin', 'id_nin');
+    }
+    
+    public function congeIdP()
+    {
+        return $this->hasMany(Conge::class, 'id_p', 'id_p');
     }
     
 }

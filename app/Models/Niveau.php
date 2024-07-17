@@ -15,8 +15,10 @@ class Niveau extends Model
     public $timestamps = false;
     
     protected $fillablel=['id_niv'	,'Nom_niv'	,'Specialité',	'Descriptif_niv',
-    'Nom_niv_ar','Specialité_ar','Descriptif_niv_ar','id_post'];
-
+    'Nom_niv_ar','Specialité_ar','Descriptif_niv_ar','id_post','moyenne_niv',
+    'major_niv','date_major'
+];
+  
     public function appartient()
     {
         return $this->hasMany(appartient::class, 'id_niv','id_niv');

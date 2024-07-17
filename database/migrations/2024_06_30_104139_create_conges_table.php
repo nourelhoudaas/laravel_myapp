@@ -15,6 +15,8 @@ return new class extends Migration
             $table->integer('id_cong')->primary()->autoIncrement();
             $table->date('date_debut_cong');
             $table->date('date_fin_cong');
+            $table->string('situation');
+            $table->float('nbr_jours');
             $table->string('ref_cong')->unique();
             $table->integer('id_nin');
             $table->integer('id_p');

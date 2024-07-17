@@ -5,9 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\DepartmentController;
-use App\Http\controllers\AddEmployeControll;
-use App\Http\controllers\BioEmployeControl;
-use App\Http\controllers\UploadFile;
+use App\Http\Controllers\AddEmployeControll;
+use App\Http\Controllers\BioEmployeControl;
+use App\Http\Controllers\UploadFile;
 
 use Illuminate\Support\Facades\Route;
 use App\Actions\Fortify\LoginUser;
