@@ -121,7 +121,7 @@ $employe = Employe::with([
         $nbr=$result->count();
         $detailemp=array();    
         foreach($result as $res)
-        {
+        { 
             $val=$res->id_travail;  
             $inter=DB::table('employes')->distinct()
                                         ->join('travails','travails.id_nin','=','employes.id_nin')
