@@ -1135,6 +1135,7 @@ cursor:not-allowed ;
 }
 
 .formcg-container input {
+  height: 40px;
   display: block;
   margin: 10px auto;
   padding: 10px;
@@ -1178,4 +1179,15 @@ cursor:not-allowed ;
 {
   background-color: rgba(245, 245, 245, 0.849);
   box-shadow: 0 0 20px rgba(56, 255, 56, 0.993);
+}
+.date-conge
+{
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+}
+.disp
+{
+  display: flex;
 }
