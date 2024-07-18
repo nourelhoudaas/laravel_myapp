@@ -33,8 +33,8 @@ return new class extends Migration
             $table->string('nom_mere_ar');
             $table->date('Date_nais_pere');
             $table->date('Date_nais_mere');
-            $table->string('situation_familliere');
-            $table->string('situation_familliere_ar');
+            $table->string('situation_familliale');
+            $table->string('situation_familliale_ar');
             $table->integer('nbr_enfants');
             $table->string('sexe');
             $table->string('email')->nullable();;
@@ -46,9 +46,8 @@ return new class extends Migration
 
         DB::table('employes')->insert([
             [  
-          
-        
-                'id_emp' => 1,
+            
+            
                 'id_nin' => 1254953,
                 'id_p' => 123,
                 'NSS' =>18505482,
@@ -65,15 +64,24 @@ return new class extends Migration
                 'email' => 'fagmail.com',
                 'Phone_num' => '0124367555',
                 'prenom_pere' => 'moh',
-                'prenom_mere' =>'fff'
-
+                'prenom_mere' =>'fff',
+                'nom_mere'=>'be',
+                'prenom_pere_ar'=>'محمد',
+                'prenom_mere_ar'=>'ف',
+                'nom_mere_ar'=>'ب',
+                'Date_nais_pere'=>'1975-08-31',
+                'Date_nais_mere'=>'1978-01-21',
+                'situation_familliale'=>'célébataire',
+                'situation_familliale_ar'=>'عازب',
+                'nbr_enfants'=>0
                
                
             ],
             [
-                'id_emp' => 2,
+             
                 'id_nin' => 254896989,
                 'id_p' => 256,
+                'NSS' =>25686984,
                 'Nom_emp' => 'boum',
                 'Prenom_emp' => 'fad',
                 'Nom_ar_emp' => 'بومد',
@@ -86,6 +94,17 @@ return new class extends Migration
                 'sexe' => 'femme',
                 'email' => 'fgmail.com',
                 'Phone_num' => '01573645525',
+                'prenom_pere' => 'moh',
+                'prenom_mere' =>'fff',
+                'nom_mere'=>'be',
+                'prenom_pere_ar'=>'محمد',
+                'prenom_mere_ar'=>'ف',
+                'nom_mere_ar'=>'ب',
+                'Date_nais_pere'=>'1975-08-31',
+                'Date_nais_mere'=>'1978-01-21',
+                'situation_familliale'=>'mariée',
+                'situation_familliale_ar'=>'متزوجة',
+                'nbr_enfants'=>0
             ]
                
             ]);

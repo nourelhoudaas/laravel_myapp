@@ -18,6 +18,46 @@ return new class extends Migration
             $table->string('titre_cong_ar');
             $table->string('Descriptif_ar');
         });
+
+        DB::table('type_congs')->insert([
+            [  
+            
+            
+                'ref_cong' => 'RF001',
+                'titre_cong' => 'congé annuel',
+                'Descriptif' => 'congé annuel',
+                'titre_cong_ar' =>'عطلة سنوية',
+                'Descriptif_ar' => 'عطلة سنوية'
+                
+               
+            ],
+            [
+                'ref_cong' => 'RF002',
+                'titre_cong' => 'congé maladie',
+                'Descriptif' => 'congé maladie',
+                'titre_cong_ar' =>'عطلة مرضية',
+                'Descriptif_ar' => 'عطلة مرضية'
+            ],
+           [  
+            
+            
+                'ref_cong' => 'RF003',
+                'titre_cong' => 'congé matérnité',
+                'Descriptif' => 'congé matérnité',
+                'titre_cong_ar' =>'عطلة الامومة',
+                'Descriptif_ar' => 'عطلة الامومة'
+                
+               
+            ],
+            [
+                'ref_cong' => 'RF004',
+                'titre_cong' => 'congé sans solde',
+                'Descriptif' => 'congé sans solde',
+                'titre_cong_ar' =>'عطلة بدون دفع',
+                'Descriptif_ar' => 'عطلة بدون دفع'
+            ]
+               
+            ]);
     }
 
     /**

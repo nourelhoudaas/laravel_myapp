@@ -55,6 +55,7 @@ class AddEmployeControll extends Controller
 
             $Request->validate([
                 'ID_NIN' => 'required|integer',
+                'ID_SS' => 'required|integer',
                 'Nom_P' => 'required|string',
                 'Prenom_O' => 'required|string',
                 'Nom_PAR' => 'required|string',

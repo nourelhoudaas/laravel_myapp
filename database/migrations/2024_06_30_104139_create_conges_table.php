@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date_debut_cong');
             $table->date('date_fin_cong');
             $table->string('situation');
-            $table->float('nbr_jours');
+            $table->integer('nbr_jours');
             $table->string('ref_cong')->unique();
             $table->integer('id_nin');
             $table->integer('id_p');
@@ -24,6 +24,32 @@ return new class extends Migration
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('ref_cong')->references('ref_cong')->on('type_congs');
         });
+
+       /* DB::table('conges')->insert([
+            [  
+            
+            
+                'id_cong' => 1,
+                'date_debut_cong' => '10/08/2024',
+                'date_fin_cong' => '20/08/2024',
+                'nbr_jours' =>'10',
+                'situation' => 'algérie',
+                'ref_cong'=>'RF001'
+               
+            ],
+            [
+                'id_cong' => 2,
+                'date_debut_cong' => '20/07/2024',
+                'date_fin_cong' => '22/07/2024',
+                'nbr_jours' =>'2',
+                'situation' => 'algérie',
+                'ref_cong'=>'RF002'
+                
+            ]
+               
+            ]);
+*/
+
     }
 
     /**
