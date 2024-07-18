@@ -92,7 +92,7 @@ class AddEmployeControll extends Controller
                 'prenom_pere_ar'=>$Request->get('Prenom_PerAR'),
                 'prenom_mere_ar'=>$Request->get('Prenom_mereAR'),
                 'nom_mere_ar'=>$Request->get('Nom_mereAR'),
-                'situation_familliere'=>$Request->get('Situat'),
+                'situation_familliale'=>$Request->get('Situat'),
                 'nbr_enfants'=>$Request->get('nbrenfant'),
             ]);
           //  dd($employe);
