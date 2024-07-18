@@ -727,6 +727,9 @@ $(document).ready(function() {
 
 });
 /** -------------------------- Absence Partie ---------------------------- */
+
+
+
 /** ---------------------------congé partie Demarer ------------------*/
 
 $(document).ready(function(){

@@ -22,53 +22,70 @@ class DepartmentController extends Controller
 
           
    // Récupérer les paramètres de tri depuis la requête
-   $sort = $request->input('sort', 'Nom_emp'); // Champ de tri par défaut
+   $champs = $request->input('champs', 'Nom_emp'); // Champ de tri par défaut
    $direction = $request->input('direction', 'asc'); // Direction de tri par défaut
 
-   $query = Employe::with([
-       'occupeIdNin' => function ($query) {
-           $query->orderBy('date_recrutement', 'desc')->take(1);
-       },
-       'occupeIdNin.post.contient.sous_departement.departement',
-       'travailByNin' => function ($query) {
-           $query->orderBy('date_installation', 'desc')->take(1);
-       },
-       'travailByNin.sous_departement.departement',
-   ])
-   ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-   ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
-   ->join('contients', 'posts.id_post', '=', 'contients.id_post')
-   ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-   ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
-   ->join(DB::raw('(SELECT id_nin, MAX(date_installation) as max_date_installation 
-   FROM travails GROUP BY id_nin) latest_travails'),
-    function ($join) {
-       $join->on('employes.id_nin', '=', 'latest_travails.id_nin');
-   })
-   ->join('travails', function ($join) {
-       $join->on('employes.id_nin', '=', 'travails.id_nin')
-            ->on('latest_travails.max_date_installation', '=', 'travails.date_installation');
-   })
-   ->where('departements.id_depart', $dep_id);
+   $empdep = Employe::with([
+    'occupeIdNin'=>function($query)
+    {
+        $query->orderBy('date_recrutement','desc')->take(1);
+     
+    },
+     'occupeIdNin.post.contient.sous_departement.departement',
+    'occupeIdP'=>function($query)
+    {
+        $query->orderBy('date_recrutement','desc')->take(1);
+    },
+    'occupeIdP.post.contient.sous_departement.departement',
+    'travailByNin' => function ($query) {
+        $query->orderBy('date_installation', 'desc')->take(1);
+        
+    },
+    'travailByNin.sous_departement.departement',
+    'travailByP' => function ($query) {
+        $query->orderBy('date_installation', 'desc')->take(1);
+     
+    },
+    'travailByP.sous_departement.departement',
+      
+])->get();
+//le tri 
+    if ($champs === 'age') {
+        $empdep = $empdep->sortBy(function($emp) {
+            return \Carbon\Carbon::parse($emp->Date_nais)->age;
+            }, SORT_REGULAR, $direction === 'desc');
 
-    // Appliquer le tri en fonction du champ et de la direction
-    if ($sort == 'age') {
-        $query->orderByRaw('TIMESTAMPDIFF(YEAR, Date_nais, CURDATE()) ' . $direction);
-        dd($query);
-    } elseif ($sort == 'Nom_post') {
-        $query->orderBy('posts.Nom_post', $direction);
-    } elseif ($sort == 'Nom_depart') {
-        $query->orderBy('departements.Nom_depart', $direction);
-    } elseif ($sort == 'Nom_sous_depart') {
-        $query->orderBy('sous_departements.Nom_sous_depart', $direction);
-    } elseif ($sort == 'date_recrutement') {
-        $query->orderBy('occupes.date_recrutement', $direction);
-    } elseif ($sort == 'date_installation') {
-        $query->orderBy('travails.date_installation', $direction);
-    } else {
-        $query->orderBy($sort, $direction);
+    } elseif ($champs === 'Nom_post') {
+        $empdep = $empdep->sortBy(function($emp) {
+            return optional($emp->occupeIdNin->first())->post->Nom_post;
+            }, SORT_REGULAR, $direction === 'desc');
+
+    } elseif ($champs === 'Nom_depart') {
+        $empdep = $empdep->sortBy(function($emp) {
+            return optional(optional($emp->travailByNin->first())->sous_departement->departement)->Nom_depart;
+            }, SORT_REGULAR, $direction === 'desc');
+
+    } elseif ($champs === 'Nom_sous_depart') {
+        $empdep = $empdep->sortBy(function($emp) {
+            return optional($emp->travailByNin->first())->sous_departement->Nom_sous_depart;
+            }, SORT_REGULAR, $direction === 'desc');
+
+    } elseif ($champs === 'date_recrutement') {
+        $empdep = $empdep->sortBy(function($emp) {
+            return optional($emp->occupeIdNin->first())->date_recrutement;
+            }, SORT_REGULAR, $direction === 'desc');//optiinal evite l'erreur si la relatiion est abscente ,sort_regular:le tri est effectué de manière standard
+    
+        } elseif ($champs === 'date_installation') {
+        $empdep = $empdep->sortBy(function($emp) {
+            return optional($emp->travailByNin->first())->date_installation;
+            }, SORT_REGULAR, $direction === 'desc');
+
+        } else {
+        $empdep = $empdep->sortBy($champs, SORT_REGULAR, $direction === 'desc');
     }
-    $empdep = $query->get();
+    
+    $empdep = $empdep->values();
+
 
 
 /*
@@ -110,7 +127,7 @@ class DepartmentController extends Controller
 //le nbr total des employe pour chaque depart
         $totalEmpDep = $empdep->count();
 
-return view('department.dashboard_depart', compact('empdep','empdepart','nom_d','dep_id','sort','direction'));
+return view('department.dashboard_depart', compact('empdep','empdepart','nom_d','dep_id','champs','direction'));
     }
 
 

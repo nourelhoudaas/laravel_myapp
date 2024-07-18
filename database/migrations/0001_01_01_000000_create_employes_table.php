@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('id_emp')->primary()->autoIncrement();
             $table->integer('id_nin')->unique();
             $table->integer('id_p')->unique();
+            $table->integer('NSS')->unique();
             $table->string('Nom_emp');
             $table->string('Prenom_emp');
             $table->string('Nom_ar_emp');
@@ -24,6 +25,17 @@ return new class extends Migration
             $table->string('Lieu_nais_ar');
             $table->string('adress');
             $table->string('adress_ar');
+            $table->string('prenom_pere');
+            $table->string('prenom_mere');
+            $table->string('nom_mere');
+            $table->string('prenom_pere_ar');
+            $table->string('prenom_mere_ar');
+            $table->string('nom_mere_ar');
+            $table->date('Date_nais_pere');
+            $table->date('Date_nais_mere');
+            $table->string('situation_familliere');
+            $table->string('situation_familliere_ar');
+            $table->integer('nbr_enfants');
             $table->string('sexe');
             $table->string('email')->nullable();;
             $table->string('Phone_num')->unique();
