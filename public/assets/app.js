@@ -240,6 +240,10 @@ function closeNav(absensform,id_nin,absens) {
         e.preventDefault();
                 selectElement =document.querySelector('#Sexe');
             output = selectElement.value;
+            selectSituat =document.querySelector('#situat');
+            outputS = selectSituat.value;
+            selectenf =document.querySelector('#nbrenfant');
+            outputF = selectenf.value;
                 // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:parseInt($('#ID_NIN').val()),
@@ -254,6 +258,14 @@ function closeNav(absensform,id_nin,absens) {
                     Date_Nais_P: $('#Date_Nais_P').val(),
                     Lieu_N:$('#Lieu_N').val(),
                     Lieu_AR:$('#Lieu_AR').val(),
+                    Prenom_Per:$('Prenom_Per').val(),
+                    Prenom_PerAR:$('Prenom_PerAR').val(),
+                    Prenom_PerAR:$('Nom_mere').val(),
+                    Prenom_PerAR:$('Prenom_mere').val(),
+                    Prenom_PerAR:$('Nom_mereAR').val(),
+                    Prenom_PerAR:$('Prenom_mereAR').val(),
+                    Situat:outputS,
+                    nbrenfant:outputF,
                     Sexe:output,
                     EMAIL:$('#EMAIL').val(),
                     _token: $('meta[name="csrf-token"]').attr('content'),

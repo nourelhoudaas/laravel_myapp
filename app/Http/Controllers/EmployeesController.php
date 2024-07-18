@@ -419,7 +419,7 @@ return response()->json($finalresul);
             ]
             );
             $cng=Conge::where('id_nin',$request->get('ID_NIN'))
-            ->select('id_nin','ref_cong','nbr_jours',DB::raw('YEAR(date_debut_cong) as annee'))
+            ->select('id_nin','ref_cong','nbr_jours','date_debut_cong','id_cong',DB::raw('YEAR(date_debut_cong) as annee'))
             ->orderBy('date_debut_cong','desc')
             ->get();
             $delai=0;
@@ -433,7 +433,7 @@ return response()->json($finalresul);
                 ]);
             }
             {
-                if($cd->annee ==  Carbon::now()->year)
+                if($cg->annee ==  Carbon::now()->year)
                 {
                     $delai+=$cg->nbr_jours;
                 }
@@ -446,6 +446,7 @@ return response()->json($finalresul);
                     'status'=> 404
                 ]); 
             }
+           // dd($cng);
             $cong=new Conge([
                 'id_nin'=>$request->get('ID_NIN'),
                 'id_p'=>$request->get('ID_P'),
