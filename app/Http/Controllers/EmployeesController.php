@@ -65,7 +65,7 @@ $employe = Employe::with([
          
 
         return view('employees.liste',compact('employe','totalEmployes','empdepart'));
-  
+   
         }
 
     public function AddEmply()
