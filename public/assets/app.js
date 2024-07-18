@@ -823,7 +823,16 @@ $(document).ready(function(){
                             success:function(response)
                             {
                                 alert('add_to holiday')
+                                if(response.status == 200)
+                                    {
                                 window.location.href='/conge';
+                                    }
+                                    else
+                                    {
+                                        alert(response.message);
+                                        $('#Date_Dcg').addClass('error-handle')
+                                        $('#Date_Fcg').addClass('error-handle') 
+                                    }
                             }
                         })
                     }

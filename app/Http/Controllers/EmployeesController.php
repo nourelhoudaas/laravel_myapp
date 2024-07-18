@@ -378,13 +378,23 @@ return response()->json($finalresul);
         ->firstOrFail();
         $cng=Conge::where('id_nin',$emp->id_nin)->orderBy('date_fin_cong','desc')->get();
        
-        if($cng->count() > 0  && $cng[0]->nbr_jours != 0)
+        if($cng->count() > 0)
         {
-            $totaljour+=$cng[0]->nbr_jours;
+         //   dd($cng[0]->nbr_jours);
+            foreach($cng as $cg)
+            {
+                $totaljour+=$cg->nbr_jours;
+            }
+            return response()->json(
+                [
+                    'employe'=>$emp,
+                    'Jour_congé'=> $totaljour   ,
+                ]
+            );
         }
         else
         {
-           // dd($emp);
+            dd($emp);
             
         $startDate = Carbon::parse($emp->date_recrutement);
 
@@ -396,18 +406,20 @@ return response()->json($finalresul);
         if($monthsDifference > 0 )
         {
             $totaljour = $monthsDifference*2.5;
+            return response()->json(
+                [
+                    'employe'=>$emp,
+                    'Jour_congé'=>round($totaljour),
+                ]
+            );
         }
         }
 
-        return response()->json(
-            [
-                'employe'=>$emp,
-                'Jour_congé'=>round($totaljour),
-            ]
-        );
+       
     }
     public function add_cng(Request $request)
     {
+       
         $request->validate(
             [
                 'ID_NIN'=>'required|integer',
@@ -419,7 +431,7 @@ return response()->json($finalresul);
             ]
             );
             $cng=Conge::where('id_nin',$request->get('ID_NIN'))
-            ->select('id_nin','ref_cong','nbr_jours','date_debut_cong','id_cong',DB::raw('YEAR(date_debut_cong) as annee'))
+            ->select('id_nin','ref_cong','nbr_jours','date_debut_cong','id_cong','date_fin_cong',DB::raw('YEAR(date_debut_cong) as annee'))
             ->orderBy('date_debut_cong','desc')
             ->get();
             $delai=0;
@@ -427,10 +439,22 @@ return response()->json($finalresul);
             {
             if($request->get('date_dcg') <= $cg->date_debut_cong )
             {
+              
                 return response()->json([
-                    'message'=>'Unsuccess',
+                    'message'=>'Unsuccess verfier date du debut',
                     'status'=> 404
                 ]);
+                }
+                else
+                {
+                    if($request->get('date_dcg')<= $cg->date_fin_cong )
+                    {
+                        return response()->json([
+                            'message'=>'Unsuccess verfier date debut peut',
+                            'status'=> 404
+                        ]);
+                }
+
             }
             {
                 if($cg->annee ==  Carbon::now()->year)
@@ -446,7 +470,23 @@ return response()->json($finalresul);
                     'status'=> 404
                 ]); 
             }
-           // dd($cng);
+            //dd($cng);
+            $startDate = Carbon::parse($request->get('date_dcg'));
+
+        
+            $endDate = Carbon::parse($request->get('date_fcg'));
+    
+            // Calculate the number of months between the two dates
+            $monthsDifference = $startDate->diffInMonths($endDate);
+            $len=$cng->count()-1;
+            $nbrcng=$request->get('totaljour') - $monthsDifference;
+            if($nbrcng <= 0)    
+            {
+                return response()->json([
+                    'message'=>'Unsuccess deminuis le delai '.$nbrcng,
+                    'status'=> 404
+                ]); 
+            }
             $cong=new Conge([
                 'id_nin'=>$request->get('ID_NIN'),
                 'id_p'=>$request->get('ID_P'),
