@@ -55,6 +55,7 @@ class AddEmployeControll extends Controller
 
             $Request->validate([
                 'ID_NIN' => 'required|integer',
+                'ID_SS' => 'required|integer',
                 'Nom_P' => 'required|string',
                 'Prenom_O' => 'required|string',
                 'Nom_PAR' => 'required|string',
@@ -71,7 +72,8 @@ class AddEmployeControll extends Controller
           //  dd($Request);
             $employe = new Employe([
                 'id_nin' => $Request->get('ID_NIN'),
-                'id_p' => $Request->get('ID_SS'),
+              'id_p' => $Request->get('ID_SS')+1,
+                'NSS' => $Request->get('ID_SS'),
                 'Nom_emp' => $Request->get('Nom_P'),
                 'Prenom_emp' => $Request->get('Prenom_O'),
                 'Nom_ar_emp' => $Request->get('Nom_PAR'),

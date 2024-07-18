@@ -26,14 +26,14 @@ return new class extends Migration
             [
                 'id_appar' => 1,
                 'Date_op' => '2023-07-11',
-                'id_niv' => 5,
+                'id_niv' => 1,
                 'id_nin' => 1254953,
                 'id_p' => 123,
             ],
             [
                 'id_appar' => 15,
                 'Date_op' => '2024-03-13',
-                'id_niv' => 12,
+                'id_niv' => 2,
                 'id_nin' => 254896989,
                 'id_p' => 256,
             ],
