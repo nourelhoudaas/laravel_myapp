@@ -467,13 +467,34 @@ $(document).ready(function(){
     return differenceInDays;
 }
 
+//---------------------calculate -------------------------
 
+/*function calculateDateDifference($totalDays) {
+  const daysInYear = 365;
+    const daysInMonth = 30; // Simplified approximation, can be adjusted
+
+    // Calculate the number of years
+    const years = Math.floor(totalDays / daysInYear);
+    // Calculate the remaining days after accounting for the years
+    let remainingDays = totalDays % daysInYear;
+
+    // Calculate the number of months
+    const months = Math.floor(remainingDays / daysInMonth);
+    // Calculate the remaining days after accounting for the months
+    remainingDays = remainingDays % daysInMonth;
+
+    return {
+        years: years,
+        months: months,
+        days: remainingDays
+    };
+}*/
 // Example usage
  // YYYY-MM-DD format
 const count =@json($nbr);
 const data =@json($detailemp);
 var i=1;
-data.forEach(function(emp){
+/*data.forEach(function(emp){
   console.log(''+emp.date_recrutement)
 const startDate = emp.date_recrutement;
 const datechange=emp.date_chang;
@@ -482,7 +503,27 @@ const daysElapsed = calculateDaysFromStart(startDate,datechange);
 console.log(`Number of days from ${startDate} to today: ${daysElapsed}`);
 i++;
 
-})
+})*/
+for (let index = 0; index < data.length; index++) {
+  {
+    if(i > data.length-1)
+    {
+      console.log('no more to fetch');
+    }
+    else
+    {
+      const startDate = data[index].date_installation;
+      const datechange=data[i].date_installation ;
+      const daysElapsed = calculateDaysFromStart(startDate,datechange);
+     // var all=calculateDateDifference(daysElapsed)
+      document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+daysElapsed;
+      console.log(`Number of days from ${startDate} to today: ${daysElapsed}`)
+     
+    }
+    i++;
+  }
+  
+}
 
 </script>
    </body>
