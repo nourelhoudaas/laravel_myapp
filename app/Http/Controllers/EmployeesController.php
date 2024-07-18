@@ -15,56 +15,82 @@ class EmployeesController extends Controller
 {
     public function ListeEmply(Request $request)
     {
-        /*$employe= DB::table('posts')
+    
+        $champs = $request->input('champs', 'Nom_emp'); // Champ par défaut pour le tri
+        $direction = $request->input('direction', 'asc'); // Ordre par défaut ascendant
+   
+    $employe = Employe::with([
+           'occupeIdNin'=>function($query)
+           {
+               $query->orderBy('date_recrutement','desc')->take(1);
+   
+           },
+            'occupeIdNin.post.contient.sous_departement.departement',
 
-        ->join('occupes','occupes.id_post',"=","posts.id_post")
-        ->join('employes','occupes.id_p','=','employes.id_p')
-        ->join('travails','travails.id_p','=','employes.id_p')
-        ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
-        ->join('departements','sous_departements.id_depart','=','departements.id_depart')
-        ->select('employes.id_nin','employes.id_p','employes.Nom_emp','employes.Prenom_emp' ,'posts.Nom_post','sous_departements.Nom_sous_depart','departements.Nom_depart')
-        ->distinct()
-        ->get();
+           
+           'travailByNin' => function ($query) {
+               $query->orderBy('date_installation', 'desc')->take(1);
+   
+           },
+           'travailByNin.sous_departement.departement',
+           'travailByP' => function ($query) {
+               $query->orderBy('date_installation', 'desc')->take(1);
+   
+           },
+           'travailByP.sous_departement.departement'
+       ])
 
-        $empdepart= DB::table('departements')
-          ->get();
-     */
+   
+    ->get();
+   
+   
+       if ($champs === 'age') {
+           $employe = $employe->sortBy(function($emp) {
+               return \Carbon\Carbon::parse($emp->Date_nais)->age;
+           }, SORT_REGULAR, $direction === 'desc');
+       } elseif ($champs === 'Nom_post') {
+           $employe = $employe->sortBy(function($emp) {
+               return optional($emp->occupeIdNin->first())->post->Nom_post;
+           }, SORT_REGULAR, $direction === 'desc');
+   
+   
+    } elseif ($champs === 'Nom_depart') {
+       $employe = $employe->sortBy(function($emp) {
+           return optional(optional($emp->travailByNin->first())->sous_departement->departement)->Nom_depart;
+       }, SORT_REGULAR, $direction === 'desc');
+   } elseif ($champs === 'Nom_sous_depart') {
+       $employe = $employe->sortBy(function($emp) {
+           return optional($emp->travailByNin->first())->sous_departement->Nom_sous_depart;
+       }, SORT_REGULAR, $direction === 'desc');
+   } elseif ($champs === 'date_recrutement') {
+       $employe = $employe->sortBy(function($emp) {
+           return optional($emp->occupeIdNin->first())->date_recrutement;
+       }, SORT_REGULAR, $direction === 'desc');
+   } elseif ($champs === 'date_installation') {
+       $employe = $employe->sortBy(function($emp) {
+           return optional($emp->travailByNin->first())->date_installation;
+       }, SORT_REGULAR, $direction === 'desc');
+   } else {
+       $employe = $employe->sortBy($champs, SORT_REGULAR, $direction === 'desc');
+   }
+       $employe = $employe->values();
+   
+       $empdepart=Departement::get();
 
-
-$employe = Employe::with([
-        'occupeIdNin'=>function($query)
-        {
-            $query->orderBy('date_recrutement','desc')->take(1);
-        },
-         'occupeIdNin.post.contient.sous_departement.departement',
-        'occupeIdP'=>function($query)
-        {
-            $query->orderBy('date_recrutement','desc')->take(1);
-        },
-        'occupeIdP.post.contient.sous_departement.departement',
-        'travailByNin' => function ($query) {
-            $query->orderBy('date_installation', 'desc')->take(1);
-        },
-        'travailByNin.sous_departement.departement',
-        'travailByP' => function ($query) {
-            $query->orderBy('date_installation', 'desc')->take(1);
-        },
-        'travailByP.sous_departement.departement'
-    ])
-  ->get();
+       /*$empdepart= DB::table('departements')
+       ->get();*/
 
     
-   //return $employe;
-    // dd($employe);
-
-   //le nbr total des employés
-     $totalEmployes = $employe->count();
-
-        $empdepart= DB::table('departements')
-          ->get();
-         
-
-        return view('employees.liste',compact('employe','totalEmployes','empdepart'));
+//le nbr total des employe pour chaque depart
+       $totalEmployes = $employe->count();
+   
+      //return $employe;
+       // dd($employe);
+ 
+   
+   
+        //   return view('employees.liste',compact('employe','totalEmployes','empdepart'));
+           return view('employees.liste',compact('employe','totalEmployes','empdepart','champs','direction'));
    
         }
 
