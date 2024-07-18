@@ -53,13 +53,17 @@
                 <div>
                     <hr>
                 <select type="text" class="form-select form-select-lm mb-3" value="" id="Dep">
-                        <option value="">Selection la Titre de Congé</option>
-                        <option> Annulle</option>
+                        <option value="">Séléctionner le Titre du Congé</option>
+                        <option> Annuel</option>
                         <option> Maladie</option>
+                        <option> Mise en dispo "sans solde"</option>
+                        <option> Maternité</option>
+                       
+                        
                         </select>
                 <hr>
                 <select type="text" class="form-select" value="" id="Dep">
-                        <option value="">Selection la Direction</option>
+                        <option value="">Séléctionner la Direction</option>
                         @foreach($empdepart as $empdeparts)
                         <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart}}</option>
                         @endforeach
@@ -73,14 +77,15 @@
 
                             <tr>
                                 <th>Nom </th>
-                                <th>Prenom</th>
+                                <th>Prénom</th>
+                                <th>Num Téléphone</th>
                                 <th>poste</th>
                                 <th>Sous Direction</th>
-                                <th>Date de Debut</th>
-                                <th>Date de Fine</th>
-                                <th>Type De Congé</th>
-                                <th>Stituation</th>
-                                <th>N°Telephone</th>
+                                <th>Date Debut Congé</th>
+                                <th>Date Fin Congé</th>
+                                <th>Nombres de jours</th>
+                                <th>Situation</th>
+                              
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -102,15 +107,17 @@
                 <input type="number" id="id_emp" name="id_emp" placeholder="ID Profissionnel" required>
                 <input type="text" id="Dic" name="Dic" placeholder="La Direction" disabled>
                 <input type="text" id="SDic" name="SDic" placeholder="La Sous-Direction" disabled>
-                <label class="labels" style="display: flex;">La date De Debut de Congé</label>
+                <label class="labels" style="display: flex;">La date Début du Congé</label>
                 <input type="date" name="Date_Dcg" id="Date_Dcg" required>
-                <label class="labels" style="display: flex;">La date De Fine de Congé</label>
+                <label class="labels" style="display: flex;">La date Fin du Congé</label>
                 <input type="date" name="Date_Fcg" id="Date_Fcg" required>
-                <label class="labels" style="display: flex;">Selection le Type du Congé</label>
+                <label class="labels" style="display: flex;">Séléctionner le Type du Congé</label>
                 <select id="typ_cg">
-                    <option value="0">Type De Congé</option>
-                    <option value="REF0608"> Annulle</option>
+                    <option value="0">Type Du Congé</option>
+                    <option value="REF0608"> Annuel</option>
                     <option value="2"> Maladie</option>
+                    <option> Mise en dispo "sans solde"</option>
+                    <option> Maternité</option>
                 </select>
                 <hr>
                 <input type="number" id="total_cgj" disabled>
@@ -119,17 +126,17 @@
                 </br>
                 <div class='date-conge' >
                     <div>
-                    <label class="labels" style="display: flex; margin-left: 20px;">La Date Recrutement</label>
+                    <label class="labels" style="display: flex; margin-left: 20px;">La Date de Recrutement</label>
                         <input type="text" value="" id="date_rec" disabled>
                     </div>
                     <div>
-                        <label class="labels" style="display: flex; margin-left: 20px;">La date Ovrir Congé</label>
+                        <label class="labels" style="display: flex; margin-left: 20px;">La date d'ouverture du Congé</label>
                         <input type="text" value="" id="date_op" disabled>
                     </div>
                 </div>
                 <input type="file" name="file" id="file" required> </br>
-                <button type="button" id="conge_confirm">Passer Vers L congé</button>
-                <button type="button" class="close-formcg-btn">Annulle  </button>
+                <button type="button" id="conge_confirm">Passer Vers le congé</button>
+                <button type="button" class="close-formcg-btn">Annuller  </button>
             </form>
         </div>
     </div>

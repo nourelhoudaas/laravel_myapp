@@ -45,10 +45,13 @@ return new class extends Migration
         });
 
         DB::table('employes')->insert([
-            [
+            [  
+          
+        
                 'id_emp' => 1,
                 'id_nin' => 1254953,
                 'id_p' => 123,
+                'NSS' =>18505482,
                 'Nom_emp' => 'boumediene',
                 'Prenom_emp' => 'fadia',
                 'Nom_ar_emp' => 'بومدين',
@@ -61,6 +64,9 @@ return new class extends Migration
                 'sexe' => 'femme',
                 'email' => 'fagmail.com',
                 'Phone_num' => '0124367555',
+                'prenom_pere' => 'moh',
+                'prenom_mere' =>'fff'
+
                
                
             ],
