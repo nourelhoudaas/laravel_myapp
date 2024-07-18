@@ -536,7 +536,7 @@ $(document).ready(function() {
     }
     else
     {
-        $(this).aaddClass('error-hadle');
+        $(this).addClass('error-hadle');
     }
 });
    
@@ -633,6 +633,9 @@ $(document).ready(function() {
                               })
                         
                           }) 
+                    },
+                    error: function(response) {
+                        console.log(JSON.stringify(response))
                     }
                 });
             } else {
@@ -709,6 +712,9 @@ $(document).ready(function() {
                             })
                       
                         }) 
+                    },
+                    error: function(response) {
+                        console.log(JSON.stringify(response))
                     }
                 });
             } else {
@@ -721,6 +727,9 @@ $(document).ready(function() {
 
 });
 /** -------------------------- Absence Partie ---------------------------- */
+
+
+
 /** ---------------------------congé partie Demarer ------------------*/
 
 $(document).ready(function(){
@@ -771,11 +780,19 @@ $(document).ready(function(){
     $('#SDic').val('La Sous-Direction')
 }
           })
+          $('#Date_Dcg').focus(function(){
+            $(this).removeClass('error-handle')
+          })
+          $('#Date_Fcg').focus(function(){
+            $(this).removeClass('error-handle')
+          })
           $('#conge_confirm').click(function()
                     {
                         var date_dcg=$('#Date_Dcg').val();
                         var date_fcg=$('#Date_Fcg').val();
                         var totaljour=calculateDayscng(date_dcg,date_fcg)
+                        if(totaljour >0)
+                            {
                         var congeform={
                             ID_NIN:parseInt(result.employe.id_nin),
                             ID_P:parseInt(result.employe.id_p),
@@ -794,14 +811,21 @@ $(document).ready(function(){
                             success:function(response)
                             {
                                 alert('add_to holiday')
+                                window.location.href='/conge';
                             }
                         })
+                    }
+                    else
+                    {
+                        $('#Date_Dcg').addClass('error-handle')
+                        $('#Date_Fcg').addClass('error-handle')
+                    }
                     })
 })
 
 /**------------------------------ tarmine congé ---------------------*/
  //------------------------
-var md=false;
+var md=true;
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){
@@ -816,10 +840,10 @@ document.getElementById('phone_pn').disabled=false;
 document.getElementById('dateN').disabled=false;
 document.getElementById('adr').disabled=false;
 document.getElementById('adrAR').disabled=false;
-md=true;}
+md=true;
+}
 else
 {
-
 icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
 document.getElementById('Nom_P').disabled=true;

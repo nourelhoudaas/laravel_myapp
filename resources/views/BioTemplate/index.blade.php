@@ -188,8 +188,9 @@
                         
                       <hr>
                       <div class="row ">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" style="display: flex;flex-direction: row;justify-content: space-between;">
                           <button class="btn btn-info i" id="btn-ch">Edit</a>
+                          <button class="btn btn-info i" id="btn-tr">transferé</a>
                         </div>
                       </div>
                     </div>
@@ -288,22 +289,7 @@
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a>
-    <script src="/HRTemplat/vendor/jquery/jquery.min.js"></script>
-    <script src="/HRTemplat/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="/HRTemplat/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="/HRTemplat/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="/HRTemplat/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/HRTemplat/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    
+    </a>  
     <script src="{{ asset('assets/carousel.js')}}"></script>
     <script src="{{ asset('assets/app.js')}}"></script>
     <!--script src="../js/printPD.js"></script>
@@ -432,7 +418,36 @@ $(document).ready(function(){
                   alert('you dont');
                 }
     });
+
+    $('#btn-tr').click(function(e){
+        e.preventDefault();
+        console.log('testing '+ md);
+        if(md){
+                var id = '{{ $detailemp[0]->id_nin }}'; // Assuming you are searching by ID_NIN
+                  alert('you can');
+                $.ajax({
+                    url:'/Employe/IsEducat/' + id ,
+                    type: 'GET',
+                    success: function (response) {
+                        md=false;
+                        alert(response.success);
+                      window.location.href='/Employe/IsEducat/' + id
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+             
+              }
+                else
+                {
+                  alert('you dont');
+                }
+    });
+
 });
+
+
 
     </script>
     <script>
