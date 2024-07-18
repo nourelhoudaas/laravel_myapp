@@ -117,7 +117,7 @@ $employe = Employe::with([
                                         ->get();
                                       //  return response()->json($detailemp);
                                     //   print_r(compact('detailemp'));
-                                   // dd($detailemp);
+                                   // dd($result);
         $nbr=$result->count();
         $detailemp=array();    
         foreach($result as $res)
@@ -161,7 +161,7 @@ $employe = Employe::with([
             array_push($detailemp,$inter)  ;                     
         }
         
-       //  dd($detailemp);
+         //dd($detailemp);
         if($nbr>0){
             $nbr=$nbr-1;
         return view('BioTemplate.index',compact('detailemp','nbr','empdepart'));}
@@ -269,17 +269,7 @@ $employe = Employe::with([
     }
        // dd($finalresul);
               $empdepart=Departement::get();
-
-     
-
         $nom_d = Departement::where('id_depart', $id_dep)->value('Nom_depart');
-
-       /* $nom_d = DB::table('departements')
-        ->where('id_depart', $dep_id)
-        ->value('Nom_depart');*/
-
-//le nbr total des employe pour chaque depart
-       // $totalEmpDep = $empdep->count();
 return response()->json($finalresul);
     }
     public function absens_date($date)
