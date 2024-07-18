@@ -20,29 +20,29 @@ class EmployeesController extends Controller
         $direction = $request->input('direction', 'asc'); // Ordre par défaut ascendant
    
     $employe = Employe::with([
-           'occupeIdNin'=>function($query)
-           {
-               $query->orderBy('date_recrutement','desc')->take(1);
-   
-           },
-            'occupeIdNin.post.contient.sous_departement.departement',
-
-           
-           'travailByNin' => function ($query) {
-               $query->orderBy('date_installation', 'desc')->take(1);
-   
-           },
-           'travailByNin.sous_departement.departement',
-           'travailByP' => function ($query) {
-               $query->orderBy('date_installation', 'desc')->take(1);
-   
-           },
-           'travailByP.sous_departement.departement'
-       ])
-
-   
-    ->get();
-   
+        'occupeIdNin'=>function($query)
+        {
+            $query->orderBy('date_recrutement','desc')->take(1);
+         
+        },
+         'occupeIdNin.post.contient.sous_departement.departement',
+        'occupeIdP'=>function($query)
+        {
+            $query->orderBy('date_recrutement','desc')->take(1);
+        },
+        'occupeIdP.post.contient.sous_departement.departement',
+        'travailByNin' => function ($query) {
+            $query->orderBy('date_installation', 'desc')->take(1);
+            
+        },
+        'travailByNin.sous_departement.departement',
+        'travailByP' => function ($query) {
+            $query->orderBy('date_installation', 'desc')->take(1);
+         
+        },
+        'travailByP.sous_departement.departement',
+          
+    ])->get();
    
        if ($champs === 'age') {
            $employe = $employe->sortBy(function($emp) {
@@ -378,15 +378,14 @@ return response()->json($finalresul);
         ->firstOrFail();
         $cng=Conge::where('id_nin',$emp->id_nin)->orderBy('date_fin_cong','desc')->get();
        
-        if($cng->count() > 0 )
+        if($cng->count() > 0  && $cng[0]->nbr_jours != 0)
         {
-           // dd($cng[0]->total_jour);
-            $totaljour=$cng[0]->total_jour+30;
+            $totaljour+=$cng[0]->nbr_jours;
         }
         else
         {
-          //  dd($emp);
-         
+           // dd($emp);
+            
         $startDate = Carbon::parse($emp->date_recrutement);
 
         
@@ -394,7 +393,7 @@ return response()->json($finalresul);
 
         // Calculate the number of months between the two dates
         $monthsDifference = $startDate->diffInMonths($endDate);
-        if($monthsDifference > 0)
+        if($monthsDifference > 0 )
         {
             $totaljour = $monthsDifference*2.5;
         }
@@ -419,15 +418,45 @@ return response()->json($finalresul);
                 'type_cg'=>'required|string'
             ]
             );
+            $cng=Conge::where('id_nin',$request->get('ID_NIN'))
+            ->select('id_nin','ref_cong','nbr_jours',DB::raw('YEAR(date_debut_cong) as annee'))
+            ->orderBy('date_debut_cong','desc')
+            ->get();
+            $delai=0;
+            foreach($cng as $cg)
+            {
+            if($request->get('date_dcg') <= $cg->date_debut_cong )
+            {
+                return response()->json([
+                    'message'=>'Unsuccess',
+                    'status'=> 404
+                ]);
+            }
+            {
+                if($cd->annee ==  Carbon::now()->year)
+                {
+                    $delai+=$cg->nbr_jours;
+                }
+            }
+            }
+            if($delai > 31)
+            {
+                return response()->json([
+                    'message'=>'Unsuccess',
+                    'status'=> 404
+                ]); 
+            }
             $cong=new Conge([
                 'id_nin'=>$request->get('ID_NIN'),
                 'id_p'=>$request->get('ID_P'),
                 'date_debut_cong'=>$request->get('date_dcg'),
                 'date_fin_cong'=>$request->get('date_fcg'),
-                'total_jour'=>$request->get('totaljour'),
+                'nbr_jours'=>$nbrcng,
                 'ref_cong'=>$request->get('type_cg')
             ]);
-           // dd($request);
+           
+
+           // dd($cong);
             if($cong->save())
             {
                 return response()->json([

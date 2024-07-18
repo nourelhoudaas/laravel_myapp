@@ -790,8 +790,8 @@ $(document).ready(function(){
                     {
                         var date_dcg=$('#Date_Dcg').val();
                         var date_fcg=$('#Date_Fcg').val();
-                        var totaljour=calculateDayscng(date_dcg,date_fcg)
-                        if(totaljour >0)
+                        var totaljour=calculateDayscng(date_dcg,date_fcg) 
+                        if(totaljour >0 && totaljour <=30)
                             {
                         var congeform={
                             ID_NIN:parseInt(result.employe.id_nin),
