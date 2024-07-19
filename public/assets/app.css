@@ -1117,7 +1117,7 @@ cursor:not-allowed ;
 .formcg-overlay {
   display: none;
   position: fixed;
-  top: 0;
+  top: 30px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -1194,4 +1194,14 @@ cursor:not-allowed ;
 .nodisp
 {
   display: none;
+}
+.error-tooltip {
+  display: none;
+  position: absolute;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 5px;
+  border-radius: 3px;
+  z-index: 1000;
 }

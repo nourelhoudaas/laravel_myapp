@@ -1,5 +1,4 @@
 
-
 function uploadFile() {
   var formData = new FormData();
   var file = document.getElementById('file').files[0];
@@ -745,6 +744,7 @@ $(document).ready(function() {
 /** ---------------------------congé partie Demarer ------------------*/
 
 $(document).ready(function(){
+
     var inpt=$('#id_emp')
     var droit='<i class="fa fa-check-square" aria-hidden="true"></i>'
     var pasrdoit='<i class="fa fa-ban" aria-hidden="true"></i>'
@@ -799,18 +799,43 @@ $(document).ready(function(){
     $('#total_cgj').val('')
 }
           })
+          $('#id_emp').focus(function(){
+            $(this).removeClass('error-handle')
+          })
           $('#Date_Dcg').focus(function(){
             $(this).removeClass('error-handle')
           })
           $('#Date_Fcg').focus(function(){
             $(this).removeClass('error-handle')
           })
+          $('#file-error').focus(function(){
+             $(this).removeAttr('style')
+          })
+          function showError(message, inputElement, errorElement) {
+            const inputOffset = inputElement.offset();
+            errorElement.text(message).css({
+                top: inputOffset.top + inputElement.outerHeight(),
+                left: inputOffset.left,
+                display: 'block'
+            });
+        }
+    
+        function hideError(errorElement) {
+            errorElement.css('display', 'none');
+        }
+        var id=$('#id_emp').val();
+        console.log('--'+id+'-')
+        var file=$('#file')
+        console.log('----'+file)
+        const fileError = $('#file-error');
           $('#conge_confirm').click(function()
-                    {
+                    {   
+                        if(id !== null && file[0].files.length > 0 ){
                         var date_dcg=$('#Date_Dcg').val();
                         var date_fcg=$('#Date_Fcg').val();
                         var totaljour=calculateDayscng(date_dcg,date_fcg) 
-                       var total_cgj= parseInt($('#total_cgj').val())
+                        var total_cgj= parseInt($('#total_cgj').val())
+                       
                         if(totaljour >0 && totaljour <=30)
                             {
 
@@ -851,7 +876,24 @@ $(document).ready(function(){
                         $('#Date_Dcg').addClass('error-handle')
                         $('#Date_Fcg').addClass('error-handle')
                     }
+                }else
+                {
+                    alert('empty files'+id);
+                    if( id == null){
+                    $('#id_emp').addClass('error-handle')}
+                    if(file[0].files.length == 0){
+                    showError('File is required', file, fileError);}
+                }
                     })
+                    $(window).on('resize', function() {
+                        if (fileError.is(':visible')) {
+                            const inputOffset = file.offset();
+                            fileError.css({
+                                top: inputOffset.top + file.outerHeight(),
+                                left: inputOffset.left
+                            });
+                        }
+                    });
 })
 
 /**------------------------------ tarmine congé ---------------------*/
