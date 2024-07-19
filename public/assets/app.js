@@ -755,6 +755,8 @@ $(document).ready(function(){
                     $('.date-conge').removeClass('disp')
                     $('#checkcg-box').removeClass('abs');
                     $('#checkcg-box').removeClass('droit');
+                    $('#ddate_rec').removeClass('nodisp');
+                    $('#ddate_op').removeClass('nodisp'); 
             var val=$(this).val();
             if(val){
             $.ajax({
@@ -775,11 +777,13 @@ $(document).ready(function(){
                         var currentTime = new Date()
                        $('#checkcg-box').append(pasrdoit);
                        $('#checkcg-box').addClass('abs');  
+                       $('#ddate_fin').addClass('nodisp');
                        $('#date_rec').val(response.employe.date_recrutement)
                        $('#date_op').val('01-06-'+currentTime.getFullYear()) 
                     }
                     else
                     {
+                        $('#ddate_fin').removeClass('nodisp');
                        $('#checkcg-box').append(droit);
                        $('#checkcg-box').addClass('pre');
                        $('#ddate_rec').addClass('nodisp');
