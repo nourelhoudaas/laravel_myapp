@@ -745,6 +745,8 @@ $(document).ready(function(){
                     console.log('response'+JSON.stringify(response))
                     $('#Dic').val(response.employe.Nom_depart)
                     $('#SDic').val(response.employe.Nom_sous_depart)
+                    $('#Nom_emp').val(response.employe.Nom_emp)
+                    $('#Prenom_emp').val(response.employe.Prenom_emp)
                     $('#total_cgj').val(response.Jour_congé)
                     $('#typ_cg option:eq(1)').prop('selected', true)
                     if(response.Jour_congé == 0 )
@@ -769,13 +771,25 @@ $(document).ready(function(){
 {
     $('#Dic').val('La Direction')
     $('#SDic').val('La Sous-Direction')
+    $('#Nom_emp').val('Nom d employé')
+    $('#Prenom_emp').val('Prenom d employé')
 }
+          })
+          $('#Date_Dcg').focus(function()
+          {
+            $(this).removeClass('error-handle')
+          })
+          $('#Date_Fcg').focus(function()
+          {
+            $(this).removeClass('error-handle')
           })
           $('#conge_confirm').click(function()
                     {
                         var date_dcg=$('#Date_Dcg').val();
                         var date_fcg=$('#Date_Fcg').val();
                         var totaljour=calculateDayscng(date_dcg,date_fcg)
+                        if(totaljour>0)
+                        {
                         var congeform={
                             ID_NIN:parseInt(result.employe.id_nin),
                             ID_P:parseInt(result.employe.id_p),
@@ -796,6 +810,12 @@ $(document).ready(function(){
                                 alert('add_to holiday')
                             }
                         })
+                    }else
+                    {
+                        $('#Date_Dcg').addClass('error-handle')
+                        $('#Date_Fcg').addClass('error-handle')
+
+                    }
                     })
 })
 

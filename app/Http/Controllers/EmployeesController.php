@@ -365,7 +365,7 @@ return response()->json($finalresul);
       //  dd($cng);
         if($cng->count() > 0 )
         {
-            $totaljour=$cng->total_jour+30;
+            $totaljour=$cng[0]->total_jour+30;
         }
         else
         {

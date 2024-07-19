@@ -100,6 +100,8 @@
         <div class="formcg-container">
             <form>
                 <input type="number" id="id_emp" name="id_emp" placeholder="ID Profissionnel" required>
+                <input type="text" id="Nom_emp" name="Nom_emp" placeholder="Le nom" disabled>
+                <input type="text" id="Prenom_emp" name="Prenom_emp" placeholder="Le Prenom" disabled>
                 <input type="text" id="Dic" name="Dic" placeholder="La Direction" disabled>
                 <input type="text" id="SDic" name="SDic" placeholder="La Sous-Direction" disabled>
                 <label class="labels" style="display: flex;">La date De Debut de Congé</label>
