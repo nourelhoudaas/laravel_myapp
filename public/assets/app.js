@@ -240,6 +240,10 @@ function closeNav(absensform,id_nin,absens) {
         e.preventDefault();
                 selectElement =document.querySelector('#Sexe');
             output = selectElement.value;
+            selectSituat =document.querySelector('#situat');
+            outputS = selectSituat.value;
+            selectenf =document.querySelector('#nbrenfant');
+            outputF = selectenf.value;
                 // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:parseInt($('#ID_NIN').val()),
@@ -254,6 +258,14 @@ function closeNav(absensform,id_nin,absens) {
                     Date_Nais_P: $('#Date_Nais_P').val(),
                     Lieu_N:$('#Lieu_N').val(),
                     Lieu_AR:$('#Lieu_AR').val(),
+                    Prenom_Per:$('Prenom_Per').val(),
+                    Prenom_PerAR:$('Prenom_PerAR').val(),
+                    Prenom_PerAR:$('Nom_mere').val(),
+                    Prenom_PerAR:$('Prenom_mere').val(),
+                    Prenom_PerAR:$('Nom_mereAR').val(),
+                    Prenom_PerAR:$('Prenom_mereAR').val(),
+                    Situat:outputS,
+                    nbrenfant:outputF,
                     Sexe:output,
                     EMAIL:$('#EMAIL').val(),
                     _token: $('meta[name="csrf-token"]').attr('content'),
@@ -536,7 +548,7 @@ $(document).ready(function() {
     }
     else
     {
-        $(this).aaddClass('error-hadle');
+        $(this).addClass('error-hadle');
     }
 });
    
@@ -633,6 +645,9 @@ $(document).ready(function() {
                               })
                         
                           }) 
+                    },
+                    error: function(response) {
+                        console.log(JSON.stringify(response))
                     }
                 });
             } else {
@@ -709,6 +724,9 @@ $(document).ready(function() {
                             })
                       
                         }) 
+                    },
+                    error: function(response) {
+                        console.log(JSON.stringify(response))
                     }
                 });
             } else {
@@ -721,6 +739,9 @@ $(document).ready(function() {
 
 });
 /** -------------------------- Absence Partie ---------------------------- */
+
+
+
 /** ---------------------------congé partie Demarer ------------------*/
 
 $(document).ready(function(){
@@ -749,12 +770,11 @@ $(document).ready(function(){
                     $('#Prenom_emp').val(response.employe.Prenom_emp)
                     $('#total_cgj').val(response.Jour_congé)
                     $('#typ_cg option:eq(1)').prop('selected', true)
-                    if(response.Jour_congé == 0 )
+                    if(response.Jour_congé <= 0 )
                     {
                         var currentTime = new Date()
                        $('#checkcg-box').append(pasrdoit);
                        $('#checkcg-box').addClass('abs');  
-                       $('.date-conge').addClass('disp') 
                        $('#date_rec').val(response.employe.date_recrutement)
                        $('#date_op').val('01-06-'+currentTime.getFullYear()) 
                     }
@@ -762,8 +782,11 @@ $(document).ready(function(){
                     {
                        $('#checkcg-box').append(droit);
                        $('#checkcg-box').addClass('pre');
+                       $('#ddate_rec').addClass('nodisp');
+                       $('#ddate_op').addClass('nodisp'); 
+                       $('#date_fin').val(response.date_congé)
                     }
-                    
+                    $('.date-conge').addClass('disp') 
                     alert('success')
                 }
             })
@@ -773,29 +796,31 @@ $(document).ready(function(){
     $('#SDic').val('La Sous-Direction')
     $('#Nom_emp').val('Nom d employé')
     $('#Prenom_emp').val('Prenom d employé')
+    $('#total_cgj').val('')
 }
           })
-          $('#Date_Dcg').focus(function()
-          {
+          $('#Date_Dcg').focus(function(){
             $(this).removeClass('error-handle')
           })
-          $('#Date_Fcg').focus(function()
-          {
+          $('#Date_Fcg').focus(function(){
             $(this).removeClass('error-handle')
           })
           $('#conge_confirm').click(function()
                     {
                         var date_dcg=$('#Date_Dcg').val();
                         var date_fcg=$('#Date_Fcg').val();
-                        var totaljour=calculateDayscng(date_dcg,date_fcg)
-                        if(totaljour>0)
-                        {
+                        var totaljour=calculateDayscng(date_dcg,date_fcg) 
+                       var total_cgj= parseInt($('#total_cgj').val())
+                        if(totaljour >0 && totaljour <=30)
+                            {
+
                         var congeform={
                             ID_NIN:parseInt(result.employe.id_nin),
                             ID_P:parseInt(result.employe.id_p),
                             Dic:parseInt(result.employe.id_depart),
                             date_dcg:$('#Date_Dcg').val(),
                             date_fcg:$('#Date_Fcg').val(),
+                            total_cgj:total_cgj,
                             totaljour:parseInt(totaljour),
                             type_cg:$('#typ_cg').find(":selected").val(),
                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -808,20 +833,30 @@ $(document).ready(function(){
                             success:function(response)
                             {
                                 alert('add_to holiday')
+                                if(response.status == 200)
+                                    {
+                                window.location.href='/conge';
+                                    }
+                                    else
+                                    {
+                                        alert(response.message);
+                                        $('#Date_Dcg').addClass('error-handle')
+                                        $('#Date_Fcg').addClass('error-handle') 
+                                    }
                             }
                         })
-                    }else
+                    }
+                    else
                     {
                         $('#Date_Dcg').addClass('error-handle')
                         $('#Date_Fcg').addClass('error-handle')
-
                     }
                     })
 })
 
 /**------------------------------ tarmine congé ---------------------*/
  //------------------------
-var md=false;
+var md=true;
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){
@@ -836,10 +871,10 @@ document.getElementById('phone_pn').disabled=false;
 document.getElementById('dateN').disabled=false;
 document.getElementById('adr').disabled=false;
 document.getElementById('adrAR').disabled=false;
-md=true;}
+md=true;
+}
 else
 {
-
 icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
 document.getElementById('Nom_P').disabled=true;

@@ -18,10 +18,9 @@ return new class extends Migration
             $table->string('Descriptif_niv')->unique();
             $table->string('Nom_niv_ar');
             $table->string('Specialité_ar');
-            $table->float('moyenne_niv');
-            $table->string('major_niv');
+            $table->integer('moyenne_niv');
+            $table->integer('major_niv');
             $table->Date('date_major');
-            
             $table->string('Descriptif_niv_ar')->unique();
             $table->integer('id_post');
             $table->foreign('id_post')->references('id_post')->on('posts');
@@ -30,7 +29,7 @@ return new class extends Migration
         });
         DB::table('niveaux')->insert([
         [
-            'id_niv' => 5,
+          
             'Nom_niv' => 'master2',
             'Specialité' => 'rsd',
             'Descriptif_niv' => 'réseaux et systèmes distribués',
@@ -38,10 +37,14 @@ return new class extends Migration
             'Specialité_ar' => 'نظام الشبكات',
            'Descriptif_niv_ar' => 'ماستر2',
            'id_post' => 2,
+           'moyenne_niv'=>13,
+           'major_niv'=>0,
+           'date_major'=>'1900-01-01'
+
             
         ],  
         [
-            'id_niv' => 12,
+            
             'Nom_niv' => 'master2',
             'Specialité' => 'finnance',
             'Descriptif_niv' => 'finnance',
@@ -49,6 +52,11 @@ return new class extends Migration
             'Specialité_ar' => 'مالية',
            'Descriptif_niv_ar' => 'مالية',
            'id_post' => 20,
+           'moyenne_niv'=>10,
+           'major_niv'=>0,
+           'date_major'=>'1900-01-01'
+           
+
         ],
            
         ]);

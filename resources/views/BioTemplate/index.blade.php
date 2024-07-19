@@ -188,8 +188,9 @@
                         
                       <hr>
                       <div class="row ">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" style="display: flex;flex-direction: row;justify-content: space-between;">
                           <button class="btn btn-info i" id="btn-ch">Edit</a>
+                          <button class="btn btn-info i" id="btn-tr">transferé</a>
                         </div>
                       </div>
                     </div>
@@ -288,22 +289,7 @@
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a>
-    <script src="/HRTemplat/vendor/jquery/jquery.min.js"></script>
-    <script src="/HRTemplat/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="/HRTemplat/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="/HRTemplat/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="/HRTemplat/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/HRTemplat/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    
+    </a>  
     <script src="{{ asset('assets/carousel.js')}}"></script>
     <script src="{{ asset('assets/app.js')}}"></script>
     <!--script src="../js/printPD.js"></script>
@@ -432,7 +418,36 @@ $(document).ready(function(){
                   alert('you dont');
                 }
     });
+
+    $('#btn-tr').click(function(e){
+        e.preventDefault();
+        console.log('testing '+ md);
+        if(md){
+                var id = '{{ $detailemp[0]->id_nin }}'; // Assuming you are searching by ID_NIN
+                  alert('you can');
+                $.ajax({
+                    url:'/Employe/IsEducat/' + id ,
+                    type: 'GET',
+                    success: function (response) {
+                        md=false;
+                        alert(response.success);
+                      window.location.href='/Employe/IsEducat/' + id
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+             
+              }
+                else
+                {
+                  alert('you dont');
+                }
+    });
+
 });
+
+
 
     </script>
     <script>
@@ -452,13 +467,34 @@ $(document).ready(function(){
     return differenceInDays;
 }
 
+//---------------------calculate -------------------------
 
+/*function calculateDateDifference($totalDays) {
+  const daysInYear = 365;
+    const daysInMonth = 30; // Simplified approximation, can be adjusted
+
+    // Calculate the number of years
+    const years = Math.floor(totalDays / daysInYear);
+    // Calculate the remaining days after accounting for the years
+    let remainingDays = totalDays % daysInYear;
+
+    // Calculate the number of months
+    const months = Math.floor(remainingDays / daysInMonth);
+    // Calculate the remaining days after accounting for the months
+    remainingDays = remainingDays % daysInMonth;
+
+    return {
+        years: years,
+        months: months,
+        days: remainingDays
+    };
+}*/
 // Example usage
  // YYYY-MM-DD format
 const count =@json($nbr);
 const data =@json($detailemp);
 var i=1;
-data.forEach(function(emp){
+/*data.forEach(function(emp){
   console.log(''+emp.date_recrutement)
 const startDate = emp.date_recrutement;
 const datechange=emp.date_chang;
@@ -467,7 +503,27 @@ const daysElapsed = calculateDaysFromStart(startDate,datechange);
 console.log(`Number of days from ${startDate} to today: ${daysElapsed}`);
 i++;
 
-})
+})*/
+for (let index = 0; index < data.length; index++) {
+  {
+    if(i > data.length-1)
+    {
+      console.log('no more to fetch');
+    }
+    else
+    {
+      const startDate = data[index].date_installation;
+      const datechange=data[i].date_installation ;
+      const daysElapsed = calculateDaysFromStart(startDate,datechange);
+     // var all=calculateDateDifference(daysElapsed)
+      document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+daysElapsed;
+      console.log(`Number of days from ${startDate} to today: ${daysElapsed}`)
+     
+    }
+    i++;
+  }
+  
+}
 
 </script>
    </body>

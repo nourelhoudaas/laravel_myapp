@@ -21,7 +21,7 @@ return new class extends Migration
         });
         DB::table('departements')->insert([
             [
-                'id_depart' => 1,
+              
                 'Nom_depart' => 'developpement',
                 'Descriptif_depart' => 'developpement',
                 'Nom_depart_ar' => 'تطوير',
@@ -29,7 +29,7 @@ return new class extends Migration
                
             ], 
             [
-                'id_depart' => 2,
+             
                 'Nom_depart' => 'personnel',
                 'Descriptif_depart' => 'personnel',
                 'Nom_depart_ar' => 'ادارة-المستخدمين',

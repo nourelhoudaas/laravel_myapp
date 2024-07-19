@@ -1191,3 +1191,7 @@ cursor:not-allowed ;
 {
   display: flex;
 }
+.nodisp
+{
+  display: none;
+}
