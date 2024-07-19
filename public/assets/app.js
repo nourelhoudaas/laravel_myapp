@@ -882,7 +882,7 @@ $(document).ready(function(){
                     if( id == null){
                     $('#id_emp').addClass('error-handle')}
                     if(file[0].files.length == 0){
-                    showError('File is required', file, fileError);}
+                    file.addClass('error-handle')}
                 }
                     })
                     $(window).on('resize', function() {
@@ -894,6 +894,10 @@ $(document).ready(function(){
                             });
                         }
                     });
+                    $('#cancel-conge').click(function()
+                    {
+                        
+                    })
 })
 
 /**------------------------------ tarmine congé ---------------------*/
