@@ -1205,3 +1205,14 @@ cursor:not-allowed ;
   border-radius: 3px;
   z-index: 1000;
 }
+
+@media screen and (max-height: 775px) {
+  .formcg-overlay {
+    overflow: auto
+  }
+  .formcg-container{
+    top: 10%;
+    overflow: auto;
+    position: absolute;
+  }
+}
