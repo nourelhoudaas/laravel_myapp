@@ -13,9 +13,9 @@ class UploadFile extends Controller
         // Validate the file
         $request->validate([
             'file' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            'num'=>'required|integer',
+            'id_nin'=>'required|integer',
         ]);
-        $id=$request->get('num');
+        $id=$request->get('id_nin');
         $sous_dir=$request->get('sous');
         $directory = "public/employees/Em_{$id}/{$sous_dir}";
 
@@ -33,9 +33,9 @@ class UploadFile extends Controller
     {
         // Define the main directory path
         $request->validate([
-            'num'=>'required|integer',
+            'id_nin'=>'required|integer',
         ]);
-        $id=$request->get('num');
+        $id=$request->get('id_nin');
        // $sous_dir=$request->get('sous');
         $mainDirectoryPath = storage_path('app/public/employees/Em_'.$id);
 

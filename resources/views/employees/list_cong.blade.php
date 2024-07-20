@@ -122,7 +122,7 @@
                     <option> Maternité</option>
                 </select>
                 <hr>
-                <input type="number" id="total_cgj" disabled>
+                <input type="text" id="total_cgj" disabled>
                 <input type="text" id="Situation">
                 <div id="checkcg-box"></div>
                 </br>
@@ -150,6 +150,7 @@
 
     </body>
     <script>
+        var dir='Congé'
         document.addEventListener("DOMContentLoaded", function() {
     const openFormBtn = document.querySelector(".add-handler");
     const closeFormBtn = document.querySelector(".close-formcg-btn");
