@@ -93,7 +93,7 @@
         </br>
         </br>
             <div class="">
-            <button class="button-33" type="button" id="upload-button" onclick="uploadFile2()">Upload</button>
+            <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">Upload</button>
                         </div>
           </div>
                 <div>
@@ -119,4 +119,5 @@
 <script>
      var id = '{{ $employe->id_nin }}';
      var idp = '{{ $employe->id_p }}';
+     var dir="Niveaux";
 </script>

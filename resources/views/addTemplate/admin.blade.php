@@ -123,7 +123,8 @@
 </body>
 <script>
      var id = '{{ $employe->id_nin }}';
-    var idp = '{{ $employe->id_p }}';
-    
+     console.log('my id::'+id);
+     var idp = '{{ $employe->id_p }}';
+     var dir = 'Admin';
 </script>
 @endsection

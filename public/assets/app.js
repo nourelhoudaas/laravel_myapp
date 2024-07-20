@@ -1,20 +1,52 @@
-
+/**
+ *  $.ajax
+        ({
+            url:"{{route('uploadFile')}}",
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(e) {
+                    if (e.lengthComputable) {
+                        var percentComplete = (e.loaded / e.total) * 100;
+                        $('#progressWrapper').show();
+                        $('#progressBar').width(percentComplete + '%');
+                    }
+                }, false);
+                return xhr;
+            },
+            success:function(response)
+            {
+                 $('#successMessage').show();
+          $('#progressWrapper').hide();
+          $('#progressBar').width('0%');
+            }
+        })
+ * 
+ */
 function uploadFile() {
   var formData = new FormData();
+  var formDataF = new FormData();
   var file = document.getElementById('file').files[0];
-  formData.append('file', file);
+  formDataF.append('file', file);
   formData.append('_token', document.querySelector('input[name="_token"]').value);
-   var id=$('#NIN').val();
-   formData.append('num', id);
-   console.log(' --- '+id);
-   if(typeof id === 'undefined')
+  formDataF.append('_token', document.querySelector('input[name="_token"]').value);
+   formData.append('num', parseInt(id));
+   formData.append('sous', dir);
+   formDataF.append('num', parseInt(id));
+   formDataF.append('sous', dir);
+   console.log('button of'+this.id);
+   console.log('button of'+this.dir);
+   /*if(typeof this.id === 'undefined')
     {
       console.log(' -- '+id);
-     var id='{{ $employe->ID_NIN }}';
+     // var id=$('#ID_NIN').val();
       console.log(' - '+id);
-    }
+    }*/
   $.ajax({
-      url: '/upload/numdossiers',
+      url: '/upload/creedossier',
       type: 'POST',
       data: formData,
       contentType: false,
@@ -34,9 +66,46 @@ function uploadFile() {
           $('#successMessage').show();
           $('#progressWrapper').hide();
           $('#progressBar').width('0%');
+          //  var id=$('#ID_NIN').val();
+           console.log(' in loading '+id);
+            console.log(' in loading '+JSON.stringify(formDataF));
+  /* if(typeof id === 'undefined')
+    {
+      console.log(' -- '+id);
+     var id='{{ $employe->ID_NIN }}';
+      console.log(' - '+id);
+    }*/
+          $.ajax
+        ({
+            url:"/upload/numdossiers",
+            type: 'POST',
+            data: formDataF,
+            contentType: false,
+            processData: false,
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(e) {
+                    if (e.lengthComputable) {
+                        var percentComplete = (e.loaded / e.total) * 100;
+                        $('#progressWrapper').show();
+                        $('#progressBar').width(percentComplete + '%');
+                    }
+                }, false);
+                return xhr;
+            },
+            success:function(response)
+            {
+             $('#successMessage').show();
+             $('#progressWrapper').hide();
+             $('#progressBar').width('0%');
+            },
+            error: function() {
+                alert('Upload failed');
+            }
+        })
       },
       error: function() {
-          alert('Upload failed');
+          alert('create failed');
       }
   });
 }
@@ -840,7 +909,7 @@ $(document).ready(function(){
                         var totaljour=calculateDayscng(date_dcg,date_fcg) 
                         var total_cgj= parseInt($('#total_cgj').val())
                        
-                        if(totaljour >0 && totaljour <=30)
+                        if(totaljour > 0 && totaljour <=30 && total_cgj > 0)
                             {
 
                         var congeform={
@@ -877,6 +946,10 @@ $(document).ready(function(){
                     }
                     else
                     {
+                        if(total_cgj <= 0)
+                        {
+                            alert('pas de jour a ajouter')
+                        }
                         $('#Date_Dcg').addClass('error-handle')
                         $('#Date_Fcg').addClass('error-handle')
                     }
