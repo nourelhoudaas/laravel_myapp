@@ -1,20 +1,108 @@
-
+/**
+ *  $.ajax
+        ({
+            url:"{{route('uploadFile')}}",
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(e) {
+                    if (e.lengthComputable) {
+                        var percentComplete = (e.loaded / e.total) * 100;
+                        $('#progressWrapper').show();
+                        $('#progressBar').width(percentComplete + '%');
+                    }
+                }, false);
+                return xhr;
+            },
+            success:function(response)
+            {
+                 $('#successMessage').show();
+          $('#progressWrapper').hide();
+          $('#progressBar').width('0%');
+            }
+        })
+ * 
+ */
+        function uploadFile2(id) {
+            var formData = new FormData();
+            var formDataF = new FormData();
+            var file = document.getElementById('file').files[0];
+            formDataF.append('file', file);
+            formData.append('_token',$('meta[name="csrf-token"]').attr('content')),
+            formData.append('_method', 'POST')
+            formDataF.append('_token',$('meta[name="csrf-token"]').attr('content')),
+            formDataF.append('_method', 'POST')
+             formData.append('id_nin', parseInt(id));
+             formData.append('sous', dir);
+             formDataF.append('id_nin', parseInt(id));
+             formDataF.append('sous', dir);
+             console.log('button of'+this.id);
+             console.log('button of'+this.dir);
+            $.ajax({
+                url: '/upload/creedossier',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                xhr: function() {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function(e) {
+                        if (e.lengthComputable) {
+                            var percentComplete = (e.loaded / e.total) * 100;
+                        }
+                    }, false);
+                    return xhr;
+                },
+                success: function(data) {
+                     console.log(' in loading '+id);
+                      console.log(' in loading '+JSON.stringify(formDataF));
+                    $.ajax
+                  ({
+                      url:"/upload/numdossiers",
+                      type: 'POST',
+                      data: formDataF,
+                      contentType: false,
+                      processData: false,
+                      xhr: function() {
+                          var xhr = new window.XMLHttpRequest();
+                          xhr.upload.addEventListener("progress", function(e) {
+                              if (e.lengthComputable) {
+                                  var percentComplete = (e.loaded / e.total) * 100;
+                              }
+                          }, false);
+                          return xhr;
+                      },
+                      success:function(response)
+                      {
+                      },
+                      error: function() {
+                          alert('Upload failed');
+                      }
+                  })
+                },
+                error: function() {
+                    alert('create failed');
+                }
+            });
+          }
 function uploadFile() {
   var formData = new FormData();
+  var formDataF = new FormData();
   var file = document.getElementById('file').files[0];
-  formData.append('file', file);
+  formDataF.append('file', file);
   formData.append('_token', document.querySelector('input[name="_token"]').value);
-   var id=$('#NIN').val();
-   formData.append('num', id);
-   console.log(' --- '+id);
-   if(typeof id === 'undefined')
-    {
-      console.log(' -- '+id);
-     var id='{{ $employe->ID_NIN }}';
-      console.log(' - '+id);
-    }
+  formDataF.append('_token', document.querySelector('input[name="_token"]').value);
+   formData.append('id_nin', parseInt(id));
+   formData.append('sous', dir);
+   formDataF.append('id_nin', parseInt(id));
+   formDataF.append('sous', dir);
+   console.log('button of'+this.id);
+   console.log('button of'+this.dir);
   $.ajax({
-      url: '/upload/numdossiers',
+      url: '/upload/creedossier',
       type: 'POST',
       data: formData,
       contentType: false,
@@ -34,9 +122,39 @@ function uploadFile() {
           $('#successMessage').show();
           $('#progressWrapper').hide();
           $('#progressBar').width('0%');
+           console.log(' in loading '+id);
+            console.log(' in loading '+JSON.stringify(formDataF));
+          $.ajax
+        ({
+            url:"/upload/numdossiers",
+            type: 'POST',
+            data: formDataF,
+            contentType: false,
+            processData: false,
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(e) {
+                    if (e.lengthComputable) {
+                        var percentComplete = (e.loaded / e.total) * 100;
+                        $('#progressWrapper').show();
+                        $('#progressBar').width(percentComplete + '%');
+                    }
+                }, false);
+                return xhr;
+            },
+            success:function(response)
+            {
+             $('#successMessage').show();
+             $('#progressWrapper').hide();
+             $('#progressBar').width('0%');
+            },
+            error: function() {
+                alert('Upload failed');
+            }
+        })
       },
       error: function() {
-          alert('Upload failed');
+          alert('create failed');
       }
   });
 }
@@ -409,43 +527,6 @@ $('#DipDate').focus(function()
 });
      });
 //TRAVAIL
-function uploadFile2() {
-    var formData = new FormData();
-    var file = document.getElementById('file').files[0];
-    formData.append('file', file);
-    formData.append('_token', document.querySelector('input[name="_token"]').value);
-
-
-    formData.append('num', id);
-    $.ajax({
-        url: '/upload/numdossiers',
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        xhr: function() {
-            var xhr = new window.XMLHttpRequest();
-            xhr.upload.addEventListener("progress", function(e) {
-                if (e.lengthComputable) {
-                    var percentComplete = (e.loaded / e.total) * 100;
-                    $('#progressWrapper').show();
-                    $('#progressBar').width(percentComplete + '%');
-                }
-            }, false);
-            return xhr;
-        },
-        success: function(data) {
-            $('#successMessage').show();
-            $('#progressWrapper').hide();
-            $('#progressBar').width('0%');
-        },
-        error: function() {
-            alert('Upload failed');
-        }
-    });
-}
-
-
 $(document).ready(function () {
     var currentGfgStep, nextGfgStep, previousGfgStep;
     var opacity;
@@ -755,6 +836,8 @@ $(document).ready(function(){
                     $('.date-conge').removeClass('disp')
                     $('#checkcg-box').removeClass('abs');
                     $('#checkcg-box').removeClass('droit');
+                    $('#ddate_rec').removeClass('nodisp');
+                    $('#ddate_op').removeClass('nodisp'); 
             var val=$(this).val();
             if(val){
             $.ajax({
@@ -763,23 +846,25 @@ $(document).ready(function(){
                 success:function(response)
                 {
                     result=response;
-                    console.log('response'+JSON.stringify(response))
+                  //  console.log('response'+JSON.stringify(response))
                     $('#Dic').val(response.employe.Nom_depart)
                     $('#SDic').val(response.employe.Nom_sous_depart)
                     $('#Nom_emp').val(response.employe.Nom_emp)
                     $('#Prenom_emp').val(response.employe.Prenom_emp)
-                    $('#total_cgj').val(response.Jour_congé)
+                    $('#total_cgj').val(response.Jour_congé+' Jour(s)')
                     $('#typ_cg option:eq(1)').prop('selected', true)
                     if(response.Jour_congé <= 0 )
                     {
                         var currentTime = new Date()
                        $('#checkcg-box').append(pasrdoit);
                        $('#checkcg-box').addClass('abs');  
+                       $('#ddate_fin').addClass('nodisp');
                        $('#date_rec').val(response.employe.date_recrutement)
                        $('#date_op').val('01-06-'+currentTime.getFullYear()) 
                     }
                     else
                     {
+                        $('#ddate_fin').removeClass('nodisp');
                        $('#checkcg-box').append(droit);
                        $('#checkcg-box').addClass('pre');
                        $('#ddate_rec').addClass('nodisp');
@@ -811,22 +896,10 @@ $(document).ready(function(){
           $('#file-error').focus(function(){
              $(this).removeAttr('style')
           })
-          function showError(message, inputElement, errorElement) {
-            const inputOffset = inputElement.offset();
-            errorElement.text(message).css({
-                top: inputOffset.top + inputElement.outerHeight(),
-                left: inputOffset.left,
-                display: 'block'
-            });
-        }
-    
-        function hideError(errorElement) {
-            errorElement.css('display', 'none');
-        }
         var id=$('#id_emp').val();
-        console.log('--'+id+'-')
+        //console.log('--'+id+'-')
         var file=$('#file')
-        console.log('----'+file)
+      //  console.log('----'+file)
         const fileError = $('#file-error');
           $('#conge_confirm').click(function()
                     {   
@@ -834,9 +907,11 @@ $(document).ready(function(){
                         var date_dcg=$('#Date_Dcg').val();
                         var date_fcg=$('#Date_Fcg').val();
                         var totaljour=calculateDayscng(date_dcg,date_fcg) 
-                        var total_cgj= parseInt($('#total_cgj').val())
-                       
-                        if(totaljour >0 && totaljour <=30)
+                        let jr=$('#total_cgj').val().split(" ");
+                        console.log('-->'+jr[0]);
+                        var total_cgj= parseInt(jr[0]);
+                        console.log('-->'+jr)
+                        if(totaljour > 0 && totaljour <=30 && total_cgj > 0)
                             {
 
                         var congeform={
@@ -858,9 +933,10 @@ $(document).ready(function(){
                             success:function(response)
                             {
                                 alert('add_to holiday')
+                                uploadFile2(parseInt(result.employe.id_nin))
                                 if(response.status == 200)
                                     {
-                                window.location.href='/conge';
+                                         window.location.href='/conge';
                                     }
                                     else
                                     {
@@ -873,6 +949,10 @@ $(document).ready(function(){
                     }
                     else
                     {
+                        if(total_cgj <= 0)
+                        {
+                            alert('pas de jour a ajouter')
+                        }
                         $('#Date_Dcg').addClass('error-handle')
                         $('#Date_Fcg').addClass('error-handle')
                     }
@@ -882,7 +962,7 @@ $(document).ready(function(){
                     if( id == null){
                     $('#id_emp').addClass('error-handle')}
                     if(file[0].files.length == 0){
-                    showError('File is required', file, fileError);}
+                    file.addClass('error-handle')}
                 }
                     })
                     $(window).on('resize', function() {
@@ -894,40 +974,102 @@ $(document).ready(function(){
                             });
                         }
                     });
+                    $('#cancel-conge').click(function()
+                    {
+                        
+                    })
 })
 
 /**------------------------------ tarmine congé ---------------------*/
  //------------------------
-var md=true;
-document.getElementById('mod-but').addEventListener('click',function(){
-var icon= document.getElementById('btn-icon');
-if(md == false){
-icon.classList.remove('fa-times')
-icon.classList.add('fa-pencil');
-document.getElementById('Nom_P').disabled=false;
-document.getElementById('Nom_PAR').disabled=false;
-document.getElementById('Prenom_O').disabled=false;
-document.getElementById('Prenom_OAR').disabled=false;
-document.getElementById('Email').disabled=false;
-document.getElementById('phone_pn').disabled=false;
-document.getElementById('dateN').disabled=false;
-document.getElementById('adr').disabled=false;
-document.getElementById('adrAR').disabled=false;
-md=true;
-}
-else
-{
-icon.classList.remove('fa-pencil')
-icon.classList.add('fa-times');
-document.getElementById('Nom_P').disabled=true;
-document.getElementById('Nom_PAR').disabled=true;
-document.getElementById('Prenom_O').disabled=true;
-document.getElementById('Prenom_OAR').disabled=true;
-document.getElementById('Email').disabled=true;
-document.getElementById('phone_pn').disabled=true;
-document.getElementById('dateN').disabled=true;
-document.getElementById('adr').disabled=true;
-document.getElementById('adrAR').disabled=true;
-md=false;
-}
-})
+ $(document).ready(function(){
+    $('#btn-ch').click(function(e){
+        e.preventDefault();
+        console.log('testing '+ md);
+        if(md){
+                // Assuming you are searching by ID_NIN
+                var formData = {
+                    Nom_P :$('#Nom_P').val(),
+                    Prenom_O: $('#Prenom_O').val(),
+                    Prenom_OAR: $('#Prenom_OAR').val(),
+                    Nom_PAR :$('#Nom_PAR').val(),
+                    Email: $('#Email').val(),
+                    phone_pn :parseInt($('#phone_pn').val()),
+                    dateN :$('#dateN').val(),
+                    adr :$('#adr').val(),
+                    adrAR :$('#adrAR').val(),
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    _method: 'PUT'
+                };
+                
+                  alert('you can');
+                $.ajax({
+                    url: '/BioTemplate/edit/' + id,
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        md=false;
+                        alert(response.success);
+                      window.location.href="{{ route('app_dashboard') }}"
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+             
+              }
+                else
+                {
+                  alert('you dont');
+                }
+    });
+
+    $('#btn-tr').click(function(e){
+        e.preventDefault();
+        console.log('testing '+ md);
+        if(md){
+                    // Assuming you are searching by ID_NIN
+                  alert('you can');
+                $.ajax({
+                    url:'/Employe/IsEducat/' + id ,
+                    type: 'GET',
+                    success: function (response) {
+                        md=false;
+                        alert(response.success);
+                      window.location.href='/Employe/IsEducat/' + id
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+             
+              }
+                else
+                {
+                  alert('you dont');
+                }
+    });
+    $('#btn-dir').click(function(e){
+      e.preventDefault();
+      if(md){
+                 // Assuming you are searching by ID_NIN
+                $.ajax({
+                    url:'/upload/getFiles/' + id ,
+                    type: 'GET',
+                    success: function (response) {
+                        md=false;
+                      window.location.href='/upload/getFiles/' + id
+                    },
+                    error: function (xhr) {
+                        //console.log(xhr.responseText);
+                        alert('il y pas de dossier il faut cree un')
+                    }
+                });
+             
+              }
+                else
+                {
+                  alert('you dont');
+                }
+    });
+    })

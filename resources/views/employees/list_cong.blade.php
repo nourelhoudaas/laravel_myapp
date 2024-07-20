@@ -130,7 +130,7 @@
                     <option> Maternité</option>
                 </select>
                 <hr>
-                <input type="number" id="total_cgj" disabled>
+                <input type="text" id="total_cgj" disabled>
                 <input type="text" id="Situation">
                 <div id="checkcg-box"></div>
                 </br>
@@ -151,14 +151,23 @@
                 <input type="file" name="file" id="file" style="height:40px" required>
                 <div id="file-error" class="error-tooltip">File is required</div>
                 <button type="button" id="conge_confirm">Passer Vers le congé</button>
+
                 <button type="button" class="close-formcg-btn">Annuller</button>
+
+                <button type="button" id="cancel-conge" class="close-formcg-btn">Annuller  </button>
+
             </form>
         </div>
     </div>
 
     </body>
     <script>
+
        document.addEventListener("DOMContentLoaded", function() {
+
+        var dir='Congé'
+        document.addEventListener("DOMContentLoaded", function() {
+
     const openFormBtn = document.querySelector(".add-handler");
     const closeFormBtn = document.querySelector(".close-formcg-btn");
     const formOverlay = document.getElementById("formOverlay");

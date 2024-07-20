@@ -206,6 +206,7 @@ $id=0;
 
    @endsection
 <script>
+        var dir="Personnel";
       document.addEventListener('DOMContentLoaded', () => {
             const dropdown = document.getElementById('nbrenfant');
             const maxNumber = 10; // Change this to the desired maximum number

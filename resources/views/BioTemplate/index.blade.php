@@ -191,6 +191,7 @@
                         <div class="col-sm-12" style="display: flex;flex-direction: row;justify-content: space-between;">
                           <button class="btn btn-info i" id="btn-ch">Edit</a>
                           <button class="btn btn-info i" id="btn-tr">transferé</a>
+                          <button class="btn btn-info i" id="btn-dir">Dossier</a>
                         </div>
                       </div>
                     </div>
@@ -296,7 +297,40 @@
     <script src="../js/sb-abd.js"></script-->
 
     <script >
-
+       var id = '{{ $detailemp[0]->id_nin }}';
+      var md=true;
+document.getElementById('mod-but').addEventListener('click',function(){
+var icon= document.getElementById('btn-icon');
+if(md == false){
+icon.classList.remove('fa-times')
+icon.classList.add('fa-pencil');
+document.getElementById('Nom_P').disabled=false;
+document.getElementById('Nom_PAR').disabled=false;
+document.getElementById('Prenom_O').disabled=false;
+document.getElementById('Prenom_OAR').disabled=false;
+document.getElementById('Email').disabled=false;
+document.getElementById('phone_pn').disabled=false;
+document.getElementById('dateN').disabled=false;
+document.getElementById('adr').disabled=false;
+document.getElementById('adrAR').disabled=false;
+md=true;
+}
+else
+{
+icon.classList.remove('fa-pencil')
+icon.classList.add('fa-times');
+document.getElementById('Nom_P').disabled=true;
+document.getElementById('Nom_PAR').disabled=true;
+document.getElementById('Prenom_O').disabled=true;
+document.getElementById('Prenom_OAR').disabled=true;
+document.getElementById('Email').disabled=true;
+document.getElementById('phone_pn').disabled=true;
+document.getElementById('dateN').disabled=true;
+document.getElementById('adr').disabled=true;
+document.getElementById('adrAR').disabled=true;
+md=false;
+}
+})
 document.addEventListener("DOMContentLoaded", function() { 
     const carousel = document.querySelector(".carousel"); 
     const arrowBtns = document.querySelectorAll(".wrapper i"); 
@@ -377,78 +411,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }); 
     }); 
 }); 
-$(document).ready(function(){
-    $('#btn-ch').click(function(e){
-        e.preventDefault();
-        console.log('testing '+ md);
-        if(md){
-                var id = '{{ $detailemp[0]->id_nin }}'; // Assuming you are searching by ID_NIN
-                var formData = {
-                    Nom_P :$('#Nom_P').val(),
-                    Prenom_O: $('#Prenom_O').val(),
-                    Prenom_OAR: $('#Prenom_OAR').val(),
-                    Nom_PAR :$('#Nom_PAR').val(),
-                    Email: $('#Email').val(),
-                    phone_pn :parseInt($('#phone_pn').val()),
-                    dateN :$('#dateN').val(),
-                    adr :$('#adr').val(),
-                    adrAR :$('#adrAR').val(),
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    _method: 'PUT'
-                };
-                
-                  alert('you can');
-                $.ajax({
-                    url: '/BioTemplate/edit/' + id,
-                    type: 'POST',
-                    data: formData,
-                    success: function (response) {
-                        md=false;
-                        alert(response.success);
-                      window.location.href="{{ route('app_dashboard') }}"
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-             
-              }
-                else
-                {
-                  alert('you dont');
-                }
-    });
-
-    $('#btn-tr').click(function(e){
-        e.preventDefault();
-        console.log('testing '+ md);
-        if(md){
-                var id = '{{ $detailemp[0]->id_nin }}'; // Assuming you are searching by ID_NIN
-                  alert('you can');
-                $.ajax({
-                    url:'/Employe/IsEducat/' + id ,
-                    type: 'GET',
-                    success: function (response) {
-                        md=false;
-                        alert(response.success);
-                      window.location.href='/Employe/IsEducat/' + id
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-             
-              }
-                else
-                {
-                  alert('you dont');
-                }
-    });
-
-});
-
-
-
     </script>
     <script>
       function calculateDaysFromStart(startDate,datechange) {
@@ -469,10 +431,10 @@ $(document).ready(function(){
 
 //---------------------calculate -------------------------
 
-/*function calculateDateDifference($totalDays) {
+function calculateDateDifference(totalDays) {
   const daysInYear = 365;
     const daysInMonth = 30; // Simplified approximation, can be adjusted
-
+    console.log('--> '+totalDays)
     // Calculate the number of years
     const years = Math.floor(totalDays / daysInYear);
     // Calculate the remaining days after accounting for the years
@@ -488,7 +450,7 @@ $(document).ready(function(){
         months: months,
         days: remainingDays
     };
-}*/
+}
 // Example usage
  // YYYY-MM-DD format
 const count =@json($nbr);
@@ -515,8 +477,20 @@ for (let index = 0; index < data.length; index++) {
       const startDate = data[index].date_installation;
       const datechange=data[i].date_installation ;
       const daysElapsed = calculateDaysFromStart(startDate,datechange);
-     // var all=calculateDateDifference(daysElapsed)
-      document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+daysElapsed;
+      var all=calculateDateDifference(daysElapsed)
+      if(all.years != 0)
+      {
+        document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+all.days+'Jour(s) et '+all.months+' Moi(s) '+all.years+' Anneé(s)' ;
+      }
+      else
+      if(all.months != 0 )
+      {
+        document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+all.days+'Jour(s) et '+all.months+' Moi(s)';
+      }
+      else
+      {
+        document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+all.days+'Jour(s) '
+      }
       console.log(`Number of days from ${startDate} to today: ${daysElapsed}`)
      
     }
@@ -524,7 +498,6 @@ for (let index = 0; index < data.length; index++) {
   }
   
 }
-
 </script>
    </body>
 

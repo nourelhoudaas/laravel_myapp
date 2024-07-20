@@ -84,6 +84,9 @@ Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('
 Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
 Route::get('/Employe/IsTravaill/{id}',[AddEmployeControll::class,'existToAdd'])->name('Employe.istravaill');
 Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploadFile');
+Route::post('/upload/creedossier',[UploadFile::class,'cree_dos_sous'])->name('cree_doss_emp');
+Route::get('/upload/getFiles/{id}',[UploadFile::class,'getFiles'])->name('getfile_all_emp');
+Route::get('/live/read/{dir}/{subdir}/{file}',[UploadFile::class,'live_File'])->name('read_file_emp');
 Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp']);
 Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision']);
 Route::get('/Employe/IsEducat/{id}',[AddEmployeControll::class,'existApp'])->name('Employe.iseducat');
