@@ -9,6 +9,7 @@ use App\Models\Sous_departement;
 use Illuminate\Http\Request;
 use App\Models\Departement;
 use App\Models\Employe;
+use App\Models\type_cong;
 use DB;
 use Carbon\Carbon;
 class EmployeesController extends Controller
@@ -363,8 +364,60 @@ return response()->json($finalresul);
         
         $empdepart= DB::table('departements')
         ->get();
-        return view('employees.list_cong',compact('empdepart'));
+
+        $typeconge=type_cong::get();
+
+/*$emptypeconge=Employe::with([
+            'congeIdNin.type_conge',
+            'congeIdNin.sous_departement.departement',
+            'congeIdNin.sous_departement.contient.post'
+        ])->get();
+*/
+      
+$emptypeconge=DB::table('employes')
+->join('conges','employes.id_nin','=','conges.id_nin')
+ ->join('type_congs','conges.ref_cong','=','type_congs.ref_cong')
+ ->join('sous_departements','conges.id_sous_depart','=','sous_departements.id_sous_depart')
+ ->join('contients','sous_departements.id_sous_depart','=','contients.id_sous_depart')
+ ->join('posts','contients.id_post','=','posts.id_post')
+ ->get();
+        //dd($emptypeconge);
+       // return response()->json($emptypeconge);
+       return view('employees.list_cong',compact('empdepart','typeconge','emptypeconge'));
     }
+
+    public function filterByType(Request $request)
+    { 
+        $typeConge = $request->query('type_conge');
+        $department = $request->query('departement');
+    
+        $query = Employe::query()
+       
+        ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
+        ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
+        ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+        ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
+        ->join('posts', 'contients.id_post', '=', 'posts.id_post');
+       
+        if ($typeConge) {
+            $query->where('type_conge.ref_cong', $typeConge);
+        }
+    
+        if ($department) {
+            $query->where('departements.id_depart', $department);
+        }
+    
+        $emptypeconge = $query->get();
+    
+        return response()->json($emptypeconge);
+    }
+
+   // dd($emptypeconge);
+        //return response()->json($emptypeconge);
+       /* return response()->json([
+            ['Nom_emp' => 'Test', 'Prenom_emp' => 'Test', 'Phone_num' => '123456789', 'Nom_post' => 'Post', 'Nom_sous_depart' => 'Sous-Direction', 'date_debut_cong' => '2024-07-01', 'date_fin_cong' => '2024-07-10', 'nbr_jours' => 10, 'situation' => 'Valid']
+        ]);*/
+    
     public function check_cg($id_p)
     {
         $totaljour=0;
@@ -567,6 +620,7 @@ return response()->json($finalresul);
                      }
         }
     }
+   
 }
 
 

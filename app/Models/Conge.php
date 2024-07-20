@@ -18,7 +18,7 @@ class Conge extends Model
 
     
     protected $fillable = [
-        'id_cong', 'date_debut_cong', 'date_fin_cong', 'ref_cong', 'id_nin','id_p','nbr_jours','situation'
+        'id_cong', 'date_debut_cong', 'date_fin_cong', 'ref_cong', 'id_nin','id_p','nbr_jours','situation','id_sous_depart'
     ];
 
     public function type_conge()
@@ -29,6 +29,11 @@ class Conge extends Model
     public function employe()
     {
         return $this->belongsTo(Employe::class, ['id_nin','id_p'],['id_nin','id_p']);
+    }
+
+    public function sous_departement()
+    {
+        return $this->belongsTo(Sous_departement::class, 'id_sous_depart','id_sous_depart');
     }
 
 }

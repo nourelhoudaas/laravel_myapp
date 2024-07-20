@@ -19,36 +19,45 @@ return new class extends Migration
             $table->integer('nbr_jours');
             $table->string('ref_cong')->unique();
             $table->integer('id_nin');
+            $table->integer('id_sous_depart');
             $table->integer('id_p');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('ref_cong')->references('ref_cong')->on('type_congs');
+            $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
         });
 
-       /* DB::table('conges')->insert([
+       DB::table('conges')->insert([
             [  
             
             
                 'id_cong' => 1,
-                'date_debut_cong' => '10/08/2024',
-                'date_fin_cong' => '20/08/2024',
+                'date_debut_cong' => '2024-08-10',
+                'date_fin_cong' => '2024-08-20',
                 'nbr_jours' =>'10',
                 'situation' => 'algérie',
-                'ref_cong'=>'RF001'
+                'ref_cong'=>'RF001',
+                'id_sous_depart'=>15,
+                'id_nin'=>1254953,
+                'id_p'=>123
+                
                
             ],
             [
                 'id_cong' => 2,
-                'date_debut_cong' => '20/07/2024',
-                'date_fin_cong' => '22/07/2024',
+                'date_debut_cong' => '2024-07-20',
+                'date_fin_cong' => '2024-07-22',
                 'nbr_jours' =>'2',
                 'situation' => 'algérie',
-                'ref_cong'=>'RF002'
+                'ref_cong'=>'RF002',
+                'id_sous_depart'=>10,
+                'id_nin'=>254896989,
+                'id_p'=>256
                 
             ]
                
             ]);
-*/
+
 
     }
 

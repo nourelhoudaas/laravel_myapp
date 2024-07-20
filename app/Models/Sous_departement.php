@@ -33,5 +33,9 @@ public function contient()
     return $this->hasMany(Contient::class,'id_sous_depart','id_sous_depart');
 }
 
+public function conge()
+{
+    return $this->hasMany(Conge::class,'id_sous_depart','id_sous_depart');
+}
 
 }

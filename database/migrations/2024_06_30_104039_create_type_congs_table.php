@@ -24,7 +24,7 @@ return new class extends Migration
             
             
                 'ref_cong' => 'RF001',
-                'titre_cong' => 'congé annuel',
+                'titre_cong' => 'Annuel',
                 'Descriptif' => 'congé annuel',
                 'titre_cong_ar' =>'عطلة سنوية',
                 'Descriptif_ar' => 'عطلة سنوية'
@@ -33,7 +33,7 @@ return new class extends Migration
             ],
             [
                 'ref_cong' => 'RF002',
-                'titre_cong' => 'congé maladie',
+                'titre_cong' => 'Maladie',
                 'Descriptif' => 'congé maladie',
                 'titre_cong_ar' =>'عطلة مرضية',
                 'Descriptif_ar' => 'عطلة مرضية'
@@ -42,7 +42,7 @@ return new class extends Migration
             
             
                 'ref_cong' => 'RF003',
-                'titre_cong' => 'congé matérnité',
+                'titre_cong' => 'matérnité',
                 'Descriptif' => 'congé matérnité',
                 'titre_cong_ar' =>'عطلة الامومة',
                 'Descriptif_ar' => 'عطلة الامومة'
@@ -51,7 +51,7 @@ return new class extends Migration
             ],
             [
                 'ref_cong' => 'RF004',
-                'titre_cong' => 'congé sans solde',
+                'titre_cong' => 'Sans solde ',
                 'Descriptif' => 'congé sans solde',
                 'titre_cong_ar' =>'عطلة بدون دفع',
                 'Descriptif_ar' => 'عطلة بدون دفع'

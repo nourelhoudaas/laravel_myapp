@@ -20,7 +20,7 @@
                         <div class="middle">
                             <div class="left">
                                 <h3>Total Employees</h3>
-                                <h1>{{ count($emptypeconge) }}</h1>
+                                <h1>0</h1>
                             </div>
                         </div>
                     </div>
@@ -31,8 +31,8 @@
                         <span class="material-symbols-outlined">travel</span>
                         <div class="middle">
                             <div class="left">
-                                <h3>Congé annuel</h3>
-                                <h1>{{ 0 }}</h1>
+                                <h3>Congé annulle</h3>
+                                <h1>0</h1>
                             </div>
                         </div>
                     </div>
@@ -43,49 +43,56 @@
                         <span class="material-symbols-outlined">block</span>
                         <div class="middle">
                             <div class="left">
-                                <h3>Congé exceptionnel</h3>
-                                <h1>{{ 0 }}</h1>
+                                <h3>Congé exeptionnel</h3>
+                                <h1>0</h1>
                             </div>
                         </div>
                     </div>
                 </div>
                     <!-- end Presence -->
+                    <form method="GET" action="{{ route('conge.filter') }}">
                 <div>
                     <hr>
-                    <select type="text" class="form-select form-select-lm mb-3" id="type-conge">
+                <select type="text" class="form-select form-select-lm mb-3" value="" id="type-conge">
                         <option value="">Séléctionner le Titre du Congé</option>
                         @foreach($typeconge as $typeconges)
                         <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong}}</option>
                         @endforeach
-                    </select>
-                    <hr>
-                    <select type="text" class="form-select" id="Dep">
+                        
+                        </select>
+                <hr>
+                <select type="text" class="form-select" value="" id="Dep">
                         <option value="">Séléctionner la Direction</option>
                         @foreach($empdepart as $empdeparts)
                         <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart}}</option>
                         @endforeach
-                    </select>
+                        </select>
                 </div>
                 <hr>
+                <button type="submit" class="btn btn-primary">Filtrer</button>
+                </form>
                 <div class="recent_order">
                     <table id="CngTable">
+
                         <thead>
+
                             <tr>
-                                <th>Nom</th>
+                                <th>Nom </th>
                                 <th>Prénom</th>
                                 <th>Num Téléphone</th>
-                                <th>Poste</th>
+                                <th>poste</th>
                                 <th>Sous Direction</th>
-                                <th>Titre du Congé</th>
+                                <th>Titre du Congé </th>
                                 <th>Date Debut Congé</th>
                                 <th>Date Fin Congé</th>
                                 <th>Nombres de jours</th>
                                 <th>Situation</th>
+                              
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($emptypeconge as $employe)
-                            <tr class="employee-row" data-type-conge="{{ $employe->ref_cong }}" data-department="{{ $employe->id_depart }}">
+                            <tr>
                                 <td>{{ $employe->Nom_emp }}</td>
                                 <td>{{ $employe->Prenom_emp }}</td>
                                 <td>{{ $employe->Phone_num }}</td>
@@ -102,11 +109,13 @@
                     </table>
                 </div>
             </main>
+
+            
         </div>
         <div class='add-handler'>
         <svg class="svg-icon" viewBox="0 0 21 21">
-            <path d="M17.218,2.268L2.477,8.388C2.13,8.535,2.164,9.05,2.542,9.134L9.33,10.67l1.535,6.787c0.083,0.377,0.602,0.415,0.745,0.065l6.123-14.74C17.866,2.46,17.539,2.134,17.218,2.268 M3.92,8.641l11.772-4.89L9.535,9.909L3.92,8.641z M11.358,16.078l-1.268-5.613l6.157-6.157L11.358,16.078z"></path>
-        </svg>
+		  <path d="M17.218,2.268L2.477,8.388C2.13,8.535,2.164,9.05,2.542,9.134L9.33,10.67l1.535,6.787c0.083,0.377,0.602,0.415,0.745,0.065l6.123-14.74C17.866,2.46,17.539,2.134,17.218,2.268 M3.92,8.641l11.772-4.89L9.535,9.909L3.92,8.641z M11.358,16.078l-1.268-5.613l6.157-6.157L11.358,16.078z"></path>
+		</svg>
         </div>
 
         <div class="formcg-overlay" id="formOverlay">
@@ -151,14 +160,14 @@
                 <input type="file" name="file" id="file" style="height:40px" required>
                 <div id="file-error" class="error-tooltip">File is required</div>
                 <button type="button" id="conge_confirm">Passer Vers le congé</button>
-                <button type="button" class="close-formcg-btn">Annuller</button>
+                <button type="button" class="close-formcg-btn">Annuller  </button>
             </form>
         </div>
     </div>
 
     </body>
     <script>
-       document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
     const openFormBtn = document.querySelector(".add-handler");
     const closeFormBtn = document.querySelector(".close-formcg-btn");
     const formOverlay = document.getElementById("formOverlay");
@@ -170,57 +179,9 @@
     closeFormBtn.addEventListener("click", function() {
         formOverlay.style.display = "none";
     });
-
-    document.addEventListener("DOMContentLoaded", function() {
-    const openFormBtn = document.querySelector(".add-handler");
-    const closeFormBtn = document.querySelector(".close-formcg-btn");
-    const formOverlay = document.getElementById("formOverlay");
-
-    openFormBtn.addEventListener("click", function() {
-        formOverlay.style.display = "flex";
-    });
-
-    closeFormBtn.addEventListener("click", function() {
-        formOverlay.style.display = "none";
-    });
-
-    const typeCongeSelect = document.getElementById("type-conge");
-    const departmentSelect = document.getElementById("Dep");
-    const employeeTableBody = document.querySelector("#CngTable tbody");
-
-    typeCongeSelect.addEventListener("change", filterEmployees);
-    departmentSelect.addEventListener("change", filterEmployees);
-
-    function filterEmployees() {
-        const selectedTypeConge = typeCongeSelect.value;
-        const selectedDepartment = departmentSelect.value;
-
-        fetch(`/conge/filter?type_conge=${selectedTypeConge}&department=${selectedDepartment}`)
-            .then(response => response.json())
-            .then(data => {
-                // Clear the table body
-                employeeTableBody.innerHTML = "";
-
-                // Populate the table with the filtered employees
-                data.forEach(employee => {
-                    const row = document.createElement("tr");
-                    row.classList.add("employee-row");
-                    row.innerHTML = `
-                        <td>${employee.Nom_emp}</td>
-                        <td>${employee.Prenom_emp}</td>
-                        <td>${employee.Phone_num}</td>
-                        <td>${employee.Nom_post}</td>
-                        <td>${employee.Nom_sous_depart}</td>
-                        <td>${employee.titre_cong}</td>
-                        <td>${employee.date_debut_cong}</td>
-                        <td>${employee.date_fin_cong}</td>
-                        <td>${employee.nbr_jours}</td>
-                        <td>${employee.situation}</td>
-                    `;
-                    employeeTableBody.appendChild(row);
-                });
-            });
-    }
 });
-</script>
+
+
+       
+    </script>
 @endsection
