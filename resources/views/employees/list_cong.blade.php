@@ -162,24 +162,7 @@
 
     </body>
     <script>
-
-       document.addEventListener("DOMContentLoaded", function() {
-
-        var dir='Congé'
-        document.addEventListener("DOMContentLoaded", function() {
-
-    const openFormBtn = document.querySelector(".add-handler");
-    const closeFormBtn = document.querySelector(".close-formcg-btn");
-    const formOverlay = document.getElementById("formOverlay");
-
-    openFormBtn.addEventListener("click", function() {
-        formOverlay.style.display = "flex";
-    });
-
-    closeFormBtn.addEventListener("click", function() {
-        formOverlay.style.display = "none";
-    });
-
+     var dir='Congé'
     document.addEventListener("DOMContentLoaded", function() {
     const openFormBtn = document.querySelector(".add-handler");
     const closeFormBtn = document.querySelector(".close-formcg-btn");
@@ -192,7 +175,7 @@
     closeFormBtn.addEventListener("click", function() {
         formOverlay.style.display = "none";
     });
-
+});
     const typeCongeSelect = document.getElementById("type-conge");
     const departmentSelect = document.getElementById("Dep");
     const employeeTableBody = document.querySelector("#CngTable tbody");
@@ -230,6 +213,6 @@
                 });
             });
     }
-});
+
 </script>
 @endsection

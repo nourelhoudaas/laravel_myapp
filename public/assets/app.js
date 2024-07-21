@@ -918,6 +918,7 @@ $(document).ready(function(){
                             ID_NIN:parseInt(result.employe.id_nin),
                             ID_P:parseInt(result.employe.id_p),
                             Dic:parseInt(result.employe.id_depart),
+                            SDic:parseInt(result.employe.id_sous_depart),
                             date_dcg:$('#Date_Dcg').val(),
                             date_fcg:$('#Date_Fcg').val(),
                             total_cgj:total_cgj,
@@ -933,9 +934,10 @@ $(document).ready(function(){
                             success:function(response)
                             {
                                 alert('add_to holiday')
-                                uploadFile2(parseInt(result.employe.id_nin))
+                             
                                 if(response.status == 200)
                                     {
+                                        uploadFile2(parseInt(result.employe.id_nin))
                                          window.location.href='/conge';
                                     }
                                     else

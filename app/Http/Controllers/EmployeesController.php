@@ -568,7 +568,9 @@ $emptypeconge=DB::table('employes')
                 'date_debut_cong'=>$request->get('date_dcg'),
                 'date_fin_cong'=>$request->get('date_fcg'),
                 'nbr_jours'=>intval($nbrcng),
-                'ref_cong'=>$request->get('type_cg')
+                'ref_cong'=>$request->get('type_cg'),
+                'situation'=>'dans',
+                'id_sous_depart'=>$request->get('SDic')
                      ]);
             }
            
@@ -603,7 +605,9 @@ $emptypeconge=DB::table('employes')
                 'date_debut_cong'=>$request->get('date_dcg'),
                 'date_fin_cong'=>$request->get('date_fcg'),
                 'nbr_jours'=>intval($monthsDifference * 30),
-                'ref_cong'=>$request->get('type_cg')
+                'ref_cong'=>$request->get('type_cg'),
+                'situation'=>'dans',
+                'id_sous_depart'=>$request->get('SDic')
                      ]);
                      if($cong->save())
                      {
