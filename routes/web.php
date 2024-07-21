@@ -8,7 +8,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AddEmployeControll;
 use App\Http\Controllers\BioEmployeControl;
 use App\Http\Controllers\UploadFile;
-
+use Laravel\Fortify\Fortify;
 use Illuminate\Support\Facades\Route;
 use App\Actions\Fortify\LoginUser;
 
@@ -29,6 +29,16 @@ Route::controller(HomeController::class)->group(function(){
          ->middleware('auth') //pour acceder a cette page il faut s'authentifier
          ->name('app_dashboard');
 });
+/*Fortify::UpdatesUserPassword(function () {
+    return route('password_update');
+});*/
+Route::middleware('auth')->group(function () {
+    Route::get('/updatePassword', function () {
+        return view('auth.updatePassword');
+    })->name('password_update');
+    Route::post('/updatePassword', [UpdateUserPassword::class, 'update'])->name('password_update');
+});
+
 
 Route::get('/login', function () {
     return view('auth.login');

@@ -30,6 +30,8 @@ class User extends Authenticatable
         //'activation_token',
         'id_nin',
         'id_p',
+        'password_changed_at',
+        'password_created_at'
 
     ];
 
