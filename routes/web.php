@@ -8,10 +8,10 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AddEmployeControll;
 use App\Http\Controllers\BioEmployeControl;
 use App\Http\Controllers\UploadFile;
-use Laravel\Fortify\Fortify;
+
 use Illuminate\Support\Facades\Route;
 use App\Actions\Fortify\LoginUser;
-
+use App\Actions\Fortify\UpdatesUserPassword;
 /*
 Formulaires de connexion/inscription: Utiliser Route::match(['get', 'post']) pour permettre l'affichage du formulaire (GET) et le traitement des données soumises (POST).
 Affichage de données: Utiliser Route::get() pour des pages où les utilisateurs consultent simplement les données (comme des profils, des pages d'articles, des tableaux de bord, etc.).
