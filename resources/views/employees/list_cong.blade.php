@@ -31,8 +31,8 @@
                             <span class="material-symbols-outlined">travel</span>
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Congé Annuel</h3>
-                                    <h1>{{ 0 }}</h1>
+                                <h3>Congé Annuel</h3>
+                                <h1>{{ $count }}</h1>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                             <div class="middle">
                                 <div class="left">
                                     <h3>Congé Exceptionnel</h3>
-                                    <h1>{{ 0 }}</h1>
+                                    <h1>{{ $countExceptionnel }}</h1>
                                 </div>
                             </div>
                         </div>
