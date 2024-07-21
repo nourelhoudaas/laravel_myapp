@@ -365,8 +365,8 @@ return response()->json($finalresul);
         $empdepart= DB::table('departements')
         ->get();
 
-        $typeconge=type_cong::get();
-
+        $typecon=type_cong::select('titre_cong','ref_cong')->get();
+   // dd($typeconge);
 /*$emptypeconge=Employe::with([
             'congeIdNin.type_conge',
             'congeIdNin.sous_departement.departement',
@@ -383,40 +383,74 @@ $emptypeconge=DB::table('employes')
  ->get();
         //dd($emptypeconge);
        // return response()->json($emptypeconge);
-       return view('employees.list_cong',compact('empdepart','typeconge','emptypeconge'));
+       return view('employees.list_cong',compact('empdepart','typecon','emptypeconge'));
     }
 
-    public function filterByType(Request $request)
-    { 
-        $typeConge = $request->query('type_conge');
-        $department = $request->query('departement');
-    
+    public function filterByType($typeconge)
+    {   
+        //dd($typeconge);
         $query = Employe::query()
        
         ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
         ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
         ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+        ->join('departements','sous_departements.id_depart','=','departements.id_depart')
         ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
         ->join('posts', 'contients.id_post', '=', 'posts.id_post');
-       
-        if ($typeConge) {
-            $query->where('type_conge.ref_cong', $typeConge);
+     
+        //dd($query);
+        if ($typeconge) {
+            $query->where('type_congs.ref_cong', $typeconge);
         }
     
+     
+        //dd($query->toSql(), $query->getBindings());
+        $emptypeconge = $query->get();
+     // dd($emptypeconge);
+       return response()->json($emptypeconge);
+    }
+
+    public function filterbydep($department)
+    {
+        //dd($department);
+        $query = Employe::query()
+       
+        ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
+        ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
+        ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+        ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+        ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
+        ->join('posts', 'contients.id_post', '=', 'posts.id_post');
+     
+        //dd($query);
         if ($department) {
             $query->where('departements.id_depart', $department);
         }
-    
         $emptypeconge = $query->get();
-    
-        return response()->json($emptypeconge);
+     // dd($emptypeconge);
+       return response()->json($emptypeconge);
     }
 
-   // dd($emptypeconge);
-        //return response()->json($emptypeconge);
-       /* return response()->json([
-            ['Nom_emp' => 'Test', 'Prenom_emp' => 'Test', 'Phone_num' => '123456789', 'Nom_post' => 'Post', 'Nom_sous_depart' => 'Sous-Direction', 'date_debut_cong' => '2024-07-01', 'date_fin_cong' => '2024-07-10', 'nbr_jours' => 10, 'situation' => 'Valid']
-        ]);*/
+  public function filtercongdep($typeconge,$department)
+  {
+    $query = Employe::query()
+       
+        ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
+        ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
+        ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+        ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+        ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
+        ->join('posts', 'contients.id_post', '=', 'posts.id_post');
+     
+        //dd($query);
+        if ($typeconge && $department) {
+            $query->where('departements.id_depart', $department)
+                ->where('type_congs.ref_cong', $typeconge);
+        }
+        $emptypeconge = $query->get();
+     // dd($emptypeconge);
+       return response()->json($emptypeconge);
+  }
     
     public function check_cg($id_p)
     {

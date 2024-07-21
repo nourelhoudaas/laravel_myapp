@@ -10,8 +10,7 @@ class type_cong extends Model
     use HasFactory;
     protected $table = 'type_congs';
     protected $primaryKey = 'ref_cong';
-    public $incrementing = true; 
-    protected $keyType = 'integer'; 
+    protected $keyType = 'string'; 
       // Désactiver les timestamps automatiques
       public $timestamps = false;
 

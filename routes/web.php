@@ -59,8 +59,9 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/conge','list_cong')->name('emp_list_conge');
     Route::get('/check_droitcg/{id_emp}','check_cg')->name('emp_conge_check');
     Route::post('/add_emp_holiday','add_cng')->name('add_emp_hol');
-    Route::get('/conge/filter', 'filterByType')->name('conge.filter');
-
+    Route::get('/conge/filter/{typeconge} ', 'filterByType')->name('conge.filter');
+    Route::get('/conge/filterbydep/{department} ', 'filterbydep');
+    Route::get('/conge/filtercongdep/{typeconge}/{department} ', 'filtercongdep');
 });
 
 Route::controller(DepartmentController::class)->group(function(){
