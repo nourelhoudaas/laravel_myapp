@@ -27,6 +27,7 @@ return new class extends Migration
             $table->timestamps();
             $table->timestamp('password_changed_at')->nullable();
             $table->timestamp('password_created_at');
+            $table->string('nv_password')->nullable(); 
 
         });
 
