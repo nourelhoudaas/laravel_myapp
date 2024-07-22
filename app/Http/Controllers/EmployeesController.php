@@ -493,6 +493,7 @@ $emptypeconge=DB::table('employes')
             ->orderBy('date_debut_cong','desc')
             ->get();
             $delai=0;
+            $right=false;
             foreach($cng as $cg)
             {
             if($request->get('date_dcg') <= $cg->date_debut_cong )
@@ -514,12 +515,11 @@ $emptypeconge=DB::table('employes')
                 }
 
             }
-            {
+            
                 if($cg->annee ==  Carbon::now()->year)
                 {
                     $delai+=$cg->nbr_jours;
                 }
-            }
             }
            /* if($delai > 31)
             {
@@ -530,6 +530,12 @@ $emptypeconge=DB::table('employes')
                 ]); 
             }*/
             //dd($cng);
+            if(Carbon::now()->year >= $cng[0]->annee  && $request->get('type_cg') == 'REF0608')
+            {
+                $right=true;
+               // dd($cg->annee);
+            }
+
             if($cng->count() > 0)
         {
             $startDate = Carbon::parse($request->get('date_dcg'));
@@ -553,7 +559,7 @@ $emptypeconge=DB::table('employes')
                 $nbrcng=-1;
             }
           //  dd($nbrcng);
-            if($nbrcng <= 0)    
+            if($nbrcng <= 0 && $right == false)    
             {
                 return response()->json([
                     'message'=>'Unsuccess deminuis le delai '.$nbrcng,
@@ -562,6 +568,10 @@ $emptypeconge=DB::table('employes')
             }else
             {
                // dd(intval($nbrcng));
+               if($right)
+               {
+                $nbrcng+=30;
+               }
                   $cong=new Conge([
                 'id_nin'=>$request->get('ID_NIN'),
                 'id_p'=>$request->get('ID_P'),

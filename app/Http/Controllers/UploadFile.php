@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-
+use App\Models\Departement;
+use App\Models\Employe;
 class UploadFile extends Controller
 {
     //
@@ -68,6 +69,9 @@ class UploadFile extends Controller
 
     public function getFiles($id)
     {
+        $empdepart=Departement::get();
+        $employe=Employe::where('id_nin',$id)->firstOrFail();
+       
         $files = [];
         $empdoss='employees/Em_'.$id;
         $directory = storage_path('app/public/employees/Em_'.$id);
@@ -81,7 +85,7 @@ class UploadFile extends Controller
             $files[$subDirName] = $fileNames;
         }
         
-        return view('BioTemplate.file_Index',compact('files','empdoss'));
+        return view('BioTemplate.file_Index',compact('files','empdoss','empdepart','employe'));
     }
     public function live_File($directory,$subdir,$filename)
     {

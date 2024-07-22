@@ -6,7 +6,11 @@
     <title>Fichies</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+@extends('base')
 <body>
+
+@include('./navbar.sidebar')
+ <h6>Dossier D' Employe : {{$employe->Nom_emp}} {{$employe->Prenom_emp}}</h6>
     <div class="container mt-5">
         <div class="row">
             @foreach($files as $subDir => $filesArray)

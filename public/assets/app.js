@@ -983,7 +983,7 @@ $(document).ready(function(){
 })
 
 /**------------------------------ tarmine congé ---------------------*/
- //------------------------
+ //------------------------ Bio Template js Button *-----------------------------
  $(document).ready(function(){
     $('#btn-ch').click(function(e){
         e.preventDefault();
@@ -1004,14 +1004,14 @@ $(document).ready(function(){
                     _method: 'PUT'
                 };
                 
-                  alert('you can');
+               //   alert('you can');
                 $.ajax({
                     url: '/BioTemplate/edit/' + id,
                     type: 'POST',
                     data: formData,
                     success: function (response) {
                         md=false;
-                        alert(response.success);
+                      //  alert(response.success);
                       window.location.href="{{ route('app_dashboard') }}"
                     },
                     error: function (xhr) {
@@ -1031,13 +1031,13 @@ $(document).ready(function(){
         console.log('testing '+ md);
         if(md){
                     // Assuming you are searching by ID_NIN
-                  alert('you can');
+                //  alert('you can');
                 $.ajax({
                     url:'/Employe/IsEducat/' + id ,
                     type: 'GET',
                     success: function (response) {
                         md=false;
-                        alert(response.success);
+                     //   alert(response.success);
                       window.location.href='/Employe/IsEducat/' + id
                     },
                     error: function (xhr) {
@@ -1075,3 +1075,7 @@ $(document).ready(function(){
                 }
     });
     })
+    /**
+     *  Bio Template Terminer   
+     * 
+     */
