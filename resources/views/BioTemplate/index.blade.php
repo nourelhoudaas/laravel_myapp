@@ -24,6 +24,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
+@php
+    $uid=auth()->id();
+    @endphp
 @extends('base')
 <body>
 
@@ -298,6 +301,7 @@
 
     <script >
        var id = '{{ $detailemp[0]->id_nin }}';
+       var uid='{{$uid}}'
       var md=true;
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');

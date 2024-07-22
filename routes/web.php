@@ -11,7 +11,7 @@ use App\Http\Controllers\UploadFile;
 
 use Illuminate\Support\Facades\Route;
 use App\Actions\Fortify\LoginUser;
-
+use App\Actions\Fortify\UpdatesUserPassword;
 /*
 Formulaires de connexion/inscription: Utiliser Route::match(['get', 'post']) pour permettre l'affichage du formulaire (GET) et le traitement des données soumises (POST).
 Affichage de données: Utiliser Route::get() pour des pages où les utilisateurs consultent simplement les données (comme des profils, des pages d'articles, des tableaux de bord, etc.).
@@ -29,6 +29,16 @@ Route::controller(HomeController::class)->group(function(){
          ->middleware('auth') //pour acceder a cette page il faut s'authentifier
          ->name('app_dashboard');
 });
+/*Fortify::UpdatesUserPassword(function () {
+    return route('password_update');
+});*/
+Route::middleware('auth')->group(function () {
+    Route::get('/updatePassword', function () {
+        return view('auth.updatePassword');
+    })->name('password_update');
+    Route::post('/updatePassword', [UpdateUserPassword::class, 'update'])->name('password_update');
+});
+
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -47,7 +57,7 @@ Route::controller(LoginController::class)->group(function(){
     Route::match(['get', 'post'], '/forgot_password', 'forgotPassword')->name('app_forgotPassword');
     //[app_..] nom de la route dans la page; [forgotPassword]  nom de la fonction dans le controller; [forgot_password] nom de la page dans la quelle il vas t etre renvoyer
 });
-
+Route::middleware('auth')->group(function () {
 Route::controller(EmployeesController::class)->group(function(){
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
     Route::get('/liste_abs','AbsenceEmply')->name('app_abs_emply');
@@ -59,8 +69,10 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/conge','list_cong')->name('emp_list_conge');
     Route::get('/check_droitcg/{id_emp}','check_cg')->name('emp_conge_check');
     Route::post('/add_emp_holiday','add_cng')->name('add_emp_hol');
-    Route::get('/conge/filter', 'filterByType')->name('conge.filter');
-
+    Route::get('/conge/filter/{typeconge} ', 'filterByType')->name('conge.filter');
+    Route::get('/conge/filterbydep/{department} ', 'filterbydep');
+    Route::get('/conge/filtercongdep/{typeconge}/{department} ', 'filtercongdep');
+});
 });
 
 Route::controller(DepartmentController::class)->group(function(){
@@ -79,6 +91,7 @@ Route::controller(DepartmentController::class)->group(function(){
 
 
 //Route::get('/BioTemplate/{id}',[BioEmployeControl::class,'create'])->name('BioTemplate.index');
+Route::middleware('auth')->group(function () {
 Route::post('/Employe/add',[AddEmployeControll::class,'add']);
 Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');
 Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
@@ -86,8 +99,9 @@ Route::get('/Employe/IsTravaill/{id}',[AddEmployeControll::class,'existToAdd'])-
 Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploadFile');
 Route::post('/upload/creedossier',[UploadFile::class,'cree_dos_sous'])->name('cree_doss_emp');
 Route::get('/upload/getFiles/{id}',[UploadFile::class,'getFiles'])->name('getfile_all_emp');
+Route::post('/whoiam',[UploadFile::class,'savedb'])->name('who_stocke');
 Route::get('/live/read/{dir}/{subdir}/{file}',[UploadFile::class,'live_File'])->name('read_file_emp');
 Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp']);
 Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision']);
 Route::get('/Employe/IsEducat/{id}',[AddEmployeControll::class,'existApp'])->name('Employe.iseducat');
-
+});

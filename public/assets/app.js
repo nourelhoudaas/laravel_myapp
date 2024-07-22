@@ -77,6 +77,34 @@
                       },
                       success:function(response)
                       {
+                        if(uid && response.status == 200)
+                        {
+                            console.log('messsage '+JSON.stringify(response.data))
+                            var stockForm={
+                                id:uid,
+                                ref_d:response.data.ref_d,
+                                sous_d:response.data.sous_d,
+                                fichierext:response.data.filenext,
+                                fichier:response.data.filename,
+                                Tfichier:response.data.filesize,
+                                _token: $('meta[name="csrf-token"]').attr('content'),
+                                _method: 'POST'
+                            }
+                        $.ajax({
+                            url:'/whoiam',
+                            method: 'POST',
+                            data:stockForm,
+                            success:function(responses)
+                            {
+                                console.log('add to stocke  ->'+responses.message)
+                                window.location.href='/conge';
+                            }
+                        })
+                    }
+                        else
+                        {
+                            console.log('no log');
+                        }
                       },
                       error: function() {
                           alert('Upload failed');
@@ -144,6 +172,36 @@ function uploadFile() {
             },
             success:function(response)
             {
+                if(uid && response.status == 200)
+                    {
+                        console.log('messsage '+JSON.stringify(response.data))
+                        var stockForm={
+                            id:uid,
+                            ref_d:response.data.ref_d,
+                            sous_d:response.data.sous_d,
+                            fichierext:response.data.filenext,
+                            fichier:response.data.filename,
+                            Tfichier:response.data.filesize,
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            _method: 'POST'
+                        }
+                    $.ajax({
+                        url:'/whoiam',
+                        method: 'POST',
+                        data:stockForm,
+                        success:function(responses)
+                        {
+                            $('#successMessage').show();
+                            $('#progressWrapper').hide();
+                            $('#progressBar').width('0%');
+                            console.log('add to stocke  ->'+responses.message)
+                        }
+                    })
+                }
+                    else
+                    {
+                        console.log('no log');
+                    }
              $('#successMessage').show();
              $('#progressWrapper').hide();
              $('#progressBar').width('0%');
@@ -938,7 +996,7 @@ $(document).ready(function(){
                                 if(response.status == 200)
                                     {
                                         uploadFile2(parseInt(result.employe.id_nin))
-                                         window.location.href='/conge';
+                                      
                                     }
                                     else
                                     {
@@ -946,6 +1004,9 @@ $(document).ready(function(){
                                         $('#Date_Dcg').addClass('error-handle')
                                         $('#Date_Fcg').addClass('error-handle') 
                                     }
+                            },
+                            error: function (xhr) {
+                                console.log(xhr.responseText);
                             }
                         })
                     }
@@ -983,6 +1044,7 @@ $(document).ready(function(){
 })
 
 /**------------------------------ tarmine congé ---------------------*/
+
  //------------------------ Bio Template js Button *-----------------------------
  $(document).ready(function(){
     $('#btn-ch').click(function(e){

@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Models\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\View;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Contracts\LoginViewResponse as LoginViewResponseContract;
 
@@ -43,6 +43,9 @@ class LoginUser
                 'date_login'=>new \DateTimeImmutable,
                 'date_logout'=>null,
             ]);
+           // $c=auth()->id();
+          //  dd($c);
+          //  View::share('uid',$iduser);
             return redirect()->route('app_dashboard');
         }
         

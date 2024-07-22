@@ -3,6 +3,10 @@
 @section('title', 'Formulaire')
 
 @section('content')
+
+@php
+    $uid=auth()->id();
+    @endphp
 <body>
 
 <div class="stepper-wrapper">
@@ -126,5 +130,6 @@
      console.log('my id::'+id);
      var idp = '{{ $employe->id_p }}';
      var dir = 'Admin';
+     var uid='{{$uid}}'
 </script>
 @endsection

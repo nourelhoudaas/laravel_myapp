@@ -7,6 +7,9 @@ $id=0;
 @section('title', 'Formulaire')
 
 @section('content')
+@php
+    $uid=auth()->id();
+    @endphp
 <body>
 
 <div class="stepper-wrapper">
@@ -207,6 +210,7 @@ $id=0;
    @endsection
 <script>
         var dir="Personnel";
+        var uid='{{$uid}}'
       document.addEventListener('DOMContentLoaded', () => {
             const dropdown = document.getElementById('nbrenfant');
             const maxNumber = 10; // Change this to the desired maximum number

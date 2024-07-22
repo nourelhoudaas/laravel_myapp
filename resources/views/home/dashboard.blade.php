@@ -8,7 +8,15 @@
 
             <!-- main section start -->
             <main>
-                <h1>Dashboard</h1>
+                @php
+                $uid=auth()->id()
+                @endphp
+                @if(isset($uid))
+                <h1>Dashboard for {{$uid}}</h1>
+                @else
+                <h1>Dashboard without userId</h1>
+                @endif
+                
                 <div class="insights">
                     <!-- start Employees -->
                     <div class="sales">
