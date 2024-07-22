@@ -46,6 +46,17 @@ class LoginUser
            // $c=auth()->id();
           //  dd($c);
           //  View::share('uid',$iduser);
+
+          // Vérifier la valeur de nbr_login
+        if ($user->nbr_login == 0) {
+            // Mettre à jour nbr_login
+            $user->nbr_login = 1;
+            $user->save();
+            
+            // Rediriger vers la page de mise à jour du mot de passe
+            return redirect()->route('password_update'); // Assure-toi que cette route existe
+        }
+        
             return redirect()->route('app_dashboard');
         }
         

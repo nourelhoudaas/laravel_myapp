@@ -81,5 +81,10 @@ class Employe extends Model
     {
         return $this->hasMany(Conge::class, 'id_p', 'id_p');
     }
+
+    public function LogIdnin()
+    {
+        return $this->hasMany(Log::class, 'id_nin', 'id_nin');
+    }
     
 }
