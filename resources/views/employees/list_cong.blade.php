@@ -1,4 +1,9 @@
-    @extends('base')
+@php
+    use Carbon\Carbon;
+@endphp
+
+ 
+ @extends('base')
 
     @section('title', 'Employees')
 
@@ -81,7 +86,7 @@
                                     <th>Titre du Congé</th>
                                     <th>Date Debut Congé</th>
                                     <th>Date Fin Congé</th>
-                                    <th>Nombres de jours</th>
+                                    <th>Nombres de jours Restants</th>
                                     <th>Situation</th>
                                 </tr>
                             </thead>
@@ -96,7 +101,17 @@
                                     <td>{{ $employe->titre_cong }}</td>
                                     <td>{{ $employe->date_debut_cong }}</td>
                                     <td>{{ $employe->date_fin_cong }}</td>
-                                    <td>{{ $employe->nbr_jours }}</td>
+                                    <td>
+            @php
+                $dateDebut = Carbon::parse($employe->date_debut_cong);
+                $dateFin = Carbon::parse($employe->date_fin_cong);
+                $today = Carbon::today();
+                
+                // Calculer le nombre de jours restants
+                $joursRestants = $dateFin->diffInDays($today, false);
+            @endphp
+            {{ $joursRestants }}
+        </td>
                                     <td>{{ $employe->situation }}</td>
                                 </tr>
                             @endforeach

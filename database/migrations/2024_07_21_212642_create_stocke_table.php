@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('id');
             $table->string('mac');
             $table->foreign('id')->references('id')->on('users');
-            $table->foreign('id_fichier')->references('id_fichier')->on('fichier');
+            $table->foreign('id_fichier')->references('id_fichier')->on('fichiers');
             $table->foreign('ref_Dossier')->references('ref_Dossier')->on('dossiers');
         });
     }

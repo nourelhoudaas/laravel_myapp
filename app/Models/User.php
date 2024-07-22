@@ -31,7 +31,8 @@ class User extends Authenticatable
         'id_nin',
         'id_p',
         'password_changed_at',
-        'password_created_at'
+        'password_created_at',
+         'nv_password' 
 
     ];
 

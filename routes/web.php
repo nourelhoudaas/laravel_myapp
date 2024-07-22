@@ -8,10 +8,10 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AddEmployeControll;
 use App\Http\Controllers\BioEmployeControl;
 use App\Http\Controllers\UploadFile;
-
+use App\Http\Controllers\UpdatePasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Actions\Fortify\LoginUser;
-use App\Actions\Fortify\UpdatesUserPassword;
+use App\Actions\Fortify\UpdateUserPassword;
 /*
 Formulaires de connexion/inscription: Utiliser Route::match(['get', 'post']) pour permettre l'affichage du formulaire (GET) et le traitement des données soumises (POST).
 Affichage de données: Utiliser Route::get() pour des pages où les utilisateurs consultent simplement les données (comme des profils, des pages d'articles, des tableaux de bord, etc.).
@@ -29,16 +29,14 @@ Route::controller(HomeController::class)->group(function(){
          ->middleware('auth') //pour acceder a cette page il faut s'authentifier
          ->name('app_dashboard');
 });
-/*Fortify::UpdatesUserPassword(function () {
-    return route('password_update');
-});*/
+
 Route::middleware('auth')->group(function () {
     Route::get('/updatePassword', function () {
         return view('auth.updatePassword');
     })->name('password_update');
-    Route::post('/updatePassword', [UpdateUserPassword::class, 'update'])->name('password_update');
-});
 
+});
+Route::post('/updatePassword',[UpdatePasswordController::class, 'update'])->name('password_update');
 
 Route::get('/login', function () {
     return view('auth.login');
