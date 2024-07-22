@@ -101,17 +101,7 @@
                                     <td>{{ $employe->titre_cong }}</td>
                                     <td>{{ $employe->date_debut_cong }}</td>
                                     <td>{{ $employe->date_fin_cong }}</td>
-                                    <td>
-            @php
-                $dateDebut = Carbon::parse($employe->date_debut_cong);
-                $dateFin = Carbon::parse($employe->date_fin_cong);
-                $today = Carbon::today();
-                
-                // Calculer le nombre de jours restants
-                $joursRestants = $dateFin->diffInDays($today, false);
-            @endphp
-            {{ $joursRestants }}
-        </td>
+                                    <td>{{ $employe->joursRestants }} </td>
                                     <td>{{ $employe->situation }}</td>
                                 </tr>
                             @endforeach
@@ -205,7 +195,7 @@
             const selectedTypeConge = typeCongeSelect.value;
             const selectedDepartment = departmentSelect.value;
             let url = '';
-        
+      
         if (selectedTypeConge && selectedDepartment) {
             url = `/conge/filtercongdep/${selectedTypeConge}/${selectedDepartment}`;
         } else if (selectedTypeConge) {
@@ -238,7 +228,7 @@
                                     ' <td>'+employe.titre_cong+'</td>'+
                                     '<td>'+employe.date_debut_cong+'</td>'+
                                     '  <td>'+employe.date_fin_cong+'</td>'+
-                                    ' <td>'+employe.nbr_jours+'</td>'+
+                                    '  <td>'+employe.joursRestants+'</td>'+
                                     ' <td>'+employe.situation+'</td>;'
                     employeeTableBody.appendChild(row);
                 });
