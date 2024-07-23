@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('id_stocke')->primary()->autoIncrement();
             $table->date('date_insertion');
             $table->string('ref_Dossier');
+            $table->string('sous_d');
             $table->integer('id_fichier');
             $table->integer('id');
             $table->string('mac');
