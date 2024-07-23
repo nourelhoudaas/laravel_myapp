@@ -36,6 +36,7 @@
         </div>
     </div>
 </body>
+
 <script>
  $(document).ready(function() {
             // Select all ul elements

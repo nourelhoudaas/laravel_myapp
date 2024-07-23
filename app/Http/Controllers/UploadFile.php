@@ -139,7 +139,6 @@ if($fich->count() < 1){
     }
     public function live_File($directory,$subdir,$filename)
     {
-        //dd($filename);
         $id=explode('-',$filename);
         $subd=$id[0];
         $numid=intval($id[1]);
