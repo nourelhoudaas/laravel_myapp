@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('fichiers', function (Blueprint $table) {
             $table->integer('id_fichier')->primary()->autoIncrement();
             $table->string('nom_fichier');
-            $table->integer('hash_fichier')->unique();
-            $table->integer('taille_fichier');
-            $table->integer('date_cree_fichier');
+            $table->string('hash_fichier')->unique();
+            $table->string('taille_fichier');
+            $table->string('type_fichier');
+            $table->date('date_cree_fichier');
         });
     }
 

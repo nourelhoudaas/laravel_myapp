@@ -143,15 +143,15 @@ $sizeR=round($size, 2) . ' ' . $units[$i];
         $date=Carbon::now();
        // dd($request);
         $hash= Str::random(40) . '.' . $request->get('fichierext');
-        $fich=Fichier::select('id_fichier')->where('NOM_ORIGINAL',$request->get('fichier'))->get();
+        $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
         $save=false;
         //dd($fich);
         if($fich->count() < 1){
-        $save=DB::table('fichiers')->insert(['NOM_ORIGINAL'=>$file,
-                                              'NOM_HASH'=>$hash,
-                                              'DATE_CREE'=>$date,
-                                              'TYPE_FICHIER'=>$request->get('fichierext'),
-                                              'TAILLE_FICHIER'=>$request->get('Tfichier')
+        $save=DB::table('fichiers')->insert(['nom_fichier'=>$file,
+                                              'hash_fichier'=>$hash,
+                                              'date_cree_fichier'=>$date,
+                                              'type_fichier'=>$request->get('fichierext'),
+                                              'taille_fichier'=>$request->get('Tfichier')
                                             ]);}
         else 
         {

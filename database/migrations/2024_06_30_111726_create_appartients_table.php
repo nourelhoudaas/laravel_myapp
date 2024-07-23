@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //appartient==diplome  dnc id_appr =ref du diplome
         Schema::create('appartients', function (Blueprint $table) {
-            $table->integer('id_appar')->primary();
+            $table->string('id_appar')->primary();
             $table->date('Date_op');
             $table->integer('id_niv');
             $table->foreign('id_niv')->references('id_niv')->on('niveaux');
