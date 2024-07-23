@@ -63,10 +63,12 @@ class CreateNewUser implements CreatesNewUsers
             'username' => $input['username'],
             //'email' => $email,
             'password' => Hash::make($input['password']),
-           // 'activation_code' =>$activation_code,
-            //'activation_token'=>$activation_token
             'password_created_at' => now(),
             'password_changed_at' => null, // Pas encore changé
+            'nbr_login'=>0,
+           // 'activation_code' =>$activation_code,
+            //'activation_token'=>$activation_token
+            
         ]);
     }
 }

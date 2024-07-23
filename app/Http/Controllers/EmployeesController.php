@@ -383,8 +383,15 @@
         ->join('type_congs','conges.ref_cong','=','type_congs.ref_cong')
         ->join('sous_departements','conges.id_sous_depart','=','sous_departements.id_sous_depart')
         ->join('contients','sous_departements.id_sous_depart','=','contients.id_sous_depart')
-        ->join('posts','contients.id_post','=','posts.id_post');
-        
+        ->join('posts','contients.id_post','=','posts.id_post')
+        ->select(
+            'employes.*',
+            'conges.*',
+            'type_congs.*',
+            'sous_departements.*',
+            'posts.*',
+            DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+        );
         /*Lorsqu'une requête est modifiée par une méthode comme where,
          count, ou get, elle est modifiée pour inclure ces changements. 
          Si vous avez besoin d'utiliser la requête de base pour une autre opération,
@@ -399,7 +406,8 @@
     
         // Récupérer les détails des employés avec des congés
         $emptypeconge = $query->get();
-    
+
+          
                 //dd($emptypeconge);
             // return response()->json($emptypeconge);
             return view('employees.list_cong',compact('empdepart','typecon','emptypeconge','count','countExceptionnel'));
@@ -415,15 +423,20 @@
             ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
             ->join('departements','sous_departements.id_depart','=','departements.id_depart')
             ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-            ->join('posts', 'contients.id_post', '=', 'posts.id_post');
-        
+            ->join('posts', 'contients.id_post', '=', 'posts.id_post')
+            ->select(
+                'employes.*',
+                'conges.*',
+                'type_congs.*',
+                'sous_departements.*',
+                'posts.*',
+                DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+            );
             //dd($query);
             if ($typeconge) {
                 $query->where('type_congs.ref_cong', $typeconge);
             }
          
-              
-        
             //dd($query->toSql(), $query->getBindings());
             $emptypeconge = $query->get();
         // dd($emptypeconge);
@@ -441,7 +454,15 @@
             ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
             ->join('departements','sous_departements.id_depart','=','departements.id_depart')
             ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-            ->join('posts', 'contients.id_post', '=', 'posts.id_post');
+            ->join('posts', 'contients.id_post', '=', 'posts.id_post')
+            ->select(
+                'employes.*',
+                'conges.*',
+                'type_congs.*',
+                'sous_departements.*',
+                'posts.*',
+                DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+            );
         
             //dd($query);
             if ($department) {
@@ -461,7 +482,15 @@
             ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
             ->join('departements','sous_departements.id_depart','=','departements.id_depart')
             ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-            ->join('posts', 'contients.id_post', '=', 'posts.id_post');
+            ->join('posts', 'contients.id_post', '=', 'posts.id_post')
+            ->select(
+                'employes.*',
+                'conges.*',
+                'type_congs.*',
+                'sous_departements.*',
+                'posts.*',
+                DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+            );
         
             //dd($query);
             if ($typeconge && $department) {
@@ -469,7 +498,7 @@
                     ->where('type_congs.ref_cong', $typeconge);
             }
             $emptypeconge = $query->get();
-        // dd($emptypeconge);
+        //dd($emptypeconge);
         return response()->json($emptypeconge);
     }
         

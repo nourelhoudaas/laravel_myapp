@@ -32,7 +32,8 @@ class User extends Authenticatable
         'id_p',
         'password_changed_at',
         'password_created_at',
-         'nv_password' 
+         'nv_password' ,
+         'nbr_login'
 
     ];
 
@@ -61,6 +62,11 @@ class User extends Authenticatable
 
     public function login()
     {
-        return $this->hasMany(Login::class, ['id','id'], ['id','id']);
+        return $this->hasMany(Login::class, 'id','id');
+    }
+
+    public function log()
+    {
+        return $this->hasMany(Log::class,'id','id');
     }
 }
