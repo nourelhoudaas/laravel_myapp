@@ -1081,7 +1081,7 @@ $(document).ready(function(){
                     success: function (response) {
                         md=false;
                       //  alert(response.success);
-                      window.location.href="{{ route('app_dashboard') }}"
+                      window.location.href= '/BioTemplate/edit/' + id
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('action');
             $table->integer('id_nin');
             $table->integer('id');
+            $table->string('adresse_mac');
             $table->timestamp('date_action');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id')->references('id')->on('users');
