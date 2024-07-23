@@ -34,6 +34,7 @@ class User extends Authenticatable
         'password_created_at',
          'nv_password' ,
          'nbr_login'
+        
 
     ];
 
