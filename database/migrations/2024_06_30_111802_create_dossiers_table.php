@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dossiers', function (Blueprint $table) {
             $table->string('ref_Dossier')->primary();
-            $table->string('type')->unique();
+            $table->string('type')->default('IN');
         });
     }
 

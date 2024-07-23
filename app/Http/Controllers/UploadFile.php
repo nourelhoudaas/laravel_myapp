@@ -11,6 +11,7 @@ use App\Models\Departement;
 use App\Models\Employe;
 use App\Models\Fichier;
 use App\Models\Stocke;
+use App\Models\Dossier;
 class UploadFile extends Controller
 {
     //
@@ -144,15 +145,34 @@ $sizeR=round($size, 2) . ' ' . $units[$i];
        // dd($request);
         $hash= Str::random(40) . '.' . $request->get('fichierext');
         $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
+        $doss=Dossier::select('ref_Dossier')->where('ref_Dossier',$request->get('ref_d'))->get();
         $save=false;
         //dd($fich);
         if($fich->count() < 1){
-        $save=DB::table('fichiers')->insert(['nom_fichier'=>$file,
+        $save=new Fichier(['nom_fichier'=>$file,
                                               'hash_fichier'=>$hash,
                                               'date_cree_fichier'=>$date,
                                               'type_fichier'=>$request->get('fichierext'),
                                               'taille_fichier'=>$request->get('Tfichier')
-                                            ]);}
+                                            ]);
+        $sdoss=new Dossier(['ref_Dossier'=> $request->get('ref_d')]);
+       
+
+        $fsta=$save-> save();
+        $dsta=$sdoss->save();
+        if($doss->count() < 1)
+        {
+            $dsta=$sdoss->save();
+        }
+        dd($sdoss);
+        if(!$dsta || !$fsta)
+        {
+            return response()->json([
+                'message'=> 'unsuccess of creation Files',
+                'status'=>302
+            ]);
+        }
+        }
         else 
         {
            

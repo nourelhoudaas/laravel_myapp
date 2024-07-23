@@ -96,8 +96,14 @@
                             data:stockForm,
                             success:function(responses)
                             {
+                                if(responses.code == 200)
+                                    {
                                 console.log('add to stocke  ->'+responses.message)
                                 window.location.href='/conge';
+                                    }else
+                                    {
+                                        alert(response.message)
+                                    }
                             }
                         })
                     }
@@ -195,10 +201,17 @@ function uploadFile() {
                         data:stockForm,
                         success:function(responses)
                         {
-                            $('#successMessage').show();
-                            $('#progressWrapper').hide();
-                            $('#progressBar').width('0%');
+                          
+                            if(responses.code == 200)
+                                {
+                                    $('#successMessage').show();
+                                    $('#progressWrapper').hide();
+                                    $('#progressBar').width('0%');
                             console.log('add to stocke  ->'+responses.message)
+                                }else
+                                {
+                                    alert(response.message)
+                                }
                         }
                     })
                 }
