@@ -24,7 +24,7 @@ class LoginUser
        
         $user=User::where('username',$request->username)->first();
        
-        if($user && Hash::check($request->password, $user->password))
+        if($user && Hash::check($request->password, $user->nv_password))
         {
             
             //recuperation des données de l'usr
