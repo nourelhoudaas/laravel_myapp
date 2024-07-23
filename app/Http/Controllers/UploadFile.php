@@ -143,17 +143,17 @@ $sizeR=round($size, 2) . ' ' . $units[$i];
         $date=Carbon::now();
        // dd($request);
         $hash= Str::random(40) . '.' . $request->get('fichierext');
-        $fich=Fichier::select('id_fichier')->where('NOM_ORIGINAL',$request->get('fichier'))->firstOrFail();
+        $fich=Fichier::select('id_fichier')->where('NOM_ORIGINAL',$request->get('fichier'))->get();
         $save=false;
-        dd($fich);
-        if(!$fich){
+        //dd($fich);
+        if($fich->count() < 1){
         $save=DB::table('fichiers')->insert(['NOM_ORIGINAL'=>$file,
                                               'NOM_HASH'=>$hash,
                                               'DATE_CREE'=>$date,
                                               'TYPE_FICHIER'=>$request->get('fichierext'),
                                               'TAILLE_FICHIER'=>$request->get('Tfichier')
                                             ]);}
-        if($fich || $save)
+        else 
         {
            
           $output = [];
@@ -170,7 +170,7 @@ $sizeR=round($size, 2) . ' ' . $units[$i];
                                'id'=>$request->get('id'),
                                'ref_Dossier'=>$request->get('ref_d'),
                                'sous_d'=>$request->get('sous_d'),
-                                'id_fichier'=>$fich->id_fichier,
+                                'id_fichier'=>$fich[0]->id_fichier,
                                 'date_insertion'=>$date,
                                 'mac'=>$mac,
                         
@@ -191,12 +191,12 @@ $sizeR=round($size, 2) . ' ' . $units[$i];
             ]);
         }
         }
-        else
+        /*else
         {
             return response()->json([
                 'message'=>'unsuccess file insert',
                 'status'=>404
             ]);
-        }
+        }*/
     }
 }

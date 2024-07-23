@@ -123,6 +123,10 @@ function uploadFile() {
   formDataF.append('file', file);
   formData.append('_token', document.querySelector('input[name="_token"]').value);
   formDataF.append('_token', document.querySelector('input[name="_token"]').value);
+  if(!id)
+  {
+    id = $("#ID_NIN").val()
+  }
    formData.append('id_nin', parseInt(id));
    formData.append('sous', dir);
    formDataF.append('id_nin', parseInt(id));

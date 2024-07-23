@@ -604,7 +604,7 @@
 
             }
             
-           /* if($delai > 31)
+           /*== if($delai > 31)
             {
                // dd($delai);
                 return response()->json([
@@ -613,14 +613,15 @@
                 ]); 
             }*/
             //dd($cng);
+           
+
+            if($cng->count() > 0)
+        {
             if(Carbon::now()->year >= $cng[0]->annee  && $request->get('type_cg') == 'REF0608')
             {
                 $right=true;
                // dd($cg->annee);
             }
-
-            if($cng->count() > 0)
-        {
             $startDate = Carbon::parse($request->get('date_dcg'));
 
         
