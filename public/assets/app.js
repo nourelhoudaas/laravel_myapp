@@ -24,7 +24,7 @@
           $('#progressBar').width('0%');
             }
         })
- * 
+ *
  */
         function uploadFile2(id) {
             var formData = new FormData();
@@ -224,16 +224,16 @@ function uploadFile() {
 function calculateDayscng(startDate,datechange) {
     // Parse the start date
     const start = new Date(startDate);
-    
+
     // Get the current date
     const current = new Date(datechange);
-    
+
     // Calculate the difference in time
     const differenceInTime = current - start;
-    
+
     // Convert the time difference from milliseconds to days
     const differenceInDays = Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
-    
+
     return differenceInDays;
 }
 ///------------------ this function for Nav left side -----------------------------
@@ -309,8 +309,8 @@ function closeNav(absensform,id_nin,absens) {
         selectedB='';
         justfi=''
     }
-   
-    
+
+
     jour=soire+matin;
     absensform.jour=jour
     absensform.justifie=justfi;
@@ -326,7 +326,7 @@ function closeNav(absensform,id_nin,absens) {
         type:'POST',
         success:function(response)
         {
-           
+
             var j=1;
             alert('Absens');
             $("#"+id_nin+" i").remove();
@@ -341,12 +341,12 @@ function closeNav(absensform,id_nin,absens) {
             j++;
             console.log('i '+i+' j'+ j)
         }
-      })    
+      })
     }
     else
     {
         alert('close it with '+i);
-    }  
+    }
     }
     else
     {
@@ -496,7 +496,7 @@ $('#PVDate').focus(function()
     $('#aft').click(function(e){
         e.preventDefault();
 
-        
+
                 // Assuming you are searching by ID_NIN
                 var formData = {
                     ID_NIN:id,
@@ -667,7 +667,7 @@ $(document).ready(function() {
     var che=0;
    if(datch === '')
    {
-    
+
     $('#ddate').addClass('error-handle');
    }
     $('#abs_date').change(function()
@@ -693,7 +693,7 @@ $(document).ready(function() {
         $(this).addClass('error-hadle');
     }
 });
-   
+
        // alert('not empty')
      //   console.log('tes'+itemsdate.id_nin);
         $('#Dep').change(function() {
@@ -719,38 +719,38 @@ $(document).ready(function() {
                             {
                                 item.absens=true;
                             }
-                             })  
+                             })
                 });
                 console.log('list'+JSON.stringify(list_abs))
                 list_abs.forEach(function(item){
                     if(item.absens)
                     {
                         $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
-                        + '</td><td>' + item.Prenom_emp 
-                        + '</td><td>' + item.Nom_post 
-                        + '</td><td>' + item.Nom_sous_depart 
-                        + '</td><td>' + item.Nom_depart 
+                        + '</td><td>' + item.Prenom_emp
+                        + '</td><td>' + item.Nom_post
+                        + '</td><td>' + item.Nom_sous_depart
+                        + '</td><td>' + item.Nom_depart
                         + '</td><td id="stdout'+item.id_nin+'" class="std-handle abs">'+absens+'</td></tr>');
                     }else
                     {
 
                         $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
-                        + '</td><td>' + item.Prenom_emp 
-                        + '</td><td>' + item.Nom_post 
-                        + '</td><td>' + item.Nom_sous_depart 
-                        + '</td><td>' + item.Nom_depart 
+                        + '</td><td>' + item.Prenom_emp
+                        + '</td><td>' + item.Nom_post
+                        + '</td><td>' + item.Nom_sous_depart
+                        + '</td><td>' + item.Nom_depart
                         + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
 
                     }
                 })
-               
-              
+
+
                         $("#AbsTable tbody tr").each(function(){
-                            var id_p=$(this).attr('id');   
+                            var id_p=$(this).attr('id');
                             var idme=$(this).find('td:nth-child(6)');
                             var id_nin=idme.attr('id')
                               $('#'+id_nin).click(function(){
-                               
+
                                //   alert('present')
                                // console.log('id -> user  '+id_nin);
                                 var check=$('#'+id_nin+' i').attr('id');
@@ -785,8 +785,8 @@ $(document).ready(function() {
                                   alert('u don t have permission')
                                 }
                               })
-                        
-                          }) 
+
+                          })
                     },
                     error: function(response) {
                         console.log(JSON.stringify(response))
@@ -795,8 +795,8 @@ $(document).ready(function() {
             } else {
                 $('#AbsTable tbody').empty();
             }
-       
- 
+
+
     }else
     {
        // alert('empty list');
@@ -813,21 +813,21 @@ $(document).ready(function() {
                         response.forEach(function(item) {
                          //   console.log('--'+JSON.stringify(item));
                             $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
-                                                      + '</td><td>' + item.Prenom_emp 
-                                                      + '</td><td>' + item.Nom_post 
-                                                      + '</td><td>' + item.Nom_sous_depart 
-                                                      + '</td><td>' + item.Nom_depart 
+                                                      + '</td><td>' + item.Prenom_emp
+                                                      + '</td><td>' + item.Nom_post
+                                                      + '</td><td>' + item.Nom_sous_depart
+                                                      + '</td><td>' + item.Nom_depart
                                                       + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
-                                                      
+
                           //  console.log('-->>'+$('#stdin').text())
                         });
                          $("#AbsTable tbody tr").each(function(){
-                          var id_p=$(this).attr('id');   
+                          var id_p=$(this).attr('id');
                           var idme=$(this).find('td:nth-child(6)');
                           var id_nin=idme.attr('id')
                             $('#'+id_nin).click(function(){
                                // openNav();
-                          
+
                               //$('#mySidenav').addClass('toRight');
                              //   alert('present')
 
@@ -864,8 +864,8 @@ $(document).ready(function() {
                                 alert('u don t have permission')
                               }
                             })
-                      
-                        }) 
+
+                        })
                     },
                     error: function(response) {
                         console.log(JSON.stringify(response))
@@ -875,7 +875,7 @@ $(document).ready(function() {
                 $('#AbsTable tbody').empty();
                 $('#ddate').addClass('error-handle');
             }
-        
+
     }
 });
 
@@ -899,7 +899,7 @@ $(document).ready(function(){
                     $('#checkcg-box').removeClass('abs');
                     $('#checkcg-box').removeClass('droit');
                     $('#ddate_rec').removeClass('nodisp');
-                    $('#ddate_op').removeClass('nodisp'); 
+                    $('#ddate_op').removeClass('nodisp');
             var val=$(this).val();
             if(val){
             $.ajax({
@@ -919,10 +919,10 @@ $(document).ready(function(){
                     {
                         var currentTime = new Date()
                        $('#checkcg-box').append(pasrdoit);
-                       $('#checkcg-box').addClass('abs');  
+                       $('#checkcg-box').addClass('abs');
                        $('#ddate_fin').addClass('nodisp');
                        $('#date_rec').val(response.employe.date_recrutement)
-                       $('#date_op').val('01-06-'+currentTime.getFullYear()) 
+                       $('#date_op').val('01-06-'+currentTime.getFullYear())
                     }
                     else
                     {
@@ -930,10 +930,10 @@ $(document).ready(function(){
                        $('#checkcg-box').append(droit);
                        $('#checkcg-box').addClass('pre');
                        $('#ddate_rec').addClass('nodisp');
-                       $('#ddate_op').addClass('nodisp'); 
+                       $('#ddate_op').addClass('nodisp');
                        $('#date_fin').val(response.date_congé)
                     }
-                    $('.date-conge').addClass('disp') 
+                    $('.date-conge').addClass('disp')
                     alert('success')
                 }
             })
@@ -964,11 +964,11 @@ $(document).ready(function(){
       //  console.log('----'+file)
         const fileError = $('#file-error');
           $('#conge_confirm').click(function()
-                    {   
+                    {
                         if(id !== null && file[0].files.length > 0 ){
                         var date_dcg=$('#Date_Dcg').val();
                         var date_fcg=$('#Date_Fcg').val();
-                        var totaljour=calculateDayscng(date_dcg,date_fcg) 
+                        var totaljour=calculateDayscng(date_dcg,date_fcg)
                         let jr=$('#total_cgj').val().split(" ");
                         console.log('-->'+jr[0]);
                         var total_cgj= parseInt(jr[0]);
@@ -996,17 +996,17 @@ $(document).ready(function(){
                             success:function(response)
                             {
                                 alert('add_to holiday')
-                             
+
                                 if(response.status == 200)
                                     {
                                         uploadFile2(parseInt(result.employe.id_nin))
-                                      
+
                                     }
                                     else
                                     {
                                         alert(response.message);
                                         $('#Date_Dcg').addClass('error-handle')
-                                        $('#Date_Fcg').addClass('error-handle') 
+                                        $('#Date_Fcg').addClass('error-handle')
                                     }
                             },
                             error: function (xhr) {
@@ -1043,7 +1043,7 @@ $(document).ready(function(){
                     });
                     $('#cancel-conge').click(function()
                     {
-                        
+
                     })
 })
 
@@ -1069,7 +1069,7 @@ $(document).ready(function(){
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     _method: 'PUT'
                 };
-                
+
                //   alert('you can');
                 $.ajax({
                     url: '/BioTemplate/edit/' + id,
@@ -1084,7 +1084,7 @@ $(document).ready(function(){
                         console.log(xhr.responseText);
                     }
                 });
-             
+
               }
                 else
                 {
@@ -1110,7 +1110,7 @@ $(document).ready(function(){
                         console.log(xhr.responseText);
                     }
                 });
-             
+
               }
                 else
                 {
@@ -1133,7 +1133,7 @@ $(document).ready(function(){
                         alert('il y pas de dossier il faut cree un')
                     }
                 });
-             
+
               }
                 else
                 {
@@ -1142,6 +1142,47 @@ $(document).ready(function(){
     });
     })
     /**
-     *  Bio Template Terminer   
-     * 
+     *  Bio Template Terminer
+     *
      */
+    //dynamic field Creation with java script
+    const addBtn = document.querySelector(".add");
+    const input = document.querySelector(".inp-group");
+
+function removeInput(){
+    this.parentElement.remove();
+
+}
+
+
+   function addInput(){
+    const name = document.createElement("input");
+    name.type="text";
+    name.placeholder="Nom Sous-direction";
+
+    const discr =document.createElement("input");
+    discr.type="text";
+    discr.placeholder="Discription de la sous-direction";
+
+    const btn=document.createElement("a");
+    btn.className = "delete";
+    btn.innerHTML="&times";
+
+    btn.addEventListener("click", removeInput);
+
+    const flex=document.createElement("div");
+    flex.className="flex";
+
+    input.appendChild(flex);
+    flex.appendChild(name);
+    flex.appendChild(discr);
+    flex.appendChild(btn);
+
+   }
+
+
+
+
+
+    addBtn.addEventListener("click", addInput);
+

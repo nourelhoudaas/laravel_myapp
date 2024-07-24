@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Employe;
 use App\Models\Departement;
+use App\Models\Sous_departement;
 use Illuminate\Support\Facades\Log;
 
 
@@ -20,7 +21,7 @@ class DepartmentController extends Controller
     public function dashboard_depart(Request $request,$dep_id)
     {
 
-          
+
    // Récupérer les paramètres de tri depuis la requête
    $champs = $request->input('champs', 'Nom_emp'); // Champ de tri par défaut
    $direction = $request->input('direction', 'asc'); // Direction de tri par défaut
@@ -29,7 +30,7 @@ class DepartmentController extends Controller
     'occupeIdNin'=>function($query)
     {
         $query->orderBy('date_recrutement','desc')->take(1);
-     
+
     },
      'occupeIdNin.post.contient.sous_departement.departement',
     'occupeIdP'=>function($query)
@@ -39,17 +40,17 @@ class DepartmentController extends Controller
     'occupeIdP.post.contient.sous_departement.departement',
     'travailByNin' => function ($query) {
         $query->orderBy('date_installation', 'desc')->take(1);
-        
+
     },
     'travailByNin.sous_departement.departement',
     'travailByP' => function ($query) {
         $query->orderBy('date_installation', 'desc')->take(1);
-     
+
     },
     'travailByP.sous_departement.departement',
-      
+
 ])->get();
-//le tri 
+//le tri
     if ($champs === 'age') {
         $empdep = $empdep->sortBy(function($emp) {
             return \Carbon\Carbon::parse($emp->Date_nais)->age;
@@ -74,7 +75,7 @@ class DepartmentController extends Controller
         $empdep = $empdep->sortBy(function($emp) {
             return optional($emp->occupeIdNin->first())->date_recrutement;
             }, SORT_REGULAR, $direction === 'desc');//optiinal evite l'erreur si la relatiion est abscente ,sort_regular:le tri est effectué de manière standard
-    
+
         } elseif ($champs === 'date_installation') {
         $empdep = $empdep->sortBy(function($emp) {
             return optional($emp->travailByNin->first())->date_installation;
@@ -83,7 +84,7 @@ class DepartmentController extends Controller
         } else {
         $empdep = $empdep->sortBy($champs, SORT_REGULAR, $direction === 'desc');
     }
-    
+
     $empdep = $empdep->values();
 
 
@@ -173,6 +174,51 @@ return view('department.dashboard_depart', compact('empdep','empdepart','nom_d',
 
         return view('department.add_depart', compact('empdep','totalEmpDep','empdepart','nom_d'));
     }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_depart' => 'required|unique:departements',
+            'id_sous_depart' => 'required|unique:sous_departements',
+            'Nom_depart' => 'required',
+            'Descriptif_depart' => 'required',
+            'Nom_depart_ar' => 'required',
+            'Descriptif_depart_ar' => 'required',
+            'Nom_sous_depart' => 'required',
+            'Descriptif_sous_depart' => 'required',
+            'Nom_sous_depart_ar' => 'required',
+            'Descriptif_sous_depart_ar' => 'required',
 
-    
+        ]);
+
+        Departement::create([
+            $request->get('id_depart'),
+            $request->get('Nom_depart'),
+            $request->get('Descriptif_depart'),
+            $request->get('Nom_depart_ar'),
+            $request->get('Descriptif_depart_ar'),
+
+            ]);
+            $deprt=Departement::get();
+        return response()->json([
+            'message'=>'success',
+            'dert'=>$deprt,
+            'code'=>200
+        ]);
+        Sous_departement::create([
+            $request->get('id_depart'),
+            $request->get('Nom_depart'),
+            $request->get('Descriptif_depart'),
+            $request->get('Nom_depart_ar'),
+            $request->get('Descriptif_depart_ar'),
+
+            ]);
+            $s_deprt=Sous_departement::get();
+        return response()->json([
+            'message'=>'success',
+            's_dert'=>$s_deprt,
+            'code'=>200
+        ]);
+    }
+
+
 }
