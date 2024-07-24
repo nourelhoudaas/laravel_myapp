@@ -112,7 +112,8 @@
                             console.log('no log');
                         }
                       },
-                      error: function() {
+                      error: function(response) {
+                        console.log(''+JSON.stringify(response));
                           alert('Upload failed');
                       }
                   })
@@ -1094,7 +1095,7 @@ $(document).ready(function(){
                     success: function (response) {
                         md=false;
                       //  alert(response.success);
-                      window.location.href="{{ route('app_dashboard') }}"
+                      window.location.href='/dashboard'
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);

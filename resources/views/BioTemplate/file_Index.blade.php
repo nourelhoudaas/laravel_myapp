@@ -25,7 +25,7 @@
                         <ul class="list-group list-group-flush">
                             @foreach($filesArray as $file)
                                 <li class="list-group-item">
-                                        <a href="{{ url('storage/' .$empdoss.'/'. $subDir . '/' . $file) }}" target="_blank">{{ $file }}</a>
+                                        <a href="{{ url('storage/' .$empdoss.'/'. $subDir . '/' . $file) }}" target="_blank" id='{{$file}}'>{{ $file }}</a>
                                     </li>
                             @endforeach
                         </ul>
@@ -35,4 +35,21 @@
         </div>
     </div>
 </body>
+<script>
+    
+  /*  filess.foreach((index,hash)=>{
+    hash.foreach((file)=>
+    {
+        $.ajax({
+            url:'upload/realwhoam/'+file,
+            type:'GET',
+            success:function(response)
+            {
+                $('#'+file).text(response.name)
+            }
+        })
+
+    })
+})*/
+</script>
 </html>
