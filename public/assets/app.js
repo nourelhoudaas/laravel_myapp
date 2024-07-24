@@ -96,8 +96,14 @@
                             data:stockForm,
                             success:function(responses)
                             {
+                                if(responses.code == 200)
+                                    {
                                 console.log('add to stocke  ->'+responses.message)
                                 window.location.href='/conge';
+                                    }else
+                                    {
+                                        alert(response.message)
+                                    }
                             }
                         })
                     }
@@ -195,10 +201,17 @@ function uploadFile() {
                         data:stockForm,
                         success:function(responses)
                         {
-                            $('#successMessage').show();
-                            $('#progressWrapper').hide();
-                            $('#progressBar').width('0%');
+                          
+                            if(responses.code == 200)
+                                {
+                                    $('#successMessage').show();
+                                    $('#progressWrapper').hide();
+                                    $('#progressBar').width('0%');
                             console.log('add to stocke  ->'+responses.message)
+                                }else
+                                {
+                                    alert(response.message)
+                                }
                         }
                     })
                 }
@@ -437,12 +450,15 @@ function closeNav(absensform,id_nin,absens) {
                     Date_Nais_P: $('#Date_Nais_P').val(),
                     Lieu_N:$('#Lieu_N').val(),
                     Lieu_AR:$('#Lieu_AR').val(),
-                    Prenom_Per:$('Prenom_Per').val(),
-                    Prenom_PerAR:$('Prenom_PerAR').val(),
-                    Prenom_PerAR:$('Nom_mere').val(),
-                    Prenom_PerAR:$('Prenom_mere').val(),
-                    Prenom_PerAR:$('Nom_mereAR').val(),
-                    Prenom_PerAR:$('Prenom_mereAR').val(),
+                    Prenom_Per:$('#Prenom_Per').val(),
+                    Prenom_PerAR:$('#Prenom_PerAR').val(),
+                    Nom_mere:$('#Nom_mere').val(),
+                    Prenom_mere:$('#Prenom_mere').val(),
+                    Nom_mereAR:$('#Nom_mereAR').val(),
+                    Prenom_mereAR:$('#Prenom_mereAR').val(),
+                    date_nais_per:'1990-06-02',
+                    date_nais_mer:'1999-06-02',
+                    Situatar:'اعزب',
                     Situat:outputS,
                     nbrenfant:outputF,
                     Sexe:output,
@@ -1078,7 +1094,7 @@ $(document).ready(function(){
                     success: function (response) {
                         md=false;
                       //  alert(response.success);
-                      window.location.href="{{ route('app_dashboard') }}"
+                      window.location.href= '/BioTemplate/edit/' + id
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);

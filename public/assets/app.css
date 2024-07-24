@@ -167,6 +167,9 @@ img {
 
 .nav__list {
   row-gap: 2.5rem;
+  overflow-y: hidden;
+  overflow-x: hidden; 
+
 }
 
 .nav__items {

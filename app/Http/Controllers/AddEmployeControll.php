@@ -15,6 +15,8 @@ use App\Models\appartient;
 use App\Models\Niveau;
 use App\Models\Post;
 use App\Models\Departement;
+use App\Services\logService;
+use Illuminate\Support\Facades\Auth;
 
 class AddEmployeControll extends Controller
 {
@@ -26,6 +28,12 @@ class AddEmployeControll extends Controller
      * @return \Illuminate\Http\Response
      */
 
+     protected $logService;
+
+     public function __construct(logService $logService)
+     {
+         $this->logService = $logService;
+     }
 
     public function add(Request $Request)
     {
@@ -93,7 +101,11 @@ class AddEmployeControll extends Controller
                 'prenom_mere_ar'=>$Request->get('Prenom_mereAR'),
                 'nom_mere_ar'=>$Request->get('Nom_mereAR'),
                 'situation_familliale'=>$Request->get('Situat'),
+                'situation_familliale_ar'=>$Request->get('Situatar'),
                 'nbr_enfants'=>$Request->get('nbrenfant'),
+                'Date_nais_pere'=>$Request->get('date_nais_per'),
+                'Date_nais_mere'=>$Request->get('date_nais_mer'),
+
             ]);
           //  dd($employe);
           
@@ -102,6 +114,15 @@ class AddEmployeControll extends Controller
             //$dbcontaint=$Containt->get();
           //  $dbbureau=$bureau->get();
           //  $dbdirection=$Direction->get();
+
+          //ajouter l'action dans table log
+          $log= $this->logService->logAction(
+          Auth::user()->id,
+          $employe->id_nin,
+          'Ajouter Infos Personnelles Employé',
+          $this->logService->getMacAddress()
+      );
+     // dd($log);
             $dbniv=$niv->get();
             $dbempdepart = new Departement();
             $empdepart =$dbempdepart->get();
@@ -138,6 +159,15 @@ try {
         'date_chang'=>Carbon::now(),
         'notation'	=>0,
     ]);
+
+      //ajouter l'action dans table log
+      $this->logService->logAction(
+        Auth::user()->id,
+        $Request->get('ID_NIN'),
+        'Ajouter Employé Au Département',
+        $this->logService->getMacAddress()
+    );
+
 } catch (\Exception $e) {
     Log::error('Failed to insert user: ' . $e->getMessage());
 }
@@ -212,6 +242,14 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
              'id_appar' => $Request->get('DipRef'),
              'Date_op'	=>$Request->get('DipDate'),
          ]);
+
+         //ajouter l'action dans table log
+         $this->logService->logAction(
+          Auth::user()->id,
+          $Request->get('ID_NIN'),
+          'Ajouter Niveau Education Employé',
+          $this->logService->getMacAddress()
+      );
          $dbempdepart = new Departement();
         $empdepart =$dbempdepart->get();
          return view('addTemplate.admin',compact('employe','dbbureau','dbsdirection','dbdirection','dbpost','empdepart'));
@@ -265,6 +303,13 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
         'id_p'=>$request->get('ID_P')	,
         'id_post'=>$request->get('post')
       ]);
+
+        $this->logService->logAction(
+        Auth::user()->id,
+        $request->get('ID_NIN'),
+        'Générer La Décision Employé',
+        $this->logService->getMacAddress()
+    );
       return redirect()->back()->with('message',"This is Success Message");
     }
     else

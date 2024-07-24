@@ -8,11 +8,19 @@ use \App\Models\Compt;
 use \App\Models\Niveau;
 use \App\Models\Post;
 use Illuminate\Support\Facades\DB;
+use App\Services\logService;
+use Illuminate\Support\Facades\Auth;
 
 class BioEmployeControl extends Controller
 {
     //
-    
+    protected $logService;
+
+    public function __construct(logService $logService)
+    {
+        $this->logService = $logService;
+    }
+
     public function create($id)
     {
         $employe=Employe::where('ID_NIN', $id)->firstOrFail();
@@ -51,6 +59,14 @@ class BioEmployeControl extends Controller
                             ]);
 
         if ($updated) {
+            
+             //ajouter l'action dans table log
+          $log= $this->logService->logAction(
+            Auth::user()->id,
+            $id,
+            'Update Employé',
+            $this->logService->getMacAddress()
+        );
             return response()->json(['success' => 'Employee Prenom updated successfully']);
         } else {
             return response()->json(['error' => 'Employee not found or update failed'], 404);

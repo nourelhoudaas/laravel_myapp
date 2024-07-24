@@ -11,6 +11,7 @@ use App\Models\Departement;
 use App\Models\Employe;
 use App\Models\Fichier;
 use App\Models\Stocke;
+use App\Models\Dossier;
 class UploadFile extends Controller
 {
     //
@@ -29,9 +30,12 @@ class UploadFile extends Controller
         if (!Storage::exists($directory)) {
             Storage::makeDirectory($directory);
         }
-
         $file = $request->file('file');
-        $path = $file->storeAs($directory, $file->getClientOriginalName());
+        
+        $date=Carbon::now();
+$hash= Str::random(40) . '.' .$file->getClientOriginalExtension() ;
+$fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
+$path = $file->storeAs($directory, $hash);
 
 /** Converting size */ 
  
@@ -44,6 +48,16 @@ for ($i = 0; $size >= 1024 && $i < count($units) - 1; $i++) {
 $sizeR=round($size, 2) . ' ' . $units[$i];
 
 /** ---- */
+
+if($fich->count() < 1){
+    $save=new Fichier(['nom_fichier'=>$file->getClientOriginalName(),
+                                          'hash_fichier'=>$hash,
+                                          'date_cree_fichier'=>$date,
+                                          'type_fichier'=>$file->getClientOriginalExtension(),
+                                          'taille_fichier'=>$sizeR
+                                        ]);
+                                        $save->save();
+                                    }
 
         return response()->json([
             'message'=>'success',
@@ -111,29 +125,27 @@ $sizeR=round($size, 2) . ' ' . $units[$i];
         foreach (File::directories($directory) as $subDir) {
             $subDirName = basename($subDir);
             $filesEm = File::files($subDir);
+          //  $id=Fichier::where('hash_fichier',basename($filesEm))->select('id_fichier')->first();
             $fileNames = array_map(function($file) {
-                return basename($file);
+               $id =Fichier::where('hash_fichier',basename($file))->select('id_fichier')->first();
+                
+                return $id->id_fichier;
             }, $filesEm);
 
             $files[$subDirName] = $fileNames;
         }
-        
+       // dd($files);
         return view('BioTemplate.file_Index',compact('files','empdoss','empdepart','employe'));
     }
     public function live_File($directory,$subdir,$filename)
     {
-        $path =$directory .'/'.$subdir. '/' . $filename;
-         dd($path);
-        if (Storage::disk('public')->exists($path)) {
-            $file = Storage::disk('public')->path($path);
-            $mimeType = Storage::disk('public')->mimeType($path);
-
-            return response()->file($file, [
-                'Content-Type' => $mimeType
-            ]);
-        } else {
-            return abort(404, 'File not found');
-        }
+        $id=explode('-',$filename);
+        $subd=$id[0];
+        $numid=intval($id[1]);
+        $file=Fichier::where('id_fichier',$numid)->select('hash_fichier')->first();
+        $path =$directory .'/'.$subdir. '/' .$subd.'/'.$file->hash_fichier;
+        //dd($path);
+        return redirect()->to('storage/' .$path);
     }
     public function savedb(Request $request)
     {  
@@ -141,18 +153,25 @@ $sizeR=round($size, 2) . ' ' . $units[$i];
         $file=$request->get('fichier');
         
         $date=Carbon::now();
-       // dd($request);
-        $hash= Str::random(40) . '.' . $request->get('fichierext');
-        $fich=Fichier::select('id_fichier')->where('NOM_ORIGINAL',$request->get('fichier'))->get();
-        $save=false;
-        //dd($fich);
-        if($fich->count() < 1){
-        $save=DB::table('fichiers')->insert(['NOM_ORIGINAL'=>$file,
-                                              'NOM_HASH'=>$hash,
-                                              'DATE_CREE'=>$date,
-                                              'TYPE_FICHIER'=>$request->get('fichierext'),
-                                              'TAILLE_FICHIER'=>$request->get('Tfichier')
-                                            ]);}
+        $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
+        $doss=Dossier::select('ref_Dossier')->where('ref_Dossier',$request->get('ref_d'))->get();
+        //dd($fich)
+        $sdoss=new Dossier(['ref_Dossier'=> $request->get('ref_d')]);
+       
+
+        if($doss->count() < 1)
+        {
+            $dsta=$sdoss->save();
+       
+        //dd($sdoss);
+        if(!$dsta)
+        {
+            return response()->json([
+                'message'=> 'unsuccess of creation Files',
+                'status'=>302
+            ]);
+        }
+    }
         else 
         {
            
@@ -198,5 +217,22 @@ $sizeR=round($size, 2) . ' ' . $units[$i];
                 'status'=>404
             ]);
         }*/
+    }
+    public function getname($id)
+    {
+        if($id)
+        {
+        $name=Fichier::where('id_fichier',$id)->select('nom_fichier')->first();
+        return response()->json([
+            'name'=>$name->nom_fichier,
+            'status'=> 200
+        ]);
+        }
+        else{
+            return response()->json([
+                'name'=>'Aucun',
+                'status'=> 302
+            ]);
+        }
     }
 }

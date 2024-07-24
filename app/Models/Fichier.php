@@ -14,7 +14,7 @@ class fichier extends Model
     protected $keyType = 'integer'; 
     public $timestamps = false;
 
-    protected $fillable=['id_fichier',	'nom_fichier',	'hash_fichier','taille_fichier','date_cree_fichier'];
+    protected $fillable=['id_fichier','nom_fichier',	'hash_fichier','taille_fichier','type_fichier','date_cree_fichier'];
 
     public function stocke()
     {

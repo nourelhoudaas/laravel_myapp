@@ -98,6 +98,7 @@ Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploa
 Route::post('/upload/creedossier',[UploadFile::class,'cree_dos_sous'])->name('cree_doss_emp');
 Route::get('/upload/getFiles/{id}',[UploadFile::class,'getFiles'])->name('getfile_all_emp');
 Route::post('/whoiam',[UploadFile::class,'savedb'])->name('who_stocke');
+Route::get('/realwhoiam/{id}',[UploadFile::class,'getname'])->name('who_name');
 Route::get('/live/read/{dir}/{subdir}/{file}',[UploadFile::class,'live_File'])->name('read_file_emp');
 Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp']);
 Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision']);
