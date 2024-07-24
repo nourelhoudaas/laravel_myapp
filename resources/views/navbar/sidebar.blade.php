@@ -52,7 +52,7 @@
 
                             <a href="{{route('app_dashboard')}}" class="nav__link active">
                                 <i class='bx bxs-dashboard nav__icon'></i>
-                                <span class="nav__name">Tableau de Bord</span>
+                                <span class="nav__name">{{ __('ar.dashboard') }}</span>
                             </a>
 
                             <div class="nav__dropdown">

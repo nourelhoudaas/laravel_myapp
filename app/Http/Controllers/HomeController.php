@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Employe;
 use App\Models\Departement;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 class HomeController extends Controller
 {
     //la page home.blade.php
@@ -23,6 +25,10 @@ class HomeController extends Controller
     //la page dashboard.blade.php
     public function dashboard()
     {
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
+
        /* $employe= DB::table('posts')
         ->join('occupes','occupes.id_post',"=","posts.id_post")
         ->join('employes','occupes.id_p','=','employes.id_p')
@@ -37,6 +43,7 @@ class HomeController extends Controller
           ->get();
         
 */
+App::setLocale('ar');
         $employe=Employe::with([
     'occupeIdNin.post.contient.sous_departement.departement',
     'occupeIdP.post.contient.sous_departement.departement'
@@ -51,7 +58,15 @@ class HomeController extends Controller
         return view('home.dashboard',compact('employe','totalEmployes','empdepart'));
     }
 
+    public function switchLanguage($locale)
+    {
+        if (in_array($locale, ['fr', 'ar'])) {
+            Session::put('locale', $locale);
+            App::setLocale($locale);
+        }
 
+        return redirect()->back();
+    }
 
 }
 

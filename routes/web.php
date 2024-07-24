@@ -104,3 +104,11 @@ Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp']);
 Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision']);
 Route::get('/Employe/IsEducat/{id}',[AddEmployeControll::class,'existApp'])->name('Employe.iseducat');
 });
+Route::get('lang/{locale}', [HomeController::class, 'switchLanguage']);
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['fr', 'ar'])) { // Check if the locale is supported
+        Session::put('locale', $locale);
+        App::setLocale($locale);
+    }
+    return Redirect::back();
+});
