@@ -27,16 +27,26 @@
  * 
  */
         $(document).ready(function(){
-            $('#fr-lang').click(function(){
+           /* $('#fr-lang').click(function(){
                 $('body').attr('dir', 'ltr');
                 $('.nav').css('left','0')
             })
-            $('#ar-lang').on('click', function(event) {
-                event.preventDefault();
-                alert('Class-specific link clicked!');
+            $('#ar-lang').click(function() { 
                 $('body').attr('dir', 'rtl');
                 $('.nav').css('right','0')
-            });
+            });*/
+
+            if(lng == 'ar')
+            {
+                $('body').attr('dir', 'rtl');
+                $('.nav').css('right','0')
+                
+            }
+            else
+            {
+                $('body').attr('dir', 'ltr');
+                $('.nav').css('left','0')
+            }
         })
 
         function uploadFile2(id) {

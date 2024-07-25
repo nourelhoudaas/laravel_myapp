@@ -11,5 +11,6 @@ return [
     'list_cng'=>'Liste des Congés',
     'msg'=>'Message',
     'notf'=>'Notification',
+    'langage'=>'francais',
     'logout'=>'Se Déconnecter'
 ];
