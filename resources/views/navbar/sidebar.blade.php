@@ -3,7 +3,7 @@
             <div class="header__container">
                 {{-- <img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="" class="header__img"> --}}
 
-                <a href="#" class="header__logo">Ministry Of Communication</a>
+                <a href="#" class="header__logo">Ministère de la Communication</a>
 
 
 
@@ -21,12 +21,16 @@
                 <div class="top">
                     <div class="profile">
                         <div class="info">
-                            <p><b>SAYAH</b> </p>
+                        <p><b>{{ Auth::user()->username }}</b></p>
                             <p>Admin</p>
                             <small class="text-muted"></small>
                         </div>
                         <div class="profile-photo">
                             <img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="">
+                        </div>
+                        <div class='lang-handler'>
+                            <a href='#' id="fr-lang"><span>FR</span></a>
+                            <a id="ar-lang" href='#' ><span>{{ __('messages.langage') }}</span></a>
                         </div>
                     </div>
                 </div>
@@ -52,7 +56,7 @@
 
                             <a href="{{route('app_dashboard')}}" class="nav__link active">
                                 <i class='bx bxs-dashboard nav__icon'></i>
-                                <span class="nav__name">Dashboard</span>
+                                <span class="nav__name">Tableau de Bord</span>
                             </a>
 
                             <div class="nav__dropdown">
@@ -73,7 +77,7 @@
                                     </div>
                                     <a href="{{route('app_add_depart',['dep_id'=>$empdepart->id_depart])}}" class="nav__link">
                                         <i class='bx bx-list-plus nav__icon' ></i>
-                                            <span class="nav__name">Add Direction</span>
+                                            <span class="nav__name">Ajouter Direction</span>
 
                                         </a>
                                 </div>
@@ -82,7 +86,7 @@
                             <div class="nav__dropdown">
                                 <a href="#" class="nav__link">
                                 <i class='bx bxs-group nav__icon'></i>
-                                    <span class="nav__name">Customers</span>
+                                    <span class="nav__name">Employés</span>
                                     <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
                                 </a>
 
@@ -90,22 +94,22 @@
                                     <div class="nav__dropdown-content">
                                         <a href="{{route('app_liste_emply')}}"class="nav__link">
                                             <i class='bx bx-list-ul nav__icon'></i>
-                                            <span class="nav__name">List Customers</span>
+                                            <span class="nav__name">Liste des Employés</span>
                                             </a>
                                         <a href="{{route('app_add_emply')}}" class="nav__link">
                                     <i class='bx bxs-user-plus nav__icon'></i>
-                                    <span class="nav__name">Add Customer</span>
+                                    <span class="nav__name">Ajouter Employé</span>
                                     </a>
 
                                      {{-- <a href="{{route('app_add_emply')}}" class="nav__dropdown-item"> <i class='bx bxs-user-plus nav__icon'></i> Add Customer</a> --}}
 
                                     <a href="{{route('app_abs_emply')}}" class="nav__link">
                                         <i class='bx bxs-user-minus nav__icon' ></i>
-                                        <span class="nav__name">Absence</span>
+                                        <span class="nav__name">Liste d'Absence</span>
                                         </a>
                                         <a href="{{route('emp_list_conge')}}" class="nav__link">
                                         <i class="fa fa-paper-plane" aria-hidden="true" style="margin-right:10px;" ></i>
-                                        <span class="nav__name">Congés</span>
+                                        <span class="nav__name">Liste des Congés</span>
                                         </a>
                                     </div>
                                 </div>
@@ -127,7 +131,7 @@
 
                 <a href="{{route('logout')}}" class="nav__link nav__logout">
                     <i class='bx bx-log-out nav__icon' ></i>
-                    <span class="nav__name">Log Out</span>
+                    <span class="nav__name">Déconnecter</span>
                 </a>
             </nav>
         </div>

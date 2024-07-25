@@ -331,7 +331,7 @@ img {
 
   /* Navbar expanded */
   .nav:hover {
-    width: var(--nav-width);
+    width: 20%;
   }
 
   /* Visible elements */
@@ -1218,4 +1218,10 @@ cursor:not-allowed ;
     overflow: auto;
     position: absolute;
   }
+}
+.lang-handler
+{display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 }

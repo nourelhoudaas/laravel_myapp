@@ -11,7 +11,7 @@ class appartient extends Model
 
     protected $table = 'appartients';
     protected $primaryKey = 'id_appar';
-    public $incrementing = true; 
+   // public $incrementing = true; 
     protected $keyType = 'integer'; 
       // Désactiver les timestamps automatiques
       public $timestamps = false;

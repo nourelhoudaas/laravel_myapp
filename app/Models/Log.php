@@ -14,7 +14,7 @@ class Log extends Model
     protected $keyType = 'integer'; 
     public $timestamps = false;
     
-    protected $fillablel=['id_log'	,'action'	,'id_nin',	'id','date_action'
+    protected $fillable=['id_log'	,'action'	,'id_nin',	'id','date_action','adresse_mac'
 ];
   
     public function employe()

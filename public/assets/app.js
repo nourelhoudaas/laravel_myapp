@@ -26,6 +26,19 @@
         })
  * 
  */
+        $(document).ready(function(){
+            $('#fr-lang').click(function(){
+                $('body').attr('dir', 'ltr');
+                $('.nav').css('left','0')
+            })
+            $('#ar-lang').on('click', function(event) {
+                event.preventDefault();
+                alert('Class-specific link clicked!');
+                $('body').attr('dir', 'rtl');
+                $('.nav').css('right','0')
+            });
+        })
+
         function uploadFile2(id) {
             var formData = new FormData();
             var formDataF = new FormData();
@@ -1095,7 +1108,7 @@ $(document).ready(function(){
                     success: function (response) {
                         md=false;
                       //  alert(response.success);
-                      window.location.href='/dashboard'
+                      window.location.href= '/BioTemplate/edit/' + id
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);
@@ -1162,3 +1175,4 @@ $(document).ready(function(){
      *  Bio Template Terminer   
      * 
      */
+    
