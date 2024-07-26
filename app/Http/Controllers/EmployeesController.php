@@ -20,32 +20,11 @@
         
             $champs = $request->input('champs', 'Nom_emp'); // Champ par défaut pour le tri
             $direction = $request->input('direction', 'asc'); // Ordre par défaut ascendant
-    
-        $employe = Employe::with([
-            'occupeIdNin'=>function($query)
-            {
-                $query->orderBy('date_recrutement','desc')->take(1);
+            $employe= Employe::with([
+                'travailByNin.sous_departement.contient.post.occupeIdNin',
+                'travailByNin.sous_departement.departement'
+            ])->get();
             
-            },
-            'occupeIdNin.post.contient.sous_departement.departement',
-            'occupeIdP'=>function($query)
-            {
-                $query->orderBy('date_recrutement','desc')->take(1);
-            },
-            'occupeIdP.post.contient.sous_departement.departement',
-            'travailByNin' => function ($query) {
-                $query->orderBy('date_installation', 'desc')->take(1);
-                
-            },
-            'travailByNin.sous_departement.departement',
-            'travailByP' => function ($query) {
-                $query->orderBy('date_installation', 'desc')->take(1);
-            
-            },
-            'travailByP.sous_departement.departement',
-            
-        ])->get();
-    
         if ($champs === 'age') {
             $employe = $employe->sortBy(function($emp) {
                 return \Carbon\Carbon::parse($emp->Date_nais)->age;
@@ -84,7 +63,7 @@
 
         
     //le nbr total des employe pour chaque depart
-        $totalEmployes = $employe->count();
+    $totalEmployes = $employe->count();
     
         //return $employe;
         // dd($employe);
