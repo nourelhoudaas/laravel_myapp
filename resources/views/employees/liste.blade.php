@@ -17,7 +17,7 @@
             <!-- main section start -->
             <main>
                 <div class="recent_order">
-                    <h1>List of Customers</h1>
+                    <h1>{{ __('lang.lst_emp') }}</h1>
                     <table>
 
                         <thead>
@@ -25,7 +25,7 @@
                         <tr>
     <th>
     <a href="{{ route('app_liste_emply', [ 'champs' => 'Nom_emp', 'direction' => ($champs == 'Nom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-                NOM
+                {{ __('lang.name') }}
                 @if($champs == 'Nom_emp')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -33,7 +33,7 @@
         </th>
         <th>
             <a href="{{ route('app_liste_emply', [ 'champs' => 'Prenom_emp', 'direction' => ($champs == 'Prenom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-            PRENOM
+            {{ __('lang.surname') }}
                 @if($champs == 'Prenom_emp')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -41,7 +41,7 @@
         </th>
         <th>
             <a href="{{ route('app_liste_emply', [ 'champs' => 'age', 'direction' => ($champs == 'age' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-            Age
+            {{ __('lang.age') }}
                 @if($champs == 'age')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -49,7 +49,7 @@
         </th>
         <th>
             <a href="{{ route('app_liste_emply', [ 'champs' => 'date_recrutement', 'direction' => ($champs == 'date_recrutement' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-            Date Recrutement
+            {{ __('lang.date_rec') }}
                 @if($champs == 'date_recrutement')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -57,7 +57,7 @@
         </th>
         <th>
             <a href="{{ route('app_liste_emply', ['champs' => 'Nom_post', 'direction' => ($champs == 'Nom_post' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-            Poste
+            {{ __('lang.post') }}
                 @if($champs == 'Nom_post')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -65,7 +65,7 @@
         </th>
         <th>
             <a href="{{ route('app_liste_emply', [ 'champs' => 'Nom_depart', 'direction' => ($champs == 'Nom_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-          Direction
+            {{ __('lang.dept') }}
             @if($champs == 'Nom_depart')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -73,7 +73,7 @@
         </th>
         <th>
             <a href="{{ route('app_liste_emply', [ 'champs' => 'Nom_sous_depart', 'direction' => ($champs == 'Nom_sous_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-           Sous Direction
+            {{ __('lang.sous_dept') }}
             @if($champs == 'Nom_sous_depart')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -81,7 +81,7 @@
         </th>
         <th>
             <a href="{{ route('app_liste_emply', ['champs' => 'date_installation', 'direction' => ($champs == 'date_installation' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-           Date Installation
+            {{ __('lang.date_inst') }}
                 @if($champs == 'date_installation')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif

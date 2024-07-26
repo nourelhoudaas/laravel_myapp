@@ -19,14 +19,14 @@
 
                 <!-- main section start -->
                 <main>
-                <h1>Controll De Congé</h1>
+                <h1>{{ __('lang.ctrl_cng') }}</h1>
                     <div class="insights">
                         <!-- start Employees -->
                         <div class="sales">
                             <span class="material-symbols-outlined">groups</span>
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Total Employees</h3>
+                                    <h3>{{ __('lang.nbr_all_users') }}</h3>
                                     <h1>{{ count($emptypeconge) }}</h1>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                             <span class="material-symbols-outlined">travel</span>
                             <div class="middle">
                                 <div class="left">
-                                <h3>Congé Annuel</h3>
+                                <h3>{{ __('lang.term_cng') }}</h3>
                                 <h1>{{ $count }}</h1>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                             <span class="material-symbols-outlined">block</span>
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Congé Exceptionnel</h3>
+                                    <h3>{{ __('lang.exp_cng') }}</h3>
                                     <h1>{{ $countExceptionnel }}</h1>
                                 </div>
                             </div>
@@ -60,14 +60,14 @@
                     <div>
                         <hr>
                         <select name="type-conge" type="text" class="form-select form-select-lm mb-3" id="type-conge">
-                            <option value="">Séléctionner le Titre du Congé</option>
+                            <option value="">{{ __('lang.slct_type_cng') }}</option>
                             @foreach($typecon as $typeconges)
                             <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong}}</option>
                             @endforeach
                         </select>
                         <hr>
                         <select type="text" class="form-select" id="Dep">
-                            <option value="">Séléctionner la Direction</option>
+                            <option value="">{{ __('lang.slct_dept') }}</option>
                             @foreach($empdepart as $empdeparts)
                             <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart}}</option>
                             @endforeach
@@ -78,16 +78,16 @@
                         <table id="CngTable">
                             <thead>
                                 <tr>
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Num Téléphone</th>
-                                    <th>Poste</th>
-                                    <th>Sous Direction</th>
-                                    <th>Titre du Congé</th>
-                                    <th>Date Debut Congé</th>
-                                    <th>Date Fin Congé</th>
-                                    <th>Nombres de jours Restants</th>
-                                    <th>Situation</th>
+                                    <th>{{ __('lang.name') }}</th>
+                                    <th>{{ __('lang.surname') }}</th>
+                                    <th>{{ __('lang.num_tel') }} </th>
+                                    <th>{{ __('lang.post') }}</th>
+                                    <th>{{ __('lang.sous_dept') }}</th>
+                                    <th>{{ __('lang.type_cng') }}</th>
+                                    <th>{{ __('lang.date_deb_cng') }}</th>
+                                    <th>{{ __('lang.date_fin_cng') }}</th>
+                                    <th>{{ __('lang.nbr_jour') }}</th>
+                                    <th>{{ __('lang.stuation') }}</th>
                                 </tr>
                             </thead>
                             <tbody>

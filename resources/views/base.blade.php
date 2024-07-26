@@ -45,4 +45,8 @@
 
 
     </body>
+    <script>
+        var lng='{{app()->getLocale()}}'
+        console.log('lang'+lng);
+    </script>
 </html>
