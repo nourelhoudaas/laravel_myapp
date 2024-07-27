@@ -23,7 +23,7 @@ class Conge extends Model
 
     public function type_conge()
     {
-        return $this->belongsTo(Type_cong::class, 'ref_cong','ref_cong');
+        return $this->belongsTo(type_cong::class, 'ref_cong','ref_cong');
     }
 
     public function employe()

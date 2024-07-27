@@ -29,7 +29,7 @@
                     <div class="middle">
                         <div class="left">
                             <h3>Total Employees</h3>
-                            <h1 id="total-employees">0</h1>
+                            <h1 id="total-employees">$totalEmpDep</h1>
                         </div>
 
                     </div>
@@ -140,45 +140,29 @@
                    
                  
                     <tbody>
-                    @php
-            $totalEmpDep = 0; 
-        @endphp
-
-                    @foreach ($empdep as $employe)
-                           @if($employe->travailByNin)
+            
+        @foreach($empdep as $employe)
+                @php
+                    $post = $employe->occupeIdNin->last()->post ;
+                    $travail = $employe->travailByNin->last();
+                    $sousDepartement = $travail->sous_departement;
+                 
+                @endphp
+                <tr>
+                <td>
+                                        <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</a>
+                                    </td>    <td>{{ $employe->Prenom_emp }}</td>
+                    <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
+                    <td>{{ $employe->occupeIdNin->last()->date_recrutement  }}</td>
+                    <td>{{ $post->Nom_post }}</td>
+                    <td>{{ $sousDepartement->Nom_sous_depart }}</td>
+                   
+                    <td>{{ $travail->date_installation }}</td>
                 
-                                @foreach($employe->travailByNin as $travail)
-                            @if ($employe->occupeIdNin)
-                                @foreach ($employe->occupeIdNin as $occupe)
-                                  @if ($occupe && $occupe->post)
-                                      @if ($occupe->post->contient)
-                                         @foreach ($occupe->post->contient as $contient)
-                                         @if ($travail && $travail->sous_departement && $travail->sous_departement->departement &&  $travail->sous_departement->departement->id_depart==$dep_id)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</a>
-                                </td>
-                                <td>{{ $employe->Prenom_emp }}</td>
-                                <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
-                                <td>{{ $occupe->date_recrutement }}</td>
-                                <td>{{ $occupe->post->Nom_post }}</td>
-                                <td>{{ $travail->sous_departement->Nom_sous_depart }}</td>
-                              
-                                <td>{{ $travail->date_installation }}</td>
-                            </tr>
-                            @php
-                                            $totalEmpDep++; 
-                                        @endphp
-
-                                            @endif
-                                          @endforeach
-                                        @endif
-                                    @endif
-                                @endforeach
-                            @endif
-                            @endforeach
-                            @endif
-                        @endforeach
+                </tr>
+            @endforeach
+                           
+                                 
                     </tbody>
                 </table>
             </div>

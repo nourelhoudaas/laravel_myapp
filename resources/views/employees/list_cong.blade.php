@@ -90,21 +90,22 @@
                                     <th>{{ __('lang.stuation') }}</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            @foreach($emptypeconge as $employe)
-                                <tr class="employe-row" data-type-conge="{{ $employe->ref_cong }}" data-department="{{ $employe->id_depart }}">
-                                    <td>{{ $employe->Nom_emp }}</td>
-                                    <td>{{ $employe->Prenom_emp }}</td>
-                                    <td>{{ $employe->Phone_num }}</td>
-                                    <td>{{ $employe->Nom_post }}</td>
-                                    <td>{{ $employe->Nom_sous_depart }}</td>
-                                    <td>{{ $employe->titre_cong }}</td>
-                                    <td>{{ $employe->date_debut_cong }}</td>
-                                    <td>{{ $employe->date_fin_cong }}</td>
-                                    <td>{{ $employe->joursRestants }} </td>
-                                    <td>{{ $employe->situation }}</td>
-                                </tr>
-                            @endforeach
+                                @foreach($emptypeconge as $employe)
+                                    @foreach($employe->congeIdNin as $conge)
+                                        <tr>
+                                            <td>{{ $employe->Nom_emp }}</td>
+                                            <td>{{ $employe->Prenom_emp }}</td>
+                                            <td>{{ $employe->Phone_num }}</td>
+                                            <td>{{ $employe->occupeIdNin->last()->post->Nom_post ?? 'N/A' }}</td>
+                                            <td>{{ $employe->travailByNin->last()->sous_departement->Nom_sous_depart ?? 'N/A' }}</td>
+                                            <td>{{ $conge->type_conge->titre_cong ?? 'N/A' }}</td>
+                                            <td>{{ $conge->date_debut_cong }}</td>
+                                            <td>{{ $conge->date_fin_cong }}</td>
+                                            <td>{{ floor(Carbon::parse($today)->diffInDays($conge->date_fin_cong)) }}</td>
+                                            <td>{{ $conge->situation }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -183,7 +184,7 @@
     });
 
     //les constants pour éléments de selection par type,dep et total des filtres 
-        const typeCongeSelect = document.getElementById("type-conge");
+    const typeCongeSelect = document.getElementById("type-conge");
     const departmentSelect = document.getElementById("Dep");
         const employeeTableBody = document.querySelector("#CngTable tbody");
 
@@ -204,7 +205,8 @@
             url = `/conge/filterbydep/${selectedDepartment}`;
         }
             if(url) 
-        {
+
+        {console.log(url);
            
     //console.log(selectedTypeConge);
     //une requete get est envoyé à l'url /conge/filter avec type_cong et dep
