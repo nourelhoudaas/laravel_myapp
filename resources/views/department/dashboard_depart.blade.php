@@ -140,29 +140,30 @@
                    
                  
                     <tbody>
-            
-        @foreach($empdep as $employe)
-                @php
-                    $post = $employe->occupeIdNin->last()->post ;
-                    $travail = $employe->travailByNin->last();
-                    $sousDepartement = $travail->sous_departement;
-                 
-                @endphp
-                <tr>
-                <td>
-                                        <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</a>
-                                    </td>    <td>{{ $employe->Prenom_emp }}</td>
-                    <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
-                    <td>{{ $employe->occupeIdNin->last()->date_recrutement  }}</td>
-                    <td>{{ $post->Nom_post }}</td>
-                    <td>{{ $sousDepartement->Nom_sous_depart }}</td>
-                   
-                    <td>{{ $travail->date_installation }}</td>
-                
-                </tr>
-            @endforeach
-                           
-                                 
+                            
+                        @foreach($empdep as $employe)
+                                @php
+                                    $post = $employe->occupeIdNin->last()->post ;
+                                    $travail = $employe->travailByNin->last();
+                                    $sousDepartement = $travail->sous_departement;
+                                
+                                @endphp
+                                <tr>
+                                <td>
+                                    <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</a>
+                                </td>  
+                                    <td>{{ $employe->Prenom_emp }}</td>
+                                    <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
+                                    <td>{{ $employe->occupeIdNin->last()->date_recrutement  }}</td>
+                                    <td>{{ $post->Nom_post }}</td>
+                                    <td>{{ $sousDepartement->Nom_sous_depart }}</td>
+                                
+                                    <td>{{ $travail->date_installation }}</td>
+                                
+                                </tr>
+                            @endforeach
+                                        
+                                                
                     </tbody>
                 </table>
             </div>
