@@ -18,7 +18,7 @@
                 <div>
                     <br>
                 <select type="text" class="form-select" value="" id="Dep">
-                        <option value="">{{ __('lang.slct_post') }}</option>
+                        <option value="">{{ __('lang.slct_dept') }}</option>
                         @foreach($empdepart as $empdeparts)
                         <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart}}</option>
                         @endforeach

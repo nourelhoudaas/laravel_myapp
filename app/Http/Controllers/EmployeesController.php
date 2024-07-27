@@ -9,6 +9,8 @@
     use Illuminate\Http\Request;
     use App\Models\Departement;
     use App\Models\Employe;
+    use App\Models\Travail;
+    use App\Models\Post;
     use App\Models\type_cong;
     use DB;
     use Carbon\Carbon;
@@ -225,80 +227,178 @@
         public function listabs_depart($id_dep)
         {
         $result=array();
-        $ocp=Occupe::select('id_nin','date_recrutement','id_post')->orderBy('date_recrutement','desc')->get();
-            foreach($ocp as $empc)
-            {
-                $empdep = DB::table('employes')
-            ->distinct()
-            ->select('employes.Nom_emp',
-                    'employes.Nom_ar_emp',
-                    'employes.Prenom_emp',
-                    'employes.Prenom_ar_emp',
-                    'employes.id_nin',
-                    'employes.id_p',
-                    'departements.id_depart',
-                    'departements.Nom_depart',
-                    'sous_departements.id_sous_depart',
-                    'sous_departements.Nom_sous_depart',
-                    'posts.Nom_post',
-                    'posts.id_post',
-                    'occupes.date_recrutement')
-            ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-            ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
-            ->join('contients', 'posts.id_post', '=', 'contients.id_post')
-            ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-            ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart') 
-            ->orderBy('date_recrutement','desc')
-            ->where('employes.id_nin', $empc->id_nin)
-            ->first();
-            if($empdep->id_depart == $id_dep)
-            {
-                array_push($result,$empdep);
-            }
-            }
+        $post=array();
+        $id_sous=Sous_departement::where('id_depart',$id_dep)->get();
         
-            $finalresul=array();
-            if(count($result)>0){
-            $id=$result[0]->id_nin;
-        // dd($id);
-            for ($i=1; $i < count($result) ;$i++) { 
-                # code...
-                if($id != $result[$i]->id_nin)
-                {
-                    if(count($finalresul) == 0)
-                    {
-                    array_push($finalresul,$result[$i]);
-                    $id=$result[$i]->id_nin;
-                    }
-                    else
-                    {
-                        $find=false;
-                        $j=0;
-                        while($find == false && $j < count($finalresul))
-                        {
-                            if($finalresul[$j]->id_nin == $id)
+        foreach($id_sous as $sous_dep)
+        {
+            //print_r('sous_id '.$sous_dep);
+            $id_post=Post::where('sous_departements.id_sous_depart',$sous_dep->id_sous_depart)->select('contients.id_contient')
+                           ->join('contients','contients.id_post','=','posts.id_post')
+                           ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                           ->get();
+            foreach($id_post as $sas)
+            array_push($post,$sas->id_contient);
+        }
+       //--------------------------------------------------------------------------- success ---/////
+       $allwor=array();
+        $emps=Employe::join('travails','travails.id_nin','=','employes.id_nin')
+                       ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
+                       ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                       ->where('departements.id_depart',$id_dep)
+                       ->orderBy('travails.date_installation','desc')
+                       ->get();
+        foreach($emps as $empl)
+        {
+            array_push($allwor,$empl);
+        }
+       // dd($allwor);
+        $fi=array();
+        foreach($allwor as $workig)
+        {
+            $travs=Travail::where('travails.id_nin',$workig->id_nin)
+                            ->join('Employes','Employes.id_nin','=','travails.id_nin')
+                            ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
+                            ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                           // ->where('departements.id_depart',$id_dep)
+                            ->orderBy('date_installation','desc')
+                            ->first();
+          /* foreach($travs as $bind)
+            {   */             
+            if($workig->date_installation <= $travs->date_installation && $travs->id_depart == $id_dep)
+            {
+                array_push($fi,$travs);
+            }
+       // }
+        }
+      //  dd($fi);
+    //------------------------------------------------------------------until here -----------------------*/    
+         $empdpart=array();
+         $fis=array();
+     foreach($fi as $workig)
+        {
+            $travs=Travail::where('travails.id_nin',$workig->id_nin)
+                            ->join('Employes','Employes.id_nin','=','travails.id_nin')
+                            ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
+                            ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                           // ->where('departements.id_depart',$id_dep)
+                            ->orderBy('date_installation','desc')
+                            ->first();
+          /* foreach($travs as $bind)
+            {   */             
+            if($workig->date_installation <= $travs->date_installation && $travs->id_depart == $id_dep)
+            {
+                array_push($fis,$travs);
+            }
+       // }
+        }
+        foreach($fis as $emp)
+        {
+            $idcnt=Occupe::where('id_nin',$emp->id_nin)->where('contients.id_sous_depart',$emp->id_sous_depart)->select('id_contient')
+                    ->join('posts','posts.id_post','=','occupes.id_post')
+                    ->join('contients','contients.id_post','=','posts.id_post')
+                    ->orderBy('date_recrutement','desc')
+                    ->first();
+           
+            $emps=Employe::join('occupes','occupes.id_nin','=','Employes.id_nin')
+                           ->join('posts','posts.id_post','=','occupes.id_post')
+                           ->join('contients','contients.id_post','=','posts.id_post')
+                           ->join('sous_departements','contients.id_sous_depart','=','sous_departements.id_sous_depart')
+                           ->join('departements','departements.id_depart','=','sous_departements.id_depart')
+                           ->where('contients.id_contient',$idcnt->id_contient)
+                           ->where('Employes.id_nin',$emp->id_nin)
+                           ->orderBy('date_recrutement','desc')
+                           ->first();                     
+                           $find=false;
+                           if(count($empdpart) >0)
+                           {$i=0;
+                            
+                            while ( $i < count($empdpart) && $find == false) { 
+                                # code...
+                                if($empdpart[$i]->id_nin == $emps->id_nin)
+                                {
+                                    
+                                    $find = true;  
+                                    print_r('------- insrt:::'.$emps->id_nin.'find');
+                                }
+                                
+                                $i++;
+                            }
+                            if($find != true)
                             {
-                                $find=true;
+                                print_r('------- insrt:::'.$emps->id_nin.' ----- comparing to ::::');
+                                $i=0;
+                                array_push($empdpart,$emps);
                             }
                         }
-                        if($find != true)
+                        else
                         {
-                            array_push($finalresul,$result[$i]);
-                            $id=$result[$i]->id_nin;
+                            print_r('insrt null'.$emps->id_nin);
+                            array_push($empdpart,$emps);
                         }
-                    }
+        }
+        dd($empdpart);
+         
+       /* $allin=array();
+        $travail=Travail::orderBy('date_installation','desc')->get();
+       
+        foreach ($empdpart as $value) {
+            # code...
+            foreach ($travail as $current) {
+                # code...
+                
+                if($current->date_installation > $value->date_installation)
+                {
+                    printf('-'.$current->date_installation.' and his date'.$value->date_installation.' ----- ');
+                    array_push($allin,$current);
                 }
             }
-            array_push($finalresul,$result[0]);
+        }
+        dd($allin);
+
+
+        $tableorg=array();
+            $finalresul=array();
+            if(count($result)>0)
+            {
+            foreach($result as $elemnt)
+            {
+                array_push($tableorg,$elemnt->id_nin);
+            }
+                $tebleint=array();
+                $terminat=false;
+                while( $terminat === false )  { 
+                    # code...
+                    $idt=$tableorg[0];
+                    for ($j=0; $j <count($tableorg) ; $j++) { 
+                        # code...
+                        if($idt != $tableorg[$j] )
+                        {
+                            array_push($tebleint,$tableorg[$j]);
+                        }
+                    }
+                    array_push($finalresul,$idt);
+                    $tableorg=$tebleint;
+                    $tebleint=array();
+                    if(count($tableorg) < 1 )
+                    {
+                        $terminat=true;
+                    }
+                    
+                }
         }
         else
         {
             $finalresul=array();
         }
-        // dd($finalresul);
+
+*/
+
+
+
                 $empdepart=Departement::get();
             $nom_d = Departement::where('id_depart', $id_dep)->value('Nom_depart');
-    return response()->json($finalresul);
+    return response()->json($empdpart);
         }
         public function absens_date($date)
         {
