@@ -213,7 +213,7 @@ return view('department.dashboard_depart', compact('empdep','empdepart','nom_d',
             'code'=>200
         ]);*/
         /*select departement.id_depat from departement where nom_depart = $request*/
-        Sous_departement::create([
+      /*  Sous_departement::create([
             $request->get('id_depart'),
             $request->get('Nom_depart'),
             $request->get('Descriptif_depart'),
@@ -227,7 +227,7 @@ return view('department.dashboard_depart', compact('empdep','empdepart','nom_d',
             'message'=>'success',
             's_dert'=>$s_deprt,
             'code'=>200
-        ]);
+        ]);*/
     }
 
 
