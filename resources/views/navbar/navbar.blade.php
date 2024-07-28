@@ -1,33 +1,97 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="{{route('app_home')}}">Ministère de la communication</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<!-- resources/views/home.blade.php -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Mon Application</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .bg {
+            position: relative;
+            /* Contrôlez la hauteur de l'image */
+            height: 100%; 
+            /* Centre et échelle l'image */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;   
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    @guest
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Mon Compte
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{route('login')}}">Login</a></li>
-                            <li><a class="dropdown-item" href="{{route('register')}}">Register</a></li>
-                        </ul>
-                    @endguest
+  text-align: center;
+        }
 
-                    @auth
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::user()->name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{route('logout')}}">Log out</a></li>
-                        </ul>
-                    @endauth
-                </li>
-            </ul>
-        </div>
+        .bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{{ asset('assets/navbar/images/2.jpeg') }}');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.7; /* Ajustez cette valeur pour régler la transparence */
+            z-index: -1;
+        }
+
+        .content {
+            text-align: center;
+            color: black;
+            position: absolute;
+            bottom: 300px; /* Ajustez cette valeur pour régler la distance par rapport au footer */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap; /* Empêcher les retours à la ligne */
+            
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-get-started {
+            background-color: black; /* Vert */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+
+            
+}
+        
+    </style>
+</head>
+<body>
+
+<div class="bg">
+    <div class="content">
+   
+       
     </div>
-</nav>
+    <div class="footer">
+        <a href="{{ route('login') }}" class="btn-get-started">Get Started</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -13,7 +13,7 @@ class HomeController extends Controller
     //la page home.blade.php
     public function home()
     {
-        return view('home.home');
+        return view('accueil.index');
     }
 
     //la page about.blade.php
