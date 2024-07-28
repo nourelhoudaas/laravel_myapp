@@ -126,6 +126,7 @@
                           ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
                           ->join('departements','departements.id_depart','=','sous_departements.id_depart')
                           ->join('posts','posts.id_post','=','occupes.id_post')
+                          ->where('employes.id_nin',$id)
                           ->first();
            // dd($last);
                 $result=DB::table('employes')->distinct()
