@@ -170,7 +170,7 @@ return view('department.dashboard_depart', compact('empdep','empdepart','nom_d',
         ->value('Nom_depart');*/
 
 //le nbr total des employe pour chaque depart
-        $totalEmpDep = $empdep->count();
+        $gi = $empdep->count();
 
 
         return view('department.add_depart', compact('empdep','totalEmpDep','empdepart','nom_d'));
