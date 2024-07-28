@@ -21,9 +21,9 @@ class Post extends Model
         return $this->hasMany(Contient::class,'id_post','id_post');
     }
 
-    public function occupe()
+    public function occupeIdNin()
     {
-        return $this->hasMany(occupe::class,'id_post','id_post');
+        return $this->hasMany(Occupe::class,'id_post','id_post');
     }
 
     public function niveau()
