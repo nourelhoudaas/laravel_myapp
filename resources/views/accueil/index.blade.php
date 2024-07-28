@@ -33,9 +33,9 @@
 
 
 
-      @include('navbar.navbarregistr')
+      @include('navbar.navbar')
 
-    <div class="hero" style="background-image: url('{{ asset('assets/navbar/images/news.jpg') }}')"></div>
+    <div class="hero" style="background-image: url('{{ asset('assets/navbar/images/trrnws.jpg') }}')"></div>
   
 
 

@@ -1,4 +1,3 @@
-<!-- resources/views/home.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,87 +10,75 @@
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
         }
-        
+
         .bg {
             position: relative;
-            /* Contrôlez la hauteur de l'image */
-            height: 100%; 
-            /* Centre et échelle l'image */
+            height: 100vh;
+            background-image: url('{{ asset('assets/navbar/images/trrnws.jpg') }}');
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;   
-
-  text-align: center;
-        }
-
-        .bg::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('{{ asset('assets/navbar/images/2.jpeg') }}');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            opacity: 0.7; /* Ajustez cette valeur pour régler la transparence */
-            z-index: -1;
         }
 
         .content {
-            text-align: center;
-            color: black;
             position: absolute;
-            bottom: 300px; /* Ajustez cette valeur pour régler la distance par rapport au footer */
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap; /* Empêcher les retours à la ligne */
-            
+            bottom: 20px; /* Aligne le texte en bas */
+            right: 20px; /* Aligne le texte à droite */
+            text-align: right;
+            color: white; /* Couleur du texte */
+            padding: 0; /* Pas de padding */
+        }
+
+        .content h1 {
+            margin: 0;
+            font-size: 1.2em; /* Taille du texte du titre */
+            line-height: 1.2; /* Hauteur de ligne pour le titre */
+        }
+
+        .content h2 {
+            margin: 10px 0 0; /* Espacement au-dessus du sous-titre */
+            font-size: 1em; /* Taille du texte du sous-titre */
+            line-height: 1.2; /* Hauteur de ligne pour le sous-titre */
         }
 
         .footer {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
+            margin-top: 20px; /* Espacement entre le texte et le bouton */
         }
 
         .btn-get-started {
-            background-color: black; /* Vert */
+            background-color: #003366; /* Bleu foncé */
             border: none;
             color: white;
-            padding: 15px 32px;
+            padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
+            font-size: 14px;
             cursor: pointer;
-            border-radius: 12px;
+            border-radius: 8px;
+        }
 
-            
-}
-        
+        .section {
+            height: 100vh; /* Hauteur de la section pour le défilement */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4; /* Couleur de fond pour la section */
+        }
     </style>
 </head>
 <body>
 
 <div class="bg">
     <div class="content">
-   
-       
-    </div>
-    <div class="footer">
-        <a href="{{ route('login') }}" class="btn-get-started">Get Started</a>
+        <h1>République Algérienne Démocratique et Populaire</h1>
+        <h2>Ministère de la Communication</h2>
+        <div class="footer">
+            <a href="{{ route('login') }}" class="btn-get-started">Commencer</a>
+        </div>
     </div>
 </div>
+
 
 </body>
 </html>
