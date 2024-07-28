@@ -75,8 +75,8 @@ Route::controller(EmployeesController::class)->group(function(){
 
 Route::controller(DepartmentController::class)->group(function(){
 
-    Route::get('\add_depart{dep_id}','AddDepart')->name('app_add_depart');
-    Route::post('/add_depart','Store')->name('app_store_depart');
+    Route::get('\add_depart/{dep_id}','AddDepart')->name('app_add_depart');
+    Route::post('/add_depart','store')->name('app_store_depart');
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');

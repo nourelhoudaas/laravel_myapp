@@ -201,7 +201,7 @@ function uploadFile() {
                         data:stockForm,
                         success:function(responses)
                         {
-                          
+
                             if(responses.code == 200)
                                 {
                                     $('#successMessage').show();
@@ -1180,6 +1180,14 @@ function removeInput(){
     discr.type="text";
     discr.placeholder="Discription de la sous-direction";
 
+    const name_ar = document.createElement("input");
+    name.type="text";
+    name.placeholder="Nom Sous-direction en arabe";
+
+    const discr_ar =document.createElement("input");
+    discr.type="text";
+    discr.placeholder="Discription de la sous-direction en arabe";
+
     const btn=document.createElement("a");
     btn.className = "delete";
     btn.innerHTML="&times";
@@ -1192,6 +1200,8 @@ function removeInput(){
     input.appendChild(flex);
     flex.appendChild(name);
     flex.appendChild(discr);
+    flex.appendChild(name_ar);
+    flex.appendChild(discr_ar);
     flex.appendChild(btn);
 
    }
