@@ -18,6 +18,7 @@ class UploadFile extends Controller
     public function uploadFile(Request $request)
     {
         // Validate the file
+        $date=Carbon::now();
         $request->validate([
             'file' => 'required|file|mimes:jpg,png,pdf|max:2048',
             'id_nin'=>'required|integer',
@@ -48,6 +49,24 @@ for ($i = 0; $size >= 1024 && $i < count($units) - 1; $i++) {
 $sizeR=round($size, 2) . ' ' . $units[$i];
 
 /** ---- */
+$fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
+        if($fich->count() < 1){
+        $save=new Fichier(['nom_fichier'=>$file->getClientOriginalName(),
+                                              'hash_fichier'=>$hash,
+                                              'date_cree_fichier'=>$date,
+                                              'type_fichier'=>$file->getClientOriginalExtension(),
+                                              'taille_fichier'=>$sizeR
+                                            ]);
+                                            $save->save();
+                                        }
+                                        
+        else
+        {
+            return response()->json([
+                'message'=>'unsuccess',
+                'status'=>302
+            ]);
+        }
 
 if($fich->count() < 1){
     $save=new Fichier(['nom_fichier'=>$file->getClientOriginalName(),
@@ -131,8 +150,7 @@ if($fich->count() < 1){
                 
                 return $id->id_fichier;
             }, $filesEm);
-
-            $files[$subDirName] = $fileNames;
+            $files[$subDirName]=$fileNames;
         }
        // dd($files);
         return view('BioTemplate.file_Index',compact('files','empdoss','empdepart','employe'));
@@ -161,6 +179,7 @@ if($fich->count() < 1){
 
         if($doss->count() < 1)
         {
+            $sdoss=new Dossier(['ref_Dossier'=> $request->get('ref_d')]);
             $dsta=$sdoss->save();
        
         //dd($sdoss);
@@ -185,6 +204,7 @@ if($fich->count() < 1){
                 $mac=$matches[0];
             }
             }
+           // dd($request);
             $stock=new Stocke([
                                'id'=>$request->get('id'),
                                'ref_Dossier'=>$request->get('ref_d'),

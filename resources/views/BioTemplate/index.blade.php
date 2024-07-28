@@ -192,9 +192,9 @@
                       <hr>
                       <div class="row ">
                         <div class="col-sm-12" style="display: flex;flex-direction: row;justify-content: space-between;">
-                          <button class="btn btn-info i" id="btn-ch">Edit</a>
-                          <button class="btn btn-info i" id="btn-tr">transferé</a>
-                          <button class="btn btn-info i" id="btn-dir">Dossier</a>
+                          <button class="btn btn-info i" id="btn-ch">{{ __('lang.edit') }}</a>
+                          <button class="btn btn-info i" id="btn-tr">{{ __('lang.tran') }}</a>
+                          <button class="btn btn-info i" id="btn-dir">{{ __('lang.files') }}</a>
                         </div>
                       </div>
                     </div>

@@ -12,6 +12,9 @@ use App\Http\Controllers\UpdatePasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Actions\Fortify\LoginUser;
 use App\Actions\Fortify\UpdateUserPassword;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 /*
 Formulaires de connexion/inscription: Utiliser Route::match(['get', 'post']) pour permettre l'affichage du formulaire (GET) et le traitement des données soumises (POST).
 Affichage de données: Utiliser Route::get() pour des pages où les utilisateurs consultent simplement les données (comme des profils, des pages d'articles, des tableaux de bord, etc.).
@@ -104,3 +107,4 @@ Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp']);
 Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision']);
 Route::get('/Employe/IsEducat/{id}',[AddEmployeControll::class,'existApp'])->name('Employe.iseducat');
 });
+Route::get('lang/{locale}', [HomeController::class, 'switchLanguage']);

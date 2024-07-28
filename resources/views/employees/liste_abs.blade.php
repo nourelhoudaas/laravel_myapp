@@ -18,25 +18,25 @@
                 <div>
                     <br>
                 <select type="text" class="form-select" value="" id="Dep">
-                        <option value="">Selection Le Post</option>
+                        <option value="">{{ __('lang.slct_dept') }}</option>
                         @foreach($empdepart as $empdeparts)
                         <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart}}</option>
                         @endforeach
                         </select>
                 </div>
                 <div class="recent_order">
-                    <h1>Controll D absences</h1>
+                    <h1>{{ __('lang.ctrl_abs') }}</h1>
                     <table id="AbsTable">
 
                         <thead>
 
                             <tr>
-                                <th>Nom </th>
-                                <th> Prenom</th>
-                                <th>poste</th>
-                                <th>Sous Direction</th>
-                                <th>Direction</th>
-                                <th>Status</th>
+                                <th>{{ __('lang.name') }} </th>
+                                <th>{{ __('lang.surname') }} </th>
+                                <th> {{ __('lang.post') }}</th>
+                                <th>{{ __('lang.sous_dept') }} </th>
+                                <th>{{ __('lang.dept') }}</th>
+                                <th>{{ __('lang.stuation') }}</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

@@ -26,6 +26,29 @@
         })
  *
  */
+        $(document).ready(function(){
+           /* $('#fr-lang').click(function(){
+                $('body').attr('dir', 'ltr');
+                $('.nav').css('left','0')
+            })
+            $('#ar-lang').click(function() { 
+                $('body').attr('dir', 'rtl');
+                $('.nav').css('right','0')
+            });*/
+
+            if(lng == 'ar')
+            {
+                $('body').attr('dir', 'rtl');
+                $('.nav').css('right','0')
+                
+            }
+            else
+            {
+                $('body').attr('dir', 'ltr');
+                $('.nav').css('left','0')
+            }
+        })
+
         function uploadFile2(id) {
             var formData = new FormData();
             var formDataF = new FormData();
@@ -112,7 +135,8 @@
                             console.log('no log');
                         }
                       },
-                      error: function() {
+                      error: function(response) {
+                        console.log(''+JSON.stringify(response));
                           alert('Upload failed');
                       }
                   })
@@ -1161,6 +1185,7 @@ $(document).ready(function(){
      *  Bio Template Terminer
      *
      */
+<<<<<<< HEAD
     //dynamic field Creation with java script
     const addBtn = document.querySelector(".add");
     const input = document.querySelector(".inp-group");
@@ -1212,3 +1237,6 @@ function removeInput(){
 
     addBtn.addEventListener("click", addInput);
 
+=======
+    
+>>>>>>> d13cfdfcacd0b77023e049361250816365be0c57
