@@ -180,7 +180,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $niv=new Niveau();
-    $dbniv=$niv->get();
+    $dbniv=$niv->SELECT('Nom_niv')->distinct()->get();
     $dbempdepart = new Departement();
     $empdepart =$dbempdepart->get();
     return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));

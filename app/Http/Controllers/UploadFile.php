@@ -68,15 +68,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
             ]);
         }
 
-if($fich->count() < 1){
-    $save=new Fichier(['nom_fichier'=>$file->getClientOriginalName(),
-                                          'hash_fichier'=>$hash,
-                                          'date_cree_fichier'=>$date,
-                                          'type_fichier'=>$file->getClientOriginalExtension(),
-                                          'taille_fichier'=>$sizeR
-                                        ]);
-                                        $save->save();
-                                    }
+
 
         return response()->json([
             'message'=>'success',

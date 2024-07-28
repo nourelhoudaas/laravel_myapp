@@ -300,25 +300,25 @@
                                 {
                                     
                                     $find = true;  
-                                    print_r('------- insrt:::'.$emps->id_nin.'find');
+                                 //   print_r('------- insrt:::'.$emps->id_nin.'find');
                                 }
                                 
                                 $i++;
                             }
                             if($find != true)
                             {
-                                print_r('------- insrt:::'.$emps->id_nin.' ----- comparing to ::::');
+                            //    print_r('------- insrt:::'.$emps->id_nin.' ----- comparing to ::::');
                                 $i=0;
                                 array_push($empdpart,$emps);
                             }
                         }
                         else
                         {
-                            print_r('insrt null'.$emps->id_nin);
+                          //  print_r('insrt null'.$emps->id_nin);
                             array_push($empdpart,$emps);
                         }
         }
-        dd($empdpart);
+      //  dd($empdpart);
          
        /* $allin=array();
         $travail=Travail::orderBy('date_installation','desc')->get();
@@ -458,7 +458,7 @@
                 'travailByNin.sous_departement.departement',
                 'congeIdNin.type_conge'
             ])->whereHas('congeIdNin', function($query) use ($today) {
-                $query->where('date_fin_cong', '>=', $today);
+                $query->where('date_fin_cong', '>', $today);
             })->get();
         
           // dd($emptypeconge );
@@ -468,7 +468,7 @@
             'travailByNin.sous_departement.departement',
             'congeIdNin.type_conge'
         ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
-            $query->where('date_fin_cong', '>=', $today)
+            $query->where('date_fin_cong', '>', $today)
                 ->whereIn('titre_cong', ['annuel']);
         })->count();
 
@@ -477,7 +477,7 @@
             'travailByNin.sous_departement.departement',
             'congeIdNin.type_conge'
         ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
-            $query->where('date_fin_cong', '>=', $today)
+            $query->where('date_fin_cong', '>', $today)
                 ->whereIn('titre_cong', ['exceptionnel']);
         })->count();
          // dd($count );
@@ -512,7 +512,7 @@
                 //dd($query);
                 if ($typeconge) {
                     $query->where('type_congs.ref_cong', $typeconge)
-                          ->where('date_fin_cong', '>=', $today);
+                          ->where('date_fin_cong', '>', $today);
                 }
                 $emptypeconge=$query->get();
                 
@@ -547,7 +547,7 @@
                 //dd($query);
                 if ($department) {
                     $query->where('departements.id_depart', $department)
-                    ->where('date_fin_cong', '>=', $today);
+                    ->where('date_fin_cong', '>', $today);
                 }
                 $emptypeconge = $query->get();
             // dd($emptypeconge);
@@ -579,7 +579,7 @@
                 if ($typeconge && $department) {
                     $query->where('departements.id_depart', $department)
                         ->where('type_congs.ref_cong', $typeconge)
-                        ->where('date_fin_cong', '>=', $today);
+                        ->where('date_fin_cong', '>', $today);
                 }
                 $emptypeconge = $query->get();
             //dd($emptypeconge);
