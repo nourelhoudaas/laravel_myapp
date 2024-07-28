@@ -23,7 +23,7 @@
                         <div class="card-header">
                             <strong>{{ $subDir ?: 'Root Directory' }}</strong>
                         </div>
-                        <ul class="list-group list-group-flush" id="file-holder">
+                        <ul class="list-group list-group-flush" id="file-holder-{{$subDir}}">
                             @foreach($filesArray as $file)
                                 <li class="list-group-item">
                                         <a href="{{url('/live/read/'.$empdoss.'/'.$subDir.'-'.$file.'/')}}" target="_blank" id="{{$file}}">{{ $file }}</a>
@@ -40,7 +40,7 @@
 <script>
  $(document).ready(function() {
             // Select all ul elements
-            $('#file-holder').each(function() {
+            $('#file-holder-Admin').each(function() {
                 // For each ul, find all li elements
                 $(this).find('li a').each(function() {
                     // Get the id attribute of each li element
@@ -50,9 +50,150 @@
                         type:'GET',
                         success:function(response)
                         {
+                            console.log('-->id :'+response.name)
                             $('#'+liId).text(response.name)
                             $('#'+liId).click(function(){
-
+                               
+                            })
+                        }
+                    })
+                    console.log('-->id :'+liId); // Outputs the id of each li element
+                });
+            });
+            $('#file-holder-Congé').each(function() {
+                // For each ul, find all li elements
+                $(this).find('li a').each(function() {
+                    // Get the id attribute of each li element
+                    var liId = $(this).attr('id');
+                    $.ajax({
+                        url:'/realwhoiam/'+liId,
+                        type:'GET',
+                        success:function(response)
+                        {
+                            console.log('-->id :'+response.name)
+                            $('#'+liId).text(response.name)
+                            $('#'+liId).click(function(){
+                               
+                            })
+                        }
+                    })
+                    console.log('-->id :'+liId); // Outputs the id of each li element
+                });
+            });
+            $('#file-holder-Contonsion').each(function() {
+                // For each ul, find all li elements
+                $(this).find('li a').each(function() {
+                    // Get the id attribute of each li element
+                    var liId = $(this).attr('id');
+                    $.ajax({
+                        url:'/realwhoiam/'+liId,
+                        type:'GET',
+                        success:function(response)
+                        {
+                            console.log('-->id :'+response.name)
+                            $('#'+liId).text(response.name)
+                            $('#'+liId).click(function(){
+                               
+                            })
+                        }
+                    })
+                    console.log('-->id :'+liId); // Outputs the id of each li element
+                });
+            });
+            $('#file-holder-Maladie').each(function() {
+                // For each ul, find all li elements
+                $(this).find('li a').each(function() {
+                    // Get the id attribute of each li element
+                    var liId = $(this).attr('id');
+                    $.ajax({
+                        url:'/realwhoiam/'+liId,
+                        type:'GET',
+                        success:function(response)
+                        {
+                            console.log('-->id :'+response.name)
+                            $('#'+liId).text(response.name)
+                            $('#'+liId).click(function(){
+                               
+                            })
+                        }
+                    })
+                    console.log('-->id :'+liId); // Outputs the id of each li element
+                });
+            });
+            $('#file-holder-Niveaux').each(function() {
+                // For each ul, find all li elements
+                $(this).find('li a').each(function() {
+                    // Get the id attribute of each li element
+                    var liId = $(this).attr('id');
+                    $.ajax({
+                        url:'/realwhoiam/'+liId,
+                        type:'GET',
+                        success:function(response)
+                        {
+                            console.log('-->id :'+response.name)
+                            $('#'+liId).text(response.name)
+                            $('#'+liId).click(function(){
+                               
+                            })
+                        }
+                    })
+                    console.log('-->id :'+liId); // Outputs the id of each li element
+                });
+            });
+            $('#file-holder-Personnel').each(function() {
+                // For each ul, find all li elements
+                $(this).find('li a').each(function() {
+                    // Get the id attribute of each li element
+                    var liId = $(this).attr('id');
+                    $.ajax({
+                        url:'/realwhoiam/'+liId,
+                        type:'GET',
+                        success:function(response)
+                        {
+                            console.log('-->id :'+response.name)
+                            $('#'+liId).text(response.name)
+                            $('#'+liId).click(function(){
+                               
+                            })
+                        }
+                    })
+                    console.log('-->id :'+liId); // Outputs the id of each li element
+                });
+            });
+            $('#file-holder-Promotion').each(function() {
+                // For each ul, find all li elements
+                $(this).find('li a').each(function() {
+                    // Get the id attribute of each li element
+                    var liId = $(this).attr('id');
+                    $.ajax({
+                        url:'/realwhoiam/'+liId,
+                        type:'GET',
+                        success:function(response)
+                        {
+                            console.log('-->id :'+response.name)
+                            $('#'+liId).text(response.name)
+                            $('#'+liId).click(function(){
+                               
+                            })
+                        }
+                    })
+                    console.log('-->id :'+liId); // Outputs the id of each li element
+                });
+            });
+            $('#file-holder-Social').each(function() {
+                // For each ul, find all li elements
+                $(this).find('li a').each(function() {
+                    // Get the id attribute of each li element
+                    var liId = $(this).attr('id');
+                    $.ajax({
+                        url:'/realwhoiam/'+liId,
+                        type:'GET',
+                        success:function(response)
+                        {
+                            console.log('-->id :'+response.name)
+                            $('#'+liId).text(response.name)
+                            $('#'+liId).click(function(){
+                               
                             })
                         }
                     })

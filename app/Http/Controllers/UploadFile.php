@@ -70,7 +70,8 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
 
 
 
-        return response()->json([
+
+      return response()->json([
             'message'=>'success',
             'status'=> 200,
             'data'=>['ref_d'=>'Em_'.$id,

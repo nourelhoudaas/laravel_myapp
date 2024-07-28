@@ -118,6 +118,13 @@
             // dd($id);
             $dbempdepart = new Departement();
             $empdepart =$dbempdepart->get();
+            $last=Occupe::join('employes','employes.id_nin','=','occupes.id_nin')
+                          ->join('travails','travails.id_nin','=','employes.id_nin')
+                          ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
+                          ->join('departements','departements.id_depart','=','sous_departements.id_depart')
+                          ->join('posts','posts.id_post','=','occupes.id_post')
+                          ->first();
+           // dd($last);
                 $result=DB::table('employes')->distinct()
                                                 ->join('travails','travails.id_nin','=','employes.id_nin')
                                                 ->join('occupes','employes.id_nin',"=",'occupes.id_nin')
@@ -127,8 +134,8 @@
                                                 ->join('appartients','appartients.id_nin','=','employes.id_nin')
                                                 ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
                                                 ->where('employes.id_nin',$id)
-                                                ->select('id_travail')
-                                                ->groupBy('id_travail')
+                                                ->select('id_travail','occupes.id_post')
+                                                ->groupBy('id_travail','occupes.id_post')
                                                 ->get();
                                             //  return response()->json($detailemp);
                                             //   print_r(compact('detailemp'));
@@ -175,11 +182,11 @@
                                                 ->first();
                     array_push($detailemp,$inter)  ;                     
                 }
-                
-                //dd($detailemp);
+               // $carier=Travail::where('employes.id_nin',$id)
+              //  dd($detailemp);
                 if($nbr>0){
                     $nbr=$nbr-1;
-                return view('BioTemplate.index',compact('detailemp','nbr','empdepart'));}
+                return view('BioTemplate.index',compact('detailemp','nbr','empdepart','last'));}
                 else
                 {
                     return view('404');
@@ -300,25 +307,25 @@
                                 {
                                     
                                     $find = true;  
-                                 //   print_r('------- insrt:::'.$emps->id_nin.'find');
+                                   // print_r('------- insrt:::'.$emps->id_nin.'find');
                                 }
                                 
                                 $i++;
                             }
                             if($find != true)
                             {
-                            //    print_r('------- insrt:::'.$emps->id_nin.' ----- comparing to ::::');
+                                //print_r('------- insrt:::'.$emps->id_nin.' ----- comparing to ::::');
                                 $i=0;
                                 array_push($empdpart,$emps);
                             }
                         }
                         else
                         {
-                          //  print_r('insrt null'.$emps->id_nin);
+                           // print_r('insrt null'.$emps->id_nin);
                             array_push($empdpart,$emps);
                         }
         }
-      //  dd($empdpart);
+       // dd($empdpart);
          
        /* $allin=array();
         $travail=Travail::orderBy('date_installation','desc')->get();
