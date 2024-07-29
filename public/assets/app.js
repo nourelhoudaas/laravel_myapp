@@ -294,7 +294,7 @@ function closeNav(absensform,id_nin,absens) {
     document.getElementById("mySidenav").style.width = "0";
     var matin,soire,jour;
     var justfi;
-    $(document).ready(function(){
+    
         var selectedB = $('input[name="MheureRadio"]:checked');
         if (selectedB.length > 0) {
             var selectedValues = [];
@@ -365,7 +365,7 @@ function closeNav(absensform,id_nin,absens) {
         {
            
             var j=1;
-            alert('Absens');
+          //  alert('Absens');
             $("#"+id_nin+" i").remove();
             $('#'+id_nin).removeClass('pre');
             $('#'+id_nin).append(absens);
@@ -377,6 +377,7 @@ function closeNav(absensform,id_nin,absens) {
             i++;
             j++;
             console.log('i '+i+' j'+ j)
+            absensform=new Object();
         }
       })    
     }
@@ -400,7 +401,6 @@ function closeNav(absensform,id_nin,absens) {
         alert('chose time');
     }
    
-})
 }
 function cancelnav()
 {
@@ -957,20 +957,18 @@ $(document).ready(function() {
                                   var jst= $("#StatusJ").is(":checked");
                                   var nojst= $("#StatusNoJ").is(":checked");
                                   var fil=$("#file").val();
-                                  if(jst && fil !=="")
-                                 {
+                                 
                                    if(che == 0)
                                     {
+                                        if(jst && fil !=="")
+                                         {
                                       $('#file').removeClass('error-handle')
                                       closeNav(absensform,id_nin,absens)
                                       uploadFile() 
                                       che++;
                                     }
-                                   else
-                                    {
-                                     che=0;
-                                    }
-                              }else
+                                 
+                              else
                               {
                                   if(nojst)
                                   {
@@ -986,6 +984,11 @@ $(document).ready(function() {
                                       che=0;
                                   }
                                   che=0;
+                              }
+                            }
+                              else
+                              {
+                               che=0;
                               }
                               })
                             }
@@ -1013,6 +1016,26 @@ $('#cancel').click(function()
     cancelnav();
     ch=0
 })
+    var lastCheckedM;
+    var lastCheckedS;
+
+    $('input[name="MheureRadio"]').click(function(){
+        if (this === lastCheckedM) {
+            this.checked = false;
+            lastCheckedM = null;
+        } else {
+            lastCheckedM = this;
+        }
+    });
+
+$('input[name="SheureRadio"]').click(function(){
+    if (this === lastCheckedS) {
+        this.checked = false;
+        lastCheckedS = null;
+    } else {
+        lastCheckedS = this;
+    }
+});
 });
 /** -------------------------- Absence Partie ---------------------------- */
 

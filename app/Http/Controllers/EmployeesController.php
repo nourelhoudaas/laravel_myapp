@@ -450,7 +450,7 @@
         //   dd(intval($request->get('ID_P')));
         // dd($request);
             $heur='13:00:00';
-            $justf="Justifie";
+             $justf="Justifie";
             if($request->get('jour') == '21')
             {
                 $heur='08:30:00';
@@ -459,9 +459,13 @@
             {
                 $heur='16:30:00';
             }
-            if($request->get('justfi')=== 'F2')
+            if($request->get('justifie') == 'F2')
             {
                     $justf="NoJustier";
+            }
+            if($request->get('justifie') == 'F1')
+            {
+                $justf="Justifie";
             }
             $abs=new Absence([
                 'id_nin'=>$id_nin,
