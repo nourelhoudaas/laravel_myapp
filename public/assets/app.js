@@ -40,10 +40,14 @@
             {
                 $('body').attr('dir', 'rtl');
                 $('.nav').css('right','0')
+                $('#mySidenav').addClass('arside')
+                $('#mySidenav').removeClass('frside')
                 
             }
             else
             {
+                $('#mySidenav').removeClass('arside')
+                $('#mySidenav').addClass('frside')
                 $('body').attr('dir', 'ltr');
                 $('.nav').css('left','0')
             }
@@ -275,7 +279,7 @@ function calculateDayscng(startDate,datechange) {
 }
 ///------------------ this function for Nav left side -----------------------------
 function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.width = "280px";
     var radios = document.querySelectorAll('input[name="MheureRadio"]');
     radios.forEach(function(radio) {
         radio.checked = false;
@@ -800,21 +804,44 @@ $(document).ready(function() {
                 list_abs.forEach(function(item){
                     if(item.absens)
                     {
+                        if(lng == 'ar')
+                        {
+                            $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_ar_emp
+                            + '</td><td>' + item.Prenom_ar_emp 
+                            + '</td><td>' + item.Nom_post_ar	 
+                            + '</td><td>' + item.Nom_sous_depart_ar 
+                            + '</td><td>' + item.Nom_depart_ar  
+                            + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                       }
+                       else
+                       {
                         $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
                         + '</td><td>' + item.Prenom_emp 
                         + '</td><td>' + item.Nom_post 
                         + '</td><td>' + item.Nom_sous_depart 
                         + '</td><td>' + item.Nom_depart 
                         + '</td><td id="stdout'+item.id_nin+'" class="std-handle abs">'+absens+'</td></tr>');
+                       }
                     }else
                     {
-
-                        $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
+                        if(lng == 'ar')
+                        {
+                        $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_ar_emp
+                        + '</td><td>' + item.Prenom_ar_emp 
+                        + '</td><td>' + item.Nom_post_ar	 
+                        + '</td><td>' + item.Nom_sous_depart_ar 
+                        + '</td><td>' + item.Nom_depart_ar  
+                        + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                         }
+                        else
+                        {
+                            $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
                         + '</td><td>' + item.Prenom_emp 
                         + '</td><td>' + item.Nom_post 
                         + '</td><td>' + item.Nom_sous_depart 
                         + '</td><td>' + item.Nom_depart 
                         + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                        }
 
                     }
                 })
@@ -913,13 +940,23 @@ $(document).ready(function() {
                         $('#AbsTable tbody').empty();
                         response.forEach(function(item) {
                          //   console.log('--'+JSON.stringify(item));
+                         if(lng == 'ar')
+                         {
+                            $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_ar_emp
+                        + '</td><td>' + item.Prenom_ar_emp 
+                        + '</td><td>' + item.Nom_post_ar	 
+                        + '</td><td>' + item.Nom_sous_depart_ar 
+                        + '</td><td>' + item.Nom_depart_ar  
+                        + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                         }else
+                         {
                             $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
                                                       + '</td><td>' + item.Prenom_emp 
                                                       + '</td><td>' + item.Nom_post 
                                                       + '</td><td>' + item.Nom_sous_depart 
                                                       + '</td><td>' + item.Nom_depart 
                                                       + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
-                                                      
+                        }
                           //  console.log('-->>'+$('#stdin').text())
                         });
                          $("#AbsTable tbody tr").each(function(){

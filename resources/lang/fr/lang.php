@@ -54,6 +54,15 @@ return [
     'slct_type_cng'=>'Séléctionner le Titre du Congé',
     'nbr_jour'=>'Nombres de jours Restants',
 
+    'motif'=>'Motif',
+    'period'=>'Period',
+    'matin'=>'Matin',
+    'soire'=>'Soire',
+    'justifie'=>'Justification',
+    'nojust'=>'Sans justification',
+    'filejust'=>'Le fichier du justification',
+
+
     'num_tel'=>'Num Téléphone',
     'langage'=>'français',
     'logout'=>'Se Déconnecter',
