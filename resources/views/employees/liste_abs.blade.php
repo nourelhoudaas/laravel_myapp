@@ -3,7 +3,9 @@
 @section('title', 'Employees')
 
 @section('content')
-
+@php
+    $uid=auth()->id();
+    @endphp
     <body>
         <div class="container2">
             <!-- start section aside -->
@@ -43,43 +45,66 @@
                     </table>
                 </div>
                 <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" id="close">&times;</a>
+                    <div>
+    <a href="javascript:void(0)" class="closebtn" id="close"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
+    <a href="javascript:void(0)" class="cancelbtn" id="cancel">&times;</a>
+                    </div>
     <div class="container mt-4">
         <form>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="MheureRadio" id="Mheure" value="1">
-                <label class="form-check-label" for="exampleRadios1">
+        @csrf
+        <div class="info-handler">
+            <label>la Period :</label>
+           </br>
+            <div class="info-info"> 
+                <div class="form-check info-wid">
+                   <input class="form-check-input" type="radio" name="MheureRadio" id="Mheure" value="1">
+                   <label class="form-check-label" for="exampleRadios1">
                     Matin
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="SheureRadio" id="Sheure" value="2">
-                <label class="form-check-label" for="exampleRadios2">
+                   </label>
+                </div>
+           
+                <div class="form-check info-wid">
+                    <input class="form-check-input" type="radio" name="SheureRadio" id="Sheure" value="2">
+                    <label class="form-check-label" for="exampleRadios2">
                     apre Midi
-                </label>
+                    </label>
+                </div>
             </div>
-            <div class="form-check">
+        </div>
+<hr>
+        <div class="info-handler">
+          <label>Motif :</label>
+      </br>
+          <div class="info-info">  
+            <div class="form-check info-wid">
                 <input class="form-check-input" type="radio" name="StatusRadio" id="StatusJ" value="F1">
                 <label class="form-check-label" for="exampleRadios1">
                     Justfier
                 </label>
             </div>
-            <div class="form-check">
+            <div class="form-check info-wid">
                 <input class="form-check-input" type="radio" name="StatusRadio" id="StatusNoJ" value="F2">
                 <label class="form-check-label" for="exampleRadios2">
                     No Justfier
                 </label>
             </div>
+            </div>
+        </div>
+        <hr>
             <div class="form-group">
-                <label for="exampleFormControlFile1">Upload file</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                <label for="exampleFormControlFile1"> justification</label>
+                <input type="file" class="form-control-file" id="file">
             </div>
         </form>
     </div>
 </div>
             </main>
 
-            
         </div>
+        <script>
+             var uid='{{$uid}}'
+            var id
+            var dir='Maladie'
+        </script>
     </body>
 @endsection

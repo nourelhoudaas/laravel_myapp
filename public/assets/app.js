@@ -387,9 +387,41 @@ function closeNav(absensform,id_nin,absens) {
     }
     else
     {
+        if(soire ==='')
+        {
+            $('#Sheure').addClass('error-handle')
+        }
+        if(matin ==='')
+        {
+            $('#Mheure').addClass('error-handle')
+        }
+       
+        
         alert('chose time');
     }
+   
 })
+}
+function cancelnav()
+{
+    document.getElementById("mySidenav").style.width = "0";
+    var radios = document.querySelectorAll('input[name="MheureRadio"]');
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+    var radios = document.querySelectorAll('input[name="SheureRadio"]');
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+    var radios = document.querySelectorAll('input[name="StatusRadio"]');
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+    $('#Mheure').removeClass('error-handle')
+    $('#Sheure').removeClass('error-handle')
+    $('#file').removeClass('error-handle')
+    $('#mySidenav').removeClass('toRight');
+    che=0;
 }
 //------------------------------------------------------------------------------------
 //add profile
@@ -709,12 +741,14 @@ $(document).ready(function() {
    {
     
     $('#ddate').addClass('error-handle');
+    $("#Dep").prop("disabled", true);
    }
     $('#abs_date').change(function()
 {
     var dates=$(this).val();
     if(dates)
     {
+        $("#Dep").prop("disabled", false);
         $('#ddate').removeClass('error-handle');
         $('#Dep option:first').prop('selected', true);
         $('#AbsTable tbody').empty();
@@ -730,6 +764,7 @@ $(document).ready(function() {
     }
     else
     {
+        $("#Dep").prop("disabled", true);
         $(this).addClass('error-hadle');
     }
 });
@@ -796,6 +831,8 @@ $(document).ready(function() {
                                 var check=$('#'+id_nin+' i').attr('id');
                            //     console.log('icons id'+check);
                                 var checkv2 =  present.split('"');
+                                var idsa=id_nin.split('n');
+                                 id=idsa[1]
                                 console.log('gtting data'+checkv2[1]);
                               if(check === checkv2[1]){
                                 openNav();
@@ -810,12 +847,36 @@ $(document).ready(function() {
                                 }
                                 $("#close").click(function()
                             {
-                                if(che == 0){
-                                closeNav(absensform,id_nin,absens)
-                            che++;
-                            }
-                            else
+                                
+                                var jst= $("#StatusJ").is(":checked");
+                                  var nojst= $("#StatusNoJ").is(":checked");
+                                  var fil=$("#file").val();
+                                  if(jst && fil !=="")
+                                 {
+                                 if(che == 0)
+                                  {
+                                    $('#file').removeClass('error-handle')
+                                    closeNav(absensform,id_nin,absens)
+                                    uploadFile() 
+                                    che++;
+                                  }
+                                 else
+                                  {
+                                   che=0;
+                                  }
+                            }else
                             {
+                                if(nojst)
+                                {
+                                    closeNav(absensform,id_nin,absens)
+                                    che=0;
+                                }
+                                else
+                                {
+                                    alert('svp choisir justifcation')
+                                    $('#file').addClass('error-handle')
+                                    che=0;
+                                }
                                 che=0;
                             }
                             })
@@ -875,7 +936,10 @@ $(document).ready(function() {
                               var check=$('#'+id_nin+' i').attr('id');
                          //     console.log('icons id'+check);
                               var checkv2 =  present.split('"');
-                              console.log('gtting data'+checkv2[1]);
+                              var idsa=id_nin.split('n');
+                              
+                              console.log('gtting data'+idsa[1]);
+                              id=idsa[1]
                             if(check === checkv2[1]){
                                 openNav();
                               var absensform={
@@ -888,16 +952,42 @@ $(document).ready(function() {
                                 _method: 'POST'
                               }
                               $("#close").click(function()
-                            {
-                                if(che == 0){
-                                    closeNav(absensform,id_nin,absens)
+                              {
+                                  
+                                  var jst= $("#StatusJ").is(":checked");
+                                  var nojst= $("#StatusNoJ").is(":checked");
+                                  var fil=$("#file").val();
+                                  if(jst && fil !=="")
+                                 {
+                                   if(che == 0)
+                                    {
+                                      $('#file').removeClass('error-handle')
+                                      closeNav(absensform,id_nin,absens)
+                                      uploadFile() 
                                       che++;
-                                }
-                                else
-                                {
-                                    che=0;
-                                }
-                            })
+                                    }
+                                   else
+                                    {
+                                     che=0;
+                                    }
+                              }else
+                              {
+                                  if(nojst)
+                                  {
+                                      closeNav(absensform,id_nin,absens)
+                                      che=0;
+                                  }
+                                  else
+                                  {
+                                      //alert('svp choisir justifcation')
+                                      $('#Mheure').addClass('error-handle')
+                                      $('#Sheure').addClass('error-handle')
+                                      $('#file').addClass('error-handle')
+                                      che=0;
+                                  }
+                                  che=0;
+                              }
+                              })
                             }
                               else
                               {
@@ -918,7 +1008,11 @@ $(document).ready(function() {
         
     }
 });
-
+$('#cancel').click(function()
+{
+    cancelnav();
+    ch=0
+})
 });
 /** -------------------------- Absence Partie ---------------------------- */
 
