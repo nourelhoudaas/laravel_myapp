@@ -9,12 +9,9 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     @guest
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Mon Compte
-                        </a>
+                    
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{route('login')}}">Login</a></li>
-                            <li><a class="dropdown-item" href="{{route('register')}}">Register</a></li>
                         </ul>
                     @endguest
 
