@@ -21,7 +21,10 @@
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <div class="card-header">
+                         <div class="card-headf">   
                             <strong>{{ $subDir ?: 'Root Directory' }}</strong>
+                            <p class="thbtn" id="{{ $subDir ?: 'Root Directory' }}">...</p>
+                        </div>    
                         </div>
                         <ul class="list-group list-group-flush" id="file-holder-{{$subDir}}">
                             @foreach($filesArray as $file)
@@ -35,9 +38,23 @@
             @endforeach
         </div>
     </div>
+    <div class="overlay" id="overlay"></div>
+
+<div class="bottom-popup" id="bottomPopup">
+    <div class="popup-content">
+        <form>
+            @csrf
+        <input type="file" id="file">
+        <button class="button-33" onclick='uploadFile()'>Upload</button>
+        </form>
+    </div>
+</div>
 </body>
 
 <script>
+    var dir;
+    var id='{{$employe->id_nin}}'
+    var uid='{{$uid}}'
  $(document).ready(function() {
             // Select all ul elements
             $('#file-holder-Admin').each(function() {
@@ -201,5 +218,22 @@
                 });
             });
         });
+        $(document).ready(function(){
+        
+
+        // Hide the popup when clicking outside of it
+        $("#overlay").click(function(){
+            $("#bottomPopup").removeClass("show-popup");
+            $("#overlay").removeClass("show-overlay");
+        });
+
+        $("p").click(function(){
+            var clickedId = $(this).attr('id');
+            dir=clickedId;
+            $("#bottomPopup").addClass("show-popup");
+            $("#overlay").addClass("show-overlay");
+            //alert("You clicked on: " + clickedId);
+        });
+    });
 </script>
 </html>
