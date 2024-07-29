@@ -12,7 +12,7 @@
                 $uid=auth()->id()
                 @endphp
                 @if(isset($uid))
-                <h1>Dashboard for {{$uid}}</h1>
+                <h1>Tableau de Bord de {{Auth::user()->username }}</h1>
                 @else
                 <h1>Dashboard without userId</h1>
                 @endif
@@ -23,7 +23,7 @@
                         <span class="material-symbols-outlined">groups</span>
                         <div class="middle">
                             <div class="left">
-                                <h3>Total Employees</h3>
+                                <h3>{{ __('lang.nbr_all_users') }}</h3>
                                 <h1>{{ $totalEmployes}}</h1>
                             </div>
                         </div>

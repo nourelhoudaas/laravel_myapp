@@ -8,8 +8,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 mx-auto">
-            <h1 class="text-center text-muted mb-3 mt-5">Sign in</h1>
-            <p class="text-center text-muted mb-5"> Gestion des décisions</p>
+            <h1 class="text-center text-muted mb-3 mt-5">Se Connecter</h1>
+            <!--p class="text-center text-muted mb-5"> Gestion des décisions</p!-->
             <form  method="POST" action="{{ route('login')}}" class="row g-3" >
                 @csrf
 
@@ -25,31 +25,31 @@
                     </div>
                 @enderror
 
-                <label for="username" >Username</label>
+                <label for="username" >Nom Utilisateur</label>
                 <input type="text" name="username" id="username" class="form-control mb-3 @error ('username') is-invalid @enderror" value="{{ old('username')}}" required autocomplete="username" autofocus>
 
-                <label for="password" > Password</label>
+                <label for="password" > Mot de Pass</label>
                 <input type="password" name="password" id="password" class="form-control mb-3 @error('password') is-invalid @enderror" required autocomplete="current-password " autofocus>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="remember" name="remember" {{ old('remember') ? 'checked' : ''}}>
-                            <label class="form-check-label" for="remember">Remember me</label>
+                            <label class="form-check-label" for="remember">Souviens-toi de moi</label>
                           </div>
 
                     </div>
 
                     <div class="col-md-6 text-end">
-                        <a href="{{route('app_forgotPassword')}}">Forgot your password?</a>
+                        <a href="{{route('app_forgotPassword')}}">Mot de passe Oublié ?</a>
                     </div>
                 </div>
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary" type="submit" > Sign in</button>
+                    <button class="btn btn-primary" type="submit" >Se Connecter </button>
 
                 </div>
 
-                <p class="text-center text-muted mt-5">Not registered yet ? <a href="{{ route('register')}}">Create an account</a></p>
+                <p class="text-center text-muted mt-5">Pas Encore Inscrit ? <a href="{{ route('register')}}">Créer un Compte</a></p>
             </form>
         </div>
     </div>

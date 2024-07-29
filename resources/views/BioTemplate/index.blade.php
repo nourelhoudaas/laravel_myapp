@@ -95,10 +95,10 @@
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> la Situation educationnal</span>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Diplome : {{$detailemp[$nbr]->Nom_niv}}</h6>
+                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Diplome : {{$last->Nom_niv}}</h6>
                           </div>  
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                           <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Specialité : {{$detailemp[$nbr]->Specialité}}</h6>
+                           <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Specialité : {{$last->Specialité}}</h6>
                           </div>
                         </div>
                       </li>
@@ -233,27 +233,33 @@
                     @php
                     $count=1;
                     @endphp
-                    @foreach($detailemp as $emp )
+                    @for($i=0;$i<count($detailemp);$i++ )
                    
                     <div class="col-sm-12 mb-3">
                         <div class="card h-100">
                           <div class="card-body">
-                            <p>Departement : {{$emp->Nom_sous_depart}}</p>
+                            <p>Departement : {{$postarr[$i]->Nom_sous_depart}}</p>
                            <div class="card-info">
                               <p>
-                                  Post Occuper : {{$emp->Nom_post}}
+                                  Post Occuper : {{$postarr[$i]->Nom_post}}
                               </p>
                               <p>
-                                  la Note : {{$emp->notation}}
+                                  grade : {{$postarr[$i]->Grade_post}}
+                              </p>
+                              <p>
+                                  la Note : {{$detailemp[$i]->notation}}
+                              </p>
+                              <p>
+                                  echellant : {{$postarr[$i]->echellant}}
                               </p>
                            </div>
                            <p>Observation</p>
                             <div >
                               <p>Observation dit par sont directeur</p>
                             </div>
-                            <p id="{{$emp->id_nin}}{{$count}}"></p>
+                            <p id="{{$detailemp[$i]->id_nin}}{{$count}}"></p>
                             <div class="card-info">
-                              <p>Depuis : {{$emp->date_installation}}</p>
+                              <p>Depuis : {{$detailemp[$i]->date_installation}}</p>
                             </div>
                             </div>
                           </div>
@@ -261,7 +267,7 @@
                       @php
                         $count++; 
                       @endphp
-                      @endforeach
+                      @endfor
               
                   </div>
                   <i id="right" class="fas fa-angle-right"></i>

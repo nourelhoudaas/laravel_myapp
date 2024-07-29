@@ -19,19 +19,19 @@
                 </div>
                 <div class="right">
                 <div class="top">
+                    <div class='lang-handler'>
+                            <a href="{{ url('lang/fr') }}" id="fr-lang"><span>Francais</span></a>
+                            <a href="{{ url('lang/ar') }}" id="ar-lang"  ><span>العربية</span></a>
+                        </div>
                     <div class="profile">
                         <div class="info">
                         <p><b>{{ Auth::user()->username }}</b></p>
-                            <p>Admin</p>
-                            <small class="text-muted"></small>
+                        <small class="text-muted"></small>
                         </div>
                         <div class="profile-photo">
                             <img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="">
                         </div>
-                        <div class='lang-handler'>
-                            <a href="{{ url('lang/fr') }}" id="fr-lang"><span>Francais</span></a>
-                            <a href="{{ url('lang/ar') }}" id="ar-lang"  ><span>العربية</span></a>
-                        </div>
+                     
                     </div>
                 </div>
 
