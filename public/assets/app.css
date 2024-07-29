@@ -1078,7 +1078,7 @@ cursor:not-allowed ;
   z-index: 1;
   top: 5%;
   right: 0;
-  background-color: #111;
+  background-color: #fff;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -1096,16 +1096,34 @@ cursor:not-allowed ;
 }
 #mySidenav .closebtn {
   position: absolute;
+  top: 5px;
+  right: 20px;
+  font-size: 28px;
+  margin-left: 45px;
+}
+#mySidenav .cancelbtn {
+  position: absolute;
   top: 0;
-  right: 25px;
+  left: 25px;
   font-size: 36px;
-  margin-left: 50px;
+  margin-right: 50px;
 }
 .toRight
 {
   width: 250px;
 }
-
+.info-info
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.info-wid
+{
+  width: 50%;
+}
 /*-------------------------------------------------------------------*/
 
 .open-formcg-btn {

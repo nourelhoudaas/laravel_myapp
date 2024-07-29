@@ -233,7 +233,7 @@
                     @php
                     $count=1;
                     @endphp
-                    @for($i=0;$i<count($detailemp);$i++ )
+                    @for($i=0;$i<count($detailemp);$i++)
                    
                     <div class="col-sm-12 mb-3">
                         <div class="card h-100">

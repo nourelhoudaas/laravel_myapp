@@ -4,6 +4,7 @@
 
     use App\Models\Absence;
     use App\Models\Conge;
+    use App\Models\Contient;
     use App\Models\Occupe;
     use App\Models\Sous_departement;
     use Illuminate\Http\Request;
@@ -11,7 +12,6 @@
     use App\Models\Employe;
     use App\Models\Travail;
     use App\Models\Post;
-    use App\Models\Contient;
     use App\Models\type_cong;
     use DB;
     use Carbon\Carbon;
@@ -120,71 +120,110 @@
             $dbempdepart = new Departement();
             $empdepart =$dbempdepart->get();
             $last=Occupe::join('employes','employes.id_nin','=','occupes.id_nin')
+                           ->join('appartients','appartients.id_nin','=','employes.id_nin') 
+                           ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
                           ->join('travails','travails.id_nin','=','employes.id_nin')
                           ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
                           ->join('departements','departements.id_depart','=','sous_departements.id_depart')
                           ->join('posts','posts.id_post','=','occupes.id_post')
-                          ->orderBy('travails.date_installation','desc')
+                          ->where('employes.id_nin',$id)
                           ->first();
            // dd($last);
-          
                 $result=DB::table('employes')->distinct()
                                                 ->join('travails','travails.id_nin','=','employes.id_nin')
                                                 ->join('occupes','employes.id_nin',"=",'occupes.id_nin')
                                                 ->join('sous_departements','travails.id_sous_depart',"=","sous_departements.id_sous_depart")
-                                                ->join('contients','contients.id_sous_depart','=','sous_departements.id_sous_depart')
                                                 ->join('departements','departements.id_depart','=','sous_departements.id_depart')
                                                 ->join('posts','posts.id_post','=','occupes.id_post')
                                                 ->join('appartients','appartients.id_nin','=','employes.id_nin')
                                                 ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
                                                 ->where('employes.id_nin',$id)
-                                                //->where('contients.id_contient',$id_cnt->id_contient)
-                                               // ->where('travails.id_sous_depart',$id_cnt->sous_depart)
-                                                ->select('id_travail','employes.id_nin')
-                                                ->groupBy('id_travail','employes.id_nin')
+                                                ->select('id_travail')
+                                                ->groupBy('id_travail')
                                                 ->get();
-                                             //   dd($result);
                                             //  return response()->json($detailemp);
                                             //   print_r(compact('detailemp'));
-                                         
-                $nbr=$result->count();
-                $detailemp=array();    
-                $allpost=Occupe::join('posts','posts.id_post','=','occupes.id_post')
-
-                
-                                ->join('contients','posts.id_post','=','contients.id_post')
-                                ->where('occupes.id_nin',$id)
+                                       //  dd($result);
+                $postwork=Occupe::where('Occupes.id_nin',$id)->distinct()
+                                ->join('posts','posts.id_post','=','occupes.id_post')
+                                ->join('contients','contients.id_post','=','posts.id_post')
+                                ->select('id_occup','date_recrutement')->orderBy('date_recrutement')
                                 ->get();
-                 dd($allpost);
-               $alldeprt=array();  
-               foreach($result as $res)
-                {
-                $deprt=Travail::select('id_sous_depart')->where('travails.id_travail',$res->id_travail)->first();
-                array_push($alldeprt,$deprt->id_sous_depart) ;
-                }
-              //  dd($alldeprt);
+                          //      dd($postwork);         
+                $nbr=$result->count();
+                $allemp=array();    
                 foreach($result as $res)
-                {               
-                    $val=$res->id_travail;
+                { 
+                    $val=$res->id_travail;  
                     $inter=DB::table('employes')->distinct()
                                                 ->join('travails','travails.id_nin','=','employes.id_nin')
+                                                ->join('occupes','employes.id_nin',"=",'occupes.id_nin')
                                                 ->join('sous_departements','travails.id_sous_depart',"=","sous_departements.id_sous_depart")
                                                 ->join('departements','departements.id_depart','=','sous_departements.id_depart')
                                                 ->join('contients','contients.id_sous_depart','=','sous_departements.id_sous_depart')
-                                                ->join('posts','posts.id_post','=','contients.id_post')
+                                                ->join('posts','posts.id_post','=','occupes.id_post')
                                                 ->join('appartients','appartients.id_nin','=','employes.id_nin')
                                                 ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
                                                 ->where('id_travail',$val)
-                                                ->get(); 
-                                               dd($inter);
-
-                  //  array_push($detailemp,$inter) ;                     
-                } 
+                                                ->select('employes.Nom_emp',
+                                                'employes.Prenom_emp',
+                                                'employes.id_nin',
+                                                'employes.Nom_ar_emp',
+                                                'employes.Prenom_ar_emp',
+                                                'employes.Date_nais',
+                                                'employes.Lieu_nais_ar',
+                                                'employes.adress',
+                                                'employes.adress_ar',
+                                                'employes.sexe',
+                                                'employes.email',
+                                                'employes.Phone_num',
+                                                'travails.date_chang',
+                                                'travails.date_installation',
+                                                'travails.notation')
+                                                ->orderBy('travails.date_installation','desc')
+                                           //     ->orderBy('occupes.date_recrutement','desc')
+                                                ->first();
+                    array_push($allemp,$inter)  ;                     
+            
+                }
+                $postarr=array();
+                foreach($postwork as $single){
+                    $inter=DB::table('contients')->join('sous_departements','contients.id_sous_depart','=','sous_departements.id_sous_depart')
+                                                ->join('posts','posts.id_post','=','contients.id_post')
+                                                ->join('occupes','occupes.id_post','=','posts.id_post')
+                                                ->join('employes','employes.id_nin','=','occupes.id_nin')
+                                                ->join('departements','departements.id_depart','=','sous_departements.id_depart')
+                                                ->join('appartients','appartients.id_nin','=','employes.id_nin')
+                                                ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
+                                                ->where('id_occup',$single->id_occup)
+                                                ->select(
+                                                'niveaux.Nom_niv',
+                                                'niveaux.Nom_niv_ar',
+                                                'niveaux.Specialité',
+                                                'niveaux.Specialité_ar',
+                                                'posts.Grade_post',
+                                                'posts.Nom_post',
+                                                'posts.Nom_post_ar',
+                                                'occupes.date_recrutement',
+                                                'occupes.echellant',
+                                                'departements.Nom_depart',
+                                                'sous_departements.Nom_sous_depart',)
+                                                ->orderBy('occupes.date_recrutement','desc')
+                                                ->first();
+                    array_push($postarr,$inter)  ;                     
+                }
                // $carier=Travail::where('employes.id_nin',$id)
-               dd($detailemp);
+               $detailemp=array();
+               for ($i=0; $i <count($postarr) ; $i++) { 
+                # code...
+               // array_push($detailemp,$postarr[$i],$allemp[$i]);
+                //dd($detailemp[$i]);
+               }
+               $detailemp=$allemp;
+             //   dd($detailemp);
                 if($nbr>0){
                     $nbr=$nbr-1;
-                return view('BioTemplate.index',compact('detailemp','nbr','empdepart','last'));}
+                return view('BioTemplate.index',compact('detailemp','nbr','empdepart','last','postarr'));}
                 else
                 {
                     return view('404');
@@ -463,7 +502,7 @@
                 'travailByNin.sous_departement.departement',
                 'congeIdNin.type_conge'
             ])->whereHas('congeIdNin', function($query) use ($today) {
-                $query->where('date_fin_cong', '>=', $today);
+                $query->where('date_fin_cong', '>', $today);
             })->get();
         
           // dd($emptypeconge );
@@ -473,7 +512,7 @@
             'travailByNin.sous_departement.departement',
             'congeIdNin.type_conge'
         ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
-            $query->where('date_fin_cong', '>=', $today)
+            $query->where('date_fin_cong', '>', $today)
                 ->whereIn('titre_cong', ['annuel']);
         })->count();
 
@@ -482,7 +521,7 @@
             'travailByNin.sous_departement.departement',
             'congeIdNin.type_conge'
         ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
-            $query->where('date_fin_cong', '>=', $today)
+            $query->where('date_fin_cong', '>', $today)
                 ->whereIn('titre_cong', ['exceptionnel']);
         })->count();
          // dd($count );
@@ -517,7 +556,7 @@
                 //dd($query);
                 if ($typeconge) {
                     $query->where('type_congs.ref_cong', $typeconge)
-                          ->where('date_fin_cong', '>=', $today);
+                          ->where('date_fin_cong', '>', $today);
                 }
                 $emptypeconge=$query->get();
                 
@@ -552,7 +591,7 @@
                 //dd($query);
                 if ($department) {
                     $query->where('departements.id_depart', $department)
-                    ->where('date_fin_cong', '>=', $today);
+                    ->where('date_fin_cong', '>', $today);
                 }
                 $emptypeconge = $query->get();
             // dd($emptypeconge);
@@ -584,7 +623,7 @@
                 if ($typeconge && $department) {
                     $query->where('departements.id_depart', $department)
                         ->where('type_congs.ref_cong', $typeconge)
-                        ->where('date_fin_cong', '>=', $today);
+                        ->where('date_fin_cong', '>', $today);
                 }
                 $emptypeconge = $query->get();
             //dd($emptypeconge);
