@@ -64,6 +64,6 @@ return [
     'rememberme'=>'Souviens-toi de moi',
     'forgotpass'=>'Mot de passe Oublié ?',
     'reason'=>'Veuillez saisir ou discuter la raison pour laquelle vous avez oublié votre mot de passe',
-    'envoiforgotpass'=>'Send Password Reset Link'
+    'envoiforgotpass'=>'Envoyer'
 
 ];

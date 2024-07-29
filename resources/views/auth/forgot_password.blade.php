@@ -20,81 +20,66 @@ body {
 
 
 
-
+/* Style pour la carte de connexion */
 .login-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 600px;
     height: 850px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre horizontalement tous les enfants */
-    position: relative;
-    
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+ 
    
 }
 
-.logo {
+/* Style pour le logo */
+.login-card .logo {
+    text-align: center;
     margin-bottom: 1rem;
+   
 }
 
-.logo img {
+.login-card .logo img {
     width: 250px;
     height: 250px;
 }
-h1, h2 {
-    margin-bottom: 1.5rem;
-    color: #333;
-    text-align: center;
-}
 
-h1 {
-    font-size: 1.5rem; 
-}
-
-h2 {
-    font-size: 1.25rem; 
-}
-.form-group {
-    width: 100%;
-}
-
-.form-label {
-    display: block;
-    margin-bottom: 1.25rem;
-}
-
-.form-control {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.form-control:focus {
-    border-color: #000080; 
-    outline: none;
-}
-
-.alert {
+/* Style pour les titres */
+.login-card h1 {
+    font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 
-
-
-.btn-primary:hover {
-    background: #000080; 
+.login-card p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
 }
 
-.text-muted {
-    color: #666;
-    display: block;
-    margin-top: 1rem;
+/* Style pour le textarea */
+.login-card .textarea {
+    resize: vertical;
+    min-height: 200px;
+    overflow:scroll;/* Ajoute une barre de défilement verticale si nécessaire */
+    
+}
+
+/* Style pour le bouton de soumission */
+.login-card .btn-primary {
+    background-color: #000080; ;
+    border-color: #007bff;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+    margin-top:40px;
+    width:100%;
+}
+
+.login-card .btn-primary:hover {
+    background: #000080; 
 }
 
 
@@ -114,11 +99,12 @@ h2 {
         @csrf
         
         <div class="mb-3">
-            <label for="reason" class="form-label">Reason</label>
-            <textarea name="reason" id="reason" class="form-control" required></textarea>
+           
+            <textarea name="reason" id="reason" class="form-control textarea" required></textarea>
+
         </div>
         <div class="text-center">
-            <button type="submit" class="btn btn-primary">{{ __('Send Password Reset Link') }}</button>
+            <button type="submit" class="btn btn-primary">{{ __('lang.envoiforgotpass') }}</button>
         </div>
     </form>
 </div>
