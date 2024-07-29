@@ -67,11 +67,11 @@
                              <i class="fa fa-pencil" aria-hidden="true" id="btn-icon">...</i>
                           </div>
                         <div class="mt-3">
-                          <h4>ID est :<p id="ID_NIN">{{$detailemp[$nbr]->id_nin}}</p></h4>
-                          <h4>{{$detailemp[$nbr]->Nom_emp}} {{$detailemp[$nbr]->Prenom_emp}}</h4>
-                          <h4>{{$detailemp[$nbr]->Nom_ar_emp}} {{$detailemp[$nbr]->Prenom_ar_emp}}</h4>
-                          <div class="row"><p class="text-secondary mb-1">{{$detailemp[$nbr]->Nom_post}}</p><p class="text-secondary mb-1">Grade : {{$detailemp[$nbr]->Grade_post}}</p></div>
-                          <p class="text-muted font-size-sm">{{$detailemp[$nbr]->Nom_sous_depart}},{{$detailemp[$nbr]->Nom_depart}}, Minister</p>
+                          <h4>ID est :<p id="ID_NIN">{{$last->id_nin}}</p></h4>
+                          <h4>{{$last->Nom_emp}} {{$last->Prenom_emp}}</h4>
+                          <h4>{{$last->Nom_ar_emp}} {{$last->Prenom_ar_emp}}</h4>
+                          <div class="row"><p class="text-secondary mb-1">{{$last->Nom_post}}</p><p class="text-secondary mb-1">Grade : {{$last->Grade_post}}</p></div>
+                          <p class="text-muted font-size-sm">{{$last->Nom_sous_depart}},{{$last->Nom_depart}}, Minister</p>
                         </div>
                       </div>
                     </div>
@@ -114,13 +114,13 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0 ">Nom</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" id='Nom_P' value='{{$detailemp[0]->Nom_emp}}' style="border: hidden;background-color: transparent;" disabled>
+                        <input class="col-sm-9 text-secondary" id='Nom_P' value='{{$last->Nom_emp}}' style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       <div class="field-holderAR">
                         <div class="col-sm-3">
                           <h6 class="mb-0 staticent">اللقب</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" id='Nom_PAR' value='{{$detailemp[0]->Nom_ar_emp}}' style="border: hidden;background-color: transparent;" disabled>
+                        <input class="col-sm-9 text-secondary" id='Nom_PAR' value='{{$last->Nom_ar_emp}}' style="border: hidden;background-color: transparent;" disabled>
                       </div>
                     </div>
                       <hr>
@@ -129,13 +129,13 @@
                         <div class="col-sm-3">  
                           <h6 class="mb-0">Prenom</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" id='Prenom_O' value=' {{$detailemp[0]->Prenom_emp}}' style="border: hidden;background-color: transparent;" disabled>
+                        <input class="col-sm-9 text-secondary" id='Prenom_O' value=' {{$last->Prenom_emp}}' style="border: hidden;background-color: transparent;" disabled>
                         </div>
                         <div class="field-holderAR">
                         <div class="col-sm-3">  
                           <h6 class="mb-0 staticent">الإسم</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" id='Prenom_OAR' value=' {{$detailemp[0]->Prenom_ar_emp}}' style="border: hidden;background-color: transparent;" disabled>
+                        <input class="col-sm-9 text-secondary" id='Prenom_OAR' value=' {{$last->Prenom_ar_emp}}' style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       </div>
                       <hr>  
@@ -145,7 +145,7 @@
                         </div>
                         <input class="col-sm-9 text-secondary"
                         id='Email'
-                        value='{{$detailemp[0]->email}}'
+                        value='{{$last->email}}'
                         style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       <hr>
@@ -155,7 +155,7 @@
                         </div>
                         <input class="col-sm-9 text-secondary" type="number"
                         id='phone_pn'
-                        value='{{$detailemp[0]->Phone_num}}'
+                        value='{{$last->Phone_num}}'
                         style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       <hr>
@@ -165,7 +165,7 @@
                         </div>
                         <input class="col-sm-9 text-secondary" type='date'
                           id='dateN'
-                          value='{{$detailemp[0]->Date_nais}}'
+                          value='{{$last->Date_nais}}'
                           style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       <hr>
@@ -176,7 +176,7 @@
                         </div>
                         <input class="col-sm-9 text-secondary" 
                         id='adr'
-                        value='{{$detailemp[0]->adress}}'
+                        value='{{$last->adress}}'
                         style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       <div class="field-holderAR">
@@ -185,7 +185,7 @@
                         </div>
                         <input class="col-sm-9 text-secondary" style="text-align: right;border: hidden;background-color: transparent;"
                         id='adrAR'
-                        value='{{$detailemp[0]->adress_ar}}' disabled>
+                        value='{{$last->adress_ar}}' disabled>
                       </div>
                       </div>
                         
@@ -204,7 +204,7 @@
                     <i id="left" class="fa-solid  fas fa-angle-left"></i> 
 
                   <div class="row gutters-sm carousel">
-                    <div class="col-sm-12 mb-3">
+                    <!--div class="col-sm-12 mb-3">
                       <div class="card h-100">
                         <div class="card-body">
                           <small>Web Design</small>
@@ -229,7 +229,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div-->
                     @php
                     $count=1;
                     @endphp
@@ -300,7 +300,7 @@
     <script src="../js/sb-abd.js"></script-->
 
     <script >
-       var id = '{{ $detailemp[0]->id_nin }}';
+       var id = '{{ $last->id_nin }}';
        var uid='{{$uid}}'
       var md=true;
 document.getElementById('mod-but').addEventListener('click',function(){
