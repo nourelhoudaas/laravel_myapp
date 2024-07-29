@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', 'Ministere de la communication')
+@section('title', 'Ministère de la Communication')
 
 @section('content')
 

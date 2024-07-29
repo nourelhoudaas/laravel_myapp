@@ -18,7 +18,7 @@ return [
     'ctrl_cng'=>'Controll De Congé',
     'lst_emp'=>'List Des Employés',
     'nbr_abs'=>'Absence',
-    'nbr_all_users'=>'Total des Employes',
+    'nbr_all_users'=>'Total des Employés',
     'nbr_pres'=>'Presence',
     'name'=>'Nom',
     'surname'=>'Prénom',
