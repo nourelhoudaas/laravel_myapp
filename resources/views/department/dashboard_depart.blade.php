@@ -1,7 +1,7 @@
 @php
     use Carbon\Carbon;
 
-   
+
 
 @endphp
 
@@ -56,7 +56,7 @@
                     <div class="middle">
                         <div class="left">
                             <h3>Presence</h3>
-                          
+
                            <h1>0</h1>
                         </div>
 
@@ -137,41 +137,38 @@
 
                         </tr>
                     </thead>
-                   
-                 
+
+
                     <tbody>
-                            
+
                         @foreach($empdep as $employe)
                                 @php
                                     $post = $employe->occupeIdNin->last()->post ;
                                     $travail = $employe->travailByNin->last();
                                     $sousDepartement = $travail->sous_departement;
-                                
+
                                 @endphp
                                 <tr>
                                 <td>
                                     <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</a>
-                                </td>  
+                                </td>
                                     <td>{{ $employe->Prenom_emp }}</td>
                                     <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
                                     <td>{{ $employe->occupeIdNin->last()->date_recrutement  }}</td>
                                     <td>{{ $post->Nom_post }}</td>
                                     <td>{{ $sousDepartement->Nom_sous_depart }}</td>
-                                
+
                                     <td>{{ $travail->date_installation }}</td>
-                                
+
                                 </tr>
                             @endforeach
-                                        
-                                                
+
+
                     </tbody>
                 </table>
             </div>
             <!-- end resent order -->
-            <script>
-        // Mettre à jour le nombre total d'employés affichés
-        document.getElementById('total-employees').textContent = '{{ $totalEmpDep }}';
-    </script>
+
         </main>
         <!-- main section end -->
 

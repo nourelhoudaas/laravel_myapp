@@ -31,7 +31,7 @@
                 $('body').attr('dir', 'ltr');
                 $('.nav').css('left','0')
             })
-            $('#ar-lang').click(function() { 
+            $('#ar-lang').click(function() {
                 $('body').attr('dir', 'rtl');
                 $('.nav').css('right','0')
             });*/
@@ -40,7 +40,7 @@
             {
                 $('body').attr('dir', 'rtl');
                 $('.nav').css('right','0')
-                
+
             }
             else
             {
@@ -1185,7 +1185,7 @@ $(document).ready(function(){
      *  Bio Template Terminer
      *
      */
-<<<<<<< HEAD
+
     //dynamic field Creation with java script
     const addBtn = document.querySelector(".add");
     const input = document.querySelector(".inp-group");
@@ -1237,6 +1237,6 @@ function removeInput(){
 
     addBtn.addEventListener("click", addInput);
 
-=======
-    
->>>>>>> d13cfdfcacd0b77023e049361250816365be0c57
+
+
+

@@ -372,155 +372,157 @@
 
                 $typecon=type_cong::select('titre_cong','ref_cong')->get();
 
+            // dd($typeconge);
+            $today = Carbon::now();
 
+            $emptypeconge = Employe::with([
+                'occupeIdNin.post',
+                'travailByNin.sous_departement.departement',
+                'congeIdNin.type_conge'
+            ])->whereHas('congeIdNin', function($query) use ($today) {
+                $query->where('date_fin_cong', '>=', $today);
+            })->get();
 
-        // dd($typeconge);
-        /*$emptypeconge=Employe::with([
-                    'congeIdNin.type_conge',
-                    'congeIdNin.sous_departement.departement',
-                    'congeIdNin.sous_departement.contient.post'
-                ])->get();
-        */
+          // dd($emptypeconge );
 
-        $query=DB::table('employes')
-        ->join('conges','employes.id_nin','=','conges.id_nin')
-        ->join('type_congs','conges.ref_cong','=','type_congs.ref_cong')
-        ->join('sous_departements','conges.id_sous_depart','=','sous_departements.id_sous_depart')
-        ->join('contients','sous_departements.id_sous_depart','=','contients.id_sous_depart')
-        ->join('posts','contients.id_post','=','posts.id_post')
-        ->select(
-            'employes.*',
-            'conges.*',
-            'type_congs.*',
-            'sous_departements.*',
-            'posts.*',
-            DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
-        );
-        /*Lorsqu'une requête est modifiée par une méthode comme where,
-         count, ou get, elle est modifiée pour inclure ces changements.
-         Si vous avez besoin d'utiliser la requête de base pour une autre opération,
-          sans les modifications, cloner la requête permet de conserver une version
-          intacte.*/
-        $countAnnuelQuery = clone $query;
-        $count = $countAnnuelQuery->where('type_congs.titre_cong', 'Annuel')->count();
+           $count = Employe::with([
+            'occupeIdNin.post',
+            'travailByNin.sous_departement.departement',
+            'congeIdNin.type_conge'
+        ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
+            $query->where('date_fin_cong', '>=', $today)
+                ->whereIn('titre_cong', ['annuel']);
+        })->count();
 
-        // Cloner la requête pour compter les congés autres que annuels
-        $countExceptionnelQuery = clone $query;
-        $countExceptionnel = $countExceptionnelQuery->where('type_congs.titre_cong', '!=', 'Annuel')->count();
+        $countExceptionnel= Employe::with([
+            'occupeIdNin.post',
+            'travailByNin.sous_departement.departement',
+            'congeIdNin.type_conge'
+        ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
+            $query->where('date_fin_cong', '>=', $today)
+                ->whereIn('titre_cong', ['exceptionnel']);
+        })->count();
+         // dd($count );
 
-        // Récupérer les détails des employés avec des congés
-        $emptypeconge = $query->get();
+            return view('employees.list_cong',compact('empdepart','typecon','emptypeconge','today','count','countExceptionnel'));
 
-
-                //dd($emptypeconge);
-            // return response()->json($emptypeconge);
-            return view('employees.list_cong',compact('empdepart','typecon','emptypeconge','count','countExceptionnel'));
             }
 
-        public function filterByType($typeconge)
-        {
-            //dd($typeconge);
-            $query = Employe::query()
+            public function filterByType($typeconge)
 
-            ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
-            ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
-            ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-            ->join('departements','sous_departements.id_depart','=','departements.id_depart')
-            ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-            ->join('posts', 'contients.id_post', '=', 'posts.id_post')
-            ->select(
-                'employes.*',
-                'conges.*',
-                'type_congs.*',
-                'sous_departements.*',
-                'posts.*',
-                DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
-            );
-            //dd($query);
-            if ($typeconge) {
-                $query->where('type_congs.ref_cong', $typeconge);
-            }
-
-            //dd($query->toSql(), $query->getBindings());
-            $emptypeconge = $query->get();
-        // dd($emptypeconge);
-        return response()->json($emptypeconge);
-
-        }
-
-        public function filterbydep($department)
-        {
-            //dd($department);
-            $query = Employe::query()
-
-            ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
-            ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
-            ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-            ->join('departements','sous_departements.id_depart','=','departements.id_depart')
-            ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-            ->join('posts', 'contients.id_post', '=', 'posts.id_post')
-            ->select(
-                'employes.*',
-                'conges.*',
-                'type_congs.*',
-                'sous_departements.*',
-                'posts.*',
-                DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
-            );
-
-            //dd($query);
-            if ($department) {
-                $query->where('departements.id_depart', $department);
-            }
-            $emptypeconge = $query->get();
-        // dd($emptypeconge);
-        return response()->json($emptypeconge);
-        }
-
-    public function filtercongdep($typeconge,$department)
-    {
-        $query = Employe::query()
-
-            ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
-            ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
-            ->join('sous_departements', 'conges.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-            ->join('departements','sous_departements.id_depart','=','departements.id_depart')
-            ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-            ->join('posts', 'contients.id_post', '=', 'posts.id_post')
-            ->select(
-                'employes.*',
-                'conges.*',
-                'type_congs.*',
-                'sous_departements.*',
-                'posts.*',
-                DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
-            );
-
-            //dd($query);
-            if ($typeconge && $department) {
-                $query->where('departements.id_depart', $department)
-                    ->where('type_congs.ref_cong', $typeconge);
-            }
-            $emptypeconge = $query->get();
-        //dd($emptypeconge);
-        return response()->json($emptypeconge);
-    }
-
-        public function check_cg($id_p)
-        {
-            $totaljour=0;
-            $emp=Employe::where('employes.id_emp','=',$id_p)
-            ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-            ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
-            ->join('contients', 'posts.id_post', '=', 'contients.id_post')
-            ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-            ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
-            ->orderBy('occupes.date_recrutement','desc')
-            ->firstOrFail();
-            $cng=Conge::where('id_nin',$emp->id_nin)->orderBy('date_fin_cong','desc')->get();
-
-            if($cng->count() > 0)
             {
+                //dd($typeconge);
+                $today = Carbon::now()->format('Y-m-d');
+                $query = Employe::query()
+
+                    ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
+                    ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
+                    ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
+                    ->join('sous_departements', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                    ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                    ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                    ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+                    ->select(
+                        'employes.*',
+                        'conges.*',
+                        'type_congs.*',
+                        'sous_departements.*',
+                        'posts.*',
+                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+                    );
+
+                //dd($query);
+                if ($typeconge) {
+                    $query->where('type_congs.ref_cong', $typeconge)
+                          ->where('date_fin_cong', '>=', $today);
+                }
+                $emptypeconge=$query->get();
+
+
+            return response()->json($emptypeconge);
+
+            }
+
+            public function filterbydep($department)
+            {
+                //dd($department);
+                $today = Carbon::now()->format('Y-m-d');
+                $query = Employe::query()
+
+                    ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
+                    ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
+                    ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
+                    ->join('sous_departements', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                    ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                    ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                    ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+                    ->select(
+                        'employes.*',
+                        'conges.*',
+                        'type_congs.*',
+                        'sous_departements.*',
+                        'posts.*',
+                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+                    );
+
+
+                //dd($query);
+                if ($department) {
+                    $query->where('departements.id_depart', $department)
+                    ->where('date_fin_cong', '>=', $today);
+                }
+                $emptypeconge = $query->get();
+            // dd($emptypeconge);
+            return response()->json($emptypeconge);
+            }
+
+        public function filtercongdep($typeconge,$department)
+        {
+            $today = Carbon::now()->format('Y-m-d');
+            $query = Employe::query()
+
+                ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
+                ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
+                ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
+                ->join('sous_departements', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+                ->select(
+                    'employes.*',
+                    'conges.*',
+                    'type_congs.*',
+                    'sous_departements.*',
+                    'posts.*',
+                    DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+                );
+
+                //dd($query);
+                if ($typeconge && $department) {
+                    $query->where('departements.id_depart', $department)
+                        ->where('type_congs.ref_cong', $typeconge)
+                        ->where('date_fin_cong', '>=', $today);
+                }
+                $emptypeconge = $query->get();
+            //dd($emptypeconge);
+            return response()->json($emptypeconge);
+        }
+
+            public function check_cg($id_p)
+            {
+                $totaljour=0;
+                $emp=Employe::where('employes.id_emp','=',$id_p)
+                ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+                ->join('contients', 'posts.id_post', '=', 'contients.id_post')
+                ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
+                ->orderBy('occupes.date_recrutement','desc')
+                ->firstOrFail();
+                $cng=Conge::where('id_nin',$emp->id_nin)->orderBy('date_fin_cong','desc')->get();
+
+                if($cng->count() > 0)
+                {
 
             //   dd($cng[0]->nbr_jours);
                 foreach($cng as $cg)

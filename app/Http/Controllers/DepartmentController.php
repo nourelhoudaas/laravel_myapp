@@ -15,7 +15,12 @@ class DepartmentController extends Controller
 {
     public function ListeDepart()
     {
-        return view('department.list_depart');
+
+        $empdepart=Departement::get();
+
+
+return view('department.liste', compact('empdepart'));
+
     }
 
 
@@ -173,7 +178,7 @@ return view('department.dashboard_depart', compact('empdep','empdepart','nom_d',
         $gi = $empdep->count();
 
 
-        return view('department.add_depart', compact('empdep','totalEmpDep','empdepart','nom_d'));
+        return view('department.add_depart', compact('empdep','empdepart','nom_d'));
     }
     public function store(saveDepartementRequest $request)
 

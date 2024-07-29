@@ -351,6 +351,7 @@ img {
 
 .right{
     margin-top:0.5rem ;
+   
 
 }
 .right h2{
@@ -366,6 +367,9 @@ img {
 .right .top .profile{
     display: flex;
     gap: 2rem;
+   
+       justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
     text-align: center;
 
 }
@@ -379,6 +383,7 @@ b{
 .right .info{
     bottom:1.5rem ;
     top: 1.5rem;
+    
 
 }
 

@@ -17,15 +17,15 @@ class Stocke extends Model
     protected $fillable=['id_stocke','date_insertion','ref_Dossier','sous_d','id_fichier','id','mac'];
     public function dossier()
     {
-        return $this->belongsTo(Post::class,'ref_Dossier','ref_Dossier');
+        return $this->belongsTo(Dossier::class,'ref_Dossier','ref_Dossier');
     }
     public function users()
     {
-        return $this->belongsTo(Post::class,'id','id');
+        return $this->belongsTo(User::class,'id','id');
     }
     public function fichier()
     {
-        return $this->belongsTo(Post::class,'id_fichier','id_fichier');
+        return $this->belongsTo(Fichier::class,'id_fichier','id_fichier');
     }
 
 }
