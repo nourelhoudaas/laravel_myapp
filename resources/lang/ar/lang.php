@@ -26,7 +26,7 @@ return [
     'tran'=>'تحويل',
     'files'=>'الملف',
     'famill'=>'',
-    'stitua_fam'=>'',
+    'stitua_fam'=>'الحالة العائلية',
     'children'=>'',
     'educ'=>'',
     'nbr_destop'=>'',
@@ -64,5 +64,15 @@ return [
 
     'num_tel'=>'رقم الهاتف',
     'logout'=>'تسجيل الخروج',
-    'langage'=>'العربية'
+    'langage'=>'العربية',
+    'login'=> 'تسجيل الدخول',
+    'bienvenue'=>'مرحبا بكم في وزارة الاتصالات',
+    'username'=> 'اسم المستخدم',
+    'motdepass'=>'كلمة السر',
+    'rememberme'=>'تذكرني',
+    'forgotpass'=>'نسيت كلمة السر ؟',
+    'reason'=>'يرجى إدخال أو مناقشة سبب نسيان كلمة المرور الخاصة بك',
+    'envoiforgotpass'=>'ارسال'
+
+
 ];

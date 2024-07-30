@@ -97,7 +97,15 @@ body {
     <p class="text-center text-muted mb-5">{{ __('lang.reason') }}</p>
     <form action="{{route('app_forgotPassword')}}" method="post">
         @csrf
-        
+        <div class="mb-3">
+            <label for="username" class="form-label">{{ __('lang.username') }}</label>
+            <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username', request()->query('username')) }}" readonly>
+            @error('username')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
         <div class="mb-3">
            
             <textarea name="reason" id="reason" class="form-control textarea" required></textarea>
@@ -109,4 +117,15 @@ body {
     </form>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    @if ($errors->any())
+        alert('Veuillez corriger les erreurs dans le formulaire.');
+    @endif
+
+    @if (session('status'))
+        alert('{{ session('status') }}');
+    @endif
+});
+</script>
 @endsection

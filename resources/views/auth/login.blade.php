@@ -174,18 +174,46 @@ h2 {
                         </div>
                     </div>
                     <div class="col-md-6 text-end">
-                        <a href="{{ route('app_forgotPassword') }}">{{ __('lang.forgotpass') }}</a>
+                        <a href="#" id="forgotPasswordLink">{{ __('lang.forgotpass') }}</a>
                     </div>
                 </div>
 
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary" type="submit">{{ __('lang.login') }}</button>
                 </div>
-
-               
             </form>
         </div>
     </div>
- 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
+        event.preventDefault(); // Empêche le comportement par défaut du lien
+
+        var username = document.getElementById('username').value; // récupère la val du champ username
+            //si le nom d'utilisateur existe
+        if (username) {
+            
+            fetch("{{ route('checkUsername') }}?username=" + encodeURIComponent(username))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exists) {
+                        // Redirige vers forgotpass
+                        window.location.href = "{{ route('app_forgotPassword') }}?username=" + encodeURIComponent(username);
+                    } else {
+                        alert('Le nom d\'utilisateur n\'existe pas.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Une erreur s\'est produite lors de la vérification du nom d\'utilisateur.');
+                });
+        } else {
+            alert('Veuillez entrer un nom d\'utilisateur avant de demander une réinitialisation du mot de passe.');
+        }
+    });
+
+});
+</script>
 @endsection
