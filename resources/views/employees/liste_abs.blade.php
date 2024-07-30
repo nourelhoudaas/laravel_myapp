@@ -107,4 +107,10 @@
             var dir='Maladie'
         </script>
     </body>
+    <script>
+       if(lng == 'ar')
+       {
+        
+       }
+    </script>
 @endsection
