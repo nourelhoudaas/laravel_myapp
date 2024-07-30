@@ -54,7 +54,15 @@ return [
     'slct_type_cng'=>'تحديد مقررة العطلة',
     'nbr_jour'=>'الأيام المتبقية من العطلة',
 
-    'num_tel'=>'Num Téléphone',
+    'motif'=>'السبب',
+    'period'=>'التوقيت',
+    'matin'=>'صباحاٌ',
+    'soire'=>'مساءاٌ',
+    'justifie'=>'رخصة',
+    'nojust'=>'بدون رخصة',
+    'filejust'=>'ملف الترخيص',
+
+    'num_tel'=>'رقم الهاتف',
     'logout'=>'تسجيل الخروج',
     'langage'=>'العربية'
 ];
