@@ -42,6 +42,11 @@
                 $('.nav').css('right','0')
                 $('#mySidenav').addClass('arside')
                 $('#mySidenav').removeClass('frside')
+                $('#prog-add').addClass('stepper-wrapper-ar')
+                $('#prog-add').removeClass('stepper-wrapper-fr')
+                $('.mt-5').addClass('text-start')
+                $('.mt-5').removeClass('text-end')
+
                 
             }
             else
@@ -50,6 +55,10 @@
                 $('#mySidenav').addClass('frside')
                 $('body').attr('dir', 'ltr');
                 $('.nav').css('left','0')
+                $('#prog-add').addClass('stepper-wrapper-fr')
+                $('#prog-add').removeClass('stepper-wrapper-ar')
+                $('.mt-5').removeClass('text-start')
+                $('.mt-5').addClass('text-end')
             }
         })
 

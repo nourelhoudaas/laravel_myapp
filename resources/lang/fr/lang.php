@@ -62,7 +62,16 @@ return [
     'nojust'=>'Sans justification',
     'filejust'=>'Le fichier du justification',
 
+    'upload'=>'Importer',
 
+
+    'persondata'=>'Donneé Personnel',
+    'educatdata'=>'Donneé Educative',
+    'admindata'=>'Donnée Administrative',
+    'generat'=>'Genere Dicision',
+
+    'next'=>'Suivant',
+    'submit'=>'Enregister',
     'num_tel'=>'Num Téléphone',
     'langage'=>'français',
     'logout'=>'Se Déconnecter',
