@@ -150,12 +150,28 @@ public function existIDNIN()
 //---------------------------------------------------------------------PASSWORD FORGOTEN---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-public function forgotPassword()
-{
-    return view('auth.forgot_password');
-}
+    public function forgotPassword(Request $request)
+    {
+        return view('auth.forgot_password');
+    
+    }
 
+    public function checkUsername(Request $request)
+        {
+            $username = $request->query('username');
+            // dd($username);
+            if (User::where('username', $username)->exists()) {
+                return response()->json(['exists' => true]);
+            } else {
+                return response()->json(['exists' => false]);
+            }
+        }
 
+    public function sendResetLinkEmail(Request $request)
+    {
+  
+    
+    }
 
 
 

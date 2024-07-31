@@ -44,8 +44,14 @@
             }
             else
             {
+                $('#mySidenav').removeClass('arside')
+                $('#mySidenav').addClass('frside')
                 $('body').attr('dir', 'ltr');
                 $('.nav').css('left','0')
+                $('#prog-add').addClass('stepper-wrapper-fr')
+                $('#prog-add').removeClass('stepper-wrapper-ar')
+                $('.mt-5').removeClass('text-start')
+                $('.mt-5').addClass('text-end')
             }
         })
 
@@ -275,7 +281,7 @@ function calculateDayscng(startDate,datechange) {
 }
 ///------------------ this function for Nav left side -----------------------------
 function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.width = "280px";
     var radios = document.querySelectorAll('input[name="MheureRadio"]');
     radios.forEach(function(radio) {
         radio.checked = false;
@@ -294,7 +300,7 @@ function closeNav(absensform,id_nin,absens) {
     document.getElementById("mySidenav").style.width = "0";
     var matin,soire,jour;
     var justfi;
-    $(document).ready(function(){
+
         var selectedB = $('input[name="MheureRadio"]:checked');
         if (selectedB.length > 0) {
             var selectedValues = [];
@@ -365,7 +371,7 @@ function closeNav(absensform,id_nin,absens) {
         {
 
             var j=1;
-            alert('Absens');
+          //  alert('Absens');
             $("#"+id_nin+" i").remove();
             $('#'+id_nin).removeClass('pre');
             $('#'+id_nin).append(absens);
@@ -377,6 +383,7 @@ function closeNav(absensform,id_nin,absens) {
             i++;
             j++;
             console.log('i '+i+' j'+ j)
+            absensform=new Object();
         }
       })
     }
@@ -387,9 +394,40 @@ function closeNav(absensform,id_nin,absens) {
     }
     else
     {
+        if(soire ==='')
+        {
+            $('#Sheure').addClass('error-handle')
+        }
+        if(matin ==='')
+        {
+            $('#Mheure').addClass('error-handle')
+        }
+
+
         alert('chose time');
     }
-})
+
+}
+function cancelnav()
+{
+    document.getElementById("mySidenav").style.width = "0";
+    var radios = document.querySelectorAll('input[name="MheureRadio"]');
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+    var radios = document.querySelectorAll('input[name="SheureRadio"]');
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+    var radios = document.querySelectorAll('input[name="StatusRadio"]');
+    radios.forEach(function(radio) {
+        radio.checked = false;
+    });
+    $('#Mheure').removeClass('error-handle')
+    $('#Sheure').removeClass('error-handle')
+    $('#file').removeClass('error-handle')
+    $('#mySidenav').removeClass('toRight');
+    che=0;
 }
 //------------------------------------------------------------------------------------
 //add profile
@@ -709,12 +747,14 @@ $(document).ready(function() {
    {
 
     $('#ddate').addClass('error-handle');
+    $("#Dep").prop("disabled", true);
    }
     $('#abs_date').change(function()
 {
     var dates=$(this).val();
     if(dates)
     {
+        $("#Dep").prop("disabled", false);
         $('#ddate').removeClass('error-handle');
         $('#Dep option:first').prop('selected', true);
         $('#AbsTable tbody').empty();
@@ -730,6 +770,7 @@ $(document).ready(function() {
     }
     else
     {
+        $("#Dep").prop("disabled", true);
         $(this).addClass('error-hadle');
     }
 });
@@ -765,12 +806,24 @@ $(document).ready(function() {
                 list_abs.forEach(function(item){
                     if(item.absens)
                     {
+                        if(lng == 'ar')
+                        {
+                            $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_ar_emp
+                            + '</td><td>' + item.Prenom_ar_emp
+                            + '</td><td>' + item.Nom_post_ar
+                            + '</td><td>' + item.Nom_sous_depart_ar
+                            + '</td><td>' + item.Nom_depart_ar
+                            + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                       }
+                       else
+                       {
                         $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
                         + '</td><td>' + item.Prenom_emp
                         + '</td><td>' + item.Nom_post
                         + '</td><td>' + item.Nom_sous_depart
                         + '</td><td>' + item.Nom_depart
                         + '</td><td id="stdout'+item.id_nin+'" class="std-handle abs">'+absens+'</td></tr>');
+                       }
                     }else
                     {
 
@@ -780,6 +833,7 @@ $(document).ready(function() {
                         + '</td><td>' + item.Nom_sous_depart
                         + '</td><td>' + item.Nom_depart
                         + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                        }
 
                     }
                 })
@@ -796,6 +850,8 @@ $(document).ready(function() {
                                 var check=$('#'+id_nin+' i').attr('id');
                            //     console.log('icons id'+check);
                                 var checkv2 =  present.split('"');
+                                var idsa=id_nin.split('n');
+                                 id=idsa[1]
                                 console.log('gtting data'+checkv2[1]);
                               if(check === checkv2[1]){
                                 openNav();
@@ -810,12 +866,36 @@ $(document).ready(function() {
                                 }
                                 $("#close").click(function()
                             {
-                                if(che == 0){
-                                closeNav(absensform,id_nin,absens)
-                            che++;
-                            }
-                            else
+
+                                var jst= $("#StatusJ").is(":checked");
+                                  var nojst= $("#StatusNoJ").is(":checked");
+                                  var fil=$("#file").val();
+                                  if(jst && fil !=="")
+                                 {
+                                 if(che == 0)
+                                  {
+                                    $('#file').removeClass('error-handle')
+                                    closeNav(absensform,id_nin,absens)
+                                    uploadFile()
+                                    che++;
+                                  }
+                                 else
+                                  {
+                                   che=0;
+                                  }
+                            }else
                             {
+                                if(nojst)
+                                {
+                                    closeNav(absensform,id_nin,absens)
+                                    che=0;
+                                }
+                                else
+                                {
+                                    alert('svp choisir justifcation')
+                                    $('#file').addClass('error-handle')
+                                    che=0;
+                                }
                                 che=0;
                             }
                             })
@@ -852,6 +932,16 @@ $(document).ready(function() {
                         $('#AbsTable tbody').empty();
                         response.forEach(function(item) {
                          //   console.log('--'+JSON.stringify(item));
+                         if(lng == 'ar')
+                         {
+                            $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_ar_emp
+                        + '</td><td>' + item.Prenom_ar_emp
+                        + '</td><td>' + item.Nom_post_ar
+                        + '</td><td>' + item.Nom_sous_depart_ar
+                        + '</td><td>' + item.Nom_depart_ar
+                        + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                         }else
+                         {
                             $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
                                                       + '</td><td>' + item.Prenom_emp
                                                       + '</td><td>' + item.Nom_post
@@ -875,7 +965,10 @@ $(document).ready(function() {
                               var check=$('#'+id_nin+' i').attr('id');
                          //     console.log('icons id'+check);
                               var checkv2 =  present.split('"');
-                              console.log('gtting data'+checkv2[1]);
+                              var idsa=id_nin.split('n');
+
+                              console.log('gtting data'+idsa[1]);
+                              id=idsa[1]
                             if(check === checkv2[1]){
                                 openNav();
                               var absensform={
@@ -888,16 +981,45 @@ $(document).ready(function() {
                                 _method: 'POST'
                               }
                               $("#close").click(function()
-                            {
-                                if(che == 0){
-                                    closeNav(absensform,id_nin,absens)
+                              {
+
+                                  var jst= $("#StatusJ").is(":checked");
+                                  var nojst= $("#StatusNoJ").is(":checked");
+                                  var fil=$("#file").val();
+
+                                   if(che == 0)
+                                    {
+                                        if(jst && fil !=="")
+                                         {
+                                      $('#file').removeClass('error-handle')
+                                      closeNav(absensform,id_nin,absens)
+                                      uploadFile()
                                       che++;
-                                }
-                                else
-                                {
-                                    che=0;
-                                }
-                            })
+                                    }
+
+                              else
+                              {
+                                  if(nojst)
+                                  {
+                                      closeNav(absensform,id_nin,absens)
+                                      che=0;
+                                  }
+                                  else
+                                  {
+                                      //alert('svp choisir justifcation')
+                                      $('#Mheure').addClass('error-handle')
+                                      $('#Sheure').addClass('error-handle')
+                                      $('#file').addClass('error-handle')
+                                      che=0;
+                                  }
+                                  che=0;
+                              }
+                            }
+                              else
+                              {
+                               che=0;
+                              }
+                              })
                             }
                               else
                               {
@@ -918,7 +1040,31 @@ $(document).ready(function() {
 
     }
 });
+$('#cancel').click(function()
+{
+    cancelnav();
+    ch=0
+})
+    var lastCheckedM;
+    var lastCheckedS;
 
+    $('input[name="MheureRadio"]').click(function(){
+        if (this === lastCheckedM) {
+            this.checked = false;
+            lastCheckedM = null;
+        } else {
+            lastCheckedM = this;
+        }
+    });
+
+$('input[name="SheureRadio"]').click(function(){
+    if (this === lastCheckedS) {
+        this.checked = false;
+        lastCheckedS = null;
+    } else {
+        lastCheckedS = this;
+    }
+});
 });
 /** -------------------------- Absence Partie ---------------------------- */
 

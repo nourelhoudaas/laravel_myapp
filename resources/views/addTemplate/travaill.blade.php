@@ -8,22 +8,22 @@
 @endphp
 <body>
 
-<div class="stepper-wrapper">
+<div class="" id="prog-add">
   <div class="stepper-item completed">
     <div class="step-counter">1</div>
-    <div class="step-name">Donneé Personnel</div>
+    <div class="step-name">{{ __('lang.persondata') }}</div>
   </div>
   <div class="stepper-item completed">
     <div class="step-counter">2</div>
-    <div class="step-name">Donneé Educative</div>
+    <div class="step-name">{{ __('lang.educatdata') }}</div>
   </div>
   <div class="stepper-item active">
     <div class="step-counter">3</div>
-    <div class="step-name">Donnée Administrative</div>
+    <div class="step-name">{{ __('lang.admindata') }}</div>
   </div>
   <div class="stepper-item">
     <div class="step-counter">4</div>
-    <div class="step-name">Genere Dicision </div>
+    <div class="step-name">{{ __('lang.generat') }}  </div>
   </div>
 </div>
 <div class="container rounded bg-white mt-5 mb-5">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="submit" id="aft2">Save Profile</button>
+                    <button class="btn btn-primary profile-button" type="submit" id="aft2">{{ __('lang.next') }}</button>
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@
         </br>
         </br>
             <div class="">
-            <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">Upload</button>
+            <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">{{ __('lang.upload') }}</button>
                         </div>
           </div>
                 <div>
