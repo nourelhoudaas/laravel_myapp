@@ -15,11 +15,20 @@ class DepartmentController extends Controller
 {
     public function ListeDepart()
     {
+        $departements = Departement::paginate(5);
 
         $empdepart=Departement::get();
 
 
-return view('department.liste', compact('empdepart'));
+return view('department.liste', compact('empdepart','departements'));
+
+    }
+    public function edit(Departement $departement)
+    {
+
+
+
+return view('department.edit', compact('departement'));
 
     }
 
@@ -233,6 +242,12 @@ return view('department.dashboard_depart', compact('empdep','empdepart','nom_d',
             's_dert'=>$s_deprt,
             'code'=>200
         ]);*/
+    }
+    public function destroy(Departement $dept)
+    {
+        $dept->delete();
+
+        return redirect('/department')->with('success', 'Direction supprimé avec succès.');
     }
 
 
