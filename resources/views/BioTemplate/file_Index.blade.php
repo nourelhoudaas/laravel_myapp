@@ -61,7 +61,7 @@
         <form>
             @csrf
         <input type="file" id="file">
-        <button class="button-33" onclick='uploadFile()'>Upload</button>
+        <button class="button-33" onclick='uploadFile()'>{{__('lang.upload')}}</button>
         </form>
     </div>
 </div>
