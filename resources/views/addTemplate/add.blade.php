@@ -12,22 +12,22 @@ $id=0;
 @endphp
 <body>
 
-<div class="stepper-wrapper">
+<div class="" id="prog-add">
   <div class="stepper-item completed">
     <div class="step-counter">1</div>
-    <div class="step-name">Données Personnel</div>
+    <div class="step-name">{{ __('lang.persondata') }}</div>
   </div>
   <div class="stepper-item active">
     <div class="step-counter">2</div>
-    <div class="step-name">Données Educative</div>
+    <div class="step-name">{{ __('lang.educatdata') }}</div>
   </div>
   <div class="stepper-item active">
     <div class="step-counter">3</div>
-    <div class="step-name">Donneés Administrative</div>
+    <div class="step-name">{{ __('lang.admindata') }}</div>
   </div>
   <div class="stepper-item">
     <div class="step-counter">4</div>
-    <div class="step-name">Généré une décision </div>
+    <div class="step-name">{{ __('lang.generat') }} </div>
   </div>
 </div>
 
@@ -172,7 +172,7 @@ $id=0;
                 <div class="col-md-6" id="addf">    
                       </div>
                 <div class="mt-5 text-end">
-                    <button class="btn btn-primary profile-button" type="submit" id="btn-sv">Next step</button>
+                    <button class="btn btn-primary profile-button" type="submit" id="btn-sv">{{ __('lang.next') }}</button>
                 </div>
             </div>
         </div>
@@ -182,7 +182,7 @@ $id=0;
                       {{-- <label for="file">Choose file:</label> --}}
                       <input type="file" name="file" id="file"> </br>
                       <div class="">
-                      <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">Upload</button>
+                      <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">{{ __('lang.upload') }}</button>
                       </div>
                     </div>
                           <div>

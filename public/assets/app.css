@@ -645,10 +645,7 @@ main .recent_order a{
   background-color: #2F8D46
 }
 .stepper-wrapper {
-  margin-top: 90px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  
 }
 .stepper-item {
   position: relative;
@@ -718,6 +715,22 @@ main .recent_order a{
 }
 .stepper-item:last-child::after {
   content: none;
+}
+.stepper-wrapper-ar
+{
+  margin-top: 90px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  direction: ltr;
+}
+.stepper-wrapper-fr
+{
+  margin-top: 90px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  direction: ltr;
 }
 .form-holder
 {

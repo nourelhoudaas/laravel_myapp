@@ -55,8 +55,11 @@ Route::controller(LoginController::class)->group(function(){
     Route::post('/exist_username','existUsername')->name('app_exist_username');
     Route::post('/exist_id_nin','existIDNIN')->name('app_exist_id_nin');
     Route::post('/exist_id_p','existIDP')->name('app_exist_id_p');
-    Route::match(['get', 'post'], '/forgot_password', 'forgotPassword')->name('app_forgotPassword');
-    //[app_..] nom de la route dans la page; [forgotPassword]  nom de la fonction dans le controller; [forgot_password] nom de la page dans la quelle il vas t etre renvoyer
+   // Route::match(['get', 'post'], '/forgot_password', 'forgotPassword')->name('app_forgotPassword');
+   Route::get('/forgot_password', 'forgotPassword')->name('app_forgotPassword');
+    Route::post('forgot_password', 'sendResetLinkEmail');
+    Route::get('/check-username','checkUsername')->name('checkUsername');
+   //[app_..] nom de la route dans la page; [forgotPassword]  nom de la fonction dans le controller; [forgot_password] nom de la page dans la quelle il vas t etre renvoyer
 });
 Route::middleware('auth')->group(function () {
 Route::controller(EmployeesController::class)->group(function(){
