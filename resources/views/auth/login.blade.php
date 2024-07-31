@@ -4,7 +4,7 @@
 
 @section('content')
 <style>
-    
+
 body {
     font-family: 'Arial', sans-serif;
         margin: 0;
@@ -33,8 +33,8 @@ body {
     flex-direction: column;
     align-items: center; /* Centre horizontalement tous les enfants */
     position: relative;
-    
-   
+
+
 }
 
 .logo {
@@ -52,11 +52,11 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
 }
 
 h2 {
-    font-size: 1.25rem; 
+    font-size: 1.25rem;
 }
 .form-group {
     width: 100%;
@@ -77,7 +77,7 @@ h2 {
 }
 
 .form-control:focus {
-    border-color: #000080; 
+    border-color: #000080;
     outline: none;
 }
 
@@ -86,7 +86,7 @@ h2 {
 }
 
 .btn-primary {
-    background: #000080; 
+    background: #000080;
     border: none;
     border-radius: 5px;
     color: white;
@@ -94,12 +94,12 @@ h2 {
     padding: 0.75rem;
     cursor: pointer;
     transition: background 0.3s;
-    width: 100%; 
+    width: 100%;
     margin-top:20px;
 }
 
 .btn-primary:hover {
-    background: #000080; 
+    background: #000080;
 }
 
 .text-muted {
@@ -121,7 +121,7 @@ h2 {
 }
 
 .form-group .form-check {
-    text-align: left; 
+    text-align: left;
     margin-top:20px;/* Assure que "Souviens-toi de moi" est aligné à gauche */
 }
 
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var username = document.getElementById('username').value; // récupère la val du champ username
             //si le nom d'utilisateur existe
         if (username) {
-            
+
             fetch("{{ route('checkUsername') }}?username=" + encodeURIComponent(username))
                 .then(response => response.json())
                 .then(data => {

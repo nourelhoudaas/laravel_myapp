@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 return [
     'mnc'=>'Ministère de la Communication',
     'dashboard'=>'Tableau de Bord',
     'Depratement'=>'Directions',
     'AddDir'=>'Ajouter une Direction',
+    'ListDir'=>'Liste des Directions',
     'Users'=>'Employés',
     'list_user'=>'Liste des Employés',
     'adduser'=>'Ajouter Employé',
@@ -62,6 +63,7 @@ return [
     'nojust'=>'Sans justification',
     'filejust'=>'Le fichier du justification',
 
+
     'DosierD'=>'Dossier D`Employe',
     'Admin'=>'Adminstrative',
     'Niveaux'=>'Educative',
@@ -74,6 +76,7 @@ return [
     'upload'=>'Importer',
 
 
+
     'persondata'=>'Donneé Personnel',
     'educatdata'=>'Donneé Educative',
     'admindata'=>'Donnée Administrative',
@@ -82,6 +85,11 @@ return [
     'next'=>'Suivant',
     'submit'=>'Enregister',
     'num_tel'=>'Num Téléphone',
+
+    'langage'=>'francais',
+    'logout'=>'Se Déconnecter',
+
+
     'langage'=>'français',
     'logout'=>'Se Déconnecter',
     'login'=> 'Se Connecter',
@@ -94,3 +102,4 @@ return [
     'envoiforgotpass'=>'Envoyer'
 
 ];
+

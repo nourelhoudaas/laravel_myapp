@@ -168,7 +168,7 @@ img {
 .nav__list {
   row-gap: 2.5rem;
   overflow-y: hidden;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 
 }
 
@@ -351,7 +351,7 @@ img {
 
 .right{
     margin-top:0.5rem ;
-   
+
 
 }
 .right h2{
@@ -367,7 +367,7 @@ img {
 .right .top .profile{
     display: flex;
     gap: 2rem;
-   
+
        justify-content: center; /* Centre horizontalement */
     align-items: center; /* Centre verticalement */
     text-align: center;
@@ -383,7 +383,7 @@ b{
 .right .info{
     bottom:1.5rem ;
     top: 1.5rem;
-    
+
 
 }
 
@@ -645,7 +645,7 @@ main .recent_order a{
   background-color: #2F8D46
 }
 .stepper-wrapper {
-  
+
 }
 .stepper-item {
   position: relative;
@@ -1125,7 +1125,7 @@ cursor:not-allowed ;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
-  
+
 }
 .frside
 {
@@ -1279,12 +1279,16 @@ cursor:not-allowed ;
     position: absolute;
   }
 }
+
+
 .lang-handler
 {display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
 }
+
+
 .thbtn:hover
 {
 scale: 1.3;
@@ -1328,6 +1332,8 @@ cursor: pointer;
 .show-overlay {
   display: block;
 }
+<<<<<<< HEAD
+=======
 .file-ar
 {
   text-align: right;
@@ -1344,3 +1350,4 @@ text-align: left;
 {
   padding-left: 0;
 }
+>>>>>>> ad9abe88322218c26a5fb58f44116943363aa4a9

@@ -1,0 +1,67 @@
+/* Dynamic classe creation */
+.app-card{
+    max-width: 1000px;
+    background: #fff;
+    border-radius: 5px;
+    width: 600px;
+    padding: 20px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 1);
+}
+.wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    font-size:2rem;
+
+}
+.add{
+    text-decoration: none;
+    font-display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: #8bc34a;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex{
+display: flex;
+gap: 1.5em;
+margin-bottom: 15px;
+}
+.delete{
+    text-decoration: none;
+    display: inline-block;
+    background: #f44336;
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+input{
+    padding: 8px 10px;
+    background: #ddd;
+    border: none;
+    width:50%;
+    border-radius: 5px;
+}
+input:focus{
+    outline: 1px solid #efefef;
+}
+.inp-group{
+    margin-bottom: 20px;
+}

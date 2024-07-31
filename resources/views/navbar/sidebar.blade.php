@@ -31,7 +31,7 @@
                         <div class="profile-photo">
                             <img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="">
                         </div>
-                     
+
                     </div>
                 </div>
 
@@ -80,8 +80,17 @@
                                             <span class="nav__name">{{ __('lang.AddDir') }}</span>
 
                                         </a>
+                                        <a href="{{route('app_liste_dir',['dep_id'=>$empdepart->id_depart])}}" class="nav__link">
+                                            <i class='bx bx-list-plus nav__icon' ></i>
+                                                <span class="nav__name">{{ __('lang.ListDir') }}</span>
+
+                                            </a>
+                                    </div>
                                 </div>
+                                </div>
+
                             </div>
+
 
                             <div class="nav__dropdown">
                                 <a href="#" class="nav__link">
