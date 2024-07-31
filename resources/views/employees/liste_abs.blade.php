@@ -108,9 +108,6 @@
         </script>
     </body>
     <script>
-       if(lng == 'ar')
-       {
-        
-       }
+
     </script>
 @endsection

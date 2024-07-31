@@ -61,6 +61,16 @@ return [
     'justifie'=>'رخصة',
     'nojust'=>'بدون رخصة',
     'filejust'=>'ملف الترخيص',
+    
+    'DosierD'=>'الملف الخاص بـ',
+    'Admin'=>'الإداريات',
+    'Niveaux'=>'المدرسية',
+    'Congé'=>'العطل',
+    'Social'=>'الإجتماعية',
+    'Contonsion'=>'المنازعات',
+    'Promotion'=>'الترقية',
+    'Maladie'=>'الطبية',
+    'Personnel'=>'الشخصية',
 
     'num_tel'=>'رقم الهاتف',
     'logout'=>'تسجيل الخروج',

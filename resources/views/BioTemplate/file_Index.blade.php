@@ -9,26 +9,42 @@
 </head>
 @php
     $uid=auth()->id();
+    $emp_name;
+    $emp_sur;
+    if(app()->getLocale() == 'ar')
+    {
+        $emp_name=$employe->Nom_ar_emp;
+        $emp_sur=$employe->Prenom_ar_emp;
+    }
+    else
+    {
+        $emp_name=$employe->Nom_emp;
+        $emp_sur=$employe->Prenom_emp;
+    }
     @endphp
 @extends('base')
 <body>
 
 @include('./navbar.sidebar')
- <h6>Dossier D' Employe : {{$employe->Nom_emp}} {{$employe->Prenom_emp}}</h6>
+ <h6>{{__('lang.DosierD')}} : {{$emp_name}} {{$emp_sur}}</h6>
     <div class="container mt-5">
         <div class="row">
             @foreach($files as $subDir => $filesArray)
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <div class="card-header">
-                         <div class="card-headf">   
-                            <strong>{{ $subDir ?: 'Root Directory' }}</strong>
+                         <div class="card-headf"> 
+                            @php
+                             $name= $subDir ?: 'Root Directory';
+                             $lang='lang.'.$name;
+                            @endphp     
+                            <strong>{{ __($lang.'') }}</strong>
                             <p class="thbtn" id="{{ $subDir ?: 'Root Directory' }}">...</p>
                         </div>    
                         </div>
                         <ul class="list-group list-group-flush" id="file-holder-{{$subDir}}">
                             @foreach($filesArray as $file)
-                                <li class="list-group-item">
+                                <li class="list-group-item" style="text-align: left;" id='file-holder'>
                                         <a href="{{url('/live/read/'.$empdoss.'/'.$subDir.'-'.$file.'/')}}" target="_blank" id="{{$file}}">{{ $file }}</a>
                                     </li>
                             @endforeach

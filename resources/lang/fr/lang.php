@@ -62,6 +62,15 @@ return [
     'nojust'=>'Sans justification',
     'filejust'=>'Le fichier du justification',
 
+    'DosierD'=>'Dossier D`Employe',
+    'Admin'=>'Adminstrative',
+    'Niveaux'=>'Educative',
+    'Congé'=>'Congés',
+    'Social'=>'Socialle',
+    'Contonsion'=>'Constonsions',
+    'Promotion'=>'Promotions',
+    'Maladie'=>'Maladies',
+    'Personnel'=>'Personnels',
 
     'num_tel'=>'Num Téléphone',
     'langage'=>'français',
