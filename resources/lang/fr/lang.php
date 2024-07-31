@@ -62,7 +62,6 @@ return [
     'nojust'=>'Sans justification',
     'filejust'=>'Le fichier du justification',
 
-<<<<<<< HEAD
     'DosierD'=>'Dossier D`Employe',
     'Admin'=>'Adminstrative',
     'Niveaux'=>'Educative',
@@ -72,9 +71,7 @@ return [
     'Promotion'=>'Promotions',
     'Maladie'=>'Maladies',
     'Personnel'=>'Personnels',
-=======
     'upload'=>'Importer',
->>>>>>> 501ca6ee355bf4a8f936724d35f414ea8543335e
 
 
     'persondata'=>'Donneé Personnel',

@@ -44,7 +44,7 @@
                         </div>
                         <ul class="list-group list-group-flush" id="file-holder-{{$subDir}}">
                             @foreach($filesArray as $file)
-                                <li class="list-group-item" style="text-align: left;" id='file-holder'>
+                                <li class="list-group-item" id='file-holder'>
                                         <a href="{{url('/live/read/'.$empdoss.'/'.$subDir.'-'.$file.'/')}}" target="_blank" id="{{$file}}">{{ $file }}</a>
                                     </li>
                             @endforeach

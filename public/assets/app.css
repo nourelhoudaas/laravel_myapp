@@ -1328,3 +1328,19 @@ cursor: pointer;
 .show-overlay {
   display: block;
 }
+.file-ar
+{
+  text-align: right;
+}
+.file-fr
+{
+text-align: left;
+}
+.pad-ar
+{
+  padding-right: 0;
+}
+.pad-fr
+{
+  padding-left: 0;
+}

@@ -46,6 +46,10 @@
                 $('#prog-add').removeClass('stepper-wrapper-fr')
                 $('.mt-5').addClass('text-start')
                 $('.mt-5').removeClass('text-end')
+                $('.list-group-item').addClass('file-ar')
+                $('.list-group-item').removeClass('file-fr')
+                $('.list-group').addClass('pad-ar')
+                $('.list-group').removeClass('pad-fr')
 
                 
             }
@@ -59,6 +63,10 @@
                 $('#prog-add').removeClass('stepper-wrapper-ar')
                 $('.mt-5').removeClass('text-start')
                 $('.mt-5').addClass('text-end')
+                $('.list-group-item').addClass('file-fr')
+                $('.list-group-item').removeClass('file-ar')
+                $('.list-group').addClass('pad-fr')
+                $('.list-group').removeClass('pad-ar')
             }
         })
 
