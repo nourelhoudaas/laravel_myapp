@@ -828,7 +828,7 @@
                              + '</td><td>' + item.Nom_post_ar
                              + '</td><td>' + item.Nom_sous_depart_ar
                              + '</td><td>' + item.Nom_depart_ar
-                             + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                             + '</td><td id="stdin'+item.id_nin+'" class="std-handle abs">'+absens+'</td></tr>');
                         }
                         else
                         {
