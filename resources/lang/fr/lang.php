@@ -47,13 +47,16 @@ return [
     'stuation'=>'Status',
     'type_cng'=>'Titre du Congé',
     'date_deb_cng'=>'Date Debut Congé',
+    'date_deb_cngs'=>'La date d`ouverture du Congé',
     'date_fin_cng'=>'Date Fin Congé',
-    'date_drn_cng'=>'',
+    'date_drn_cng'=>'La date Deriner Congé',
     'term_cng'=>'Congé Annuel',
     'exp_cng'=>'Congé Exceptionnel',
     'slct_dept'=>'Séléctionner la Direction',
     'slct_type_cng'=>'Séléctionner le Titre du Congé',
     'nbr_jour'=>'Nombres de jours Restants',
+    'ver_cng'=>'Passer Vers Le Congé',
+
 
     'motif'=>'Motif',
     'period'=>'Period',
@@ -83,14 +86,11 @@ return [
     'generat'=>'Genere Dicision',
 
     'next'=>'Suivant',
+    'cancel'=>'Annuller',
     'submit'=>'Enregister',
+
     'num_tel'=>'Num Téléphone',
-
     'langage'=>'francais',
-    'logout'=>'Se Déconnecter',
-
-
-    'langage'=>'français',
     'logout'=>'Se Déconnecter',
     'login'=> 'Se Connecter',
     'bienvenue'=>'Bienvenue dans la Ministère de Communication',

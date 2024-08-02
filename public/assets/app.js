@@ -50,6 +50,8 @@
                  $('.list-group-item').removeClass('file-fr')
                  $('.list-group').addClass('pad-ar')
                  $('.list-group').removeClass('pad-fr')
+                 $('#add-handler').addClass('add-handler-ar')
+                 $('#add-handler').removeClass('add-handler-fr')
 
 
              }
@@ -67,6 +69,8 @@
                  $('.list-group-item').removeClass('file-ar')
                  $('.list-group').addClass('pad-fr')
                  $('.list-group').removeClass('pad-ar')
+                 $('#add-handler').removeClass('add-handler-ar')
+                 $('#add-handler').addClass('add-handler-fr')
              }
          })
 
@@ -1120,11 +1124,38 @@
                  {
                      result=response;
                    //  console.log('response'+JSON.stringify(response))
+                   if(lng == 'ar')
+                   {
+                     $('#Dic').val(response.employe.Nom_depart_ar)
+                     $('#SDic').val(response.employe.Nom_sous_depart_ar)
+                     $('#Nom_emp').val(response.employe.Nom_ar_emp)
+                     $('#Prenom_emp').val(response.employe.Prenom_ar_emp)
+                    }
+                    else
+                    {
                      $('#Dic').val(response.employe.Nom_depart)
                      $('#SDic').val(response.employe.Nom_sous_depart)
                      $('#Nom_emp').val(response.employe.Nom_emp)
                      $('#Prenom_emp').val(response.employe.Prenom_emp)
-                     $('#total_cgj').val(response.Jour_congé+' Jour(s)')
+                    }
+                    if(lng == 'ar')
+                    {
+                        switch (true) {
+                            case response.Jour_congé === 1:
+                                $('#total_cgj').val(' يوم واحد')  
+                                break;
+                            case response.Jour_congé === 2:
+                                $('#total_cgj').val('(0'+response.Jour_congé+') يومان') 
+                                break;
+                            default:
+                                $('#total_cgj').val(response.Jour_congé+' أيام')
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        $('#total_cgj').val(response.Jour_congé+' Jour(s)')
+                    }
                      $('#typ_cg option:eq(1)').prop('selected', true)
                      if(response.Jour_congé <= 0 )
                      {
@@ -1150,11 +1181,13 @@
              })
  }else
  {
-     $('#Dic').val('La Direction')
-     $('#SDic').val('La Sous-Direction')
-     $('#Nom_emp').val('Nom d employé')
-     $('#Prenom_emp').val('Prenom d employé')
-     $('#total_cgj').val('')
+   
+        $('#Dic').val(dicr)
+        $('#SDic').val(sous_dicr)
+        $('#Nom_emp').val(nom)
+        $('#Prenom_emp').val(prenom)
+        $('#total_cgj').val('')
+    
  }
            })
            $('#id_emp').focus(function(){

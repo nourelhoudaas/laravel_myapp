@@ -85,10 +85,7 @@
                                                 <span class="nav__name">{{ __('lang.ListDir') }}</span>
 
                                             </a>
-                                    </div>
                                 </div>
-                                </div>
-
                             </div>
 
 
