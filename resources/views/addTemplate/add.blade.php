@@ -48,16 +48,16 @@ $id=0;
         <div class="col-md-18">
             <div class="p-5 py-15">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile informations</h4>
+                    <h4 class="text-right">{{__('lang.prof_set')}}</h4>
                 </div>
                 <div class="row mt-2">
                 <div class="col-md-12">
                         <label class="labels">NIN</label>
-                        <input type="text" class="form-control" placeholder="enter NIN" value="" id="ID_NIN">
+                        <input type="text" class="form-control" placeholder="NIN" value="" id="ID_NIN">
                     </div>
                     <div class="col-md-12">
                         <label class="labels">Numero Securite Social</label>
-                        <input type="text" class="form-control" placeholder="enter NSS" value="" id="ID_SS">
+                        <input type="text" class="form-control" placeholder="NSS" value="" id="ID_SS">
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Nom</label>
@@ -113,15 +113,15 @@ $id=0;
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
-                    <label class="labels">Sexe</label>
+                    <label class="labels">{{ __('lang.sx') }} </label>
                        <select name="sexe" id="Sexe"class="form-select form-select-lm mb-3" aria-label="Default select example">
-                            <option value="">--Please choose an option--</option>
+                            <option value=""></option>
                             <option value="Femme">Femme</option>
                             <option value="Homme">Homme</option>
                         </select>
                     </div>
                     <hr>
-                    <span>Situation Famillaire</span>
+                    <span>{{ __('lang.stitua_fam') }}</span>
                     <hr>
                     <div class="row mt-3">
                      <div class="col-md-6">
@@ -154,17 +154,17 @@ $id=0;
                      </div>
                      </div>
                      <div class="col-md-6">
-                        <label class="labels">Situation :</label>
+                        <label class="labels">{{__('lang.famill')}} </label>
                       <select select name="situat" id="situat"class="form-select form-select-lm mb-3" aria-label="Default select example">
-                        <option value="">Selection Situation</option>
-                        <option value="cel">Celebtiare</option>
-                        <option value="marie">Marie</option>
-                        <option value="Divor">Divorce</option>
-                        <option value="veuve">veuve</option>
+                        <option value="">{{__('lang.slct_famill')}}</option>
+                        <option value="cel">{{__('lang.cel')}}</option>
+                        <option value="marie">{{__('lang.marie')}}</option>
+                        <option value="Divor">{{__('lang.divor')}}</option>
+                        <option value="veuve">{{__('lang.veu')}}</option>
                      </select>
                      </div>
                      <div class="col-md-2">
-                        <label class="labels">combien d'enfant</label>
+                        <label class="labels">{{__('lang.children')}}</label>
                         <select select name="nbrenfant" id="nbrenfant"class="form-select form-select-lm mb-3" aria-label="Default select example">
                         </select>
                     </div>

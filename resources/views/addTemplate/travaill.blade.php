@@ -46,39 +46,53 @@
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
 
-                    <h4 class="text-right">Profile Settings</h4>
+                    <h4 class="text-right">{{__('lang.prof_set')}}</h4>
                 </div>
                 <div class="row mt-2">
                 <div class="col-md-12">
-                        <label class="labels">Ref_Diplome</label>
+                        <label class="labels">{{__('lang.ref_dipl')}}</label>
                         <input type="text" class="form-control" placeholder="Ref Diplome" value="" id="DipRef">
                     </div>
                     <div class="col-md-6">
-                        <label class="labels">Specialitie</label>
+                        <label class="labels">{{__('lang.spec_dipl')}}</label>
                         <select type="text" class="form-select" placeholder="Specialitie" value="" id="Spec">
-                        <option value="">Selection La Specialité</option>
+                        <option value="">{{__('lang.slct_spec_dipl')}}</option>
                             @foreach($dbniv as $niv)
+                            @if (app()->getLocale() == 'ar')
+                            {
+                                <option value="{{$niv->Specialité}}">{{$niv->Specialité_ar}}</option>
+                            }else
+                            {
                                 <option value="{{$niv->Specialité}}">{{$niv->Specialité}}</option>
+                            }
+                            @endif
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label class="labels">Filiere</label>
+                        <label class="labels">{{__('lang.filier_dipl')}}</label>
                         <input type="text" class="form-control" value="" placeholder="Filiere" id="Filr">
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label class="labels">Diplome</label>
+                        <label class="labels">{{__('lang.nom_dipl')}}</label>
                         <select type="text" class="form-select" placeholder="Diplome" value="" id="Dip">
-                            <option value="">Selection Le Diplome</option>
+                            <option value="">{{__('lang.slct_nom_dipl')}}</option>
                             @foreach($dbniv as $niv)
+                            @if (app()->getLocale() == 'ar')
+                            {
+                                <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv_ar}}</option>
+                            }else
+                            {
                                 <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv}}</option>
+                            }
+                            @endif
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label class="labels">Date Obtenuation de Diplome</label>
+                        <label class="labels">{{__('lang.dat_optn_dipl')}}</label>
                         <input type="date" class="form-control" id="DipDate">
                     </div>
                 </div>
@@ -103,7 +117,7 @@
                     <div class="file-upload">
                         <div class="file-prog">
                             <div class="file-name" id='file1'>
-                                <p> Fichier 1 </p>
+                               
                             </div>
                             <div class="prog-holder">
                             <div id="progressWrapper" style="display: none;">
@@ -111,7 +125,7 @@
                             </div>
                             </div>
                             <div class="icon">
-                                x
+                               
                             </div>
                         </div>
                     </div>

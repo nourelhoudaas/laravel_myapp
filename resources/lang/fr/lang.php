@@ -13,6 +13,7 @@ return [
     'list_cng'=>'Liste des Congés',
     'msg'=>'Messages',
     'notf'=>'Notifications',
+    'prof_set'=>'Paramatere Du Profile',
 
     'ctrl_abs'=>'Controll D absences',
     'ctrl_cng'=>'Controll De Congé',
@@ -27,8 +28,14 @@ return [
     'edit'=>'Edit',
     'tran'=>'Transferer',
     'files'=>'Dossier',
-    'famill'=>'',
+    'famill'=>'Situation ',
     'stitua_fam'=>'Situation Familliale',
+
+    'cel'=>'Celebatiare',
+    'marie'=>'Marie',
+    'divor'=>'Divorce',
+    'veu'=>'Veuve',
+
     'children'=>'Nombre Enfants',
     'educ'=>'Niveau Education',
     'nbr_destop'=>'',
@@ -53,10 +60,20 @@ return [
     'term_cng'=>'Congé Annuel',
     'exp_cng'=>'Congé Exceptionnel',
     'slct_dept'=>'Séléctionner la Direction',
+    'slct_sous_dept'=>'Séléctionner la Sous Direction',
     'slct_type_cng'=>'Séléctionner le Titre du Congé',
+    'slct_post'=>'Séléctionner le Titre du Poste',
     'nbr_jour'=>'Nombres de jours Restants',
     'ver_cng'=>'Passer Vers Le Congé',
-
+    
+    
+    'ref_dipl'=>'Referrence Du Diplôme',
+    'spec_dipl'=>'Specialité',
+    'slct_spec_dipl'=>'Selection La Specialité',
+    'filier_dipl'=>'Filiere',
+    'nom_dipl'=>'Diplome',
+    'slct_nom_dipl'=>'Selection Le Diplome',
+    'dat_optn_dipl'=>'Date Obtenuation de Diplome',
 
     'motif'=>'Motif',
     'period'=>'Period',
