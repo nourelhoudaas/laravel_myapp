@@ -101,13 +101,17 @@ Route::controller(DepartmentController::class)->group(function(){
 
 //Route::get('/BioTemplate/{id}',[BioEmployeControl::class,'create'])->name('BioTemplate.index');
 Route::middleware('auth')->group(function () {
-Route::post('/Employe/add',[AddEmployeControll::class,'add']);
+Route::controller(AddEmployeControll::class)->group(function(){
+    Route::post('/Employe/add','add');
+    Route::post('/Employe/Travaill','addToDep')->name('Employe.travaill');
+    Route::get('/Employe/IsTravaill/{id}','existToAdd')->name('Employe.istravaill');
+    Route::post('/Employe/addApp','existToAddApp');
+    Route::post('/Employe/Generat','GenDecision');
+    Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
+});
+});
+Route::middleware('auth')->group(function () {
 Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');
-Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
-Route::get('/Employe/IsTravaill/{id}',[AddEmployeControll::class,'existToAdd'])->name('Employe.istravaill');
-Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp']);
-Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision']);
-Route::get('/Employe/IsEducat/{id}',[AddEmployeControll::class,'existApp'])->name('Employe.iseducat');
 Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploadFile');
 Route::post('/upload/creedossier',[UploadFile::class,'cree_dos_sous'])->name('cree_doss_emp');
 Route::get('/upload/getFiles/{id}',[UploadFile::class,'getFiles'])->name('getfile_all_emp');

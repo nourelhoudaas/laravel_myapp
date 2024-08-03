@@ -14,6 +14,11 @@ return [
     'msg'=>'Messages',
     'notf'=>'Notifications',
     'prof_set'=>'Paramatere Du Profile',
+    'mail'=>'Email',
+    'slct_mail'=>' enter Email',
+    'NIN'=>'Numero Identif Nationnal',
+    'NSS'=>'Numero du Securite Social',
+    'ID_p'=>'IDentification Professionnel',
 
     'ctrl_abs'=>'Controll D absences',
     'ctrl_cng'=>'Controll De Congé',
@@ -25,11 +30,15 @@ return [
     'surname'=>'Prénom',
     'birtday'=>'Date de Naissance',
     'plc'=>'Lieu de Naissance',
+    'sx'=>'sexe',
+    'sx_ma'=>'Male',
+    'sx_fm'=>'Female',
     'edit'=>'Edit',
     'tran'=>'Transferer',
     'files'=>'Dossier',
     'famill'=>'Situation ',
     'stitua_fam'=>'Situation Familliale',
+    'slct_famill'=>' Selectionner Votre Situation',
 
     'cel'=>'Celebatiare',
     'marie'=>'Marie',
@@ -65,6 +74,7 @@ return [
     'slct_post'=>'Séléctionner le Titre du Poste',
     'nbr_jour'=>'Nombres de jours Restants',
     'ver_cng'=>'Passer Vers Le Congé',
+    
     
     
     'ref_dipl'=>'Referrence Du Diplôme',

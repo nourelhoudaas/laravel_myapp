@@ -23,7 +23,7 @@
   </div>
   <div class="stepper-item">
     <div class="step-counter">4</div>
-    <div class="step-name">{{ __('lang.generat') }}  </div>
+    <div class="step-name">{{ __('lang.generat') }} </div>
   </div>
 </div>
 <div class="container rounded bg-white mt-5 mb-5">
@@ -59,12 +59,13 @@
                         <option value="">{{__('lang.slct_spec_dipl')}}</option>
                             @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
-                            {
+                            
                                 <option value="{{$niv->Specialité}}">{{$niv->Specialité_ar}}</option>
-                            }else
-                            {
+                            
+                            @else
+                            
                                 <option value="{{$niv->Specialité}}">{{$niv->Specialité}}</option>
-                            }
+                            
                             @endif
                             @endforeach
                         </select>
@@ -81,12 +82,13 @@
                             <option value="">{{__('lang.slct_nom_dipl')}}</option>
                             @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
-                            {
+                            
                                 <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv_ar}}</option>
-                            }else
-                            {
+                            
+                            @else
+                            
                                 <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv}}</option>
-                            }
+                            
                             @endif
                             @endforeach
                         </select>

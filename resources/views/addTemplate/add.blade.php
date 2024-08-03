@@ -52,11 +52,11 @@ $id=0;
                 </div>
                 <div class="row mt-2">
                 <div class="col-md-12">
-                        <label class="labels">NIN</label>
+                        <label class="labels">{{__('lang.NIN')}}</label>
                         <input type="text" class="form-control" placeholder="NIN" value="" id="ID_NIN">
                     </div>
                     <div class="col-md-12">
-                        <label class="labels">Numero Securite Social</label>
+                        <label class="labels">{{__('lang.NSS')}}</label>
                         <input type="text" class="form-control" placeholder="NSS" value="" id="ID_SS">
                     </div>
                     <div class="col-md-6">
@@ -81,8 +81,8 @@ $id=0;
                 <div class="row mt-3">
                     <div class="col-md-12">
 
-                        <label class="labels">Numéro de téléphone</label>
-                        <input type="text" class="form-control" placeholder="enter Numero" value="" id="PHONE_NB">
+                        <label class="labels">{{__('lang.num_tel')}}</label>
+                        <input type="text" class="form-control" placeholder="{{__('lang.slct_num_tel')}}" value="" id="PHONE_NB">
                     </div>
                     <div class="col-md-12">
                         <label class="labels">Address</label>
@@ -107,8 +107,8 @@ $id=0;
                     </div>
                 </div>
                     <div class="col-md-12">
-                        <label class="labels">Email ID</label>
-                        <input type="text" class="form-control" placeholder="enter email" value="" id="EMAIL">
+                        <label class="labels">{{__('lang.mail')}}</label>
+                        <input type="text" class="form-control" placeholder="{{__('lang.slct_mail')}}" value="" id="EMAIL">
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -116,8 +116,8 @@ $id=0;
                     <label class="labels">{{ __('lang.sx') }} </label>
                        <select name="sexe" id="Sexe"class="form-select form-select-lm mb-3" aria-label="Default select example">
                             <option value=""></option>
-                            <option value="Femme">Femme</option>
-                            <option value="Homme">Homme</option>
+                            <option value="{{ __('lang.sx_ma') }}">{{ __('lang.sx_ma') }}</option>
+                            <option value="{{ __('lang.sx_fm') }}">{{ __('lang.sx_fm') }}</option>
                         </select>
                     </div>
                     <hr>

@@ -6,7 +6,7 @@
 
 @php
     $uid=auth()->id();
-    @endphp
+@endphp
 <body>
 
 <div class="" id="prog-add">
@@ -50,7 +50,7 @@
                 </div>
                 <div class="row mt-2">
                 <div class="col-md-12">
-                        <label class="labels">IDentification Professionnel</label>
+                        <label class="labels">{{__('lang.ID_p')}}</label>
                         <input type="text" class="form-control" placeholder="" value="{{$employe->id_emp}}" id="IDP" disabled>
                     </div>
                     <div class="col-md-6">
@@ -59,13 +59,13 @@
                             <option>{{__('lang.slct_dept')}}</option>
                               @foreach($dbdirection as $dbd)
                               @if(app()->getLocale() == 'ar')
-                              {
+                              
                               <option value='{{$dbd->id_depart}}'>{{$dbd->Nom_depart_ar}}</option>
-                              }
-                              else
-                              {
+                              
+                              @else
+                              
                               <option value='{{$dbd->id_depart}}'>{{$dbd->Nom_depart}}</option>
-                              }
+                              
                               @endif
                               @endforeach
                         </select>
@@ -76,12 +76,12 @@
                         <option>{{__('lang.slct_sous_dept')}}</option>
                         @foreach($dbsdirection as $dic)
                               @if (app()->getLocale() == 'ar')
-                              {
+                              
                                 <option value="{{$dic->id_sous_depart}}">{{$dic->Nom_sous_depart_ar}}</option>
-                              }else
-                              {
+                              @else
+                              
                                 <option value="{{$dic->id_sous_depart}}">{{$dic->Nom_sous_depart}}</option>
-                              }
+                              
                               @endif
                         @endforeach
                         </select>
@@ -94,12 +94,12 @@
                         <option>{{__('lang.slct_post')}}</option>
                         @foreach($dbpost as $post)
                         @if (app()->getLocale() == 'ar')
-                        {
+                        
                             <option value='{{$post->id_post}}'>{{$post->Nom_post_ar}}</option>
-                        }else
-                        {
+                        @else
+                        
                             <option value='{{$post->id_post}}'>{{$post->Nom_post}}</option>
-                        }
+                        
                         @endif
                         @endforeach
                         </select>
