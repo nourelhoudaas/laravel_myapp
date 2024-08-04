@@ -50,6 +50,8 @@
                  $('.list-group-item').removeClass('file-fr')
                  $('.list-group').addClass('pad-ar')
                  $('.list-group').removeClass('pad-fr')
+                 $('#vers-cng').removeClass('add-handler-fr')
+                 $('#vers-cng').addClass('add-handler-ar')
 
 
              }
@@ -67,6 +69,8 @@
                  $('.list-group-item').removeClass('file-ar')
                  $('.list-group').addClass('pad-fr')
                  $('.list-group').removeClass('pad-ar')
+                 $('#vers-cng').removeClass('add-handler-ar')
+                 $('#vers-cng').addClass('add-handler-fr')
              }
          })
 

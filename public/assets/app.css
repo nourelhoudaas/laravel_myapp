@@ -1227,7 +1227,18 @@ cursor:not-allowed ;
 .close-formcg-btn:hover {
   background-color: #c82333;
 }
-.add-handler
+.add-handler-ar
+{
+  margin: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: rgba(245, 245, 245, 0.849);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.add-handler-fr
 {
   margin: 5px;
   width: 50px;
@@ -1238,7 +1249,7 @@ cursor:not-allowed ;
   bottom: 0;
   right: 0;
 }
-.add-handler:hover
+#vers-cng:hover
 {
   background-color: rgba(245, 245, 245, 0.849);
   box-shadow: 0 0 20px rgba(56, 255, 56, 0.993);
@@ -1332,8 +1343,6 @@ cursor: pointer;
 .show-overlay {
   display: block;
 }
-<<<<<<< HEAD
-=======
 .file-ar
 {
   text-align: right;
@@ -1350,4 +1359,3 @@ text-align: left;
 {
   padding-left: 0;
 }
->>>>>>> ad9abe88322218c26a5fb58f44116943363aa4a9
