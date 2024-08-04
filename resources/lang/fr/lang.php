@@ -22,7 +22,7 @@ return [
 
     'ctrl_abs'=>'Controll D absences',
     'ctrl_cng'=>'Controll De Congé',
-    'lst_emp'=>'List Des Employés',
+    'lst_emp'=>'Liste Des Employés',
     'nbr_abs'=>'Absence',
     'nbr_all_users'=>'Total des Employés',
     'nbr_pres'=>'Présence',
@@ -133,7 +133,10 @@ return [
     'rememberme'=>'Souviens-toi de moi',
     'forgotpass'=>'Mot de passe Oublié ?',
     'reason'=>'Veuillez saisir ou discuter la raison pour laquelle vous avez oublié votre mot de passe',
-    'envoiforgotpass'=>'Envoyer'
+    'envoiforgotpass'=>'Envoyer',
+    'Departementde'=>' Direction de',
+    'posttheo'=>'Postes Théoriques',
+    'postttt'=>'Postes Approuvés'
 
 ];
 

@@ -49,8 +49,7 @@ class HomeController extends Controller
         $totalEmployes= $employe->count();
 
         $empdepart=Departement::get();
-
-     //   dd($employe);
+       
         return view('home.dashboard',compact('employe','totalEmployes','empdepart'));
     }
 

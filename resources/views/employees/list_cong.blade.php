@@ -1,5 +1,6 @@
 @php
     use Carbon\Carbon;
+    $locale = app()->getLocale();
 @endphp
 
  
@@ -62,14 +63,32 @@
                         <select name="type-conge" type="text" class="form-select form-select-lm mb-3" id="type-conge">
                             <option value="">{{ __('lang.slct_type_cng') }}</option>
                             @foreach($typecon as $typeconges)
-                            <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong}}</option>
+                                    @php
+                                        $locale = app()->getLocale();
+                                    @endphp
+
+                                    @if ($locale == 'fr')
+                                         <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong}}</option>
+                                    @elseif ($locale == 'ar')
+                                        <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong_ar}}</option>
+                                    @endif
+                           
                             @endforeach
                         </select>
                         <hr>
                         <select type="text" class="form-select" id="Dep">
                             <option value="">{{ __('lang.slct_dept') }}</option>
                             @foreach($empdepart as $empdeparts)
-                            <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart}}</option>
+                                 @php
+                                        $locale = app()->getLocale();
+                                 @endphp
+
+                                 @if ($locale == 'fr')
+                                        <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart}}</option>
+                                 @elseif ($locale == 'ar')
+                                        <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart_ar}}</option>
+                                 @endif
+                            
                             @endforeach
                         </select>
                     </div>
@@ -90,19 +109,58 @@
                                     <th>{{ __('lang.stuation') }}</th>
                                 </tr>
                             </thead>
-                                @foreach($emptypeconge as $employe)
+                            @foreach($emptypeconge as $employe)
                                     @foreach($employe->congeIdNin as $conge)
                                         <tr>
-                                            <td>{{ $employe->Nom_emp }}</td>
-                                            <td>{{ $employe->Prenom_emp }}</td>
+                                            <td>
+                                                  @if ($locale == 'fr')
+                                                    {{ $employe->Nom_emp }}
+                                                 @elseif ($locale == 'ar')
+                                                    {{ $employe->Nom_ar_emp }}
+                                                 @endif
+                                            </td>
+                                            <td> 
+                                                @if ($locale == 'fr')
+                                                  {{ $employe->Prenom_emp }}
+                                                @elseif ($locale == 'ar')
+                                                  {{ $employe->Prenom_ar_emp }}
+                                                @endif
+                                            </td>
                                             <td>{{ $employe->Phone_num }}</td>
-                                            <td>{{ $employe->occupeIdNin->last()->post->Nom_post ?? 'N/A' }}</td>
-                                            <td>{{ $employe->travailByNin->last()->sous_departement->Nom_sous_depart ?? 'N/A' }}</td>
-                                            <td>{{ $conge->type_conge->titre_cong ?? 'N/A' }}</td>
+
+                                            <td>
+                                                @if ($locale == 'fr')
+                                                     {{ $employe->occupeIdNin->last()->post->Nom_post ?? 'N/A' }}
+                                                  @elseif ($locale == 'ar')
+                                                     {{  $employe->occupeIdNin->last()->post->Nom_post_ar ?? 'N/A' }}
+                                                @endif
+                                           </td>
+
+                                            <td>
+                                                @if ($locale == 'fr')
+                                                    {{ $employe->travailByNin->last()->sous_departement->Nom_sous_depart ?? 'N/A'   }}
+                                                @elseif ($locale == 'ar')
+                                                    {{$employe->travailByNin->last()->sous_departement->Nom_sous_depart_ar ?? 'N/A'  }}
+                                                @endif
+                                            </td>
+
+                                            <td>
+                                                @if ($locale == 'fr')
+                                                    {{ $conge->type_conge->titre_cong ?? 'N/A'  }}
+                                                @elseif ($locale == 'ar')
+                                                    {{ $conge->type_conge->titre_cong_ar?? 'N/A' }}
+                                                @endif
+                                            </td>
                                             <td>{{ $conge->date_debut_cong }}</td>
                                             <td>{{ $conge->date_fin_cong }}</td>
                                             <td>{{ floor(Carbon::parse($today)->diffInDays($conge->date_fin_cong)) }}</td>
-                                            <td>{{ $conge->situation }}</td>
+                                            <td>
+                                                @if ($locale == 'fr')
+                                                    {{ $conge->situation }}
+                                                @elseif ($locale == 'ar')
+                                                    {{ $conge->situation_AR }}
+                                                @endif
+                                               </td>
                                         </tr>
                                     @endforeach
                                 @endforeach
@@ -226,19 +284,32 @@
                 response.forEach(employe => {
                     const row = document.createElement("tr");
                     row.classList.add("employee-row");
-                    row.innerHTML = '<td>'+employe.Nom_emp+'</td>'+
-                                    ' <td>'+employe.Prenom_emp+'</td>'+
-                                    ' <td>'+employe.Phone_num+'</td>'+
-                                    '  <td>'+employe.Nom_post+'</td>'+
-                                '   <td>'+employe.Nom_sous_depart+'</td>'+
-                                    ' <td>'+employe.titre_cong+'</td>'+
-                                    '<td>'+employe.date_debut_cong+'</td>'+
-                                    '  <td>'+employe.date_fin_cong+'</td>'+
-                                    '  <td>'+employe.joursRestants+'</td>'+
-                                    ' <td>'+employe.situation+'</td>;'
-                    employeeTableBody.appendChild(row);
-                });
-            },
+                    if (lng === 'fr') {
+                row.innerHTML = '<td>' + employe.Nom_emp + '</td>' +
+                                '<td>' + employe.Prenom_emp + '</td>' +
+                                '<td>' + employe.Phone_num + '</td>' +
+                                '<td>' + employe.Nom_post + '</td>' +
+                                '<td>' + employe.Nom_sous_depart + '</td>' +
+                                '<td>' + employe.titre_cong + '</td>' +
+                                '<td>' + employe.date_debut_cong + '</td>' +
+                                '<td>' + employe.date_fin_cong + '</td>' +
+                                '<td>' + employe.joursRestants + '</td>' +
+                                '<td>' + employe.situation + '</td>';
+            } else if (lng === 'ar') {
+                row.innerHTML = '<td>' + employe.Nom_ar_emp + '</td>' +
+                                '<td>' + employe.Prenom_ar_emp + '</td>' +
+                                '<td>' + employe.Phone_num + '</td>' +
+                                '<td>' + employe.Nom_post_ar + '</td>' +
+                                '<td>' + employe.Nom_sous_depart_ar + '</td>' +
+                                '<td>' + employe.titre_cong_ar + '</td>' +
+                                '<td>' + employe.date_debut_cong + '</td>' +
+                                '<td>' + employe.date_fin_cong + '</td>' +
+                                '<td>' + employe.joursRestants + '</td>' +
+                                '<td>' + employe.situation_AR + '</td>';
+            }
+            employeeTableBody.appendChild(row);
+        });
+    },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error:', textStatus, errorThrown);
             }
@@ -246,5 +317,7 @@
 
         } 
             }
+        
+    
     </script>
     @endsection

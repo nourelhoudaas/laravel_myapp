@@ -14,7 +14,7 @@ protected $table='sous_departements';
 protected $primaryKey = 'id_sous_depart';
     public $incrementing = true; 
     protected $keyType = 'integer'; 
-    public $timestamps = false; 
+    public $timestamps = false;
 
 protected $fillabel=['id_sous_depart',	'id_depart',	'Nom_sous_depart',	'Descriptif_sous_depart','Nom_sous_depart_ar','Descriptif_sous_depart_ar'];
 

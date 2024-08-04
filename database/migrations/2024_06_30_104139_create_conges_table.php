@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('date_fin_cong');
             $table->string('situation');
             $table->integer('nbr_jours');
+            $table->string('situation_AR');
             $table->string('ref_cong')->unique();
             $table->integer('id_nin');
             $table->integer('id_sous_depart');
@@ -34,8 +35,10 @@ return new class extends Migration
                 'id_cong' => 1,
                 'date_debut_cong' => '2024-08-10',
                 'date_fin_cong' => '2024-08-20',
-                'nbr_jours' =>'10',
                 'situation' => 'algérie',
+                'nbr_jours' =>'10',
+                
+                'situation_AR'=>'داخل الجزائر',
                 'ref_cong'=>'RF001',
                 'id_sous_depart'=>15,
                 'id_nin'=>1254953,
@@ -49,6 +52,7 @@ return new class extends Migration
                 'date_fin_cong' => '2024-07-22',
                 'nbr_jours' =>'2',
                 'situation' => 'algérie',
+                'situation_AR'=>'خارج الجزائر',
                 'ref_cong'=>'RF002',
                 'id_sous_depart'=>10,
                 'id_nin'=>254896989,
