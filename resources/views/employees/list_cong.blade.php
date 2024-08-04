@@ -65,7 +65,10 @@
                             @foreach($typecon as $typeconges)
                                     @php
                                         $locale = app()->getLocale();
-                                    @endphp
+                                      /*  if ($locale == 'ar') {
+                                            dd($typeconges->titre_cong_ar); 
+                                                }*/
+                                        @endphp
 
                                     @if ($locale == 'fr')
                                          <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong}}</option>
@@ -153,7 +156,7 @@
                                             </td>
                                             <td>{{ $conge->date_debut_cong }}</td>
                                             <td>{{ $conge->date_fin_cong }}</td>
-                                            <td>{{ floor(Carbon::parse($today)->diffInDays($conge->date_fin_cong)) }}</td>
+                                            <td>{{ floor(Carbon::parse($today)->diffInDays($conge->date_fin_cong)+2) }}</td>
                                             <td>
                                                 @if ($locale == 'fr')
                                                     {{ $conge->situation }}
