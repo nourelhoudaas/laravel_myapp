@@ -97,17 +97,49 @@
                     $travail = $employe->travailByNin->last();
                     $sousDepartement = $travail->sous_departement;
                     $departement = $sousDepartement->departement ;
+                    $locale = app()->getLocale();
                 @endphp
-                <tr>
-                <td>
-                                        <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</a>
-                                    </td>    <td>{{ $employe->Prenom_emp }}</td>
-                    <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
-                    <td>{{ $employe->occupeIdNin->last()->date_recrutement  }}</td>
-                    <td>{{ $post->Nom_post }}</td>
-                    <td>{{ $sousDepartement->Nom_sous_depart }}</td>
-                    <td>{{ $departement->Nom_depart  }}</td>
-                    <td>{{ $travail->date_installation }}</td>
+                  <tr>
+                         <td>
+                            <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
+                            @if ($locale == 'fr')
+                                 {{ $employe->Nom_emp }}
+                             @elseif ($locale == 'ar')
+                                 {{ $employe->Nom_ar_emp }}
+                            @endif
+                            </a>
+                         </td>
+                         <td>
+                             @if ($locale == 'fr')
+                                {{ $employe->Prenom_emp }}
+                             @elseif ($locale == 'ar')
+                               {{ $employe->Prenom_ar_emp }}
+                             @endif
+                        </td>
+                        <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
+                        <td>{{ $employe->occupeIdNin->last()->date_recrutement  }}</td>
+                        <td>
+                            @if ($locale == 'fr')
+                              {{ $post->Nom_post }}
+                            @elseif ($locale == 'ar')
+                              {{  $post->Nom_post_ar }}
+                            @endif
+                        </td>
+                        <td>
+                             @if ($locale == 'fr')
+                              {{  $departement->Nom_depart  }}
+                            @elseif ($locale == 'ar')
+                              {{ $departement->Nom_depart_ar  }}
+                            @endif
+                        </td>
+                        <td>
+                             @if ($locale == 'fr')
+                               {{  $sousDepartement->Nom_sous_depart }}
+                            @elseif ($locale == 'ar')
+                               {{  $sousDepartement->Nom_sous_depart_ar }}
+                            @endif
+                        </td>
+                        <td>{{ $travail->date_installation }}</td>
                 
                 </tr>
             @endforeach

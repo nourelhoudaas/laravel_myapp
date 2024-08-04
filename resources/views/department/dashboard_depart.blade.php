@@ -29,7 +29,7 @@
                     <div class="middle">
                         <div class="left">
                             <h3>Total Employees</h3>
-                            <h1 id="total-employees">$totalEmpDep</h1>
+                            <h1 id="total-employees">{{$totalEmpDep}}</h1>
                         </div>
 
                     </div>
@@ -70,7 +70,7 @@
             <!-- start resent order -->
 
             <div class="recent_order">
-                <h1>List Employees</h1>
+                <h1>{{ __('lang.lst_emp') }}</h1>
                 <table>
                     <thead>
                         <tr>
@@ -78,7 +78,7 @@
     <tr>
     <th>
     <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_emp', 'direction' => ($champs == 'Nom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-                NOM
+             {{ __('lang.name') }}
                 @if($champs == 'Nom_emp')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -86,7 +86,7 @@
         </th>
         <th>
             <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Prenom_emp', 'direction' => ($champs == 'Prenom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-            PRENOM
+            {{ __('lang.surname') }}
                 @if($champs == 'Prenom_emp')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -94,7 +94,7 @@
         </th>
         <th>
             <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'age', 'direction' => ($champs == 'age' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-            Age
+            {{ __('lang.age') }}
                 @if($champs == 'age')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -102,7 +102,7 @@
         </th>
         <th>
             <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'date_recrutement', 'direction' => ($champs == 'date_recrutement' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-            Date Recrutement
+            {{ __('lang.date_rec') }}
                 @if($champs == 'date_recrutement')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -110,7 +110,7 @@
         </th>
         <th>
             <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_post', 'direction' => ($champs == 'Nom_post' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-            Poste
+            {{ __('lang.post') }}
                 @if($champs == 'Nom_post')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -118,7 +118,7 @@
         </th>
         <th>
             <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_sous_depart', 'direction' => ($champs == 'Nom_sous_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-           Sous Direction
+            {{ __('lang.sous_dept') }}
             @if($champs == 'Nom_sous_depart')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -126,7 +126,7 @@
         </th>
         <th>
             <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'date_installation', 'direction' => ($champs == 'date_installation' && $direction == 'asc') ? 'desc' : 'asc']) }}">
-           Date Installation
+            {{ __('lang.date_inst') }}
                 @if($champs == 'date_installation')
                     {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                 @endif
@@ -146,17 +146,44 @@
                                     $post = $employe->occupeIdNin->last()->post ;
                                     $travail = $employe->travailByNin->last();
                                     $sousDepartement = $travail->sous_departement;
-
+                                    $locale = app()->getLocale();
                                 @endphp
                                 <tr>
                                 <td>
-                                    <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">{{ $employe->Nom_emp }}</a>
+                                    <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
+                                             @if ($locale == 'fr')
+                                                    {{ $employe->Nom_emp }}
+                                            @elseif ($locale == 'ar')
+                                                  {{ $employe->Nom_ar_emp }}
+                                            @endif
+                                    </a>
                                 </td>
-                                    <td>{{ $employe->Prenom_emp }}</td>
+                                    <td>
+                                        @if ($locale == 'fr')
+                                            {{ $employe->Prenom_emp }}
+                                        @elseif ($locale == 'ar')
+                                        {{ $employe->Prenom_ar_emp }}
+                                        @endif
+                                    </td>
+                               
                                     <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
                                     <td>{{ $employe->occupeIdNin->last()->date_recrutement  }}</td>
-                                    <td>{{ $post->Nom_post }}</td>
-                                    <td>{{ $sousDepartement->Nom_sous_depart }}</td>
+
+                                    <td>
+                                        @if ($locale == 'fr')
+                                            {{ $post->Nom_post }}
+                                        @elseif ($locale == 'ar')
+                                             {{  $post->Nom_post_ar }}
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if ($locale == 'fr')
+                                            {{  $sousDepartement->Nom_sous_depart }}
+                                        @elseif ($locale == 'ar')
+                                            {{  $sousDepartement->Nom_sous_depart_ar }}
+                                        @endif
+                                    </td>
 
                                     <td>{{ $travail->date_installation }}</td>
 

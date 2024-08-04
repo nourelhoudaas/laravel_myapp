@@ -20,7 +20,7 @@ body {
 
 
 
-/* Style pour la carte de connexion */
+
 .login-card {
     width: 600px;
     height: 850px;
@@ -35,7 +35,6 @@ body {
    
 }
 
-/* Style pour le logo */
 .login-card .logo {
     text-align: center;
     margin-bottom: 1rem;
@@ -47,7 +46,7 @@ body {
     height: 250px;
 }
 
-/* Style pour les titres */
+
 .login-card h1 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -58,15 +57,15 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Style pour le textarea */
+
 .login-card .textarea {
     resize: vertical;
     min-height: 200px;
-    overflow:scroll;/* Ajoute une barre de défilement verticale si nécessaire */
+    overflow:scroll;
     
 }
 
-/* Style pour le bouton de soumission */
+
 .login-card .btn-primary {
     background-color: #000080; ;
     border-color: #007bff;
@@ -74,7 +73,7 @@ body {
     font-size: 1rem;
     border-radius: 4px;
     transition: background-color 0.3s, border-color 0.3s;
-    margin-top:40px;
+    margin-top:10px;
     width:100%;
 }
 

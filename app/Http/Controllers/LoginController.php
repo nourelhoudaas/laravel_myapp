@@ -153,7 +153,7 @@ public function existIDNIN()
     public function forgotPassword(Request $request)
     {
         return view('auth.forgot_password');
-    
+
     }
 
     public function checkUsername(Request $request)
@@ -167,12 +167,33 @@ public function existIDNIN()
             }
         }
 
-    public function sendResetLinkEmail(Request $request)
-    {
-  
-    
-    }
+        public function sendResetLinkEmail(Request $request)
+            {   
+                $request->validate([
+                'username' => 'required|string',
+                'reason' => 'required|string',
+            ]);
 
+            $user = User::where('username', $request->username)->first();
+
+            if (!$user) {
+                return redirect()->route('login')->with('erreur', 'Le mot d'/'utilisateur n'/'est pas trouvé ');
+            }
+
+            $emailData = [
+                'username' => $request->username,
+                'reason' => $request->reason,
+            ];
+
+            Mail::raw("Username: {$emailData['username']}\nReason: {$emailData['reason']}", function($message) {
+                $message->to('fadiaboumediene@gmail.com') 
+                        ->subject('Mot de passe oublié - Raison fournie')
+                        ->from(config('mail.from.address'), config('mail.from.name'));
+            });
+
+            return back()->with('status', 'Votre réponse a été envoyé avec success ');
+        }
+            
 
 
 

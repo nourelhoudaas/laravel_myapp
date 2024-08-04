@@ -4,37 +4,42 @@
 
 @section('content')
 <style>
-
 body {
     font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        background: linear-gradient(to left, #f5f5f5, #000080); /* Dégradé beige clair à bleu clair */
-        background-repeat: no-repeat;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(to left, #f5f5f5, #000080); /* Dégradé beige clair à bleu clair */
+    background-size: cover; /* Assure que l'image de fond couvre l'intégralité de l'écran */
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
-
+.full-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh; /* Assure que le conteneur prend toute la hauteur de la vue */
+    overflow: hidden; /* Évite les débordements */
+}
 
 .login-card {
     background: white;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 600px;
-    height: 850px;
-
+    width: 90%;
+    max-width: 600px;
+    min-height: 400px; /* Modifiez cette valeur pour ajuster la hauteur minimale */
     display: flex;
     flex-direction: column;
     align-items: center; /* Centre horizontalement tous les enfants */
     position: relative;
-
-
+    border: 2px solid #000080; /* Ajoute une bordure bleue foncée de 2px */
 }
 
 .logo {
@@ -42,9 +47,10 @@ body {
 }
 
 .logo img {
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
 }
+
 h1, h2 {
     margin-bottom: 1.5rem;
     color: #333;
@@ -52,12 +58,13 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 1.5rem;
+    font-size: 1.5rem; 
 }
 
 h2 {
-    font-size: 1.25rem;
+    font-size: 1.25rem; 
 }
+
 .form-group {
     width: 100%;
 }
@@ -77,7 +84,7 @@ h2 {
 }
 
 .form-control:focus {
-    border-color: #000080;
+    border-color: #000080; 
     outline: none;
 }
 
@@ -86,7 +93,7 @@ h2 {
 }
 
 .btn-primary {
-    background: #000080;
+    background: #000080; 
     border: none;
     border-radius: 5px;
     color: white;
@@ -94,12 +101,12 @@ h2 {
     padding: 0.75rem;
     cursor: pointer;
     transition: background 0.3s;
-    width: 100%;
-    margin-top:20px;
+    width: 100%; 
+    margin-top: 20px;
 }
 
 .btn-primary:hover {
-    background: #000080;
+    background: #000080; 
 }
 
 .text-muted {
@@ -111,7 +118,7 @@ h2 {
 .text-end {
     text-align: right;
     margin-bottom: 1rem;
-    margin-top:20px
+    margin-top: 20px;
 }
 
 /* Styles spécifiques aux alignements */
@@ -121,8 +128,8 @@ h2 {
 }
 
 .form-group .form-check {
-    text-align: left;
-    margin-top:20px;/* Assure que "Souviens-toi de moi" est aligné à gauche */
+    text-align: left; 
+    margin-top: 20px; /* Assure que "Souviens-toi de moi" est aligné à gauche */
 }
 
 .form-group .form-check input {
@@ -131,6 +138,30 @@ h2 {
 
 .form-group .form-check label {
     margin-left: 0.5rem;
+}
+
+/* Styles pour les petits écrans */
+@media (max-width: 600px) {
+    .logo img {
+        width: 100px;
+        height: 100px;
+    }
+    .login-card {
+        padding: 1rem;
+    }
+    h1 {
+        font-size: 1.25rem;
+    }
+    h2 {
+        font-size: 1rem;
+    }
+    .form-control {
+        padding: 0.5rem;
+    }
+    .btn-primary {
+        font-size: 0.875rem;
+        padding: 0.5rem;
+    }
 }
 </style>
 <div class="full-page">
@@ -192,9 +223,9 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault(); // Empêche le comportement par défaut du lien
 
         var username = document.getElementById('username').value; // récupère la val du champ username
-            //si le nom d'utilisateur existe
+            //si usrname existe
         if (username) {
-
+            
             fetch("{{ route('checkUsername') }}?username=" + encodeURIComponent(username))
                 .then(response => response.json())
                 .then(data => {
