@@ -57,6 +57,13 @@ return [
     'date_archi'=>'Date Archivage',
     'date_insrt'=>'Date Insertion',
     'post'=>'Poste',
+    'post_grad'=>'Grade',
+    'post_echl'=>'Echellant',
+    'obs'=>'Observation',
+    'obs_dic'=>'Observation dit par sont directeur',
+    'note'=>'la Note',
+    'start'=>'Depuis',
+
     'age'=>'Age',
     'sous_dept'=>'Sous Direction',
     'dept'=>'Direction',

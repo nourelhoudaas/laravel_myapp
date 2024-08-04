@@ -207,7 +207,9 @@
                                                 'occupes.date_recrutement',
                                                 'occupes.echellant',
                                                 'departements.Nom_depart',
-                                                'sous_departements.Nom_sous_depart',)
+                                                'departements.Nom_depart_ar',
+                                                'sous_departements.Nom_sous_depart',
+                                                'sous_departements.Nom_sous_depart_ar',)
                                                 ->orderBy('occupes.date_recrutement','desc')
                                                 ->first();
                     array_push($postarr,$inter)  ;                     
