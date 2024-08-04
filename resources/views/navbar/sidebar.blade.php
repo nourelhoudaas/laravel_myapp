@@ -70,9 +70,17 @@
                                     <div class="nav__dropdown-content">
 
                                     @foreach($empdepart as $empdepart)
-                                        <a href="{{route('app_dashboard_depart',['dep_id'=>$empdepart->id_depart])}}"
-                                        class="nav__dropdown-item">{{$empdepart->Nom_depart}}
-                                        </a>
+                                    @php
+                                        $locale = app()->getLocale();
+                                    @endphp
+                                    <a href="{{ route('app_dashboard_depart', ['dep_id' => $empdepart->id_depart]) }}" 
+                                    class="nav__dropdown-item">
+                                        @if ($locale == 'fr')
+                                             {{ $empdepart->Nom_depart }}
+                                        @elseif ($locale == 'ar')
+                                             {{ $empdepart->Nom_depart_ar }}
+                                        @endif
+                                    </a>
                                     @endforeach
                                     </div>
                                     <a href="{{route('app_add_depart',['dep_id'=>$empdepart->id_depart])}}" class="nav__link">
