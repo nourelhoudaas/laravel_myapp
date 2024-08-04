@@ -99,7 +99,9 @@ return [
     'rememberme'=>'Souviens-toi de moi',
     'forgotpass'=>'Mot de passe Oublié ?',
     'reason'=>'Veuillez saisir ou discuter la raison pour laquelle vous avez oublié votre mot de passe',
-    'envoiforgotpass'=>'Envoyer'
+    'envoiforgotpass'=>'Envoyer',
+    'nom-direct'=>'Nom Direction'
+
 
 ];
 

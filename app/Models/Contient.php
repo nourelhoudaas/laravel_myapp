@@ -11,10 +11,10 @@ class Contient extends Model
 
     protected $table = 'contients';
     protected $primaryKey = 'id_contient';
-    public $incrementing = true; 
-    protected $keyType = 'integer'; 
+    public $incrementing = true;
+    protected $keyType = 'integer';
     public $timestamps = false;
-   
+
 
     protected $fillable = [ 'id_contient','id_post','id_sous_depart'];
 
@@ -29,4 +29,3 @@ class Contient extends Model
 
 }
 
-   

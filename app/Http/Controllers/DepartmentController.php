@@ -23,14 +23,14 @@ class DepartmentController extends Controller
 return view('department.liste', compact('empdepart','departements'));
 
     }
-    public function edit(Departement $departement)
+   /* public function edit(Departement $departement)
     {
 
 
 
 return view('department.edit', compact('departement'));
 
-    }
+    }*/
 
 
     public function dashboard_depart(Request $request,$dep_id)
@@ -243,6 +243,31 @@ return view('department.dashboard_depart', compact('empdep','empdepart','nom_d',
             'code'=>200
         ]);*/
     }
+    public function editer($id)
+    {
+  $departement= Departement::where('id_depart',$id)->get();
+  $empdepart=Departement::get();
+
+        return view('department.editer', compact('departement','empdepart'));
+    }
+    public function update(Request $request, Departement $departement)
+    {
+        $request->validate([
+
+            'Nom_depart' => 'required',
+            'Descriptif_depart' => 'required',
+            'Nom_depart_ar' => 'required',
+            'Descriptif_depart_ar' => 'required',
+
+        ]);
+
+        $departement->update($request->all());
+
+        return redirect('/departements')->with('success', 'Direction mis à jour avec succès.');
+    }
+
+
+
     public function destroy(Departement $dept)
     {
         $dept->delete();

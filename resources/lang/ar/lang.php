@@ -93,7 +93,8 @@ return [
     'rememberme'=>'تذكرني',
     'forgotpass'=>'نسيت كلمة السر ؟',
     'reason'=>'يرجى إدخال أو مناقشة سبب نسيان كلمة المرور الخاصة بك',
-    'envoiforgotpass'=>'ارسال'
+    'envoiforgotpass'=>'ارسال',
+    'nom-direct'=>'اسم المديرية'
 
 
 ];
