@@ -34,7 +34,6 @@ class BioEmployeControl extends Controller
         $request->validate([
             'Prenom_O' => 'required|string',
             'Nom_P' => 'required|string',
-            'Prenom_O'=> 'required|string',
             'Prenom_OAR'=> 'required|string',
             'Nom_PAR'=> 'required|string' ,
             'Email' => 'required|string',

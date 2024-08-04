@@ -6,7 +6,7 @@
 
 @php
     $uid=auth()->id();
-    @endphp
+@endphp
 <body>
 
 <div class="" id="prog-add">
@@ -46,49 +46,71 @@
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
 
-                    <h4 class="text-right">Profile Settings</h4>
+                    <h4 class="text-right">{{__('lang.prof_set')}}</h4>
                 </div>
                 <div class="row mt-2">
                 <div class="col-md-12">
-                        <label class="labels">IDentification Professionnel</label>
+                        <label class="labels">{{__('lang.ID_p')}}</label>
                         <input type="text" class="form-control" placeholder="" value="{{$employe->id_emp}}" id="IDP" disabled>
                     </div>
                     <div class="col-md-6">
-                        <label class="labels">Direction</label>
+                        <label class="labels">{{__('lang.dept')}}</label>
                         <select type="text" class="form-select" placeholder="Specialitie" value="" id="Dic">
-                            <option>Selection la Direction</option>
+                            <option>{{__('lang.slct_dept')}}</option>
                               @foreach($dbdirection as $dbd)
+                              @if(app()->getLocale() == 'ar')
+                              
+                              <option value='{{$dbd->id_depart}}'>{{$dbd->Nom_depart_ar}}</option>
+                              
+                              @else
+                              
                               <option value='{{$dbd->id_depart}}'>{{$dbd->Nom_depart}}</option>
+                              
+                              @endif
                               @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label class="labels">Sous-Direction</label>
+                        <label class="labels">{{__('lang.sous_dept')}}</label>
                         <select type="text" class="form-select" value="" placeholder="Filiere" id="SDic">
-                        <option>Selection la sous Direction</option>
+                        <option>{{__('lang.slct_sous_dept')}}</option>
                         @foreach($dbsdirection as $dic)
+                              @if (app()->getLocale() == 'ar')
+                              
+                                <option value="{{$dic->id_sous_depart}}">{{$dic->Nom_sous_depart_ar}}</option>
+                              @else
+                              
                                 <option value="{{$dic->id_sous_depart}}">{{$dic->Nom_sous_depart}}</option>
+                              
+                              @endif
                         @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label class="labels">Post</label>
+                        <label class="labels">{{__('lang.post')}}</label>
                         <select type="text" class="form-select" placeholder="Diplome" value="" id="post">
-                        <option>Selection Le Post</option>
+                        <option>{{__('lang.slct_post')}}</option>
                         @foreach($dbpost as $post)
-                        <option value='{{$post->id_post}}'>{{$post->Nom_post}}</option>
+                        @if (app()->getLocale() == 'ar')
+                        
+                            <option value='{{$post->id_post}}'>{{$post->Nom_post_ar}}</option>
+                        @else
+                        
+                            <option value='{{$post->id_post}}'>{{$post->Nom_post}}</option>
+                        
+                        @endif
                         @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label class="labels">Date PV Installation</label>
+                        <label class="labels">{{__('lang.date_inst')}}</label>
                         <input type="date" class="form-control" id="PVDate">
                     </div>
                 </div>
                 <div class="col-md-6">
-                        <label class="labels">Date Recrutement Installation</label>
+                        <label class="labels">{{__('lang.date_rec')}}</label>
                         <input type="date" class="form-control" id="RecDate">
                     </div>
                 <div class="mt-5 text-center">

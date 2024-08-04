@@ -13,6 +13,12 @@ return [
     'list_cng'=>'Liste des Congés',
     'msg'=>'Messages',
     'notf'=>'Notifications',
+    'prof_set'=>'Paramatere Du Profile',
+    'mail'=>'Email',
+    'slct_mail'=>' enter Email',
+    'NIN'=>'Numero Identif Nationnal',
+    'NSS'=>'Numero du Securite Social',
+    'ID_p'=>'IDentification Professionnel',
 
     'ctrl_abs'=>'Controll D absences',
     'ctrl_cng'=>'Controll De Congé',
@@ -24,11 +30,21 @@ return [
     'surname'=>'Prénom',
     'birtday'=>'Date de Naissance',
     'plc'=>'Lieu de Naissance',
+    'sx'=>'sexe',
+    'sx_ma'=>'Male',
+    'sx_fm'=>'Female',
     'edit'=>'Edit',
     'tran'=>'Transferer',
     'files'=>'Dossier',
-    'famill'=>'',
+    'famill'=>'Situation ',
     'stitua_fam'=>'Situation Familliale',
+    'slct_famill'=>' Selectionner Votre Situation',
+
+    'cel'=>'Celebatiare',
+    'marie'=>'Marie',
+    'divor'=>'Divorce',
+    'veu'=>'Veuve',
+
     'children'=>'Nombre Enfants',
     'educ'=>'Niveau Education',
     'nbr_destop'=>'',
@@ -47,13 +63,27 @@ return [
     'stuation'=>'Status',
     'type_cng'=>'Titre du Congé',
     'date_deb_cng'=>'Date Debut Congé',
+    'date_deb_cngs'=>'La date d`ouverture du Congé',
     'date_fin_cng'=>'Date Fin Congé',
-    'date_drn_cng'=>'',
+    'date_drn_cng'=>'La date Deriner Congé',
     'term_cng'=>'Congé Annuel',
     'exp_cng'=>'Congé Exceptionnel',
     'slct_dept'=>'Séléctionner la Direction',
+    'slct_sous_dept'=>'Séléctionner la Sous Direction',
     'slct_type_cng'=>'Séléctionner le Titre du Congé',
+    'slct_post'=>'Séléctionner le Titre du Poste',
     'nbr_jour'=>'Nombres de jours Restants',
+    'ver_cng'=>'Passer Vers Le Congé',
+    
+    
+    
+    'ref_dipl'=>'Referrence Du Diplôme',
+    'spec_dipl'=>'Specialité',
+    'slct_spec_dipl'=>'Selection La Specialité',
+    'filier_dipl'=>'Filiere',
+    'nom_dipl'=>'Diplome',
+    'slct_nom_dipl'=>'Selection Le Diplome',
+    'dat_optn_dipl'=>'Date Obtenuation de Diplome',
 
     'motif'=>'Motif',
     'period'=>'Period',
@@ -83,14 +113,11 @@ return [
     'generat'=>'Genere Dicision',
 
     'next'=>'Suivant',
+    'cancel'=>'Annuller',
     'submit'=>'Enregister',
+
     'num_tel'=>'Num Téléphone',
-
     'langage'=>'francais',
-    'logout'=>'Se Déconnecter',
-
-
-    'langage'=>'français',
     'logout'=>'Se Déconnecter',
     'login'=> 'Se Connecter',
     'bienvenue'=>'Bienvenue dans la Ministère de Communication',

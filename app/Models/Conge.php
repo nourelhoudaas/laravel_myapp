@@ -18,7 +18,7 @@ class Conge extends Model
 
     
     protected $fillable = [
-        'id_cong', 'date_debut_cong', 'date_fin_cong', 'ref_cong', 'id_nin','id_p','nbr_jours','situation','id_sous_depart'
+        'id_cong', 'date_debut_cong', 'date_fin_cong', 'ref_cong', 'id_nin','id_p','nbr_jours','situation','id_sous_depart','situation_AR'
     ];
 
     public function type_conge()

@@ -49,8 +49,7 @@ class HomeController extends Controller
         $totalEmployes= $employe->count();
 
         $empdepart=Departement::get();
-
-     //   dd($employe);
+       
         return view('home.dashboard',compact('employe','totalEmployes','empdepart'));
     }
 
@@ -60,7 +59,6 @@ class HomeController extends Controller
             Session::put('locale', $locale);
             App::setLocale($locale);
         }
-
         return redirect()->back();
     }
 
