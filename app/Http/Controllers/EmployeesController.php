@@ -499,7 +499,11 @@
                 $empdepart= DB::table('departements')
                             ->get();
 
+<<<<<<< HEAD
+                $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
+=======
                 $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
+>>>>>>> 577152ede16d540204a0965061defea3d0370f84
         
             // dd($typeconge);
             $today = Carbon::now();
@@ -531,7 +535,7 @@
             $query->where('date_fin_cong', '>', $today)
                 ->whereIn('titre_cong', ['exceptionnel']);
         })->count();
-         // dd($count );
+         // dd($typecon);
 
             return view('employees.list_cong',compact('empdepart','typecon','emptypeconge','today','count','countExceptionnel'));
                 
@@ -560,13 +564,13 @@
                         DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) +1 AS joursRestants')
                     );
                 
-                //dd($query);
+               
                 if ($typeconge) {
                     $query->where('type_congs.ref_cong', $typeconge)
                           ->where('date_fin_cong', '>', $today);
                 }
                 $emptypeconge=$query->get();
-                
+            //    dd($emptypeconge);
               
             return response()->json($emptypeconge);
             
