@@ -84,14 +84,19 @@ Route::controller(DepartmentController::class)->group(function(){
 
     Route::get('\add_depart/{dep_id}','AddDepart')->name('app_add_depart');
     Route::get('/liste','ListeDepart')->name('app_liste_dir');
-    Route::get('/edit/{departement}','edit')->name('departement.edit');
+    Route::get('/departmnet/editer/{departement}','editer')->name('departement.editer');
+    Route::put('/departmnet/editer/{departement}','update')->name('departement.update');
+
+
     Route::post('/add_depart','store')->name('app_store_depart');
     Route::get('/depcount/{id}','get_emp_dep')->name('app_emp_depart');
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
 
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
-    Route::delete('/department/{departement}/destroy', 'destroy')->name('departmnt.destroy');
+    Route::get('/{departement}', 'delete')->name('department.delete');
+
+
 });
 
 
