@@ -21,14 +21,16 @@
         <!-- main section start -->
         <main>
 
-            <h1> Department of {{ $nom_d }}</h1>
+            <h1>{{ __('lang.Departementde') }} 
+                
+            {{ $nom_d }}</h1>
             <div class="insights">
                 <!-- start Employees -->
                 <div class="sales">
                     <span class="material-symbols-outlined">groups</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Total Employees</h3>
+                            <h3>{{ __('lang.nbr_all_users') }}</h3>
                             <h1 id="total-employees">{{$totalEmpDep}}</h1>
                         </div>
 
@@ -42,8 +44,8 @@
                     <span class="material-symbols-outlined">trending_down</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Absence</h3>
-                            <h1>0</h1>
+                            <h3>{{ __('lang.posttheo') }}</h3>
+                            <h1></h1>
                         </div>
                     </div>
 
@@ -55,9 +57,9 @@
                     <span class="material-symbols-outlined">trending_up</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Presence</h3>
+                            <h3>{{ __('lang.postttt') }}</h3>
 
-                           <h1>0</h1>
+                           <h1></h1>
                         </div>
 
                     </div>

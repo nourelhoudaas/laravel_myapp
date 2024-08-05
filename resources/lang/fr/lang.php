@@ -22,7 +22,7 @@ return [
 
     'ctrl_abs'=>'Controll D absences',
     'ctrl_cng'=>'Controll De Congé',
-    'lst_emp'=>'List Des Employés',
+    'lst_emp'=>'Liste Des Employés',
     'nbr_abs'=>'Absence',
     'nbr_all_users'=>'Total des Employés',
     'nbr_pres'=>'Présence',
@@ -57,6 +57,13 @@ return [
     'date_archi'=>'Date Archivage',
     'date_insrt'=>'Date Insertion',
     'post'=>'Poste',
+    'post_grad'=>'Grade',
+    'post_echl'=>'Echellant',
+    'obs'=>'Observation',
+    'obs_dic'=>'Observation dit par sont directeur',
+    'note'=>'la Note',
+    'start'=>'Depuis',
+
     'age'=>'Age',
     'sous_dept'=>'Sous Direction',
     'dept'=>'Direction',
@@ -130,10 +137,13 @@ return [
     'nom_direct'=>'Nom Direction',
     'id_drec'=>'ID direction',
     'nom_sous_direct'=>'Nom sous Direction',
-    'title_list_direc'=>'Listes des Directions et  les Sous Directions'
+    'title_list_direc'=>'Listes des Directions et  les Sous Directions',
 
 
 
+    'Departementde'=>' Direction de',
+    'posttheo'=>'Postes Théoriques',
+    'postttt'=>'Postes Approuvés'
 
 ];
 

@@ -3,7 +3,7 @@
 
 @section('title', 'Dashboard Direction')
 
-@section('content')
+
 
     <body>
 
@@ -33,7 +33,7 @@
                             @csrf
 
                             <div class= "text-bg-light p-3">
-                                <label for="setting-input-1" class="fw-bold">Nom de la Direction</label>
+                                <label for="setting-input-1" class="fw-bold">Nom de la Direction </label>
                                 <input type="text" class="form-control" id="Nom_depart" placeholder="Nom de la Direction" name="Nom_depart" required>
 
                             </div>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="inp-group"></div>
 
-                                <script src="app.js"></script>
+                                <!--script src="app.js"></script-->
                             </div>
 
 
@@ -76,4 +76,4 @@
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
         {!!JsValidator::formRequest('App\Http\Requests\saveDepartementRequest')!!}
-@endsection
+

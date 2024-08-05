@@ -96,14 +96,21 @@ return view('department.edit', compact('departement'));
  }
 
  $empdep = $empdep->values();
-
+ $locale = app()->getLocale();
  //dd($empdep);
          $empdepart=Departement::get();
 
          /*$empdepart= DB::table('departements')
          ->get();*/
+            if ($locale == 'fr'){
+                $nom_d = Departement::where('id_depart', $dep_id)->value('Nom_depart');
+            }
 
-         $nom_d = Departement::where('id_depart', $dep_id)->value('Nom_depart');
+            elseif ($locale == 'ar'){
+                $nom_d = Departement::where('id_depart', $dep_id)->value('Nom_depart_ar');
+            }
+
+
 
      /* $nom_d = DB::table('departements')
          ->where('id_depart', $dep_id)

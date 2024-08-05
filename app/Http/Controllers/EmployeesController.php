@@ -20,20 +20,20 @@
     {
             public function ListeEmply(Request $request)
             {
-            
+
                 $champs = $request->input('champs', 'Nom_emp'); // Champ par défaut pour le tri
                 $direction = $request->input('direction', 'asc'); // Ordre par défaut ascendant
-            
+
                 $employe = Employe::with([
                     'occupeIdNin.post',
                     'travailByNin.sous_departement.departement'
                 ])
-                ->get();
+                ->paginate(10);
             // dd( $employe);
 
         //optional pour si ya null il envoi pas erreur il envoi null
         //SORT_REGULAR veut dire que les éléments doivent être triés en utilisant la comparaison des valeurs telles qu'elles sont, sans conversion spéciale.
-          
+
         if ($champs === 'age') {
                 $employe = $employe->sortBy(function($emp) {
                     return \Carbon\Carbon::parse($emp->Date_nais)->age;
@@ -43,8 +43,8 @@
                 $employe = $employe->sortBy(function($emp) {
                     return optional($emp->occupeIdNin->last())->post->Nom_post;
                 }, SORT_REGULAR, $direction === 'desc');
-        
-        
+
+
             } elseif ($champs === 'Nom_depart') {
             $employe = $employe->sortBy(function($emp) {
                 return optional(optional($emp->travailByNin->last())->sous_departement->departement)->Nom_depart;
@@ -59,7 +59,7 @@
             $employe = $employe->sortBy(function($emp) {
                 return optional($emp->occupeIdNin->last())->date_recrutement;
             }, SORT_REGULAR, $direction === 'desc');
-           
+
         } elseif ($champs === 'date_installation') {
             $employe = $employe->sortBy(function($emp) {
                 return optional($emp->travailByNin->last())->date_installation;
@@ -68,20 +68,21 @@
             $employe = $employe->sortBy($champs, SORT_REGULAR, $direction === 'desc');
         }
             $employe = $employe->values();
-        
+
             $empdepart=Departement::get();
 
             /*$empdepart= DB::table('departements')
             ->get();*/
 
-            
+
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
-        
+
             //return $employe;
             // dd($employe);
+
              return view('employees.liste',compact('employe','totalEmployes','empdepart','champs','direction'));
-        
+
                 }
 
             public function AddEmply()
@@ -91,7 +92,7 @@
 
             public function AbsenceEmply()
             {
-            
+
                 $employe=Employe::with([
                     'occupeIdNin.post.contient.sous_departement.departement',
                     'occupeIdP.post.contient.sous_departement.departement'
@@ -112,15 +113,15 @@
                 $empdepart =$dbempdepart->get();
                 return view('addTemplate.add',compact('empdepart'));
             }
-            
-            
+
+
             public function getall($id)
             {
             // dd($id);
             $dbempdepart = new Departement();
             $empdepart =$dbempdepart->get();
             $last=Occupe::join('employes','employes.id_nin','=','occupes.id_nin')
-                           ->join('appartients','appartients.id_nin','=','employes.id_nin') 
+                           ->join('appartients','appartients.id_nin','=','employes.id_nin')
                            ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
                           ->join('travails','travails.id_nin','=','employes.id_nin')
                           ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
@@ -149,12 +150,12 @@
                                 ->join('contients','contients.id_post','=','posts.id_post')
                                 ->select('id_occup','date_recrutement')->orderBy('date_recrutement')
                                 ->get();
-                          //      dd($postwork);         
+                          //      dd($postwork);
                 $nbr=$result->count();
-                $allemp=array();    
+                $allemp=array();
                 foreach($result as $res)
-                { 
-                    $val=$res->id_travail;  
+                {
+                    $val=$res->id_travail;
                     $inter=DB::table('employes')->distinct()
                                                 ->join('travails','travails.id_nin','=','employes.id_nin')
                                                 ->join('occupes','employes.id_nin',"=",'occupes.id_nin')
@@ -183,8 +184,8 @@
                                                 ->orderBy('travails.date_installation','desc')
                                            //     ->orderBy('occupes.date_recrutement','desc')
                                                 ->first();
-                    array_push($allemp,$inter)  ;                     
-            
+                    array_push($allemp,$inter)  ;
+
                 }
                 $postarr=array();
                 foreach($postwork as $single){
@@ -207,14 +208,16 @@
                                                 'occupes.date_recrutement',
                                                 'occupes.echellant',
                                                 'departements.Nom_depart',
-                                                'sous_departements.Nom_sous_depart',)
+                                                'departements.Nom_depart_ar',
+                                                'sous_departements.Nom_sous_depart',
+                                                'sous_departements.Nom_sous_depart_ar',)
                                                 ->orderBy('occupes.date_recrutement','desc')
                                                 ->first();
-                    array_push($postarr,$inter)  ;                     
+                    array_push($postarr,$inter)  ;
                 }
                // $carier=Travail::where('employes.id_nin',$id)
                $detailemp=array();
-               for ($i=0; $i <count($postarr) ; $i++) { 
+               for ($i=0; $i <count($postarr) ; $i++) {
                 # code...
                // array_push($detailemp,$postarr[$i],$allemp[$i]);
                 //dd($detailemp[$i]);
@@ -254,7 +257,7 @@
         $result=array();
         $post=array();
         $id_sous=Sous_departement::where('id_depart',$id_dep)->get();
-        
+
         foreach($id_sous as $sous_dep)
         {
             //print_r('sous_id '.$sous_dep);
@@ -289,7 +292,7 @@
                             ->orderBy('date_installation','desc')
                             ->first();
           /* foreach($travs as $bind)
-            {   */             
+            {   */
             if($workig->date_installation <= $travs->date_installation && $travs->id_depart == $id_dep)
             {
                 array_push($fi,$travs);
@@ -297,7 +300,7 @@
        // }
         }
       //  dd($fi);
-    //------------------------------------------------------------------until here -----------------------*/    
+    //------------------------------------------------------------------until here -----------------------*/
          $empdpart=array();
          $fis=array();
      foreach($fi as $workig)
@@ -310,7 +313,7 @@
                             ->orderBy('date_installation','desc')
                             ->first();
           /* foreach($travs as $bind)
-            {   */             
+            {   */
             if($workig->date_installation <= $travs->date_installation && $travs->id_depart == $id_dep)
             {
                 array_push($fis,$travs);
@@ -324,7 +327,7 @@
                     ->join('contients','contients.id_post','=','posts.id_post')
                     ->orderBy('date_recrutement','desc')
                     ->first();
-           
+
             $emps=Employe::join('occupes','occupes.id_nin','=','Employes.id_nin')
                            ->join('posts','posts.id_post','=','occupes.id_post')
                            ->join('contients','contients.id_post','=','posts.id_post')
@@ -333,20 +336,20 @@
                            ->where('contients.id_contient',$idcnt->id_contient)
                            ->where('Employes.id_nin',$emp->id_nin)
                            ->orderBy('date_recrutement','desc')
-                           ->first();                     
+                           ->first();
                            $find=false;
                            if(count($empdpart) >0)
                            {$i=0;
-                            
-                            while ( $i < count($empdpart) && $find == false) { 
+
+                            while ( $i < count($empdpart) && $find == false) {
                                 # code...
                                 if($empdpart[$i]->id_nin == $emps->id_nin)
                                 {
-                                    
-                                    $find = true;  
+
+                                    $find = true;
                                    // print_r('------- insrt:::'.$emps->id_nin.'find');
                                 }
-                                
+
                                 $i++;
                             }
                             if($find != true)
@@ -363,15 +366,15 @@
                         }
         }
        // dd($empdpart);
-         
+
        /* $allin=array();
         $travail=Travail::orderBy('date_installation','desc')->get();
-       
+
         foreach ($empdpart as $value) {
             # code...
             foreach ($travail as $current) {
                 # code...
-                
+
                 if($current->date_installation > $value->date_installation)
                 {
                     printf('-'.$current->date_installation.' and his date'.$value->date_installation.' ----- ');
@@ -392,10 +395,10 @@
             }
                 $tebleint=array();
                 $terminat=false;
-                while( $terminat === false )  { 
+                while( $terminat === false )  {
                     # code...
                     $idt=$tableorg[0];
-                    for ($j=0; $j <count($tableorg) ; $j++) { 
+                    for ($j=0; $j <count($tableorg) ; $j++) {
                         # code...
                         if($idt != $tableorg[$j] )
                         {
@@ -409,7 +412,7 @@
                     {
                         $terminat=true;
                     }
-                    
+
                 }
         }
         else
@@ -435,7 +438,7 @@
             //dd($abs);
             return response()->json($abs);
         }
-        public function add_absence(Request $request) 
+        public function add_absence(Request $request)
         {
             $request->validate([
                 'Date_ABS'=>'required|date',
@@ -491,13 +494,14 @@
         }
             public function list_cong()
             {
-                
-                
+
+
                 $empdepart= DB::table('departements')
                             ->get();
 
-                $typecon=type_cong::select('titre_cong','ref_cong')->get();
-        
+                $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
+                $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
+
             // dd($typeconge);
             $today = Carbon::now();
 
@@ -508,9 +512,9 @@
             ])->whereHas('congeIdNin', function($query) use ($today) {
                 $query->where('date_fin_cong', '>', $today);
             })->get();
-        
+
           // dd($emptypeconge );
-          
+
            $count = Employe::with([
             'occupeIdNin.post',
             'travailByNin.sous_departement.departement',
@@ -528,19 +532,19 @@
             $query->where('date_fin_cong', '>', $today)
                 ->whereIn('titre_cong', ['exceptionnel']);
         })->count();
-         // dd($count );
+         // dd($typecon);
 
             return view('employees.list_cong',compact('empdepart','typecon','emptypeconge','today','count','countExceptionnel'));
-                
-            }   
+
+            }
 
             public function filterByType($typeconge)
 
-            {     
-                //dd($typeconge);     
+            {
+                //dd($typeconge);
                 $today = Carbon::now()->format('Y-m-d');
                 $query = Employe::query()
-                
+
                     ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
                     ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
                     ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
@@ -554,27 +558,27 @@
                         'type_congs.*',
                         'sous_departements.*',
                         'posts.*',
-                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) +1 AS joursRestants')
                     );
-                
-                //dd($query);
+
+
                 if ($typeconge) {
                     $query->where('type_congs.ref_cong', $typeconge)
                           ->where('date_fin_cong', '>', $today);
                 }
                 $emptypeconge=$query->get();
-                
-              
+            //    dd($emptypeconge);
+
             return response()->json($emptypeconge);
-            
+
             }
-            
+
             public function filterbydep($department)
             {
                 //dd($department);
                 $today = Carbon::now()->format('Y-m-d');
                 $query = Employe::query()
-                
+
                     ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
                     ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
                     ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
@@ -588,10 +592,10 @@
                         'type_congs.*',
                         'sous_departements.*',
                         'posts.*',
-                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE())+1  AS joursRestants')
                     );
-                
-            
+
+
                 //dd($query);
                 if ($department) {
                     $query->where('departements.id_depart', $department)
@@ -606,7 +610,7 @@
         {
             $today = Carbon::now()->format('Y-m-d');
             $query = Employe::query()
-            
+
                 ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
                 ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
                 ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
@@ -620,9 +624,9 @@
                     'type_congs.*',
                     'sous_departements.*',
                     'posts.*',
-                    DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+                    DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) +1 AS joursRestants')
                 );
-            
+
                 //dd($query);
                 if ($typeconge && $department) {
                     $query->where('departements.id_depart', $department)
@@ -633,7 +637,7 @@
             //dd($emptypeconge);
             return response()->json($emptypeconge);
         }
-            
+
             public function check_cg($id_p)
             {
                 $totaljour=0;
@@ -646,7 +650,7 @@
                 ->orderBy('occupes.date_recrutement','desc')
                 ->firstOrFail();
                 $cng=Conge::where('id_nin',$emp->id_nin)->orderBy('date_fin_cong','desc')->get();
-            
+
                 if($cng->count() > 0)
                 {
 
@@ -667,10 +671,10 @@
                 else
                 {
                     //dd($emp);
-                    
+
                 $startDate = Carbon::parse($emp->date_recrutement);
 
-                
+
                 $endDate = Carbon::parse('01-06-' . Carbon::now()->year);
 
                 // Calculate the number of months between the two dates
@@ -678,8 +682,8 @@
                 if($monthsDifference > 0 )
                 {
                     $totaljour = $monthsDifference*2.5;
-                    
-                
+
+
                 }
                 return response()->json(
                     [
@@ -689,11 +693,11 @@
                 );
                 }
 
-            
+
             }
         public function add_cng(Request $request)
         {
-        
+
             $request->validate(
                 [
                     'ID_NIN'=>'required|integer',
@@ -714,7 +718,7 @@
                 {
                     if($request->get('date_dcg') < $cg->date_fin_cong  && $request->get('type_cg') == 'REF0608')
                     {
-                    
+
                         return response()->json([
                             'message'=>'Unsuccess verfier date du debut',
                             'status'=> 404
@@ -722,16 +726,16 @@
                         }
                     $startDate = Carbon::parse($request->get('date_dcg'));
 
-                
+
                     $endDate = Carbon::parse($request->get('date_fcg'));
-            
+
                     // Calculate the number of months between the two dates
                     $monthsDifference = $startDate->diffInMonths($endDate);
                     $len=$cng->count()-1;
                     $all=$request->get('total_cgj');
                     $all=intval($all);
                     $date=intval($monthsDifference*30);
-                
+
                     if( $all > $date)
                     {
                         $nbrcng= $all - $date;
@@ -741,12 +745,12 @@
                         $nbrcng=-1;
                     }
                 //  dd($nbrcng);
-                    if($nbrcng <= 0)    
+                    if($nbrcng <= 0)
                     {
                         return response()->json([
                             'message'=>'Unsuccess deminuis le delai '.$nbrcng,
                             'status'=> 404
-                        ]); 
+                        ]);
                     }else
                     {
                     // dd(intval($nbrcng));
@@ -761,20 +765,20 @@
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                     }
-                
+
 
                 }
-                
+
             /*== if($delai > 31)
                 {
                 // dd($delai);
                     return response()->json([
                         'message'=>'Unsuccess consume the years',
                         'status'=> 302
-                    ]); 
+                    ]);
                 }*/
                 //dd($cng);
-            
+
 
                 if($cng->count() > 0)
             {
@@ -785,16 +789,16 @@
                 }
                 $startDate = Carbon::parse($request->get('date_dcg'));
 
-            
+
                 $endDate = Carbon::parse($request->get('date_fcg'));
-        
+
                 // Calculate the number of months between the two dates
                 $monthsDifference = $startDate->diffInMonths($endDate);
                 $len=$cng->count()-1;
                 $all=$request->get('total_cgj');
                 $all=intval($all);
                 $date=intval($monthsDifference*30);
-            
+
                 if( $all > $date)
                 {
                     $nbrcng= $all - $date;
@@ -804,12 +808,12 @@
                     $nbrcng=-1;
                 }
             //  dd($nbrcng);
-                if($nbrcng <= 0 && $right == false)    
+                if($nbrcng <= 0 && $right == false)
                 {
                     return response()->json([
                         'message'=>'Unsuccess deminuis le delai '.$nbrcng,
                         'status'=> 404
-                    ]); 
+                    ]);
                 }else
                 {
                 // dd(intval($nbrcng));
@@ -824,11 +828,11 @@
                     'id_sous_depart'=>$request->get('SDic')
                         ]);
                 }
-            
+
 
             //  dd($cong);
             if($cng[0]->date_fin_cong > $request->get('date_dcg'))
-            { 
+            {
                 if($cong->save() )
                 {
                     return response()->json([
@@ -855,9 +859,9 @@
             {
                 $startDate = Carbon::parse($request->get('date_dcg'));
 
-                
+
                     $endDate = Carbon::parse($request->get('date_fcg'));
-            
+
                     // Calculate the number of months between the two dates
                     $monthsDifference = $startDate->diffInMonths($endDate);
                     $cong=new Conge([
@@ -885,8 +889,8 @@
                             }
                 }
             }
-        
-    
+
+
 
 
         }

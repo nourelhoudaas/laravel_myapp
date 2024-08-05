@@ -27,14 +27,36 @@
  *
  */
         $(document).ready(function(){
-            /* $('#fr-lang').click(function(){
-                 $('body').attr('dir', 'ltr');
-                 $('.nav').css('left','0')
+             $('#fr-lang').click(function(){
+                fetch('/lang/fr' , {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Reload the page content or handle the response
+                        location.reload(); // Optional, to refresh content
+                    }
+                });
              })
              $('#ar-lang').click(function() {
-                 $('body').attr('dir', 'rtl');
-                 $('.nav').css('right','0')
-             });*/
+                fetch('/lang/ar' , {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Reload the page content or handle the response
+                        location.reload(); // Optional, to refresh content
+                    }
+                });
+             });
 
              if(lng == 'ar')
              {

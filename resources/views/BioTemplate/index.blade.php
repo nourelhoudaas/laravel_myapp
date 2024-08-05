@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    
+@php
+    $uid=auth()->id();
+    @endphp
+@extends('base')    
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,25 +12,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Personnel</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="/HRTemplat/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../css/main.css" rel="stylesheet" type="text/css">
-</head>
-@php
-    $uid=auth()->id();
-    @endphp
-@extends('base')
+
+
 <body>
 
-@include('./navbar.sidebar')
+
     <!-- Page Wrapper -->
     <div id="wrapper" style="margin-top: 35px;">
 
@@ -238,28 +228,40 @@
                     <div class="col-sm-12 mb-3">
                         <div class="card h-100">
                           <div class="card-body">
-                            <p>Departement : {{$postarr[$i]->Nom_sous_depart}}</p>
+                           
+                            <p>{{__('lang.dept')}} : 
+                            @if(app()->getLocale() == 'ar')
+                              {{$postarr[$i]->Nom_sous_depart_ar}}
+                            @else
+                             {{$postarr[$i]->Nom_sous_depart}}
+                            @endif
+                            </p>
                            <div class="card-info">
                               <p>
-                                  Post Occuper : {{$postarr[$i]->Nom_post}}
+                              {{__('lang.post')}} : 
+                              @if(app()->getLocale() == 'ar')
+                              {{$postarr[$i]->Nom_post_ar}}
+                              @else
+                              {{$postarr[$i]->Nom_post}}
+                              @endif
                               </p>
                               <p>
-                                  grade : {{$postarr[$i]->Grade_post}}
+                              {{__('lang.post')}} : {{$postarr[$i]->Grade_post}}
                               </p>
                               <p>
-                                  la Note : {{$detailemp[$i]->notation}}
+                              {{__('lang.note')}} : {{$detailemp[$i]->notation}}
                               </p>
                               <p>
-                                  echellant : {{$postarr[$i]->echellant}}
+                              {{__('lang.post_echl')}}  : {{$postarr[$i]->echellant}}
                               </p>
                            </div>
-                           <p>Observation</p>
+                           <p>{{__('lang.obs')}}</p>
                             <div >
-                              <p>Observation dit par sont directeur</p>
+                              <p>{{__('lang.obs_dic')}}</p>
                             </div>
                             <p id="{{$detailemp[$i]->id_nin}}{{$count}}"></p>
                             <div class="card-info">
-                              <p>Depuis : {{$detailemp[$i]->date_installation}}</p>
+                              <p>{{__('lang.start')}} : {{$detailemp[$i]->date_installation}}</p>
                             </div>
                             </div>
                           </div>
@@ -422,7 +424,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }); 
 }); 
     </script>
-    <script>
+
+   </body>
+   <script>
       function calculateDaysFromStart(startDate,datechange) {
     // Parse the start date
     const start = new Date(startDate);
@@ -488,18 +492,84 @@ for (let index = 0; index < data.length; index++) {
       const datechange=data[i].date_installation ;
       const daysElapsed = calculateDaysFromStart(startDate,datechange);
       var all=calculateDateDifference(daysElapsed)
+
+       var jour='';
+          var mois='';
+          switch (true) {
+            case all.days == 2:
+              jour='يومان'
+              break;
+            case all.days >= 2:
+              jour='أيام'
+              break;
+            case all.days >= 10:
+              jour='يوم'
+              break;
+            default:
+              jour='يوم'
+              break;
+          }
+          switch (true) {
+            case all.months == 1:
+              mois='شهر'
+              break;
+            case all.months == 2:
+              mois='شهران'
+              break;
+              case all.months <= 10:
+              mois='أشهر'
+              break;
+              case all.months > 10:
+              mois='شهرا'
+              break;
+            default:
+              mois='شهرا'
+              break;
+          }
+          switch (true) {
+            case all.years== 1:
+              anne='سنة'
+              break;
+            case all.years == 2:
+              anne='سنتان'
+              break;
+            default:
+            anne='سنوات'
+              break;
+          }
+
+
+          var lang='{{app()->getLocale()}}'
       if(all.years != 0)
       {
-        document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+all.days+'Jour(s) et '+all.months+' Moi(s) '+all.years+' Anneé(s)' ;
+        if(lang == 'ar')
+        {
+          document.getElementById(data[i].id_nin+''+i).innerText=" لمدة : "+all.days+''+jour+' و '+all.months+''+mois+''+all.years+' '+anne ;
+        }
+        else
+        {document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+all.days+'Jour(s) et '+all.months+' Moi(s) '+all.years+' Anneé(s)' ;}
+
       }
       else
       if(all.months != 0 )
       {
-        document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+all.days+'Jour(s) et '+all.months+' Moi(s)';
+        if(lang =='ar'){
+        document.getElementById(data[i].id_nin+''+i).innerText=" لمدة : "+all.days+''+jour+' و ' +all.months+''+mois;}
+        else
+        {
+          document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+all.days+'Jour(s) et '+all.months+' Moi(s)';
+        }
       }
       else
       {
+        if(lang =='ar')
+        {
         document.getElementById(data[i].id_nin+''+i).innerText=" La Duree : "+all.days+'Jour(s) '
+        }
+        else
+        {
+           document.getElementById(data[i].id_nin+''+i).innerText=" لمدة: "+all.days+''+jour
+        }
       }
       console.log(`Number of days from ${startDate} to today: ${daysElapsed}`)
      
@@ -509,6 +579,4 @@ for (let index = 0; index < data.length; index++) {
   
 }
 </script>
-   </body>
-
 </html>
