@@ -70,10 +70,10 @@
                                                 }*/
                                         @endphp
 
-                                    @if ($locale == 'fr')
-                                         <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong}}</option>
-                                    @elseif ($locale == 'ar')
-                                        <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong_ar}}</option>
+                                    @if ($locale == 'ar')
+                                         <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong_ar}}</option>
+                                    @else
+                                        <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong}}</option>
                                     @endif
                            
                             @endforeach
