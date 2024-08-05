@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Employe;
@@ -46,13 +47,13 @@ return view('department.edit', compact('departement'));
  ])
  ->get();
  //dd( $empdep);
- //filter fct de laravel 
+ //filter fct de laravel
  $empdep = $employes->filter(function($employe) use ($dep_id) {
      $post = $employe->occupeIdNin->last()->post ?? null;
      $travail = $employe->travailByNin->last();
      $sousDepartement = $travail->sous_departement ?? null;
      $departement = $sousDepartement->departement ?? null;
- 
+
      // Vérifiez si le département de l'employé correspond à l'ID du département
      return $departement && $departement->id_depart == $dep_id;
  });
@@ -215,15 +216,17 @@ return view('department.edit', compact('departement'));
     }
     public function editer($id)
     {
-  $departement= Departement::where('id_depart',$id)->get();
+  $departement= Departement::where('id_depart',$id)->firstOrFail();
   $empdepart=Departement::get();
-
+       // dd( $departement);
         return view('department.editer', compact('departement','empdepart'));
     }
     public function update(Request $request, Departement $departement)
     {
         $request->validate([
 
+
+            'id_depart' => 'required',
             'Nom_depart' => 'required',
             'Descriptif_depart' => 'required',
             'Nom_depart_ar' => 'required',
@@ -238,12 +241,17 @@ return view('department.edit', compact('departement'));
 
 
 
-    public function destroy(Departement $dept)
+    public function delete(Departement $departement)
     {
-        $dept->delete();
+        try{
+        $departement->delete();
 
-        return redirect('/department')->with('success', 'Direction supprimé avec succès.');
-    }
+        return redirect()->route('departmnet.list')->with('success_message','Departement Supprimé');
+
+    } catch (Exception $e){
+        dd($e);
+
+    }}
 
 
 }

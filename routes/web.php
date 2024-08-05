@@ -93,7 +93,7 @@ Route::controller(DepartmentController::class)->group(function(){
 
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
-    Route::delete('/department/{departement}/destroy', 'destroy')->name('departmnt.destroy');
+    Route::get('/{departement}', 'delete')->name('department.delete');
 
 
 });
