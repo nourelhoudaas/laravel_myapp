@@ -96,11 +96,26 @@
 /* chartt2*/
 
     const ctx2 = document.getElementById('myChart2');
+    var lang='{{app()->getLocale()}}'
+    var dept=@json($empdepart);
+    var deptlis=[];
+    dept.forEach(element => {
+        if(lang =='ar')
+        {
+            deptlis.push(element.Nom_depart_ar)
+            console.log(''+element.Nom_depart_ar)
+        }
+        else
+        {
+            deptlis.push(element.Nom_depart)
+            console.log(''+element.Nom_depart)
+        }
+    });
 
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels:deptlis,
             datasets: [{
                 label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],

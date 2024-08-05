@@ -23,12 +23,12 @@
             
                 $champs = $request->input('champs', 'Nom_emp'); // Champ par défaut pour le tri
                 $direction = $request->input('direction', 'asc'); // Ordre par défaut ascendant
-            
+           
                 $employe = Employe::with([
                     'occupeIdNin.post',
                     'travailByNin.sous_departement.departement'
                 ])
-                ->get();
+                ->paginate(10);
             // dd( $employe);
 
         //optional pour si ya null il envoi pas erreur il envoi null
@@ -68,7 +68,7 @@
             $employe = $employe->sortBy($champs, SORT_REGULAR, $direction === 'desc');
         }
             $employe = $employe->values();
-        
+          
             $empdepart=Departement::get();
 
             /*$empdepart= DB::table('departements')
@@ -80,6 +80,7 @@
         
             //return $employe;
             // dd($employe);
+           
              return view('employees.liste',compact('employe','totalEmployes','empdepart','champs','direction'));
         
                 }
@@ -207,7 +208,9 @@
                                                 'occupes.date_recrutement',
                                                 'occupes.echellant',
                                                 'departements.Nom_depart',
-                                                'sous_departements.Nom_sous_depart',)
+                                                'departements.Nom_depart_ar',
+                                                'sous_departements.Nom_sous_depart',
+                                                'sous_departements.Nom_sous_depart_ar',)
                                                 ->orderBy('occupes.date_recrutement','desc')
                                                 ->first();
                     array_push($postarr,$inter)  ;                     
@@ -554,7 +557,7 @@
                         'type_congs.*',
                         'sous_departements.*',
                         'posts.*',
-                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) +1 AS joursRestants')
                     );
                 
                 //dd($query);
@@ -588,7 +591,7 @@
                         'type_congs.*',
                         'sous_departements.*',
                         'posts.*',
-                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE())+1  AS joursRestants')
                     );
                 
             
@@ -620,7 +623,7 @@
                     'type_congs.*',
                     'sous_departements.*',
                     'posts.*',
-                    DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) AS joursRestants')
+                    DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) +1 AS joursRestants')
                 );
             
                 //dd($query);

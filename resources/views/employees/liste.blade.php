@@ -145,10 +145,13 @@
             @endforeach
             </tbody>
                         </table>
+                        
                     </div>
+            
                 </main>
 
 
             </div>
+            
         </body>
     @endsection

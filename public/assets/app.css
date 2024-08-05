@@ -51,7 +51,6 @@ body {
   font-size: var(--normal-font-size);
    background-color: var(--body-color);
   color: var(--text-color);
-
 }
 
 h3 {
@@ -1343,8 +1342,6 @@ cursor: pointer;
 .show-overlay {
   display: block;
 }
-<<<<<<< HEAD
-=======
 .file-ar
 {
   text-align: right;
@@ -1361,4 +1358,3 @@ text-align: left;
 {
   padding-left: 0;
 }
->>>>>>> ad9abe88322218c26a5fb58f44116943363aa4a9
