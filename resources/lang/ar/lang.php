@@ -136,6 +136,10 @@ return [
     'envoiforgotpass'=>'ارسال',
     'Departementde'=>'مديرية ',
     'posttheo'=>'المناصب النظرية',
-    'postttt'=>'المناصب المحققة'
+    'postttt'=>'المناصب المحققة',
+    'Changerlemotdepass'=>'تغيير كلمة المرور',
+    'Ancienmotdepass'=>'كلمة المرور القديمة',
+    'Nouveaumotdepass'=>'كلمة المرور الجديدة',
+    'Confirmervotrenouveaumotdepass'=>'قم بتأكيد كلمة المرور الجديدة'
 
 ];

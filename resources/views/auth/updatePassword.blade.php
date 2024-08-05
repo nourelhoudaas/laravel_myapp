@@ -108,12 +108,12 @@
 <body>
 
 <div class="container">
-    <h2>Changer le mot de pass</h2>
+    <h2>{{ __('lang.Changerlemotdepass') }}</h2>
     <form method="POST" action="{{ route('password.update') }}">
         @csrf
 
         <div class="form-group">
-            <label for="current_password">Ancien mot de pass</label>
+            <label for="current_password">{{ __('lang.Ancienmotdepass') }}</label>
             <input type="password" id="current_password" name="current_password" required>
             <i class="fas fa-eye toggle-password" onclick="togglePassword('current_password')"></i>
             @if ($errors->has('current_password'))
@@ -122,7 +122,7 @@
         </div>
 
         <div class="form-group">
-            <label for="new_password">Nouveau mot de pass</label>
+            <label for="new_password">{{ __('lang.Nouveaumotdepass') }}</label>
             <input type="password" id="new_password" name="new_password" required>
             <i class="fas fa-eye toggle-password" onclick="togglePassword('new_password')"></i>
             @if ($errors->has('new_password'))
@@ -131,7 +131,7 @@
         </div>
 
         <div class="form-group">
-            <label for="new_password_confirmation">Confirmer votre nouveau mot de pass</label>
+            <label for="new_password_confirmation">{{ __('lang.Confirmervotrenouveaumotdepass') }}</label>
             <input type="password" id="new_password_confirmation" name="new_password_confirmation" required>
             <i class="fas fa-eye toggle-password" onclick="togglePassword('new_password_confirmation')"></i>
             @if ($errors->has('new_password_confirmation'))
@@ -139,7 +139,7 @@
             @endif
         </div>
 
-        <button type="submit" class="btn">Changer le mot de pass</button>
+        <button type="submit" class="btn">{{ __('lang.Changerlemotdepass') }}</button>
     </form>
 
     <div class="footer">

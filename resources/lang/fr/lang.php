@@ -136,7 +136,11 @@ return [
     'envoiforgotpass'=>'Envoyer',
     'Departementde'=>' Direction de',
     'posttheo'=>'Postes Théoriques',
-    'postttt'=>'Postes Approuvés'
+    'postttt'=>'Postes Approuvés',
+    'Changerlemotdepass'=>'Changer le mot de pass',
+    'Ancienmotdepass'=>'Ancien mot de pass',
+    'Nouveaumotdepass'=>'Nouveau mot de pass',
+    'Confirmervotrenouveaumotdepass'=>'Confirmer votre nouveau mot de pass'
 
 ];
 
