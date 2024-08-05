@@ -7,6 +7,7 @@ use DB;
 use App\Models\Employe;
 use App\Models\Departement;
 use App\Models\Sous_departement;
+use App\Models\Travail;
 use App\Http\Requests\saveDepartementRequest;
 use Illuminate\Support\Facades\Log;
 
@@ -228,4 +229,31 @@ return view('department.edit', compact('departement'));
     }
 
 
+
+public function get_emp_dep($id)
+{
+    $employes = Employe::with([
+        'occupeIdNin.post',
+        'travailByNin.sous_departement.departement'
+    ])
+    ->get();
+    //dd( $empdep);
+    //filter fct de laravel 
+    $empdep = $employes->filter(function($employe) use ($id) {
+        $post = $employe->occupeIdNin->last()->post ?? null;
+        $travail = $employe->travailByNin->last();
+        $sousDepartement = $travail->sous_departement ?? null;
+        $departement = $sousDepartement->departement ?? null;
+    
+        // Vérifiez si le département de l'employé correspond à l'ID du département
+        return $departement && $departement->id_depart == $id;
+    });
+
+                  return response()->json(
+                    [
+                        'nbr'=>$empdep->count(),
+                        'success'=>200
+                    ]
+                    );
+}
 }

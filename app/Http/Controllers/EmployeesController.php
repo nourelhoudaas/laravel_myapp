@@ -499,11 +499,7 @@
                 $empdepart= DB::table('departements')
                             ->get();
 
-<<<<<<< HEAD
-                $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
-=======
                 $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
->>>>>>> 577152ede16d540204a0965061defea3d0370f84
         
             // dd($typeconge);
             $today = Carbon::now();

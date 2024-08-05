@@ -99,6 +99,8 @@
     var lang='{{app()->getLocale()}}'
     var dept=@json($empdepart);
     var deptlis=[];
+    var deptelm=[];
+   
     dept.forEach(element => {
         if(lang =='ar')
         {
@@ -111,7 +113,19 @@
             console.log(''+element.Nom_depart)
         }
     });
-
+    dept.forEach(ip=>{
+        $.ajax({
+            url:'/depcount/'+ip.id_depart,
+            type:'GET',
+            success:function(response)
+            {
+                const value=response.nbr
+                console.log('nbr -- '+value);
+              deptelm.push(value)
+            }
+        })
+    })
+    console.log(deptelm)
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
