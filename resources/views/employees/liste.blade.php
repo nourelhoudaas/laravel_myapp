@@ -146,7 +146,7 @@
             </tbody>
                         </table>
                         <div class="pagination">
-                          
+                            {{ $paginator->links() }}
                         </div>
                     </div>
             

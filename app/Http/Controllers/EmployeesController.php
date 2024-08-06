@@ -30,7 +30,7 @@
                     'occupeIdNin.post',
                     'travailByNin.sous_departement.departement'
                 ])
-                ->paginate(2);
+                ->get();
             // dd( $employe);
 
         //optional pour si ya null il envoi pas erreur il envoi null
@@ -78,13 +78,32 @@
       
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
+// Définir le nombre d'éléments par page
+$perPage = 2; // Par exemple, 2 éléments par page
+$page = request()->get('page', 1); // Page actuelle
+$offset = ($page - 1) * $perPage;
 
+// Extraire les éléments pour la page actuelle
+$items = $employe->slice($offset, $perPage)->values();
+//dd($items);
+// Créer le paginator
+$paginator = new LengthAwarePaginator(
+    $items, // Items de la page actuelle
+    $employe->count(), // Nombre total d'éléments
+    $perPage, // Nombre d'éléments par page
+    $page, // Page actuelle
+    [
+        'path' => request()->url(), // URL actuelle
+        'query' => request()->query() // Paramètres de la requête
+    ]
+);
 
+dd($paginator);
      
             //return $employe;
             // dd($employe);
            
-             return view('employees.liste',compact('employe','totalEmployes','empdepart','champs','direction'));
+             return view('employees.liste',compact('paginator','employe','totalEmployes','empdepart','champs','direction'));
         
                 }
 
