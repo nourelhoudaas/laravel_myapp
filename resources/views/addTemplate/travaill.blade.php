@@ -36,7 +36,7 @@
                 <span class="text-black-50">ADMIN@mail.com.my</span> --}}
                 <span>
 
-                
+
                 </span>
             </div>
         </div>
@@ -56,17 +56,17 @@
                     </div>
                     <div class="col-md-6">
                         <label class="labels">{{__('lang.spec_dipl')}}</label>
-                        <select type="text" class="form-select" placeholder="Specialitie" value="" id="Spec">
+                        <select type="text" class="form-select" placeholder="Specialité" value="" id="Spec">
                         <option value="">{{__('lang.slct_spec_dipl')}}</option>
                             @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
-                            
+
                                 <option value="{{$niv->Specialité}}">{{$niv->Specialité_ar}}</option>
-                            
+
                             @else
-                            
+
                                 <option value="{{$niv->Specialité}}">{{$niv->Specialité}}</option>
-                            
+
                             @endif
                             @endforeach
                         </select>
@@ -83,13 +83,13 @@
                             <option value="">{{__('lang.slct_nom_dipl')}}</option>
                             @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
-                            
+
                                 <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv_ar}}</option>
-                            
+
                             @else
-                            
+
                                 <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv}}</option>
-                            
+
                             @endif
                             @endforeach
                         </select>
@@ -120,7 +120,7 @@
                     <div class="file-upload">
                         <div class="file-prog">
                             <div class="file-name" id='file1'>
-                               
+
                             </div>
                             <div class="prog-holder">
                             <div id="progressWrapper" style="display: none;">
@@ -128,7 +128,7 @@
                             </div>
                             </div>
                             <div class="icon">
-                               
+
                             </div>
                         </div>
                     </div>
