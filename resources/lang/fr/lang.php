@@ -135,12 +135,13 @@ return [
     'reason'=>'Veuillez saisir ou discuter la raison pour laquelle vous avez oublié votre mot de passe',
     'envoiforgotpass'=>'Envoyer',
     'Departementde'=>' Direction de',
-    'posttheo'=>'Postes Théoriques',
-    'postttt'=>'Postes Approuvés',
+    'posttheo'=>'Théorique',
+    'postttt'=>'Approuvé',
     'Changerlemotdepass'=>'Changer le mot de pass',
     'Ancienmotdepass'=>'Ancien mot de pass',
     'Nouveaumotdepass'=>'Nouveau mot de pass',
-    'Confirmervotrenouveaumotdepass'=>'Confirmer votre nouveau mot de pass'
+    'Confirmervotrenouveaumotdepass'=>'Confirmer votre nouveau mot de pass',
+    'Retour'=>'Retour'
 
 ];
 

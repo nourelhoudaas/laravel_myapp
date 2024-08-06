@@ -135,11 +135,11 @@ return [
     'reason'=>'يرجى إدخال أو مناقشة سبب نسيان كلمة المرور الخاصة بك',
     'envoiforgotpass'=>'ارسال',
     'Departementde'=>'مديرية ',
-    'posttheo'=>'المناصب النظرية',
-    'postttt'=>'المناصب المحققة',
+    'posttheo'=>'نظري',
+    'postttt'=>'محقق',
     'Changerlemotdepass'=>'تغيير كلمة المرور',
-    'Ancienmotdepass'=>'كلمة المرور القديمة',
+    'Ancienmotdepass'=>'كلمة المرور السابقة',
     'Nouveaumotdepass'=>'كلمة المرور الجديدة',
-    'Confirmervotrenouveaumotdepass'=>'قم بتأكيد كلمة المرور الجديدة'
-
+    'Confirmervotrenouveaumotdepass'=>'قم بتأكيد كلمة المرور الجديدة',
+    'Retour'=>'الرجوع'
 ];
