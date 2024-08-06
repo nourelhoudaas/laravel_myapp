@@ -72,6 +72,44 @@
 
 {{-- chartt1 --}}
 <script>
+      var dept=@json($empdepart);
+    var deptlis={'depart':[],'nbremp':[]};
+   var lang='{{app()->getLocale()}}'
+    dept.forEach(element => {
+        if(lang =='ar')
+        {
+            deptlis.depart.push(element.Nom_depart_ar)
+            $.ajax({
+            url:'/depcount/'+element.id_depart,
+            type:'GET',
+            success:function(response)
+            {
+                const value=response.nbr
+                console.log('nbr -- '+value);
+                deptlis.nbremp.push(parseInt(value))
+            }
+        })
+            console.log(''+element.Nom_depart_ar)
+        }
+        else
+        {
+
+            deptlis.depart.push(element.Nom_depart_ar)
+            $.ajax({
+            url:'/depcount/'+element.id_depart,
+            type:'GET',
+            success:function(response)
+            {
+                const value=response.nbr
+                console.log('nbr -- '+value);
+                deptlis.nbremp.push(parseInt(value))
+            }
+        })
+            console.log(''+element.Nom_depart_ar)
+        }
+    });
+</script>
+<script>
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
@@ -96,40 +134,11 @@
 /* chartt2*/
 
     const ctx2 = document.getElementById('myChart2');
-    var lang='{{app()->getLocale()}}'
-    var dept=@json($empdepart);
-    var deptlis=[];
-    var deptelm=[];
-   
-    dept.forEach(element => {
-        if(lang =='ar')
-        {
-            deptlis.push(element.Nom_depart_ar)
-            console.log(''+element.Nom_depart_ar)
-        }
-        else
-        {
-            deptlis.push(element.Nom_depart)
-            console.log(''+element.Nom_depart)
-        }
-    });
-    dept.forEach(ip=>{
-        $.ajax({
-            url:'/depcount/'+ip.id_depart,
-            type:'GET',
-            success:function(response)
-            {
-                const value=response.nbr
-                console.log('nbr -- '+value);
-              deptelm.push(value)
-            }
-        })
-    })
-    console.log(deptelm)
+    console.log(deptlis)
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels:deptlis,
+            labels:deptlis.depart,
             datasets: [{
                 label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],
