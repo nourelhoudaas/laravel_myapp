@@ -81,9 +81,9 @@ return [
     'slct_post'=>'Séléctionner le Titre du Poste',
     'nbr_jour'=>'Nombres de jours Restants',
     'ver_cng'=>'Passer Vers Le Congé',
-    
-    
-    
+
+
+
     'ref_dipl'=>'Referrence Du Diplôme',
     'spec_dipl'=>'Specialité',
     'slct_spec_dipl'=>'Selection La Specialité',
@@ -134,6 +134,13 @@ return [
     'forgotpass'=>'Mot de passe Oublié ?',
     'reason'=>'Veuillez saisir ou discuter la raison pour laquelle vous avez oublié votre mot de passe',
     'envoiforgotpass'=>'Envoyer',
+    'nom_direct'=>'Nom Direction',
+    'id_drec'=>'ID direction',
+    'nom_sous_direct'=>'Nom sous Direction',
+    'title_list_direc'=>'Listes des Directions et  les Sous Directions',
+
+
+
     'Departementde'=>' Direction de',
     'posttheo'=>'Théorique',
     'postttt'=>'Approuvé',
