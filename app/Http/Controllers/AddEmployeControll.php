@@ -180,9 +180,14 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $niv=new Niveau();
-    $dbniv=$niv->SELECT('Nom_niv','Nom_niv_ar','Specialité_ar','Specialité')->distinct()->get();
+    $dbniv=$niv->SELECT('Nom_niv','Specialité','Specialité_ar','Nom_niv_ar')->distinct()->get();
     $dbempdepart = new Departement();
     $empdepart =$dbempdepart->get();
+    if(app()->getLocale() == 'ar')
+    {
+      dd(app()->getLocale());
+    }
+
     return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
   }
 
@@ -270,6 +275,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     $dbpost=$post->get();
     $dbempdepart = new Departement();
         $empdepart =$dbempdepart->get();
+        dd(app()->getLocale());
     return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
   }
   function GenDecision(Request $request)

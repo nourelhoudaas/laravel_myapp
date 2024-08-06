@@ -16,6 +16,7 @@
     use DB;
     use Carbon\Carbon;
     use Illuminate\Pagination\LengthAwarePaginator;
+    use Illuminate\Pagination\Paginator;
 
     class EmployeesController extends Controller
     {
@@ -29,7 +30,7 @@
                     'occupeIdNin.post',
                     'travailByNin.sous_departement.departement'
                 ])
-                ->get();
+                ->paginate(2);
             // dd( $employe);
 
         //optional pour si ya null il envoi pas erreur il envoi null
@@ -68,22 +69,31 @@
         } else {
             $employe = $employe->sortBy($champs, SORT_REGULAR, $direction === 'desc');
         }
-            $employe = $employe->values();
+            $employe = $employe->values(); // la collection résultante a des clés numériques consécutives.
 
             $empdepart=Departement::get();
 
             /*$empdepart= DB::table('departements')
             ->get();*/
+
   // Définir le nombre d'éléments par page
-  $perPage = 1;
+  $perPage = 4;
+
+
+      
 
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
 
+
+     
             //return $employe;
             // dd($employe);
 
+
              return view('employees.liste',compact('employe','totalEmployes','empdepart','champs','direction'));
+
+        
 
                 }
 
@@ -501,8 +511,10 @@
                 $empdepart= DB::table('departements')
                             ->get();
 
+
                 $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
-                $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
+
+
 
             // dd($typeconge);
             $today = Carbon::now();

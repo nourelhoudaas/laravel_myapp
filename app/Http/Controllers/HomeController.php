@@ -59,7 +59,7 @@ class HomeController extends Controller
             Session::put('locale', $locale);
             App::setLocale($locale);
         }
-        return redirect()->back();
+        return back();
     }
 
 }
