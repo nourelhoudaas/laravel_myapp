@@ -108,12 +108,12 @@ Route::controller(DepartmentController::class)->group(function(){
 //Route::get('/BioTemplate/{id}',[BioEmployeControl::class,'create'])->name('BioTemplate.index');
 Route::middleware('auth')->group(function () {
 Route::controller(AddEmployeControll::class)->group(function(){
-    Route::post('/Employe/add','add');
-    Route::post('/Employe/Travaill','addToDep')->name('Employe.travaill');
     Route::get('/Employe/IsTravaill/{id}','existToAdd')->name('Employe.istravaill');
-    Route::post('/Employe/addApp','existToAddApp');
-    Route::post('/Employe/Generat','GenDecision');
     Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
+    Route::post('/Employe/add','add')->name('add_emp_new');
+    Route::post('/Employe/Travaill','addToDep')->name('Employe.travaill');
+    Route::post('/Employe/addApp','existToAddApp')->name('add_emp_trav');
+    Route::post('/Employe/Generat','GenDecision')->name('add_generer');
 });
 });
 Route::middleware('auth')->group(function () {

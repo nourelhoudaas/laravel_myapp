@@ -6,6 +6,11 @@
 @php
     $uid=auth()->id();
 @endphp
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <body>
 
@@ -142,5 +147,6 @@
      var idp = '{{ $employe->id_p }}';
      var dir="Niveaux";
      var uid='{{$uid}}'
+     var lang='{{app()->getLocale()}}'
 </script>
 @endsection

@@ -36,7 +36,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data.success === 200) {
                         // Reload the page content or handle the response
                         location.reload(); // Optional, to refresh content
                     }
@@ -51,7 +51,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data.change == 200) {
                         // Reload the page content or handle the response
                         location.reload(); // Optional, to refresh content
                     }

@@ -19,7 +19,7 @@ return [
     'NIN'=>'Numero Identif Nationnal',
     'NSS'=>'Numero du Securite Social',
     'ID_p'=>'IDentification Professionnel',
-
+    'slct_num_tel'=>'Entre Num Telephone',
     'ctrl_abs'=>'Controll D absences',
     'ctrl_cng'=>'Controll De Congé',
     'lst_emp'=>'Liste Des Employés',
