@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Password</title>
+    <title>{{ __('lang.Changerlemotdepass') }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
+
+   <style>
+
         body {
             font-family: 'Roboto', sans-serif;
             display: flex;
@@ -103,17 +105,38 @@
         .footer a:hover {
             text-decoration: underline;
         }
+        .language-switcher {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.875rem;
+        }
+
+        .language-switcher a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .language-switcher a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
+     <div class="language-switcher">
+    <a href="{{ url('lang/fr') }}">Français</a> |
+    <a href="{{ url('lang/ar') }}">العربية</a>
+    </div>
+
 <div class="container">
-    <h2>Changer le mot de pass</h2>
-    <form method="POST" action="{{ route('password.update') }}">
+    <h2>{{ __('lang.Changerlemotdepass') }}</h2>
+    <form method="POST" action="{{ route('password_update') }}">
         @csrf
 
         <div class="form-group">
-            <label for="current_password">Ancien mot de pass</label>
+            <label for="current_password">{{ __('lang.Ancienmotdepass') }}</label>
             <input type="password" id="current_password" name="current_password" required>
             <i class="fas fa-eye toggle-password" onclick="togglePassword('current_password')"></i>
             @if ($errors->has('current_password'))
@@ -122,7 +145,7 @@
         </div>
 
         <div class="form-group">
-            <label for="new_password">Nouveau mot de pass</label>
+            <label for="new_password">{{ __('lang.Nouveaumotdepass') }}</label>
             <input type="password" id="new_password" name="new_password" required>
             <i class="fas fa-eye toggle-password" onclick="togglePassword('new_password')"></i>
             @if ($errors->has('new_password'))
@@ -131,7 +154,7 @@
         </div>
 
         <div class="form-group">
-            <label for="new_password_confirmation">Confirmer votre nouveau mot de pass</label>
+            <label for="new_password_confirmation">{{ __('lang.Confirmervotrenouveaumotdepass') }}</label>
             <input type="password" id="new_password_confirmation" name="new_password_confirmation" required>
             <i class="fas fa-eye toggle-password" onclick="togglePassword('new_password_confirmation')"></i>
             @if ($errors->has('new_password_confirmation'))
@@ -139,15 +162,20 @@
             @endif
         </div>
 
-        <button type="submit" class="btn">Changer le mot de pass</button>
+        <button type="submit" class="btn">{{ __('lang.Changerlemotdepass') }}</button>
     </form>
 
     <div class="footer">
-        <p><a href="{{ route('login') }}">Retour au login</a></p>
+         <a href="javascript:void(0);" onclick="goBack()">{{ __('lang.Retour') }}</a>
     </div>
 </div>
 
 <script>
+    
+    function goBack() {
+        window.history.back();
+    }
+
     function togglePassword(fieldId) {
         const field = document.getElementById(fieldId);
         const type = field.getAttribute('type') === 'password' ? 'text' : 'password';

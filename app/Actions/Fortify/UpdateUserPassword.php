@@ -30,11 +30,11 @@
         // Handle invalid current password
         throw new \Exception('Le mot de passe actuel est incorrect.');
 
-            $user->forceFill([
+           /* $user->forceFill([
                 'password_changed_at' => now(), 
                 'nv_password' => Hash::make($input['password']),
             ])->save();
-        //  auth()->logout();
+        //  auth()->logout();*/
     }
     }
 }

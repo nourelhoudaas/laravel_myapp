@@ -140,7 +140,11 @@ return [
     'title_list_direc'=>'قائمة المديريات والمديريات الفرعية',
 
     'Departementde'=>'مديرية ',
-    'posttheo'=>'المناصب النظرية',
-    'postttt'=>'المناصب المحققة'
-
+    'posttheo'=>'نظري',
+    'postttt'=>'محقق',
+    'Changerlemotdepass'=>'تغيير كلمة المرور',
+    'Ancienmotdepass'=>'كلمة المرور السابقة',
+    'Nouveaumotdepass'=>'كلمة المرور الجديدة',
+    'Confirmervotrenouveaumotdepass'=>'قم بتأكيد كلمة المرور الجديدة',
+    'Retour'=>'الرجوع'
 ];

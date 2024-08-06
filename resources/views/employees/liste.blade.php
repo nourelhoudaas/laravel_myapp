@@ -145,7 +145,9 @@
             @endforeach
             </tbody>
                         </table>
-                        
+                        <div class="pagination">
+                            {{ $paginatedEmployes->links() }}
+                        </div>
                     </div>
             
                 </main>

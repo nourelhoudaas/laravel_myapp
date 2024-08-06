@@ -27,7 +27,7 @@ et la soumission des formulaires ou d'autres interactions nécessitant à la foi
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('/','home')->name('app_home');
-    Route::get('lang/{locale}', 'switchLanguage');
+    Route::get('/lang/{locale}', 'switchLanguage');
     Route::get('/about', 'about')->name('app_about');
     Route::match(['get', 'post'], '/dashboard','dashboard')
          ->middleware('auth') //pour acceder a cette page il faut s'authentifier

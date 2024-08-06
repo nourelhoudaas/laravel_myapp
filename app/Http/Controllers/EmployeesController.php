@@ -15,6 +15,7 @@
     use App\Models\type_cong;
     use DB;
     use Carbon\Carbon;
+    use Illuminate\Pagination\LengthAwarePaginator;
 
     class EmployeesController extends Controller
     {
@@ -28,7 +29,7 @@
                     'occupeIdNin.post',
                     'travailByNin.sous_departement.departement'
                 ])
-                ->paginate(10);
+                ->get();
             // dd( $employe);
 
         //optional pour si ya null il envoi pas erreur il envoi null
@@ -73,7 +74,8 @@
 
             /*$empdepart= DB::table('departements')
             ->get();*/
-
+  // Définir le nombre d'éléments par page
+  $perPage = 1;
 
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
