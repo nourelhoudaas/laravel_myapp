@@ -90,7 +90,7 @@
         </tr>
                             </thead>
                             <tbody>
-                
+
                             @foreach($employe as $employe)
                 @php
                     $post = $employe->occupeIdNin->last()->post ;
@@ -140,7 +140,7 @@
                             @endif
                         </td>
                         <td>{{ $travail->date_installation }}</td>
-                
+
                 </tr>
             @endforeach
             </tbody>
@@ -149,11 +149,11 @@
                             {{ $paginatedEmployes->links() }}
                         </div>
                     </div>
-            
+
                 </main>
 
 
             </div>
-            
+
         </body>
     @endsection
