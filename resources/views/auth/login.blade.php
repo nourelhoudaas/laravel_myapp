@@ -15,7 +15,7 @@
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        @include('script')
+      
         </head>
 
 
@@ -274,6 +274,8 @@ h2 {
 </div>
 </body>
 <script>
+    var lng='{{app()->getLocale()}}'
+    console.log('loging '+lng)
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
         event.preventDefault(); // Empêche le comportement par défaut du lien

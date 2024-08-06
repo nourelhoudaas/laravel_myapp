@@ -1360,7 +1360,7 @@
 
      $('#btn-tr').click(function(e){
          e.preventDefault();
-         console.log('testing '+ md);
+         console.log('testing '+ md+' had lang '+lng);
          if(md){
                      // Assuming you are searching by ID_NIN
                  //  alert('you can');

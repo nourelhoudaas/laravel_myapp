@@ -1,3 +1,4 @@
+
 @extends('base')
 
 @section('title', 'Formulaire Administration')

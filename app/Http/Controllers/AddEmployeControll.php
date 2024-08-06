@@ -176,7 +176,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
 
 
 
-   function existToAdd($id)
+  /* function existToAdd($id)
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $niv=new Niveau();
@@ -189,7 +189,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     }
 
     return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
-  }
+  }*/
 
 //------------- add a appartient table
 
@@ -260,7 +260,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
          return view('addTemplate.admin',compact('employe','dbbureau','dbsdirection','dbdirection','dbpost','empdepart'));
 
   }
-    function existApp($id)
+    /*function existApp($id)
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $bureau=new Bureau();
@@ -277,7 +277,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
         $empdepart =$dbempdepart->get();
         dd(app()->getLocale());
     return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
-  }
+  }*/
   function GenDecision(Request $request)
   { 
     $request->validate([

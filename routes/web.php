@@ -77,6 +77,8 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/conge/filter/{typeconge} ', 'filterByType')->name('conge.filter');
     Route::get('/conge/filterbydep/{department} ', 'filterbydep');
     Route::get('/conge/filtercongdep/{typeconge}/{department} ', 'filtercongdep');
+    Route::get('/Employe/IsTravaill/{id}','existToAdd')->name('Employe.istravaill');
+    Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
 });
 });
 
@@ -107,14 +109,10 @@ Route::controller(DepartmentController::class)->group(function(){
 
 //Route::get('/BioTemplate/{id}',[BioEmployeControl::class,'create'])->name('BioTemplate.index');
 Route::middleware('auth')->group(function () {
-Route::controller(AddEmployeControll::class)->group(function(){
-    Route::get('/Employe/IsTravaill/{id}','existToAdd')->name('Employe.istravaill');
-    Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
-    Route::post('/Employe/add','add')->name('add_emp_new');
-    Route::post('/Employe/Travaill','addToDep')->name('Employe.travaill');
-    Route::post('/Employe/addApp','existToAddApp')->name('add_emp_trav');
-    Route::post('/Employe/Generat','GenDecision')->name('add_generer');
-});
+    Route::post('/Employe/add',[AddEmployeControll::class,'add'])->name('add_emp_new');
+    Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
+    Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp'])->name('add_emp_trav');
+    Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision'])->name('add_generer');
 });
 Route::middleware('auth')->group(function () {
 Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');

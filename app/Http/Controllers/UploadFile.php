@@ -145,7 +145,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
             }, $filesEm);
             $files[$subDirName]=$fileNames;
         }
-       // dd($files);
+       // dd(app()->getLocale());
         return view('BioTemplate.file_Index',compact('files','empdoss','empdepart','employe'));
     }
     public function live_File($directory,$subdir,$filename)
