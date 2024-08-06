@@ -249,7 +249,6 @@ return view('department.edit', compact('departement'));
 
 
 
-<<<<<<< HEAD
 public function get_emp_dep($id)
 {
     $employes = Employe::with([
@@ -276,7 +275,7 @@ public function get_emp_dep($id)
                     ]
                     );
 }
-=======
+
     public function delete(Departement $departement)
     {
         try{
@@ -290,5 +289,5 @@ public function get_emp_dep($id)
     }}
 
 
->>>>>>> efeb175c82dc4073c5df04f38ccd7f23c6919707
+
 }
