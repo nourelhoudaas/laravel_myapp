@@ -1,8 +1,7 @@
-@extends('base')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-@section('title', 'Forgot Password')
 
-@section('content')
 <style>
     
 body {
@@ -82,9 +81,30 @@ body {
 }
 
 
+.language-switcher {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.875rem;
+        }
+
+        .language-switcher a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .language-switcher a:hover {
+            text-decoration: underline;
+        }
 
 </style>
 
+<body>
+    <div class="language-switcher">
+     <a href="{{ url('lang/fr') }}">Français</a> |
+    <a href="{{ url('lang/ar') }}">العربية</a>
+    </div>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -127,4 +147,3 @@ document.addEventListener('DOMContentLoaded', function() {
     @endif
 });
 </script>
-@endsection

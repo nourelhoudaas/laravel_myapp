@@ -15,6 +15,7 @@
     use App\Models\type_cong;
     use DB;
     use Carbon\Carbon;
+    use Illuminate\Pagination\LengthAwarePaginator;
 
     class EmployeesController extends Controller
     {
@@ -28,7 +29,7 @@
                     'occupeIdNin.post',
                     'travailByNin.sous_departement.departement'
                 ])
-                ->paginate(10);
+                ->get();
             // dd( $employe);
 
         //optional pour si ya null il envoi pas erreur il envoi null
@@ -73,16 +74,39 @@
 
             /*$empdepart= DB::table('departements')
             ->get();*/
+  // Définir le nombre d'éléments par page
+  $perPage = 1;
 
+<<<<<<< HEAD
+  // Obtenir la page actuelle
+  $currentPage = LengthAwarePaginator::resolveCurrentPage();
 
+  // Extraire les éléments pour la page actuelle
+  $currentItems = $employe->slice(($currentPage - 1) * $perPage, $perPage)->all();
+
+  // Créer une nouvelle instance de LengthAwarePaginator
+  $paginatedEmployes = new LengthAwarePaginator($currentItems, $employe->count(), $perPage, $currentPage, [
+      'path' => LengthAwarePaginator::resolveCurrentPath(),
+      'query' => $request->query(),
+  ]);
+            
+=======
+
+>>>>>>> a8426a57446b63614e4a3f0a537fb622159bc7a5
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
 
             //return $employe;
             // dd($employe);
+<<<<<<< HEAD
+           
+             return view('employees.liste',compact('paginatedEmployes','employe','totalEmployes','empdepart','champs','direction'));
+        
+=======
 
              return view('employees.liste',compact('employe','totalEmployes','empdepart','champs','direction'));
 
+>>>>>>> a8426a57446b63614e4a3f0a537fb622159bc7a5
                 }
 
             public function AddEmply()
@@ -499,9 +523,18 @@
                 $empdepart= DB::table('departements')
                             ->get();
 
+<<<<<<< HEAD
+                $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
+=======
+<<<<<<< HEAD
+                $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
+>>>>>>> a8426a57446b63614e4a3f0a537fb622159bc7a5
+        
+=======
                 $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
                 $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
 
+>>>>>>> efeb175c82dc4073c5df04f38ccd7f23c6919707
             // dd($typeconge);
             $today = Carbon::now();
 

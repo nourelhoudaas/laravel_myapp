@@ -89,6 +89,7 @@ Route::controller(DepartmentController::class)->group(function(){
 
 
     Route::post('/add_depart','store')->name('app_store_depart');
+    Route::get('/depcount/{id}','get_emp_dep')->name('app_emp_depart');
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
 
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier

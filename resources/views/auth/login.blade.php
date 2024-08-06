@@ -1,5 +1,4 @@
-
-
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
 <meta charset="UTF-8">
@@ -33,6 +32,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
 </script>
+</head>
 <style>
 body {
     font-family: 'Arial', sans-serif;
@@ -196,9 +196,30 @@ h2 {
         padding: 0.5rem;
     }
 }
+.language-switcher {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.875rem;
+        }
+
+        .language-switcher a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .language-switcher a:hover {
+            text-decoration: underline;
+        }
 </style>
 </head>
 <body>
+    <div class="language-switcher">
+        <a href="{{ url('lang/fr') }}">Français</a> |
+        <a href="{{ url('lang/ar') }}">العربية</a>
+    </div>
+
 <div class="full-page">
     <div class="left-half">
         <div class="login-card">
