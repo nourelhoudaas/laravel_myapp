@@ -98,7 +98,7 @@ $paginator = new LengthAwarePaginator(
     ]
 );
 
-dd($paginator);
+//dd($paginator);
      
             //return $employe;
             // dd($employe);
