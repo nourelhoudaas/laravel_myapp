@@ -16,6 +16,7 @@ return [
     'prof_set'=>'Paramatere Du Profile',
     'mail'=>'Email',
     'slct_mail'=>' enter Email',
+    'pro_mail'=>'Email Professionenel',
     'NIN'=>'Numero Identif Nationnal',
     'NSS'=>'Numero du Securite Social',
     'ID_p'=>'IDentification Professionnel',
@@ -83,8 +84,9 @@ return [
     'ver_cng'=>'Passer Vers Le Congé',
 
 
-
+    'niv_edu'=>'Niveaux Educative',
     'ref_dipl'=>'Referrence Du Diplôme',
+    'slct_ref_dipl'=>'Entrer Referrence Du Diplôme',
     'spec_dipl'=>'Specialité',
     'slct_spec_dipl'=>'Selection La Specialité',
     'filier_dipl'=>'Filiere',

@@ -45,7 +45,7 @@
         <div class="form-holder">
         <form class="form-fa" action="/Employe/add" method="POST">
             @csrf
-        <div class="col-md-10">
+        <div class="col-md-10 just">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
 

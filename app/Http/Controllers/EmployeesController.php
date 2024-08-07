@@ -80,7 +80,7 @@
             ->get();*/
 
   // Définir le nombre d'éléments par page
-  $perPage = 4;
+ // $perPage = 2;
 
 
       
@@ -89,7 +89,8 @@
         $totalEmployes = $employe->count();
 // Définir le nombre d'éléments par page
 $perPage = 2; // Par exemple, 2 éléments par page
-$page = request()->get('page', 1); // Page actuelle
+$page = request()->get('page', 
+); // Page actuelle
 $offset = ($page - 1) * $perPage;
 
 // Extraire les éléments pour la page actuelle
@@ -105,13 +106,7 @@ $paginator = new LengthAwarePaginator(
         'path' => request()->url(), // URL actuelle
         'query' => request()->query() // Paramètres de la requête
     ]
-);
-
-//dd($paginator);
-     
-            //return $employe;
-            // dd($employe);
-           
+);           
              return view('employees.liste',compact('paginator','employe','totalEmployes','empdepart','champs','direction'));
         
 

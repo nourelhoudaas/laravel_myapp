@@ -91,7 +91,7 @@
                             </thead>
                             <tbody>
                 
-                            @foreach($employe as $employe)
+                            @foreach($paginator as $employe)
                 @php
                     $post = $employe->occupeIdNin->last()->post ;
                     $travail = $employe->travailByNin->last();
@@ -145,8 +145,9 @@
             @endforeach
             </tbody>
                         </table>
-                        <div class="pagination">
-                            {{ $paginator->links() }}
+                        <hr>
+                            <div class="pagination">
+                            {{ $paginator->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
             

@@ -1344,7 +1344,12 @@
                      success: function (response) {
                          md=false;
                        //  alert(response.success);
-                       window.location.href= '/BioTemplate/edit/' + id
+                     //  window.location.href= '/BioTemplate/edit/' + id
+                     if(response.status == 200)
+                     {
+                        alert(response.success)
+                        location.reload();  
+                     }
                      },
                      error: function (xhr) {
                          console.log(xhr.responseText);

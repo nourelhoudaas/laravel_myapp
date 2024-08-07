@@ -1361,7 +1361,10 @@ text-align: left;
 .fa-edit
 { font-size:40px;
 }
-
+.just
+{
+  text-align: justify;
+}
 /* ajout sous direction*/
 /* Dynamic classe creation */
 .app-card{

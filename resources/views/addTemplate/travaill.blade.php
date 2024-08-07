@@ -43,7 +43,7 @@
         <div class="form-holder">
         <form class="form-fa" action="/Employe/add" method="POST">
             @csrf
-        <div class="col-md-10">
+        <div class="col-md-10 just">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
 
@@ -52,7 +52,7 @@
                 <div class="row mt-2">
                 <div class="col-md-12">
                         <label class="labels">{{__('lang.ref_dipl')}}</label>
-                        <input type="text" class="form-control" placeholder="Ref Diplome" value="" id="DipRef">
+                        <input type="text" class="form-control" placeholder="{{__('lang.slct_ref_dipl')}}" value="" id="DipRef">
                     </div>
                     <div class="col-md-6">
                         <label class="labels">{{__('lang.spec_dipl')}}</label>
