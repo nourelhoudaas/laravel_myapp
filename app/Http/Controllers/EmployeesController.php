@@ -952,5 +952,17 @@ $paginator = new LengthAwarePaginator(
                   //dd(app()->getLocale());
               return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
             }
+            function find_emp($id)
+            {
+                $find=Employe::where('id_nin',$id)->first();
+                if($find)
+                {
+                    return response()->json(['success'=>'exist','status'=>200,'data'=>$find]);
+                }
+                else
+                {
+                    return response()->json(['success'=>'not fund','status'=>302]);
+                }
+            }
 
-        }
+}

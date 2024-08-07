@@ -288,6 +288,17 @@ public function get_emp_dep($id)
 
     }}
 
-
+    public function get_sdic($id_depart)
+    {
+        $sous_dep=Sous_departement::where('id_depart',$id_depart)->get();
+        if($sous_dep)
+        {
+            return response()->json(['success'=>'exist','status'=>200,'data'=>$sous_dep]);
+        }
+        else
+        {
+            return response()->json(['success'=>'empty','status'=>302]);
+        }
+    }
 
 }

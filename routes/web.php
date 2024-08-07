@@ -79,6 +79,7 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/conge/filtercongdep/{typeconge}/{department} ', 'filtercongdep');
     Route::get('/Employe/IsTravaill/{id}','existToAdd')->name('Employe.istravaill');
     Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
+    Route::get('/Employe/check/{id}','find_emp')->name('find_by_nin');
 });
 });
 
@@ -92,6 +93,7 @@ Route::controller(DepartmentController::class)->group(function(){
 
     Route::post('/add_depart','store')->name('app_store_depart');
     Route::get('/depcount/{id}','get_emp_dep')->name('app_emp_depart');
+    Route::get('/direction/{id}','get_sdic')->name('app_get_sdirection');
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
 
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
