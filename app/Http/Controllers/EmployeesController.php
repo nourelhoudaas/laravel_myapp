@@ -82,24 +82,20 @@
   // Définir le nombre d'éléments par page
   $perPage = 4;
 
-<<<<<<< HEAD
+
   // Obtenir la page actuelle
   $currentPage = LengthAwarePaginator::resolveCurrentPage();
-=======
->>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
 
-      
 
-<<<<<<< HEAD
+
+
   // Créer une nouvelle instance de LengthAwarePaginator
-  $paginatedEmployes = new LengthAwarePaginator($currentItems, $employe->count(), $perPage, $currentPage, [
+  $paginatedEmployes = new LengthAwarePaginator( $employe->count(), $perPage, $currentPage, [
       'path' => LengthAwarePaginator::resolveCurrentPath(),
       'query' => $request->query(),
   ]);
 
 
-=======
->>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
 // Définir le nombre d'éléments par page
@@ -123,22 +119,19 @@ $paginator = new LengthAwarePaginator(
 );
 
 //dd($paginator);
-     
+
             //return $employe;
             // dd($employe);
-<<<<<<< HEAD
 
-             return view('employees.liste',compact('paginatedEmployes','employe','totalEmployes','empdepart','champs','direction'));
+            // return view('employees.liste',compact('paginatedEmployes','employe','totalEmployes','empdepart','champs','direction'));
+            $paginate = Employe::paginate(10);
+
+             return view('employees.liste',compact('paginate','employe','totalEmployes','empdepart','champs','direction'));
 
 
-             return view('employees.liste',compact('employe','totalEmployes','empdepart','champs','direction'));
-
-=======
-           
              return view('employees.liste',compact('paginator','employe','totalEmployes','empdepart','champs','direction'));
-        
 
->>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
+
                 }
 
             public function AddEmply()
@@ -555,7 +548,6 @@ $paginator = new LengthAwarePaginator(
                 $empdepart= DB::table('departements')
                             ->get();
 
-<<<<<<< HEAD
                 $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
 
                 $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
@@ -563,12 +555,10 @@ $paginator = new LengthAwarePaginator(
                 $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
                 $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
 
-=======
 
                 $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
 
 
->>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
 
             // dd($typeconge);
             $today = Carbon::now();
@@ -970,7 +960,7 @@ $paginator = new LengthAwarePaginator(
               {
              //   dd(app()->getLocale());
               }
-          
+
               return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
             }
             function existApp($id)

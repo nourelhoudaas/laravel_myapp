@@ -16,7 +16,7 @@
                 @else
                 <h1>Dashboard without userId</h1>
                 @endif
-                
+
                 <div class="insights">
                     <!-- start Employees -->
                     <div class="sales">

@@ -16,7 +16,7 @@ return [
     'prof_set'=>'Paramatere Du Profile',
     'mail'=>'Email',
     'slct_mail'=>' enter Email',
-    'NIN'=>'Numero Identif Nationnal',
+    'NIN'=>'Numéro d\'Identification Nationnal',
     'NSS'=>'Numero du Securite Social',
     'ID_p'=>'IDentification Professionnel',
     'slct_num_tel'=>'Entre Num Telephone',

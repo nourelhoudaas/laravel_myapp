@@ -176,15 +176,12 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
 
 
 
-  /* function existToAdd($id)
+  function existToAdd($id)
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $niv=new Niveau();
-<<<<<<< HEAD
-    $dbniv=$niv->SELECT('Nom_niv', 'Specialité','Specialité_ar')->distinct()->get();
-=======
     $dbniv=$niv->SELECT('Nom_niv','Specialité','Specialité_ar','Nom_niv_ar')->distinct()->get();
->>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
+
     $dbempdepart = new Departement();
     $empdepart =$dbempdepart->get();
     if(app()->getLocale() == 'ar')
@@ -193,7 +190,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     }
 
     return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
-  }*/
+  }
 
 //------------- add a appartient table
 
