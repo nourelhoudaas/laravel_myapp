@@ -169,7 +169,7 @@ $id=0;
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6" id="addf">    
+                <div class="col-md-6" id="addf">
                       </div>
                 <div class="mt-5 text-end">
                     <button class="btn btn-primary profile-button" type="submit" id="btn-sv">{{ __('lang.next') }}</button>

@@ -247,6 +247,8 @@ return view('department.edit', compact('departement'));
         return redirect('/departements')->with('success', 'Direction mis à jour avec succès.');
     }
 
+
+
 public function get_emp_dep($id)
 {
     $employes = Employe::with([
@@ -255,13 +257,13 @@ public function get_emp_dep($id)
     ])
     ->get();
     //dd( $empdep);
-    //filter fct de laravel 
+    //filter fct de laravel
     $empdep = $employes->filter(function($employe) use ($id) {
         $post = $employe->occupeIdNin->last()->post ?? null;
         $travail = $employe->travailByNin->last();
         $sousDepartement = $travail->sous_departement ?? null;
         $departement = $sousDepartement->departement ?? null;
-    
+
         // Vérifiez si le département de l'employé correspond à l'ID du département
         return $departement && $departement->id_depart == $id;
     });

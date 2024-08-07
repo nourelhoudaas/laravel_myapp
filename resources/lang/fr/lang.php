@@ -18,6 +18,7 @@ return [
     'slct_mail'=>' enter Email',
     'pro_mail'=>'Email Professionenel',
     'NIN'=>'Numero Identif Nationnal',
+    'NIN'=>'Numéro d\'Identification Nationnal',
     'NSS'=>'Numero du Securite Social',
     'ID_p'=>'IDentification Professionnel',
     'slct_num_tel'=>'Entre Num Telephone',

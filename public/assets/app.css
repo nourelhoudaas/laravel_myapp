@@ -567,9 +567,12 @@ main .recent_order a{
     text-align: center;
     display: block;
     margin: 1rem;
+    color: var(--clr-dark);
+}
+main .recent_order a:hover{
+    color: var(--first-color);
 
 }
-
 /*-------------- CSS ADD and Bio --------*/
 
 #progressbar {

@@ -7,9 +7,9 @@
        <meta name="csrf-token" content=" {{csrf_token()}}">
 
         <title> {{ config('app.name') }} - @yield('title')</title>
-       
+
         <link rel="stylesheet" href="{{ asset('assets/app.css')}}">
-       
+
 
         <!--========== BOX ICONS ==========-->
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
@@ -23,7 +23,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         {{-- barre de navigation--}}
-          
+
         @endguest
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -91,11 +91,11 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
 }
 
 h2 {
-    font-size: 1.25rem; 
+    font-size: 1.25rem;
 }
 
 .form-group {
@@ -117,7 +117,7 @@ h2 {
 }
 
 .form-control:focus {
-    border-color: #000080; 
+    border-color: #000080;
     outline: none;
 }
 
@@ -126,7 +126,7 @@ h2 {
 }
 
 .btn-primary {
-    background: #000080; 
+    background: #000080;
     border: none;
     border-radius: 5px;
     color: white;
@@ -134,12 +134,12 @@ h2 {
     padding: 0.75rem;
     cursor: pointer;
     transition: background 0.3s;
-    width: 100%; 
+    width: 100%;
     margin-top: 20px;
 }
 
 .btn-primary:hover {
-    background: #000080; 
+    background: #000080;
 }
 
 .text-muted {
@@ -161,7 +161,7 @@ h2 {
 }
 
 .form-group .form-check {
-    text-align: left; 
+    text-align: left;
     margin-top: 20px; /* Assure que "Souviens-toi de moi" est aligné à gauche */
 }
 
@@ -268,6 +268,7 @@ h2 {
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary" type="submit">{{ __('lang.login') }}</button>
                 </div>
+                <p class="text-center text-muted mt-5">Not registered yet ? <a href="{{ route('register')}}">Create an account</a></p>
             </form>
         </div>
     </div>
@@ -283,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var username = document.getElementById('username').value; // récupère la val du champ username
             //si usrname existe
         if (username) {
-            
+
             fetch("{{ route('checkUsername') }}?username=" + encodeURIComponent(username))
                 .then(response => response.json())
                 .then(data => {
