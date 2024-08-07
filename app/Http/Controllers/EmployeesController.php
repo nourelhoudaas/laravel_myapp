@@ -5,17 +5,21 @@
     use App\Models\Absence;
     use App\Models\Conge;
     use App\Models\Contient;
+    use App\Models\Niveau;
     use App\Models\Occupe;
     use App\Models\Sous_departement;
     use Illuminate\Http\Request;
     use App\Models\Departement;
     use App\Models\Employe;
     use App\Models\Travail;
+    use App\Models\Bureau;
     use App\Models\Post;
+    use App\Models\Appartient;
     use App\Models\type_cong;
     use DB;
     use Carbon\Carbon;
     use Illuminate\Pagination\LengthAwarePaginator;
+    use Illuminate\Pagination\Paginator;
 
     class EmployeesController extends Controller
     {
@@ -68,21 +72,25 @@
         } else {
             $employe = $employe->sortBy($champs, SORT_REGULAR, $direction === 'desc');
         }
-            $employe = $employe->values();
+            $employe = $employe->values(); // la collection résultante a des clés numériques consécutives.
 
             $empdepart=Departement::get();
 
             /*$empdepart= DB::table('departements')
             ->get();*/
-  // Définir le nombre d'éléments par page
-  $perPage = 1;
 
+  // Définir le nombre d'éléments par page
+  $perPage = 4;
+
+<<<<<<< HEAD
   // Obtenir la page actuelle
   $currentPage = LengthAwarePaginator::resolveCurrentPage();
+=======
+>>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
 
-  // Extraire les éléments pour la page actuelle
-  $currentItems = $employe->slice(($currentPage - 1) * $perPage, $perPage)->all();
+      
 
+<<<<<<< HEAD
   // Créer une nouvelle instance de LengthAwarePaginator
   $paginatedEmployes = new LengthAwarePaginator($currentItems, $employe->count(), $perPage, $currentPage, [
       'path' => LengthAwarePaginator::resolveCurrentPath(),
@@ -90,17 +98,47 @@
   ]);
 
 
+=======
+>>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
+// Définir le nombre d'éléments par page
+$perPage = 2; // Par exemple, 2 éléments par page
+$page = request()->get('page', 1); // Page actuelle
+$offset = ($page - 1) * $perPage;
 
+// Extraire les éléments pour la page actuelle
+$items = $employe->slice($offset, $perPage)->values();
+//dd($items);
+// Créer le paginator
+$paginator = new LengthAwarePaginator(
+    $items, // Items de la page actuelle
+    $employe->count(), // Nombre total d'éléments
+    $perPage, // Nombre d'éléments par page
+    $page, // Page actuelle
+    [
+        'path' => request()->url(), // URL actuelle
+        'query' => request()->query() // Paramètres de la requête
+    ]
+);
+
+//dd($paginator);
+     
             //return $employe;
             // dd($employe);
+<<<<<<< HEAD
 
              return view('employees.liste',compact('paginatedEmployes','employe','totalEmployes','empdepart','champs','direction'));
 
 
              return view('employees.liste',compact('employe','totalEmployes','empdepart','champs','direction'));
 
+=======
+           
+             return view('employees.liste',compact('paginator','employe','totalEmployes','empdepart','champs','direction'));
+        
+
+>>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
                 }
 
             public function AddEmply()
@@ -517,6 +555,7 @@
                 $empdepart= DB::table('departements')
                             ->get();
 
+<<<<<<< HEAD
                 $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
 
                 $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
@@ -524,6 +563,12 @@
                 $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
                 $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
 
+=======
+
+                $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
+
+
+>>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
 
             // dd($typeconge);
             $today = Carbon::now();
@@ -914,6 +959,37 @@
             }
 
 
-
+            function existToAdd($id)
+            {
+              $employe=Employe::where('id_nin', $id)->firstOrFail();
+              $niv=new Niveau();
+              $dbniv=$niv->SELECT('Nom_niv','Specialité','Specialité_ar','Nom_niv_ar')->distinct()->get();
+              $dbempdepart = new Departement();
+              $empdepart =$dbempdepart->get();
+              if(app()->getLocale() == 'ar')
+              {
+             //   dd(app()->getLocale());
+              }
+          
+              return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
+            }
+            function existApp($id)
+            {
+              $employe=Employe::where('id_nin', $id)->firstOrFail();
+              $bureau=new Bureau();
+              $Direction= new Departement();
+              $SDirection=new Sous_departement();
+              $dbsdirection=$SDirection->get();
+              $dbdirection=$Direction->get();
+              $dbbureau=$bureau->get();
+              $dbdirection=$Direction->get();
+              $Appartient=Appartient::where('id_nin', $id)->get();
+              $post=New Post();
+              $dbpost=$post->get();
+              $dbempdepart = new Departement();
+                  $empdepart =$dbempdepart->get();
+                  //dd(app()->getLocale());
+              return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
+            }
 
         }

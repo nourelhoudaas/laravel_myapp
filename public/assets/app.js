@@ -36,7 +36,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data.success === 200) {
                         // Reload the page content or handle the response
                         location.reload(); // Optional, to refresh content
                     }
@@ -51,7 +51,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data.change == 200) {
                         // Reload the page content or handle the response
                         location.reload(); // Optional, to refresh content
                     }
@@ -1360,7 +1360,7 @@
 
      $('#btn-tr').click(function(e){
          e.preventDefault();
-         console.log('testing '+ md);
+         console.log('testing '+ md+' had lang '+lng);
          if(md){
                      // Assuming you are searching by ID_NIN
                  //  alert('you can');

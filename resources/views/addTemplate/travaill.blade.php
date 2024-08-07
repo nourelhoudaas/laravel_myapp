@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', 'Formulaire')
+@section('title', 'Formulaire Educative')
 
 @section('content')
 @php
@@ -142,5 +142,6 @@
      var idp = '{{ $employe->id_p }}';
      var dir="Niveaux";
      var uid='{{$uid}}'
+     var lang='{{app()->getLocale()}}'
 </script>
 @endsection

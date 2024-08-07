@@ -247,8 +247,11 @@ return view('department.edit', compact('departement'));
         return redirect('/departements')->with('success', 'Direction mis à jour avec succès.');
     }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
 public function get_emp_dep($id)
 {
     $employes = Employe::with([
@@ -275,6 +278,10 @@ public function get_emp_dep($id)
                     ]
                     );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
     public function delete(Departement $departement)
     {
         try{
@@ -288,4 +295,8 @@ public function get_emp_dep($id)
     }}
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 498b9a25c9355bbddf274e7041e4692f18b7599c
 }
