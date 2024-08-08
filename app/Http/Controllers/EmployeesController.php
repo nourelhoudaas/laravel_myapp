@@ -571,9 +571,13 @@ $paginator = new LengthAwarePaginator(
 
             {
                 //dd($typeconge);
+                $empcng=array();
                 $today = Carbon::now()->format('Y-m-d');
+                $conge_nin=Conge::get();
+                //dd($conge_nin);
+                foreach($conge_nin as $cong_emp)
+                {
                 $query = Employe::query()
-
                     ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
                     ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
                     ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
@@ -588,15 +592,18 @@ $paginator = new LengthAwarePaginator(
                         'sous_departements.*',
                         'posts.*',
                         DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) +1 AS joursRestants')
-                    );
+                    )
+                    ->where('conges.id_nin',$cong_emp->id_nin);
 
 
                 if ($typeconge) {
                     $query->where('type_congs.ref_cong', $typeconge)
                           ->where('date_fin_cong', '>', $today);
                 }
-                $emptypeconge=$query->get();
-            //    dd($emptypeconge);
+                $emptypeconge=$query->first();
+                array_push($empcng,$emptypeconge);
+                }
+              //  dd($empcng);
 
             return response()->json($emptypeconge);
 
