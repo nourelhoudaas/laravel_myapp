@@ -1,7 +1,7 @@
 @php
     $uid=auth()->id();
     @endphp
-@extends('base')    
+@extends('base')
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -44,7 +44,7 @@
                     <!-- Page Heading -->
                     <div class="container">
         <div class="main-body">
-        
+
               <!-- /Breadcrumb -->
               <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
@@ -72,21 +72,21 @@
                         <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Email Professionnel</h6>
                         <span class="text-secondary">xx@xx.com</span>
                       </li>
-                    
+
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> la Situation peronnel</span>
-                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
+                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i>Situation : Divorce</h6>
                         </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
+                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Nombre d'enfant : 00</h6>
                         </div>
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> la Situation educationnal</span>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Diplome : {{$last->Nom_niv}}</h6>
-                          </div>  
+                          </div>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Specialité : {{$last->Specialité}}</h6>
                           </div>
@@ -94,7 +94,7 @@
                       </li>
                     </ul>
                   </div>
-                  
+
                 </div>
                 <div class="col-md-8">
                   <div class="card mb-3">
@@ -116,19 +116,19 @@
                       <hr>
                       <div class="field">
                         <div class="field-holder">
-                        <div class="col-sm-3">  
+                        <div class="col-sm-3">
                           <h6 class="mb-0">Prenom</h6>
                         </div>
                         <input class="col-sm-9 text-secondary" id='Prenom_O' value=' {{$last->Prenom_emp}}' style="border: hidden;background-color: transparent;" disabled>
                         </div>
                         <div class="field-holderAR">
-                        <div class="col-sm-3">  
+                        <div class="col-sm-3">
                           <h6 class="mb-0 staticent">الإسم</h6>
                         </div>
                         <input class="col-sm-9 text-secondary" id='Prenom_OAR' value=' {{$last->Prenom_ar_emp}}' style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       </div>
-                      <hr>  
+                      <hr>
                       <div class="row field">
                         <div class="col-sm-3">
                           <h6 class="mb-0" >Email</h6>
@@ -164,7 +164,7 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">Address</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" 
+                        <input class="col-sm-9 text-secondary"
                         id='adr'
                         value='{{$last->adress}}'
                         style="border: hidden;background-color: transparent;" disabled>
@@ -178,7 +178,7 @@
                         value='{{$last->adress_ar}}' disabled>
                       </div>
                       </div>
-                        
+
                       <hr>
                       <div class="row ">
                         <div class="col-sm-12" style="display: flex;flex-direction: row;justify-content: space-between;">
@@ -189,9 +189,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class="wrapper">  
+                  <div class="wrapper">
 
-                    <i id="left" class="fa-solid  fas fa-angle-left"></i> 
+                    <i id="left" class="fa-solid  fas fa-angle-left"></i>
 
                   <div class="row gutters-sm carousel">
                     <!--div class="col-sm-12 mb-3">
@@ -224,12 +224,12 @@
                     $count=1;
                     @endphp
                     @for($i=0;$i<count($detailemp);$i++)
-                   
+
                     <div class="col-sm-12 mb-3">
                         <div class="card h-100">
                           <div class="card-body">
-                           
-                            <p>{{__('lang.dept')}} : 
+
+                            <p>{{__('lang.dept')}} :
                             @if(app()->getLocale() == 'ar')
                               {{$postarr[$i]->Nom_sous_depart_ar}}
                             @else
@@ -238,7 +238,7 @@
                             </p>
                            <div class="card-info">
                               <p>
-                              {{__('lang.post')}} : 
+                              {{__('lang.post')}} :
                               @if(app()->getLocale() == 'ar')
                               {{$postarr[$i]->Nom_post_ar}}
                               @else
@@ -267,17 +267,17 @@
                           </div>
                       </div>
                       @php
-                        $count++; 
+                        $count++;
                       @endphp
                       @endfor
-              
+
                   </div>
                   <i id="right" class="fas fa-angle-right"></i>
                   </div>
                 </div>
                 </div>
               </div>
-    
+
             </div>
         </div>
 
@@ -301,7 +301,7 @@
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a>  
+    </a>
     <script src="{{ asset('assets/carousel.js')}}"></script>
     <script src="{{ asset('assets/app.js')}}"></script>
     <!--script src="../js/printPD.js"></script>
@@ -343,86 +343,86 @@ document.getElementById('adrAR').disabled=true;
 md=false;
 }
 })
-document.addEventListener("DOMContentLoaded", function() { 
-    const carousel = document.querySelector(".carousel"); 
-    const arrowBtns = document.querySelectorAll(".wrapper i"); 
-    const wrapper = document.querySelector(".wrapper"); 
-  
-    const firstCard = carousel.querySelector(".card"); 
-    const firstCardWidth = firstCard.offsetWidth; 
-  
-    let isDragging = false, 
-        startX, 
-        startScrollLeft, 
-        timeoutId; 
-  
-    const dragStart = (e) => {  
-        isDragging = true; 
-        carousel.classList.add("dragging"); 
-        startX = e.pageX; 
-        startScrollLeft = carousel.scrollLeft; 
-    }; 
-  
-    const dragging = (e) => { 
-        if (!isDragging) return; 
-      
-        // Calculate the new scroll position 
-        const newScrollLeft = startScrollLeft - (e.pageX - startX); 
-      
-        // Check if the new scroll position exceeds  
-        // the carousel boundaries 
-        if (newScrollLeft <= 0 || newScrollLeft >=  
-            carousel.scrollWidth - carousel.offsetWidth) { 
-              
-            // If so, prevent further dragging 
-            isDragging = false; 
-            return; 
-        } 
-      
-        // Otherwise, update the scroll position of the carousel 
-        carousel.scrollLeft = newScrollLeft; 
-    }; 
-  
-    const dragStop = () => { 
-        isDragging = false;  
-        carousel.classList.remove("dragging"); 
-    }; 
-  
-    const autoPlay = () => { 
-      
-        // Return if window is smaller than 800 
-        if (window.innerWidth < 800) return;  
-          
-        // Calculate the total width of all cards 
-        const totalCardWidth = carousel.scrollWidth; 
-          
-        // Calculate the maximum scroll position 
-        const maxScrollLeft = totalCardWidth - carousel.offsetWidth; 
-          
-        // If the carousel is at the end, stop autoplay 
-        if (carousel.scrollLeft >= maxScrollLeft) return; 
-          
-        // Autoplay the carousel after every 2500ms 
-        timeoutId = setTimeout(() =>  
-            carousel.scrollLeft += firstCardWidth, 2500); 
-    }; 
-  
-    carousel.addEventListener("mousedown", dragStart); 
-    carousel.addEventListener("mousemove", dragging); 
-    document.addEventListener("mouseup", dragStop); 
-    wrapper.addEventListener("mouseenter", () =>  
-        clearTimeout(timeoutId)); 
-    wrapper.addEventListener("mouseleave", autoPlay); 
-  
-    // Add event listeners for the arrow buttons to  
-    // scroll the carousel left and right 
-    arrowBtns.forEach(btn => { 
-        btn.addEventListener("click", () => { 
-            carousel.scrollLeft += btn.id === "left" ?  
-                -firstCardWidth : firstCardWidth; 
-        }); 
-    }); 
-}); 
+document.addEventListener("DOMContentLoaded", function() {
+    const carousel = document.querySelector(".carousel");
+    const arrowBtns = document.querySelectorAll(".wrapper i");
+    const wrapper = document.querySelector(".wrapper");
+
+    const firstCard = carousel.querySelector(".card");
+    const firstCardWidth = firstCard.offsetWidth;
+
+    let isDragging = false,
+        startX,
+        startScrollLeft,
+        timeoutId;
+
+    const dragStart = (e) => {
+        isDragging = true;
+        carousel.classList.add("dragging");
+        startX = e.pageX;
+        startScrollLeft = carousel.scrollLeft;
+    };
+
+    const dragging = (e) => {
+        if (!isDragging) return;
+
+        // Calculate the new scroll position
+        const newScrollLeft = startScrollLeft - (e.pageX - startX);
+
+        // Check if the new scroll position exceeds
+        // the carousel boundaries
+        if (newScrollLeft <= 0 || newScrollLeft >=
+            carousel.scrollWidth - carousel.offsetWidth) {
+
+            // If so, prevent further dragging
+            isDragging = false;
+            return;
+        }
+
+        // Otherwise, update the scroll position of the carousel
+        carousel.scrollLeft = newScrollLeft;
+    };
+
+    const dragStop = () => {
+        isDragging = false;
+        carousel.classList.remove("dragging");
+    };
+
+    const autoPlay = () => {
+
+        // Return if window is smaller than 800
+        if (window.innerWidth < 800) return;
+
+        // Calculate the total width of all cards
+        const totalCardWidth = carousel.scrollWidth;
+
+        // Calculate the maximum scroll position
+        const maxScrollLeft = totalCardWidth - carousel.offsetWidth;
+
+        // If the carousel is at the end, stop autoplay
+        if (carousel.scrollLeft >= maxScrollLeft) return;
+
+        // Autoplay the carousel after every 2500ms
+        timeoutId = setTimeout(() =>
+            carousel.scrollLeft += firstCardWidth, 2500);
+    };
+
+    carousel.addEventListener("mousedown", dragStart);
+    carousel.addEventListener("mousemove", dragging);
+    document.addEventListener("mouseup", dragStop);
+    wrapper.addEventListener("mouseenter", () =>
+        clearTimeout(timeoutId));
+    wrapper.addEventListener("mouseleave", autoPlay);
+
+    // Add event listeners for the arrow buttons to
+    // scroll the carousel left and right
+    arrowBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            carousel.scrollLeft += btn.id === "left" ?
+                -firstCardWidth : firstCardWidth;
+        });
+    });
+});
     </script>
 
    </body>
@@ -430,16 +430,16 @@ document.addEventListener("DOMContentLoaded", function() {
       function calculateDaysFromStart(startDate,datechange) {
     // Parse the start date
     const start = new Date(startDate);
-    
+
     // Get the current date
     const current = new Date(datechange);
-    
+
     // Calculate the difference in time
     const differenceInTime = current - start;
-    
+
     // Convert the time difference from milliseconds to days
     const differenceInDays = Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
-    
+
     return differenceInDays;
 }
 
@@ -572,11 +572,11 @@ for (let index = 0; index < data.length; index++) {
         }
       }
       console.log(`Number of days from ${startDate} to today: ${daysElapsed}`)
-     
+
     }
     i++;
   }
-  
+
 }
 </script>
 </html>

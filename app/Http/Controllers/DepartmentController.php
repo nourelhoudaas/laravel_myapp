@@ -16,7 +16,7 @@ class DepartmentController extends Controller
 {
     public function ListeDepart()
     {
-        $departements = Departement::paginate(5);
+        $departements = Departement::paginate(2);
 
         $empdepart=Departement::get();
 
@@ -220,20 +220,21 @@ return view('department.edit', compact('departement'));
             's_dert'=>$s_deprt,
             'code'=>200
         ]);*/
+
+        return redirect()->back()->with('success', 'Direction créé avec succès.');
     }
-    public function editer($id)
+    public function editer($nom)
     {
-  $departement= Departement::where('id_depart',$id)->firstOrFail();
+  $departement= Departement::where('Nom_depart',$nom)->firstOrFail();
   $empdepart=Departement::get();
        // dd( $departement);
         return view('department.editer', compact('departement','empdepart'));
     }
-    public function update(Request $request, Departement $departement)
+    public function update(Request $request, Departement $id_depart)
     {
         $request->validate([
 
 
-            'id_depart' => 'required',
             'Nom_depart' => 'required',
             'Descriptif_depart' => 'required',
             'Nom_depart_ar' => 'required',
@@ -241,24 +242,25 @@ return view('department.edit', compact('departement'));
 
         ]);
 
-        $departement->update($request->all());
+        $departement=new Departement();
+        $departement ->where('id_depart', '=', $id_depart) ->update($request->all());
 
-        return redirect('/departements')->with('success', 'Direction mis à jour avec succès.');
+        return redirect()->back()->with('success', 'Direction mis à jour avec succès.');
     }
 
 
 
-    public function delete(Departement $departement)
+    public function delete($id_depart)
     {
-        try{
-        $departement->delete();
 
-        return redirect()->route('departmnet.list')->with('success_message','Departement Supprimé');
+        $departement=new Departement();
+            $departement->where('id_depart', '=', $id_depart)->delete(); ;
 
-    } catch (Exception $e){
-        dd($e);
 
-    }}
+        return redirect()->back()->with('success_message','Direction Supprimé');
+
+    }
+
 
 
 }
