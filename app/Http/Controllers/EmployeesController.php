@@ -34,7 +34,7 @@
                     'travailByNin.sous_departement.departement'
                 ])
                 ->get();
-             dd( $employe);
+            // dd( $employe);
 
         //optional pour si ya null il envoi pas erreur il envoi null
         //SORT_REGULAR veut dire que les éléments doivent être triés en utilisant la comparaison des valeurs telles qu'elles sont, sans conversion spéciale.
@@ -95,7 +95,7 @@ $offset = ($page - 1) * $perPage;
 
 // Extraire les éléments pour la page actuelle
 $items = $employe->slice($offset, $perPage)->values();
-dd($items);
+//dd($items);
 // Créer le paginator
 $paginator = new LengthAwarePaginator(
     $items, // Items de la page actuelle

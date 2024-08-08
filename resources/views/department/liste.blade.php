@@ -35,7 +35,7 @@
                                     font-size:30px;
                                 }
                             </style>
-                            <a href="{{route('departement.editer',$departement->Nom_depart)}}"><i class="fa fa-edit" ></i></a>
+                            <a href="{{route('departement.editer',$departement->id_depart)}}"><i class="fa fa-edit" ></i></a>
 
                             <form action="{{ route('department.delete', $departement->id_depart) }}" method="POST" style="display:inline;">
                                 @csrf
@@ -46,7 +46,7 @@
                                         font-size:30px;
                                     }
                                 </style>
-                                <a   onclick="confirmation(event)" href="{{route('department.delete',$departement->id_depart)}}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <a  href="{{route('department.delete',$departement->id_depart)}}" onclick="confirmation(event)" > <i class="fa fa-trash" aria-hidden="true"></i></a>
                             </form>
 
 

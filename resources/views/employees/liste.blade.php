@@ -96,7 +96,9 @@
                     $post = $employe->occupeIdNin->last()->post ;
                     $travail = $employe->travailByNin->last();
                     $sousDepartement = $travail->sous_departement;
-                    $departement = $sousDepartement->departement ;
+
+                    $departements = $sousDepartement->departement ;
+
                     $locale = app()->getLocale();
                 @endphp
                   <tr>
@@ -127,9 +129,9 @@
                         </td>
                         <td>
                              @if ($locale == 'fr')
-                              {{  $direction->Nom_depart  }}
+                              {{$departements->Nom_depart}}
                             @elseif ($locale == 'ar')
-                              {{ $direction->Nom_depart_ar  }}
+                              {{$departements->Nom_depart_ar}}
                             @endif
                         </td>
                         <td>
