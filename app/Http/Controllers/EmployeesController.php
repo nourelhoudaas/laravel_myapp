@@ -573,7 +573,7 @@ $paginator = new LengthAwarePaginator(
                 //dd($typeconge);
                 $empcng=array();
                 $today = Carbon::now()->format('Y-m-d');
-                $conge_nin=Conge::get();
+                $conge_nin=Conge::select('id_nin')->distinct()->orderBy('date_fin_cong','desc')->get();
                 //dd($conge_nin);
                 foreach($conge_nin as $cong_emp)
                 {
@@ -593,6 +593,7 @@ $paginator = new LengthAwarePaginator(
                         'posts.*',
                         DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) +1 AS joursRestants')
                     )
+                    ->orderBy('date_recrutement','desc')
                     ->where('conges.id_nin',$cong_emp->id_nin);
 
 
@@ -603,9 +604,9 @@ $paginator = new LengthAwarePaginator(
                 $emptypeconge=$query->first();
                 array_push($empcng,$emptypeconge);
                 }
-              //  dd($empcng);
+             //   dd($empcng);
 
-            return response()->json($emptypeconge);
+            return response()->json($empcng);
 
             }
 
@@ -752,11 +753,12 @@ $paginator = new LengthAwarePaginator(
                 $right=false;
                 foreach($cng as $cg)
                 {
-                    if($request->get('date_dcg') < $cg->date_fin_cong  && $request->get('type_cg') == 'REF0608')
+                    if($request->get('date_dcg') < $cg->date_fin_cong  && $request->get('type_cg') == 'RF001')
                     {
 
                         return response()->json([
-                            'message'=>'Unsuccess verfier date du debut',
+                            'type'=>$cg->type_cg,
+                            'message'=>'Unsuccess verfier date du debut 1',
                             'status'=> 404
                         ]);
                         }
@@ -818,7 +820,7 @@ $paginator = new LengthAwarePaginator(
 
                 if($cng->count() > 0)
             {
-                if(Carbon::now()->year >= $cng[0]->annee  && $request->get('type_cg') == 'REF0608')
+                if(Carbon::now()->year >= $cng[0]->annee  && $request->get('type_cg') == 'RF001')
                 {
                     $right=true;
                 // dd($cg->annee);
@@ -866,8 +868,8 @@ $paginator = new LengthAwarePaginator(
                 }
 
 
-            //  dd($cong);
-            if($cng[0]->date_fin_cong > $request->get('date_dcg'))
+            //  dd($cng[0]);
+            if($cng[0]->date_fin_cong < $request->get('date_dcg'))
             {
                 if($cong->save() )
                 {
@@ -886,7 +888,7 @@ $paginator = new LengthAwarePaginator(
             else
             {
                 return response()->json([
-                    'message'=>'Unsuccess verfier la date du debut',
+                    'message'=>'Unsuccess verfier la date du debut 2',
                     'status'=> 404
                 ]);
             }
@@ -970,6 +972,33 @@ $paginator = new LengthAwarePaginator(
                 {
                     return response()->json(['success'=>'not fund','status'=>302]);
                 }
+            }
+            public function get_list_absemp($id)
+            {
+                $emp=Employe::where('id_nin',$id)->first();
+                $list_abs=Absence::where('id_nin',$id)->get();
+                $perPage = 10; // Par exemple, 2 éléments par page
+                    $page = request()->get('page',
+                                                ); // Page actuelle
+                    $offset = ($page - 1) * $perPage;
+
+                    // Extraire les éléments pour la page actuelle
+                    $items = $list_abs->slice($offset, $perPage)->values();
+                    //dd($items);
+                    // Créer le paginator
+                    $paginator = new LengthAwarePaginator(
+                    $items, // Items de la page actuelle
+                    $list_abs->count(), // Nombre total d'éléments
+                    $perPage, // Nombre d'éléments par page
+                    $page, // Page actuelle
+                    [
+                   'path' => request()->url(), // URL actuelle
+                  'query' => request()->query() // Paramètres de la requête
+                     ]
+                    );
+                    return response()->json(['emp'=>$emp,
+                                              'list_abs'=>$paginator  
+                                            ]);
             }
 
 }

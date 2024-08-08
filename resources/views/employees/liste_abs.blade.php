@@ -22,7 +22,13 @@
                 <select type="text" class="form-select" value="" id="Dep">
                         <option value="">{{ __('lang.slct_dept') }}</option>
                         @foreach($empdepart as $empdeparts)
-                        <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart}}</option>
+                        <option value='{{$empdeparts->id_depart}}'>
+                            @if(app()->getLocale() == 'ar')
+                            {{$empdeparts->Nom_depart_ar}}
+                            @else
+                            {{$empdeparts->Nom_depart}}
+                            @endif
+                        </option>
                         @endforeach
                         </select>
                 </div>
@@ -44,6 +50,21 @@
                         <tbody></tbody>
                     </table>
                 </div>
+                <div>
+                    <h3 id='emp-info'></h3>
+                </div>   
+                <div class="recent_order">
+                    <table id="AbsempTable">
+
+                        <thead>
+
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div class="pagination" id='links'>
+                        
+                    </div>
+                </div>   
                 <div id="mySidenav" class="">
                     <div>
     <a href="javascript:void(0)" class="closebtn" id="close"><i class="fa fa-bookmark" aria-hidden="true"></i></a>

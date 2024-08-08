@@ -80,6 +80,7 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/Employe/IsTravaill/{id}','existToAdd')->name('Employe.istravaill');
     Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
     Route::get('/Employe/check/{id}','find_emp')->name('find_by_nin');
+    Route::get('/Employe/list_abs/{id}','get_list_absemp')->name('emp_list_abs');
 });
 });
 
