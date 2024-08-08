@@ -230,30 +230,24 @@ return view('department.edit', compact('departement'));
   $empdepart=Departement::get();
        // dd( $departement);
         return view('department.editer', compact('departement','empdepart'));
+
     }
-    public function update(Request $request, $departement)
+
+
+
+
+
+    public function update(Request $request, $id)
     {
-        $request->validate([
+
+        $departement= Departement::where('id_depart',$id)->update(['Nom_depart'=>$request->input('Nom_depart'),'Descriptif_depart'=>$request->input('Descriptif_depart'),
+        'Nom_depart_ar'=>$request->input('Nom_depart_ar'),'Descriptif_depart_ar'=>$request->input('Descriptif_depart_ar')]);
 
 
-            'Nom_depart' => 'required',
-            'Descriptif_depart' => 'required',
-            'Nom_depart_ar' => 'required',
-            'Descriptif_depart_ar' => 'required',
 
-        ]);
 
-        $updated = DB::table('departements')
-        ->where('id_depart', $departement)
-        ->update([
-            'Nom_depart'=>$request->input('Nom_depart'),
-            'Descriptif_depart' => $request->input('Descriptif_depart'),
-            'Nom_depart_ar'=>$request->input('Nom_depart_ar'),
-            'Descriptif_depart_ar' => $request->input('Descriptif_depart_ar'),
+        return redirect('/liste');
 
-                ]);
-
-        return redirect()->back()->with('success', 'Direction mis à jour avec succès.');
     }
 
 

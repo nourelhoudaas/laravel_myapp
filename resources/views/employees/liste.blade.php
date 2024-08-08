@@ -87,6 +87,10 @@
                     @endif
                 </a>
             </th>
+
+            <th>
+                {{ __('lang.Action') }}
+            </th>
         </tr>
                             </thead>
                             <tbody>
@@ -143,6 +147,7 @@
                         </td>
                         <td>{{ $travail->date_installation }}</td>
 
+                        <td><a href="{{route('departement.editer',$departements->id_depart)}}"><i class="fa fa-edit" ></i></a></td>
                 </tr>
             @endforeach
             </tbody>

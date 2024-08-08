@@ -27,7 +27,7 @@ class BioEmployeControl extends Controller
         return view('BioTemplate.index',compact('employe'));
     }
 
-    
+
     public function update(Request $request,$id)
     {
 
@@ -46,19 +46,19 @@ class BioEmployeControl extends Controller
         $updated = DB::table('employes')
                     ->where('id_nin', $id)
                     ->update([
-                        'Nom_emp'=>$request->input('Nom_P'), 
-                        'Prenom_emp' => $request->input('Prenom_O'), 
-                        'Nom_ar_emp'=>$request->input('Nom_PAR'), 
+                        'Nom_emp'=>$request->input('Nom_P'),
+                        'Prenom_emp' => $request->input('Prenom_O'),
+                        'Nom_ar_emp'=>$request->input('Nom_PAR'),
                         'Prenom_ar_emp' => $request->input('Prenom_OAR'),
-                        'Date_nais'=>$request->input('dateN'), 
+                        'Date_nais'=>$request->input('dateN'),
                         'adress' => $request->input('adr'),
                         'adress_ar' => $request->input('adrAR'),
                         'email' => $request->input('Email'),
-                        'Phone_num' => $request->input('phone_pn'),                          
+                        'Phone_num' => $request->input('phone_pn'),
                             ]);
 
         if ($updated) {
-            
+
              //ajouter l'action dans table log
           $log= $this->logService->logAction(
             Auth::user()->id,
@@ -74,5 +74,5 @@ class BioEmployeControl extends Controller
             return response()->json(['error' => 'Employee not found or update failed'], 404);
         }
     }
-        
+
 }
