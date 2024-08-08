@@ -78,44 +78,18 @@
 
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <div >
-<<<<<<< HEAD
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> la Situation peronnel</span>
                           <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i>Situation : Divorce</h6>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Nombre d'enfant : 00</h6>
-=======
-                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.stitua_fam')}}</span>
-                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i> {{__('lang.famill')}} : 
-                            @if(app()->getLocale() == 'ar')
-                            {{$last->situation_familliale_ar}}
-                            @else
-                            {{$last->situation_familliale}}
-                            @endif
-                          </h6>
-                        </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
-                            <h6 class="mb-0"><i class="fa fa-user-plus" aria-hidden="true" ></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
->>>>>>> 31085095d5d557888455b4ce6416de5cb836958f
                         </div>
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}} </span>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-<<<<<<< HEAD
                             <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Diplome : {{$last->Nom_niv}}</h6>
                           </div>
-=======
-                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} : 
-                            @if( app()->getLocale() == 'ar')
-                            {{$last->Nom_niv_ar}}
-                            @else
-                            {{$last->Nom_niv}}
-                            @endif
-                          </h6>
-                          </div>  
->>>>>>> 31085095d5d557888455b4ce6416de5cb836958f
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} : 
                            @if( app()->getLocale() == 'ar')
