@@ -250,13 +250,12 @@ return view('department.edit', compact('departement'));
     }*/
     public function update(Request $request, $id)
     {
-        $departement= Departement::where('id_depart',$id)->firstOrFail();
 
-        $departement->Nom_depart=$request->input('Nom_depart');
-        $departement->Descriptif_depart=$request->input('Descriptif_depart');
-        $departement->Nom_depart_ar=$request->input('Nom_depart_ar');
-        $departement->Descriptif_depart_ar=$request->input('Descriptif_depart_ar');dd( $departement);
-        $departement->update();
+        $departement= Departement::where('id_depart',$id)->update(['Nom_depart'=>$request->input('Nom_depart'),'Descriptif_depart'=>$request->input('Descriptif_depart'),
+        'Nom_depart_ar'=>$request->input('Nom_depart_ar'),'Descriptif_depart_ar'=>$request->input('Descriptif_depart_ar')]);
+
+
+
 
         return redirect('/departements')->with('success', 'Direction mis à jour avec succès.');
     }
