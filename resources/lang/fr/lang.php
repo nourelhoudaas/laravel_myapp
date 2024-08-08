@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Action'=>'Action',
     'mnc'=>'Ministère de la Communication',
     'dashboard'=>'Tableau de Bord',
     'Depratement'=>'Directions',

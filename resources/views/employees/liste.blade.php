@@ -87,16 +87,22 @@
                     @endif
                 </a>
             </th>
+
+            <th>
+                {{ __('lang.Action') }}
+            </th>
         </tr>
                             </thead>
                             <tbody>
-                
+
                             @foreach($paginator as $employe)
                 @php
                     $post = $employe->occupeIdNin->last()->post ;
                     $travail = $employe->travailByNin->last();
                     $sousDepartement = $travail->sous_departement;
-                    $departement = $sousDepartement->departement ;
+
+                    $departements = $sousDepartement->departement ;
+
                     $locale = app()->getLocale();
                 @endphp
                   <tr>
@@ -127,9 +133,9 @@
                         </td>
                         <td>
                              @if ($locale == 'fr')
-                              {{  $departement->Nom_depart  }}
+                              {{$departements->Nom_depart}}
                             @elseif ($locale == 'ar')
-                              {{ $departement->Nom_depart_ar  }}
+                              {{$departements->Nom_depart_ar}}
                             @endif
                         </td>
                         <td>
@@ -140,7 +146,8 @@
                             @endif
                         </td>
                         <td>{{ $travail->date_installation }}</td>
-                
+
+                        <td><a href="{{route('departement.editer',$departements->id_depart)}}"><i class="fa fa-edit" ></i></a></td>
                 </tr>
             @endforeach
             </tbody>
@@ -150,11 +157,11 @@
                             {{ $paginator->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
-            
+
                 </main>
 
 
             </div>
-            
+
         </body>
     @endsection

@@ -189,7 +189,7 @@ $id=0;
                               <div class="file-upload">
                                   <div class="file-prog">
                                       <div class="file-name" id='file1'>
-                                          <p> Fichier </p>
+
                                       </div>
                                       <div class="prog-holder">
                                       <div id="progressWrapper" style="display: none;">
