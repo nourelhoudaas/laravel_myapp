@@ -87,6 +87,10 @@
                     @endif
                 </a>
             </th>
+
+            <th>
+                {{ __('lang.Action') }}
+            </th>
         </tr>
                             </thead>
                             <tbody>
@@ -140,6 +144,8 @@
                             @endif
                         </td>
                         <td>{{ $travail->date_installation }}</td>
+
+                        <td><a href="{{route('addTemplate.add',$employe->id_nin)}}"><i class="fa fa-edit" ></i></a></td>
 
                 </tr>
             @endforeach

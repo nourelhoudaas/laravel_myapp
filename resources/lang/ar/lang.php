@@ -1,5 +1,6 @@
 <?php
 return [
+    'Action'=>'فعل',
     'mnc'=>'وزارة الإتصال',
     'dashboard'=>'الواجهة',
     'Depratement'=>'المديريات',
