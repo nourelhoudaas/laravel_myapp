@@ -46,11 +46,33 @@ class HomeController extends Controller
         ])->get();
 
     //le nbr total des employés
-        $totalEmployes= $employe->count();
-
+        
+        $empdept=array();
         $empdepart=Departement::get();
-       
-        return view('home.dashboard',compact('employe','totalEmployes','empdepart'));
+        foreach($empdepart as $deprt)
+        {
+            $id_dprt=$deprt->id_depart;
+            $employes=Employe::with([
+                'occupeIdNin.post.contient.sous_departement.departement',
+                'occupeIdP.post.contient.sous_departement.departement'
+                    ])->get();
+                    $empdep = $employes->filter(function($employe) use ($id_dprt) {
+                        $post = $employe->occupeIdNin->last()->post ?? null;
+                        $travail = $employe->travailByNin->last();
+                        $sousDepartement = $travail->sous_departement ?? null;
+                        $departement = $sousDepartement->departement ?? null;
+                    
+                        // Vérifiez si le département de l'employé correspond à l'ID du département
+                        return $departement && $departement->id_depart == $id_dprt;
+                    });
+                    $totalEmployes=$empdep->count();
+                    array_push($empdept,['id_depart'=>$id_dprt,
+                                         'Nom_depart'=>$deprt->Nom_depart,
+                                         'Nom_depart_ar'=>$deprt->Nom_depart_ar,
+                                         'nbremp'=>$totalEmployes]);
+        }
+        //dd($empdept);
+        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdept'));
     }
 
     public function switchLanguage($locale)
@@ -59,7 +81,7 @@ class HomeController extends Controller
             Session::put('locale', $locale);
             App::setLocale($locale);
         }
-        return redirect()->back();
+        return back();
     }
 
 }

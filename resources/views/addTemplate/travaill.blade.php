@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', 'Formulaire')
+@section('title', 'Formulaire Educative')
 
 @section('content')
 @php
@@ -36,14 +36,14 @@
                 <span class="text-black-50">ADMIN@mail.com.my</span> --}}
                 <span>
 
-                
+
                 </span>
             </div>
         </div>
         <div class="form-holder">
         <form class="form-fa" action="/Employe/add" method="POST">
             @csrf
-        <div class="col-md-10">
+        <div class="col-md-10 just">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
 
@@ -52,21 +52,21 @@
                 <div class="row mt-2">
                 <div class="col-md-12">
                         <label class="labels">{{__('lang.ref_dipl')}}</label>
-                        <input type="text" class="form-control" placeholder="Ref Diplome" value="" id="DipRef">
+                        <input type="text" class="form-control" placeholder="{{__('lang.slct_ref_dipl')}}" value="" id="DipRef">
                     </div>
                     <div class="col-md-6">
                         <label class="labels">{{__('lang.spec_dipl')}}</label>
-                        <select type="text" class="form-select" placeholder="Specialitie" value="" id="Spec">
+                        <select type="text" class="form-select" placeholder="Specialité" value="" id="Spec">
                         <option value="">{{__('lang.slct_spec_dipl')}}</option>
                             @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
-                            
+
                                 <option value="{{$niv->Specialité}}">{{$niv->Specialité_ar}}</option>
-                            
+
                             @else
-                            
+
                                 <option value="{{$niv->Specialité}}">{{$niv->Specialité}}</option>
-                            
+
                             @endif
                             @endforeach
                         </select>
@@ -83,13 +83,13 @@
                             <option value="">{{__('lang.slct_nom_dipl')}}</option>
                             @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
-                            
+
                                 <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv_ar}}</option>
-                            
+
                             @else
-                            
+
                                 <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv}}</option>
-                            
+
                             @endif
                             @endforeach
                         </select>
@@ -120,7 +120,7 @@
                     <div class="file-upload">
                         <div class="file-prog">
                             <div class="file-name" id='file1'>
-                               
+
                             </div>
                             <div class="prog-holder">
                             <div id="progressWrapper" style="display: none;">
@@ -128,7 +128,7 @@
                             </div>
                             </div>
                             <div class="icon">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -142,5 +142,6 @@
      var idp = '{{ $employe->id_p }}';
      var dir="Niveaux";
      var uid='{{$uid}}'
+     var lang='{{app()->getLocale()}}'
 </script>
 @endsection

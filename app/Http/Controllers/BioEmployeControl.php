@@ -32,15 +32,15 @@ class BioEmployeControl extends Controller
     {
 
         $request->validate([
-            'Prenom_O' => 'required|string',
-            'Nom_P' => 'required|string',
-            'Prenom_OAR'=> 'required|string',
-            'Nom_PAR'=> 'required|string' ,
-            'Email' => 'required|string',
-            'phone_pn' => 'required|integer',
-            'dateN' => 'required|date',
-            'adr' => 'required|string',
-            'adrAR' => 'required|string',
+            'Prenom_O' => 'string',
+            'Nom_P' => 'string',
+            'Prenom_OAR'=> 'string',
+            'Nom_PAR'=> 'string' ,
+            'Email' => 'string',
+            'phone_pn' => 'integer',
+            'dateN' => 'date',
+            'adr' => 'string',
+            'adrAR' => 'string',
         ]);
        // dd($request);
         $updated = DB::table('employes')
@@ -66,7 +66,10 @@ class BioEmployeControl extends Controller
             'Update Employé',
             $this->logService->getMacAddress()
         );
-            return response()->json(['success' => 'Employee Prenom updated successfully']);
+            return response()->json([
+                'success' => 'Employee Prenom updated successfully',
+                'status'=>200
+            ]);
         } else {
             return response()->json(['error' => 'Employee not found or update failed'], 404);
         }

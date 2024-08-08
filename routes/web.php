@@ -27,7 +27,7 @@ et la soumission des formulaires ou d'autres interactions nécessitant à la foi
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('/','home')->name('app_home');
-    Route::get('lang/{locale}', 'switchLanguage');
+    Route::get('/lang/{locale}', 'switchLanguage');
     Route::get('/about', 'about')->name('app_about');
     Route::match(['get', 'post'], '/dashboard','dashboard')
          ->middleware('auth') //pour acceder a cette page il faut s'authentifier
@@ -77,6 +77,9 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/conge/filter/{typeconge} ', 'filterByType')->name('conge.filter');
     Route::get('/conge/filterbydep/{department} ', 'filterbydep');
     Route::get('/conge/filtercongdep/{typeconge}/{department} ', 'filtercongdep');
+    Route::get('/Employe/IsTravaill/{id}','existToAdd')->name('Employe.istravaill');
+    Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
+    Route::get('/Employe/check/{id}','find_emp')->name('find_by_nin');
 });
 });
 
@@ -89,6 +92,8 @@ Route::controller(DepartmentController::class)->group(function(){
 
 
     Route::post('/add_depart','store')->name('app_store_depart');
+    Route::get('/depcount/{id}','get_emp_dep')->name('app_emp_depart');
+    Route::get('/direction/{id}','get_sdic')->name('app_get_sdirection');
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
 
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
@@ -106,14 +111,10 @@ Route::controller(DepartmentController::class)->group(function(){
 
 //Route::get('/BioTemplate/{id}',[BioEmployeControl::class,'create'])->name('BioTemplate.index');
 Route::middleware('auth')->group(function () {
-Route::controller(AddEmployeControll::class)->group(function(){
-    Route::post('/Employe/add','add');
-    Route::post('/Employe/Travaill','addToDep')->name('Employe.travaill');
-    Route::get('/Employe/IsTravaill/{id}','existToAdd')->name('Employe.istravaill');
-    Route::post('/Employe/addApp','existToAddApp');
-    Route::post('/Employe/Generat','GenDecision');
-    Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
-});
+    Route::post('/Employe/add',[AddEmployeControll::class,'add'])->name('add_emp_new');
+    Route::post('/Employe/Travaill',[AddEmployeControll::class,'addToDep'])->name('Employe.travaill');
+    Route::post('/Employe/addApp',[AddEmployeControll::class,'existToAddApp'])->name('add_emp_trav');
+    Route::post('/Employe/Generat',[AddEmployeControll::class,'GenDecision'])->name('add_generer');
 });
 Route::middleware('auth')->group(function () {
 Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');

@@ -90,8 +90,8 @@
         </tr>
                             </thead>
                             <tbody>
-                
-                            @foreach($employe as $employe)
+
+                            @foreach($paginator as $employe)
                 @php
                     $post = $employe->occupeIdNin->last()->post ;
                     $travail = $employe->travailByNin->last();
@@ -127,9 +127,9 @@
                         </td>
                         <td>
                              @if ($locale == 'fr')
-                              {{  $departement->Nom_depart  }}
+                              {{  $direction->Nom_depart  }}
                             @elseif ($locale == 'ar')
-                              {{ $departement->Nom_depart_ar  }}
+                              {{ $direction->Nom_depart_ar  }}
                             @endif
                         </td>
                         <td>
@@ -140,18 +140,21 @@
                             @endif
                         </td>
                         <td>{{ $travail->date_installation }}</td>
-                
+
                 </tr>
             @endforeach
             </tbody>
                         </table>
-                        
+                        <hr>
+                            <div class="pagination">
+                            {{ $paginator->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
-            
+
                 </main>
 
 
             </div>
-            
+
         </body>
     @endsection

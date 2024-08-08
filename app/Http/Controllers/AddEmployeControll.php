@@ -108,7 +108,7 @@ class AddEmployeControll extends Controller
 
             ]);
           //  dd($employe);
-          
+
         if($employe->save())
         {
             //$dbcontaint=$Containt->get();
@@ -176,13 +176,19 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
 
 
 
-   function existToAdd($id)
+  function existToAdd($id)
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $niv=new Niveau();
-    $dbniv=$niv->SELECT('Nom_niv')->distinct()->get();
+    $dbniv=$niv->SELECT('Nom_niv','Specialité','Specialité_ar','Nom_niv_ar')->distinct()->get();
+
     $dbempdepart = new Departement();
     $empdepart =$dbempdepart->get();
+    if(app()->getLocale() == 'ar')
+    {
+      dd(app()->getLocale());
+    }
+
     return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
   }
 
@@ -203,13 +209,13 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     $id=$Request->get('ID_NIN');
    // dd($id);
     $employe=Employe::where('id_nin', $id)->firstOrFail();
-   
+
     $Appartient=Appartient::where('id_nin', $id)->get();
     if($Appartient->count() > 0)
     {
         //----------------- send To next $etp for Donnée Administration ----------------------
       //  dd($Appartient);
-      
+
        $post=New Post();
        $dbpost=$post->get();
         $employe=Employe::where('id_nin', $id)->firstOrFail();
@@ -226,7 +232,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
       'Spec'=>'required|string|',
       'DipDate'=>'required|date'
   ]);
-       
+
         $niv=Niveau::where('Nom_niv',$Request->get('Dip'))
                      ->where('Specialité',$Request->get('Spec'))
                      ->first();
@@ -255,7 +261,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
          return view('addTemplate.admin',compact('employe','dbbureau','dbsdirection','dbdirection','dbpost','empdepart'));
 
   }
-    function existApp($id)
+    /*function existApp($id)
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $bureau=new Bureau();
@@ -270,10 +276,11 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     $dbpost=$post->get();
     $dbempdepart = new Departement();
         $empdepart =$dbempdepart->get();
+        dd(app()->getLocale());
     return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
-  }
+  }*/
   function GenDecision(Request $request)
-  { 
+  {
     $request->validate([
       'ID_NIN' => 'required|integer',
       'ID_P' => 'required|integer|',
@@ -282,24 +289,24 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
       'post'=>'required|integer|',
       'PVDate'=>'required|date'
   ]);
-    
+
     $travaill=new Travail([
       'date_chang' => Carbon::now(),
       'date_installation'=>$request->get('PVDate'),
       'notation'=>0	,
-      'id_nin'=>$request->get('ID_NIN'),	
-      'id_sous_depart'=>$request->get('SDic'),	
+      'id_nin'=>$request->get('ID_NIN'),
+      'id_sous_depart'=>$request->get('SDic'),
       'id_p'=>$request->get('ID_P')	,
       'id_bureau'=>5,
     ]);
     //dd($travaill);
-  
+
     if($travaill->save())
     {
       Occupe::create([
         'date_recrutement'=>$request->get('RecDate'),
         'echellant'=>0	,
-        'id_nin'=>$request->get('ID_NIN'),	
+        'id_nin'=>$request->get('ID_NIN'),
         'id_p'=>$request->get('ID_P')	,
         'id_post'=>$request->get('post')
       ]);

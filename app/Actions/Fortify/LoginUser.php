@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\View;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Contracts\LoginViewResponse as LoginViewResponseContract;
 
-class LoginUser  
+class LoginUser
 {
     public function authenticateUser(Request $request)
     {
@@ -21,9 +21,10 @@ class LoginUser
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
-       
+
         $user=User::where('username',$request->username)->first();
        //dd($user);
+       if($user!= NULL){
        if($user->nbr_login == 0 )
        {
         $pass=$user->password;
@@ -32,17 +33,18 @@ class LoginUser
        {
         $pass=$user->nv_password;
        }
+    }
         if($user && Hash::check($request->password, $pass))
         {
-            
+
             //recuperation des données de l'usr
-            $iduser = $user->id; 
+            $iduser = $user->id;
             $id_nin=$user->id_nin;
             $id_p=$user->id_p;
-         
+
                     //authntifier l'usr
                  Auth::login($user);
-                
+
             //stocker les infos dans table logins
             Login::create([
                 'id'=>$iduser,
@@ -58,23 +60,23 @@ class LoginUser
           // Vérifier la valeur de nbr_login
         if ($user->nbr_login == 0) {
             // Mettre à jour nbr_login
-            
+
             $user->save();
             $user->nbr_login = 1;
-            
+
             // Rediriger vers la page de mise à jour du mot de passe
             return redirect()->route('password_update'); // Assure-toi que cette route existe
         }
-        
+
             return redirect()->route('app_dashboard');
         }
-        
-    
+
+
     else{
         return back()->withErrors(['username' => 'Invalid username or password']);
     }
 }
 }
 
-  
+
 

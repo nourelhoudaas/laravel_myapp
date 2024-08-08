@@ -1,13 +1,14 @@
+
 @extends('base')
 
-@section('title', 'Formulaire')
+@section('title', 'Formulaire Administration')
 
 @section('content')
 
 @php
     $uid=auth()->id();
 @endphp
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <body>
 
 <div class="" id="prog-add">
@@ -40,10 +41,11 @@
                 </span>
             </div>
         </div>
+        
         <div class="form-holder">
         <form class="form-fa" action="/Employe/add" method="POST">
             @csrf
-        <div class="col-md-10">
+        <div class="col-md-10 just">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
 
@@ -75,16 +77,6 @@
                         <label class="labels">{{__('lang.sous_dept')}}</label>
                         <select type="text" class="form-select" value="" placeholder="Filiere" id="SDic">
                         <option>{{__('lang.slct_sous_dept')}}</option>
-                        @foreach($dbsdirection as $dic)
-                              @if (app()->getLocale() == 'ar')
-                              
-                                <option value="{{$dic->id_sous_depart}}">{{$dic->Nom_sous_depart_ar}}</option>
-                              @else
-                              
-                                <option value="{{$dic->id_sous_depart}}">{{$dic->Nom_sous_depart}}</option>
-                              
-                              @endif
-                        @endforeach
                         </select>
                     </div>
                 </div>
@@ -154,7 +146,39 @@
      var idp = '{{ $employe->id_p }}';
      var dir = 'Admin';
      var uid='{{$uid}}'
-     lng='{{app()->getLocale()}}'
+     var lang='{{app()->getLocale()}}'
+
+     $(document).ready(function() {
+            $('#Dic').on('change', function() {
+                var directionId = $(this).val();
+                if(directionId) {
+                    $.ajax({
+                        url: '/direction/'+directionId,
+                        type: "GET",
+                        dataType: "json",
+                        success:function(response) {
+                            $('#SDic').empty();
+                            $('#SDic').append('<option value="">{{__("lang.slct_sous_dept")}}</option>');
+                            $.each(response.data, function(key, value) {
+                                if(lang == 'ar')
+                                {
+                                $('#SDic').append('<option value="'+ value.id_soud_depart +'">'+ value.Nom_sous_depart_ar +'</option>');
+                                }
+                                else
+                                {
+                                $('#SDic').append('<option value="'+ value.id_soud_depart +'">'+ value.Nom_sous_depart +'</option>');
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    $('#SDic').empty();
+                    $('#SDic').append('<option value="">{{__("lang.slct_sous_dept")}}</option>');
+                }
+            });
+        });
+
+
 </script>
 @endsection
 

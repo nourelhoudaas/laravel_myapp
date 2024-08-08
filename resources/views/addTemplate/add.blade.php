@@ -42,7 +42,7 @@ $id=0;
 
             </div>
         </div>
-        <div class="form-holder ">
+        <div class="form-holder">
         <form class="form-fa " action="/Employe/add" method="POST">
             @csrf
         <div class="col-md-18">
@@ -50,7 +50,7 @@ $id=0;
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">{{__('lang.prof_set')}}</h4>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-2 just">
                 <div class="col-md-12">
                         <label class="labels">{{__('lang.NIN')}}</label>
                         <input type="text" class="form-control" placeholder="NIN" value="" id="ID_NIN">
@@ -68,7 +68,7 @@ $id=0;
                         <input type="text" class="form-control" value="" placeholder="Prenom" id="Prenom_O">
                     </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-2 just">
                     <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">الإسم</label>
                         <input type="text" class="form-control" placeholder="الإسم" value="" id="Nom_PAR" style="direction: rtl;">
@@ -78,7 +78,7 @@ $id=0;
                         <input type="text" class="form-control" value="" placeholder=" ...اللقب" id="Prenom_AR" style="direction: rtl;">
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3 just">
                     <div class="col-md-12">
 
                         <label class="labels">{{__('lang.num_tel')}}</label>
@@ -96,7 +96,7 @@ $id=0;
                         <label class="labels">date Naissance</label>
                         <input type="date" class="form-control" value="" id="Date_Nais_P">
                     </div>
-                    <div class="row mt-3">
+                    <div class="row mt-3 just">
                     <div class="col-md-6">
                         <label class="labels">Lieu</label>
                         <input type="text" class="form-control" placeholder="Wilaya" value="" id="Lieu_N">
@@ -111,7 +111,7 @@ $id=0;
                         <input type="text" class="form-control" placeholder="{{__('lang.slct_mail')}}" value="" id="EMAIL">
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3 just">
                     <div class="col-md-6">
                     <label class="labels">{{ __('lang.sx') }} </label>
                        <select name="sexe" id="Sexe"class="form-select form-select-lm mb-3" aria-label="Default select example">
@@ -123,7 +123,7 @@ $id=0;
                     <hr>
                     <span>{{ __('lang.stitua_fam') }}</span>
                     <hr>
-                    <div class="row mt-3">
+                    <div class="row mt-3 just">
                      <div class="col-md-6">
                         <label class="labels">Prenom du Pere</label>
                         <input type="text" class="form-control" placeholder="Prenom" value="" id="Prenom_Per">
@@ -133,7 +133,7 @@ $id=0;
                         <input type="text" class="form-control" value="" placeholder="إسم" id="Prenom_PerAR" style="direction: rtl;">
                      </div>
                      </div>
-                    <div class="row mt-3">
+                    <div class="row mt-3 just">
                      <div class="col-md-6">
                         <label class="labels">Nom du Mere </label>
                         <input type="text" class="form-control" placeholder="Nom" value="" id="Nom_mere">
@@ -143,7 +143,7 @@ $id=0;
                         <input type="text" class="form-control" placeholder="Prenom" value="" id="Prenom_mere">
                       </div>
                      </div>
-                     <div class="row mt-3">
+                     <div class="row mt-3 just">
                      <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">لقب الأم</label>
                         <input type="text" class="form-control" placeholder="Prenom" value="" id="Nom_mereAR">
@@ -169,7 +169,7 @@ $id=0;
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6" id="addf">    
+                <div class="col-md-6" id="addf">
                       </div>
                 <div class="mt-5 text-end">
                     <button class="btn btn-primary profile-button" type="submit" id="btn-sv">{{ __('lang.next') }}</button>

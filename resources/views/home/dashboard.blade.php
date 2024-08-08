@@ -16,7 +16,7 @@
                 @else
                 <h1>Dashboard without userId</h1>
                 @endif
-                
+
                 <div class="insights">
                     <!-- start Employees -->
                     <div class="sales">
@@ -72,6 +72,27 @@
 
 {{-- chartt1 --}}
 <script>
+     
+</script>
+<script>
+     var dept=@json($empdept);
+   var lang='{{app()->getLocale()}}'
+   var deptlis=[];
+   var nbrem=[]
+    dept.forEach(element => {
+        if(lang =='ar')
+        {
+            deptlis.push(element.Nom_depart_ar)
+            console.log(''+element.Nom_depart_ar)
+        }
+        else
+        {
+
+            deptlis.push(element.Nom_depart)
+            console.log(''+element.Nom_depart)
+        }
+        nbrem.push(element.nbremp)
+    });
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
@@ -96,29 +117,14 @@
 /* chartt2*/
 
     const ctx2 = document.getElementById('myChart2');
-    var lang='{{app()->getLocale()}}'
-    var dept=@json($empdepart);
-    var deptlis=[];
-    dept.forEach(element => {
-        if(lang =='ar')
-        {
-            deptlis.push(element.Nom_depart_ar)
-            console.log(''+element.Nom_depart_ar)
-        }
-        else
-        {
-            deptlis.push(element.Nom_depart)
-            console.log(''+element.Nom_depart)
-        }
-    });
-
+    console.log(nbrem)
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
             labels:deptlis,
             datasets: [{
                 label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: nbrem,
                 borderWidth: 1
             }]
         },

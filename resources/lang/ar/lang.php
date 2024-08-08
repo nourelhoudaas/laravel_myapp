@@ -18,6 +18,7 @@ return [
     'NSS'=>'رقم الضمان الإجتماعي',
     'ID_p'=>'الرقم الإحترافي',
     'slct_mail'=>' إدخال البريد الإليكتروني',
+    'pro_mail'=>' البريد الخاص',
 
     'ctrl_cng'=>'عملية مراقبة العطل',
     'ctrl_abs'=>'عملية تسجيل الحضور',
@@ -84,7 +85,9 @@ return [
     'nbr_jour'=>'الأيام المتبقية من العطلة',
     'ver_cng'=>'نحو العطلة',
 
+    'niv_edu'=>'المستوى التعليمي',
     'ref_dipl'=>'رقم الشهادة',
+    'slct_ref_dipl'=>'إدخال رقم الشهادة',
     'spec_dipl'=>'التخصص',
     'slct_spec_dipl'=>'تحديد نوع التخصص',
     'filier_dipl'=>'الشعبة',
@@ -140,7 +143,11 @@ return [
     'title_list_direc'=>'قائمة المديريات والمديريات الفرعية',
 
     'Departementde'=>'مديرية ',
-    'posttheo'=>'المناصب النظرية',
-    'postttt'=>'المناصب المحققة'
-
+    'posttheo'=>'نظري',
+    'postttt'=>'محقق',
+    'Changerlemotdepass'=>'تغيير كلمة المرور',
+    'Ancienmotdepass'=>'كلمة المرور السابقة',
+    'Nouveaumotdepass'=>'كلمة المرور الجديدة',
+    'Confirmervotrenouveaumotdepass'=>'قم بتأكيد كلمة المرور الجديدة',
+    'Retour'=>'الرجوع'
 ];
