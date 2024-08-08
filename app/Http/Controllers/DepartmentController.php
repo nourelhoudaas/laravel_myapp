@@ -257,7 +257,7 @@ return view('department.edit', compact('departement'));
 
 
 
-        return redirect('/departements')->with('success', 'Direction mis à jour avec succès.');
+        return redirect('/liste');
     }
 
 
