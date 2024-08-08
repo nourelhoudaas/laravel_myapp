@@ -285,6 +285,7 @@
     console.log(JSON.stringify(response));
                 // Insert data into the table
                 response.forEach(employe => {
+                    if(employe.length > 0){
                     const row = document.createElement("tr");
                     row.classList.add("employee-row");
                     if (lng === 'fr') {
@@ -310,7 +311,7 @@
                                 '<td>' + employe.joursRestants + '</td>' +
                                 '<td>' + employe.situation_AR + '</td>';
             }
-            employeeTableBody.appendChild(row);
+            employeeTableBody.appendChild(row);}
         });
     },
             error: function(jqXHR, textStatus, errorThrown) {

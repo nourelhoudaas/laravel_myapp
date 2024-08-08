@@ -80,27 +80,17 @@
             ->get();*/
 
   // Définir le nombre d'éléments par page
-  $perPage = 4;
+ // $perPage = 2;
 
 
-  // Obtenir la page actuelle
-  $currentPage = LengthAwarePaginator::resolveCurrentPage();
-
-
-
-
-  // Créer une nouvelle instance de LengthAwarePaginator
-  $paginatedEmployes = new LengthAwarePaginator( $employe->count(), $perPage, $currentPage, [
-      'path' => LengthAwarePaginator::resolveCurrentPath(),
-      'query' => $request->query(),
-  ]);
-
+      
 
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
 // Définir le nombre d'éléments par page
 $perPage = 2; // Par exemple, 2 éléments par page
-$page = request()->get('page', 1); // Page actuelle
+$page = request()->get('page', 
+); // Page actuelle
 $offset = ($page - 1) * $perPage;
 
 // Extraire les éléments pour la page actuelle
@@ -116,21 +106,9 @@ $paginator = new LengthAwarePaginator(
         'path' => request()->url(), // URL actuelle
         'query' => request()->query() // Paramètres de la requête
     ]
-);
-
-//dd($paginator);
-
-            //return $employe;
-            // dd($employe);
-
-            // return view('employees.liste',compact('paginatedEmployes','employe','totalEmployes','empdepart','champs','direction'));
-            $paginate = Employe::paginate(10);
-
-             return view('employees.liste',compact('paginate','employe','totalEmployes','empdepart','champs','direction'));
-
-
+);           
              return view('employees.liste',compact('paginator','employe','totalEmployes','empdepart','champs','direction'));
-
+        
 
                 }
 
@@ -548,13 +526,6 @@ $paginator = new LengthAwarePaginator(
                 $empdepart= DB::table('departements')
                             ->get();
 
-                $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
-
-                $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
-
-                $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
-                $typecon=type_cong::select('titre_cong','titre_cong_ar','ref_cong')->get();
-
 
                 $typecon=type_cong::select('titre_cong','ref_cong','titre_cong_ar')->get();
 
@@ -600,9 +571,13 @@ $paginator = new LengthAwarePaginator(
 
             {
                 //dd($typeconge);
+                $empcng=array();
                 $today = Carbon::now()->format('Y-m-d');
+                $conge_nin=Conge::get();
+                //dd($conge_nin);
+                foreach($conge_nin as $cong_emp)
+                {
                 $query = Employe::query()
-
                     ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
                     ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
                     ->join('travails', 'employes.id_nin', '=', 'travails.id_nin')
@@ -617,15 +592,18 @@ $paginator = new LengthAwarePaginator(
                         'sous_departements.*',
                         'posts.*',
                         DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE()) +1 AS joursRestants')
-                    );
+                    )
+                    ->where('conges.id_nin',$cong_emp->id_nin);
 
 
                 if ($typeconge) {
                     $query->where('type_congs.ref_cong', $typeconge)
                           ->where('date_fin_cong', '>', $today);
                 }
-                $emptypeconge=$query->get();
-            //    dd($emptypeconge);
+                $emptypeconge=$query->first();
+                array_push($empcng,$emptypeconge);
+                }
+              //  dd($empcng);
 
             return response()->json($emptypeconge);
 
@@ -960,7 +938,7 @@ $paginator = new LengthAwarePaginator(
               {
              //   dd(app()->getLocale());
               }
-
+          
               return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
             }
             function existApp($id)
@@ -981,5 +959,17 @@ $paginator = new LengthAwarePaginator(
                   //dd(app()->getLocale());
               return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
             }
+            function find_emp($id)
+            {
+                $find=Employe::where('id_nin',$id)->first();
+                if($find)
+                {
+                    return response()->json(['success'=>'exist','status'=>200,'data'=>$find]);
+                }
+                else
+                {
+                    return response()->json(['success'=>'not fund','status'=>302]);
+                }
+            }
 
-        }
+}

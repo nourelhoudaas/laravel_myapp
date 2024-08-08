@@ -72,44 +72,27 @@
 
 {{-- chartt1 --}}
 <script>
-      var dept=@json($empdepart);
-    var deptlis={'depart':[],'nbremp':[]};
+     
+</script>
+<script>
+     var dept=@json($empdept);
    var lang='{{app()->getLocale()}}'
+   var deptlis=[];
+   var nbrem=[]
     dept.forEach(element => {
         if(lang =='ar')
         {
-            deptlis.depart.push(element.Nom_depart_ar)
-            $.ajax({
-            url:'/depcount/'+element.id_depart,
-            type:'GET',
-            success:function(response)
-            {
-                const value=response.nbr
-                console.log('nbr -- '+value);
-                deptlis.nbremp.push(parseInt(value))
-            }
-        })
+            deptlis.push(element.Nom_depart_ar)
             console.log(''+element.Nom_depart_ar)
         }
         else
         {
 
-            deptlis.depart.push(element.Nom_depart_ar)
-            $.ajax({
-            url:'/depcount/'+element.id_depart,
-            type:'GET',
-            success:function(response)
-            {
-                const value=response.nbr
-                console.log('nbr -- '+value);
-                deptlis.nbremp.push(parseInt(value))
-            }
-        })
-            console.log(''+element.Nom_depart_ar)
+            deptlis.push(element.Nom_depart)
+            console.log(''+element.Nom_depart)
         }
+        nbrem.push(element.nbremp)
     });
-</script>
-<script>
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
@@ -134,14 +117,14 @@
 /* chartt2*/
 
     const ctx2 = document.getElementById('myChart2');
-    console.log(deptlis)
+    console.log(nbrem)
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels:deptlis.depart,
+            labels:deptlis,
             datasets: [{
                 label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: nbrem,
                 borderWidth: 1
             }]
         },

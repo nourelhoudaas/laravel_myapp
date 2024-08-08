@@ -892,7 +892,7 @@
 
                          $("#AbsTable tbody tr").each(function(){
                              var id_p=$(this).attr('id');
-                             var idme=$(this).find('td:nth-child(6)');
+                             var idme=$(this).data('td:nth-child(6)');
                              var id_nin=idme.attr('id')
                                $('#'+id_nin).click(function(){
 
@@ -1004,7 +1004,7 @@
                          });
                           $("#AbsTable tbody tr").each(function(){
                            var id_p=$(this).attr('id');
-                           var idme=$(this).find('td:nth-child(6)');
+                           var idme=$(this).data('td:nth-child(6)');
                            var id_nin=idme.attr('id')
                              $('#'+id_nin).click(function(){
                                 // openNav();
@@ -1124,7 +1124,39 @@
  /** ---------------------------congé partie Demarer ------------------*/
 
  $(document).ready(function(){
-
+     var idinput=$('#ID_NIN')
+     idinput.blur(function(){
+        var val=$(this).val()
+        $.ajax({
+            url:'/Employe/check/'+val,
+            type:'GET',
+            success:function(response)
+            {
+                if(response.status == 200)
+                {
+                    $('#ID_SS').val(response.data.NSS)
+                    $('#Nom_P').val(response.data.Nom_emp)
+                    $('#Prenom_O').val(response.data.Prenom_emp)
+                    $('#Nom_PAR').val(response.data.Nom_ar_emp)
+                    $('#Prenom_AR').val(response.data.Prenom_ar_emp)
+                    $('#PHONE_NB').val(response.data.Phone_num)
+                    $('#Address').val(response.data.adress)
+                    $('#AddressAR').val(response.data.adress_ar)
+                    $('#Date_Nais_P').val(response.data.Date_nais)
+                    $('#Lieu_N').val(response.data.Lieu_nais)
+                    $('#Lieu_AR').val(response.data.Lieu_nais_ar)
+                    $('#EMAIL').val(response.data.email)
+                    $('#Prenom_Per').val(response.data.prenom_pere)
+                    $('#Prenom_PerAR').val(response.data.prenom_pere_ar)
+                    $('#Nom_mere').val(response.data.nom_mere)
+                    $('#Prenom_mere').val(response.data.prenom_mere_ar)
+                    $('#Nom_mereAR').val(response.data.nom_mere_ar)
+                    $('#Prenom_mereAR').val(response.data.Nom_depart_ar)
+                }
+            }
+        })
+        
+     })
      var inpt=$('#id_emp')
      var droit='<i class="fa fa-check-square" aria-hidden="true"></i>'
      var pasrdoit='<i class="fa fa-ban" aria-hidden="true"></i>'
@@ -1251,7 +1283,7 @@
                              date_fcg:$('#Date_Fcg').val(),
                              total_cgj:total_cgj,
                              totaljour:parseInt(totaljour),
-                             type_cg:$('#typ_cg').find(":selected").val(),
+                             type_cg:$('#typ_cg').data(":selected").val(),
                              _token: $('meta[name="csrf-token"]').attr('content'),
                              _method: 'POST'
                            }
@@ -1344,7 +1376,12 @@
                      success: function (response) {
                          md=false;
                        //  alert(response.success);
-                       window.location.href= '/BioTemplate/edit/' + id
+                     //  window.location.href= '/BioTemplate/edit/' + id
+                     if(response.status == 200)
+                     {
+                        alert(response.success)
+                        location.reload();  
+                     }
                      },
                      error: function (xhr) {
                          console.log(xhr.responseText);

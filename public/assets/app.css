@@ -1364,7 +1364,10 @@ text-align: left;
 .fa-edit
 { font-size:40px;
 }
-
+.just
+{
+  text-align: justify;
+}
 /* ajout sous direction*/
 /* Dynamic classe creation */
 .app-card{
@@ -1419,6 +1422,13 @@ margin-bottom: 15px;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+#ddate input
+{
+
+    border: none;
+    width:100%;
+    border-radius: 5px;
 }
 input{
     padding: 8px 10px;

@@ -69,26 +69,47 @@
                   <div class="card mt-3">
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Email Professionnel</h6>
+                        <h6 class="mb-0">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                          {{__('lang.pro_mail')}}
+                        </h6>
                         <span class="text-secondary">xx@xx.com</span>
                       </li>
                     
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <div >
-                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> la Situation peronnel</span>
+                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.stitua_fam')}}</span>
                           <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i>Situation : Divorce</h6>
+                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i> {{__('lang.famill')}} : 
+                            @if(app()->getLocale() == 'ar')
+                            {{$last->situation_familliale_ar}}
+                            @else
+                            {{$last->situation_familliale}}
+                            @endif
+                          </h6>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Nombre d'enfant : 00</h6>
+                            <h6 class="mb-0"><i class="fa fa-user-plus" aria-hidden="true" ></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
                         </div>
                         <div >
-                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> la Situation educationnal</span>
+                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}} </span>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Diplome : {{$last->Nom_niv}}</h6>
+                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} : 
+                            @if( app()->getLocale() == 'ar')
+                            {{$last->Nom_niv_ar}}
+                            @else
+                            {{$last->Nom_niv}}
+                            @endif
+                          </h6>
                           </div>  
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                           <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Specialité : {{$last->Specialité}}</h6>
+                           <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} : 
+                           @if( app()->getLocale() == 'ar')
+                           {{$last->Specialité_ar}}
+                           @else
+                           {{$last->Specialité}}
+                           @endif
+                          </h6>
                           </div>
                         </div>
                       </li>

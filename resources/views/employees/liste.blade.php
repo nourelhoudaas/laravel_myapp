@@ -95,7 +95,7 @@
                             </thead>
                             <tbody>
 
-                            @foreach($employe as $employe)
+                            @foreach($paginator as $employe)
                 @php
                     $post = $employe->occupeIdNin->last()->post ;
                     $travail = $employe->travailByNin->last();
@@ -144,16 +144,15 @@
                             @endif
                         </td>
                         <td>{{ $travail->date_installation }}</td>
-
-                        <td><a href="{{route('addTemplate.add',$employe->id_nin)}}"><i class="fa fa-edit" ></i></a></td>
-
+                        <td><a href="{{route('departement.editer',$departement->id_depart)}}"><i class="fa fa-edit" ></i></a></td>
                 </tr>
             @endforeach
             </tbody>
                         </table>
-
-                            {{ $paginate->links() }}
-
+                        <hr>
+                            <div class="pagination">
+                            {{ $paginator->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
 
                 </main>
