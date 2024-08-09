@@ -98,7 +98,9 @@ return [
     'nom_dipl'=>'Diplome',
     'slct_nom_dipl'=>'Selection Le Diplome',
     'dat_optn_dipl'=>'Date Obtenuation de Diplome',
-
+    
+    'nbr_absence'=>'Total Absense',
+    'date_abs'=>'Date Du L`Absence',
     'motif'=>'Motif',
     'period'=>'Period',
     'matin'=>'Matin',
@@ -147,7 +149,7 @@ return [
     'title_list_direc'=>'Listes des Directions et  les Sous Directions',
 
 
-
+    'nbr_page'=>'Numero de Page',
     'Departementde'=>' Direction de',
     'posttheo'=>'Théorique',
     'postttt'=>'Approuvé',

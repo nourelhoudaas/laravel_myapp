@@ -96,7 +96,8 @@ return [
     'slct_nom_dipl'=>'تحديد نوع الشهادة',
     'dat_optn_dipl'=>'تاريخ التحصل على الشهادة',
 
-
+    'nbr_absence'=>'العدد الكلي للغيات',
+    'date_abs'=>'تاريخ الغياب',
     'motif'=>'السبب',
     'period'=>'التوقيت',
     'matin'=>'صباحاٌ',
@@ -143,6 +144,7 @@ return [
     'nom_sous_direct'=>'المديرية الفرعية',
     'title_list_direc'=>'قائمة المديريات والمديريات الفرعية',
 
+    'nbr_page'=>'الصفحة',
     'Departementde'=>'مديرية ',
     'posttheo'=>'نظري',
     'postttt'=>'محقق',

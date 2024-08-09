@@ -41,7 +41,8 @@
                     {
                         $('#emp-info').text(response.emp.Nom_emp+' '+response.emp.Prenom_emp)
                     }
-                    populateTable(response.list_abs.data); // Populate the table with posts
+                    populateTable(response.list_abs.data);
+                    displayPaginationInfo(response.list_abs.total, response.list_abs.last_page) // Populate the table with posts
                     setupPagination(response.list_abs); // Setup pagination links
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -49,13 +50,18 @@
                 }
             });
         }
-    
+        function displayPaginationInfo(totalPosts, totalPages) {
+            $('#total-posts').text(totalPosts);
+            $('#total-pages').text(totalPages);
+        }
         function populateTable(posts) {
             var tableBody = $('#AbsempTable tbody');
             tableBody.empty(); // Clear the table body
     
             $.each(posts, function(index, post) {
+                var rowNumber = index + 1; 
                 var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
                             '<td>' + post.statut + '</td>' +
@@ -70,6 +76,7 @@
             if(lng == 'ar')
                 {
             if (data.prev_page_url) {
+                
                 pagination.append('<a href="' + data.prev_page_url + '" class="page-link">السابق</a>');
             }
     
@@ -868,6 +875,9 @@
          $('#ddate').removeClass('error-handle');
          $('#Dep option:first').prop('selected', true);
          $('#AbsTable tbody').empty();
+         $('#AbsempTable thead').empty();
+         $('#AbsempTable tbody').empty();
+         $('#links').text('')
          $.ajax({
              url:'/abense_dates/'+dates,
              method :'GET',
@@ -888,6 +898,9 @@
         // alert('not empty')
       //   console.log('tes'+itemsdate.id_nin);
          $('#Dep').change(function() {
+            $('#AbsempTable thead').empty();
+            $('#AbsempTable tbody').empty();
+            $('#links').text('')
              let list_abs=new Object()
              var dep = $(this).val();
              var dates=$('#abs_date').val();
@@ -964,21 +977,36 @@
 
 
                          $("#AbsTable tbody tr").each(function(){
-                             var id_p=$(this).attr('id');
-                             var idme=$(this).find('td:eq(5)');
-                             var id_nin=idme.attr('id')
-                             $('#abs-info').click(function()
-    
-                             {
-                                 alert('click')
-                                 $("#AbsempTable thead").append('<tr>'
-                                                               +'<th>Prenom</th>'
-                                                               +'<th>Nom</th>'
-                                                               +'<th>date absense</th>'
-                                                               +'<th>Statu</th>' 
-                                                               +'</tr>')
-                             }
-                         )
+                            var id_p=$(this).attr('id');
+                            var idme=$(this).find('td:eq(5)');
+                            var id_nin=idme.attr('id')
+                            var idme=$(this).find('td:eq(6)');
+                            var id_abs=idme.attr('id');
+                            $('#'+id_abs).click(function()
+                            {
+                             var idsa=id_nin.split('n');
+                                $('#AbsempTable thead').empty();
+                                $('#AbsempTable tbody').empty();
+                                if( lng == 'ar')
+                                  {
+                                  $("#AbsempTable thead").append('<tr><th>رقم</th>'
+                                  +'<th>تاريخ الغياب</th>'
+                                  +'<th>توقيت الغياب</th>'
+                                  +'<th>سبب الغياب</th>' 
+                                  +'</tr>')
+                                 }else
+                                 {
+                                 $("#AbsempTable thead").append('<tr><th>Numero</th>'
+                                 +'<th>Date Du L`Absence</th>'
+                                 +'<th>Heure</th>'
+                                 +'<th>Statu</th>' 
+                                 +'</tr>')
+                                 }
+                               
+                                 fetchPosts('/Employe/list_abs/'+idsa[1])
+                                                       
+                            }
+                        )
                      
                                $('#'+id_nin).click(function(){
 
@@ -1101,10 +1129,21 @@
                             var idsa=id_nin.split('n');
                                $('#AbsempTable thead').empty();
                                $('#AbsempTable tbody').empty();
-                               $("#AbsempTable thead").append('<tr><th>date absense</th>'
-                                                             +'<th>Heure</th>'
-                                                             +'<th>Statu</th>' 
-                                                             +'</tr>')
+                               if( lng == 'ar')
+                               {
+                                $("#AbsempTable thead").append('<tr><th>رقم</th>'
+                                +'<th>تاريخ الغياب</th>'
+                                +'<th>توقيت الغياب</th>'
+                                +'<th>سبب الغياب</th>' 
+                                +'</tr>')
+                               }else
+                               {
+                               $("#AbsempTable thead").append('<tr><th>Numero</th>'
+                               +'<th>Date Du L`Absence</th>'
+                               +'<th>Heure</th>'
+                               +'<th>Statu</th>' 
+                               +'</tr>')
+                               }
                               
                                 fetchPosts('/Employe/list_abs/'+idsa[1])
                                                       
@@ -1343,7 +1382,7 @@
                         $('#date_fin').val(response.date_congé)
                      }
                      $('.date-conge').addClass('disp')
-                     alert('success')
+                   //  alert('success')
                  }
              })
  }else

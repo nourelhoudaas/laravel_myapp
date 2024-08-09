@@ -976,8 +976,8 @@ $paginator = new LengthAwarePaginator(
             public function get_list_absemp($id)
             {
                 $emp=Employe::where('id_nin',$id)->first();
-                $list_abs=Absence::where('id_nin',$id)->get();
-                $perPage = 10; // Par exemple, 2 éléments par page
+                $list_abs=Absence::where('id_nin',$id)->orderBy('date_abs','desc')->get();
+                $perPage = 5; // Par exemple, 2 éléments par page
                     $page = request()->get('page',
                                                 ); // Page actuelle
                     $offset = ($page - 1) * $perPage;

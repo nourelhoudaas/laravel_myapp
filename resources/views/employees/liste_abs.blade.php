@@ -61,6 +61,10 @@
                         </thead>
                         <tbody></tbody>
                     </table>
+                    <div id="pagination-info">
+                     <p>{{__('lang.nbr_absence')}}: <span id="total-posts"></span></p>
+                     <p>{{__('lang.nbr_page')}}: <span id="total-pages"></span></p>
+                    </div>
                     <div class="pagination" id='links'>
                         
                     </div>
@@ -126,6 +130,7 @@
              var uid='{{$uid}}'
             var id
             var dir='Maladie'
+            var dateabs='{{__("lang.date_abs")}}'
         </script>
     </body>
     <script>
