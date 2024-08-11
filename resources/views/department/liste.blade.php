@@ -58,6 +58,38 @@
 
 
 
+                        </td>
+
+
+                <script type="text/javascript">
+                function confirmation(ev){
+                    evpreventDefault();
+                    var urlToRedirect=ev.currentTarget.getAttribute('href');
+                    console.log(urlToRedirect);
+                    swal({
+                        title:"voulez-vous supprimé cette direction?",
+                        title:"etes vous sure ?",
+                        icon:"warning",
+                        buttons :true,
+                        dangerMode : true,
+                    })
+                    .then((willCancel)=>
+                {
+                    if(willCancel)
+                {
+                         window.location.href=urlToRedirect;
+                }
+                }
+                )
+                }
+                </script>
+            </tbody>
+        </table>
+        <nav class="app-pagination">
+            {{$departements->links()}}
+
+
+
 
                     </nav><!--//app-pagination-->
 

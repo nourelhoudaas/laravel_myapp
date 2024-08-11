@@ -83,13 +83,13 @@
  // $perPage = 2;
 
 
-      
+
 
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
 // Définir le nombre d'éléments par page
 $perPage = 2; // Par exemple, 2 éléments par page
-$page = request()->get('page', 
+$page = request()->get('page',
 ); // Page actuelle
 $offset = ($page - 1) * $perPage;
 
@@ -106,9 +106,9 @@ $paginator = new LengthAwarePaginator(
         'path' => request()->url(), // URL actuelle
         'query' => request()->query() // Paramètres de la requête
     ]
-);           
+);
              return view('employees.liste',compact('paginator','employe','totalEmployes','empdepart','champs','direction'));
-        
+
 
                 }
 
@@ -938,7 +938,7 @@ $paginator = new LengthAwarePaginator(
               {
              //   dd(app()->getLocale());
               }
-          
+
               return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
             }
             function existApp($id)

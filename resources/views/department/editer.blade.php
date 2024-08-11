@@ -21,7 +21,7 @@
                     <circle cx="8" cy="4.5" r="1"/>
                     </svg></span></h3>
 
-                <div class="section-intro">modificatio de la direction avec des sous directions </div>
+                <div class="section-intro">Modification de la direction avec des sous directions</div>
             </div>
             <div class="col-12 col-md-8">
                 <div class="app-card shadow-lg p-3 mb-5 bg-body-tertiary rounded"  >
@@ -29,7 +29,7 @@
 
                     <div class="app-card-body" >
 
-                            <form action="{{ route('departement.update',$departement->id_depart) }}" method="POST">
+                            <form action="{{ route('departement.update',$departement->id_depart)}}" method="POST">
                             @csrf
                             @method('PUT')
 
@@ -45,7 +45,6 @@
                             <div class= "text-bg-light p-3">
                                 <label for="setting-input-1" class="fw-bold">Nom de la Direction en arabe</label>
                                 <input type="text" class="form-control" id="Nom_depart_ar" placeholder="Nom de la Direction en Arabe" name="Nom_depart_ar" value="{{$departement->Nom_depart_ar}}" required>
-
                             </div>
                             <div class="text-bg-light p-3">
                                 <label for="setting-input-2" class="fw-bold">Description de la Direction en arabe</label>
