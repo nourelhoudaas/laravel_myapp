@@ -41,7 +41,6 @@
                     {
                         $('#emp-info').text(response.emp.Nom_emp+' '+response.emp.Prenom_emp)
                     }
-                    console.log(''+JSON.stringify(response.list_abs))
                     populateTable(response.list_abs.data);
                     displayPaginationInfo(response.list_abs.total, response.list_abs.last_page,response.list_abs.current_page) // Populate the table with posts
                     setupPagination(response.list_abs); // Setup pagination links

@@ -79,7 +79,7 @@
                             @endforeach
                         </select>
                         <hr>
-                        <select type="text" class="form-select" id="Dep">
+                        <select type="text" class="form-select" id="Depcng">
                             <option value="">{{ __('lang.slct_dept') }}</option>
                             @foreach($empdepart as $empdeparts)
                                  @php
@@ -255,7 +255,7 @@
 
     //les constants pour éléments de selection par type,dep et total des filtres 
     const typeCongeSelect = document.getElementById("type-conge");
-    const departmentSelect = document.getElementById("Dep");
+    const departmentSelect = document.getElementById("Depcng");
         const employeeTableBody = document.querySelector("#CngTable tbody");
 
     //des écouteurs pour les changements dans les select
