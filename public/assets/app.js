@@ -41,8 +41,9 @@
                     {
                         $('#emp-info').text(response.emp.Nom_emp+' '+response.emp.Prenom_emp)
                     }
+                    console.log(''+JSON.stringify(response.list_abs))
                     populateTable(response.list_abs.data);
-                    displayPaginationInfo(response.list_abs.total, response.list_abs.last_page) // Populate the table with posts
+                    displayPaginationInfo(response.list_abs.total, response.list_abs.last_page,response.list_abs.current_page) // Populate the table with posts
                     setupPagination(response.list_abs); // Setup pagination links
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -50,9 +51,9 @@
                 }
             });
         }
-        function displayPaginationInfo(totalPosts, totalPages) {
+        function displayPaginationInfo(totalPosts, totalPages,current_page) {
             $('#total-posts').text(totalPosts);
-            $('#total-pages').text(totalPages);
+            $('#total-pages').text(current_page+'/'+totalPages);
         }
         function populateTable(posts) {
             var tableBody = $('#AbsempTable tbody');
