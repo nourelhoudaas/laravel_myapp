@@ -584,7 +584,7 @@ $paginator = new LengthAwarePaginator(
   $today = Carbon::now()->format('Y-m-d');
   $result=array();
   $post=array();
-  $id_sous=Sous_departement::where('id_depart',$id_dep)->get();
+  $id_sous=Sous_departement::where('id_depart',$department)->get();
 
   foreach($id_sous as $sous_dep)
   {
@@ -992,8 +992,6 @@ foreach($allwor as $workig)
                     ]);
                 }*/
                 //dd($cng);
-
-
                 if($cng->count() > 0)
             {
                 if(Carbon::now()->year >= $cng[0]->annee  && $request->get('type_cg') == 'RF001')
