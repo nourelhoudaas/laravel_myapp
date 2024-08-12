@@ -1596,6 +1596,7 @@
          const fileError = $('#file-error');
            $('#conge_confirm').click(function()
                      {
+                        var granted=true;
                          if(id !== null && file[0].files.length > 0 ){
                          var date_dcg=$('#Date_Dcg').val();
                          var date_fcg=$('#Date_Fcg').val();
@@ -1604,11 +1605,16 @@
                          console.log('-->'+jr[0]);
                          var total_cgj= parseInt(jr[0]);
                          console.log('--> '+jr)
-                         if(totaljour > 0 && totaljour <=30 && total_cgj > 0)
-                             {
-                                var selectElement = document.getElementById("typ_cg");
+                         var selectElement = document.getElementById("typ_cg");
+                                var selectsitua = document.getElementById("Situation");
                                 var selectedValue = selectElement.value;
-                                console.log('testing'+selectedValue)
+                                var selectedVsitua = selectsitua.value;
+                         if(selectedValue == 'RF002' && selectedVsitua == 'hors')
+                         {
+                            granted=false
+                         }
+                         if(totaljour > 0 && totaljour <=30 && total_cgj > 0 && granted == true)
+                             {
                          var congeform={
                              ID_NIN:parseInt(result.employe.id_nin),
                              ID_P:parseInt(result.employe.id_p),
@@ -1619,6 +1625,7 @@
                              total_cgj:total_cgj,
                              totaljour:parseInt(totaljour),
                              type_cg:selectedValue,
+                             situation:selectedVsitua,
                              _token: $('meta[name="csrf-token"]').attr('content'),
                              _method: 'POST'
                            }
@@ -1654,12 +1661,17 @@
                          {
                              alert('pas de jour a ajouter')
                          }
+                         if(granted == false)
+                         {
+                        $('#Situation').addClass('error-handle')
+                         $('#typ_cg').addClass('error-handle')
+                         }
                          $('#Date_Dcg').addClass('error-handle')
                          $('#Date_Fcg').addClass('error-handle')
                      }
                  }else
                  {
-                     alert('empty files'+id);
+                     alert('empty files');
                      if( id == null){
                      $('#id_emp').addClass('error-handle')}
                      if(file[0].files.length == 0){

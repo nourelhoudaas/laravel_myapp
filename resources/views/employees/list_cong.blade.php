@@ -205,7 +205,11 @@
                     </select>
                     <hr>
                     <input type="text" id="total_cgj" disabled>
-                    <input type="text" id="Situation">
+                    <select id="Situation">
+                        <option value='0'>{{ __('lang.stuation') }}</option>
+                        <option value='dans'>{{ __('lang.dans') }}</option>
+                        <option value='hors'>{{ __('lang.hors') }}</option>
+                    </select>
                     <div id="checkcg-box"></div>
                     </br>
                     <div class='date-conge' >
@@ -302,7 +306,7 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation + '</td>';
+                                '<td>' + employe.situation+ '</td>';
             } else if (lng === 'ar') {
                 row.innerHTML = '<td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +

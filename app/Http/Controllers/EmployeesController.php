@@ -918,7 +918,8 @@ foreach($allwor as $workig)
                     'Dic'=>'required|integer',
                     'date_dcg'=>'required|date',
                     'date_fcg'=>'required|date',
-                    'type_cg'=>'required|string'
+                    'type_cg'=>'required|string',
+                    'situation'=>'string',
                 ]
                 );
                 $cng=Conge::where('id_nin',$request->get('ID_NIN'))
@@ -975,7 +976,7 @@ foreach($allwor as $workig)
                         'date_fin_cong'=>$request->get('date_fcg'),
                         'nbr_jours'=>intval($nbrcng),
                         'ref_cong'=>$request->get('type_cg'),
-                        'situation'=>'dans',
+                        'situation'=>$request->get('situation'),
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                     }
@@ -1036,7 +1037,7 @@ foreach($allwor as $workig)
                     'date_fin_cong'=>$request->get('date_fcg'),
                     'nbr_jours'=>intval($nbrcng),
                     'ref_cong'=>$request->get('type_cg'),
-                    'situation'=>'dans',
+                    'situation'=>$request->get('situation'),
                     'id_sous_depart'=>$request->get('SDic')
                         ]);
                 }
@@ -1083,7 +1084,7 @@ foreach($allwor as $workig)
                         'date_fin_cong'=>$request->get('date_fcg'),
                         'nbr_jours'=>intval($monthsDifference * 30),
                         'ref_cong'=>$request->get('type_cg'),
-                        'situation'=>'dans',
+                        'situation'=>$request->get('situation'),
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                             if($cong->save())
