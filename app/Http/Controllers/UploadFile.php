@@ -241,7 +241,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
             $log= $this->logService->logAction(
                 Auth::user()->id,
                 $request->get('id_nin'),
-                'Stocker Un fichier'.$fich[0]->id_fichier,
+                'Stocker Un fichier Num '.$fich[0]->id_fichier,
                 $this->logService->getMacAddress()
             );
             return response()->json([
