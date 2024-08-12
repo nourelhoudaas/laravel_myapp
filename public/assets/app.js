@@ -26,7 +26,6 @@
         })
  *
  */
-
         function fetchPosts(url) {
             $.ajax({
                 url: url,
@@ -264,8 +263,8 @@
               formData.append('sous', dir);
               formDataF.append('id_nin', parseInt(id));
               formDataF.append('sous', dir);
-              console.log('button of'+this.id);
-              console.log('button of'+this.dir);
+              console.log('button of v2'+this.id);
+              console.log('button ofv 2'+this.dir);
              $.ajax({
                  url: '/upload/creedossier',
                  type: 'POST',
@@ -306,6 +305,7 @@
                          {
                              console.log('messsage '+JSON.stringify(response.data))
                              var stockForm={
+                                id_nin:id,
                                  id:uid,
                                  ref_d:response.data.ref_d,
                                  sous_d:response.data.sous_d,
@@ -1100,8 +1100,58 @@
                                  var idsa=id_nin.split('n');
                                   id=idsa[1]
                                  console.log('gtting data'+checkv2[1]);
+                                 
                                if(check === checkv2[1]){
                                  openNav();
+                                 dir='Maladie';
+                                 $('#StatusJ').change(function()
+                                 {
+                                     var Type='Type'
+                                     var Admin='Adminstrative'
+                                     var Maladi='Maladie'
+                                     const selectedColor = $('input[name="StatusRadio"]:checked').val();
+                                     console.log(''+selectedColor)
+                                     if(selectedColor == 'F1')
+                                        if( lng == 'ar')
+                                        {
+                                            Type='نوع الترخيص'
+                                            Admin='إداري'
+                                            Maladi='مرضي'
+                                        }
+                                     {
+                                         $('#checkboxContainer').html(`
+                                             <div class="form-check info-wid">
+                                              <input class="form-check-input" type="radio" name="CatjustRadio" id="Maladie" value="Maladie" checked>
+                                              <label class="form-check-label" for="exampleRadios1">
+                                              `+Maladi+`
+                                              </label>
+                                             </div>
+                                            <div class="form-check info-wid">
+                                             <input class="form-check-input" type="radio" name="CatjustRadio" id="Admin" value="Admin">
+                                             <label class="form-check-label" for="exampleRadios2">
+                                             `+Admin+`
+                                           </label>
+                                           </div>`);
+                                 
+                                         // Ensure only one checkbox is checked at a time
+                                         $('input[name="CatjustRadio"]').on('change', function() {
+                                             if ($(this).is(':checked')) {
+                                                 $('input[name="CatjustRadio"]').not(this).prop('checked', false);
+                                                 console.log($('input[name="CatjustRadio"]:checked').val())
+                                                 dir=$('input[name="CatjustRadio"]:checked').val()
+                                             }
+                                         });
+                                     }
+                                 })
+                                 $('#StatusNoJ').change(function()
+                                 {
+                                     const selectedColor = $('input[name="StatusRadio"]:checked').val();
+                                     console.log(''+selectedColor)
+                                     if(selectedColor == 'F2')
+                                     {
+                                         $('#checkboxContainer').empty()
+                                     }
+                                 })
                                  var absensform={
                                    ID_NIN:id_nin,
                                    ID_P:id_p,
@@ -1123,7 +1173,7 @@
                                    {
                                      $('#file').removeClass('error-handle')
                                      closeNav(absensform,id_nin,absens)
-                                     uploadFile()
+                                     uploadFile2(id)
                                      che++;
                                    }
                                   else
@@ -1243,11 +1293,59 @@
                           //     console.log('icons id'+check);
                                var checkv2 =  present.split('"');
                                var idsa=id_nin.split('n');
-
                                console.log('gtting data'+idsa[1]);
                                id=idsa[1]
                              if(check === checkv2[1]){
                                  openNav();
+                                dir='Maladie';
+                                 $('#StatusJ').change(function()
+                                 {
+                                     var Type='Type'
+                                     var Admin='Adminstrative'
+                                     var Maladi='Maladie'
+                                     const selectedColor = $('input[name="StatusRadio"]:checked').val();
+                                     console.log(''+selectedColor)
+                                     if(selectedColor == 'F1')
+                                        if( lng == 'ar')
+                                        {
+                                            Type='نوع الترخيص'
+                                            Admin='إداري'
+                                            Maladi='مرضي'
+                                        }
+                                     {
+                                         $('#checkboxContainer').html(`
+                                             <div class="form-check info-wid">
+                                              <input class="form-check-input" type="radio" name="CatjustRadio" id="Maladie" value="Maladie" checked>
+                                              <label class="form-check-label" for="exampleRadios1">
+                                              `+Maladi+`
+                                              </label>
+                                             </div>
+                                            <div class="form-check info-wid">
+                                             <input class="form-check-input" type="radio" name="CatjustRadio" id="Admin" value="Admin">
+                                             <label class="form-check-label" for="exampleRadios2">
+                                             `+Admin+`
+                                           </label>
+                                           </div>`);
+                                 
+                                         // Ensure only one checkbox is checked at a time
+                                         $('input[name="CatjustRadio"]').on('change', function() {
+                                             if ($(this).is(':checked')) {
+                                                 $('input[name="CatjustRadio"]').not(this).prop('checked', false);
+                                                 console.log($('input[name="CatjustRadio"]:checked').val())
+                                                 dir=$('input[name="CatjustRadio"]:checked').val()
+                                             }
+                                         });
+                                     }
+                                 })
+                                 $('#StatusNoJ').change(function()
+                                 {
+                                     const selectedColor = $('input[name="StatusRadio"]:checked').val();
+                                     console.log(''+selectedColor)
+                                     if(selectedColor == 'F2')
+                                     {
+                                         $('#checkboxContainer').empty()
+                                     }
+                                 })
                                var absensform={
                                  ID_NIN:id_nin,
                                  ID_P:id_p,
@@ -1270,7 +1368,7 @@
                                           {
                                        $('#file').removeClass('error-handle')
                                        closeNav(absensform,id_nin,absens)
-                                       uploadFile()
+                                       uploadFile2(id)
                                        che++;
                                      }
 

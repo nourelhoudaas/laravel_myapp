@@ -114,6 +114,11 @@
                 </label>
             </div>
             </div>
+<hr>
+        <div class="info-handler">
+          <label>{{ __('lang.motif') }} :</label>
+      </br>
+          <div class="info-info" id="checkboxContainer">  
         </div>
         <hr>
             <div class="form-group">

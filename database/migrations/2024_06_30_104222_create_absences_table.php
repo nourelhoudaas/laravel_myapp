@@ -19,9 +19,11 @@ return new class extends Migration
             $table->integer('id_nin');
             $table->integer('id_p');
             $table->integer('id_sous_depart');
+            $table->integer('id_fichier');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
             $table->foreign('id_p')->references('id_p')->on('employes');
+            $table->foreign('id_fichier')->references('id_fichier')->on('fichiers');
         });
     }
 
