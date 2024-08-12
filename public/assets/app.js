@@ -1411,6 +1411,7 @@
                  success:function(response)
                  {
                      result=response;
+                     id=response.employe.id_nin
                    //  console.log('response'+JSON.stringify(response))
                    if(lng == 'ar')
                    {

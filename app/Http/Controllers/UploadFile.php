@@ -79,7 +79,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
                                                 $log= $this->logService->logAction(
                                                     Auth::user()->id,
                                                     $id,
-                                                    'Ajouter Un fichier Em_'.$id."/sous_Dossier :".$sous_dir." Avec Nom".$file->getClientOriginalName(),
+                                                    'Ajouter Un fichier a Em_'.$id."/sous_Dossier :".$sous_dir." Avec Nom".$file->getClientOriginalName(),
                                                     $this->logService->getMacAddress()
                                                 );
                                             };
