@@ -79,7 +79,7 @@
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.stitua_fam')}}</span>
-                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                             <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i> {{__('lang.famill')}}:
                             @if(app()->getLocale() == 'ar')
                             {{$last->situation_familliale_ar}}
@@ -88,15 +88,15 @@
                             @endif
                           </h6>
                         </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
+                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+                            <h6 class="mb-0"><i class="fa fa-user-plus" aria-hidden="true" ></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
                         </div>
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}} </span>
-                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} : {{$last->Nom_niv}}</h6>
+                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} : {{$last->Nom_niv}}</h6>
                           </div>
-                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} : 
                            @if( app()->getLocale() == 'ar')
                            {{$last->Specialité_ar}}

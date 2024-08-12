@@ -827,6 +827,7 @@ transform: scale(1.05) rotate(-1deg);
   width: 50%;
   display: flex;
   width: 40%;
+  align-items: center
 }
 .field-holderAR
 {
@@ -836,6 +837,11 @@ transform: scale(1.05) rotate(-1deg);
   position: relative;
   width: 40%;
   direction: rtl;
+  align-items: center
+}
+.info-bord
+{
+  border: unset
 }
 .staticent
 {
@@ -1347,10 +1353,16 @@ cursor: pointer;
 }
 .file-ar
 {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   text-align: right;
 }
 .file-fr
 {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 text-align: left;
 }
 .pad-ar

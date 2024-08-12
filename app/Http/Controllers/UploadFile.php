@@ -68,7 +68,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
             ]);
         }
 
-
+       // dd($save);
 
 
       return response()->json([
@@ -148,6 +148,8 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
        // dd(app()->getLocale());
         return view('BioTemplate.file_Index',compact('files','empdoss','empdepart','employe'));
     }
+
+
     public function live_File($directory,$subdir,$filename)
     {
         $id=explode('-',$filename);
@@ -158,11 +160,12 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         //dd($path);
         return redirect()->to('storage/' .$path);
     }
+
+
     public function savedb(Request $request)
     {  
        
         $file=$request->get('fichier');
-        
         $date=Carbon::now();
         $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
         $doss=Dossier::select('ref_Dossier')->where('ref_Dossier',$request->get('ref_d'))->get();
@@ -236,8 +239,17 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         if($id)
         {
         $name=Fichier::where('id_fichier',$id)->select('nom_fichier')->first();
+        $name=explode('.',$name->nom_fichier);
+        $date_stock=Stocke::where('id_fichier',$id)->select('date_insertion','id_fichier')->distinct()->first();
+      //  dd($name[0]);
+      $date_in='N/A';
+      if(isset($date_stock->date_insertion))
+      {
+        $date_in=$date_stock->date_insertion;
+      }
         return response()->json([
-            'name'=>$name->nom_fichier,
+            'name'=>$name[0],
+            'date_insert'=>$date_in,
             'status'=> 200
         ]);
         }

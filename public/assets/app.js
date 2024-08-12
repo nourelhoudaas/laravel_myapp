@@ -172,6 +172,84 @@
              }
          })
 
+
+         function uploadFile_space() {
+            var formDataF = new FormData();
+            var file = document.getElementById('file').files[0];
+            formDataF.append('file', file);
+            formDataF.append('_token',  $('meta[name="csrf-token"]').attr('content'));
+             formDataF.append('id_nin', parseInt(id));
+             formDataF.append('sous', dir);
+             console.log('button of'+this.id);
+             console.log('button of'+this.dir);
+                    $.ajax
+                  ({
+                      url:"/upload/numdossiers",
+                      type: 'POST',
+                      data: formDataF,
+                      contentType: false,
+                      processData: false,
+                      xhr: function() {
+                          var xhr = new window.XMLHttpRequest();
+                          xhr.upload.addEventListener("progress", function(e) {
+                              if (e.lengthComputable) {
+                                  var percentComplete = (e.loaded / e.total) * 100;
+                                  $('#progressWrapper').show();
+                                  $('#progressBar').width(percentComplete + '%');
+                              }
+                          }, false);
+                          return xhr;
+                      },
+                      success:function(response)
+                      {
+                          if(uid && response.status == 200)
+                              {
+                                  console.log('messsage '+JSON.stringify(response.data))
+                                  var stockForm={
+                                      id:uid,
+                                      ref_d:response.data.ref_d,
+                                      sous_d:response.data.sous_d,
+                                      fichierext:response.data.filenext,
+                                      fichier:response.data.filename,
+                                      Tfichier:response.data.filesize,
+                                      _token: $('meta[name="csrf-token"]').attr('content'),
+                                      _method: 'POST'
+                                  }
+                              $.ajax({
+                                  url:'/whoiam',
+                                  type: 'POST',
+                                  data:stockForm,
+                                  success:function(responses)
+                                  {
+                                      if(responses.status == 200)
+                                          {
+                                              $('#successMessage').show();
+                                              $('#progressWrapper').hide();
+                                              $('#progressBar').width('0%');
+                                          alert(response.message)
+                                          }else
+                                          {
+                                              console.log('error');
+                                          }
+                                  }
+                              })
+                          }
+                              else
+                              {
+                                  console.log('no log');
+                              }
+                       $('#successMessage').show();
+                       $('#progressWrapper').hide();
+                       $('#progressBar').width('0%');
+                      },
+                      error: function() {
+                          alert('Upload failed');
+                      }
+                  })
+          }
+
+
+
          function uploadFile2(id) {
              var formData = new FormData();
              var formDataF = new FormData();
@@ -293,6 +371,7 @@
        contentType: false,
        processData: false,
        xhr: function() {
+        alert(response.message)
            var xhr = new window.XMLHttpRequest();
            xhr.upload.addEventListener("progress", function(e) {
                if (e.lengthComputable) {
@@ -304,6 +383,7 @@
            return xhr;
        },
        success: function(data) {
+        alert(response.message)
            $('#successMessage').show();
            $('#progressWrapper').hide();
            $('#progressBar').width('0%');
@@ -329,6 +409,7 @@
              },
              success:function(response)
              {
+                alert(response.message)
                  if(uid && response.status == 200)
                      {
                          console.log('messsage '+JSON.stringify(response.data))
@@ -348,7 +429,7 @@
                          data:stockForm,
                          success:function(responses)
                          {
-
+                            alert(response.message)
                              if(responses.code == 200)
                                  {
                                      $('#successMessage').show();
@@ -364,7 +445,7 @@
                  }
                      else
                      {
-                         console.log('no log');
+                         alert('no log');
                      }
               $('#successMessage').show();
               $('#progressWrapper').hide();
