@@ -206,6 +206,7 @@
                               {
                                   console.log('messsage '+JSON.stringify(response.data))
                                   var stockForm={
+                                      id_nin:id,
                                       id:uid,
                                       ref_d:response.data.ref_d,
                                       sous_d:response.data.sous_d,

@@ -54,7 +54,7 @@
                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                           </br>
                           <div class="mod-but" id="mod-but">
-                             <i class="fa fa-pencil" aria-hidden="true" id="btn-icon">...</i>
+                             <i class="fa fa-times" aria-hidden="true" id="btn-icon">...</i>
                           </div>
                         <div class="mt-3">
                           <h4>ID est :<p id="ID_NIN">{{$last->id_nin}}</p></h4>
@@ -156,11 +156,11 @@
                       <hr>
                       <div class="row field">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Phone</h6>
+                          <h6 class="mb-0">Telephone</h6>
                         </div>
                         <input class="col-sm-9 text-secondary" type="number"
                         id='phone_pn'
-                        value='{{$last->Phone_num}}'
+                        value='0{{$last->Phone_num}}'
                         style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       <hr>
@@ -171,7 +171,7 @@
                         <input class="col-sm-9 text-secondary" type='date'
                           id='dateN'
                           value='{{$last->Date_nais}}'
-                          style="border: hidden;background-color: transparent;" disabled>
+                          style="border: hidden;background-color: transparent; text-align: center;" disabled>
                       </div>
                       <hr>
                       <div class="field">
@@ -325,7 +325,7 @@
     <script >
        var id = '{{ $last->id_nin }}';
        var uid='{{$uid}}'
-      var md=true;
+      var md=false;
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){
