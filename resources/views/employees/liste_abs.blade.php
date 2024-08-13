@@ -123,7 +123,7 @@
         <hr>
             <div class="form-group">
                 <label for="exampleFormControlFile1">{{ __('lang.filejust') }}  </label>
-                <input type="file" class="form-control-file" id="file">
+                <input type="file" class="form-control-file file-input" id="file">
             </div>
         </form>
     </div>

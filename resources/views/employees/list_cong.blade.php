@@ -226,7 +226,7 @@
                             <input type="text" value="" id="date_fin" disabled>
                         </div>
                     </div>
-                    <input type="file" name="file" id="file" style="height:40px" required>
+                    <input class="file-input" type="file" name="file" id="file" style="height:40px" required>
                     <div id="file-error" class="error-tooltip">File is required</div>
                     <button type="button" id="conge_confirm">{{ __('lang.ver_cng') }}</button>
                     <button type="button" id="cancel-conge" class="close-formcg-btn">{{ __('lang.cancel') }} </button>

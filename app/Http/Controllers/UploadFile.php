@@ -114,6 +114,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
             'id_nin'=>'required|integer',
         ]);
         $id=$request->get('id_nin');
+        
        // $sous_dir=$request->get('sous');
         $mainDirectoryPath = storage_path('app/public/employees/Em_'.$id);
 
@@ -134,9 +135,9 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         // Create the main directory if it doesn't exist
         if (!File::exists($mainDirectoryPath)) {
             File::makeDirectory($mainDirectoryPath, 0777, true);
-            echo "Main directory created successfully.<br>";
+         //   echo "Main directory created successfully.<br>";
         } else {
-            echo "Main directory already exists.<br>";
+          //  echo "Main directory already exists.<br>";
         }
 
         // Create the subdirectory inside the main directory
@@ -144,11 +145,12 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         {
         if (!File::exists($subDirectoryPath[$i])) {
             File::makeDirectory($subDirectoryPath[$i], 0777, true);
-            echo "Subdirectory created successfully.";
+         //   echo "Subdirectory created successfully.";
         } else {
-            echo "Subdirectory already exists.";
+         //   echo "Subdirectory already exists.";
         }
      }
+        return response()->json(['success'=>'creating file','code'=>200]);
     }
 
     public function getFiles($id)
@@ -208,7 +210,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         {
             return response()->json([
                 'message'=> 'unsuccess of creation Files',
-                'status'=>302
+                'code'=>302
             ]);
         }
     }
@@ -246,14 +248,14 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
             );
             return response()->json([
                 'message'=>'success'.$mac,
-                'status'=>200
+                'code'=>200
             ]);
 
         }else
         {
             return response()->json([
                 'message'=>'unsuccess',
-                'status'=>302
+                'code'=>302
             ]);
         }
         }

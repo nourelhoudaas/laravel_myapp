@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Absence;
+    use App\Models\Stocke;
     use App\Models\Conge;
     use App\Models\Contient;
     use App\Models\Niveau;
@@ -1152,7 +1153,7 @@ foreach($allwor as $workig)
             {
                 $emp=Employe::where('id_nin',$id)->first();
                 $list_abs=Absence::where('id_nin',$id)->orderBy('date_abs','desc')
-                                  ->select('date_abs', 'heure_abs','statut', 'id_nin', 'id_p', 'id_sous_depart')
+                                  ->select('date_abs', 'heure_abs','statut', 'id_nin', 'id_p', 'id_sous_depart','id_fichier')
                                   ->distinct()
                                   ->get();
                 $perPage = 5; // Par exemple, 2 éléments par page
@@ -1175,8 +1176,17 @@ foreach($allwor as $workig)
                      ]
                     );
                     return response()->json(['emp'=>$emp,
-                                              'list_abs'=>$paginator  
+                                             'list_abs'=>$paginator  
                                             ]);
+            }
+            function read_just($id)
+            {
+                $file=Stocke::where('id_fichier',$id)->first();
+                dd($file);
+                $subdir=$file->ref_Dossier;
+                $fichier=$file->sous_d.'-'.$id;
+                
+                return reidrect()->route('read_file_emp',['dir'=>'employees','subdir'=>$subdir,'file'=>$fichier]);
             }
 
 }

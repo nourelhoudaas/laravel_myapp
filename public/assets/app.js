@@ -63,7 +63,7 @@
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
-                            '<td>' + post.statut + '</td>' +
+                            '<td><a href=/Employe/read_just/'+post.id_fichier+'>' + post.statut + '</a></td>' +
                           '</tr>';
                 tableBody.append(row);
             });
@@ -226,6 +226,7 @@
                                               $('#successMessage').show();
                                               $('#progressWrapper').hide();
                                               $('#progressBar').width('0%');
+                                          uploadjust(id,date,file)
                                           alert(response.message)
                                           }else
                                           {
@@ -249,7 +250,107 @@
           }
 
 
-
+          function uploadFile3(id,dates) {
+            var formData = new FormData();
+            var formDataF = new FormData();
+            var formDataU=new FormData();
+            var file = document.getElementById('file').files[0];
+            formDataF.append('file', file);
+            formDataU.append('file', file);
+            formData.append('_token',$('meta[name="csrf-token"]').attr('content')),
+            formData.append('_method', 'POST')
+            formDataF.append('_token',$('meta[name="csrf-token"]').attr('content')),
+            formDataF.append('_method', 'POST')
+             formData.append('id_nin', parseInt(id));
+             formData.append('sous', dir);
+             formDataF.append('id_nin', parseInt(id));
+             formDataF.append('sous', dir);
+             console.log('button of v3'+this.id);
+             console.log('button of v3'+this.dir);
+            $.ajax({
+                url: '/upload/creedossier',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                xhr: function() {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function(e) {
+                        if (e.lengthComputable) {
+                            var percentComplete = (e.loaded / e.total) * 100;
+                        }
+                    }, false);
+                    return xhr;
+                },
+                success: function(data) {
+                     console.log(' in loading '+id);
+                      console.log(' in loading '+JSON.stringify(formDataF));
+                    $.ajax
+                  ({
+                      url:"/upload/numdossiers",
+                      type: 'POST',
+                      data: formDataF,
+                      contentType: false,
+                      processData: false,
+                      xhr: function() {
+                          var xhr = new window.XMLHttpRequest();
+                          xhr.upload.addEventListener("progress", function(e) {
+                              if (e.lengthComputable) {
+                                  var percentComplete = (e.loaded / e.total) * 100;
+                              }
+                          }, false);
+                          return xhr;
+                      },
+                      success:function(response)
+                      {
+                        if(uid && response.status == 200)
+                        {
+                            console.log('messsage '+JSON.stringify(response.data))
+                            var stockForm={
+                               id_nin:id,
+                                id:uid,
+                                ref_d:response.data.ref_d,
+                                sous_d:response.data.sous_d,
+                                fichierext:response.data.filenext,
+                                fichier:response.data.filename,
+                                Tfichier:response.data.filesize,
+                                _token: $('meta[name="csrf-token"]').attr('content'),
+                                _method: 'POST'
+                            }
+                        $.ajax({
+                            url:'/whoiam',
+                            method: 'POST',
+                            data:stockForm,
+                            success:function(responses)
+                            {
+                                if(responses.code == 200)
+                                    {
+                                console.log('add to stocke  ->'+responses.message)
+                                window.location.href='/conge';
+                                    }else
+                                    {
+                                       uploadjust(id,dates,response.data.filename)
+                                        alert(response.message)
+                                    }
+                            }
+                        })
+                    }
+                        else
+                        {
+                            console.log('no log');
+                        }
+                      },
+                      error: function(response) {
+                        console.log(''+JSON.stringify(response));
+                          alert('Upload failed');
+                      }
+                  })
+                },
+                error: function() {
+                    alert('create failed');
+                }
+            });
+          }
          function uploadFile2(id) {
              var formData = new FormData();
              var formDataF = new FormData();
@@ -263,8 +364,8 @@
               formData.append('sous', dir);
               formDataF.append('id_nin', parseInt(id));
               formDataF.append('sous', dir);
-              console.log('button of v2'+this.id);
-              console.log('button ofv 2'+this.dir);
+              console.log('button of v'+this.id);
+              console.log('button of v'+this.dir);
              $.ajax({
                  url: '/upload/creedossier',
                  type: 'POST',
@@ -327,6 +428,7 @@
                                  window.location.href='/conge';
                                      }else
                                      {
+                                      
                                          alert(response.message)
                                      }
                              }
@@ -372,7 +474,6 @@
        contentType: false,
        processData: false,
        xhr: function() {
-        alert(response.message)
            var xhr = new window.XMLHttpRequest();
            xhr.upload.addEventListener("progress", function(e) {
                if (e.lengthComputable) {
@@ -384,7 +485,6 @@
            return xhr;
        },
        success: function(data) {
-        alert(response.message)
            $('#successMessage').show();
            $('#progressWrapper').hide();
            $('#progressBar').width('0%');
@@ -410,11 +510,11 @@
              },
              success:function(response)
              {
-                alert(response.message)
                  if(uid && response.status == 200)
                      {
                          console.log('messsage '+JSON.stringify(response.data))
                          var stockForm={
+                            id_nin:id,
                              id:uid,
                              ref_d:response.data.ref_d,
                              sous_d:response.data.sous_d,
@@ -430,13 +530,13 @@
                          data:stockForm,
                          success:function(responses)
                          {
-                            alert(response.message)
                              if(responses.code == 200)
                                  {
                                      $('#successMessage').show();
                                      $('#progressWrapper').hide();
                                      $('#progressBar').width('0%');
-                             console.log('add to stocke  ->'+responses.message)
+                           //  console.log('add to stocke  ->'+responses.message)
+                             alert(response.message)
                                  }else
                                  {
                                      alert(response.message)
@@ -461,6 +561,34 @@
            alert('create failed');
        }
    });
+ }
+ function uploadjust(id,date,file)
+ {
+    console.log('file name'+JSON.stringify(file))
+    var dataform={
+          id_nin:id,
+          just:file,
+          date_abs:date,
+          _token: $('meta[name="csrf-token"]').attr('content'),
+          _method: 'PUT'
+    }
+    console.log('testing'+JSON.stringify(dataform))
+    $.ajax({
+        url:'/BioTemplate/add_justFile',
+        type:'POST',
+        data:dataform,
+        success:function(response)
+        {
+            if(response.code == 200)
+            {
+                alert(response.success)
+            }
+            else
+            {
+                alert(response.success)
+            }
+        }
+    })
  }
  /** function pour calcler les Jour */
  function calculateDayscng(startDate,datechange) {
@@ -1173,7 +1301,7 @@
                                    {
                                      $('#file').removeClass('error-handle')
                                      closeNav(absensform,id_nin,absens)
-                                     uploadFile2(id)
+                                     uploadFile3(id,dates)
                                      che++;
                                    }
                                   else
@@ -1368,7 +1496,7 @@
                                           {
                                        $('#file').removeClass('error-handle')
                                        closeNav(absensform,id_nin,absens)
-                                       uploadFile2(id)
+                                       uploadFile3(id,dates)
                                        che++;
                                      }
 

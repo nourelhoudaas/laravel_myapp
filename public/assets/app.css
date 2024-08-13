@@ -1367,6 +1367,10 @@ cursor: pointer;
   justify-content: space-between;
 text-align: left;
 }
+.file-input
+{
+  width: 100%;
+}
 .pad-ar
 {
   padding-right: 0;

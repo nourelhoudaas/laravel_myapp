@@ -81,6 +81,7 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
     Route::get('/Employe/check/{id}','find_emp')->name('find_by_nin');
     Route::get('/Employe/list_abs/{id}','get_list_absemp')->name('emp_list_abs');
+    Route::get('/Employe/read_just/{id}','read_just')->name('emp_read_justif');
 });
 });
 
@@ -119,6 +120,7 @@ Route::middleware('auth')->group(function () {
 });
 Route::middleware('auth')->group(function () {
 Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');
+Route::put('/BioTemplate/add_justFile',[BioEmployeControl::class,'update_just'])->name('emp_abs_justfile');
 Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploadFile');
 Route::post('/upload/creedossier',[UploadFile::class,'cree_dos_sous'])->name('cree_doss_emp');
 Route::get('/upload/getFiles/{id}',[UploadFile::class,'getFiles'])->name('getfile_all_emp');
