@@ -1182,11 +1182,11 @@ foreach($allwor as $workig)
             function read_just($id)
             {
                 $file=Stocke::where('id_fichier',$id)->first();
-                dd($file);
+              //  dd($file);
                 $subdir=$file->ref_Dossier;
                 $fichier=$file->sous_d.'-'.$id;
                 
-                return reidrect()->route('read_file_emp',['dir'=>'employees','subdir'=>$subdir,'file'=>$fichier]);
+                return redirect()->route('read_file_emp',['dir'=>'employees','subdir'=>$subdir,'file'=>$fichier]);
             }
 
 }

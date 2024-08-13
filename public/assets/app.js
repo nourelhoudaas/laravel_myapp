@@ -63,7 +63,7 @@
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
-                            '<td><a href=/Employe/read_just/'+post.id_fichier+'>' + post.statut + '</a></td>' +
+                            '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">' + post.statut + '</a></td>' +
                           '</tr>';
                 tableBody.append(row);
             });
@@ -221,12 +221,11 @@
                                   data:stockForm,
                                   success:function(responses)
                                   {
-                                      if(responses.status == 200)
+                                      if(responses.code == 200)
                                           {
                                               $('#successMessage').show();
                                               $('#progressWrapper').hide();
                                               $('#progressBar').width('0%');
-                                          uploadjust(id,date,file)
                                           alert(response.message)
                                           }else
                                           {
@@ -325,11 +324,11 @@
                             {
                                 if(responses.code == 200)
                                     {
-                                console.log('add to stocke  ->'+responses.message)
-                                window.location.href='/conge';
+                                        uploadjust(id,dates,response.data.filename,response.data.sous_d)
+                                        alert(response.message)
+                                        console.log('add to stocke  ->'+responses.message)
                                     }else
                                     {
-                                       uploadjust(id,dates,response.data.filename)
                                         alert(response.message)
                                     }
                             }
@@ -562,12 +561,13 @@
        }
    });
  }
- function uploadjust(id,date,file)
+ function uploadjust(id,date,file,dir)
  {
     console.log('file name'+JSON.stringify(file))
     var dataform={
           id_nin:id,
           just:file,
+          sous_d:dir,
           date_abs:date,
           _token: $('meta[name="csrf-token"]').attr('content'),
           _method: 'PUT'
@@ -582,6 +582,9 @@
             if(response.code == 200)
             {
                 alert(response.success)
+                $.ajax({
+
+                })
             }
             else
             {

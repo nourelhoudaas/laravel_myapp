@@ -82,6 +82,7 @@ class BioEmployeControl extends Controller
             'id_nin'=>'required|integer',
             'just'=>'required|string',
             'date_abs'=>'required|date',
+            'sous_d'=>'required|string'
         ]);
         $id_file=Fichier::select('id_fichier')
                          ->where('nom_fichier',$request->get('just'))
