@@ -557,6 +557,7 @@ main table tbody tr{
 main table tbody td{
     height: 3.8rem;
     border-bottom: 1px solid var(--clr-dark);
+    place-content: center;
 }
 
 main table tbody tr:last-child td{
@@ -827,6 +828,7 @@ transform: scale(1.05) rotate(-1deg);
   width: 50%;
   display: flex;
   width: 40%;
+  align-items: center
 }
 .field-holderAR
 {
@@ -836,6 +838,11 @@ transform: scale(1.05) rotate(-1deg);
   position: relative;
   width: 40%;
   direction: rtl;
+  align-items: center
+}
+.info-bord
+{
+  border: unset
 }
 .staticent
 {
@@ -1206,6 +1213,8 @@ cursor:not-allowed ;
   padding: 10px;
   width: 80%;
   max-width: 300px;
+  border-radius: 5px;
+  background: #f8f8f8;
 }
 
 .formcg-container button {
@@ -1347,11 +1356,21 @@ cursor: pointer;
 }
 .file-ar
 {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   text-align: right;
 }
 .file-fr
 {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 text-align: left;
+}
+.file-input
+{
+  width: 100%;
 }
 .pad-ar
 {
@@ -1449,7 +1468,7 @@ input:focus{
 }
 .abs-info:hover
 {
-  
+
   color: rgba(7, 43, 245, 0.815);
   cursor: pointer;
 }

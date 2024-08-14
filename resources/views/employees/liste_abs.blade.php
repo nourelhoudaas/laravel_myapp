@@ -114,11 +114,16 @@
                 </label>
             </div>
             </div>
+<hr>
+        <div class="info-handler">
+          <label>{{ __('lang.motif') }} :</label>
+      </br>
+          <div class="info-info" id="checkboxContainer">  
         </div>
         <hr>
             <div class="form-group">
                 <label for="exampleFormControlFile1">{{ __('lang.filejust') }}  </label>
-                <input type="file" class="form-control-file" id="file">
+                <input type="file" class="form-control-file file-input" id="file">
             </div>
         </form>
     </div>

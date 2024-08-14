@@ -17,9 +17,14 @@ class DepartmentController extends Controller
 {
     public function ListeDepart()
     {
-        $departements = Departement::paginate(2);
+        $departements = Departement::paginate(5);
 
-        $empdepart=Departement::get();
+       $empdepart=Departement::with('sous_departement')->get();
+
+
+
+
+
 
 
 return view('department.liste', compact('empdepart','departements'));

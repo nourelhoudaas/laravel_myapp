@@ -79,7 +79,7 @@
                             @endforeach
                         </select>
                         <hr>
-                        <select type="text" class="form-select" id="Dep">
+                        <select type="text" class="form-select" id="Depcng">
                             <option value="">{{ __('lang.slct_dept') }}</option>
                             @foreach($empdepart as $empdeparts)
                                  @php
@@ -205,7 +205,11 @@
                     </select>
                     <hr>
                     <input type="text" id="total_cgj" disabled>
-                    <input type="text" id="Situation">
+                    <select id="Situation">
+                        <option value='0'>{{ __('lang.stuation') }}</option>
+                        <option value='dans'>{{ __('lang.dans') }}</option>
+                        <option value='hors'>{{ __('lang.hors') }}</option>
+                    </select>
                     <div id="checkcg-box"></div>
                     </br>
                     <div class='date-conge' >
@@ -222,7 +226,7 @@
                             <input type="text" value="" id="date_fin" disabled>
                         </div>
                     </div>
-                    <input type="file" name="file" id="file" style="height:40px" required>
+                    <input class="file-input" type="file" name="file" id="file" style="height:40px" required>
                     <div id="file-error" class="error-tooltip">File is required</div>
                     <button type="button" id="conge_confirm">{{ __('lang.ver_cng') }}</button>
                     <button type="button" id="cancel-conge" class="close-formcg-btn">{{ __('lang.cancel') }} </button>
@@ -255,7 +259,7 @@
 
     //les constants pour éléments de selection par type,dep et total des filtres 
     const typeCongeSelect = document.getElementById("type-conge");
-    const departmentSelect = document.getElementById("Dep");
+    const departmentSelect = document.getElementById("Depcng");
         const employeeTableBody = document.querySelector("#CngTable tbody");
 
     //des écouteurs pour les changements dans les select
@@ -302,7 +306,7 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation + '</td>';
+                                '<td>' + employe.situation+ '</td>';
             } else if (lng === 'ar') {
                 row.innerHTML = '<td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +

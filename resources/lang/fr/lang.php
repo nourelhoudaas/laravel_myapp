@@ -86,6 +86,8 @@ return [
     'slct_type_cng'=>'Séléctionner le Titre du Congé',
     'slct_post'=>'Séléctionner le Titre du Poste',
     'nbr_jour'=>'Nombres de jours Restants',
+    'dans'=>'Territoire national ',
+    'hors'=>'Hor territoire national ',
     'ver_cng'=>'Passer Vers Le Congé',
 
 

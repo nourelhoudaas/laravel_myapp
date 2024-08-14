@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Absence;
+    use App\Models\Stocke;
     use App\Models\Conge;
     use App\Models\Contient;
     use App\Models\Niveau;
@@ -308,29 +309,10 @@ $paginator = new LengthAwarePaginator(
             array_push($allwor,$empl);
         }
        // dd($allwor);
-        $fi=array();
-        foreach($allwor as $workig)
-        {
-            $travs=Travail::where('travails.id_nin',$workig->id_nin)
-                            ->join('Employes','Employes.id_nin','=','travails.id_nin')
-                            ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
-                            ->join('departements','sous_departements.id_depart','=','departements.id_depart')
-                           // ->where('departements.id_depart',$id_dep)
-                            ->orderBy('date_installation','desc')
-                            ->first();
-          /* foreach($travs as $bind)
-            {   */
-            if($workig->date_installation <= $travs->date_installation && $travs->id_depart == $id_dep)
-            {
-                array_push($fi,$travs);
-            }
-       // }
-        }
-      //  dd($fi);
-    //------------------------------------------------------------------until here -----------------------*/
+   
          $empdpart=array();
          $fis=array();
-     foreach($fi as $workig)
+     foreach($allwor as $workig)
         {
             $travs=Travail::where('travails.id_nin',$workig->id_nin)
                             ->join('Employes','Employes.id_nin','=','travails.id_nin')
@@ -347,6 +329,7 @@ $paginator = new LengthAwarePaginator(
             }
        // }
         }
+         //------------------------------------------------------------------until here -----------------------*/
         foreach($fis as $emp)
         {
             $idcnt=Occupe::where('id_nin',$emp->id_nin)->where('contients.id_sous_depart',$emp->id_sous_depart)->select('id_contient')
@@ -392,65 +375,6 @@ $paginator = new LengthAwarePaginator(
                             array_push($empdpart,$emps);
                         }
         }
-       // dd($empdpart);
-
-       /* $allin=array();
-        $travail=Travail::orderBy('date_installation','desc')->get();
-
-        foreach ($empdpart as $value) {
-            # code...
-            foreach ($travail as $current) {
-                # code...
-
-                if($current->date_installation > $value->date_installation)
-                {
-                    printf('-'.$current->date_installation.' and his date'.$value->date_installation.' ----- ');
-                    array_push($allin,$current);
-                }
-            }
-        }
-        dd($allin);
-
-
-        $tableorg=array();
-            $finalresul=array();
-            if(count($result)>0)
-            {
-            foreach($result as $elemnt)
-            {
-                array_push($tableorg,$elemnt->id_nin);
-            }
-                $tebleint=array();
-                $terminat=false;
-                while( $terminat === false )  {
-                    # code...
-                    $idt=$tableorg[0];
-                    for ($j=0; $j <count($tableorg) ; $j++) {
-                        # code...
-                        if($idt != $tableorg[$j] )
-                        {
-                            array_push($tebleint,$tableorg[$j]);
-                        }
-                    }
-                    array_push($finalresul,$idt);
-                    $tableorg=$tebleint;
-                    $tebleint=array();
-                    if(count($tableorg) < 1 )
-                    {
-                        $terminat=true;
-                    }
-
-                }
-        }
-        else
-        {
-            $finalresul=array();
-        }
-
-*/
-
-
-
                 $empdepart=Departement::get();
             $nom_d = Departement::where('id_depart', $id_dep)->value('Nom_depart');
     return response()->json($empdpart);
@@ -610,10 +534,18 @@ $paginator = new LengthAwarePaginator(
 
             }
 
+
+
+
+
             public function filterbydep($department)
             {
+
+
+
+         /**  ------ Original pas suppression ------------------ */       
                 //dd($department);
-                $today = Carbon::now()->format('Y-m-d');
+               /* $today = Carbon::now()->format('Y-m-d');
                 $query = Employe::query()
 
                     ->join('conges', 'employes.id_nin', '=', 'conges.id_nin')
@@ -640,11 +572,137 @@ $paginator = new LengthAwarePaginator(
                 }
                 $emptypeconge = $query->get();
             // dd($emptypeconge);
-            return response()->json($emptypeconge);
+            return response()->json($emptypeconge);*/
+
+
+  //dd($typeconge);
+  /** ----------------------- jusqu'a la et Original Terminer pas de supperssion ---------------------------------- */
+
+
+
+
+  /** ------------------------- Modification --------------------------------- */
+  $today = Carbon::now()->format('Y-m-d');
+  $result=array();
+  $post=array();
+  $id_sous=Sous_departement::where('id_depart',$department)->get();
+
+  foreach($id_sous as $sous_dep)
+  {
+      //print_r('sous_id '.$sous_dep);
+      $id_post=Post::where('sous_departements.id_sous_depart',$sous_dep->id_sous_depart)->select('contients.id_contient')
+                     ->join('contients','contients.id_post','=','posts.id_post')
+                     ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                     ->get();
+      foreach($id_post as $sas)
+      array_push($post,$sas->id_contient);
+  }
+ //--------------------------------------------------------------------------- success ---/////
+ $allwor=array();
+  $emps=Employe::join('travails','travails.id_nin','=','employes.id_nin')
+                 ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
+                 ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                 ->where('departements.id_depart',$department)
+                 ->orderBy('travails.date_installation','desc')
+                 ->get();
+  foreach($emps as $empl)
+  {
+      array_push($allwor,$empl);
+  }
+ // dd($allwor);
+
+   $empdpartcng=array();
+   $fis=array();
+foreach($allwor as $workig)
+  {
+      $travs=Travail::where('travails.id_nin',$workig->id_nin)
+                      ->join('Employes','Employes.id_nin','=','travails.id_nin')
+                      ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
+                      ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                     // ->where('departements.id_depart',$id_dep)
+                      ->orderBy('date_installation','desc')
+                      ->first();
+    /* foreach($travs as $bind)
+      {   */
+      if($workig->date_installation <= $travs->date_installation && $travs->id_depart == $department)
+      {
+          array_push($fis,$travs);
+      }
+ // }
+  }
+   //------------------------------------------------------------------until here -----------------------*/
+  foreach($fis as $emp)
+  {
+      $idcnt=Occupe::where('id_nin',$emp->id_nin)->where('contients.id_sous_depart',$emp->id_sous_depart)->select('id_contient')
+              ->join('posts','posts.id_post','=','occupes.id_post')
+              ->join('contients','contients.id_post','=','posts.id_post')
+              ->orderBy('date_recrutement','desc')
+              ->first();
+      $emps=Employe::join('conges', 'employes.id_nin', '=', 'conges.id_nin')
+                     ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
+                     ->join('occupes','occupes.id_nin','=','employes.id_nin')
+                     ->join('posts','posts.id_post','=','occupes.id_post')
+                     ->join('contients','contients.id_post','=','posts.id_post')
+                     ->join('sous_departements','contients.id_sous_depart','=','sous_departements.id_sous_depart')
+                     ->join('departements','departements.id_depart','=','sous_departements.id_depart')
+                     ->where('contients.id_contient',$idcnt->id_contient)
+                     ->where('employes.id_nin',$emp->id_nin)
+                     ->where('conges.date_fin_cong', '>', $today)   
+                     ->orderBy('date_recrutement','desc')
+                     ->select(
+                        'employes.*',
+                        'conges.*',
+                        'type_congs.*',
+                        'sous_departements.*',
+                        'posts.*',
+                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE())+1  AS joursRestants')
+                    )
+                     ->first();
+                     $find=false;
+                    // dd($emps);
+                    if(isset($emps))
+                    {
+                     if(count($empdpartcng) >0)
+                     {$i=0;
+
+                      while ( $i < count($empdpartcng) && $find == false) {
+                          # code...
+                         
+                          if($empdpartcng[$i]->id_nin == $emps->id_nin )
+                          {
+
+                              $find = true;
+                             // print_r('------- insrt:::'.$emps->id_nin.'find');
+                          }
+                        
+
+                          $i++;
+                      }
+                      if($find != true)
+                      {
+                          //print_r('------- insrt:::'.$emps->id_nin.' ----- comparing to ::::');
+                          $i=0;
+                          array_push($empdpartcng,$emps);
+                      }
+                  }
+                  else
+                  {
+                     // print_r('insrt null'.$emps->id_nin);
+                      array_push($empdpartcng,$emps);
+                  }
+                  }
+  }
+          $empdepart=Departement::get();
+             //   dd($empdpartcng);
+            return response()->json($empdpartcng);  
+             /** ------------------------- Modification  Terminer--------------------------------- */
             }
+
 
         public function filtercongdep($typeconge,$department)
         {
+            /** ------------------------ Original Start de la ---------------------------------- */
+            /*
             $today = Carbon::now()->format('Y-m-d');
             $query = Employe::query()
 
@@ -672,7 +730,126 @@ $paginator = new LengthAwarePaginator(
                 }
                 $emptypeconge = $query->get();
             //dd($emptypeconge);
-            return response()->json($emptypeconge);
+            return response()->json($emptypeconge);*/
+
+/**  -------------------------------- Original Termin ici ------------------------------------ */
+
+
+$today = Carbon::now()->format('Y-m-d');
+  $result=array();
+  $post=array();
+  $id_sous=Sous_departement::where('id_depart',$department)->get();
+
+  foreach($id_sous as $sous_dep)
+  {
+      //print_r('sous_id '.$sous_dep);
+      $id_post=Post::where('sous_departements.id_sous_depart',$sous_dep->id_sous_depart)->select('contients.id_contient')
+                     ->join('contients','contients.id_post','=','posts.id_post')
+                     ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                     ->get();
+      foreach($id_post as $sas)
+      array_push($post,$sas->id_contient);
+  }
+ //--------------------------------------------------------------------------- success ---/////
+ $allwor=array();
+  $emps=Employe::join('travails','travails.id_nin','=','employes.id_nin')
+                 ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
+                 ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                 ->where('departements.id_depart',$department)
+                 ->orderBy('travails.date_installation','desc')
+                 ->get();
+  foreach($emps as $empl)
+  {
+      array_push($allwor,$empl);
+  }
+ // dd($allwor);
+
+   $empdpartcng=array();
+   $fis=array();
+foreach($allwor as $workig)
+  {
+      $travs=Travail::where('travails.id_nin',$workig->id_nin)
+                      ->join('Employes','Employes.id_nin','=','travails.id_nin')
+                      ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
+                      ->join('departements','sous_departements.id_depart','=','departements.id_depart')
+                     // ->where('departements.id_depart',$id_dep)
+                      ->orderBy('date_installation','desc')
+                      ->first();
+    /* foreach($travs as $bind)
+      {   */
+      if($workig->date_installation <= $travs->date_installation && $travs->id_depart == $department)
+      {
+          array_push($fis,$travs);
+      }
+ // }
+  }
+   //------------------------------------------------------------------until here -----------------------*/
+  foreach($fis as $emp)
+  {
+      $idcnt=Occupe::where('id_nin',$emp->id_nin)->where('contients.id_sous_depart',$emp->id_sous_depart)->select('id_contient')
+              ->join('posts','posts.id_post','=','occupes.id_post')
+              ->join('contients','contients.id_post','=','posts.id_post')
+              ->orderBy('date_recrutement','desc')
+              ->first();
+      $emps=Employe::join('conges', 'employes.id_nin', '=', 'conges.id_nin')
+                     ->join('type_congs', 'conges.ref_cong', '=', 'type_congs.ref_cong')
+                     ->join('occupes','occupes.id_nin','=','employes.id_nin')
+                     ->join('posts','posts.id_post','=','occupes.id_post')
+                     ->join('contients','contients.id_post','=','posts.id_post')
+                     ->join('sous_departements','contients.id_sous_depart','=','sous_departements.id_sous_depart')
+                     ->join('departements','departements.id_depart','=','sous_departements.id_depart')
+                     ->where('contients.id_contient',$idcnt->id_contient)
+                     ->where('employes.id_nin',$emp->id_nin)
+                     ->where('conges.date_fin_cong', '>', $today)  
+                     ->where('type_congs.ref_cong', $typeconge) 
+                     ->orderBy('date_recrutement','desc')
+                     ->select(
+                        'employes.*',
+                        'conges.*',
+                        'type_congs.*',
+                        'sous_departements.*',
+                        'posts.*',
+                        DB::raw('DATEDIFF(conges.date_fin_cong, CURDATE())+1  AS joursRestants')
+                    )
+                     ->first();
+                     $find=false;
+                    // dd($emps);
+                    if(isset($emps))
+                    {
+                     if(count($empdpartcng) >0)
+                     {$i=0;
+
+                      while ( $i < count($empdpartcng) && $find == false) {
+                          # code...
+                         
+                          if($empdpartcng[$i]->id_nin == $emps->id_nin )
+                          {
+
+                              $find = true;
+                             // print_r('------- insrt:::'.$emps->id_nin.'find');
+                          }
+                        
+
+                          $i++;
+                      }
+                      if($find != true)
+                      {
+                          //print_r('------- insrt:::'.$emps->id_nin.' ----- comparing to ::::');
+                          $i=0;
+                          array_push($empdpartcng,$emps);
+                      }
+                  }
+                  else
+                  {
+                     // print_r('insrt null'.$emps->id_nin);
+                      array_push($empdpartcng,$emps);
+                  }
+                  }
+  }
+          $empdepart=Departement::get();
+             //   dd($empdpartcng);
+            return response()->json($empdpartcng);  
+
         }
 
             public function check_cg($id_p)
@@ -742,7 +919,8 @@ $paginator = new LengthAwarePaginator(
                     'Dic'=>'required|integer',
                     'date_dcg'=>'required|date',
                     'date_fcg'=>'required|date',
-                    'type_cg'=>'required|string'
+                    'type_cg'=>'required|string',
+                    'situation'=>'string',
                 ]
                 );
                 $cng=Conge::where('id_nin',$request->get('ID_NIN'))
@@ -799,7 +977,7 @@ $paginator = new LengthAwarePaginator(
                         'date_fin_cong'=>$request->get('date_fcg'),
                         'nbr_jours'=>intval($nbrcng),
                         'ref_cong'=>$request->get('type_cg'),
-                        'situation'=>'dans',
+                        'situation'=>$request->get('situation'),
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                     }
@@ -816,8 +994,6 @@ $paginator = new LengthAwarePaginator(
                     ]);
                 }*/
                 //dd($cng);
-
-
                 if($cng->count() > 0)
             {
                 if(Carbon::now()->year >= $cng[0]->annee  && $request->get('type_cg') == 'RF001')
@@ -862,7 +1038,7 @@ $paginator = new LengthAwarePaginator(
                     'date_fin_cong'=>$request->get('date_fcg'),
                     'nbr_jours'=>intval($nbrcng),
                     'ref_cong'=>$request->get('type_cg'),
-                    'situation'=>'dans',
+                    'situation'=>$request->get('situation'),
                     'id_sous_depart'=>$request->get('SDic')
                         ]);
                 }
@@ -909,7 +1085,7 @@ $paginator = new LengthAwarePaginator(
                         'date_fin_cong'=>$request->get('date_fcg'),
                         'nbr_jours'=>intval($monthsDifference * 30),
                         'ref_cong'=>$request->get('type_cg'),
-                        'situation'=>'dans',
+                        'situation'=>$request->get('situation'),
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                             if($cong->save())
@@ -976,7 +1152,10 @@ $paginator = new LengthAwarePaginator(
             public function get_list_absemp($id)
             {
                 $emp=Employe::where('id_nin',$id)->first();
-                $list_abs=Absence::where('id_nin',$id)->orderBy('date_abs','desc')->get();
+                $list_abs=Absence::where('id_nin',$id)->orderBy('date_abs','desc')
+                                  ->select('date_abs', 'heure_abs','statut', 'id_nin', 'id_p', 'id_sous_depart','id_fichier')
+                                  ->distinct()
+                                  ->get();
                 $perPage = 5; // Par exemple, 2 éléments par page
                     $page = request()->get('page',
                                                 ); // Page actuelle
@@ -997,8 +1176,17 @@ $paginator = new LengthAwarePaginator(
                      ]
                     );
                     return response()->json(['emp'=>$emp,
-                                              'list_abs'=>$paginator  
+                                             'list_abs'=>$paginator  
                                             ]);
+            }
+            function read_just($id)
+            {
+                $file=Stocke::where('id_fichier',$id)->first();
+              //  dd($file);
+                $subdir=$file->ref_Dossier;
+                $fichier=$file->sous_d.'-'.$id;
+                
+                return redirect()->route('read_file_emp',['dir'=>'employees','subdir'=>$subdir,'file'=>$fichier]);
             }
 
 }

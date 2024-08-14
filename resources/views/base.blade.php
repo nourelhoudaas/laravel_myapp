@@ -46,7 +46,7 @@
          {{-- nos script js--}}
 
 
-        @include('script')
+    
 
     <script>
         var lng='{{app()->getLocale()}}'

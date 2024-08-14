@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -12,8 +13,24 @@ use App\Models\Employe;
 use App\Models\Fichier;
 use App\Models\Stocke;
 use App\Models\Dossier;
+use App\Services\logService;
 class UploadFile extends Controller
 {
+
+/**
+ * 
+ * Logs Consturcture
+ * 
+ */
+protected $logService;
+
+public function __construct(logService $logService)
+{
+    $this->logService = $logService;
+}
+
+
+
     //
     public function uploadFile(Request $request)
     {
@@ -57,7 +74,15 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
                                               'type_fichier'=>$file->getClientOriginalExtension(),
                                               'taille_fichier'=>$sizeR
                                             ]);
-                                            $save->save();
+                                            if($save->save())
+                                            {
+                                                $log= $this->logService->logAction(
+                                                    Auth::user()->id,
+                                                    $id,
+                                                    'Ajouter Un fichier a Em_'.$id."/sous_Dossier :".$sous_dir." Avec Nom".$file->getClientOriginalName(),
+                                                    $this->logService->getMacAddress()
+                                                );
+                                            };
                                         }
                                         
         else
@@ -68,7 +93,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
             ]);
         }
 
-
+       // dd($save);
 
 
       return response()->json([
@@ -89,6 +114,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
             'id_nin'=>'required|integer',
         ]);
         $id=$request->get('id_nin');
+        
        // $sous_dir=$request->get('sous');
         $mainDirectoryPath = storage_path('app/public/employees/Em_'.$id);
 
@@ -109,9 +135,9 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         // Create the main directory if it doesn't exist
         if (!File::exists($mainDirectoryPath)) {
             File::makeDirectory($mainDirectoryPath, 0777, true);
-            echo "Main directory created successfully.<br>";
+         //   echo "Main directory created successfully.<br>";
         } else {
-            echo "Main directory already exists.<br>";
+          //  echo "Main directory already exists.<br>";
         }
 
         // Create the subdirectory inside the main directory
@@ -119,11 +145,12 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         {
         if (!File::exists($subDirectoryPath[$i])) {
             File::makeDirectory($subDirectoryPath[$i], 0777, true);
-            echo "Subdirectory created successfully.";
+         //   echo "Subdirectory created successfully.";
         } else {
-            echo "Subdirectory already exists.";
+         //   echo "Subdirectory already exists.";
         }
      }
+        return response()->json(['success'=>'creating file','code'=>200]);
     }
 
     public function getFiles($id)
@@ -148,6 +175,8 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
        // dd(app()->getLocale());
         return view('BioTemplate.file_Index',compact('files','empdoss','empdepart','employe'));
     }
+
+
     public function live_File($directory,$subdir,$filename)
     {
         $id=explode('-',$filename);
@@ -158,11 +187,12 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         //dd($path);
         return redirect()->to('storage/' .$path);
     }
+
+
     public function savedb(Request $request)
     {  
        
         $file=$request->get('fichier');
-        
         $date=Carbon::now();
         $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
         $doss=Dossier::select('ref_Dossier')->where('ref_Dossier',$request->get('ref_d'))->get();
@@ -180,7 +210,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         {
             return response()->json([
                 'message'=> 'unsuccess of creation Files',
-                'status'=>302
+                'code'=>302
             ]);
         }
     }
@@ -210,16 +240,22 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         //dd($stock);
         if($stock->save())
         {
+            $log= $this->logService->logAction(
+                Auth::user()->id,
+                $request->get('id_nin'),
+                'Stocker Un fichier Num '.$fich[0]->id_fichier,
+                $this->logService->getMacAddress()
+            );
             return response()->json([
                 'message'=>'success'.$mac,
-                'status'=>200
+                'code'=>200
             ]);
 
         }else
         {
             return response()->json([
                 'message'=>'unsuccess',
-                'status'=>302
+                'code'=>302
             ]);
         }
         }
@@ -236,8 +272,17 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         if($id)
         {
         $name=Fichier::where('id_fichier',$id)->select('nom_fichier')->first();
+        $name=explode('.',$name->nom_fichier);
+        $date_stock=Stocke::where('id_fichier',$id)->select('date_insertion','id_fichier')->distinct()->first();
+      //  dd($name[0]);
+      $date_in='N/A';
+      if(isset($date_stock->date_insertion))
+      {
+        $date_in=$date_stock->date_insertion;
+      }
         return response()->json([
-            'name'=>$name->nom_fichier,
+            'name'=>$name[0],
+            'date_insert'=>$date_in,
             'status'=> 200
         ]);
         }

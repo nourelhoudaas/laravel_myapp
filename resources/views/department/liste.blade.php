@@ -14,9 +14,7 @@
             <!-- end section aside -->
             <main>
                 <div class="recent_order">
-                    <h1 class="app-page-title">{{ __('lang.title_list_direc') }}
-                        <a href="#"class="btn btn-primary">Ajouter une direction</a>
-                    </h1>
+
                     <br></br>
                     <table class="table">
                         <thead>
@@ -28,14 +26,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- {{$i=1}} --}}
+
                             @foreach ($departements as $index => $departement)
                                 <tr>
-                                    <td>  {{ $index + 1 }}</td>
+                                    <td>{{ $index + 1 }}</td>
                                     <td><a
                                             href="{{ route('app_dashboard_depart', $departement->id_depart) }}">{{ $departement->Nom_depart }}</a>
                                     </td>
-                                    <td>{{ $departement->Nom_sous_depart }}</td>
+                                    <td>
+                                        @foreach ($departement->sous_departement as $sous_departement)
+                                            {{ $sous_departement->Nom_sous_depart }}<br>
+                                        @endforeach
+                                    </td>
 
                                     <td>
 
