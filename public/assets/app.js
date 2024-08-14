@@ -911,6 +911,16 @@
  $('#PVDate').focus(function()
  {
      $(this).removeClass('error-handle')
+     $('#remq p').text('')
+     $('#remq p').removeClass('error-handle');
+     $('#remq').removeClass('remq');
+ });
+ $('#RecDate').focus(function()
+ {
+     $(this).removeClass('error-handle')
+     $('#remq p').text('')
+     $('#remq p').removeClass('error-handle');
+     $('#remq').removeClass('remq');
  });
 
      $('#aft').click(function(e){
@@ -918,6 +928,10 @@
 
 
                  // Assuming you are searching by ID_NIN
+                 var dateinst=  new Date($('#PVDate').val());
+                 var daterec=new Date($('#RecDate').val()); 
+                if(dateinst < daterec)
+                {
                  var formData = {
                      ID_NIN:id,
                      ID_P : idp,
@@ -948,6 +962,14 @@
                      })
                      }
                  });
+                }
+                else
+                {
+                    $('#remq p').text('Confimer leur date Rect et PV installation')
+                    $('#remq').addClass('remq');
+                    $('#PVDate').addClass('error-handle');
+                    $('#RecDate').addClass('error-handle');
+                }
      });
  });
  //TRAVAIL

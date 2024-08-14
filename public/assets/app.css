@@ -1476,3 +1476,12 @@ input:focus{
 {
   scale: 1.2;
 }
+.remq
+{
+  text-align: center;
+  border-radius: 10px;
+}
+#remq p
+{
+color: red;
+}

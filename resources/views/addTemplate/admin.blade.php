@@ -41,7 +41,9 @@
                 </span>
             </div>
         </div>
-        
+        <div id='remq'>
+            <p class=''></p>
+        </div>
         <div class="form-holder">
         <form class="form-fa" action="/Employe/add" method="POST">
             @csrf
