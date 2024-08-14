@@ -1443,3 +1443,17 @@ input:focus{
 .inp-group{
     margin-bottom: 20px;
 }
+.abs-info
+{
+  color: rgba(7, 42, 245, 0.815);
+}
+.abs-info:hover
+{
+  
+  color: rgba(7, 43, 245, 0.815);
+  cursor: pointer;
+}
+.abs-info i:hover
+{
+  scale: 1.2;
+}

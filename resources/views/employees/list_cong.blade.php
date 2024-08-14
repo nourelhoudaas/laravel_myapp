@@ -114,6 +114,10 @@
                             </thead>
                             @foreach($emptypeconge as $employe)
                                     @foreach($employe->congeIdNin as $conge)
+                                    @php
+                                    $show=floor(Carbon::parse($today)->diffInDays($conge->date_debut_cong))
+                                    @endphp
+                                    @if($conge->date_debut_cong >= Carbon::parse($today))
                                         <tr>
                                             <td>
                                                   @if ($locale == 'fr')
@@ -165,6 +169,7 @@
                                                 @endif
                                                </td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                 @endforeach
                             </tbody>
@@ -193,10 +198,10 @@
                     <label class="labels" style="display: flex;">{{ __('lang.slct_type_cng') }}</label>
                     <select id="typ_cg">
                         <option value="0">{{ __('lang.slct_type_cng') }}</option>
-                        <option value="REF0608"> {{ __('lang.term_cng') }}</option>
-                        <option value="2">{{ __('lang.maladie_cng') }}</option>
-                        <option> {{ __('lang.ssold_cng') }}</option>
-                        <option> {{ __('lang.mater_cng') }}</option>
+                        <option value="RF001"> {{ __('lang.term_cng') }}</option>
+                        <option value="RF002">{{ __('lang.maladie_cng') }}</option>
+                        <option value="RF003"> {{ __('lang.ssold_cng') }}</option>
+                        <option value="RF004"> {{ __('lang.mater_cng') }}</option>
                     </select>
                     <hr>
                     <input type="text" id="total_cgj" disabled>
@@ -282,10 +287,9 @@
             success: function(response) {
                 // Clear the table
                 employeeTableBody.innerHTML = "";
-    console.log(JSON.stringify(response));
                 // Insert data into the table
                 response.forEach(employe => {
-                    if(employe.length > 0){
+                    if(employe != null){
                     const row = document.createElement("tr");
                     row.classList.add("employee-row");
                     if (lng === 'fr') {
@@ -311,7 +315,8 @@
                                 '<td>' + employe.joursRestants + '</td>' +
                                 '<td>' + employe.situation_AR + '</td>';
             }
-            employeeTableBody.appendChild(row);}
+            employeeTableBody.appendChild(row);
+        }
         });
     },
             error: function(jqXHR, textStatus, errorThrown) {

@@ -160,13 +160,14 @@
                             $('#SDic').empty();
                             $('#SDic').append('<option value="">{{__("lang.slct_sous_dept")}}</option>');
                             $.each(response.data, function(key, value) {
+                                console.log(' value'+JSON.stringify(value))
                                 if(lang == 'ar')
                                 {
-                                $('#SDic').append('<option value="'+ value.id_soud_depart +'">'+ value.Nom_sous_depart_ar +'</option>');
+                                $('#SDic').append('<option value="'+ value.id_sous_depart +'">'+ value.Nom_sous_depart_ar +'</option>');
                                 }
                                 else
                                 {
-                                $('#SDic').append('<option value="'+ value.id_soud_depart +'">'+ value.Nom_sous_depart +'</option>');
+                                $('#SDic').append('<option value="'+ value.id_sous_depart +'">'+ value.Nom_sous_depart +'</option>');
                                 }
                             });
                         }

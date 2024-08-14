@@ -15,7 +15,8 @@
             <main>
                 <div class="recent_order">
                     <h1 class="app-page-title">{{ __('lang.title_list_direc') }}
-                        <a href="#"class="btn btn-primary">Ajouter une direction</a></h1>
+                        <a href="#"class="btn btn-primary">Ajouter une direction</a>
+                    </h1>
                     <br></br>
                     <table class="table">
                         <thead>
@@ -27,10 +28,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($departements as $departement)
+                            {{-- {{$i=1}} --}}
+                            @foreach ($departements as $index => $departement)
                                 <tr>
-                                    <td>{{ $departement->id_depart }}</td>
-                                    <td>{{ $departement->Nom_depart }}</td>
+                                    <td>  {{ $index + 1 }}</td>
+                                    <td><a
+                                            href="{{ route('app_dashboard_depart', $departement->id_depart) }}">{{ $departement->Nom_depart }}</a>
+                                    </td>
                                     <td>{{ $departement->Nom_sous_depart }}</td>
 
                                     <td>
@@ -38,14 +42,14 @@
                                         <a href="{{ route('departement.editer', $departement->id_depart) }}"><i
                                                 class="fa fa-edit"></i></a>
 
-                                        <form action="#" method="POST" style="display:inline;">
+                                        {{-- <form action="#" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
 
                                             <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet direction ?')"
                                                 href="{{ route('department.delete', $departement->id_depart) }}"> <i
                                                     class="fa fa-trash" aria-hidden="true"></i></a>
-                                        </form>
+                                        </form> --}}
 
 
 
@@ -61,39 +65,26 @@
                         </td>
 
 
-                <script type="text/javascript">
-                function confirmation(ev){
-                    evpreventDefault();
-                    var urlToRedirect=ev.currentTarget.getAttribute('href');
-                    console.log(urlToRedirect);
-                    swal({
-                        title:"voulez-vous supprimé cette direction?",
-                        title:"etes vous sure ?",
-                        icon:"warning",
-                        buttons :true,
-                        dangerMode : true,
-                    })
-                    .then((willCancel)=>
-                {
-                    if(willCancel)
-                {
-                         window.location.href=urlToRedirect;
-                }
-                }
-                )
-                }
-                </script>
-            </tbody>
-        </table>
-        <nav class="app-pagination">
-            {{$departements->links()}}
-
-
-
-
-                    </nav><!--//app-pagination-->
-
+                        <script type="text/javascript">
+                            function confirmation(ev) {
+                                evpreventDefault();
+                                var urlToRedirect = ev.currentTarget.getAttribute('href');
+                                console.log(urlToRedirect);
+                                swal({
+                                        title: "voulez-vous supprimé cette direction?",
+                                        title: "etes vous sure ?",
+                                        icon: "warning",
+                                        buttons: true,
+                                        dangerMode: true,
+                                    })
+                                    .then((willCancel) => {
+                                        if (willCancel) {
+                                            window.location.href = urlToRedirect;
+                                        }
+                                    })
+                            }
+                        </script>
 
                 </div>
-                </main>
-                @endsection
+            </main>
+        @endsection

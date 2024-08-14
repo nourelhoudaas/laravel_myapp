@@ -241,6 +241,7 @@
         $("#overlay").click(function(){
             $("#bottomPopup").removeClass("show-popup");
             $("#overlay").removeClass("show-overlay");
+            location.reload();
         });
 
         $("p").click(function(){

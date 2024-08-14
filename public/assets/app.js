@@ -26,6 +26,83 @@
         })
  *
  */
+
+        function fetchPosts(url) {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if(lng == 'ar')
+                        {
+                    $('#emp-info').text(response.emp.Nom_ar_emp+' '+response.emp.Prenom_ar_emp)
+                    }
+                    else
+                    {
+                        $('#emp-info').text(response.emp.Nom_emp+' '+response.emp.Prenom_emp)
+                    }
+                    console.log(''+JSON.stringify(response.list_abs))
+                    populateTable(response.list_abs.data);
+                    displayPaginationInfo(response.list_abs.total, response.list_abs.last_page,response.list_abs.current_page) // Populate the table with posts
+                    setupPagination(response.list_abs); // Setup pagination links
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown);
+                }
+            });
+        }
+        function displayPaginationInfo(totalPosts, totalPages,current_page) {
+            $('#total-posts').text(totalPosts);
+            $('#total-pages').text(current_page+'/'+totalPages);
+        }
+        function populateTable(posts) {
+            var tableBody = $('#AbsempTable tbody');
+            tableBody.empty(); // Clear the table body
+    
+            $.each(posts, function(index, post) {
+                var rowNumber = index + 1; 
+                var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td>' + post.statut + '</td>' +
+                          '</tr>';
+                tableBody.append(row);
+            });
+        }
+    
+        function setupPagination(data) {
+            var pagination = $('#links');
+            pagination.empty(); // Clear existing pagination
+            if(lng == 'ar')
+                {
+            if (data.prev_page_url) {
+                
+                pagination.append('<a href="' + data.prev_page_url + '" class="page-link">السابق</a>');
+            }
+    
+            if (data.next_page_url) {
+                pagination.append('<a href="' + data.next_page_url + '" class="page-link">التالي</a>');
+            }
+        }
+        else
+        {
+            if (data.prev_page_url) {
+                pagination.append('<a href="' + data.prev_page_url + '" class="page-link">Previous</a>');
+            }
+    
+            if (data.next_page_url) {
+                pagination.append('<a href="' + data.next_page_url + '" class="page-link">Next</a>');
+            }
+        }
+    
+            // Add event listener for pagination links
+            $('.page-link').on('click', function(e) {
+                e.preventDefault();
+                fetchPosts($(this).attr('href')); // Fetch posts for the clicked page
+            });
+        }
+    
         $(document).ready(function(){
              $('#fr-lang').click(function(){
                 fetch('/lang/fr' , {
@@ -799,6 +876,9 @@
          $('#ddate').removeClass('error-handle');
          $('#Dep option:first').prop('selected', true);
          $('#AbsTable tbody').empty();
+         $('#AbsempTable thead').empty();
+         $('#AbsempTable tbody').empty();
+         $('#links').text('')
          $.ajax({
              url:'/abense_dates/'+dates,
              method :'GET',
@@ -819,6 +899,9 @@
         // alert('not empty')
       //   console.log('tes'+itemsdate.id_nin);
          $('#Dep').change(function() {
+            $('#AbsempTable thead').empty();
+            $('#AbsempTable tbody').empty();
+            $('#links').text('')
              let list_abs=new Object()
              var dep = $(this).val();
              var dates=$('#abs_date').val();
@@ -843,7 +926,7 @@
                              }
                               })
                  });
-                 console.log('list'+JSON.stringify(list_abs))
+               //  console.log('list'+JSON.stringify(list_abs))
                  list_abs.forEach(function(item){
                      if(item.absens)
                      {
@@ -854,7 +937,8 @@
                              + '</td><td>' + item.Nom_post_ar
                              + '</td><td>' + item.Nom_sous_depart_ar
                              + '</td><td>' + item.Nom_depart_ar
-                             + '</td><td id="stdin'+item.id_nin+'" class="std-handle abs">'+absens+'</td></tr>');
+                             + '</td><td id="stdin'+item.id_nin+'" class="std-handle abs">'+absens+'</td>'
+                            +'<td  class="abs-info" id="abs'+item.id_nin+'"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                         }
                         else
                         {
@@ -863,7 +947,8 @@
                          + '</td><td>' + item.Nom_post
                          + '</td><td>' + item.Nom_sous_depart
                          + '</td><td>' + item.Nom_depart
-                         + '</td><td id="stdout'+item.id_nin+'" class="std-handle abs">'+absens+'</td></tr>');
+                         + '</td><td id="stdout'+item.id_nin+'" class="std-handle abs">'+absens+'</td>'
+                         +'<td  class="abs-info" id="abs'+item.id_nin+'"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                         }
                      }else
                      {
@@ -874,7 +959,8 @@
                          + '</td><td>' + item.Nom_post_ar
                          + '</td><td>' + item.Nom_sous_depart_ar
                          + '</td><td>' + item.Nom_depart_ar
-                         + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                         + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td>'
+                          +'<td  class="abs-info" id="abs'+item.id_nin+'"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                           }
                          else
                          {
@@ -883,7 +969,8 @@
                          + '</td><td>' + item.Nom_post
                          + '</td><td>' + item.Nom_sous_depart
                          + '</td><td>' + item.Nom_depart
-                         + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                         + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td>'
+                         +'<td  class="abs-info" id="abs'+item.id_nin+'"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                          }
 
                      }
@@ -891,9 +978,37 @@
 
 
                          $("#AbsTable tbody tr").each(function(){
-                             var id_p=$(this).attr('id');
-                             var idme=$(this).data('td:nth-child(6)');
-                             var id_nin=idme.attr('id')
+                            var id_p=$(this).attr('id');
+                            var idme=$(this).find('td:eq(5)');
+                            var id_nin=idme.attr('id')
+                            var idme=$(this).find('td:eq(6)');
+                            var id_abs=idme.attr('id');
+                            $('#'+id_abs).click(function()
+                            {
+                             var idsa=id_nin.split('n');
+                                $('#AbsempTable thead').empty();
+                                $('#AbsempTable tbody').empty();
+                                if( lng == 'ar')
+                                  {
+                                  $("#AbsempTable thead").append('<tr><th>رقم</th>'
+                                  +'<th>تاريخ الغياب</th>'
+                                  +'<th>توقيت الغياب</th>'
+                                  +'<th>سبب الغياب</th>' 
+                                  +'</tr>')
+                                 }else
+                                 {
+                                 $("#AbsempTable thead").append('<tr><th>Numero</th>'
+                                 +'<th>Date Du L`Absence</th>'
+                                 +'<th>Heure</th>'
+                                 +'<th>Statu</th>' 
+                                 +'</tr>')
+                                 }
+                               
+                                 fetchPosts('/Employe/list_abs/'+idsa[1])
+                                                       
+                            }
+                        )
+                     
                                $('#'+id_nin).click(function(){
 
                                 //   alert('present')
@@ -990,7 +1105,8 @@
                          + '</td><td>' + item.Nom_post_ar
                          + '</td><td>' + item.Nom_sous_depart_ar
                          + '</td><td>' + item.Nom_depart_ar
-                         + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                         + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td>'
+                         +'<td  class="abs-info" id="abs'+item.id_nin+'"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                           }else
                           {
                              $('#AbsTable tbody').append('<tr id='+item.id_p+'><td><a href=/BioTemplate/search/' + item.id_nin+'>'+item.Nom_emp
@@ -998,14 +1114,43 @@
                                                        + '</td><td>' + item.Nom_post
                                                        + '</td><td>' + item.Nom_sous_depart
                                                        + '</td><td>' + item.Nom_depart
-                                                       + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td></tr>');
+                                                       + '</td><td id="stdin'+item.id_nin+'" class="std-handle pre">'+present+'</td>'
+                                                       +'<td class="abs-info" id="abs'+item.id_nin+'"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                          }
                            //  console.log('-->>'+$('#stdin').text())
                          });
                           $("#AbsTable tbody tr").each(function(){
                            var id_p=$(this).attr('id');
-                           var idme=$(this).data('td:nth-child(6)');
+                           var idme=$(this).find('td:eq(5)');
                            var id_nin=idme.attr('id')
+                           var idme=$(this).find('td:eq(6)');
+                           var id_abs=idme.attr('id');
+                           $('#'+id_abs).click(function()
+                           {
+                            var idsa=id_nin.split('n');
+                               $('#AbsempTable thead').empty();
+                               $('#AbsempTable tbody').empty();
+                               if( lng == 'ar')
+                               {
+                                $("#AbsempTable thead").append('<tr><th>رقم</th>'
+                                +'<th>تاريخ الغياب</th>'
+                                +'<th>توقيت الغياب</th>'
+                                +'<th>سبب الغياب</th>' 
+                                +'</tr>')
+                               }else
+                               {
+                               $("#AbsempTable thead").append('<tr><th>Numero</th>'
+                               +'<th>Date Du L`Absence</th>'
+                               +'<th>Heure</th>'
+                               +'<th>Statu</th>' 
+                               +'</tr>')
+                               }
+                              
+                                fetchPosts('/Employe/list_abs/'+idsa[1])
+                                                      
+                           }
+                       )
+                   
                              $('#'+id_nin).click(function(){
                                 // openNav();
 
@@ -1127,6 +1272,8 @@
      var idinput=$('#ID_NIN')
      idinput.blur(function(){
         var val=$(this).val()
+        if(val.length > 8 && val.length <=16)
+            {
         $.ajax({
             url:'/Employe/check/'+val,
             type:'GET',
@@ -1155,6 +1302,12 @@
                 }
             }
         })
+    }
+    else
+    {
+        alert('pass the number')
+        $(this).addClass('error-handle') 
+    }
         
      })
      var inpt=$('#id_emp')
@@ -1230,7 +1383,7 @@
                         $('#date_fin').val(response.date_congé)
                      }
                      $('.date-conge').addClass('disp')
-                     alert('success')
+                   //  alert('success')
                  }
              })
  }else
@@ -1270,10 +1423,12 @@
                          let jr=$('#total_cgj').val().split(" ");
                          console.log('-->'+jr[0]);
                          var total_cgj= parseInt(jr[0]);
-                         console.log('-->'+jr)
+                         console.log('--> '+jr)
                          if(totaljour > 0 && totaljour <=30 && total_cgj > 0)
                              {
-
+                                var selectElement = document.getElementById("typ_cg");
+                                var selectedValue = selectElement.value;
+                                console.log('testing'+selectedValue)
                          var congeform={
                              ID_NIN:parseInt(result.employe.id_nin),
                              ID_P:parseInt(result.employe.id_p),
@@ -1283,7 +1438,7 @@
                              date_fcg:$('#Date_Fcg').val(),
                              total_cgj:total_cgj,
                              totaljour:parseInt(totaljour),
-                             type_cg:$('#typ_cg').data(":selected").val(),
+                             type_cg:selectedValue,
                              _token: $('meta[name="csrf-token"]').attr('content'),
                              _method: 'POST'
                            }
@@ -1302,6 +1457,7 @@
                                      }
                                      else
                                      {
+                                        
                                          alert(response.message);
                                          $('#Date_Dcg').addClass('error-handle')
                                          $('#Date_Fcg').addClass('error-handle')
@@ -1514,7 +1670,8 @@ function removeInput(){
             $("[data-toggle=tooltip]").tooltip();
         });
 
-
-
-
-
+/**
+ * 
+ * this for list of absense of employe
+ * 
+ */

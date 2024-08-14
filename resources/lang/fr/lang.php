@@ -77,6 +77,9 @@ return [
     'date_fin_cng'=>'Date Fin Congé',
     'date_drn_cng'=>'La date Deriner Congé',
     'term_cng'=>'Congé Annuel',
+    'maladie_cng'=>'Congé Maladie',
+    'ssold_cng'=>'Sans Solde',
+    'mater_cng'=>'Matérnité',
     'exp_cng'=>'Congé Exceptionnel',
     'slct_dept'=>'Séléctionner la Direction',
     'slct_sous_dept'=>'Séléctionner la Sous Direction',
@@ -95,7 +98,9 @@ return [
     'nom_dipl'=>'Diplome',
     'slct_nom_dipl'=>'Selection Le Diplome',
     'dat_optn_dipl'=>'Date Obtenuation de Diplome',
-
+    
+    'nbr_absence'=>'Total Absense',
+    'date_abs'=>'Date Du L`Absence',
     'motif'=>'Motif',
     'period'=>'Period',
     'matin'=>'Matin',
@@ -144,7 +149,7 @@ return [
     'title_list_direc'=>'Listes des Directions et  les Sous Directions',
 
 
-
+    'nbr_page'=>'Numero de Page',
     'Departementde'=>' Direction de',
     'posttheo'=>'Théorique',
     'postttt'=>'Approuvé',
