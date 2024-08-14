@@ -110,19 +110,21 @@
             {
                 label: 'apprevu', // Second Dataset label
                 data: nbrem, // Data for the two labels
-                backgroundColor: 'rgba(0, 0, 255, 0.5)', // Bar color
+                backgroundColor: 'rgba(0, 55, 255, 0.72)', // Bar color
                 borderColor: 'rgba(153, 102, 255, 1)', // Bar border color
                 borderWidth: 1
             }
         ]
     },
-        options: {
-           scales: {
-                y: {
-                    beginAtZero: true
+    options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
-            }
-        }
+            }   
     });
 
 /* chartt2*/
@@ -140,13 +142,14 @@
             }]
         },
         options: {
-           scales: {
-                y: {
-                    beginAtZero: true
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-
-        }
     });
 </script>
 
