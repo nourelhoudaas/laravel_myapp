@@ -88,7 +88,23 @@
                             @endif
                           </h6>
                         </div>
+<<<<<<< HEAD
+                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Nombre d'enfant : 00</h6>
+                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.stitua_fam')}}</span>
+                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i> {{__('lang.famill')}} :
+                            @if(app()->getLocale() == 'ar')
+                            {{$last->situation_familliale_ar}}
+                            @else
+                            {{$last->situation_familliale}}
+                            @endif
+                          </h6>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+=======
                         <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+>>>>>>> 3835b342ca769654f9cf6615b2374c7330872280
                             <h6 class="mb-0"><i class="fa fa-user-plus" aria-hidden="true" ></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
                         </div>
                         <div >
@@ -96,8 +112,21 @@
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                             <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} : {{$last->Nom_niv}}</h6>
                           </div>
+<<<<<<< HEAD
+                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} :
+                            @if( app()->getLocale() == 'ar')
+                            {{$last->Nom_niv_ar}}
+                            @else
+                            {{$last->Nom_niv}}
+                            @endif
+                          </h6>
+                          </div>
+                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                           <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} :
+=======
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} : 
+>>>>>>> 3835b342ca769654f9cf6615b2374c7330872280
                            @if( app()->getLocale() == 'ar')
                            {{$last->Specialité_ar}}
                            @else

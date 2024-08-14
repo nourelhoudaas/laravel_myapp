@@ -557,6 +557,7 @@ main table tbody tr{
 main table tbody td{
     height: 3.8rem;
     border-bottom: 1px solid var(--clr-dark);
+    place-content: center;
 }
 
 main table tbody tr:last-child td{
@@ -1467,7 +1468,7 @@ input:focus{
 }
 .abs-info:hover
 {
-  
+
   color: rgba(7, 43, 245, 0.815);
   cursor: pointer;
 }
