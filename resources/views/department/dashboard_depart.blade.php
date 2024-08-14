@@ -41,7 +41,7 @@
 
                 <!-- start Absence -->
                 <div class="expenses">
-                    <span class="material-symbols-outlined">trending_down</span>
+                    <span class="material-symbols-outlined">visibility</span>
                     <div class="middle">
                         <div class="left">
                             <h3>{{ __('lang.posttheo') }}</h3>
@@ -54,12 +54,14 @@
 
                 <!-- start Presence -->
                 <div class="income">
-                    <span class="material-symbols-outlined">trending_up</span>
+                    <span class="material-symbols-outlined">how_to_reg</span>
                     <div class="middle">
                         <div class="left">
                             <h3>{{ __('lang.postttt') }}</h3>
 
-                           <h1></h1>
+                           <h1>
+                           {{$totalEmpDep}}
+                           </h1>
                         </div>
 
                     </div>

@@ -96,22 +96,35 @@
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+        labels: deptlis, // Two labels
+        datasets: [
+            {
+                label: 'Theorique', // Dataset label
+                data: [20, 20], // Data for the two labels
+                backgroundColor: 'rgba(0, 147, 0, 0.8)', // Bar color
+                borderColor: 'rgba(0, 255, 0, 1)', // Bar border color
                 borderWidth: 1
-            }]
-        },
-        options: {
-           scales: {
-                y: {
-                    beginAtZero: true
-                }
+            },
+            {
+                label: 'apprevu', // Second Dataset label
+                data: nbrem, // Data for the two labels
+                backgroundColor: 'rgba(0, 55, 255, 0.72)', // Bar color
+                borderColor: 'rgba(153, 102, 255, 1)', // Bar border color
+                borderWidth: 1
             }
-        }
+        ]
+    },
+    options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }   
     });
 
 /* chartt2*/
@@ -129,13 +142,14 @@
             }]
         },
         options: {
-           scales: {
-                y: {
-                    beginAtZero: true
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-
-        }
     });
 </script>
 
