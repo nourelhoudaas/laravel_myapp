@@ -541,7 +541,7 @@
                          data:stockForm,
                          success:function(responses)
                          {
-                             if(responses.code == 200)
+                             if(responses.status == 200)
                                  {
                                      $('#successMessage').show();
                                      $('#progressWrapper').hide();
@@ -930,7 +930,7 @@
                  // Assuming you are searching by ID_NIN
                  var dateinst=  new Date($('#PVDate').val());
                  var daterec=new Date($('#RecDate').val()); 
-                if(dateinst < daterec)
+                if(dateinst <= daterec)
                 {
                  var formData = {
                      ID_NIN:id,

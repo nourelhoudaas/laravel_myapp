@@ -204,7 +204,8 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
        
         $file=$request->get('fichier');
         $date=Carbon::now();
-        $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
+        $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->orderBy('date_cree_fichier','desc')->get();
+        //dd($fich);
         $doss=Dossier::select('ref_Dossier')->where('ref_Dossier',$request->get('ref_d'))->get();
         //dd($fich)
         $sdoss=new Dossier(['ref_Dossier'=> $request->get('ref_d')]);
