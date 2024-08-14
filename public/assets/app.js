@@ -59,12 +59,24 @@
     
             $.each(posts, function(index, post) {
                 var rowNumber = index + 1; 
+                if(post.statut =='NoJustier')
+                    {
                 var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td>' + post.statut + '    </td>' +
+                          '</tr>';
+                   }
+                   else
+                   {
+                    var row = '<tr>' +
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
                             '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">' + post.statut + '</a></td>' +
                           '</tr>';
+                   }
                 tableBody.append(row);
             });
         }
@@ -1197,7 +1209,7 @@
                             var id_abs=idme.attr('id');
                             $('#'+id_abs).click(function()
                             {
-                             var idsa=id_nin.split('n');
+                             var idsa=id_abs.split('s');
                                 $('#AbsempTable thead').empty();
                                 $('#AbsempTable tbody').empty();
                                 if( lng == 'ar')
@@ -1639,11 +1651,13 @@
                  method:'GET',
                  success:function(response)
                  {
-                     result=response;
-                     id=response.employe.id_nin
+                  
                    //  console.log('response'+JSON.stringify(response))
+                   if(response.status != 302){
+                    id=response.employe.id_nin
                    if(lng == 'ar')
                    {
+                    
                      $('#Dic').val(response.employe.Nom_depart_ar)
                      $('#SDic').val(response.employe.Nom_sous_depart_ar)
                      $('#Nom_emp').val(response.employe.Nom_ar_emp)
@@ -1696,6 +1710,16 @@
                      $('.date-conge').addClass('disp')
                    //  alert('success')
                  }
+                 else
+                 {
+                    alert(response.message)
+                    $('#Dic').val(dicr)
+                    $('#SDic').val(sous_dicr)
+                    $('#Nom_emp').val(nom)
+                    $('#Prenom_emp').val(prenom)
+                    $('#total_cgj').val('')
+                 }
+                }
              })
  }else
  {

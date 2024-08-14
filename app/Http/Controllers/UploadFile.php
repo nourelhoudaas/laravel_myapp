@@ -182,10 +182,20 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         $id=explode('-',$filename);
         $subd=$id[0];
         $numid=intval($id[1]);
+        if($numid == 0)
+        {
+            return response()->json([
+                'message'=>'aucun file',
+                'code'=> 302
+            ]);
+        }
+        {
         $file=Fichier::where('id_fichier',$numid)->select('hash_fichier')->first();
         $path =$directory .'/'.$subdir. '/' .$subd.'/'.$file->hash_fichier;
-        //dd($path);
         return redirect()->to('storage/' .$path);
+        }
+        //dd($path);
+        
     }
 
 

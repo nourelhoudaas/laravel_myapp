@@ -136,6 +136,7 @@
             var id
             var dir='Maladie'
             var dateabs='{{__("lang.date_abs")}}'
+            var filestatus="{{ session('success') }}"
         </script>
     </body>
     <script>
