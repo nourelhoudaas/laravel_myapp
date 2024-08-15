@@ -256,7 +256,7 @@
     //les constants pour éléments de selection par type,dep et total des filtres 
     const typeCongeSelect = document.getElementById("type-conge");
     const departmentSelect = document.getElementById("Depcng");
-        const employeeTableBody = document.querySelector("#CngTable tbody");
+        const employeeTableBody = $("#CngTable tbody");
 
     //des écouteurs pour les changements dans les select
         typeCongeSelect.addEventListener("change", filterEmployees);
@@ -286,14 +286,14 @@
             dataType: 'json',
             success: function(response) {
                 // Clear the table
-                employeeTableBody.innerHTML = "";
+                employeeTableBody.empty();
                 // Insert data into the table
                 response.forEach(employe => {
                     if(employe != null){
-                    const row = document.createElement("tr");
-                    row.classList.add("employee-row");
+                    var row = '';
+                    //row.classList.add("employee-row");
                     if (lng === 'fr') {
-                row.innerHTML = '<td>' + employe.Nom_emp + '</td>' +
+                row = '<tr><td>' + employe.Nom_emp + '</td>' +
                                 '<td>' + employe.Prenom_emp + '</td>' +
                                 '<td>' + employe.Phone_num + '</td>' +
                                 '<td>' + employe.Nom_post + '</td>' +
@@ -302,9 +302,9 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation + '</td>';
+                                '<td>' + employe.situation + '</td></tr>';
             } else if (lng === 'ar') {
-                row.innerHTML = '<td>' + employe.Nom_ar_emp + '</td>' +
+                row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +
                                 '<td>' + employe.Phone_num + '</td>' +
                                 '<td>' + employe.Nom_post_ar + '</td>' +
@@ -313,9 +313,9 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation_AR + '</td>';
+                                '<td>' + employe.situation_AR + '</td></tr>';
             }
-            employeeTableBody.appendChild(row);
+            employeeTableBody.append(row);
         }
         });
     },
