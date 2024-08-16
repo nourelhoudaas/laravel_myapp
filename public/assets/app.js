@@ -26,7 +26,6 @@
         })
  *
  */
-
         function fetchPosts(url) {
             $.ajax({
                 url: url,
@@ -60,12 +59,24 @@
     
             $.each(posts, function(index, post) {
                 var rowNumber = index + 1; 
+                if(post.statut =='NoJustier')
+                    {
                 var row = '<tr>' +
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
-                            '<td>' + post.statut + '</td>' +
+                            '<td>' + post.statut + '    </td>' +
                           '</tr>';
+                   }
+                   else
+                   {
+                    var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">' + post.statut + '</a></td>' +
+                          '</tr>';
+                   }
                 tableBody.append(row);
             });
         }
@@ -172,10 +183,190 @@
              }
          })
 
-         function uploadFile2(id) {
+
+         function uploadFile_space() {
+            var formDataF = new FormData();
+            var file = document.getElementById('file').files[0];
+            formDataF.append('file', file);
+            formDataF.append('_token',  $('meta[name="csrf-token"]').attr('content'));
+             formDataF.append('id_nin', parseInt(id));
+             formDataF.append('sous', dir);
+             console.log('button of'+this.id);
+             console.log('button of'+this.dir);
+                    $.ajax
+                  ({
+                      url:"/upload/numdossiers",
+                      type: 'POST',
+                      data: formDataF,
+                      contentType: false,
+                      processData: false,
+                      xhr: function() {
+                          var xhr = new window.XMLHttpRequest();
+                          xhr.upload.addEventListener("progress", function(e) {
+                              if (e.lengthComputable) {
+                                  var percentComplete = (e.loaded / e.total) * 100;
+                                  $('#progressWrapper').show();
+                                  $('#progressBar').width(percentComplete + '%');
+                              }
+                          }, false);
+                          return xhr;
+                      },
+                      success:function(response)
+                      {
+                          if(uid && response.status == 200)
+                              {
+                                  console.log('messsage '+JSON.stringify(response.data))
+                                  var stockForm={
+                                      id_nin:id,
+                                      id:uid,
+                                      ref_d:response.data.ref_d,
+                                      sous_d:response.data.sous_d,
+                                      fichierext:response.data.filenext,
+                                      fichier:response.data.filename,
+                                      Tfichier:response.data.filesize,
+                                      _token: $('meta[name="csrf-token"]').attr('content'),
+                                      _method: 'POST'
+                                  }
+                              $.ajax({
+                                  url:'/whoiam',
+                                  type: 'POST',
+                                  data:stockForm,
+                                  success:function(responses)
+                                  {
+                                      if(responses.code == 200)
+                                          {
+                                              $('#successMessage').show();
+                                              $('#progressWrapper').hide();
+                                              $('#progressBar').width('0%');
+                                          alert(response.message)
+                                          }else
+                                          {
+                                              console.log('error');
+                                          }
+                                  }
+                              })
+                          }
+                              else
+                              {
+                                  console.log('no log');
+                              }
+                       $('#successMessage').show();
+                       $('#progressWrapper').hide();
+                       $('#progressBar').width('0%');
+                      },
+                      error: function() {
+                          alert('Upload failed');
+                      }
+                  })
+          }
+
+
+          function uploadFile3(id,dates) {
+            var formData = new FormData();
+            var formDataF = new FormData();
+            var formDataU=new FormData();
+            var file = document.getElementById('file').files[0];
+            formDataF.append('file', file);
+            formDataU.append('file', file);
+            formData.append('_token',$('meta[name="csrf-token"]').attr('content')),
+            formData.append('_method', 'POST')
+            formDataF.append('_token',$('meta[name="csrf-token"]').attr('content')),
+            formDataF.append('_method', 'POST')
+             formData.append('id_nin', parseInt(id));
+             formData.append('sous', dir);
+             formDataF.append('id_nin', parseInt(id));
+             formDataF.append('sous', dir);
+             console.log('button of v3'+this.id);
+             console.log('button of v3'+this.dir);
+            $.ajax({
+                url: '/upload/creedossier',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                xhr: function() {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function(e) {
+                        if (e.lengthComputable) {
+                            var percentComplete = (e.loaded / e.total) * 100;
+                        }
+                    }, false);
+                    return xhr;
+                },
+                success: function(data) {
+                     console.log(' in loading '+id);
+                      console.log(' in loading '+JSON.stringify(formDataF));
+                    $.ajax
+                  ({
+                      url:"/upload/numdossiers",
+                      type: 'POST',
+                      data: formDataF,
+                      contentType: false,
+                      processData: false,
+                      xhr: function() {
+                          var xhr = new window.XMLHttpRequest();
+                          xhr.upload.addEventListener("progress", function(e) {
+                              if (e.lengthComputable) {
+                                  var percentComplete = (e.loaded / e.total) * 100;
+                              }
+                          }, false);
+                          return xhr;
+                      },
+                      success:function(response)
+                      {
+                        if(uid && response.status == 200)
+                        {
+                            console.log('messsage '+JSON.stringify(response.data))
+                            var stockForm={
+                               id_nin:id,
+                                id:uid,
+                                ref_d:response.data.ref_d,
+                                sous_d:response.data.sous_d,
+                                fichierext:response.data.filenext,
+                                fichier:response.data.filename,
+                                Tfichier:response.data.filesize,
+                                _token: $('meta[name="csrf-token"]').attr('content'),
+                                _method: 'POST'
+                            }
+                        $.ajax({
+                            url:'/whoiam',
+                            method: 'POST',
+                            data:stockForm,
+                            success:function(responses)
+                            {
+                                if(responses.code == 200)
+                                    {
+                                        uploadjust(id,dates,response.data.filename,response.data.sous_d)
+                                        alert(response.message)
+                                        console.log('add to stocke  ->'+responses.message)
+                                    }else
+                                    {
+                                        alert(response.message)
+                                    }
+                            }
+                        })
+                    }
+                        else
+                        {
+                            console.log('no log');
+                        }
+                      },
+                      error: function(response) {
+                        console.log(''+JSON.stringify(response));
+                          alert('Upload failed');
+                      }
+                  })
+                },
+                error: function() {
+                    alert('create failed');
+                }
+            });
+          }
+         function uploadFile2(id,dates) {
              var formData = new FormData();
              var formDataF = new FormData();
-             var file = document.getElementById('file').files[0];
+             //using jquery this only this time 
+             var file = $('#file')[0].files[0];
              formDataF.append('file', file);
              formData.append('_token',$('meta[name="csrf-token"]').attr('content')),
              formData.append('_method', 'POST')
@@ -184,9 +375,10 @@
               formData.append('id_nin', parseInt(id));
               formData.append('sous', dir);
               formDataF.append('id_nin', parseInt(id));
+              formDataF.append('nom_fichier',file.name);
               formDataF.append('sous', dir);
-              console.log('button of'+this.id);
-              console.log('button of'+this.dir);
+              console.log('button of v'+id);
+              console.log('button of v'+this.dir);
              $.ajax({
                  url: '/upload/creedossier',
                  type: 'POST',
@@ -227,6 +419,7 @@
                          {
                              console.log('messsage '+JSON.stringify(response.data))
                              var stockForm={
+                                id_nin:parseInt(id),
                                  id:uid,
                                  ref_d:response.data.ref_d,
                                  sous_d:response.data.sous_d,
@@ -244,10 +437,12 @@
                              {
                                  if(responses.code == 200)
                                      {
-                                 console.log('add to stocke  ->'+responses.message)
-                                 window.location.href='/conge';
+                                        uploadtitre(id,dates,response.data.filename,response.data.sous_d)
+                                        console.log('add to stocke  ->'+responses.message)
+                                      
                                      }else
                                      {
+                                      
                                          alert(response.message)
                                      }
                              }
@@ -333,6 +528,7 @@
                      {
                          console.log('messsage '+JSON.stringify(response.data))
                          var stockForm={
+                            id_nin:id,
                              id:uid,
                              ref_d:response.data.ref_d,
                              sous_d:response.data.sous_d,
@@ -348,13 +544,13 @@
                          data:stockForm,
                          success:function(responses)
                          {
-
-                             if(responses.code == 200)
+                             if(responses.status == 200)
                                  {
                                      $('#successMessage').show();
                                      $('#progressWrapper').hide();
                                      $('#progressBar').width('0%');
-                             console.log('add to stocke  ->'+responses.message)
+                           //  console.log('add to stocke  ->'+responses.message)
+                             alert(response.message)
                                  }else
                                  {
                                      alert(response.message)
@@ -364,7 +560,7 @@
                  }
                      else
                      {
-                         console.log('no log');
+                         alert('no log');
                      }
               $('#successMessage').show();
               $('#progressWrapper').hide();
@@ -379,6 +575,68 @@
            alert('create failed');
        }
    });
+ }
+ function uploadjust(id,date,file,dir)
+ {
+    console.log('file name'+JSON.stringify(file))
+    var dataform={
+          id_nin:id,
+          just:file,
+          sous_d:dir,
+          date_abs:date,
+          _token: $('meta[name="csrf-token"]').attr('content'),
+          _method: 'PUT'
+    }
+    console.log('testing'+JSON.stringify(dataform))
+    $.ajax({
+        url:'/BioTemplate/add_justFile',
+        type:'POST',
+        data:dataform,
+        success:function(response)
+        {
+            if(response.code == 200)
+            {
+                alert(response.success)
+                $.ajax({
+
+                })
+            }
+            else
+            {
+                alert(response.success)
+            }
+        }
+    })
+ }
+ function uploadtitre(id,date,file,dir)
+ {
+    console.log('file name'+JSON.stringify(file))
+    var dataform={
+          id_nin:id,
+          titre:file,
+          sous_d:dir,
+          date_debut_cong:date,
+          _token: $('meta[name="csrf-token"]').attr('content'),
+          _method: 'PUT'
+    }
+    console.log('testing'+JSON.stringify(dataform))
+    $.ajax({
+        url:'/BioTemplate/add_titreFile',
+        type:'POST',
+        data:dataform,
+        success:function(response)
+        {
+            if(response.code == 200)
+            {
+                alert(response.success)
+                window.location.href='/conge';
+            }
+            else
+            {
+                alert(response.success)
+            }
+        }
+    })
  }
  /** function pour calcler les Jour */
  function calculateDayscng(startDate,datechange) {
@@ -686,6 +944,16 @@
  $('#PVDate').focus(function()
  {
      $(this).removeClass('error-handle')
+     $('#remq p').text('')
+     $('#remq p').removeClass('error-handle');
+     $('#remq').removeClass('remq');
+ });
+ $('#RecDate').focus(function()
+ {
+     $(this).removeClass('error-handle')
+     $('#remq p').text('')
+     $('#remq p').removeClass('error-handle');
+     $('#remq').removeClass('remq');
  });
 
      $('#aft').click(function(e){
@@ -693,6 +961,10 @@
 
 
                  // Assuming you are searching by ID_NIN
+                 var dateinst=  new Date($('#PVDate').val());
+                 var daterec=new Date($('#RecDate').val()); 
+                if(dateinst <= daterec)
+                {
                  var formData = {
                      ID_NIN:id,
                      ID_P : idp,
@@ -723,6 +995,14 @@
                      })
                      }
                  });
+                }
+                else
+                {
+                    $('#remq p').text('Confimer leur date Rect et PV installation')
+                    $('#remq').addClass('remq');
+                    $('#PVDate').addClass('error-handle');
+                    $('#RecDate').addClass('error-handle');
+                }
      });
  });
  //TRAVAIL
@@ -984,7 +1264,7 @@
                             var id_abs=idme.attr('id');
                             $('#'+id_abs).click(function()
                             {
-                             var idsa=id_nin.split('n');
+                             var idsa=id_abs.split('s');
                                 $('#AbsempTable thead').empty();
                                 $('#AbsempTable tbody').empty();
                                 if( lng == 'ar')
@@ -1018,8 +1298,58 @@
                                  var idsa=id_nin.split('n');
                                   id=idsa[1]
                                  console.log('gtting data'+checkv2[1]);
+                                 
                                if(check === checkv2[1]){
                                  openNav();
+                                 dir='Maladie';
+                                 $('#StatusJ').change(function()
+                                 {
+                                     var Type='Type'
+                                     var Admin='Adminstrative'
+                                     var Maladi='Maladie'
+                                     const selectedColor = $('input[name="StatusRadio"]:checked').val();
+                                     console.log(''+selectedColor)
+                                     if(selectedColor == 'F1')
+                                        if( lng == 'ar')
+                                        {
+                                            Type='نوع الترخيص'
+                                            Admin='إداري'
+                                            Maladi='مرضي'
+                                        }
+                                     {
+                                         $('#checkboxContainer').html(`
+                                             <div class="form-check info-wid">
+                                              <input class="form-check-input" type="radio" name="CatjustRadio" id="Maladie" value="Maladie" checked>
+                                              <label class="form-check-label" for="exampleRadios1">
+                                              `+Maladi+`
+                                              </label>
+                                             </div>
+                                            <div class="form-check info-wid">
+                                             <input class="form-check-input" type="radio" name="CatjustRadio" id="Admin" value="Admin">
+                                             <label class="form-check-label" for="exampleRadios2">
+                                             `+Admin+`
+                                           </label>
+                                           </div>`);
+                                 
+                                         // Ensure only one checkbox is checked at a time
+                                         $('input[name="CatjustRadio"]').on('change', function() {
+                                             if ($(this).is(':checked')) {
+                                                 $('input[name="CatjustRadio"]').not(this).prop('checked', false);
+                                                 console.log($('input[name="CatjustRadio"]:checked').val())
+                                                 dir=$('input[name="CatjustRadio"]:checked').val()
+                                             }
+                                         });
+                                     }
+                                 })
+                                 $('#StatusNoJ').change(function()
+                                 {
+                                     const selectedColor = $('input[name="StatusRadio"]:checked').val();
+                                     console.log(''+selectedColor)
+                                     if(selectedColor == 'F2')
+                                     {
+                                         $('#checkboxContainer').empty()
+                                     }
+                                 })
                                  var absensform={
                                    ID_NIN:id_nin,
                                    ID_P:id_p,
@@ -1041,7 +1371,7 @@
                                    {
                                      $('#file').removeClass('error-handle')
                                      closeNav(absensform,id_nin,absens)
-                                     uploadFile()
+                                     uploadFile3(id,dates)
                                      che++;
                                    }
                                   else
@@ -1161,11 +1491,59 @@
                           //     console.log('icons id'+check);
                                var checkv2 =  present.split('"');
                                var idsa=id_nin.split('n');
-
                                console.log('gtting data'+idsa[1]);
                                id=idsa[1]
                              if(check === checkv2[1]){
                                  openNav();
+                                dir='Maladie';
+                                 $('#StatusJ').change(function()
+                                 {
+                                     var Type='Type'
+                                     var Admin='Adminstrative'
+                                     var Maladi='Maladie'
+                                     const selectedColor = $('input[name="StatusRadio"]:checked').val();
+                                     console.log(''+selectedColor)
+                                     if(selectedColor == 'F1')
+                                        if( lng == 'ar')
+                                        {
+                                            Type='نوع الترخيص'
+                                            Admin='إداري'
+                                            Maladi='مرضي'
+                                        }
+                                     {
+                                         $('#checkboxContainer').html(`
+                                             <div class="form-check info-wid">
+                                              <input class="form-check-input" type="radio" name="CatjustRadio" id="Maladie" value="Maladie" checked>
+                                              <label class="form-check-label" for="exampleRadios1">
+                                              `+Maladi+`
+                                              </label>
+                                             </div>
+                                            <div class="form-check info-wid">
+                                             <input class="form-check-input" type="radio" name="CatjustRadio" id="Admin" value="Admin">
+                                             <label class="form-check-label" for="exampleRadios2">
+                                             `+Admin+`
+                                           </label>
+                                           </div>`);
+                                 
+                                         // Ensure only one checkbox is checked at a time
+                                         $('input[name="CatjustRadio"]').on('change', function() {
+                                             if ($(this).is(':checked')) {
+                                                 $('input[name="CatjustRadio"]').not(this).prop('checked', false);
+                                                 console.log($('input[name="CatjustRadio"]:checked').val())
+                                                 dir=$('input[name="CatjustRadio"]:checked').val()
+                                             }
+                                         });
+                                     }
+                                 })
+                                 $('#StatusNoJ').change(function()
+                                 {
+                                     const selectedColor = $('input[name="StatusRadio"]:checked').val();
+                                     console.log(''+selectedColor)
+                                     if(selectedColor == 'F2')
+                                     {
+                                         $('#checkboxContainer').empty()
+                                     }
+                                 })
                                var absensform={
                                  ID_NIN:id_nin,
                                  ID_P:id_p,
@@ -1188,7 +1566,7 @@
                                           {
                                        $('#file').removeClass('error-handle')
                                        closeNav(absensform,id_nin,absens)
-                                       uploadFile()
+                                       uploadFile3(id,dates)
                                        che++;
                                      }
 
@@ -1328,10 +1706,14 @@
                  method:'GET',
                  success:function(response)
                  {
-                     result=response;
+                   
                    //  console.log('response'+JSON.stringify(response))
+                   if(response.status != 302){
+                    result=response;
+                    id=response.employe.id_nin
                    if(lng == 'ar')
                    {
+                    
                      $('#Dic').val(response.employe.Nom_depart_ar)
                      $('#SDic').val(response.employe.Nom_sous_depart_ar)
                      $('#Nom_emp').val(response.employe.Nom_ar_emp)
@@ -1374,7 +1756,7 @@
                      }
                      else
                      {
-                         $('#ddate_fin').removeClass('nodisp');
+                        $('#ddate_fin').removeClass('nodisp');
                         $('#checkcg-box').append(droit);
                         $('#checkcg-box').addClass('pre');
                         $('#ddate_rec').addClass('nodisp');
@@ -1384,6 +1766,16 @@
                      $('.date-conge').addClass('disp')
                    //  alert('success')
                  }
+                 else
+                 {
+                    alert(response.message)
+                    $('#Dic').val(dicr)
+                    $('#SDic').val(sous_dicr)
+                    $('#Nom_emp').val(nom)
+                    $('#Prenom_emp').val(prenom)
+                    $('#total_cgj').val('')
+                 }
+                }
              })
  }else
  {
@@ -1415,6 +1807,7 @@
          const fileError = $('#file-error');
            $('#conge_confirm').click(function()
                      {
+                        var granted=true;
                          if(id !== null && file[0].files.length > 0 ){
                          var date_dcg=$('#Date_Dcg').val();
                          var date_fcg=$('#Date_Fcg').val();
@@ -1423,11 +1816,16 @@
                          console.log('-->'+jr[0]);
                          var total_cgj= parseInt(jr[0]);
                          console.log('--> '+jr)
-                         if(totaljour > 0 && totaljour <=30 && total_cgj > 0)
-                             {
-                                var selectElement = document.getElementById("typ_cg");
+                         var selectElement = document.getElementById("typ_cg");
+                                var selectsitua = document.getElementById("Situation");
                                 var selectedValue = selectElement.value;
-                                console.log('testing'+selectedValue)
+                                var selectedVsitua = selectsitua.value;
+                         if(selectedValue == 'RF002' && selectedVsitua == 'hors')
+                         {
+                            granted=false
+                         }
+                         if(totaljour > 0 && totaljour <=30 && total_cgj > 0 && granted == true)
+                             {
                          var congeform={
                              ID_NIN:parseInt(result.employe.id_nin),
                              ID_P:parseInt(result.employe.id_p),
@@ -1438,6 +1836,7 @@
                              total_cgj:total_cgj,
                              totaljour:parseInt(totaljour),
                              type_cg:selectedValue,
+                             situation:selectedVsitua,
                              _token: $('meta[name="csrf-token"]').attr('content'),
                              _method: 'POST'
                            }
@@ -1451,7 +1850,7 @@
 
                                  if(response.status == 200)
                                      {
-                                         uploadFile2(parseInt(result.employe.id_nin))
+                                         uploadFile2(parseInt(result.employe.id_nin),date_dcg)
 
                                      }
                                      else
@@ -1473,12 +1872,17 @@
                          {
                              alert('pas de jour a ajouter')
                          }
+                         if(granted == false)
+                         {
+                        $('#Situation').addClass('error-handle')
+                         $('#typ_cg').addClass('error-handle')
+                         }
                          $('#Date_Dcg').addClass('error-handle')
                          $('#Date_Fcg').addClass('error-handle')
                      }
                  }else
                  {
-                     alert('empty files'+id);
+                     alert('empty files');
                      if( id == null){
                      $('#id_emp').addClass('error-handle')}
                      if(file[0].files.length == 0){

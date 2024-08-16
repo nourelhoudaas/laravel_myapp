@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('base')
 <head>
-    <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Fichies</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -22,10 +20,9 @@
         $emp_sur=$employe->Prenom_emp;
     }
     @endphp
-@extends('base')
-<body>
 
-@include('./navbar.sidebar')
+<body>
+@include('navbar.sidebar')
  <h6>{{__('lang.DosierD')}} : {{$emp_name}} {{$emp_sur}}</h6>
     <div class="container mt-5">
         <div class="row">
@@ -46,7 +43,9 @@
                             @foreach($filesArray as $file)
                                 <li class="list-group-item" id='file-holder'>
                                         <a href="{{url('/live/read/'.$empdoss.'/'.$subDir.'-'.$file.'/')}}" target="_blank" id="{{$file}}">{{ $file }}</a>
-                                    </li>
+                                        <p id='date-insert-{{$file}}'></p>
+                                 </li>
+                                
                             @endforeach
                         </ul>
                     </div>
@@ -58,11 +57,13 @@
 
 <div class="bottom-popup" id="bottomPopup">
     <div class="popup-content">
-        <form>
-            @csrf
+        <div>
         <input type="file" id="file">
-        <button class="button-33" onclick='uploadFile()'>{{__('lang.upload')}}</button>
-        </form>
+        <button class="button-33" onclick='uploadFile_space()'>{{__('lang.upload')}}</button>
+        
+        </div>
+        </div>
+        
     </div>
 </div>
 </body>
@@ -83,14 +84,15 @@
                         type:'GET',
                         success:function(response)
                         {
-                            console.log('-->id :'+response.name)
+                            //console.log('-->id :'+response.name)
                             $('#'+liId).text(response.name)
+                            $('#date-insert-'+liId).text(response.date_insert)
                             $('#'+liId).click(function(){
                                
                             })
                         }
                     })
-                    console.log('-->id :'+liId); // Outputs the id of each li element
+                    //console.log('-->id :'+liId); // Outputs the id of each li element
                 });
             });
             $('#file-holder-Congé').each(function() {
@@ -103,14 +105,15 @@
                         type:'GET',
                         success:function(response)
                         {
-                            console.log('-->id :'+response.name)
+                            //console.log('-->id :'+response.name)
                             $('#'+liId).text(response.name)
+                            $('#date-insert-'+liId).text(response.date_insert)
                             $('#'+liId).click(function(){
                                
                             })
                         }
                     })
-                    console.log('-->id :'+liId); // Outputs the id of each li element
+                    //console.log('-->id :'+liId); // Outputs the id of each li element
                 });
             });
             $('#file-holder-Contonsion').each(function() {
@@ -123,14 +126,15 @@
                         type:'GET',
                         success:function(response)
                         {
-                            console.log('-->id :'+response.name)
+                            //console.log('-->id :'+response.name)
                             $('#'+liId).text(response.name)
+                            $('#date-insert-'+liId).text(response.date_insert)
                             $('#'+liId).click(function(){
                                
                             })
                         }
                     })
-                    console.log('-->id :'+liId); // Outputs the id of each li element
+                    //console.log('-->id :'+liId); // Outputs the id of each li element
                 });
             });
             $('#file-holder-Maladie').each(function() {
@@ -143,14 +147,15 @@
                         type:'GET',
                         success:function(response)
                         {
-                            console.log('-->id :'+response.name)
+                            //console.log('-->id :'+response.name)
                             $('#'+liId).text(response.name)
+                            $('#date-insert-'+liId).text(response.date_insert)
                             $('#'+liId).click(function(){
                                
                             })
                         }
                     })
-                    console.log('-->id :'+liId); // Outputs the id of each li element
+                    //console.log('-->id :'+liId); // Outputs the id of each li element
                 });
             });
             $('#file-holder-Niveaux').each(function() {
@@ -163,14 +168,15 @@
                         type:'GET',
                         success:function(response)
                         {
-                            console.log('-->id :'+response.name)
+                            //console.log('-->id :'+response.name)
                             $('#'+liId).text(response.name)
+                            $('#date-insert-'+liId).text(response.date_insert)
                             $('#'+liId).click(function(){
                                
                             })
                         }
                     })
-                    console.log('-->id :'+liId); // Outputs the id of each li element
+                    //console.log('-->id :'+liId); // Outputs the id of each li element
                 });
             });
             $('#file-holder-Personnel').each(function() {
@@ -183,14 +189,15 @@
                         type:'GET',
                         success:function(response)
                         {
-                            console.log('-->id :'+response.name)
+                            //console.log('-->id :'+response.name)
                             $('#'+liId).text(response.name)
+                            $('#date-insert-'+liId).text(response.date_insert)
                             $('#'+liId).click(function(){
                                
                             })
                         }
                     })
-                    console.log('-->id :'+liId); // Outputs the id of each li element
+                    //console.log('-->id :'+liId); // Outputs the id of each li element
                 });
             });
             $('#file-holder-Promotion').each(function() {
@@ -203,14 +210,15 @@
                         type:'GET',
                         success:function(response)
                         {
-                            console.log('-->id :'+response.name)
+                            //console.log('-->id :'+response.name)
                             $('#'+liId).text(response.name)
+                            $('#date-insert-'+liId).text(response.date_insert)
                             $('#'+liId).click(function(){
                                
                             })
                         }
                     })
-                    console.log('-->id :'+liId); // Outputs the id of each li element
+                    //console.log('-->id :'+liId); // Outputs the id of each li element
                 });
             });
             $('#file-holder-Social').each(function() {
@@ -223,14 +231,15 @@
                         type:'GET',
                         success:function(response)
                         {
-                            console.log('-->id :'+response.name)
+                            //console.log('-->id :'+response.name)
                             $('#'+liId).text(response.name)
+                            $('#date-insert-'+liId).text(response.date_insert)
                             $('#'+liId).click(function(){
                                
                             })
                         }
                     })
-                    console.log('-->id :'+liId); // Outputs the id of each li element
+                    //console.log('-->id :'+liId); // Outputs the id of each li element
                 });
             });
         });
@@ -249,7 +258,7 @@
             dir=clickedId;
             $("#bottomPopup").addClass("show-popup");
             $("#overlay").addClass("show-overlay");
-            //alert("You clicked on: " + clickedId);
+            //console.log('di is '+dir);  
         });
     });
 </script>

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conge;
 use Illuminate\Http\Request;
 use \App\Models\Employe;
 use \App\Models\Compt;
 use \App\Models\Niveau;
 use \App\Models\Post;
+use \App\Models\Fichier;
+use \App\Models\Absence;
 use Illuminate\Support\Facades\DB;
 use App\Services\logService;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +76,75 @@ class BioEmployeControl extends Controller
         } else {
             return response()->json(['error' => 'Employee not found or update failed'], 404);
         }
+    }
+    public function update_just(Request $request)
+    {
+        $request->validate([
+            'id_nin'=>'required|integer',
+            'just'=>'required|string',
+            'date_abs'=>'required|date',
+            'sous_d'=>'required|string'
+        ]);
+      
+        $id_file=Fichier::select('id_fichier')
+                         ->where('nom_fichier',$request->get('just'))
+                         ->orderBy('date_cree_fichier','desc')
+                        ->first();
+                      
+        $update=Absence::where('id_nin',$request->get('id_nin'))
+                        ->where('date_abs',$request->get('date_abs'))->first();
+                       
+        $update=Absence::find($update->id_abs);
+        $update->update(['id_fichier'=>$id_file->id_fichier]);  
+            if($update)
+            {
+                return response()->json([
+                    'success'=>'updated',
+                    'code'=>200,
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'success'=>'Not updated',
+                    'code'=>404,
+                ]);
+            }
+    }
+    public function update_cng(Request $request)
+    {
+       
+        $request->validate([
+            'id_nin'=>'required|integer',
+            'titre'=>'required|string',
+            'date_debut_cong'=>'required|date',
+            'sous_d'=>'required|string'
+        ]);
+        
+        $id_file=Fichier::select('id_fichier')
+                         ->where('nom_fichier',$request->get('titre'))
+                         ->orderBy('date_cree_fichier','desc')
+                         ->orderBy('id_fichier','desc')
+                        ->first();
+                     
+        $update=Conge::where('id_nin',$request->get('id_nin'))
+                        ->where('date_debut_cong',$request->get('date_debut_cong'))->first();
+        $update=Conge::find($update->id_cong);
+        $update->update(['id_fichier'=>$id_file->id_fichier]);  
+            if($update)
+            {
+                return response()->json([
+                    'success'=>'updated',
+                    'code'=>200,
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'success'=>'Not updated',
+                    'code'=>404,
+                ]);
+            }
     }
 
 }

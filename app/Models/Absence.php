@@ -15,7 +15,7 @@ class Absence extends Model
       // Désactiver les timestamps automatiques
       public $timestamps = false;
 
-      protected $fillable = ['id_abs','date_abs','heure_abs','statut','id_nin','id_p','id_sous_depart'];
+      protected $fillable = ['id_abs','date_abs','heure_abs','statut','id_nin','id_p','id_sous_depart','id_fichier'];
 
       public function employe()
       {
@@ -26,6 +26,11 @@ class Absence extends Model
       {
           return $this-> belongsTo(Sous_departement::class,'id_sous_depart','id_sous_depart');
       }
+      public function fichier()
+      {
+          return $this-> belongsTo(Sous_departement::class,'id_fichier','id_fichier');
+      }
+
 
 }
 

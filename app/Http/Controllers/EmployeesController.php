@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Absence;
+    use App\Models\Stocke;
     use App\Models\Conge;
     use App\Models\Contient;
     use App\Models\Niveau;
@@ -89,8 +90,11 @@
         $totalEmployes = $employe->count();
 // Définir le nombre d'éléments par page
 $perPage = 2; // Par exemple, 2 éléments par page
-$page = request()->get('page',
-); // Page actuelle
+$page = 1; // Page actuelle
+                    if(request()->get('page') != null)
+                    {
+                        $page=   request()->get('page');
+                    } // Page actuelle
 $offset = ($page - 1) * $perPage;
 
 // Extraire les éléments pour la page actuelle
@@ -861,9 +865,19 @@ foreach($allwor as $workig)
                 ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
                 ->orderBy('occupes.date_recrutement','desc')
-                ->firstOrFail();
+                ->first();
+                //dd($emp);
+                if(isset($emp))
+                {
                 $cng=Conge::where('id_nin',$emp->id_nin)->orderBy('date_fin_cong','desc')->get();
-
+                }
+                else
+                {
+                    return response()->json([
+                        'message'=>'pas Employe',
+                        'status'=>302
+                        ]);
+                }
                 if($cng->count() > 0)
                 {
 
@@ -918,7 +932,8 @@ foreach($allwor as $workig)
                     'Dic'=>'required|integer',
                     'date_dcg'=>'required|date',
                     'date_fcg'=>'required|date',
-                    'type_cg'=>'required|string'
+                    'type_cg'=>'required|string',
+                    'situation'=>'string',
                 ]
                 );
                 $cng=Conge::where('id_nin',$request->get('ID_NIN'))
@@ -975,7 +990,7 @@ foreach($allwor as $workig)
                         'date_fin_cong'=>$request->get('date_fcg'),
                         'nbr_jours'=>intval($nbrcng),
                         'ref_cong'=>$request->get('type_cg'),
-                        'situation'=>'dans',
+                        'situation'=>$request->get('situation'),
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                     }
@@ -992,8 +1007,6 @@ foreach($allwor as $workig)
                     ]);
                 }*/
                 //dd($cng);
-
-
                 if($cng->count() > 0)
             {
                 if(Carbon::now()->year >= $cng[0]->annee  && $request->get('type_cg') == 'RF001')
@@ -1038,7 +1051,7 @@ foreach($allwor as $workig)
                     'date_fin_cong'=>$request->get('date_fcg'),
                     'nbr_jours'=>intval($nbrcng),
                     'ref_cong'=>$request->get('type_cg'),
-                    'situation'=>'dans',
+                    'situation'=>$request->get('situation'),
                     'id_sous_depart'=>$request->get('SDic')
                         ]);
                 }
@@ -1085,7 +1098,7 @@ foreach($allwor as $workig)
                         'date_fin_cong'=>$request->get('date_fcg'),
                         'nbr_jours'=>intval($monthsDifference * 30),
                         'ref_cong'=>$request->get('type_cg'),
-                        'situation'=>'dans',
+                        'situation'=>$request->get('situation'),
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                             if($cong->save())
@@ -1153,12 +1166,16 @@ foreach($allwor as $workig)
             {
                 $emp=Employe::where('id_nin',$id)->first();
                 $list_abs=Absence::where('id_nin',$id)->orderBy('date_abs','desc')
-                                  ->select('date_abs', 'heure_abs','statut', 'id_nin', 'id_p', 'id_sous_depart')
+                                  ->select('date_abs', 'heure_abs','statut', 'id_nin', 'id_p', 'id_sous_depart','id_fichier')
+                                  ->orderBy('date_abs')
                                   ->distinct()
                                   ->get();
                 $perPage = 5; // Par exemple, 2 éléments par page
-                    $page = request()->get('page',
-                                                ); // Page actuelle
+                    $page = 1; // Page actuelle
+                    if(request()->get('page') != null)
+                    {
+                        $page=   request()->get('page');
+                    }
                     $offset = ($page - 1) * $perPage;
 
                     // Extraire les éléments pour la page actuelle
@@ -1176,8 +1193,24 @@ foreach($allwor as $workig)
                      ]
                     );
                     return response()->json(['emp'=>$emp,
-                                              'list_abs'=>$paginator  
+                                             'list_abs'=>$paginator  
                                             ]);
+            }
+            function read_just($id)
+            {
+                if($id != 0)
+                {
+                $file=Stocke::where('id_fichier',$id)->first();
+               // dd($file);
+                $subdir=$file->ref_Dossier;
+                $fichier=$file->sous_d.'-'.$id;
+                
+                return redirect()->route('read_file_emp',['dir'=>'employees','subdir'=>$subdir,'file'=>$fichier]);
+                }
+                else
+                {
+                    abort(404);
+                }
             }
 
 }

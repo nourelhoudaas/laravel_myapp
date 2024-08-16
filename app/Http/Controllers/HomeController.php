@@ -44,7 +44,7 @@ class HomeController extends Controller
     'occupeIdNin.post.contient.sous_departement.departement',
     'occupeIdP.post.contient.sous_departement.departement'
         ])->get();
-
+        
     //le nbr total des employés
         
         $empdept=array();
@@ -72,6 +72,7 @@ class HomeController extends Controller
                                          'nbremp'=>$totalEmployes]);
         }
         //dd($empdept);
+        $totalEmployes=$employe->count();
         return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdept'));
     }
 

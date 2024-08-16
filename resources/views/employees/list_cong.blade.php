@@ -110,8 +110,10 @@
                                     <th>{{ __('lang.date_fin_cng') }}</th>
                                     <th>{{ __('lang.nbr_jour') }}</th>
                                     <th>{{ __('lang.stuation') }}</th>
+                                    <th>{{ __('lang.disc') }}</th>
                                 </tr>
                             </thead>
+                            <tbody>
                             @foreach($emptypeconge as $employe)
                                     @foreach($employe->congeIdNin as $conge)
                                     @php
@@ -168,6 +170,9 @@
                                                     {{ $conge->situation_AR }}
                                                 @endif
                                                </td>
+                                               <td class="abs-info" id="cng{{$employe->id_nin}}">
+                                               <a href="/Employe/read_just/{{$conge->id_fichier}}"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a>
+                                               </td>
                                         </tr>
                                         @endif
                                     @endforeach
@@ -205,7 +210,11 @@
                     </select>
                     <hr>
                     <input type="text" id="total_cgj" disabled>
-                    <input type="text" id="Situation">
+                    <select id="Situation">
+                        <option value=""></option>
+                        <option value="algerie">{{ __('lang.dans') }}</option>
+                        <option value="out">{{ __('lang.hors') }}</option>
+                    </select>
                     <div id="checkcg-box"></div>
                     </br>
                     <div class='date-conge' >
@@ -291,7 +300,7 @@
                 response.forEach(employe => {
                     if(employe != null){
                     var row = '';
-                    //row.classList.add("employee-row");
+                 //   row.classList.add("employee-row");
                     if (lng === 'fr') {
                 row = '<tr><td>' + employe.Nom_emp + '</td>' +
                                 '<td>' + employe.Prenom_emp + '</td>' +
@@ -302,7 +311,8 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation + '</td></tr>';
+                                '<td>' + employe.situation + '</td>'+
+                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td></tr>';
             } else if (lng === 'ar') {
                 row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +
@@ -313,7 +323,8 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation_AR + '</td></tr>';
+                                '<td>' + employe.situation_AR + '</td>'+
+                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td></tr>';
             }
             employeeTableBody.append(row);
         }
@@ -327,6 +338,6 @@
         } 
             }
         
-    
+
     </script>
     @endsection

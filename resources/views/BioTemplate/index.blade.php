@@ -54,7 +54,7 @@
                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                           </br>
                           <div class="mod-but" id="mod-but">
-                             <i class="fa fa-pencil" aria-hidden="true" id="btn-icon">...</i>
+                             <i class="fa fa-times" aria-hidden="true" id="btn-icon">...</i>
                           </div>
                         <div class="mt-3">
                           <h4>ID est :<p id="ID_NIN">{{$last->id_nin}}</p></h4>
@@ -78,19 +78,25 @@
 
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <div >
-                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> la Situation peronnel</span>
-                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i>Situation : Divorce</h6>
+                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.stitua_fam')}}</span>
+                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i> {{__('lang.famill')}}:
+                            @if(app()->getLocale() == 'ar')
+                            {{$last->situation_familliale_ar}}
+                            @else
+                            {{$last->situation_familliale}}
+                            @endif
+                          </h6>
                         </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Nombre d'enfant : 00</h6>
+                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+                            <h6 class="mb-0"><i class="fa fa-user-plus" aria-hidden="true" ></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
                         </div>
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}} </span>
-                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true" ></i>Diplome : {{$last->Nom_niv}}</h6>
+                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} : {{$last->Nom_niv}}</h6>
                           </div>
-                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                          <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} : 
                            @if( app()->getLocale() == 'ar')
                            {{$last->Specialité_ar}}
@@ -150,11 +156,11 @@
                       <hr>
                       <div class="row field">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Phone</h6>
+                          <h6 class="mb-0">Telephone</h6>
                         </div>
                         <input class="col-sm-9 text-secondary" type="number"
                         id='phone_pn'
-                        value='{{$last->Phone_num}}'
+                        value='0{{$last->Phone_num}}'
                         style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       <hr>
@@ -165,7 +171,7 @@
                         <input class="col-sm-9 text-secondary" type='date'
                           id='dateN'
                           value='{{$last->Date_nais}}'
-                          style="border: hidden;background-color: transparent;" disabled>
+                          style="border: hidden;background-color: transparent; text-align: center;" disabled>
                       </div>
                       <hr>
                       <div class="field">
@@ -319,7 +325,7 @@
     <script >
        var id = '{{ $last->id_nin }}';
        var uid='{{$uid}}'
-      var md=true;
+      var md=false;
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){

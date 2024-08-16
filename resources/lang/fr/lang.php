@@ -18,7 +18,6 @@ return [
     'mail'=>'Email',
     'slct_mail'=>' enter Email',
     'pro_mail'=>'Email Professionenel',
-    'NIN'=>'Numero Identif Nationnal',
     'NIN'=>'Numéro d\'Identification Nationnal',
     'NSS'=>'Numero du Securite Social',
     'ID_p'=>'IDentification Professionnel',
@@ -86,7 +85,10 @@ return [
     'slct_type_cng'=>'Séléctionner le Titre du Congé',
     'slct_post'=>'Séléctionner le Titre du Poste',
     'nbr_jour'=>'Nombres de jours Restants',
+    'dans'=>'Territoire national ',
+    'hors'=>'Hor territoire national ',
     'ver_cng'=>'Passer Vers Le Congé',
+    'disc'=>'La Decision',
 
 
     'niv_edu'=>'Niveaux Educative',
