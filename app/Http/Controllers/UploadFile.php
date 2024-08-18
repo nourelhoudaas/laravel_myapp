@@ -14,6 +14,8 @@ use App\Models\Fichier;
 use App\Models\Stocke;
 use App\Models\Dossier;
 use App\Services\logService;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 class UploadFile extends Controller
 {
 
@@ -193,7 +195,47 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
             }, $filesEm);
             $files[$subDirName]=$fileNames;
         }
-       // dd(app()->getLocale());
+       // dd(app()->getLocale());d
+     //  dd($files);
+       /** ----- paginator for files */
+       $perPage = 8; // Par exemple, 2 éléments par page
+       $page = 1; // Page actuelle
+                           if(request()->get('page') != null && request()->get('subdir') != null)
+                           {
+                               $page=   request()->get('page');
+                               $subDir= request()->get('subdir');
+                           } // Page actuelle
+       $offset = ($page - 1) * $perPage;
+       
+       // Extraire les éléments pour la page actuelle
+      // $items = $files->slice($offset, $perPage)->values();
+       //dd($items);
+       
+       // Créer le paginator
+       $pagearray=array();
+       foreach($files as $key=>$value)
+       {
+      //  dd(gettype($value));
+        $valcol=collect($value);
+        $items = $valcol->slice($offset, $perPage)->values();
+        
+       $paginator = new LengthAwarePaginator(
+           $items, // Items de la page actuelle
+           $valcol->count(), // Nombre total d'éléments
+           $perPage, // Nombre d'éléments par page
+           $page, // Page actuelle
+           [
+               'path' =>  LengthAwarePaginator::resolveCurrentPath(), // URL actuelle
+               'query' => request()->query() // Paramètres de la requête
+           ]
+       );
+       $paginator->appends([
+        'subdir' => $key,
+    ]);
+       array_push($pagearray,[$key=>$paginator]);
+    }
+    //   dd($pagearray);
+
         return view('BioTemplate.file_Index',compact('files','empdoss','empdepart','employe'));
     }
 

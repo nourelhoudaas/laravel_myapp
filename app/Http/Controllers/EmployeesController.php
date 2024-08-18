@@ -466,7 +466,8 @@ $paginator = new LengthAwarePaginator(
                 'travailByNin.sous_departement.departement',
                 'congeIdNin.type_conge'
             ])->whereHas('congeIdNin', function($query) use ($today) {
-                $query->where('date_fin_cong', '>', $today);
+                $query->where('date_fin_cong', '>', $today)
+                ->orderBy('date_fin_cong','desc');
             })->get();
 
           // dd($emptypeconge );
