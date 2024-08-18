@@ -500,7 +500,7 @@ $paginator = new LengthAwarePaginator(
                 //dd($typeconge);
                 $empcng=array();
                 $today = Carbon::now()->format('Y-m-d');
-                $conge_nin=Conge::distinct()->select('id_nin','date_fin_cong')->orderBy('date_fin_cong','desc')->get();
+                $conge_nin=Conge::distinct()->select('id_nin','date_fin_cong','id_cong')->orderBy('date_fin_cong','desc')->get();
                 //dd($conge_nin);
                 foreach($conge_nin as $cong_emp)
                 {
@@ -526,12 +526,13 @@ $paginator = new LengthAwarePaginator(
 
                 if ($typeconge) {
                     $query->where('type_congs.ref_cong', $typeconge)
-                          ->where('date_fin_cong', '>', $today);
+                          ->where('date_fin_cong', '>', $today)
+                          ->where('id_cong',$cong_emp->id_cong);
                 }
                 $emptypeconge=$query->first();
                 array_push($empcng,$emptypeconge);
                 }
-             //   dd($empcng);
+               // dd($empcng);
 
             return response()->json($empcng);
 

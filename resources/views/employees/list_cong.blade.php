@@ -111,6 +111,7 @@
                                     <th>{{ __('lang.nbr_jour') }}</th>
                                     <th>{{ __('lang.stuation') }}</th>
                                     <th>{{ __('lang.disc') }}</th>
+                                    <th>{{__('lang.repr')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -171,7 +172,10 @@
                                                 @endif
                                                </td>
                                                <td class="abs-info" id="cng{{$employe->id_nin}}">
-                                               <a href="/Employe/read_just/{{$conge->id_fichier}}"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a>
+                                               <a href="/Employe/read_just/{{$conge->id_fichier}}" target="_blank"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a>
+                                               </td>
+                                               <td class="rep-info" id="cng{{$employe->id_nin}}">
+                                               <a href="#" target="_blank"> <i class="fa fa-reply" aria-hidden="true"></i></a>
                                                </td>
                                         </tr>
                                         @endif
@@ -313,7 +317,8 @@
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
                                 '<td>' + employe.situation + '</td>'+
-                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td></tr>';
+                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>'+
+                                '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></i></a></td></tr>';
             } else if (lng === 'ar') {
                 row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +
@@ -325,7 +330,8 @@
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
                                 '<td>' + employe.situation_AR + '</td>'+
-                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td></tr>';
+                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>'+
+                                '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></a></td></tr>';
             }
             employeeTableBody.append(row);
         });

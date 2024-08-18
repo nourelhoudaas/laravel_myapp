@@ -89,6 +89,7 @@ return [
     'hors'=>'Hor territoire national ',
     'ver_cng'=>'Passer Vers Le Congé',
     'disc'=>'La Decision',
+    'repr'=>'Reprise',
 
 
     'niv_edu'=>'Niveaux Educative',
