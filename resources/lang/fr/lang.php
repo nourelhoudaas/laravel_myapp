@@ -18,7 +18,6 @@ return [
     'mail'=>'Email',
     'slct_mail'=>' enter Email',
     'pro_mail'=>'Email Professionenel',
-    'NIN'=>'Numero Identif Nationnal',
     'NIN'=>'Numéro d\'Identification Nationnal',
     'NSS'=>'Numero du Securite Social',
     'ID_p'=>'IDentification Professionnel',
@@ -89,7 +88,7 @@ return [
     'dans'=>'Territoire national ',
     'hors'=>'Hor territoire national ',
     'ver_cng'=>'Passer Vers Le Congé',
-    'decis'=>'La Decision',
+    'disc'=>'La Decision',
 
 
     'niv_edu'=>'Niveaux Educative',

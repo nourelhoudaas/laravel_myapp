@@ -500,7 +500,7 @@ $paginator = new LengthAwarePaginator(
                 //dd($typeconge);
                 $empcng=array();
                 $today = Carbon::now()->format('Y-m-d');
-                $conge_nin=Conge::select('id_nin')->distinct()->orderBy('date_fin_cong','desc')->get();
+                $conge_nin=Conge::distinct()->select('id_nin','date_fin_cong')->orderBy('date_fin_cong','desc')->get();
                 //dd($conge_nin);
                 foreach($conge_nin as $cong_emp)
                 {
@@ -1201,7 +1201,7 @@ foreach($allwor as $workig)
                 if($id != 0)
                 {
                 $file=Stocke::where('id_fichier',$id)->first();
-              //  dd($file);
+               // dd($file);
                 $subdir=$file->ref_Dossier;
                 $fichier=$file->sous_d.'-'.$id;
                 
