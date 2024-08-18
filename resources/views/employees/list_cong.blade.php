@@ -110,6 +110,7 @@
                                     <th>{{ __('lang.date_fin_cng') }}</th>
                                     <th>{{ __('lang.nbr_jour') }}</th>
                                     <th>{{ __('lang.stuation') }}</th>
+                                    <th>{{__('lang.decis')}}</th>
                                 </tr>
                             </thead>
                             @foreach($emptypeconge as $employe)
@@ -168,6 +169,7 @@
                                                     {{ $conge->situation_AR }}
                                                 @endif
                                                </td>
+                                               <td  class="abs-info" id="cng{{$employe->id_nin}}"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
                                         </tr>
                                         @endif
                                     @endforeach
@@ -306,7 +308,8 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation+ '</td>';
+                                '<td>' + employe.situation+ '</td>'+
+                                '<td  class="abs-info" id="cng'+employe.id_nin+'"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>'
             } else if (lng === 'ar') {
                 row.innerHTML = '<td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +
@@ -317,7 +320,8 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation_AR + '</td>';
+                                '<td>' + employe.situation_AR + '</td>'+
+                                '<td  class="abs-info" id="cng'+employe.id_nin+'"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>';
             }
             employeeTableBody.appendChild(row);
         }
