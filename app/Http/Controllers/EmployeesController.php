@@ -933,9 +933,14 @@ foreach($allwor as $workig)
                     'date_dcg'=>'required|date',
                     'date_fcg'=>'required|date',
                     'type_cg'=>'required|string',
-                    'situation'=>'string',
+                    'situation'=>'required|string',
                 ]
                 );
+                $situation_ar='خارج التراب';
+                if($request->get('situation') == 'algeria')
+                {
+                    $situation_ar='الجزائر';
+                }
                 $cng=Conge::where('id_nin',$request->get('ID_NIN'))
                 ->select('id_nin','ref_cong','nbr_jours','date_debut_cong','id_cong','date_fin_cong',DB::raw('YEAR(date_debut_cong) as annee'))
                 ->orderBy('date_debut_cong','desc')
@@ -991,6 +996,7 @@ foreach($allwor as $workig)
                         'nbr_jours'=>intval($nbrcng),
                         'ref_cong'=>$request->get('type_cg'),
                         'situation'=>$request->get('situation'),
+                        'situation_AR'=>$situation_ar,
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                     }
@@ -1052,6 +1058,7 @@ foreach($allwor as $workig)
                     'nbr_jours'=>intval($nbrcng),
                     'ref_cong'=>$request->get('type_cg'),
                     'situation'=>$request->get('situation'),
+                    'situation_AR'=>$situation_ar,
                     'id_sous_depart'=>$request->get('SDic')
                         ]);
                 }
@@ -1099,6 +1106,7 @@ foreach($allwor as $workig)
                         'nbr_jours'=>intval($monthsDifference * 30),
                         'ref_cong'=>$request->get('type_cg'),
                         'situation'=>$request->get('situation'),
+                        'situation_AR'=>$situation_ar,
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                             if($cong->save())
