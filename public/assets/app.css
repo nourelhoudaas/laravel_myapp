@@ -647,7 +647,7 @@ main .recent_order a:hover{
 .progress-bar {
   background-color: #2F8D46
 }
-.stepper-wrapper {
+.stepper-wrapper^41780 {
 
 }
 .stepper-item {
@@ -1475,4 +1475,23 @@ input:focus{
 .abs-info i:hover
 {
   scale: 1.2;
+}
+.rep-info:hover
+{
+  color: rgba(7, 43, 245, 0.815);
+  cursor: pointer;
+}
+.rep-info i:hover
+{
+  color: rgba(252, 5, 5, 0.863);
+  scale: 1.2;
+}
+.remq
+{
+  text-align: center;
+  border-radius: 10px;
+}
+#remq p
+{
+color: red;
 }

@@ -110,8 +110,11 @@
                                     <th>{{ __('lang.date_fin_cng') }}</th>
                                     <th>{{ __('lang.nbr_jour') }}</th>
                                     <th>{{ __('lang.stuation') }}</th>
+                                    <th>{{ __('lang.disc') }}</th>
+                                    <th>{{__('lang.repr')}}</th>
                                 </tr>
                             </thead>
+                            <tbody>
                             @foreach($emptypeconge as $employe)
                                     @foreach($employe->congeIdNin as $conge)
                                     @php
@@ -168,6 +171,12 @@
                                                     {{ $conge->situation_AR }}
                                                 @endif
                                                </td>
+                                               <td class="abs-info" id="cng{{$employe->id_nin}}">
+                                               <a href="/Employe/read_just/{{$conge->id_fichier}}" target="_blank"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a>
+                                               </td>
+                                               <td class="rep-info" id="cng{{$employe->id_nin}}">
+                                               <a href="#" target="_blank"> <i class="fa fa-reply" aria-hidden="true"></i></a>
+                                               </td>
                                         </tr>
                                         @endif
                                     @endforeach
@@ -206,9 +215,9 @@
                     <hr>
                     <input type="text" id="total_cgj" disabled>
                     <select id="Situation">
-                        <option value='0'>{{ __('lang.stuation') }}</option>
-                        <option value='dans'>{{ __('lang.dans') }}</option>
-                        <option value='hors'>{{ __('lang.hors') }}</option>
+                        <option value=""></option>
+                        <option value="algerie">{{ __('lang.dans') }}</option>
+                        <option value="out">{{ __('lang.hors') }}</option>
                     </select>
                     <div id="checkcg-box"></div>
                     </br>
@@ -226,7 +235,7 @@
                             <input type="text" value="" id="date_fin" disabled>
                         </div>
                     </div>
-                    <input class="file-input" type="file" name="file" id="file" style="height:40px" required>
+                    <input type="file" name="file" id="file" style="height:40px" required>
                     <div id="file-error" class="error-tooltip">File is required</div>
                     <button type="button" id="conge_confirm">{{ __('lang.ver_cng') }}</button>
                     <button type="button" id="cancel-conge" class="close-formcg-btn">{{ __('lang.cancel') }} </button>
@@ -260,7 +269,7 @@
     //les constants pour éléments de selection par type,dep et total des filtres 
     const typeCongeSelect = document.getElementById("type-conge");
     const departmentSelect = document.getElementById("Depcng");
-        const employeeTableBody = document.querySelector("#CngTable tbody");
+        const employeeTableBody = $("#CngTable tbody");
 
     //des écouteurs pour les changements dans les select
         typeCongeSelect.addEventListener("change", filterEmployees);
@@ -290,14 +299,15 @@
             dataType: 'json',
             success: function(response) {
                 // Clear the table
-                employeeTableBody.innerHTML = "";
+                employeeTableBody.empty();
                 // Insert data into the table
+                console.log('ea'+JSON.stringify(response))
                 response.forEach(employe => {
-                    if(employe != null){
-                    const row = document.createElement("tr");
-                    row.classList.add("employee-row");
+
+                    var row = '';
+                 //   row.classList.add("employee-row");
                     if (lng === 'fr') {
-                row.innerHTML = '<td>' + employe.Nom_emp + '</td>' +
+                row = '<tr><td>' + employe.Nom_emp + '</td>' +
                                 '<td>' + employe.Prenom_emp + '</td>' +
                                 '<td>' + employe.Phone_num + '</td>' +
                                 '<td>' + employe.Nom_post + '</td>' +
@@ -306,9 +316,11 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation+ '</td>';
+                                '<td>' + employe.situation + '</td>'+
+                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>'+
+                                '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></i></a></td></tr>';
             } else if (lng === 'ar') {
-                row.innerHTML = '<td>' + employe.Nom_ar_emp + '</td>' +
+                row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +
                                 '<td>' + employe.Phone_num + '</td>' +
                                 '<td>' + employe.Nom_post_ar + '</td>' +
@@ -317,20 +329,22 @@
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation_AR + '</td>';
+                                '<td>' + employe.situation_AR + '</td>'+
+                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>'+
+                                '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></a></td></tr>';
             }
-            employeeTableBody.appendChild(row);
-        }
+            employeeTableBody.append(row);
         });
-    },
+         },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error:', textStatus, errorThrown);
             }
+        
         });
 
         } 
             }
         
-    
+        
     </script>
     @endsection

@@ -59,12 +59,24 @@
     
             $.each(posts, function(index, post) {
                 var rowNumber = index + 1; 
+                if(post.statut =='NoJustier')
+                    {
                 var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td>' + post.statut + '    </td>' +
+                          '</tr>';
+                   }
+                   else
+                   {
+                    var row = '<tr>' +
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
                             '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">' + post.statut + '</a></td>' +
                           '</tr>';
+                   }
                 tableBody.append(row);
             });
         }
@@ -350,10 +362,11 @@
                 }
             });
           }
-         function uploadFile2(id) {
+         function uploadFile2(id,dates) {
              var formData = new FormData();
              var formDataF = new FormData();
-             var file = document.getElementById('file').files[0];
+             //using jquery this only this time 
+             var file = $('#file')[0].files[0];
              formDataF.append('file', file);
              formData.append('_token',$('meta[name="csrf-token"]').attr('content')),
              formData.append('_method', 'POST')
@@ -362,8 +375,9 @@
               formData.append('id_nin', parseInt(id));
               formData.append('sous', dir);
               formDataF.append('id_nin', parseInt(id));
+              formDataF.append('nom_fichier',file.name);
               formDataF.append('sous', dir);
-              console.log('button of v'+this.id);
+              console.log('button of v'+id);
               console.log('button of v'+this.dir);
              $.ajax({
                  url: '/upload/creedossier',
@@ -405,7 +419,7 @@
                          {
                              console.log('messsage '+JSON.stringify(response.data))
                              var stockForm={
-                                id_nin:id,
+                                id_nin:parseInt(id),
                                  id:uid,
                                  ref_d:response.data.ref_d,
                                  sous_d:response.data.sous_d,
@@ -423,8 +437,9 @@
                              {
                                  if(responses.code == 200)
                                      {
-                                 console.log('add to stocke  ->'+responses.message)
-                                 window.location.href='/conge';
+                                        uploadtitre(id,dates,response.data.filename,response.data.sous_d)
+                                        console.log('add to stocke  ->'+responses.message)
+                                      
                                      }else
                                      {
                                       
@@ -529,7 +544,7 @@
                          data:stockForm,
                          success:function(responses)
                          {
-                             if(responses.code == 200)
+                             if(responses.status == 200)
                                  {
                                      $('#successMessage').show();
                                      $('#progressWrapper').hide();
@@ -585,6 +600,36 @@
                 $.ajax({
 
                 })
+            }
+            else
+            {
+                alert(response.success)
+            }
+        }
+    })
+ }
+ function uploadtitre(id,date,file,dir)
+ {
+    console.log('file name'+JSON.stringify(file))
+    var dataform={
+          id_nin:id,
+          titre:file,
+          sous_d:dir,
+          date_debut_cong:date,
+          _token: $('meta[name="csrf-token"]').attr('content'),
+          _method: 'PUT'
+    }
+    console.log('testing'+JSON.stringify(dataform))
+    $.ajax({
+        url:'/BioTemplate/add_titreFile',
+        type:'POST',
+        data:dataform,
+        success:function(response)
+        {
+            if(response.code == 200)
+            {
+                alert(response.success)
+                window.location.href='/conge';
             }
             else
             {
@@ -899,6 +944,16 @@
  $('#PVDate').focus(function()
  {
      $(this).removeClass('error-handle')
+     $('#remq p').text('')
+     $('#remq p').removeClass('error-handle');
+     $('#remq').removeClass('remq');
+ });
+ $('#RecDate').focus(function()
+ {
+     $(this).removeClass('error-handle')
+     $('#remq p').text('')
+     $('#remq p').removeClass('error-handle');
+     $('#remq').removeClass('remq');
  });
 
      $('#aft').click(function(e){
@@ -906,6 +961,10 @@
 
 
                  // Assuming you are searching by ID_NIN
+                 var dateinst=  new Date($('#PVDate').val());
+                 var daterec=new Date($('#RecDate').val()); 
+                if(dateinst <= daterec)
+                {
                  var formData = {
                      ID_NIN:id,
                      ID_P : idp,
@@ -936,6 +995,14 @@
                      })
                      }
                  });
+                }
+                else
+                {
+                    $('#remq p').text('Confimer leur date Rect et PV installation')
+                    $('#remq').addClass('remq');
+                    $('#PVDate').addClass('error-handle');
+                    $('#RecDate').addClass('error-handle');
+                }
      });
  });
  //TRAVAIL
@@ -1197,7 +1264,7 @@
                             var id_abs=idme.attr('id');
                             $('#'+id_abs).click(function()
                             {
-                             var idsa=id_nin.split('n');
+                             var idsa=id_abs.split('s');
                                 $('#AbsempTable thead').empty();
                                 $('#AbsempTable tbody').empty();
                                 if( lng == 'ar')
@@ -1639,11 +1706,14 @@
                  method:'GET',
                  success:function(response)
                  {
-                     result=response;
-                     id=response.employe.id_nin
+                   
                    //  console.log('response'+JSON.stringify(response))
+                   if(response.status != 302){
+                    result=response;
+                    id=response.employe.id_nin
                    if(lng == 'ar')
                    {
+                    
                      $('#Dic').val(response.employe.Nom_depart_ar)
                      $('#SDic').val(response.employe.Nom_sous_depart_ar)
                      $('#Nom_emp').val(response.employe.Nom_ar_emp)
@@ -1686,7 +1756,7 @@
                      }
                      else
                      {
-                         $('#ddate_fin').removeClass('nodisp');
+                        $('#ddate_fin').removeClass('nodisp');
                         $('#checkcg-box').append(droit);
                         $('#checkcg-box').addClass('pre');
                         $('#ddate_rec').addClass('nodisp');
@@ -1696,6 +1766,16 @@
                      $('.date-conge').addClass('disp')
                    //  alert('success')
                  }
+                 else
+                 {
+                    alert(response.message)
+                    $('#Dic').val(dicr)
+                    $('#SDic').val(sous_dicr)
+                    $('#Nom_emp').val(nom)
+                    $('#Prenom_emp').val(prenom)
+                    $('#total_cgj').val('')
+                 }
+                }
              })
  }else
  {
@@ -1770,7 +1850,7 @@
 
                                  if(response.status == 200)
                                      {
-                                         uploadFile2(parseInt(result.employe.id_nin))
+                                         uploadFile2(parseInt(result.employe.id_nin),date_dcg)
 
                                      }
                                      else

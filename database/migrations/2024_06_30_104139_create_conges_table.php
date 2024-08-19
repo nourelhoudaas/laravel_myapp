@@ -18,14 +18,16 @@ return new class extends Migration
             $table->string('situation');
             $table->integer('nbr_jours');
             $table->string('situation_AR');
-            $table->string('ref_cong')->unique();
+            $table->string('ref_cong');
             $table->integer('id_nin');
             $table->integer('id_sous_depart');
             $table->integer('id_p');
+            $table->integer('id_fichier');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('ref_cong')->references('ref_cong')->on('type_congs');
             $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
+            $table->foreign('id_fichier')->references('id_fichier')->on('fichiers');
         });
 
        DB::table('conges')->insert([

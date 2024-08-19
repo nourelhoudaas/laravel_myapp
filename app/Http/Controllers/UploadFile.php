@@ -14,6 +14,8 @@ use App\Models\Fichier;
 use App\Models\Stocke;
 use App\Models\Dossier;
 use App\Services\logService;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 class UploadFile extends Controller
 {
 
@@ -40,6 +42,7 @@ public function __construct(logService $logService)
             'file' => 'required|file|mimes:jpg,png,pdf|max:2048',
             'id_nin'=>'required|integer',
         ]);
+       
         $id=$request->get('id_nin');
         $sous_dir=$request->get('sous');
         $directory = "public/employees/Em_{$id}/{$sous_dir}";
@@ -48,13 +51,17 @@ public function __construct(logService $logService)
         if (!Storage::exists($directory)) {
             Storage::makeDirectory($directory);
         }
-        $file = $request->file('file');
         
+        $file = $request->file('file');
+     
         $date=Carbon::now();
 $hash= Str::random(40) . '.' .$file->getClientOriginalExtension() ;
-$fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
+$fielname=strval($file->getClientOriginalName());
+$ext=strval($file->getClientOriginalExtension());
+//dd($request->get('nom_fichier'));
+$fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fichier'))->get();
 $path = $file->storeAs($directory, $hash);
-
+//dd($fielname);
 /** Converting size */ 
  
 $units = ['B', 'KB', 'MB', 'GB', 'TB'];
@@ -66,24 +73,31 @@ for ($i = 0; $size >= 1024 && $i < count($units) - 1; $i++) {
 $sizeR=round($size, 2) . ' ' . $units[$i];
 
 /** ---- */
-$fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
-        if($fich->count() < 1){
-        $save=new Fichier(['nom_fichier'=>$file->getClientOriginalName(),
+$fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fichier'))->get();
+//dd($fich);
+      //  if($fich->count() < 1){
+        $save=new Fichier(['nom_fichier'=>$fielname,
                                               'hash_fichier'=>$hash,
                                               'date_cree_fichier'=>$date,
-                                              'type_fichier'=>$file->getClientOriginalExtension(),
+                                              'type_fichier'=>$ext,
                                               'taille_fichier'=>$sizeR
                                             ]);
+                                            
                                             if($save->save())
                                             {
+                                              //at this point we get all list of data all what we had as mac Address so we select one
+                                                $mac=$this->logService->getMacAddress();
+                                               /* $valmac=strval($mac[0]);
+                                                dd($mac);*/
                                                 $log= $this->logService->logAction(
                                                     Auth::user()->id,
                                                     $id,
-                                                    'Ajouter Un fichier a Em_'.$id."/sous_Dossier :".$sous_dir." Avec Nom".$file->getClientOriginalName(),
-                                                    $this->logService->getMacAddress()
+                                                    'Ajouter Un fichier a Em_'.$id."/sous_Dossier :".$sous_dir." Avec Nom".$fielname,
+                                                    $mac
                                                 );
                                             };
-                                        }
+                                            //  dd($save);
+                     /*                   }
                                         
         else
         {
@@ -91,9 +105,9 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
                 'message'=>'unsuccess',
                 'status'=>302
             ]);
-        }
+        }*/
 
-       // dd($save);
+        
 
 
       return response()->json([
@@ -101,8 +115,8 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
             'status'=> 200,
             'data'=>['ref_d'=>'Em_'.$id,
                      'sous_d'=>$sous_dir,
-                     'filename'=>$file->getClientOriginalName(),
-                     'filenext'=>$file->getClientOriginalExtension(),
+                     'filename'=>$fielname,
+                     'filenext'=>$ext,
                      'filesize'=>$sizeR
                     ]
         ]);
@@ -161,18 +175,67 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         $files = [];
         $empdoss='employees/Em_'.$id;
         $directory = storage_path('app/public/employees/Em_'.$id);
+        
         foreach (File::directories($directory) as $subDir) {
             $subDirName = basename($subDir);
             $filesEm = File::files($subDir);
-          //  $id=Fichier::where('hash_fichier',basename($filesEm))->select('id_fichier')->first();
+           // dd($directory);
+           // $id=Fichier::where('hash_fichier',basename($filesEm))->select('id_fichier')->first();
+            
             $fileNames = array_map(function($file) {
-               $id =Fichier::where('hash_fichier',basename($file))->select('id_fichier')->first();
+                $val=strval(basename($file));
+                //dd($val);
+               $id =Fichier::where('hash_fichier',$val)->select('id_fichier')->first();
+                //dd($id);
+                if(isset($id))
+                {
+                    return $id->id_fichier;
+                }
                 
-                return $id->id_fichier;
             }, $filesEm);
             $files[$subDirName]=$fileNames;
         }
-       // dd(app()->getLocale());
+       // dd(app()->getLocale());d
+     //  dd($files);
+       /** ----- paginator for files */
+       $perPage = 8; // Par exemple, 2 éléments par page
+       $page = 1; // Page actuelle
+                           if(request()->get('page') != null && request()->get('subdir') != null)
+                           {
+                               $page=   request()->get('page');
+                               $subDir= request()->get('subdir');
+                           } // Page actuelle
+       $offset = ($page - 1) * $perPage;
+       
+       // Extraire les éléments pour la page actuelle
+      // $items = $files->slice($offset, $perPage)->values();
+       //dd($items);
+       
+       // Créer le paginator
+       $pagearray=array();
+       foreach($files as $key=>$value)
+       {
+      //  dd(gettype($value));
+        $valcol=collect($value);
+        $items = $valcol->slice($offset, $perPage)->values();
+        
+       $paginator = new LengthAwarePaginator(
+           $items, // Items de la page actuelle
+           $valcol->count(), // Nombre total d'éléments
+           $perPage, // Nombre d'éléments par page
+           $page, // Page actuelle
+           [
+               'path' =>  LengthAwarePaginator::resolveCurrentPath(), // URL actuelle
+               'query' => request()->query() // Paramètres de la requête
+           ]
+       );
+       $paginator->appends([
+        'subdir' => $key,
+    ]);
+       array_push($pagearray,[$key=>$paginator]);
+    }
+    //   dd($pagearray);
+
         return view('BioTemplate.file_Index',compact('files','empdoss','empdepart','employe'));
     }
 
@@ -182,10 +245,20 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
         $id=explode('-',$filename);
         $subd=$id[0];
         $numid=intval($id[1]);
+        if($numid == 0)
+        {
+            return response()->json([
+                'message'=>'aucun file',
+                'code'=> 302
+            ]);
+        }
+        {
         $file=Fichier::where('id_fichier',$numid)->select('hash_fichier')->first();
         $path =$directory .'/'.$subdir. '/' .$subd.'/'.$file->hash_fichier;
-        //dd($path);
         return redirect()->to('storage/' .$path);
+        }
+        //dd($path);
+        
     }
 
 
@@ -194,7 +267,8 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
        
         $file=$request->get('fichier');
         $date=Carbon::now();
-        $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->get();
+        $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->orderBy('date_cree_fichier','desc')->orderBy( 'id_fichier','DESC')->get();
+        //dd($fich);
         $doss=Dossier::select('ref_Dossier')->where('ref_Dossier',$request->get('ref_d'))->get();
         //dd($fich)
         $sdoss=new Dossier(['ref_Dossier'=> $request->get('ref_d')]);
@@ -234,7 +308,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
                                'sous_d'=>$request->get('sous_d'),
                                 'id_fichier'=>$fich[0]->id_fichier,
                                 'date_insertion'=>$date,
-                                'mac'=>$mac,
+                                'mac'=>strval($mac),
                         
         ]);
         //dd($stock);
@@ -244,11 +318,12 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'
                 Auth::user()->id,
                 $request->get('id_nin'),
                 'Stocker Un fichier Num '.$fich[0]->id_fichier,
-                $this->logService->getMacAddress()
+                strval($mac)
             );
+           // dd($stock->save());
             return response()->json([
-                'message'=>'success'.$mac,
-                'code'=>200
+                'message'=>'success',
+                'code'=> 200
             ]);
 
         }else
