@@ -88,6 +88,7 @@ Route::controller(EmployeesController::class)->group(function(){
 Route::controller(DepartmentController::class)->group(function(){
 
     Route::get('\add_depart/{dep_id}','AddDepart')->name('app_add_depart');
+
     Route::get('/liste','ListeDepart')->name('app_liste_dir');
     Route::get('/departmnet/editer/{departement}','editer')->name('departement.editer');
     Route::put('/departmnet/editer/{departement}','update')->name('departement.update');
