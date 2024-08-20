@@ -131,4 +131,3 @@ Route::get('/realwhoiam/{id}',[UploadFile::class,'getname'])->name('who_name');
 Route::get('/live/read/{dir}/{subdir}/{file}',[UploadFile::class,'live_File'])->name('read_file_emp');
 Route::get('/export_dossier/{id}',[UploadFile::class,'export_fichier'])->name('export_file_emp');
 });
-
