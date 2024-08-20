@@ -66,6 +66,11 @@
         
     </div>
 </div>
+<div class="float-export">
+    <div class="folder-box">
+    <a href="/export_dossier/{{$employe->id_nin}}"><i class="fa fa-archive" aria-hidden="true"></a></i>
+    </div>
+</div>
 </body>
 
 <script>
