@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PostesController;
 use App\Http\Controllers\AddEmployeControll;
 use App\Http\Controllers\BioEmployeControl;
 use App\Http\Controllers\UploadFile;
@@ -100,7 +101,7 @@ Route::controller(DepartmentController::class)->group(function(){
 
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
-    Route::get('/{departement}', 'delete')->name('department.delete');
+    Route::get('/department/{departement}', 'delete')->name('department.delete');
 
 
 });
@@ -128,4 +129,18 @@ Route::post('/whoiam',[UploadFile::class,'savedb'])->name('who_stocke');
 Route::get('/realwhoiam/{id}',[UploadFile::class,'getname'])->name('who_name');
 Route::get('/live/read/{dir}/{subdir}/{file}',[UploadFile::class,'live_File'])->name('read_file_emp');
 });
+
+//postes
+Route::controller(PostesController::class)->group(function(){
+
+    Route::post('/postes/add_poste','addposte')->name('app_poste');
+
+    Route::get('/poste','Listeposte')->name('liste_post');
+    Route::post('/add_poste','store')->name('app_store_poste');
+    Route::get('/postes/modifier/{post}','editer')->name('poste.modifier');
+    Route::put('/postes/editer/{post}','update')->name('poste.update');
+    Route::get('/post/{id_post}', 'delete')->name('post.delete');
+});
+
+
 
