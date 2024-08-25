@@ -89,7 +89,7 @@
                           </h6>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
-                            <h6 class="mb-0"><i class="fa fa-user-plus" aria-hidden="true" ></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
+                            <h6 class="mb-0"><i class="fa fa-child" aria-hidden="true" ></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
                         </div>
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}} </span>

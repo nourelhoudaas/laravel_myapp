@@ -362,10 +362,11 @@
                 }
             });
           }
-         function uploadFile2(id) {
+         function uploadFile2(id,dates) {
              var formData = new FormData();
              var formDataF = new FormData();
-             var file = document.getElementById('file').files[0];
+             //using jquery this only this time 
+             var file = $('#file')[0].files[0];
              formDataF.append('file', file);
              formData.append('_token',$('meta[name="csrf-token"]').attr('content')),
              formData.append('_method', 'POST')
@@ -374,8 +375,9 @@
               formData.append('id_nin', parseInt(id));
               formData.append('sous', dir);
               formDataF.append('id_nin', parseInt(id));
+              formDataF.append('nom_fichier',file.name);
               formDataF.append('sous', dir);
-              console.log('button of v'+this.id);
+              console.log('button of v'+id);
               console.log('button of v'+this.dir);
              $.ajax({
                  url: '/upload/creedossier',
@@ -417,7 +419,7 @@
                          {
                              console.log('messsage '+JSON.stringify(response.data))
                              var stockForm={
-                                id_nin:id,
+                                id_nin:parseInt(id),
                                  id:uid,
                                  ref_d:response.data.ref_d,
                                  sous_d:response.data.sous_d,
@@ -435,8 +437,9 @@
                              {
                                  if(responses.code == 200)
                                      {
-                                 console.log('add to stocke  ->'+responses.message)
-                                 window.location.href='/conge';
+                                        uploadtitre(id,dates,response.data.filename,response.data.sous_d)
+                                        console.log('add to stocke  ->'+responses.message)
+                                      
                                      }else
                                      {
                                       
@@ -597,6 +600,36 @@
                 $.ajax({
 
                 })
+            }
+            else
+            {
+                alert(response.success)
+            }
+        }
+    })
+ }
+ function uploadtitre(id,date,file,dir)
+ {
+    console.log('file name'+JSON.stringify(file))
+    var dataform={
+          id_nin:id,
+          titre:file,
+          sous_d:dir,
+          date_debut_cong:date,
+          _token: $('meta[name="csrf-token"]').attr('content'),
+          _method: 'PUT'
+    }
+    console.log('testing'+JSON.stringify(dataform))
+    $.ajax({
+        url:'/BioTemplate/add_titreFile',
+        type:'POST',
+        data:dataform,
+        success:function(response)
+        {
+            if(response.code == 200)
+            {
+                alert(response.success)
+                window.location.href='/conge';
             }
             else
             {
@@ -1673,9 +1706,10 @@
                  method:'GET',
                  success:function(response)
                  {
-                  
+                   
                    //  console.log('response'+JSON.stringify(response))
                    if(response.status != 302){
+                    result=response;
                     id=response.employe.id_nin
                    if(lng == 'ar')
                    {
@@ -1722,7 +1756,7 @@
                      }
                      else
                      {
-                         $('#ddate_fin').removeClass('nodisp');
+                        $('#ddate_fin').removeClass('nodisp');
                         $('#checkcg-box').append(droit);
                         $('#checkcg-box').addClass('pre');
                         $('#ddate_rec').addClass('nodisp');
@@ -1816,7 +1850,7 @@
 
                                  if(response.status == 200)
                                      {
-                                         uploadFile2(parseInt(result.employe.id_nin))
+                                         uploadFile2(parseInt(result.employe.id_nin),date_dcg)
 
                                      }
                                      else

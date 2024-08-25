@@ -89,6 +89,7 @@ Route::controller(EmployeesController::class)->group(function(){
 Route::controller(DepartmentController::class)->group(function(){
 
     Route::get('\add_depart/{dep_id}','AddDepart')->name('app_add_depart');
+
     Route::get('/liste','ListeDepart')->name('app_liste_dir');
     Route::get('/departmnet/editer/{departement}','editer')->name('departement.editer');
     Route::put('/departmnet/editer/{departement}','update')->name('departement.update');
@@ -122,6 +123,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
 Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');
 Route::put('/BioTemplate/add_justFile',[BioEmployeControl::class,'update_just'])->name('emp_abs_justfile');
+Route::put('/BioTemplate/add_titreFile',[BioEmployeControl::class,'update_cng'])->name('emp_cng_titrefile');
 Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploadFile');
 Route::post('/upload/creedossier',[UploadFile::class,'cree_dos_sous'])->name('cree_doss_emp');
 Route::get('/upload/getFiles/{id}',[UploadFile::class,'getFiles'])->name('getfile_all_emp');
@@ -143,4 +145,6 @@ Route::controller(PostesController::class)->group(function(){
 });
 
 
+
+Route::get('/export_dossier/{id}',[UploadFile::class,'export_fichier'])->name('export_file_emp');
 

@@ -21,6 +21,16 @@ class logService
    
     public function getMacAddress()
     {
-        return exec('getmac');
+        $output = [];
+          $mac='notfound';
+          exec('getmac', $output);
+      
+          // Search for the MAC address
+          foreach ($output as $line) {
+            if (preg_match('/([0-9A-F]{2}[-:]){5}([0-9A-F]{2})/i', $line, $matches)) {
+                $mac=$matches[0];
+            }
+            }
+        return  $mac;
     }
 }
