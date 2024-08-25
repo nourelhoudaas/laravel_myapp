@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('id_nin');
             $table->integer('id_sous_depart');
             $table->integer('id_p');
-            $table->integer('id_fichier');
+            $table->integer('id_fichier')->default(1);
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('ref_cong')->references('ref_cong')->on('type_congs');
@@ -38,8 +38,8 @@ return new class extends Migration
                 'date_debut_cong' => '2024-08-10',
                 'date_fin_cong' => '2024-08-20',
                 'situation' => 'algérie',
-                'nbr_jours' =>'10',
-                
+                'nbr_jours' =>10,
+                'id_fichier' =>1,
                 'situation_AR'=>'داخل الجزائر',
                 'ref_cong'=>'RF001',
                 'id_sous_depart'=>15,
@@ -58,7 +58,8 @@ return new class extends Migration
                 'ref_cong'=>'RF002',
                 'id_sous_depart'=>10,
                 'id_nin'=>254896989,
-                'id_p'=>256
+                'id_p'=>256,
+                'id_fichier' =>2,
                 
             ]
                

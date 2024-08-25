@@ -32,6 +32,7 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
+                    console.log(JSON.stringify(response.list_abs))
                     if(lng == 'ar')
                         {
                     $('#emp-info').text(response.emp.Nom_ar_emp+' '+response.emp.Prenom_ar_emp)
@@ -1195,10 +1196,10 @@
                          $('#AbsTable tbody').empty();
                          list_abs=response
                          list_abs.absens=false;
-                         list_abs.forEach(function(item) {
-                            console.log('--'+JSON.stringify(dateabs));
+                         list_abs.employe.forEach(function(item) {
+                            console.log('--'+JSON.stringify(list_abs.employe));
                           //  if()
-                      dateabs.forEach(function(itemsdate){
+                          list_abs.employe.forEach(function(itemsdate){
                              if(item.id_nin === itemsdate.id_nin)
                              {
                                  item.absens=true;
@@ -1206,7 +1207,7 @@
                               })
                  });
                //  console.log('list'+JSON.stringify(list_abs))
-                 list_abs.forEach(function(item){
+                 list_abs.employe.forEach(function(item){
                      if(item.absens)
                      {
                          if(lng == 'ar')
@@ -1425,7 +1426,7 @@
                      method: 'GET',
                      success: function(response) {
                          $('#AbsTable tbody').empty();
-                         response.forEach(function(item) {
+                         response.employe.forEach(function(item) {
                           //   console.log('--'+JSON.stringify(item));
                           if(lng == 'ar')
                           {
