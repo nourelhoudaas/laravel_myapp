@@ -497,7 +497,7 @@
                 'travailByNin.sous_departement.departement',
                 'congeIdNin.type_conge'
             ])->whereHas('congeIdNin', function($query) use ($today) {
-                $query->where('date_fin_cong', '>', $today)
+                $query->where('date_fin_cong', '>=', $today)
                 ->orderBy('date_fin_cong','desc');
             })->get();
            //dd($paginator);
@@ -533,7 +533,7 @@
             'travailByNin.sous_departement.departement',
             'congeIdNin.type_conge'
         ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
-            $query->where('date_fin_cong', '>', $today)
+            $query->where('date_fin_cong', '>=', $today)
                 ->whereIn('titre_cong', ['annuel']);
         })->count();
 
@@ -542,7 +542,7 @@
             'travailByNin.sous_departement.departement',
             'congeIdNin.type_conge'
         ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
-            $query->where('date_fin_cong', '>', $today)
+            $query->where('date_fin_cong', '>=', $today)
                 ->whereIn('titre_cong', ['exceptionnel']);
         })->count();
          // dd($typecon);
@@ -587,7 +587,7 @@
 
                 if ($typeconge) {
                     $query->where('type_congs.ref_cong', $typeconge)
-                          ->where('date_fin_cong', '>', $today)
+                          ->where('date_fin_cong', '>=', $today)
                           ->where('id_cong',$cong_emp->id_cong);
                 }
                 $emptypeconge=$query->first();
@@ -755,7 +755,7 @@ foreach($allwor as $workig)
                      ->join('departements','departements.id_depart','=','sous_departements.id_depart')
                      ->where('contients.id_contient',$idcnt->id_contient)
                      ->where('employes.id_nin',$emp->id_nin)
-                     ->where('conges.date_fin_cong', '>', $today)   
+                     ->where('conges.date_fin_cong', '>=', $today)   
                      ->orderBy('date_recrutement','desc')
                      ->select(
                         'employes.*',
@@ -908,7 +908,7 @@ foreach($allwor as $workig)
                      ->join('departements','departements.id_depart','=','sous_departements.id_depart')
                      ->where('contients.id_contient',$idcnt->id_contient)
                      ->where('employes.id_nin',$emp->id_nin)
-                     ->where('conges.date_fin_cong', '>', $today)  
+                     ->where('conges.date_fin_cong', '>=', $today)  
                      ->where('type_congs.ref_cong', $typeconge) 
                      ->orderBy('date_recrutement','desc')
                      ->select(
