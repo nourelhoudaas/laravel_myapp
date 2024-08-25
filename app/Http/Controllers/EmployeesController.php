@@ -543,7 +543,7 @@
             'congeIdNin.type_conge'
         ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
             $query->where('date_fin_cong', '>=', $today)
-                ->whereIn('titre_cong', ['exceptionnel']);
+                ->whereNotIn('titre_cong', ['annuel']);
         })->count();
          // dd($typecon);
 
