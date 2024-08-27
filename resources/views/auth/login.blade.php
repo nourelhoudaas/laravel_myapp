@@ -34,6 +34,17 @@
 </script>
 </head>
 <style>
+@media screen and (max-height: 468px) {
+   html
+   {
+    height: 165vh;
+   }
+}
+@media screen and (min-height: 500px){
+    html
+{
+    height: 100%;
+}}
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -42,7 +53,7 @@ body {
     background: linear-gradient(to left, #f5f5f5, #000080); /* Dégradé beige clair à bleu clair */
     background-size: cover; /* Assure que l'image de fond couvre l'intégralité de l'écran */
     background-repeat: no-repeat;
-    height: 100vh;
+    height: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,7 +67,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh; /* Assure que le conteneur prend toute la hauteur de la vue */
+    height: 100%; /* Assure que le conteneur prend toute la hauteur de la vue */
     overflow: hidden; /* Évite les débordements */
 }
 
