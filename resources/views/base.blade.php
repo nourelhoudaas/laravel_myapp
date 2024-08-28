@@ -46,7 +46,7 @@
          {{-- nos script js--}}
 
 
-     
+         
         
     <script>
         var lng='{{app()->getLocale()}}'

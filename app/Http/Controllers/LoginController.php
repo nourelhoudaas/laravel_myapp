@@ -10,6 +10,7 @@ use App\Services\EmailService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -186,7 +187,7 @@ public function existIDNIN()
             ];
 
             Mail::raw("Username: {$emailData['username']}\nReason: {$emailData['reason']}", function($message) {
-                $message->to('fadiaboumediene@gmail.com') 
+                $message->to('test@example.com') 
                         ->subject('Mot de passe oublié - Raison fournie')
                         ->from(config('mail.from.address'), config('mail.from.name'));
             });

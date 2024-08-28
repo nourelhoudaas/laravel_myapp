@@ -164,8 +164,13 @@
 
             </main>
 
-
+             
         </div>
-
+        <script>
+    $(document).ready(function(){
+       var ts= $(".small").text()
+       console.log('testing'+ts)
+    })
+</script>
     </body>
 @endsection

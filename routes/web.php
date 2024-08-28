@@ -15,6 +15,7 @@ use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
 /*
 Formulaires de connexion/inscription: Utiliser Route::match(['get', 'post']) pour permettre l'affichage du formulaire (GET) et le traitement des données soumises (POST).
 Affichage de données: Utiliser Route::get() pour des pages où les utilisateurs consultent simplement les données (comme des profils, des pages d'articles, des tableaux de bord, etc.).
@@ -62,6 +63,7 @@ Route::controller(LoginController::class)->group(function(){
     Route::get('/check-username','checkUsername')->name('checkUsername');
    //[app_..] nom de la route dans la page; [forgotPassword]  nom de la fonction dans le controller; [forgot_password] nom de la page dans la quelle il vas t etre renvoyer
 });
+
 Route::middleware('auth')->group(function () {
 Route::controller(EmployeesController::class)->group(function(){
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
@@ -97,6 +99,7 @@ Route::controller(DepartmentController::class)->group(function(){
     Route::post('/add_depart','store')->name('app_store_depart');
     Route::get('/depcount/{id}','get_emp_dep')->name('app_emp_depart');
     Route::get('/direction/{id}','get_sdic')->name('app_get_sdirection');
+    
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
 
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
