@@ -983,7 +983,7 @@ foreach($allwor as $workig)
                         'status'=>302
                         ]);
                 }
-                if($cng->count() > 0)
+                if($cng->count() > 0 && $cng[0]->ref_cong == 'RF001')
                 {
 
                 //   dd($cng[0]->nbr_jours);
@@ -1002,6 +1002,18 @@ foreach($allwor as $workig)
                 }
                 else
                 {
+                    if($cng[0]->ref_cong == 'RF002')
+                    {
+                        //dd($cng);
+                        return response()->json(
+                            [
+                                'employe'=>$emp,
+                                'Jour_congé'=> $cng[0]->nbr_jours   ,
+                                'date_congé'=>$cng[0]->date_fin_cong,
+                                'type'=>'Maladie'
+                            ]
+                        );
+                    }
                     //dd($emp);
 
                 $startDate = Carbon::parse($emp->date_recrutement);
