@@ -35,6 +35,7 @@ Route::controller(HomeController::class)->group(function(){
          ->name('app_dashboard');
 });
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/updatePassword', function () {
         return view('auth.updatePassword');
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
 Route::post('/updatePassword',[UpdatePasswordController::class, 'update'])->name('password_update');
 
 Route::get('/login', function () {
+    App::setLocale(Session::get('locale', config('app.locale')));
     return view('auth.login');
 })->middleware('guest')->name('login');
 
@@ -84,6 +86,9 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/Employe/check/{id}','find_emp')->name('find_by_nin');
     Route::get('/Employe/list_abs/{id}','get_list_absemp')->name('emp_list_abs');
     Route::get('/Employe/read_just/{id}','read_just')->name('emp_read_justif');
+
+    
+
 });
 });
 

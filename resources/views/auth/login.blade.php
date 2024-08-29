@@ -23,7 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"> 
     </script>
 
     <style>
@@ -238,7 +238,12 @@
     </body>
     <script>
         var lng='{{app()->getLocale()}}'
-        console.log('loging '+lng)
+        //console.log('loging '+lng)
+        lang_alert = {
+        userNotFound: "{{ __('lang.Lemotutilisateurnestpastrouvé') }}",
+        errorOccurred: "{{ __('lang.Uneerreurestproduitelorsdelavérificationdunomutilisateur') }}",
+        enterUsername: "{{ __('lang.Veuillezntrerunnomutilisateuravandedemandeuneréinitialisationdumotdepasse') }}",
+    };
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
             event.preventDefault(); // Empêche le comportement par défaut du lien
@@ -254,15 +259,15 @@
                             // Redirige vers forgotpass
                             window.location.href = "{{ route('app_forgotPassword') }}?username=" + encodeURIComponent(username);
                         } else {
-                            alert('Le nom d\'utilisateur n\'existe pas.');
+                            alert(lang_alert.userNotFound);
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('Une erreur s\'est produite lors de la vérification du nom d\'utilisateur.');
+                        alert(lang_alert.errorOccurred);
                     });
             } else {
-                alert('Veuillez entrer un nom d\'utilisateur avant de demander une réinitialisation du mot de passe.');
+                alert(lang_alert.enterUsername);
             }
         });
 
