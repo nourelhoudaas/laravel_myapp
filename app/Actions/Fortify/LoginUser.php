@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Actions\Fortify;
-
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -76,6 +75,8 @@ class LoginUser
         return back()->withErrors(['username' => 'Invalid username or password']);
     }
 }
+
+
 }
 
 

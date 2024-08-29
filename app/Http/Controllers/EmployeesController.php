@@ -1002,7 +1002,7 @@ foreach($allwor as $workig)
                 }
                 else
                 {
-                    if($cng[0]->ref_cong == 'RF002')
+                    if(isset($cng[0]) && $cng[0]->ref_cong == 'RF002')
                     {
                         //dd($cng);
                         return response()->json(
