@@ -1858,6 +1858,10 @@
                                      {
                                         
                                          alert(response.message);
+                                         if(response.type != null)
+                                         {
+                                            $("#Situation").addClass('error-handle')
+                                         }
                                          $('#Date_Dcg').addClass('error-handle')
                                          $('#Date_Fcg').addClass('error-handle')
                                      }
