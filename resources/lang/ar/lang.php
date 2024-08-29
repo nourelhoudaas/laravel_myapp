@@ -156,5 +156,15 @@ return [
     'Ancienmotdepass'=>'كلمة المرور السابقة',
     'Nouveaumotdepass'=>'كلمة المرور الجديدة',
     'Confirmervotrenouveaumotdepass'=>'قم بتأكيد كلمة المرور الجديدة',
-    'Retour'=>'الرجوع'
+    'Retour'=>'الرجوع',
+    'Lemotutilisateurnestpastrouvé'=>'اسم المستخدم غير موجود',
+    'Lenomutilisateurnexistepas'=>"اسم المستخدم غير موجود",
+    'Uneerreurestproduitelorsdelavérificationdunomutilisateur'=>"حدث خطأ أثناء التحقق من اسم المستخدم",
+    'Veuillezntrerunnomutilisateuravandedemandeuneréinitialisationdumotdepasse'=>"يرجى إدخال اسم المستخدم قبل طلب إعادة تعيين كلمة المرور",
+    'Invalidusernameorpassword'=>"اسم المستخدم أو كلمة المرور غير صحيحة",
+    'Aucunutilisateurconnecté'=>'لا يوجد مستخدم متصل',
+    'Votreréponseaétéenvoyéavecsuccess'=>'تم إرسال ردك بنجاح',
+    'Le_mot_de_passe_actuel_est_incorrect'=>'كلمة المرور الحالية غير صحيحة',
+    'Lemotdeassenepeutêtremisàjourquuneseulfois'=>"كلمة المرور لا يمكن تحديثها إلا مرة واحدة",
+    'Mot_de_passe_modifié_avec_succès'=>'تم تعديل كلمة المرور بنجاح!',
 ];
