@@ -135,10 +135,13 @@ Route::get('/live/read/{dir}/{subdir}/{file}',[UploadFile::class,'live_File'])->
 //postes
 Route::controller(PostesController::class)->group(function(){
 
-    Route::post('/postes/add_poste','addposte')->name('app_poste');
+   // Route::post('/postes/add_poste','addposte')->name('app_poste');
+   Route::get('/add_poste', 'addposte')->name('app_poste');
+   // Route::match(['get', 'post'], '/add_poste','addposte');
 
     Route::get('/poste','Listeposte')->name('liste_post');
-    Route::post('/add_poste','store')->name('app_store_poste');
+    Route::post('/postes/add_poste','store')->name('app_store_poste');
+
     Route::get('/postes/modifier/{post}','editer')->name('poste.modifier');
     Route::put('/postes/editer/{post}','update')->name('poste.update');
     Route::get('/post/{id_post}', 'delete')->name('post.delete');

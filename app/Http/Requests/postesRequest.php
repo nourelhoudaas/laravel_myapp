@@ -22,7 +22,7 @@ class postesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
             'Nom_post'=>'required',
             'Grade_post'=>'required',
             'Nom_post_ar'=>'required',
