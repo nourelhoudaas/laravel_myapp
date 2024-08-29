@@ -238,7 +238,7 @@
     </body>
     <script>
         var lng='{{app()->getLocale()}}'
-        //console.log('loging '+lng)
+        console.log('loging '+lng)
         lang_alert = {
         userNotFound: "{{ __('lang.Lemotutilisateurnestpastrouvé') }}",
         errorOccurred: "{{ __('lang.Uneerreurestproduitelorsdelavérificationdunomutilisateur') }}",
