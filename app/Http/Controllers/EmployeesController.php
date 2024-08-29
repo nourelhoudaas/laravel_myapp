@@ -1005,10 +1005,13 @@ foreach($allwor as $workig)
                     if(isset($cng[0]) && $cng[0]->ref_cong == 'RF002')
                     {
                         //dd($cng);
+                        $current=Carbon::parse($cng[0]->date_debut_cong);
+                        $mald_deb=Carbon::parse($cng[0]->date_fin_cong);
+                        $diff = $current->diffInDays($mald_deb);
                         return response()->json(
                             [
                                 'employe'=>$emp,
-                                'Jour_congé'=> $cng[0]->nbr_jours   ,
+                                'Jour_congé'=>$diff   ,
                                 'date_congé'=>$cng[0]->date_fin_cong,
                                 'type'=>'Maladie'
                             ]
@@ -1077,6 +1080,62 @@ foreach($allwor as $workig)
                             'status'=> 404
                         ]);
                         }
+                    if($request->get('type_cg') == 'RF002')
+                    {
+                        $current=Carbon::now();
+                        $mald_deb=Carbon::parse($request->get('date_dcg'));
+                        $diff = $current->diffInDays($mald_deb);
+                       // dd($diff);
+                        if (!$mald_deb->between($current->copy()->subDays(2), $current))
+                         {
+                            
+                            $start = Carbon::parse($cg->date_fin_cong);
+                            $end = Carbon::parse($request->get('date_fcg'));
+                            $daysDifference = $start->diffInDays($end);
+                            $nbrcg=$cg->nbr_jours+$daysDifference;
+                            $cg->update(['date_fin_cong'=>$request->get('date_dcg'),'nbr_jours'=>$nbrcg]) ; 
+                            if($cg)
+                            {
+                                $cong=new Conge([
+                                    'id_nin'=>$request->get('ID_NIN'),
+                                    'id_p'=>$request->get('ID_P'),
+                                    'date_debut_cong'=>$request->get('date_dcg'),
+                                    'date_fin_cong'=>$request->get('date_fcg'),
+                                    'nbr_jours'=>0,
+                                    'ref_cong'=>$request->get('type_cg'),
+                                    'situation'=>$request->get('situation'),
+                                    'situation_AR'=>$situation_ar,
+                                    'id_sous_depart'=>$request->get('SDic')
+                                        ]);
+                                        if($cong->save())
+                                        {
+                                            return response()->json(['message'=>'success','status'=>200]);
+                                        }
+                                        else
+                                        {
+                                            return response()->json([
+                                                'message'=>'Unsuccess insering Maladie',
+                                                'status'=> 404
+                                            ]);
+                                        }
+                                        
+                            }
+                            else
+                            {
+                                return response()->json([
+                                    'message'=>'Unsuccess updating cong',
+                                    'status'=> 404
+                                ]);
+                            }
+                         } 
+                        else 
+                        {
+                            return response()->json([
+                                'message'=>'Unsuccess verfier date du debut Maladie',
+                                'status'=> 404
+                            ]);
+                        }
+                    }
                     $startDate = Carbon::parse($request->get('date_dcg'));
 
 

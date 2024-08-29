@@ -44,14 +44,12 @@ Route::middleware('auth')->group(function () {
 });
 Route::post('/updatePassword',[UpdatePasswordController::class, 'update'])->name('password_update');
 
-
 Route::get('/login', function () {
     App::setLocale(Session::get('locale', config('app.locale')));
     return view('auth.login');
 })->middleware('guest')->name('login');
 
 Route::post('/login', [LoginUser::class, 'authenticateUser'])->middleware('guest')->name('login_post');
-Route::get('/lang/guest/{locale}', [LoginController::class, 'switchLanguage'])->middleware('guest');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
