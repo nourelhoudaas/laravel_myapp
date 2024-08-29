@@ -983,7 +983,7 @@ foreach($allwor as $workig)
                         'status'=>302
                         ]);
                 }
-                if($cng->count() > 0)
+                if($cng->count() > 0 && $cng[0]->ref_cong == 'RF001')
                 {
 
                 //   dd($cng[0]->nbr_jours);
@@ -1002,6 +1002,18 @@ foreach($allwor as $workig)
                 }
                 else
                 {
+                    if($cng[0]->ref_cong == 'RF002')
+                    {
+                        //dd($cng);
+                        return response()->json(
+                            [
+                                'employe'=>$emp,
+                                'Jour_congé'=> $cng[0]->nbr_jours   ,
+                                'date_congé'=>$cng[0]->date_fin_cong,
+                                'type'=>'Maladie'
+                            ]
+                        );
+                    }
                     //dd($emp);
 
                 $startDate = Carbon::parse($emp->date_recrutement);
@@ -1086,7 +1098,7 @@ foreach($allwor as $workig)
                         $nbrcng=-1;
                     }
                 //  dd($nbrcng);
-                    if($nbrcng <= 0)
+                    if($nbrcng <= 0 && $request->get('type_cg') == 'RF001')
                     {
                         return response()->json([
                             'message'=>'Unsuccess deminuis le delai '.$nbrcng,
@@ -1127,6 +1139,10 @@ foreach($allwor as $workig)
                 {
                     $right=true;
                 // dd($cg->annee);
+                }
+                if( $request->get('type_cg') == 'RF002')
+                {
+                    $right=true;
                 }
                 $startDate = Carbon::parse($request->get('date_dcg'));
 
@@ -1173,7 +1189,7 @@ foreach($allwor as $workig)
 
 
             //  dd($cng[0]);
-            if($cng[0]->date_fin_cong < $request->get('date_dcg'))
+            if($cng[0]->date_fin_cong < $request->get('date_dcg') && $request->get('type_cg') == 'RF001')
             {
                 if($cong->save() )
                 {
@@ -1191,10 +1207,29 @@ foreach($allwor as $workig)
             }
             else
             {
+                if($request->get('type_cg') != 'RF001')
+                {
+                    if($cong->save() )
+                {
+                    return response()->json([
+                        'message'=>'Success',
+                        'status'=> 200
+                    ]);
+                }else
+                {
+                    return response()->json([
+                        'message'=>'Unsuccess',
+                        'status'=> 404
+                    ]);
+                }
+                }
+                else
+                {
                 return response()->json([
                     'message'=>'Unsuccess verfier la date du debut 2',
                     'status'=> 404
                 ]);
+                }
             }
             }
             else
