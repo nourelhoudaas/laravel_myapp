@@ -1712,6 +1712,12 @@
                    if(response.status != 302){
                     result=response;
                     id=response.employe.id_nin
+                    type="Conge Annulle"
+                    if(response.hasOwnProperty("type"))
+                    {
+                        type=response.type
+                    }
+
                    if(lng == 'ar')
                    {
                     
@@ -1727,6 +1733,8 @@
                      $('#Nom_emp').val(response.employe.Nom_emp)
                      $('#Prenom_emp').val(response.employe.Prenom_emp)
                     }
+                    if(type != 'Maladie')
+                    {
                     if(lng == 'ar')
                     {
                         switch (true) {
@@ -1745,7 +1753,19 @@
                     {
                         $('#total_cgj').val(response.Jour_congé+' Jour(s)')
                     }
+                }
+                else
+                {
+                    $('#total_cgj').val(response.Jour_congé+' Jour(s) de Maladie')
+                }
+                    if(type != 'Maladie')
+                    {
                      $('#typ_cg option:eq(1)').prop('selected', true)
+                    }
+                    else
+                    {
+                        $('#typ_cg option:eq(2)').prop('selected', true)
+                    }
                      if(response.Jour_congé <= 0 )
                      {
                          var currentTime = new Date()
@@ -1879,7 +1899,7 @@
                          }
                          if(granted == false)
                          {
-                        $('#Situation').addClass('error-handle')
+                         $('#Situation').addClass('error-handle')
                          $('#typ_cg').addClass('error-handle')
                          }
                          $('#Date_Dcg').addClass('error-handle')
