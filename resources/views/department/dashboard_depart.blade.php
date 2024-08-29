@@ -44,7 +44,7 @@
                     <span class="material-symbols-outlined">visibility</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>{{ __('lang.posttheo') }}</h3>
+                            <h3>{{ __('lang.Theorique') }}</h3>
                             <h1></h1>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                     <span class="material-symbols-outlined">how_to_reg</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>{{ __('lang.postttt') }}</h3>
+                            <h3>{{ __('lang.Prevu') }}</h3>
 
                            <h1>
                            {{$totalEmpDep}}

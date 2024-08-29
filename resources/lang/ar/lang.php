@@ -150,8 +150,7 @@ return [
 
     'nbr_page'=>'الصفحة',
     'Departementde'=>'مديرية ',
-    'posttheo'=>'نظري',
-    'postttt'=>'محقق',
+  
     'Changerlemotdepass'=>'تغيير كلمة المرور',
     'Ancienmotdepass'=>'كلمة المرور السابقة',
     'Nouveaumotdepass'=>'كلمة المرور الجديدة',
