@@ -170,6 +170,9 @@ return [
     'Le_mot_de_passe_actuel_est_incorrect'=>'Le mot de passe actuel est incorrect',
     'Lemotdeassenepeutêtremisàjourquuneseulfois'=>"Le mot de passe ne peut être mis à jour qu'une seule fois",
     'Mot_de_passe_modifié_avec_succès'=>'Mot de passe modifié avec succès !',
-
+    'Tableau_de_Bord_de'=>'Tableau de Bord de',
+    'TableaudebordsansuserId'=>"Tableau de bord sans nom d'utilisateur",
+    'Prevu' => 'Prévu',
+    'Theorique' => 'Théorique',
 ];
 

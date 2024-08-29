@@ -167,4 +167,8 @@ return [
     'Le_mot_de_passe_actuel_est_incorrect'=>'كلمة المرور الحالية غير صحيحة',
     'Lemotdeassenepeutêtremisàjourquuneseulfois'=>"كلمة المرور لا يمكن تحديثها إلا مرة واحدة",
     'Mot_de_passe_modifié_avec_succès'=>'تم تعديل كلمة المرور بنجاح!',
+    'Tableau_de_Bord_de'=>'واجهة',
+    'TableaudebordsansuserId'=>"واجهة بدون اسم المستخدم",
+    'Prevu' => 'المحقق',
+    'Theorique' => 'النظري',
 ];
