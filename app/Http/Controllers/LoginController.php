@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-<<<<<<< HEAD
-=======
-
->>>>>>> 11a450943894a7b038dc45e92a161db527e17319
 
 class LoginController extends Controller
 {
