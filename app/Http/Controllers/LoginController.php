@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Login;
 use DateTimeImmutable;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Services\EmailService;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +18,6 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
-
-
 
 //---------------------------------------------------------------------LOGOUT---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -387,6 +387,7 @@ public function existIDNIN()
 
 //---------------------------------------------------------------------FORGOT PASSWORD---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 }

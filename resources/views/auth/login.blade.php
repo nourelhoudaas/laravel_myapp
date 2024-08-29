@@ -178,8 +178,8 @@
     </head>
     <body>
         <div class="language-switcher">
-            <a href="{{ url('lang/fr') }}">Français</a> |
-            <a href="{{ url('lang/ar') }}">العربية</a>
+            <a href="{{ url('login/fr') }}">Français</a> |
+            <a href="{{ url('login/ar') }}">العربية</a>
         </div>
 
     <div class="full-page">
@@ -190,7 +190,7 @@
                 </div>
                 <h1 class="text-center text-muted mb-3">{{ __('lang.bienvenue') }}</h1>
                 <h2 class="text-center text-muted mb-3">{{ __('lang.login') }}</h2>
-                <form method="POST" action="{{ route('login') }}" class="form-group">
+                <form method="POST" action="{{ route('login_post') }}" class="form-group">
                     @csrf
 
                     @error('username')

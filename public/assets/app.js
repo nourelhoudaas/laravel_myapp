@@ -1841,10 +1841,23 @@
                                 var selectsitua = document.getElementById("Situation");
                                 var selectedValue = selectElement.value;
                                 var selectedVsitua = selectsitua.value;
-                         if(selectedValue == 'RF002' && selectedVsitua == 'hors')
+                                console.log('select '+selectedVsitua)
+                         if(selectedValue == 'RF002')
                          {
-                            granted=false
+                            if(!checksickDaye(date_dcg))
+                            {
+                                granted=false
+                                alert('Delai depasser pour le Maladie')
+                            }else
+                            {
+                                if(selectedVsitua == 'out')
+                                {
+                                    granted=false
+                                    alert('Doive etre ici pour le Maladie')
+                                }
+                            }
                          }
+                         
                          if(totaljour > 0 && totaljour <=30 && total_cgj > 0 && granted == true)
                              {
                          var congeform={
@@ -1878,6 +1891,10 @@
                                      {
                                         
                                          alert(response.message);
+                                         if(response.type != null)
+                                         {
+                                            $("#Situation").addClass('error-handle')
+                                         }
                                          $('#Date_Dcg').addClass('error-handle')
                                          $('#Date_Fcg').addClass('error-handle')
                                      }
@@ -2098,4 +2115,30 @@ function removeInput(){
  * 
  * this for list of absense of employe
  * 
+ */
+
+/***
+ * 
+ * 
+ * this for calculate the date of maladie tha will be today or less then two days
+*/
+
+
+function checksickDaye(maladie) {
+    // Parse the dates
+    const maladies = new Date();
+    const reference = new Date(maladie);
+
+    // Calculate the difference in time (in milliseconds)
+    const diffTime = reference.getTime() - maladies.getTime();
+
+    // Convert the time difference to days
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+    console.log('different'+diffDays)
+    // Check if the date is equal or within two days before the reference date
+    return diffDays >= 0 && diffDays <= 2;
+}
+/***
+ * 
+ * end this function of this
  */

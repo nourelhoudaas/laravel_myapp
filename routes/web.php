@@ -44,12 +44,22 @@ Route::middleware('auth')->group(function () {
 });
 Route::post('/updatePassword',[UpdatePasswordController::class, 'update'])->name('password_update');
 
+<<<<<<< HEAD
+Route::get('/login/{local}', function ($locale) {
+    if (in_array($locale, ['fr','ar'])) 
+    {
+        session(['locale' => $locale]);
+        App::setLocale($locale);
+    }
+=======
 Route::get('/login', function () {
     App::setLocale(Session::get('locale', config('app.locale')));
+>>>>>>> 5a36e5c3d033f49318674896d30a61cd7385671a
     return view('auth.login');
 })->middleware('guest')->name('login');
 
-Route::post('/login', [LoginUser::class, 'authenticateUser'])->middleware('guest')->name('login');
+Route::post('/login', [LoginUser::class, 'authenticateUser'])->middleware('guest')->name('login_post');
+Route::get('/lang/guest/{locale}', [LoginController::class, 'switchLanguage'])->middleware('guest');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

@@ -1002,7 +1002,7 @@ foreach($allwor as $workig)
                 }
                 else
                 {
-                    if($cng[0]->ref_cong == 'RF002')
+                    if(isset($cng[0]) && $cng[0]->ref_cong == 'RF002')
                     {
                         //dd($cng);
                         return response()->json(
@@ -1207,7 +1207,7 @@ foreach($allwor as $workig)
             }
             else
             {
-                if($request->get('type_cg') != 'RF001')
+                if($request->get('type_cg') != 'RF001' && $request->get('situation') == 'algerie' )
                 {
                     if($cong->save() )
                 {
@@ -1219,7 +1219,7 @@ foreach($allwor as $workig)
                 {
                     return response()->json([
                         'message'=>'Unsuccess',
-                        'status'=> 404
+                        'status'=> 404,
                     ]);
                 }
                 }
@@ -1227,7 +1227,8 @@ foreach($allwor as $workig)
                 {
                 return response()->json([
                     'message'=>'Unsuccess verfier la date du debut 2',
-                    'status'=> 404
+                    'status'=> 404,
+                    'type'=>'Situation'
                 ]);
                 }
             }
