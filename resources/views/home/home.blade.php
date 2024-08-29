@@ -74,7 +74,7 @@
         <h1>République Algérienne Démocratique et Populaire</h1>
         <h2>Ministère de la Communication</h2>
         <div class="footer">
-            <a href="{{ route('login','fr') }}" class="btn-get-started">Commencer</a>
+            <a href="{{ route('login') }}" class="btn-get-started">Commencer</a>
         </div>
     </div>
 </div>

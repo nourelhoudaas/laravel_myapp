@@ -178,8 +178,8 @@
     </head>
     <body>
         <div class="language-switcher">
-            <a href="{{ url('login/fr') }}">Français</a> |
-            <a href="{{ url('login/ar') }}">العربية</a>
+            <a href="{{ url('lang/fr') }}">Français</a> |
+            <a href="{{ url('lang/ar') }}">العربية</a>
         </div>
 
     <div class="full-page">
