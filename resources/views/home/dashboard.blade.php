@@ -137,7 +137,19 @@ main .insightss h1, main .insightss h3, main .insightss p {
         nbrem.push(element.nbremp)
     });
     const ctx = document.getElementById('myChart');
-    var langth_pr = '{{app()->getLocale()}}'
+    var langth_pr = '{{app()->getLocale()}}';
+    var labelTheorique;
+    var labelPrevu;
+
+    if (langth_pr == 'ar') {
+        labelTheorique = 'النظري';
+        labelPrevu = 'المتوقع';
+    } else {
+        labelTheorique = 'Théorique';
+        labelPrevu = 'Prévu';
+    }
+
+
     new Chart(ctx, {
         type: 'bar',
         data: {
@@ -145,14 +157,14 @@ main .insightss h1, main .insightss h3, main .insightss p {
        
         datasets: [
             {
-                label: lang == 'ar' ? 'النظري' : 'Théorique',  // Dataset label
+                label: labelTheorique,  // Dataset label
                 data: [20, 20], // Data for the two labels
                 backgroundColor: 'rgba(0, 147, 0, 0.8)', // Bar color
                 borderColor: 'rgba(0, 255, 0, 1)', // Bar border color
                 borderWidth: 1
             },
             {
-                label: lang == 'ar' ? 'المتوقع' : 'Prévu', // Second Dataset label
+                label: labelPrevu, // Second Dataset label
                 data: nbrem, // Data for the two labels
                 backgroundColor: 'rgba(0, 55, 255, 0.72)', // Bar color
                 borderColor: 'rgba(153, 102, 255, 1)', // Bar border color

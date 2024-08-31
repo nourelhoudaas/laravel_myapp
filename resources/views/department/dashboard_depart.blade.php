@@ -145,7 +145,7 @@
 
                     <tbody>
 
-                        @foreach($empdep as $employe)
+                        @foreach($paginator as $employe)
                                 @php
                                     $post = $employe->occupeIdNin->last()->post ;
                                     $travail = $employe->travailByNin->last();
@@ -197,6 +197,11 @@
 
                     </tbody>
                 </table>
+                <hr>
+                    <div class="pagination">
+                        {{ $paginator->links() }}
+                    </div>
+                  
             </div>
             <!-- end resent order -->
 
