@@ -38,13 +38,10 @@ return new class extends Migration
                 'date_debut_cong' => '2024-08-10',
                 'date_fin_cong' => '2024-08-20',
                 'situation' => 'algérie',
-<<<<<<< HEAD
                 'nbr_jours' =>'10',
 
-=======
                 'nbr_jours' =>10,
                 'id_fichier' =>1,
->>>>>>> 2e3898cc66cb35700c16051d5094eef16f344c08
                 'situation_AR'=>'داخل الجزائر',
                 'ref_cong'=>'RF001',
                 'id_sous_depart'=>15,
@@ -65,13 +62,9 @@ return new class extends Migration
                 'id_sous_depart'=>10,
                 'id_nin'=>254896989,
                 'id_p'=>256,
-<<<<<<< HEAD
-                'id_fichier'=>1
+                'id_fichier'=>1,
 
-=======
-                'id_fichier' =>2,
-                
->>>>>>> 2e3898cc66cb35700c16051d5094eef16f344c08
+
             ]
 
             ]);

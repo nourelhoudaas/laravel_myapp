@@ -456,7 +456,7 @@ main .date{
 }
 main .insights{
     display:grid;
-   
+
     grid-template-columns: repeat(3,1fr);
     gap: 1.6rem;
 }
@@ -649,11 +649,7 @@ main .recent_order a:hover{
 .progress-bar {
   background-color: #2F8D46
 }
-<<<<<<< HEAD
-.stepper-wrapper41780 {
-=======
 .stepper-wrapper {
->>>>>>> 2e3898cc66cb35700c16051d5094eef16f344c08
 
 }
 .stepper-item {

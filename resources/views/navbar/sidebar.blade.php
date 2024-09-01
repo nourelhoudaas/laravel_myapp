@@ -73,7 +73,7 @@
                                     @php
                                         $locale = app()->getLocale();
                                     @endphp
-                                    <a href="{{ route('app_dashboard_depart', ['dep_id' => $empdepart->id_depart]) }}" 
+                                    <a href="{{ route('app_dashboard_depart', ['dep_id' => $empdepart->id_depart]) }}"
                                     class="nav__dropdown-item">
                                         @if ($locale == 'fr')
                                              {{ $empdepart->Nom_depart }}
