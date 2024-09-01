@@ -92,14 +92,27 @@
                   </div>
                   <div class="card mt-3">
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    @if(isset($last->email_pro) && $last->email_pro != null)
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="mail_pro">
                         <h6 class="mb-0">
+                        
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                           {{__('lang.pro_mail')}}
                         </h6>
                         <span class="text-secondary">{{$last->email_pro}}</span>
                       </li>
-
+                      @else
+                      <div id="pro-add">
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="mail_pro">
+                        <h6 class="mb-0">
+                        
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                          {{__('lang.pro_mail')}}
+                        </h6>
+                        <span class="text-secondary">{{__('lang.disponible')}}<i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                      </li>
+                      </div>
+                      @endif
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.stitua_fam')}}</span>
@@ -366,6 +379,7 @@
        var id = '{{ $last->id_nin }}';
        var uid='{{$uid}}'
       var md=false;
+      var chek='{{!isset($last->email_pro)}}'
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){
@@ -379,11 +393,15 @@ document.getElementById('Email').disabled=false;
 document.getElementById('phone_pn').disabled=false;
 document.getElementById('dateN').disabled=false;
 document.getElementById('adr').disabled=false;
-document.getElementById('adrAR').disabled=false;
+//document.getElementById('adrAR').disabled=false;
 md=true;
 }
 else
 {
+ if(chek == '1')
+ {
+ document.getElementById('pro-add').InnerHTML='<button>add Mail</button>'
+ }
 icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
 document.getElementById('Nom_P').disabled=true;
@@ -394,7 +412,7 @@ document.getElementById('Email').disabled=true;
 document.getElementById('phone_pn').disabled=true;
 document.getElementById('dateN').disabled=true;
 document.getElementById('adr').disabled=true;
-document.getElementById('adrAR').disabled=true;
+//document.getElementById('adrAR').disabled=true;
 md=false;
 }
 })

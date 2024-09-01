@@ -66,6 +66,7 @@ return [
     'obs_dic'=>'Observation dit par sont directeur',
     'note'=>'la Note',
     'start'=>'Depuis',
+    'disponible'=>'n `est disponible',
 
     'age'=>'Age',
     'sous_dept'=>'Sous Direction',
