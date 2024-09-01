@@ -128,7 +128,7 @@ return view('department.edit', compact('departement'));
                                     if(request()->get('page') != null)
                                     {
                                         $page=   request()->get('page');
-                                    } 
+                                    }
                 $offset = ($page - 1) * $perPage;
 
                 // Extraire les éléments pour la page actuelle
