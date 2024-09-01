@@ -63,7 +63,7 @@
                           <div class="row">
                           @if(app()->getLocale() == 'ar') 
                             <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p><p class="text-secondary mb-1">{{__('lang.post_grad')}}: {{$last->Grade_post}}</p></div>
-                            <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}}, {{__('lang.mnc')}}</p>
+                            <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}}, {{__('lang.mnc')}} </p>
                             @else 
                             <p class="text-secondary mb-1">{{$last->Nom_post}}</p><p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p></div>
                             <p class="text-muted font-size-sm">{{$last->Nom_sous_depart}},{{$last->Nom_depart}}, {{__('lang.mnc')}}</p>

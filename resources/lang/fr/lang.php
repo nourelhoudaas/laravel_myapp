@@ -41,6 +41,7 @@ return [
     'famill'=>'Situation Familliale ',
     'stitua_fam'=>'Situation Familliale',
     'slct_famill'=>" Séléctionner la situation familliale de l'employé",
+    'filnull'=>'Aucun fichier a Selection',
 
     'cel'=>'Célibataire ',
     'marie'=>'Marié(e)',

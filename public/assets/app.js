@@ -26,6 +26,18 @@
         })
  *
  */
+/***
+ * 
+ * 
+ * 
+ */
+
+
+/***
+ * 
+ * 
+ * 
+ */
         function fetchPosts(url) {
             $.ajax({
                 url: url,
@@ -162,6 +174,8 @@
                  $('.list-group').removeClass('pad-fr')
                  $('#add-handler').addClass('add-handler-ar')
                  $('#add-handler').removeClass('add-handler-fr')
+                 $('.float-export').removeClass('rsid')
+                 $('.float-export').addClass('lsid')
 
 
              }
@@ -181,6 +195,8 @@
                  $('.list-group').removeClass('pad-ar')
                  $('#add-handler').removeClass('add-handler-ar')
                  $('#add-handler').addClass('add-handler-fr')
+                 $('.float-export').addClass('rsid')
+                 $('.float-export').removeClass('lsid')
              }
          })
 
@@ -2046,6 +2062,7 @@
       *
       */
 
+     
 
     //dynamic field Creation with java script
     const addBtn = document.querySelector(".add");
@@ -2133,4 +2150,16 @@ function checksickDaye(maladie) {
 /***
  *
  * end this function of this
+ */
+
+/***
+ * 
+ * 
+ * this for updalod button
+ */
+
+/**
+ * 
+ * end 
+ * 
  */

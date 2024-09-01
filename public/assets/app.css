@@ -1499,8 +1499,7 @@ color: red;
 }
 .float-export
 {
-  position: fixed;
-  right: 0px;
+  position: fixed;  
   bottom: 0px;
   background-color: #e6f4fc;
   width: 100px;
@@ -1592,4 +1591,29 @@ color: red;
   font-style: oblique;
   font-family: none;
 }
+.file-get-handle
+{  display: inline-block;
+  padding: 6px 12px;
+  background-color: #ffffff;
+  color: rgb(7, 6, 6);
+  border-radius: 4px;
 
+}
+input[type='file']
+{
+  display: none;
+}
+.file-get-handle:hover
+{
+  scale: 1.2;
+  background-color: #bdfcb8;
+  cursor: pointer;
+}
+.rsid
+{
+  right: 0px;
+}
+.lsid
+{
+  left: 0px;
+}

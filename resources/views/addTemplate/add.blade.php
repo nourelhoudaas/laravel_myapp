@@ -203,10 +203,11 @@ $id=0;
         </form>
         <div class="file-holder">
                     <div class="file-select-holder">
-                      <label for="file">{{ __('lang.Choisirunfichier') }}</label> 
-                      <input type="file" name="file" id="file" style="display: none;"> 
+                      <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label> 
+                      <input type="file" name="file" id="file"> 
                       <div class="">
                       <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">{{ __('lang.upload') }}</button>
+                      <label id='file-nm'>{{__('lang.filnull')}}</lable>
                       </div>
                     </div>
                           <div>
@@ -224,18 +225,20 @@ $id=0;
                               </div>
                           </div>
                   </div>
-    </div>
+    </div>  
 </div>
 
 
 </body>
 
 
-   @endsection
+ 
    <script>
+    
         var dir="Personnel";
         var uid='{{$uid}}'
         var id;
+        var flang='{{__("lang.filnull")}}'
       document.addEventListener('DOMContentLoaded', () => {
             const dropdown = document.getElementById('nbrenfant');
             const maxNumber = 10; // Change this to the desired maximum number
@@ -289,5 +292,12 @@ $id=0;
                 }
             });
         });
-
+        $('#file').on('change',function(){
+    var label = $('#file-custm');
+    var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
+    label.textContent = fileName;
+      console.log('file handler'+fileName)
+      $('#file-nm').text(''+fileName)
+    })
 </script>
+@endsection
