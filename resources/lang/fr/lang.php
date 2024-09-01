@@ -179,6 +179,9 @@ return [
     'nin'=>"Saisir le NIN de l'employé",
     'nss'=>"Saisir le NSS de l'employé",
     'Choisirunfichier'=>'Choisir un fichier:',
+    "Prnomdelpoux"=>"Prénom de l'époux(se)",
+    "Saisirleprénomdepoux"=>"Saisir le prénom de l'époux(se)",
+   
   
 ];
 
