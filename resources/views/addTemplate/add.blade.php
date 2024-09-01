@@ -254,16 +254,19 @@ $id=0;
             dropdown.addEventListener('change', () => {
                 // Clear previous input if any
                 inputContainer.innerHTML = '';
-
+                const lang = "{{ App::getLocale() }}";
+               
                 if (dropdown.value === 'marie') {
                     const input = document.createElement('input');
                     const label = document.createElement('label');
                     label.classList='labels'
-                    label.textContent ="Prénom de l'époux(se)"
+                  
                     input.type = 'text';
-                    input.placeholder = "Saisir le prénom de l'époux(se)";
+                    label.textContent = @json(__('lang.Prnomdelpoux')); //json pour eviter les carracteres speciaux
+                    input.placeholder = @json(__('lang.Saisirleprénomdepoux'));
                     input.classList='form-control'
                     input.name = 'marie';
+                  
                     inputContainer.appendChild(label);
                     inputContainer.appendChild(input);
                 }
