@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Actions\Fortify;
-
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -12,11 +11,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Contracts\LoginViewResponse as LoginViewResponseContract;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class LoginUser
 {
     public function authenticateUser(Request $request)
     {
+        App::setLocale(Session::get('locale', config('app.locale')));
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
@@ -73,9 +75,13 @@ class LoginUser
 
 
     else{
-        return back()->withErrors(['username' => 'Invalid username or password']);
+        return back()->withErrors([
+            'username' => __('lang.Invalidusernameorpassword'),
+        ]);
     }
 }
+
+
 }
 
 

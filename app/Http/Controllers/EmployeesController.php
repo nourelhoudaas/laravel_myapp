@@ -80,38 +80,35 @@
             /*$empdepart= DB::table('departements')
             ->get();*/
 
-  // Définir le nombre d'éléments par page
- // $perPage = 2;
-
-
-
 
         //le nbr total des employe pour chaque depart
-        $totalEmployes = $employe->count();
-// Définir le nombre d'éléments par page
-$perPage = 2; // Par exemple, 2 éléments par page
-$page = 1; // Page actuelle
-                    if(request()->get('page') != null)
-                    {
-                        $page=   request()->get('page');
-                    } // Page actuelle
-$offset = ($page - 1) * $perPage;
+                $totalEmployes = $employe->count();
 
-// Extraire les éléments pour la page actuelle
-$items = $employe->slice($offset, $perPage)->values();
-//dd($items);
-// Créer le paginator
-$paginator = new LengthAwarePaginator(
-    $items, // Items de la page actuelle
-    $employe->count(), // Nombre total d'éléments
-    $perPage, // Nombre d'éléments par page
-    $page, // Page actuelle
-    [
-        'path' => request()->url(), // URL actuelle
-        'query' => request()->query() // Paramètres de la requête
-    ]
-);
-             return view('employees.liste',compact('paginator','employe','totalEmployes','empdepart','champs','direction'));
+        // Définir le nombre d'éléments par page
+        $perPage = 2; // Par exemple, 2 éléments par page
+        $page = 1; // Page actuelle
+                            if(request()->get('page') != null)
+                            {
+                                $page=   request()->get('page');
+                            } 
+        $offset = ($page - 1) * $perPage;
+
+        // Extraire les éléments pour la page actuelle
+        $items = $employe->slice($offset, $perPage)->values();
+        //dd($items);
+
+        // Créer le paginator
+        $paginator = new LengthAwarePaginator(
+            $items, // Items de la page actuelle
+            $employe->count(), // Nombre total d'éléments
+            $perPage, // Nombre d'éléments par page
+            $page, // Page actuelle
+            [
+                'path' => request()->url(), // URL actuel
+                'query' => request()->query() // Paramètres de la requête
+            ]
+        );
+                    return view('employees.liste',compact('paginator','employe','totalEmployes','empdepart','champs','direction'));
 
 
                 }
@@ -307,6 +304,7 @@ $paginator = new LengthAwarePaginator(
                        ->where('departements.id_depart',$id_dep)
                        ->orderBy('travails.date_installation','desc')
                        ->get();
+                     
         foreach($emps as $empl)
         {
             array_push($allwor,$empl);
@@ -378,10 +376,43 @@ $paginator = new LengthAwarePaginator(
                             array_push($empdpart,$emps);
                         }
         }
+
+       /*------------------ pagination----------------------------------------**/
+
+             // Définir le nombre d'éléments par page
+             $perPage = 4; // Par exemple, 2 éléments par page
+             $total = count($empdpart); 
+             $page = 1; // Page actuelle
+                                 if(request()->get('page') != null)
+                                 {
+                                     $page=request()->get('page');
+                                 } 
+             $offset = ($page - 1) * $perPage;
+     
+             // Extraire les éléments pour la page actuelle
+             $items = array_slice($empdpart,$offset, $perPage);
+            // dd($items);
+     
+             // Créer le paginator
+             $paginator = new LengthAwarePaginator(
+                 $items, // Items de la page actuelle
+                 $total, // Nombre total d'éléments
+                 $perPage, // Nombre d'éléments par page
+                 $page, // Page actuelle
+                 [
+                     'path' => request()->url(), // URL actuel
+                     'query' => request()->query() // Paramètres de la requête
+                 ]
+             ); 
                 $empdepart=Departement::get();
             $nom_d = Departement::where('id_depart', $id_dep)->value('Nom_depart');
-    return response()->json($empdpart);
+
+            return response()->json(['paginator'=>$paginator,'employe'=>$empdpart]);
+   // return response()->json($empdpart);
+    
         }
+
+
         public function absens_date($date)
         {
         // dd($date);
@@ -469,6 +500,31 @@ $paginator = new LengthAwarePaginator(
                 $query->where('date_fin_cong', '>=', $today)
                 ->orderBy('date_fin_cong','desc');
             })->get();
+           //dd($paginator);
+            // Définir le nombre d'éléments par page
+       $perPage = 1; // Par exemple, 2 éléments par page
+        $page = 1; // Page actuelle
+                            if(request()->get('page') != null)
+                            {
+                                $page=   request()->get('page');
+                            } 
+        $offset = ($page - 1) * $perPage;
+
+        // Extraire les éléments pour la page actuelle
+        $items = $emptypeconge->slice($offset, $perPage)->values();
+        //dd($items);
+
+        // Créer le paginator
+        $paginator = new LengthAwarePaginator(
+            $items, // Items de la page actuelle
+            $emptypeconge->count(), // Nombre total d'éléments
+            $perPage, // Nombre d'éléments par page
+            $page, // Page actuelle
+            [
+                'path' => request()->url(), // URL actuel
+                'query' => request()->query() // Paramètres de la requête
+            ]
+        );
 
           // dd($emptypeconge );
 
@@ -487,11 +543,15 @@ $paginator = new LengthAwarePaginator(
             'congeIdNin.type_conge'
         ])->whereHas('congeIdNin.type_conge', function($query) use ($today) {
             $query->where('date_fin_cong', '>=', $today)
-                ->whereIn('titre_cong', ['exceptionnel']);
+                ->whereNotIn('titre_cong', ['annuel']);
         })->count();
          // dd($typecon);
 
-            return view('employees.list_cong',compact('empdepart','typecon','emptypeconge','today','count','countExceptionnel'));
+        
+
+         //array_push($empcng,$emptypeconge);
+         
+            return view('employees.list_cong',compact('paginator','emptypeconge','empdepart','typecon','today','count','countExceptionnel'));
 
             }
 
@@ -531,12 +591,55 @@ $paginator = new LengthAwarePaginator(
                           ->where('id_cong',$cong_emp->id_cong);
                 }
                 $emptypeconge=$query->first();
-                array_push($empcng,$emptypeconge);
+                if ($emptypeconge) {
+                    $empcng[] = $emptypeconge;
+                }
+                 // Convert array to collection for pagination
+               $empcng = collect($empcng);
+              //dd($empcngCollection);
+                            // Définir le nombre d'éléments par page
+                $perPage = 1; // Par exemple, 4 éléments par page
+                $page = request()->get('page', 1); // Page actuelle, par défaut 1
+                $offset = ($page - 1) * $perPage;
+
+                // Extraire les éléments pour la page actuelle
+                $items = $empcng->slice($offset, $perPage)->values();
+          //  dd($items);
+                // Créer le paginator
+                $paginator = new LengthAwarePaginator(
+                    $items, // Items de la page actuelle
+                    $empcng->count(), // Nombre total d'éléments
+                    $perPage, // Nombre d'éléments par page
+                    $page, // Page actuelle
+                    [
+                        'path' => request()->url(), // URL actuel
+                        'query' => request()->query() // Paramètres de la requête
+                    ]
+                );
+                
+               /* // Ajoutez ces lignes pour obtenir les informations de pagination
+                $currentPage = $paginator->currentPage(); // Page actuelle
+                $totalPages = $paginator->lastPage(); // Nombre total de pages
+                $totalConges = $paginator ->total(); // Total des employés en congé*/
+
+                //array_push($empcng,$emptypeconge);
                 }
                // dd($empcng);
 
-            return response()->json($empcng);
-
+          
+           /*    return view('employees.list_cong', [
+                'response' => [
+                    'paginator' => $paginator,
+                    'empcng' => $empcng,
+                    'currentPage' => $currentPage,
+                    'totalPages' => $totalPages,
+                    'totalConges' => $totalConges],
+            ]);*/
+      return response()->json($empcng);
+   /*   return response()->json([
+        
+        'empcng' => $empcng ,'paginator' => $paginator
+    ]);*/
             }
 
 
@@ -880,7 +983,7 @@ foreach($allwor as $workig)
                         'status'=>302
                         ]);
                 }
-                if($cng->count() > 0)
+                if($cng->count() > 0 && $cng[0]->ref_cong == 'RF001')
                 {
 
                 //   dd($cng[0]->nbr_jours);
@@ -899,6 +1002,21 @@ foreach($allwor as $workig)
                 }
                 else
                 {
+                    if(isset($cng[0]) && $cng[0]->ref_cong == 'RF002')
+                    {
+                        //dd($cng);
+                        $current=Carbon::parse($cng[0]->date_debut_cong);
+                        $mald_deb=Carbon::parse($cng[0]->date_fin_cong);
+                        $diff = $current->diffInDays($mald_deb);
+                        return response()->json(
+                            [
+                                'employe'=>$emp,
+                                'Jour_congé'=>$diff   ,
+                                'date_congé'=>$cng[0]->date_fin_cong,
+                                'type'=>'Maladie'
+                            ]
+                        );
+                    }
                     //dd($emp);
 
                 $startDate = Carbon::parse($emp->date_recrutement);
@@ -938,10 +1056,12 @@ foreach($allwor as $workig)
                     'situation'=>'required|string',
                 ]
                 );
-                $situation_ar='خارج التراب';
-                if($request->get('situation') == 'algeria')
+               
+                if($request->get('situation') == 'algerie')
                 {
                     $situation_ar='الجزائر';
+                } else {
+                    $situation_ar='خارج التراب';
                 }
                 $cng=Conge::where('id_nin',$request->get('ID_NIN'))
                 ->select('id_nin','ref_cong','nbr_jours','date_debut_cong','id_cong','date_fin_cong',DB::raw('YEAR(date_debut_cong) as annee'))
@@ -960,6 +1080,62 @@ foreach($allwor as $workig)
                             'status'=> 404
                         ]);
                         }
+                    if($request->get('type_cg') == 'RF002')
+                    {
+                        $current=Carbon::now();
+                        $mald_deb=Carbon::parse($request->get('date_dcg'));
+                        $diff = $current->diffInDays($mald_deb);
+                       // dd($diff);
+                        if (!$mald_deb->between($current->copy()->subDays(2), $current))
+                         {
+                            
+                            $start = Carbon::parse($cg->date_fin_cong);
+                            $end = Carbon::parse($request->get('date_fcg'));
+                            $daysDifference = $start->diffInDays($end);
+                            $nbrcg=$cg->nbr_jours+$daysDifference;
+                            $cg->update(['date_fin_cong'=>$request->get('date_dcg'),'nbr_jours'=>$nbrcg]) ; 
+                            if($cg)
+                            {
+                                $cong=new Conge([
+                                    'id_nin'=>$request->get('ID_NIN'),
+                                    'id_p'=>$request->get('ID_P'),
+                                    'date_debut_cong'=>$request->get('date_dcg'),
+                                    'date_fin_cong'=>$request->get('date_fcg'),
+                                    'nbr_jours'=>0,
+                                    'ref_cong'=>$request->get('type_cg'),
+                                    'situation'=>$request->get('situation'),
+                                    'situation_AR'=>$situation_ar,
+                                    'id_sous_depart'=>$request->get('SDic')
+                                        ]);
+                                        if($cong->save())
+                                        {
+                                            return response()->json(['message'=>'success','status'=>200]);
+                                        }
+                                        else
+                                        {
+                                            return response()->json([
+                                                'message'=>'Unsuccess insering Maladie',
+                                                'status'=> 404
+                                            ]);
+                                        }
+                                        
+                            }
+                            else
+                            {
+                                return response()->json([
+                                    'message'=>'Unsuccess updating cong',
+                                    'status'=> 404
+                                ]);
+                            }
+                         } 
+                        else 
+                        {
+                            return response()->json([
+                                'message'=>'Unsuccess verfier date du debut Maladie',
+                                'status'=> 404
+                            ]);
+                        }
+                    }
                     $startDate = Carbon::parse($request->get('date_dcg'));
 
 
@@ -981,7 +1157,7 @@ foreach($allwor as $workig)
                         $nbrcng=-1;
                     }
                 //  dd($nbrcng);
-                    if($nbrcng <= 0)
+                    if($nbrcng <= 0 && $request->get('type_cg') == 'RF001')
                     {
                         return response()->json([
                             'message'=>'Unsuccess deminuis le delai '.$nbrcng,
@@ -999,6 +1175,7 @@ foreach($allwor as $workig)
                         'ref_cong'=>$request->get('type_cg'),
                         'situation'=>$request->get('situation'),
                         'situation_AR'=>$situation_ar,
+                        
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                     }
@@ -1021,6 +1198,10 @@ foreach($allwor as $workig)
                 {
                     $right=true;
                 // dd($cg->annee);
+                }
+                if( $request->get('type_cg') == 'RF002')
+                {
+                    $right=true;
                 }
                 $startDate = Carbon::parse($request->get('date_dcg'));
 
@@ -1067,7 +1248,7 @@ foreach($allwor as $workig)
 
 
             //  dd($cng[0]);
-            if($cng[0]->date_fin_cong < $request->get('date_dcg'))
+            if($cng[0]->date_fin_cong < $request->get('date_dcg') && $request->get('type_cg') == 'RF001')
             {
                 if($cong->save() )
                 {
@@ -1085,10 +1266,30 @@ foreach($allwor as $workig)
             }
             else
             {
+                if($request->get('type_cg') != 'RF001' && $request->get('situation') == 'algerie' )
+                {
+                    if($cong->save() )
+                {
+                    return response()->json([
+                        'message'=>'Success',
+                        'status'=> 200
+                    ]);
+                }else
+                {
+                    return response()->json([
+                        'message'=>'Unsuccess',
+                        'status'=> 404,
+                    ]);
+                }
+                }
+                else
+                {
                 return response()->json([
                     'message'=>'Unsuccess verfier la date du debut 2',
-                    'status'=> 404
+                    'status'=> 404,
+                    'type'=>'Situation'
                 ]);
+                }
             }
             }
             else

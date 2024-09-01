@@ -4,6 +4,49 @@
 
 @section('content')
 
+<style>
+main .insightss {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    
+}
+
+main .insightss .sales {
+    background-color: var(--clr-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-raduis);
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+    transition: all .3s ease;
+    text-align: center
+}
+main .insights .sales:hover{
+    box-shadow: none;}
+
+    main .insights > div.expenses span{
+    background: var(--clr-danger);
+}
+
+main .insights > div.income span{
+    background: var(--clr-success);
+}
+main .insightss > div span {
+    background: coral;
+    padding: 0.5rem; /* Fixed padding to make it consistent */
+    border-radius: 50%;
+    color: var(--clr-white);
+    font-size: 2rem;
+}
+
+main .insightss > div .middle h1 {
+    font-size: 1.6rem;
+}
+
+main .insightss h1, main .insightss h3, main .insightss p {
+    color: var(--clr-dark);
+}
+</style>
     <body>
 
             <!-- main section start -->
@@ -12,12 +55,12 @@
                 $uid=auth()->id()
                 @endphp
                 @if(isset($uid))
-                <h1>Tableau de Bord de {{Auth::user()->username }}</h1>
+                <h1>{{ __('lang.Tableau_de_Bord_de') }} {{Auth::user()->username }}</h1>
                 @else
-                <h1>Dashboard without userId</h1>
+                <h1>{{ __('lang.TableaudebordsansuserId') }}</h1>
                 @endif
 
-                <div class="insights">
+                <div class="insightss">
                     <!-- start Employees -->
                     <div class="sales">
                         <span class="material-symbols-outlined">groups</span>
@@ -30,7 +73,7 @@
                     </div>
                     <!-- end Employees -->
 
-                    <!-- start Absence -->
+                    <!-- start Absence 
                     <div class="expenses">
                         <span class="material-symbols-outlined">trending_down</span>
                         <div class="middle">
@@ -39,10 +82,10 @@
                                 <h1>0</h1>
                             </div>
                         </div>
-                    </div>
+                    </div-->
                     <!-- end Absence -->
 
-                    <!-- start Presence -->
+                    <!-- start Presence >
                     <div class="income">
                         <span class="material-symbols-outlined">trending_up</span>
                         <div class="middle">
@@ -51,7 +94,7 @@
                                 <h1>{{ $totalEmployes }}</h1>
                             </div>
                         </div>
-                    </div>
+                    </div-->
                     <!-- end Presence -->
                 </div>
 
@@ -94,21 +137,21 @@
         nbrem.push(element.nbremp)
     });
     const ctx = document.getElementById('myChart');
-
+    var langth_pr = @json(trans('lang'));
     new Chart(ctx, {
         type: 'bar',
         data: {
         labels: deptlis, // Two labels
         datasets: [
             {
-                label: 'Theorique', // Dataset label
+                label: langth_pr['Theorique'] , // Dataset label
                 data: [20, 20], // Data for the two labels
                 backgroundColor: 'rgba(0, 147, 0, 0.8)', // Bar color
                 borderColor: 'rgba(0, 255, 0, 1)', // Bar border color
                 borderWidth: 1
             },
             {
-                label: 'apprevu', // Second Dataset label
+                label: langth_pr['Prevu'], // Second Dataset label
                 data: nbrem, // Data for the two labels
                 backgroundColor: 'rgba(0, 55, 255, 0.72)', // Bar color
                 borderColor: 'rgba(153, 102, 255, 1)', // Bar border color

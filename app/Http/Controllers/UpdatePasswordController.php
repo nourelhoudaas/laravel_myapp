@@ -5,12 +5,15 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class UpdatePasswordController extends Controller
 {
     //
     public function update(Request $request)
     {
+        App::setLocale(Session::get('locale', config('app.locale')));
         // Valider les données de la requête
         $request->validate([
            
@@ -22,13 +25,13 @@ class UpdatePasswordController extends Controller
         // Vérifier le mot de passe actuel
         if (!Hash::check($request->current_password, Auth::user()->password)) {
            
-            return back()->withErrors(['current_password' => 'Le mot de passe actuel est incorrect.']);
+            return back()->withErrors(['current_password' => __('lang.Le_mot_de_passe_actuel_est_incorrect')]);
         }
 
         // Mettre à jour le mot de passe
         $user = Auth::user();
         if ($user->nbr_login == 1) {
-            return back()->withErrors(['error' => 'Le mot de passe ne peut être mis à jour qu\'une seule fois.']);
+            return back()->withErrors(['error' => __('lang.Lemotdeassenepeutêtremisàjourquuneseulfois')]);
         } else {
             $user->nv_password = Hash::make($request->new_password);
             $user->password_changed_at = now();
@@ -39,7 +42,7 @@ class UpdatePasswordController extends Controller
             Auth::logout();
     
             // Rediriger avec un message de succès
-            return redirect()->route('login')->with('status', 'Mot de passe modifié avec succès !');
+            return redirect()->route('login')->with(['status'=>__('lang.Mot_de_passe_modifié_avec_succès')]);
         }
 }
 

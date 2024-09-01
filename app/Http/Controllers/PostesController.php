@@ -31,18 +31,16 @@ class PostesController extends Controller
         return view('postes.poste',compact('post','empdepart'));
     }
     //modifier poste
-    public function editer($post)
+    public function editer($nom)
     {
-
-
-        $post=Post::get();
-  $posts= Post::firstOrFail();
-
+  $post= Post::where('id_post',$nom)->firstOrFail();
   $empdepart=Departement::get();
-
-        return view('postes.modifier', compact('post','empdepart','posts'));
+       // dd( $departement);
+        return view('postes.modifier', compact('post','empdepart'));
 
     }
+
+
 
     public function delete($id_post)
     {

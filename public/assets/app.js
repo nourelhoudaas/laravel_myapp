@@ -32,6 +32,7 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
+                    console.log(JSON.stringify(response.list_abs))
                     if(lng == 'ar')
                         {
                     $('#emp-info').text(response.emp.Nom_ar_emp+' '+response.emp.Prenom_ar_emp)
@@ -1195,10 +1196,10 @@
                          $('#AbsTable tbody').empty();
                          list_abs=response
                          list_abs.absens=false;
-                         list_abs.forEach(function(item) {
-                            console.log('--'+JSON.stringify(dateabs));
+                         list_abs.employe.forEach(function(item) {
+                            console.log('--'+JSON.stringify(list_abs.employe));
                           //  if()
-                      dateabs.forEach(function(itemsdate){
+                          list_abs.employe.forEach(function(itemsdate){
                              if(item.id_nin === itemsdate.id_nin)
                              {
                                  item.absens=true;
@@ -1206,7 +1207,7 @@
                               })
                  });
                //  console.log('list'+JSON.stringify(list_abs))
-                 list_abs.forEach(function(item){
+                 list_abs.employe.forEach(function(item){
                      if(item.absens)
                      {
                          if(lng == 'ar')
@@ -1425,7 +1426,7 @@
                      method: 'GET',
                      success: function(response) {
                          $('#AbsTable tbody').empty();
-                         response.forEach(function(item) {
+                         response.employe.forEach(function(item) {
                           //   console.log('--'+JSON.stringify(item));
                           if(lng == 'ar')
                           {
@@ -1711,6 +1712,12 @@
                    if(response.status != 302){
                     result=response;
                     id=response.employe.id_nin
+                    type="Conge Annulle"
+                    if(response.hasOwnProperty("type"))
+                    {
+                        type=response.type
+                    }
+
                    if(lng == 'ar')
                    {
                     
@@ -1726,6 +1733,8 @@
                      $('#Nom_emp').val(response.employe.Nom_emp)
                      $('#Prenom_emp').val(response.employe.Prenom_emp)
                     }
+                    if(type != 'Maladie')
+                    {
                     if(lng == 'ar')
                     {
                         switch (true) {
@@ -1744,7 +1753,19 @@
                     {
                         $('#total_cgj').val(response.Jour_congé+' Jour(s)')
                     }
+                }
+                else
+                {
+                    $('#total_cgj').val(response.Jour_congé+' Jour(s) de Maladie')
+                }
+                    if(type != 'Maladie')
+                    {
                      $('#typ_cg option:eq(1)').prop('selected', true)
+                    }
+                    else
+                    {
+                        $('#typ_cg option:eq(2)').prop('selected', true)
+                    }
                      if(response.Jour_congé <= 0 )
                      {
                          var currentTime = new Date()
@@ -1820,10 +1841,23 @@
                                 var selectsitua = document.getElementById("Situation");
                                 var selectedValue = selectElement.value;
                                 var selectedVsitua = selectsitua.value;
-                         if(selectedValue == 'RF002' && selectedVsitua == 'hors')
+                                console.log('select '+selectedVsitua)
+                         if(selectedValue == 'RF002')
                          {
-                            granted=false
+                            if(!checksickDaye(date_dcg))
+                            {
+                                granted=false
+                                alert('Delai depasser pour le Maladie')
+                            }else
+                            {
+                                if(selectedVsitua == 'out')
+                                {
+                                    granted=false
+                                    alert('Doive etre ici pour le Maladie')
+                                }
+                            }
                          }
+                         
                          if(totaljour > 0 && totaljour <=30 && total_cgj > 0 && granted == true)
                              {
                          var congeform={
@@ -1857,6 +1891,10 @@
                                      {
                                         
                                          alert(response.message);
+                                         if(response.type != null)
+                                         {
+                                            $("#Situation").addClass('error-handle')
+                                         }
                                          $('#Date_Dcg').addClass('error-handle')
                                          $('#Date_Fcg').addClass('error-handle')
                                      }
@@ -1874,7 +1912,7 @@
                          }
                          if(granted == false)
                          {
-                        $('#Situation').addClass('error-handle')
+                         $('#Situation').addClass('error-handle')
                          $('#typ_cg').addClass('error-handle')
                          }
                          $('#Date_Dcg').addClass('error-handle')
@@ -2077,4 +2115,30 @@ function removeInput(){
  * 
  * this for list of absense of employe
  * 
+ */
+
+/***
+ * 
+ * 
+ * this for calculate the date of maladie tha will be today or less then two days
+*/
+
+
+function checksickDaye(maladie) {
+    // Parse the dates
+    const maladies = new Date();
+    const reference = new Date(maladie);
+
+    // Calculate the difference in time (in milliseconds)
+    const diffTime = reference.getTime() - maladies.getTime();
+
+    // Convert the time difference to days
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+    console.log('different'+diffDays)
+    // Check if the date is equal or within two days before the reference date
+    return diffDays >= 0 && diffDays <= 2;
+}
+/***
+ * 
+ * end this function of this
  */

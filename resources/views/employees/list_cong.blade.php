@@ -115,7 +115,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($emptypeconge as $employe)
+                            @foreach($paginator as $employe)
                                     @foreach($employe->congeIdNin as $conge)
                                     @php
                                     $show=floor(Carbon::parse($today)->diffInDays($conge->date_debut_cong))
@@ -181,8 +181,14 @@
                                         @endif
                                     @endforeach
                                 @endforeach
+                          
                             </tbody>
                         </table>
+                        <hr>
+                        <div class="pagination">
+                        {{ $paginator->links() }}
+                    </div>
+                 
                     </div>
                 </main>
             </div>
@@ -293,7 +299,7 @@
            
     //console.log(selectedTypeConge);
     //une requete get est envoyé à l'url /conge/filter avec type_cong et dep
-        $.ajax({
+    $.ajax({
             url: url,
             method: 'GET',
             dataType: 'json',
@@ -348,3 +354,4 @@
         
     </script>
     @endsection
+

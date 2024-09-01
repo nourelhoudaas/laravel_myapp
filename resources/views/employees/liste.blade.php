@@ -96,9 +96,7 @@
                                     </a>
                                 </th>
 
-                                <th>
-                                    {{ __('lang.Action') }}
-                                </th>
+                              
                             </tr>
                         </thead>
                         <tbody>
@@ -152,22 +150,27 @@
                                         @endif
                                     </td>
                                     <td>{{ $travail->date_installation }}</td>
-                                    <td><a href="{{ route('departement.editer', $departement->id_depart) }}"><i
-                                                class="fa fa-edit"></i></a></td>
+                                   
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                     <hr>
                     <div class="pagination">
-                        {{ $paginator->links('pagination::bootstrap-5') }}
+                        {{ $paginator->links() }}
                     </div>
+                  
                 </div>
 
             </main>
 
-
+             
         </div>
-
+        <script>
+    $(document).ready(function(){
+       var ts= $(".small").text()
+       console.log('testing'+ts)
+    })
+</script>
     </body>
 @endsection
