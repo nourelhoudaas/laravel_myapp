@@ -37,7 +37,8 @@ return new class extends Migration
             $table->string('situation_familliale_ar');
             $table->integer('nbr_enfants');
             $table->string('sexe');
-            $table->string('email')->nullable();;
+            $table->string('email')->nullable();
+            $table->string('email_pro')->nullable();;
             $table->string('Phone_num')->unique();
 
 
@@ -73,7 +74,8 @@ return new class extends Migration
                 'Date_nais_mere'=>'1978-01-21',
                 'situation_familliale'=>'célébataire',
                 'situation_familliale_ar'=>'عازب',
-                'nbr_enfants'=>0
+                'nbr_enfants'=>0,
+                'email_pro'=>'s@gmail.com'
                
                
             ],
@@ -104,7 +106,8 @@ return new class extends Migration
                 'Date_nais_mere'=>'1978-01-21',
                 'situation_familliale'=>'mariée',
                 'situation_familliale_ar'=>'متزوجة',
-                'nbr_enfants'=>0
+                'nbr_enfants'=>0,
+                'email_pro'=>'ss@gmail.com'
             ]
                
             ]);

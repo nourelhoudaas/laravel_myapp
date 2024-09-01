@@ -41,7 +41,7 @@ return [
     'famill'=>'Situation Familliale ',
     'stitua_fam'=>'Situation Familliale',
     'slct_famill'=>" Séléctionner la situation familliale de l'employé",
-    'filnull'=>'Aucun fichier a Selection',
+    'filnull'=>'Aucun fichier spécifié',
 
     'cel'=>'Célibataire ',
     'marie'=>'Marié(e)',
@@ -184,6 +184,7 @@ return [
     "Saisirleprénomdepoux"=>"Saisir le prénom de l'époux(se)",
     'adresse'=>'Adresse',
     'Lieunaiss'=>'Lieu de Naissance',
+    'etatcivil'=>'Etat Civil',
   
    
   

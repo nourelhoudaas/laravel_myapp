@@ -175,7 +175,7 @@ $id=0;
                      </div>
                      </div>
                      <div class="col-md-6">
-                        <label class="labels">{{__('lang.famill')}} </label>
+                        <label class="labels">{{__('lang.stitua_fam')}} </label>
                       <select select name="situat" id="situat"class="form-select form-select-lm mb-3" aria-label="Default select example">
                         <option value="">{{__('lang.slct_famill')}}</option>
                         <option value="cel">{{__('lang.cel')}}</option>

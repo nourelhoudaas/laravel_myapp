@@ -20,7 +20,7 @@ class Employe extends Model
        'Lieu_nais','Lieu_nais_ar','adress','adress_ar','sexe','email','Phone_num',
        'prenom_pere','prenom_mere','nom_mere','prenom_pere_ar','prenom_mere_ar',
        'nom_mere_ar','Date_nais_pere','Date_nais_mere','situation_familliale','situation_familliale_ar',
-        'nbr_enfants'
+        'nbr_enfants','email_pro'
     ];
    
     public function login()
