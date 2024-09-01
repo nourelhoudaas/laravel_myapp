@@ -1333,7 +1333,8 @@ foreach($allwor as $workig)
             {
               $employe=Employe::where('id_nin', $id)->firstOrFail();
               $niv=new Niveau();
-              $dbniv=$niv->SELECT('Nom_niv','Specialité','Specialité_ar','Nom_niv_ar')->distinct()->get();
+              $dbniv=$niv->SELECT('Nom_niv','Nom_niv_ar')->distinct()->get();
+              $dbn=$niv->SELECT('Specialité','Specialité_ar')->distinct()->get();
               $dbempdepart = new Departement();
               $empdepart =$dbempdepart->get();
               if(app()->getLocale() == 'ar')
@@ -1341,7 +1342,7 @@ foreach($allwor as $workig)
              //   dd(app()->getLocale());
               }
 
-              return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
+              return view('addTemplate.travaill',compact('employe','dbniv','empdepart','dbn'));
             }
             function existApp($id)
             {
