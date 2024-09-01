@@ -57,26 +57,18 @@
                              <i class="fa fa-times" aria-hidden="true" id="btn-icon">...</i>
                           </div>
                         <div class="mt-3">
-                          <h4>ID est :<p id="ID_NIN">{{$last->id_nin}}</p></h4>
+                          <h4>{{__('lang.NIN')}} :<p id="ID_NIN">{{$last->id_nin}}</p></h4>
                           <h4>{{$last->Nom_emp}} {{$last->Prenom_emp}}</h4>
                           <h4>{{$last->Nom_ar_emp}} {{$last->Prenom_ar_emp}}</h4>
-                          <div class="row"><p class="text-secondary mb-1">
-                          @if(app()->getLocale() == 'ar')
-                          {{$last->Nom_post_ar}}
-                          @else
-                          {{$last->Nom_post}}
-                          @endif</p>
-                          <p class="text-secondary mb-1">{{__('lang.post_grad')}} : 
-                          {{$last->Grade_post}}
-                          </p></div>
-                          <p class="text-muted font-size-sm">
-                          @if(app()->getLocale() == 'ar')
-                          {{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}},
-                          @else
-                          {{$last->Nom_sous_depart}},{{$last->Nom_depart}},
+                          <div class="row">
+                          @if(app()->getLocale() == 'ar') 
+                            <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p><p class="text-secondary mb-1">{{__('lang.post_grad')}}: {{$last->Grade_post}}</p></div>
+                            <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}}, {{__('lang.mnc')}}</p>
+                            @else 
+                            <p class="text-secondary mb-1">{{$last->Nom_post}}</p><p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p></div>
+                            <p class="text-muted font-size-sm">{{$last->Nom_sous_depart}},{{$last->Nom_depart}}, {{__('lang.mnc')}}</p>
                           @endif
-                          {{__('lang.mnc')}}
-                          </p>
+
                         </div>
                       </div>
                     </div>
@@ -153,7 +145,7 @@
                       <div class="field">
                         <div class="field-holder">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Prenom</h6>
+                          <h6 class="mb-0">Prénom</h6>
                         </div>
                         <input class="col-sm-9 text-secondary" id='Prenom_O' value=' {{$last->Prenom_emp}}' style="border: hidden;background-color: transparent;" disabled>
                         </div>
@@ -167,7 +159,7 @@
                       <hr>
                       <div class="row field">
                         <div class="col-sm-3">
-                          <h6 class="mb-0" >Email</h6>
+                          <h6 class="mb-0" >{{__('lang.mail')}}</h6>
                         </div>
                         <input class="col-sm-9 text-secondary"
                         id='Email'
@@ -177,7 +169,7 @@
                       <hr>
                       <div class="row field">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Telephone</h6>
+                          <h6 class="mb-0">{{__('lang.num_tel')}}</h6>
                         </div>
                         <input class="col-sm-9 text-secondary" type="number"
                         id='phone_pn'
@@ -187,7 +179,7 @@
                       <hr>
                       <div class="field">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Date De Niassance</h6>
+                          <h6 class="mb-0">{{__('lang.birtday')}}</h6>
                         </div>
                         <input class="col-sm-9 text-secondary" type='date'
                           id='dateN'

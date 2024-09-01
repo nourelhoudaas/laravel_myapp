@@ -44,14 +44,14 @@
                                         <a href="{{ route('departement.editer', $departement->id_depart) }}"><i
                                                 class="fa fa-edit"></i></a>
 
-                                        {{-- <form action="#" method="POST" style="display:inline;">
+                                         <form action="#" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
 
                                             <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet direction ?')"
                                                 href="{{ route('department.delete', $departement->id_depart) }}"> <i
                                                     class="fa fa-trash" aria-hidden="true"></i></a>
-                                        </form> --}}
+                                        </form>
 
 
 
