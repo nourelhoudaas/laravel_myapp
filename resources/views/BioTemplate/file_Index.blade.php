@@ -58,8 +58,10 @@
 <div class="bottom-popup" id="bottomPopup">
     <div class="popup-content">
         <div>
+        <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label> 
         <input type="file" id="file">
         <button class="button-33" onclick='uploadFile_space()'>{{__('lang.upload')}}</button>
+        <label id='file-nm'>{{__('lang.filnull')}}</lable>
         
         </div>
         </div>
@@ -268,5 +270,12 @@
             //console.log('di is '+dir);  
         });
     });
+    $('#file').on('change',function(){
+    var label = $('#file-custm');
+    var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
+    label.textContent = fileName;
+      console.log('file handler'+fileName)
+      $('#file-nm').text(''+fileName)
+      })
 </script>
 </html>

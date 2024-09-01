@@ -37,6 +37,7 @@ return [
     'edit'=>'تعديل',
     'tran'=>'تحويل',
     'files'=>'الملف',
+    'filnull'=>'لا يوجد ملف محددة',
 
     'famill'=>'الحالة الشخصية',
     'slct_famill'=>'  إختر الحالة الشخصية للموظف',
@@ -150,7 +151,7 @@ return [
 
     'nbr_page'=>'الصفحة',
     'Departementde'=>'مديرية ',
-  
+
     'Changerlemotdepass'=>'تغيير كلمة المرور',
     'Ancienmotdepass'=>'كلمة المرور السابقة',
     'Nouveaumotdepass'=>'كلمة المرور الجديدة',
@@ -179,4 +180,17 @@ return [
     "Saisirleprénomdepoux"=>"أدخل اسم الزوج(ة)",
     'adresse'=>'العنوان',
     'Lieunaiss'=>'مكان الميلاد',
+    "title_direc_ssdirec"=>"مديرية و مديرية فرعية",
+    'ajout_direc_ssdirec'=>'أضافة',
+    'msg_ajout'=>'أضافة مديرية و مديرية فرعية جديدة',
+    'msg_ajout_direc'=>'اضافة مديرية',
+    'nom_direc'=>'اسم المديرية',
+    'discr_direc'=>'وصف المديرية',
+    'nom_direc_ar'=>'اسم المديرية بالعربية',
+    'msg_aj_ssdirect'=>'اضافةمديرية فرعية',
+    'btn.enregistrer'=>'تسجيل',
+    'nom_ss_direc'=>'اسم مديرية الفرعية',
+    'discr_ss_direc'=>'وصف المديرية الفرعية',
+
+
 ];

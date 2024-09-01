@@ -31,22 +31,25 @@ return new class extends Migration
         });
 
        DB::table('conges')->insert([
-            [  
-            
-            
+            [
+
+
                 'id_cong' => 1,
                 'date_debut_cong' => '2024-08-10',
                 'date_fin_cong' => '2024-08-20',
                 'situation' => 'algérie',
+                'nbr_jours' =>'10',
+
                 'nbr_jours' =>10,
                 'id_fichier' =>1,
                 'situation_AR'=>'داخل الجزائر',
                 'ref_cong'=>'RF001',
                 'id_sous_depart'=>15,
                 'id_nin'=>1254953,
-                'id_p'=>123
-                
-               
+                'id_p'=>123,
+                'id_fichier'=>2
+
+
             ],
             [
                 'id_cong' => 2,
@@ -59,10 +62,11 @@ return new class extends Migration
                 'id_sous_depart'=>10,
                 'id_nin'=>254896989,
                 'id_p'=>256,
-                'id_fichier' =>2,
-                
+                'id_fichier'=>1,
+
+
             ]
-               
+
             ]);
 
 

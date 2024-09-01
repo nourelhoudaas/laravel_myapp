@@ -41,6 +41,7 @@ return [
     'famill'=>'Situation Familliale ',
     'stitua_fam'=>'Situation Familliale',
     'slct_famill'=>" Séléctionner la situation familliale de l'employé",
+    'filnull'=>'Aucun fichier a Selection',
 
     'cel'=>'Célibataire ',
     'marie'=>'Marié(e)',
@@ -101,7 +102,7 @@ return [
     'nom_dipl'=>'Diplome',
     'slct_nom_dipl'=>'Selection Le Diplome',
     'dat_optn_dipl'=>'Date Obtenuation de Diplome',
-    
+
     'nbr_absence'=>'Total Absense',
     'date_abs'=>'Date Du L`Absence',
     'motif'=>'Motif',
@@ -154,8 +155,8 @@ return [
 
     'nbr_page'=>'Numero de Page',
     'Departementde'=>' Direction de',
-   
-   
+
+
     'Changerlemotdepass'=>'Changer le mot de pass',
     'Ancienmotdepass'=>'Ancien mot de pass',
     'Nouveaumotdepass'=>'Nouveau mot de pass',
@@ -186,5 +187,20 @@ return [
   
    
   
+    'title_direc_ssdirec'=>'Direction et Sous Direction',
+    'ajout_direc_ssdirec'=>'Ajout',
+    'msg_ajout'=>'Ajouter une nouvelle direction avec des sous directions',
+    'msg_ajout_direc'=>'Ajouter une Direction',
+    'nom_direc'=>'Nom de la Direction',
+    'discr_direc'=>'Description de la Direction',
+    'nom_direc_ar'=>'Nom de la Direction en arabe',
+    'msg_aj_ssdirect'=>'Ajouter une sous direction',
+    'btn.enregistrer'=>'Enregistrer',
+    'nom_ss_direc'=>'Nom Sous-direction',
+    'discr_ss_direc'=>'Discription de la sous-direction',
+
+
+
+
 ];
 

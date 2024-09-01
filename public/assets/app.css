@@ -456,7 +456,7 @@ main .date{
 }
 main .insights{
     display:grid;
-   
+
     grid-template-columns: repeat(3,1fr);
     gap: 1.6rem;
 }
@@ -649,9 +649,11 @@ main .recent_order a:hover{
 .progress-bar {
   background-color: #2F8D46
 }
+<<<<<<< HEAD
+=======
 .stepper-wrapper {
+>>>>>>> ba6843ad388d32ecd7cf1740b9d0a4b5f63a8f83
 
-}
 .stepper-item {
   position: relative;
   display: flex;
@@ -1499,8 +1501,7 @@ color: red;
 }
 .float-export
 {
-  position: fixed;
-  right: 0px;
+  position: fixed;  
   bottom: 0px;
   background-color: #e6f4fc;
   width: 100px;
@@ -1539,4 +1540,82 @@ color: red;
 .float-export:hover
 {
   box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+}
+.container3{
+    /* max-width: 500px; */
+    width: 80%;
+    margin-left: -2rem;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  }
+  .container .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .content form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+  }
+  form .user-details .input-box{
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+  }
+  form .input-box span.details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .user-details .input-box input{
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  .user-details .input-box input:focus,
+  .user-details .input-box input:valid{
+    border-color: #9b59b6;
+  }
+.labels
+{
+  font-weight: bolder;
+  font-size: 18px;
+  font-style: oblique;
+  font-family: none;
+}
+.file-get-handle
+{  display: inline-block;
+  padding: 6px 12px;
+  background-color: #ffffff;
+  color: rgb(7, 6, 6);
+  border-radius: 4px;
+
+}
+input[type='file']
+{
+  display: none;
+}
+.file-get-handle:hover
+{
+  scale: 1.2;
+  background-color: #bdfcb8;
+  cursor: pointer;
+}
+.rsid
+{
+  right: 0px;
+}
+.lsid
+{
+  left: 0px;
 }

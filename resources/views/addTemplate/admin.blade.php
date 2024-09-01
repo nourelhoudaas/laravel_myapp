@@ -116,27 +116,15 @@
         </form>
         <div class="file-holder">
           <div class="file-select-holder">
-            <label for="file">Choose file:</label>
+            <label for="file" class="file-get-handle" id="file-custm">{{__("lang.Choisirunfichier")}}</label>
             <input type="file" name="file" id="file"> </br>
             <div class="">
             <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">{{ __('lang.upload') }}</button>
             </div>
+            <label id='file-nm'>{{__('lang.filnull')}}</lable>
           </div>
                 <div>
                     <div class="file-upload">
-                        <div class="file-prog">
-                            <div class="file-name" id='file1'>
-                                <p> Fichier 1 </p>
-                            </div>
-                            <div class="prog-holder">
-                            <div id="progressWrapper" style="display: none;">
-                               <div id="progressBar" style="width: 0%; height: 20px; background-color: #4caf50;"></div>
-                            </div>
-                            </div>
-                            <div class="icon">
-                                x
-                            </div>
-                        </div>
                     </div>
                 </div>
         </div>
@@ -180,7 +168,13 @@
                 }
             });
         });
-
+        $('#file').on('change',function(){
+    var label = $('#file-custm');
+    var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
+    label.textContent = fileName;
+      console.log('file handler'+fileName)
+      $('#file-nm').text(''+fileName)
+    })
 
 </script>
 @endsection

@@ -128,7 +128,7 @@ return view('department.edit', compact('departement'));
                                     if(request()->get('page') != null)
                                     {
                                         $page=   request()->get('page');
-                                    } 
+                                    }
                 $offset = ($page - 1) * $perPage;
 
                 // Extraire les éléments pour la page actuelle
@@ -194,6 +194,7 @@ return view('department.edit', compact('departement'));
 
         return view('department.add_depart', compact('empdep','empdepart','nom_d'));
     }
+
     public function store(saveDepartementRequest $request)
 
     {
@@ -259,17 +260,11 @@ return view('department.edit', compact('departement'));
 
     }
 
-
-
-
-
     public function update(Request $request, $id)
     {
 
         $departement= Departement::where('id_depart',$id)->update(['Nom_depart'=>$request->input('Nom_depart'),'Descriptif_depart'=>$request->input('Descriptif_depart'),
         'Nom_depart_ar'=>$request->input('Nom_depart_ar'),'Descriptif_depart_ar'=>$request->input('Descriptif_depart_ar')]);
-
-
 
 
         return redirect('/liste');
