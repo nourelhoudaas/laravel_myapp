@@ -81,6 +81,7 @@ class HomeController extends Controller
         if (in_array($locale, ['fr','ar'])) {
             Session::put('locale', $locale);
             App::setLocale($locale);
+            //dd(App::getLocale());
         }
         return back();
     }

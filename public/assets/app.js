@@ -26,12 +26,25 @@
         })
  *
  */
+/***
+ * 
+ * 
+ * 
+ */
+
+
+/***
+ * 
+ * 
+ * 
+ */
         function fetchPosts(url) {
             $.ajax({
                 url: url,
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
+                    console.log(JSON.stringify(response.list_abs))
                     if(lng == 'ar')
                         {
                     $('#emp-info').text(response.emp.Nom_ar_emp+' '+response.emp.Prenom_ar_emp)
@@ -56,9 +69,9 @@
         function populateTable(posts) {
             var tableBody = $('#AbsempTable tbody');
             tableBody.empty(); // Clear the table body
-    
+
             $.each(posts, function(index, post) {
-                var rowNumber = index + 1; 
+                var rowNumber = index + 1;
                 if(post.statut =='NoJustier')
                     {
                 var row = '<tr>' +
@@ -80,17 +93,17 @@
                 tableBody.append(row);
             });
         }
-    
+
         function setupPagination(data) {
             var pagination = $('#links');
             pagination.empty(); // Clear existing pagination
             if(lng == 'ar')
                 {
             if (data.prev_page_url) {
-                
+
                 pagination.append('<a href="' + data.prev_page_url + '" class="page-link">السابق</a>');
             }
-    
+
             if (data.next_page_url) {
                 pagination.append('<a href="' + data.next_page_url + '" class="page-link">التالي</a>');
             }
@@ -100,19 +113,19 @@
             if (data.prev_page_url) {
                 pagination.append('<a href="' + data.prev_page_url + '" class="page-link">Previous</a>');
             }
-    
+
             if (data.next_page_url) {
                 pagination.append('<a href="' + data.next_page_url + '" class="page-link">Next</a>');
             }
         }
-    
+
             // Add event listener for pagination links
             $('.page-link').on('click', function(e) {
                 e.preventDefault();
                 fetchPosts($(this).attr('href')); // Fetch posts for the clicked page
             });
         }
-    
+
         $(document).ready(function(){
              $('#fr-lang').click(function(){
                 fetch('/lang/fr' , {
@@ -161,6 +174,8 @@
                  $('.list-group').removeClass('pad-fr')
                  $('#add-handler').addClass('add-handler-ar')
                  $('#add-handler').removeClass('add-handler-fr')
+                 $('.float-export').removeClass('rsid')
+                 $('.float-export').addClass('lsid')
 
 
              }
@@ -180,6 +195,8 @@
                  $('.list-group').removeClass('pad-ar')
                  $('#add-handler').removeClass('add-handler-ar')
                  $('#add-handler').addClass('add-handler-fr')
+                 $('.float-export').addClass('rsid')
+                 $('.float-export').removeClass('lsid')
              }
          })
 
@@ -365,7 +382,7 @@
          function uploadFile2(id,dates) {
              var formData = new FormData();
              var formDataF = new FormData();
-             //using jquery this only this time 
+             //using jquery this only this time
              var file = $('#file')[0].files[0];
              formDataF.append('file', file);
              formData.append('_token',$('meta[name="csrf-token"]').attr('content')),
@@ -439,10 +456,10 @@
                                      {
                                         uploadtitre(id,dates,response.data.filename,response.data.sous_d)
                                         console.log('add to stocke  ->'+responses.message)
-                                      
+
                                      }else
                                      {
-                                      
+
                                          alert(response.message)
                                      }
                              }
@@ -962,7 +979,7 @@
 
                  // Assuming you are searching by ID_NIN
                  var dateinst=  new Date($('#PVDate').val());
-                 var daterec=new Date($('#RecDate').val()); 
+                 var daterec=new Date($('#RecDate').val());
                 if(dateinst <= daterec)
                 {
                  var formData = {
@@ -1195,10 +1212,10 @@
                          $('#AbsTable tbody').empty();
                          list_abs=response
                          list_abs.absens=false;
-                         list_abs.forEach(function(item) {
-                            console.log('--'+JSON.stringify(dateabs));
+                         list_abs.employe.forEach(function(item) {
+                            console.log('--'+JSON.stringify(list_abs.employe));
                           //  if()
-                      dateabs.forEach(function(itemsdate){
+                          list_abs.employe.forEach(function(itemsdate){
                              if(item.id_nin === itemsdate.id_nin)
                              {
                                  item.absens=true;
@@ -1206,7 +1223,7 @@
                               })
                  });
                //  console.log('list'+JSON.stringify(list_abs))
-                 list_abs.forEach(function(item){
+                 list_abs.employe.forEach(function(item){
                      if(item.absens)
                      {
                          if(lng == 'ar')
@@ -1272,22 +1289,22 @@
                                   $("#AbsempTable thead").append('<tr><th>رقم</th>'
                                   +'<th>تاريخ الغياب</th>'
                                   +'<th>توقيت الغياب</th>'
-                                  +'<th>سبب الغياب</th>' 
+                                  +'<th>سبب الغياب</th>'
                                   +'</tr>')
                                  }else
                                  {
                                  $("#AbsempTable thead").append('<tr><th>Numero</th>'
                                  +'<th>Date Du L`Absence</th>'
                                  +'<th>Heure</th>'
-                                 +'<th>Statu</th>' 
+                                 +'<th>Statu</th>'
                                  +'</tr>')
                                  }
-                               
+
                                  fetchPosts('/Employe/list_abs/'+idsa[1])
-                                                       
+
                             }
                         )
-                     
+
                                $('#'+id_nin).click(function(){
 
                                 //   alert('present')
@@ -1298,7 +1315,7 @@
                                  var idsa=id_nin.split('n');
                                   id=idsa[1]
                                  console.log('gtting data'+checkv2[1]);
-                                 
+
                                if(check === checkv2[1]){
                                  openNav();
                                  dir='Maladie';
@@ -1330,7 +1347,7 @@
                                              `+Admin+`
                                            </label>
                                            </div>`);
-                                 
+
                                          // Ensure only one checkbox is checked at a time
                                          $('input[name="CatjustRadio"]').on('change', function() {
                                              if ($(this).is(':checked')) {
@@ -1425,7 +1442,7 @@
                      method: 'GET',
                      success: function(response) {
                          $('#AbsTable tbody').empty();
-                         response.forEach(function(item) {
+                         response.employe.forEach(function(item) {
                           //   console.log('--'+JSON.stringify(item));
                           if(lng == 'ar')
                           {
@@ -1464,22 +1481,22 @@
                                 $("#AbsempTable thead").append('<tr><th>رقم</th>'
                                 +'<th>تاريخ الغياب</th>'
                                 +'<th>توقيت الغياب</th>'
-                                +'<th>سبب الغياب</th>' 
+                                +'<th>سبب الغياب</th>'
                                 +'</tr>')
                                }else
                                {
                                $("#AbsempTable thead").append('<tr><th>Numero</th>'
                                +'<th>Date Du L`Absence</th>'
                                +'<th>Heure</th>'
-                               +'<th>Statu</th>' 
+                               +'<th>Statu</th>'
                                +'</tr>')
                                }
-                              
+
                                 fetchPosts('/Employe/list_abs/'+idsa[1])
-                                                      
+
                            }
                        )
-                   
+
                              $('#'+id_nin).click(function(){
                                 // openNav();
 
@@ -1524,7 +1541,7 @@
                                              `+Admin+`
                                            </label>
                                            </div>`);
-                                 
+
                                          // Ensure only one checkbox is checked at a time
                                          $('input[name="CatjustRadio"]').on('change', function() {
                                              if ($(this).is(':checked')) {
@@ -1683,9 +1700,9 @@
     else
     {
         alert('pass the number')
-        $(this).addClass('error-handle') 
+        $(this).addClass('error-handle')
     }
-        
+
      })
      var inpt=$('#id_emp')
      var droit='<i class="fa fa-check-square" aria-hidden="true"></i>'
@@ -1706,14 +1723,20 @@
                  method:'GET',
                  success:function(response)
                  {
-                   
+
                    //  console.log('response'+JSON.stringify(response))
                    if(response.status != 302){
                     result=response;
                     id=response.employe.id_nin
+                    type="Conge Annulle"
+                    if(response.hasOwnProperty("type"))
+                    {
+                        type=response.type
+                    }
+
                    if(lng == 'ar')
                    {
-                    
+
                      $('#Dic').val(response.employe.Nom_depart_ar)
                      $('#SDic').val(response.employe.Nom_sous_depart_ar)
                      $('#Nom_emp').val(response.employe.Nom_ar_emp)
@@ -1726,14 +1749,16 @@
                      $('#Nom_emp').val(response.employe.Nom_emp)
                      $('#Prenom_emp').val(response.employe.Prenom_emp)
                     }
+                    if(type != 'Maladie')
+                    {
                     if(lng == 'ar')
                     {
                         switch (true) {
                             case response.Jour_congé === 1:
-                                $('#total_cgj').val(' يوم واحد')  
+                                $('#total_cgj').val(' يوم واحد')
                                 break;
                             case response.Jour_congé === 2:
-                                $('#total_cgj').val('(0'+response.Jour_congé+') يومان') 
+                                $('#total_cgj').val('(0'+response.Jour_congé+') يومان')
                                 break;
                             default:
                                 $('#total_cgj').val(response.Jour_congé+' أيام')
@@ -1744,7 +1769,19 @@
                     {
                         $('#total_cgj').val(response.Jour_congé+' Jour(s)')
                     }
+                }
+                else
+                {
+                    $('#total_cgj').val(response.Jour_congé+' Jour(s) de Maladie')
+                }
+                    if(type != 'Maladie')
+                    {
                      $('#typ_cg option:eq(1)').prop('selected', true)
+                    }
+                    else
+                    {
+                        $('#typ_cg option:eq(2)').prop('selected', true)
+                    }
                      if(response.Jour_congé <= 0 )
                      {
                          var currentTime = new Date()
@@ -1779,13 +1816,13 @@
              })
  }else
  {
-   
+
         $('#Dic').val(dicr)
         $('#SDic').val(sous_dicr)
         $('#Nom_emp').val(nom)
         $('#Prenom_emp').val(prenom)
         $('#total_cgj').val('')
-    
+
  }
            })
            $('#id_emp').focus(function(){
@@ -1820,10 +1857,23 @@
                                 var selectsitua = document.getElementById("Situation");
                                 var selectedValue = selectElement.value;
                                 var selectedVsitua = selectsitua.value;
-                         if(selectedValue == 'RF002' && selectedVsitua == 'hors')
+                                console.log('select '+selectedVsitua)
+                         if(selectedValue == 'RF002')
                          {
-                            granted=false
+                            if(!checksickDaye(date_dcg))
+                            {
+                                granted=false
+                                alert('Delai depasser pour le Maladie')
+                            }else
+                            {
+                                if(selectedVsitua == 'out')
+                                {
+                                    granted=false
+                                    alert('Doive etre ici pour le Maladie')
+                                }
+                            }
                          }
+
                          if(totaljour > 0 && totaljour <=30 && total_cgj > 0 && granted == true)
                              {
                          var congeform={
@@ -1855,8 +1905,12 @@
                                      }
                                      else
                                      {
-                                        
+
                                          alert(response.message);
+                                         if(response.type != null)
+                                         {
+                                            $("#Situation").addClass('error-handle')
+                                         }
                                          $('#Date_Dcg').addClass('error-handle')
                                          $('#Date_Fcg').addClass('error-handle')
                                      }
@@ -1874,7 +1928,7 @@
                          }
                          if(granted == false)
                          {
-                        $('#Situation').addClass('error-handle')
+                         $('#Situation').addClass('error-handle')
                          $('#typ_cg').addClass('error-handle')
                          }
                          $('#Date_Dcg').addClass('error-handle')
@@ -1939,7 +1993,7 @@
                      if(response.status == 200)
                      {
                         alert(response.success)
-                        location.reload();  
+                        location.reload();
                      }
                      },
                      error: function (xhr) {
@@ -2008,6 +2062,7 @@
       *
       */
 
+     
 
     //dynamic field Creation with java script
     const addBtn = document.querySelector(".add");
@@ -2022,19 +2077,13 @@ function removeInput(){
    function addInput(){
     const name = document.createElement("input");
     name.type="text";
-    name.placeholder="Nom Sous-direction";
+    name.placeholder="{{ __('lang.nom_ss_direc') }}";
 
     const discr =document.createElement("input");
     discr.type="text";
-    discr.placeholder="Discription de la sous-direction";
+    discr.placeholder="{{ __('lang.discr_ss_direc') }}";
 
-    const name_ar = document.createElement("input");
-    name.type="text";
-    name.placeholder="Nom Sous-direction en arabe";
 
-    const discr_ar =document.createElement("input");
-    discr.type="text";
-    discr.placeholder="Discription de la sous-direction en arabe";
 
     const btn=document.createElement("a");
     btn.className = "delete";
@@ -2048,8 +2097,6 @@ function removeInput(){
     input.appendChild(flex);
     flex.appendChild(name);
     flex.appendChild(discr);
-    flex.appendChild(name_ar);
-    flex.appendChild(discr_ar);
     flex.appendChild(btn);
 
    }
@@ -2074,7 +2121,45 @@ function removeInput(){
         });
 
 /**
- * 
+ *
  * this for list of absense of employe
+ *
+ */
+
+/***
+ *
+ *
+ * this for calculate the date of maladie tha will be today or less then two days
+*/
+
+
+function checksickDaye(maladie) {
+    // Parse the dates
+    const maladies = new Date();
+    const reference = new Date(maladie);
+
+    // Calculate the difference in time (in milliseconds)
+    const diffTime = reference.getTime() - maladies.getTime();
+
+    // Convert the time difference to days
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+    console.log('different'+diffDays)
+    // Check if the date is equal or within two days before the reference date
+    return diffDays >= 0 && diffDays <= 2;
+}
+/***
+ *
+ * end this function of this
+ */
+
+/***
+ * 
+ * 
+ * this for updalod button
+ */
+
+/**
+ * 
+ * end 
  * 
  */

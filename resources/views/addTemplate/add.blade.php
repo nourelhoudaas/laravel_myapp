@@ -10,6 +10,26 @@ $id=0;
 @php
     $uid=auth()->id();
 @endphp
+<style>
+    .file-label {
+   display: inline-block;
+    padding: 10px 20px; /* Espacement interne pour agrandir le cadre */
+    background-color: #f8f9fa; /* Couleur de fond */
+    color: #007bff; /* Couleur du texte */
+    cursor: pointer;
+    border: 2px solid #007bff; /* Bordure pour le cadre */
+    border-radius: 5px; /* Coins légèrement arrondis */
+    text-align: center;
+    font-size: 16px; /* Taille du texte */
+    margin-top: 10px;
+    
+}
+
+.file-label:hover {
+    background-color: #0056b3;
+}
+
+    </style>
 <body>
 
 <div class="" id="prog-add">
@@ -53,30 +73,31 @@ $id=0;
                 <div class="row mt-2 just">
                 <div class="col-md-12">
                         <label class="labels">{{__('lang.NIN')}}</label>
-                        <input type="text" class="form-control" placeholder="NIN" value="" id="ID_NIN">
+                        <input type="text" class="form-control" placeholder="{{__('lang.nin')}}" value="" id="ID_NIN">
                     </div>
                     <div class="col-md-12">
                         <label class="labels">{{__('lang.NSS')}}</label>
-                        <input type="text" class="form-control" placeholder="NSS" value="" id="ID_SS">
+                        <input type="text" class="form-control" placeholder="{{__('lang.nss')}}"value="" id="ID_SS">
                     </div>
                     <div class="col-md-6">
                         <label class="labels">Nom</label>
-                        <input type="text" class="form-control" placeholder="Nom" value="" id="Nom_P">
+                        <input type="text" class="form-control" placeholder="Saisir le Nom de l'employé" value="" id="Nom_P">
                     </div>
                     <div class="col-md-6">
-                        <label class="labels">Prenom</label>
-                        <input type="text" class="form-control" value="" placeholder="Prenom" id="Prenom_O">
+                        <label class="labels">Prénom</label>
+                        <input type="text" class="form-control" value="" placeholder="Saisir le Prénom de l'employé" id="Prenom_O">
                     </div>
                 </div>
                 <div class="row mt-2 just">
+                <div class="col-md-6" style="direction: rtl;">
+                        <label class="labels">اللقب</label>
+                        <input type="text" class="form-control" value="" placeholder=" ادخل لقب الموظف " id="Prenom_AR" style="direction: rtl;">
+                    </div>
                     <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">الإسم</label>
-                        <input type="text" class="form-control" placeholder="الإسم" value="" id="Nom_PAR" style="direction: rtl;">
+                        <input type="text" class="form-control" placeholder=" ادخل إسم الموظف" value="" id="Nom_PAR" style="direction: rtl;">
                     </div>
-                    <div class="col-md-6" style="direction: rtl;">
-                        <label class="labels">اللقب</label>
-                        <input type="text" class="form-control" value="" placeholder=" ...اللقب" id="Prenom_AR" style="direction: rtl;">
-                    </div>
+
                 </div>
                 <div class="row mt-3 just">
                     <div class="col-md-12">
@@ -85,25 +106,25 @@ $id=0;
                         <input type="text" class="form-control" placeholder="{{__('lang.slct_num_tel')}}" value="" id="PHONE_NB">
                     </div>
                     <div class="col-md-12">
-                        <label class="labels">Address</label>
-                        <input type="text" class="form-control" placeholder="enter address line 1" value="" id="Address">
+                        <label class="labels">Adresse</label>
+                        <input type="text" class="form-control" placeholder="Saisir l'adresse résidentielle de l'employé" value="" id="Address">
                     </div>
                     <div class="col-md-12" style="direction: rtl;">
                         <label class="labels">العنوان</label>
-                        <input type="text" class="form-control" placeholder="شارع ..." value="" id="AddressAR" style="direction: rtl;">
+                        <input type="text" class="form-control" placeholder="ادخل عنوان سكن الموظف " value="" id="AddressAR" style="direction: rtl;">
                     </div>
                     <div class="col-md-12">
-                        <label class="labels">date Naissance</label>
+                        <label class="labels">{{__('lang.birtday')}}</label>
                         <input type="date" class="form-control" value="" id="Date_Nais_P">
                     </div>
                     <div class="row mt-3 just">
                     <div class="col-md-6">
-                        <label class="labels">Lieu</label>
-                        <input type="text" class="form-control" placeholder="Wilaya" value="" id="Lieu_N">
+                        <label class="labels">Lieu de Naissance</label>
+                        <input type="text" class="form-control" placeholder="Saisir le lieu de naissance" value="" id="Lieu_N">
                     </div>
                     <div class="col-md-6" style="direction: rtl;">
-                        <label class="labels">مكان الإزدياد</label>
-                        <input type="text" class="form-control" value="" placeholder="ولاية ..." id="Lieu_AR" style="direction: rtl;">
+                        <label class="labels">مكان الميلاد</label>
+                        <input type="text" class="form-control" value="" placeholder="ادخل مكان الميلاد" id="Lieu_AR" style="direction: rtl;">
                     </div>
                 </div>
                     <div class="col-md-12">
@@ -125,32 +146,32 @@ $id=0;
                     <hr>
                     <div class="row mt-3 just">
                      <div class="col-md-6">
-                        <label class="labels">Prenom du Pere</label>
-                        <input type="text" class="form-control" placeholder="Prenom" value="" id="Prenom_Per">
+                        <label class="labels">Prénom du Père</label>
+                        <input type="text" class="form-control" placeholder="Saisir le prénom du Père de l'employé" value="" id="Prenom_Per">
                      </div>
                      <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">إسم الأب</label>
-                        <input type="text" class="form-control" value="" placeholder="إسم" id="Prenom_PerAR" style="direction: rtl;">
+                        <input type="text" class="form-control" value="" placeholder="ادخل اسم اب الموظف" id="Prenom_PerAR" style="direction: rtl;">
                      </div>
                      </div>
                     <div class="row mt-3 just">
                      <div class="col-md-6">
-                        <label class="labels">Nom du Mere </label>
-                        <input type="text" class="form-control" placeholder="Nom" value="" id="Nom_mere">
+                        <label class="labels">Nom du Mère </label>
+                        <input type="text" class="form-control" placeholder="Saisir le nom du mère de l'employé " value="" id="Nom_mere">
                      </div>
                       <div class="col-md-6">
-                        <label class="labels">Prenom du Mere </label>
-                        <input type="text" class="form-control" placeholder="Prenom" value="" id="Prenom_mere">
+                        <label class="labels">Prénom du Mère </label>
+                        <input type="text" class="form-control" placeholder="Saisir le prénom du mère de l'employé" value="" id="Prenom_mere">
                       </div>
                      </div>
                      <div class="row mt-3 just">
                      <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">لقب الأم</label>
-                        <input type="text" class="form-control" placeholder="Prenom" value="" id="Nom_mereAR">
+                        <input type="text" class="form-control" placeholder="ادخل لقب ام الموظف" value="" id="Nom_mereAR">
                      </div>
                      <div class="col-md-6" style="direction: rtl;">
                         <label class="labels">إسم الأم</label>
-                        <input type="text" class="form-control" value="" placeholder="إسم" id="Prenom_mereAR" style="direction: rtl;">
+                        <input type="text" class="form-control" value="" placeholder="ادخل اسم ام الموظف" id="Prenom_mereAR" style="direction: rtl;">
                      </div>
                      </div>
                      <div class="col-md-6">
@@ -163,11 +184,14 @@ $id=0;
                         <option value="veuve">{{__('lang.veu')}}</option>
                      </select>
                      </div>
-                     <div class="col-md-2">
+                   
+                     <div class="col-md-2" id="childrenDiv" style="display: none;">
                         <label class="labels">{{__('lang.children')}}</label>
                         <select select name="nbrenfant" id="nbrenfant"class="form-select form-select-lm mb-3" aria-label="Default select example">
                         </select>
                     </div>
+                
+
                 </div>
                 <div class="col-md-6" id="addf">
                       </div>
@@ -179,10 +203,11 @@ $id=0;
         </form>
         <div class="file-holder">
                     <div class="file-select-holder">
-                      {{-- <label for="file">Choose file:</label> --}}
-                      <input type="file" name="file" id="file"> </br>
+                      <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label> 
+                      <input type="file" name="file" id="file"> 
                       <div class="">
                       <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">{{ __('lang.upload') }}</button>
+                      <label id='file-nm'>{{__('lang.filnull')}}</lable>
                       </div>
                     </div>
                           <div>
@@ -200,18 +225,20 @@ $id=0;
                               </div>
                           </div>
                   </div>
-    </div>
+    </div>  
 </div>
 
 
 </body>
 
 
-   @endsection
-<script>
+ 
+   <script>
+    
         var dir="Personnel";
         var uid='{{$uid}}'
         var id;
+        var flang='{{__("lang.filnull")}}'
       document.addEventListener('DOMContentLoaded', () => {
             const dropdown = document.getElementById('nbrenfant');
             const maxNumber = 10; // Change this to the desired maximum number
@@ -230,20 +257,47 @@ $id=0;
             dropdown.addEventListener('change', () => {
                 // Clear previous input if any
                 inputContainer.innerHTML = '';
-
+                const lang = "{{ App::getLocale() }}";
+               
                 if (dropdown.value === 'marie') {
                     const input = document.createElement('input');
                     const label = document.createElement('label');
                     label.classList='labels'
-                    label.textContent ="Prenom du Mari"
+                  
                     input.type = 'text';
-                    input.placeholder = 'Prenom Du marie';
+                    label.textContent = @json(__('lang.Prnomdelpoux')); //json pour eviter les carracteres speciaux
+                    input.placeholder = @json(__('lang.Saisirleprénomdepoux'));
                     input.classList='form-control'
                     input.name = 'marie';
+                  
                     inputContainer.appendChild(label);
                     inputContainer.appendChild(input);
                 }
                 // Add other conditions for different options if needed
+             
             });
         });
+       
+                document.addEventListener('DOMContentLoaded', () => {
+            const situatDropdown = document.getElementById('situat');
+            const childrenDiv = document.getElementById('childrenDiv');
+            
+            situatDropdown.addEventListener('change', () => {
+                const selectedValue = situatDropdown.value;
+
+                if (selectedValue === 'marie' || selectedValue === 'Divor' || selectedValue === 'veuve') {
+                    childrenDiv.style.display = 'block';
+                } else {
+                    childrenDiv.style.display = 'none';
+                }
+            });
+        });
+        $('#file').on('change',function(){
+    var label = $('#file-custm');
+    var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
+    label.textContent = fileName;
+      console.log('file handler'+fileName)
+      $('#file-nm').text(''+fileName)
+    })
 </script>
+@endsection

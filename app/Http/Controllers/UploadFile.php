@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -16,6 +18,7 @@ use App\Models\Dossier;
 use App\Services\logService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use SSZipArchive;
 class UploadFile extends Controller
 {
 
@@ -169,6 +172,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
 
     public function getFiles($id)
     {
+        App::setLocale(Session::get('locale', config('app.locale')));
         $empdepart=Departement::get();
         $employe=Employe::where('id_nin',$id)->firstOrFail();
        
@@ -367,5 +371,42 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
                 'status'=> 302
             ]);
         }
+    }
+    public function export_fichier($id)
+    {
+        $empdoss='employees/Em_'.$id;
+        $folderPath = storage_path('app/public/'.$empdoss);
+        $hash= Str::random(40); // Path to the folder you want to zip
+        $zipFilePath = storage_path('app/public/'.$hash.'.zip');// Path to save the ZIP file
+        $password = 'pers-mcomm-'.$id.''; 
+        //dd($password);
+        $zip = new \ZipArchive();
+        
+        $result = $zip->open($zipFilePath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+       // dd($result);
+        if ($result !== true) {
+            return response()->json(['error' => 'Failed to create ZIP file. Error code: ' . $result]);
+        }
+        // Set password for the ZIP file
+        $zip->setPassword($password);
+
+        // Add files to the ZIP archive
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($folderPath));
+        foreach ($files as $file) {
+            // Skip directories
+            if (!$file->isDir()) {
+                // Add file to the ZIP and set password for it
+                $filePath = $file->getRealPath();
+                $relativePath = substr($filePath, strlen($folderPath) + 1);
+                $zip->addFile($filePath, $relativePath);
+                $zip->setEncryptionName($relativePath, \ZipArchive::EM_AES_256);
+            }
+        }
+
+        $zip->close();
+
+        // Return the ZIP file for download
+        return response()->download($zipFilePath)->deleteFileAfterSend(true);
+     
     }
 }

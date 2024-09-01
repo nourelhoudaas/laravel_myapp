@@ -5,21 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Login;
 use DateTimeImmutable;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Services\EmailService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
-
-
 
 //---------------------------------------------------------------------LOGOUT---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
     public function logout()
     {
+        App::setLocale(Session::get('locale', config('app.locale')));
          // Récupérer l'usr connecté
     $user = Auth::user();
 
@@ -42,7 +44,7 @@ class LoginController extends Controller
     }
 
     // Si l'utilisateur n'est pas connecté, rediriger vers la page de login
-    return redirect('/login')->withErrors(['message' => 'Aucun utilisateur connecté.']);
+    return redirect('/login')->withErrors(['message' => __('lang.Aucunutilisateurconnecté'  )]);
 }
        
     
@@ -152,6 +154,7 @@ public function existIDNIN()
 
     public function forgotPassword(Request $request)
     {
+        App::setLocale(Session::get('locale', config('app.locale')));
         return view('auth.forgot_password');
 
     }
@@ -169,6 +172,7 @@ public function existIDNIN()
 
         public function sendResetLinkEmail(Request $request)
             {   
+                App::setLocale(Session::get('locale', config('app.locale')));
                 $request->validate([
                 'username' => 'required|string',
                 'reason' => 'required|string',
@@ -177,7 +181,7 @@ public function existIDNIN()
             $user = User::where('username', $request->username)->first();
 
             if (!$user) {
-                return redirect()->route('login')->with('erreur', 'Le mot d'/'utilisateur n'/'est pas trouvé ');
+                return redirect()->route('login')->with('erreur',  __('lang.Lemotutilisateurnestpastrouvé'));
             }
 
             $emailData = [
@@ -186,12 +190,12 @@ public function existIDNIN()
             ];
 
             Mail::raw("Username: {$emailData['username']}\nReason: {$emailData['reason']}", function($message) {
-                $message->to('fadiaboumediene@gmail.com') 
+                $message->to('test@example.com') 
                         ->subject('Mot de passe oublié - Raison fournie')
                         ->from(config('mail.from.address'), config('mail.from.name'));
             });
 
-            return back()->with('status', 'Votre réponse a été envoyé avec success ');
+            return back()->with('status', __('lang.Votreréponseaétéenvoyéavecsuccess'));
         }
             
 
@@ -381,6 +385,7 @@ public function existIDNIN()
 
 //---------------------------------------------------------------------FORGOT PASSWORD---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 }
