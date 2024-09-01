@@ -238,17 +238,11 @@ return view('department.edit', compact('departement'));
 
     }
 
-
-
-
-
     public function update(Request $request, $id)
     {
 
         $departement= Departement::where('id_depart',$id)->update(['Nom_depart'=>$request->input('Nom_depart'),'Descriptif_depart'=>$request->input('Descriptif_depart'),
         'Nom_depart_ar'=>$request->input('Nom_depart_ar'),'Descriptif_depart_ar'=>$request->input('Descriptif_depart_ar')]);
-
-
 
 
         return redirect('/liste');
