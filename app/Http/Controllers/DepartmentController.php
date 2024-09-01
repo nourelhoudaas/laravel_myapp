@@ -173,6 +173,7 @@ return view('department.edit', compact('departement'));
 
         return view('department.add_depart', compact('empdep','empdepart','nom_d'));
     }
+
     public function store(saveDepartementRequest $request)
 
     {
