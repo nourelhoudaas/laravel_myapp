@@ -103,14 +103,7 @@
                       </li>
                       @else
                       <div id="pro-add">
-                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="mail_pro">
-                        <h6 class="mb-0">
-                        
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                          {{__('lang.pro_mail')}}
-                        </h6>
-                        <span class="text-secondary">{{__('lang.disponible')}}<i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                      </li>
+                    
                       </div>
                       @endif
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -383,6 +376,19 @@
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){
+  if(chek == '1')
+ {
+ document.getElementById('pro-add').innerHTML='<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="mail_pro">'
+                        +'<h6 class="mb-0">'
+                        +'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>'
+                        +'</h6>'
+                        +'<div id="inp-pro"></div>'
+                        +'<span class="text-secondary" id="pro-mail-add"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>'
+                        +'</li>'
+ }
+$('#pro-mail-add').on('click',function(){
+$("#inp-pro").html('<input class="col-sm-9 text-secondary" id="email_pro" style="height: 35px;width: 100%;border-style: ridge;background-color: transparent;"></input>')
+})
 icon.classList.remove('fa-times')
 icon.classList.add('fa-pencil');
 document.getElementById('Nom_P').disabled=false;
@@ -398,10 +404,7 @@ md=true;
 }
 else
 {
- if(chek == '1')
- {
- document.getElementById('pro-add').InnerHTML='<button>add Mail</button>'
- }
+$('#pro-add').empty()
 icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
 document.getElementById('Nom_P').disabled=true;

@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use App\Models\Conge;
 use Illuminate\Http\Request;
 use \App\Models\Employe;
@@ -44,6 +45,7 @@ class BioEmployeControl extends Controller
             'dateN' => 'date',
             'adr' => 'string',
             'adrAR' => 'string',
+            'email_pro'=>'string'
         ]);
        // dd($request);
         $updated = DB::table('employes')
@@ -58,7 +60,15 @@ class BioEmployeControl extends Controller
                         'adress_ar' => $request->input('adrAR'),
                         'email' => $request->input('Email'),
                         'Phone_num' => $request->input('phone_pn'),
+                        'email_pro'=>$request->input('email_pro')
                             ]);
+                            $ups='mise à jour';
+                            $upsnot='n`est pas mise à jour';
+                            if(app()->getLocale() == 'ar')
+                            {
+                                $ups=' تم التحديث ';
+                                $upsnot='خطا في التحديث';
+                            }
 
         if ($updated) {
 
@@ -69,16 +79,18 @@ class BioEmployeControl extends Controller
             'Update Employé',
             $this->logService->getMacAddress()
         );
+       
             return response()->json([
-                'success' => 'Employee Prenom updated successfully',
+                'success' =>  $ups,
                 'status'=>200
             ]);
         } else {
-            return response()->json(['error' => 'Employee not found or update failed'], 404);
+            return response()->json(['error' => $upsnot,], 404);
         }
     }
     public function update_just(Request $request)
     {
+        App::setLocale(Session::get('locale', config('app.locale')));
         $request->validate([
             'id_nin'=>'required|integer',
             'just'=>'required|string',
@@ -96,24 +108,32 @@ class BioEmployeControl extends Controller
                        
         $update=Absence::find($update->id_abs);
         $update->update(['id_fichier'=>$id_file->id_fichier]);  
+        $ups='mise à jour';
+        $upsnot='n`est pas mise à jour';
+        if(app()->getLocale() == 'ar')
+        {
+            $ups=' تم التحديث ';
+            $upsnot='خطا في التحديث';
+        }
+
             if($update)
             {
                 return response()->json([
-                    'success'=>'updated',
+                    'success'=>$ups,
                     'code'=>200,
                 ]);
             }
             else
             {
                 return response()->json([
-                    'success'=>'Not updated',
+                    'success'=>$upsnot,
                     'code'=>404,
                 ]);
             }
     }
     public function update_cng(Request $request)
     {
-       
+        App::setLocale(Session::get('locale', config('app.locale')));
         $request->validate([
             'id_nin'=>'required|integer',
             'titre'=>'required|string',
@@ -131,17 +151,24 @@ class BioEmployeControl extends Controller
                         ->where('date_debut_cong',$request->get('date_debut_cong'))->first();
         $update=Conge::find($update->id_cong);
         $update->update(['id_fichier'=>$id_file->id_fichier]);  
+        $ups='mise à jour';
+        $upsnot='n`est pas mise à jour';
+        if(app()->getLocale() == 'ar')
+        {
+            $ups=' تم التحديث ';
+            $upsnot='خطا في التحديث';
+        }
             if($update)
             {
                 return response()->json([
-                    'success'=>'updated',
+                    'success'=>$ups,
                     'code'=>200,
                 ]);
             }
             else
             {
                 return response()->json([
-                    'success'=>'Not updated',
+                    'success'=> $upsnot,
                     'code'=>404,
                 ]);
             }

@@ -241,8 +241,14 @@
                             <input type="text" value="" id="date_fin" disabled>
                         </div>
                     </div>
+                    <br>
+                    <div>
+                    <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label> 
                     <input type="file" name="file" id="file" style="height:40px" required>
+                    <label id='file-nm'>{{__('lang.filnull')}}</lable>
                     <div id="file-error" class="error-tooltip">File is required</div>
+                    </div>
+                    <hr>
                     <button type="button" id="conge_confirm">{{ __('lang.ver_cng') }}</button>
                     <button type="button" id="cancel-conge" class="close-formcg-btn">{{ __('lang.cancel') }} </button>
 
@@ -252,6 +258,7 @@
 
         </body>
         <script>
+        var flang='{{__("lang.filnull")}}'
         var dir='Congé'
         var uid='{{$uid}}'
         var nom='{{ __('lang.name') }}'
@@ -351,7 +358,13 @@
         } 
             }
         
-        
+            $('#file').on('change',function(){
+    var label = $('#file-custm');
+    var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
+    label.textContent = fileName;
+      console.log('file handler'+fileName)
+      $('#file-nm').text(''+fileName)
+    })
     </script>
     @endsection
 

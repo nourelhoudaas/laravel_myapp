@@ -972,6 +972,11 @@ foreach($allwor as $workig)
                 ->orderBy('occupes.date_recrutement','desc')
                 ->first();
                 //dd($emp);
+                $empstat='Exist pas';
+                if(app()->getLocale()== 'ar')
+                {
+                    $empstat='لا يوجد';
+                }
                 if(isset($emp))
                 {
                 $cng=Conge::where('id_nin',$emp->id_nin)->orderBy('date_fin_cong','desc')->get();
@@ -979,7 +984,7 @@ foreach($allwor as $workig)
                 else
                 {
                     return response()->json([
-                        'message'=>'pas Employe',
+                        'message'=>$empstat,
                         'status'=>302
                         ]);
                 }
@@ -1063,6 +1068,25 @@ foreach($allwor as $workig)
                 } else {
                     $situation_ar='خارج التراب';
                 }
+                $msgmald='Vérifier la date de congé maladie';
+                $msgdatein='Vérifier la date de congé';
+                $msgdateout='Vérifier le delai de congé';
+                $msgdateins='Opération échouée d`insertion';
+                $msgsuc='Opération réussie';
+                $msgunsc='opération échoué';
+                $ups='mise à jour';
+                $upsnot='n`est pas mise à jour';
+                if(app()->getLocale() == 'ar')
+                {
+                $msgmald='التحقق من تاريخ الإجازة المرضية';
+                $msgdatein='التحقق من تاريخ الإجازة';
+                $msgdateout='التحقق من مدة الإجازة';
+                $msgsuc='تم العملية';
+                $msgunsc='فشلت العملية';
+                $msgdateins=' فشلت عملية الإضافة';
+                $ups=' تم التحديث ';
+                    $upsnot='خطا في التحديث';
+                }
                 $cng=Conge::where('id_nin',$request->get('ID_NIN'))
                 ->select('id_nin','ref_cong','nbr_jours','date_debut_cong','id_cong','date_fin_cong',DB::raw('YEAR(date_debut_cong) as annee'))
                 ->orderBy('date_debut_cong','desc')
@@ -1076,7 +1100,7 @@ foreach($allwor as $workig)
 
                         return response()->json([
                             'type'=>$cg->type_cg,
-                            'message'=>'Unsuccess verfier date du debut 1',
+                            'message'=>$msgdatein,
                             'status'=> 404
                         ]);
                         }
@@ -1109,12 +1133,12 @@ foreach($allwor as $workig)
                                         ]);
                                         if($cong->save())
                                         {
-                                            return response()->json(['message'=>'success','status'=>200]);
+                                            return response()->json(['message'=>$msgsuc,'status'=>200]);
                                         }
                                         else
                                         {
                                             return response()->json([
-                                                'message'=>'Unsuccess insering Maladie',
+                                                'message'=>$msgdateins,
                                                 'status'=> 404
                                             ]);
                                         }
@@ -1123,7 +1147,7 @@ foreach($allwor as $workig)
                             else
                             {
                                 return response()->json([
-                                    'message'=>'Unsuccess updating cong',
+                                    'message'=>$upsnot,
                                     'status'=> 404
                                 ]);
                             }
@@ -1131,7 +1155,7 @@ foreach($allwor as $workig)
                         else 
                         {
                             return response()->json([
-                                'message'=>'Unsuccess verfier date du debut Maladie',
+                                'message'=>$msgmald,
                                 'status'=> 404
                             ]);
                         }
@@ -1160,7 +1184,7 @@ foreach($allwor as $workig)
                     if($nbrcng <= 0 && $request->get('type_cg') == 'RF001')
                     {
                         return response()->json([
-                            'message'=>'Unsuccess deminuis le delai '.$nbrcng,
+                            'message'=>$msgdateout.' '.$nbrcng,
                             'status'=> 404
                         ]);
                     }else
@@ -1227,7 +1251,7 @@ foreach($allwor as $workig)
                 if($nbrcng <= 0 && $right == false)
                 {
                     return response()->json([
-                        'message'=>'Unsuccess deminuis le delai '.$nbrcng,
+                        'message'=>$msgdateout.''.$nbrcng,
                         'status'=> 404
                     ]);
                 }else
@@ -1253,13 +1277,13 @@ foreach($allwor as $workig)
                 if($cong->save() )
                 {
                     return response()->json([
-                        'message'=>'Success',
+                        'message'=>$msgsuc,
                         'status'=> 200
                     ]);
                 }else
                 {
                     return response()->json([
-                        'message'=>'Unsuccess',
+                        'message'=>$msgunsc,
                         'status'=> 404
                     ]);
                 }
@@ -1271,13 +1295,13 @@ foreach($allwor as $workig)
                     if($cong->save() )
                 {
                     return response()->json([
-                        'message'=>'Success',
+                        'message'=>$msgsuc,
                         'status'=> 200
                     ]);
                 }else
                 {
                     return response()->json([
-                        'message'=>'Unsuccess',
+                        'message'=>$msgunsc,
                         'status'=> 404,
                     ]);
                 }
@@ -1285,7 +1309,7 @@ foreach($allwor as $workig)
                 else
                 {
                 return response()->json([
-                    'message'=>'Unsuccess verfier la date du debut 2',
+                    'message'=>$msgdateout,
                     'status'=> 404,
                     'type'=>'Situation'
                 ]);
@@ -1315,13 +1339,13 @@ foreach($allwor as $workig)
                             if($cong->save())
                             {
                                 return response()->json([
-                                    'message'=>'Success',
+                                    'message'=>$msgsuc,
                                     'status'=> 200
                                 ]);
                             }else
                             {
                                 return response()->json([
-                                    'message'=>'Unsuccess',
+                                    'message'=>$msgunsc,
                                     'status'=> 404
                                 ]);
                             }

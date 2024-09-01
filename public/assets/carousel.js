@@ -90,6 +90,7 @@ $(document).ready(function(){
                     Date_Nais_P: $('#Date_Nais_P').val(),
                     Lieu_N: $('#Lieu_N').val(),
                     Address: $('#Address').val(),
+                    email_pro:$('#email_pro').val(),
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     _method: 'PUT'
                 };
