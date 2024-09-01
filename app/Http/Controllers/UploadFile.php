@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -170,6 +172,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
 
     public function getFiles($id)
     {
+        App::setLocale(Session::get('locale', config('app.locale')));
         $empdepart=Departement::get();
         $employe=Employe::where('id_nin',$id)->firstOrFail();
        
