@@ -8,7 +8,7 @@
 
 
                 <div class="header__search">
-                    <input type="search" placeholder="Search" class="header__input">
+                    <input type="search" placeholder="{{ __('lang.Search') }}" class="header__input">
                     <i class='bx bx-search header__icon'></i>
 
                 </div>
@@ -52,7 +52,7 @@
 
                     <div class="nav__list">
                         <div class="nav__items">
-                            <h3 class="nav__subtitle">Menu</h3>
+                            <h3 class="nav__subtitle">{{ __('lang.Menu') }}</h3>
 
                             <a href="{{route('app_dashboard')}}" class="nav__link active">
                                 <i class='bx bxs-dashboard nav__icon'></i>

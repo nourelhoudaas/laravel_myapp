@@ -15,7 +15,7 @@
     use App\Models\Travail;
     use App\Models\Bureau;
     use App\Models\Post;
-    use App\Models\Appartient;
+    use App\Models\appartient;
     use App\Models\type_cong;
     use DB;
     use Carbon\Carbon;
@@ -85,7 +85,7 @@
                 $totalEmployes = $employe->count();
 
         // Définir le nombre d'éléments par page
-        $perPage = 2; // Par exemple, 2 éléments par page
+        $perPage = 5; // Par exemple, 2 éléments par page
         $page = 1; // Page actuelle
                             if(request()->get('page') != null)
                             {
@@ -173,7 +173,7 @@
                                             //  return response()->json($detailemp);
                                             //   print_r(compact('detailemp'));
                                        //  dd($result);
-                $postwork=Occupe::where('Occupes.id_nin',$id)->distinct()
+                $postwork=Occupe::where('occupes.id_nin',$id)->distinct()
                                 ->join('posts','posts.id_post','=','occupes.id_post')
                                 ->join('contients','contients.id_post','=','posts.id_post')
                                 ->select('id_occup','date_recrutement')->orderBy('date_recrutement')
@@ -1353,7 +1353,7 @@ foreach($allwor as $workig)
               $dbdirection=$Direction->get();
               $dbbureau=$bureau->get();
               $dbdirection=$Direction->get();
-              $Appartient=Appartient::where('id_nin', $id)->get();
+              $Appartient=appartient::where('id_nin', $id)->get();
               $post=New Post();
               $dbpost=$post->get();
               $dbempdepart = new Departement();
