@@ -137,8 +137,8 @@ $id=0;
                     <label class="labels">{{ __('lang.sx') }} </label>
                        <select name="sexe" id="Sexe"class="form-select form-select-lm mb-3" aria-label="Default select example">
                             <option value=""></option>
-                            <option value="{{ __('lang.sx_ma') }}">{{ __('lang.sx_ma') }}</option>
-                            <option value="{{ __('lang.sx_fm') }}">{{ __('lang.sx_fm') }}</option>
+                            <option value="male">{{ __('lang.sx_ma') }}</option>
+                            <option value="femelle">{{ __('lang.sx_fm') }}</option>
                         </select>
                     </div>
                     <hr>

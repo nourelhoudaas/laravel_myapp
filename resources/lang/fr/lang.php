@@ -17,7 +17,7 @@ return [
     'prof_set'=>'Paramètres Du Profile',
     'mail'=>'Email',
     'slct_mail'=>"saisir Email de l'employé",
-    'pro_mail'=>'Email Professionenel',
+    'pro_mail'=>'Email Professionel',
     'NIN'=>'Numéro d\'Identification National',
     'NSS'=>'Numéro du Sécurité Sociale',
     'ID_p'=>'IDentification Professionnelle',
@@ -34,7 +34,7 @@ return [
     'plc'=>'Lieu de Naissance',
     'sx'=>'sexe',
     'sx_ma'=>'Mâle',
-    'sx_fm'=>'femelle',
+    'sx_fm'=>'Femelle',
     'edit'=>'Edit',
     'tran'=>'Transferer',
     'files'=>'Dossier',
@@ -181,6 +181,9 @@ return [
     'Choisirunfichier'=>'Choisir un fichier:',
     "Prnomdelpoux"=>"Prénom de l'époux(se)",
     "Saisirleprénomdepoux"=>"Saisir le prénom de l'époux(se)",
+    'adresse'=>'Adresse',
+    'Lieunaiss'=>'Lieu de Naissance',
+  
    
   
 ];

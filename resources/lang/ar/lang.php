@@ -177,4 +177,6 @@ return [
     'Choisirunfichier'=>'اختر ملف:',
     "Prnomdelpoux"=>"اسم الزوج(ة)",
     "Saisirleprénomdepoux"=>"أدخل اسم الزوج(ة)",
+    'adresse'=>'العنوان',
+    'Lieunaiss'=>'مكان الميلاد',
 ];

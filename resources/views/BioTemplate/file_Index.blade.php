@@ -35,7 +35,7 @@
                              $name= $subDir ?: 'Root Directory';
                              $lang='lang.'.$name;
                             @endphp     
-                            <strong>{{ __($lang.'') }}</strong>
+                            <strong>{{ __($lang) }}</strong>
                             <p class="thbtn" id="{{ $subDir ?: 'Root Directory' }}">...</p>
                         </div>    
                         </div>

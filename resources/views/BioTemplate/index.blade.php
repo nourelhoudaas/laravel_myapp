@@ -60,13 +60,30 @@
                           <h4>{{__('lang.NIN')}} :<p id="ID_NIN">{{$last->id_nin}}</p></h4>
                           <h4>{{$last->Nom_emp}} {{$last->Prenom_emp}}</h4>
                           <h4>{{$last->Nom_ar_emp}} {{$last->Prenom_ar_emp}}</h4>
+                        
+                          <h6>
+                         @if(app()->getLocale() == 'ar')
+                            @if($last->sexe == 'femelle')
+                            {{ __('lang.sx_fm') }}  
+                            @else
+                                {{ __('lang.sx_ma') }}  
+                            @endif
+                        @else
+                            @if($last->sexe  == 'femelle')
+                                {{ __('lang.sx_fm') }} 
+                            @else
+                                {{ __('lang.sx_ma') }}  
+                            @endif
+                        @endif
+                       
+                        </h6>
                           <div class="row">
                           @if(app()->getLocale() == 'ar') 
-                            <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p><p class="text-secondary mb-1">الدرجة : {{$last->Grade_post}}</p></div>
-                            <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}}, Minister</p>
+                            <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p><p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p></div>
+                            <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}}, {{__('lang.mnc')}}</p>
                             @else 
-                            <p class="text-secondary mb-1">{{$last->Nom_post}}</p><p class="text-secondary mb-1">Grade : {{$last->Grade_post}}</p></div>
-                            <p class="text-muted font-size-sm">{{$last->Nom_sous_depart}},{{$last->Nom_depart}}, Minister</p>
+                            <p class="text-secondary mb-1">{{$last->Nom_post}}</p><p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p></div>
+                            <p class="text-muted font-size-sm">{{$last->Nom_sous_depart}},{{$last->Nom_depart}}, {{__('lang.mnc')}}</p>
                           @endif
 
                         </div>
@@ -101,7 +118,13 @@
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}} </span>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
-                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} : {{$last->Nom_niv}}</h6>
+                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} : 
+                            @if( app()->getLocale() == 'ar')
+                           {{$last->Nom_niv_ar}}
+                           @else
+                           {{$last->Nom_niv}}
+                           @endif
+                          </h6>
                           </div>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} : 
@@ -175,30 +198,40 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">{{__('lang.birtday')}}</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" type='date'
+                        <input class="col-sm-3 text-secondary" type='date'
                           id='dateN'
                           value='{{$last->Date_nais}}'
                           style="border: hidden;background-color: transparent; text-align: center;" disabled>
+                          <div class="col-sm-6">
+                      <div class="field-holder">
+                          <h6 class="mb-0">{{ __('lang.Lieunaiss') }}</h6>
+                          <input class="text-secondary"
+                                type="text"
+                                id="lieuN"
+                                value="@if(app()->getLocale() == 'ar') {{ $last->Lieu_nais_ar }} @else {{ $last->Lieu_nais }} @endif"
+                                style="border: hidden; background-color: transparent; text-align: center;"   disabled>
+                              
                       </div>
-                      <hr>
+                      </div>
+
+                      </div>
+                                      
+
+                 
+
+                  <hr>
+                      
                       <div class="field">
                         <div  class="field-holder">
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Address</h6>
+                          <h6 class="mb-0">{{__('lang.adresse')}}</h6>
                         </div>
                         <input class="col-sm-9 text-secondary"
                         id='adr'
-                        value='{{$last->adress}}'
+                        value="@if(app()->getLocale() == 'ar') {{ $last->adress_ar }} @else {{ $last->adress }} @endif"
                         style="border: hidden;background-color: transparent;" disabled>
                       </div>
-                      <div class="field-holderAR">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0 staticent">العنوان</h6>
-                        </div>
-                        <input class="col-sm-9 text-secondary" style="text-align: right;border: hidden;background-color: transparent;"
-                        id='adrAR'
-                        value='{{$last->adress_ar}}' disabled>
-                      </div>
+                      
                       </div>
 
                       <hr>
