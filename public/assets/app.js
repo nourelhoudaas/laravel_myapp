@@ -1740,7 +1740,7 @@
      var idinput=$('#ID_NIN')
      idinput.blur(function(){
         var val=$(this).val()
-        if(val.length > 8 && val.length <=16)
+        if(val.length <=16)
             {
         $.ajax({
             url:'/Employe/check/'+val,

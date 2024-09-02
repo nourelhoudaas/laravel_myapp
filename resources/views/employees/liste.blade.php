@@ -177,18 +177,46 @@
             <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js" ></script>
 <script>
 
-   let table = new DataTable('#myTable',{
+    $(document).ready(function() {
+        let lang = "{{ app()->getLocale() }}";
+        let language = {};
 
-    language: {
-        info: 'Affichage de la page _PAGE_ sur _PAGES_',
-        infoEmpty: 'Aucun enregistrement disponible',
-        infoFiltered: '',
-        lengthMenu: 'Afficher _MENU_ enregistrements par page',
-        zeroRecords: 'Rien trouvé - désolé',
-        search: 'Recherche: '
-    }
+        if (lang === 'ar') {
+            language = {
+                info: 'عرض الصفحة _PAGE_ من _PAGES_',
+                infoEmpty: 'لا توجد سجلات متاحة',
+                infoFiltered: '',
+                lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
+                zeroRecords: 'لم يتم العثور على شيء - عذراً',
+                search: 'بحث: ',
+      
+            };
+        } else if (lang === 'fr') {
+            language = {
+                info: 'Affichage de la page _PAGE_ sur _PAGES_',
+                infoEmpty: 'Aucun enregistrement disponible',
+                infoFiltered: '',
+                lengthMenu: 'Afficher _MENU_ enregistrements par page',
+                zeroRecords: 'Rien trouvé - désolé',
+                search: 'Recherche: '
+                
 
-   });
+            };
+        }
+
+        let table = new DataTable('#myTable', {
+            language: language,
+        
+        initComplete: function () {
+            if (lang === 'ar') {
+                // Adjust CSS for RTL (Arabic)
+                $('dataTable_filter').css('text-align', 'left'); // Search box to the left
+             
+            } 
+        },
+        direction: lang == 'ar' ? 'rtl' : 'ltr' // Control text direction
+    });
+});
 </script>
 
     </body>

@@ -461,6 +461,7 @@
                 'id_sous_depart'=>$soud_dic,
                 'statut'=>$justf,
                 'heure_abs'=>$heur,
+                'id_fichier'=>1,
                 'date_abs'=>$request->get('Date_ABS'),
             ]);
             if($abs->save())
