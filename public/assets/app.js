@@ -2327,7 +2327,7 @@ function checksickDaye(maladie) {
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     console.log('different'+diffDays)
     // Check if the date is equal or within two days before the reference date
-    return diffDays >= -2 && diffDays <= 2;
+    return diffDays >= -2 ;
 }
 /***
  *
