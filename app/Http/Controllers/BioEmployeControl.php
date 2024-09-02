@@ -38,26 +38,26 @@ class BioEmployeControl extends Controller
         $request->validate([
             'Prenom_O' => 'string',
             'Nom_P' => 'string',
-            'Prenom_OAR'=> 'string',
-            'Nom_PAR'=> 'string' ,
+            'Prenom_O_ar'=> 'string',
+            'Nom_P_ar'=> 'string' ,
             'Email' => 'string',
             'phone_pn' => 'integer',
-            'dateN' => 'date',
-            'adr' => 'string',
-            'adrAR' => 'string',
+            'Date_Nais_P' => 'date',
+            'Address' => 'string',
+            'AddressAR' => 'string',
             'email_pro'=>'string'
         ]);
-       // dd($request);
+      //      dd($request);
         $updated = DB::table('employes')
                     ->where('id_nin', $id)
                     ->update([
                         'Nom_emp'=>$request->input('Nom_P'),
                         'Prenom_emp' => $request->input('Prenom_O'),
-                        'Nom_ar_emp'=>$request->input('Nom_PAR'),
-                        'Prenom_ar_emp' => $request->input('Prenom_OAR'),
-                        'Date_nais'=>$request->input('dateN'),
-                        'adress' => $request->input('adr'),
-                        'adress_ar' => $request->input('adrAR'),
+                        'Nom_ar_emp'=>$request->input('Nom_P_ar'),
+                        'Prenom_ar_emp' => $request->input('Prenom_O_ar'),
+                        'Date_nais'=>$request->input('Date_Nais_P'),
+                        'adress' => $request->input('Address'),
+                        'adress_ar' => $request->input('AddressAR'),
                         'email' => $request->input('Email'),
                         'Phone_num' => $request->input('phone_pn'),
                         'email_pro'=>$request->input('email_pro')

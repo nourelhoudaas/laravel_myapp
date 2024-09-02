@@ -81,15 +81,18 @@ document.addEventListener("DOMContentLoaded", function() {
 $(document).ready(function(){
     $('#btn-ch').click(function(e){
         e.preventDefault();
-
-                var id = '{{ $employe->ID_NIN }}'; // Assuming you are searching by ID_NIN
+ // Assuming you are searching by ID_NIN
                 var formData = {
-                    ID_NIN: $('#ID_NIN').val(),
+                    ID_NIN: id,
                     Nom_P: $('#Nom_P').val(),
                     Prenom_O: $('#Prenom_O').val(),
-                    Date_Nais_P: $('#Date_Nais_P').val(),
+                    Nom_P_ar:$('#Nom_PAR').val(),
+                    Prenom_O_ar: $('#Prenom_OAR').val(),
+                    Date_Nais_P: $('#dateN').val(),
                     Lieu_N: $('#Lieu_N').val(),
-                    Address: $('#Address').val(),
+                    Address: $('#adr').val(),
+                    AddressAR: $('#adrAR').val(),
+                    phone_pn:parseInt($('#phone_pn').val()),
                     email_pro:$('#email_pro').val(),
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     _method: 'PUT'
@@ -102,7 +105,7 @@ $(document).ready(function(){
                     success: function (response) {
 
                         alert(response.success);
-                        window.location.href = "{{route('BioTemplate.create') }}";
+                        window.location.href = "/BioTemplate/search/"+id;
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);
