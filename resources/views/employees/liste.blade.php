@@ -18,7 +18,7 @@
             <main>
                 <div class="recent_order">
                     <h1>{{ __('lang.lst_emp') }}</h1>
-                    <table>
+                    <table  class="table" id='myTable'>
 
                         <thead>
 
@@ -172,5 +172,24 @@
        console.log('testing'+ts)
     })
 </script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
+            <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js" ></script>
+<script>
+
+   let table = new DataTable('#myTable',{
+
+    language: {
+        info: 'Affichage de la page _PAGE_ sur _PAGES_',
+        infoEmpty: 'Aucun enregistrement disponible',
+        infoFiltered: '',
+        lengthMenu: 'Afficher _MENU_ enregistrements par page',
+        zeroRecords: 'Rien trouvé - désolé',
+        search: 'Recherche: '
+    }
+
+   });
+</script>
+
     </body>
 @endsection
