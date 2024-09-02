@@ -316,6 +316,13 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
                         
         ]);
         //dd($stock);
+        $ups='Opération réussie';
+        $upsnot='Echec D` Opération';
+        if(app()->getLocale() == 'ar')
+        {
+            $ups=' تم بنجاح ';
+            $upsnot='خطا في العكلية';
+        }
         if($stock->save())
         {
             $log= $this->logService->logAction(
@@ -326,14 +333,14 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
             );
            // dd($stock->save());
             return response()->json([
-                'message'=>'success',
+                'message'=>$ups,
                 'code'=> 200
             ]);
 
         }else
         {
             return response()->json([
-                'message'=>'unsuccess',
+                'message'=>$upsnot,
                 'code'=>302
             ]);
         }

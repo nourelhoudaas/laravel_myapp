@@ -92,14 +92,20 @@
                   </div>
                   <div class="card mt-3">
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    @if(isset($last->email_pro) && $last->email_pro != null)
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="mail_pro">
                         <h6 class="mb-0">
+                        
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                           {{__('lang.pro_mail')}}
                         </h6>
                         <span class="text-secondary">{{$last->email_pro}}</span>
                       </li>
-
+                      @else
+                      <div id="pro-add">
+                    
+                      </div>
+                      @endif
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.stitua_fam')}}</span>
@@ -231,7 +237,8 @@
                         value="@if(app()->getLocale() == 'ar') {{ $last->adress_ar }} @else {{ $last->adress }} @endif"
                         style="border: hidden;background-color: transparent;" disabled>
                       </div>
-                      
+                      <div class="field-holder" id='adr-toadd'>
+                      </div>
                       </div>
 
                       <hr>
@@ -366,9 +373,46 @@
        var id = '{{ $last->id_nin }}';
        var uid='{{$uid}}'
       var md=false;
+      var chek='{{!isset($last->email_pro)}}'
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){
+  if(chek == '1')
+ {
+ document.getElementById('pro-add').innerHTML='<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="mail_pro">'
+                        +'<h6 class="mb-0">'
+                        +'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>'
+                        +'</h6>'
+                        +'<div id="inp-pro"></div>'
+                        +'<span class="text-secondary" id="pro-mail-add"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>'
+                        +'</li>'
+ }
+$('#pro-mail-add').on('click',function(){
+$("#inp-pro").html('<input class="col-sm-9 text-secondary" id="email_pro" style="height: 35px;width: 100%;border-style: ridge;background-color: transparent;"></input>')
+})
+if( lng == 'ar')
+{
+  $("#adr").attr('id','adrAR')
+  $('#adr-toadd').html('<div class="col-sm-3">'
+                        +'<h6 class="mb-0">Address </h6>'
+                        +'</div>'
+                        +'<input class="col-sm-9 text-secondary"'
+                        +"id='adr'"
+                        +'value="{{ $last->adress }}"'
+                        +' style="border: hidden;background-color: transparent;" disabled>'
+                        +'</div>')
+}
+else
+{
+  $('#adr-toadd').html('<div class="col-sm-3">'
+                        +'<h6 class="mb-0">العنوان</h6>'
+                        +'</div>'
+                        +'<input class="col-sm-9 text-secondary"'
+                        +"id='adrAR'"
+                        +'value="{{ $last->adress_ar }}"'
+                        +' style="border: hidden;background-color: transparent;" disabled>'
+                        +'</div>')
+}
 icon.classList.remove('fa-times')
 icon.classList.add('fa-pencil');
 document.getElementById('Nom_P').disabled=false;
@@ -378,12 +422,28 @@ document.getElementById('Prenom_OAR').disabled=false;
 document.getElementById('Email').disabled=false;
 document.getElementById('phone_pn').disabled=false;
 document.getElementById('dateN').disabled=false;
-document.getElementById('adr').disabled=false;
-document.getElementById('adrAR').disabled=false;
+if( lng == 'ar')
+{
+  $('#adrAR').prop('disabled', false);
+}else
+{
+  $('#adr').prop('disabled', false);
+}
+
 md=true;
 }
 else
 {
+$('#pro-add').empty()
+$('#adr-toadd').empty()
+if( lng == 'ar')
+{
+  $('#adrAR').prop('disabled', true);
+}else
+{
+  $('#adr').prop('disabled', true);
+}
+
 icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
 document.getElementById('Nom_P').disabled=true;
@@ -393,8 +453,8 @@ document.getElementById('Prenom_OAR').disabled=true;
 document.getElementById('Email').disabled=true;
 document.getElementById('phone_pn').disabled=true;
 document.getElementById('dateN').disabled=true;
-document.getElementById('adr').disabled=true;
-document.getElementById('adrAR').disabled=true;
+//document.getElementById('adr').disabled=true;
+//document.getElementById('adrAR').disabled=true;
 md=false;
 }
 })

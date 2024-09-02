@@ -272,7 +272,8 @@
                        $('#progressBar').width('0%');
                       },
                       error: function() {
-                          alert('Upload failed');
+
+                          alert(response.message);
                       }
                   })
           }
@@ -370,13 +371,25 @@
                       },
                       error: function(response) {
                         console.log(''+JSON.stringify(response));
-                          alert('Upload failed');
+                          if(lng == 'ar')
+                          {
+                            alert('خطا في العملية')
+                          }
+                          else
+                          {
+                            alert('Opération échouée')
+                          }
                       }
                   })
                 },
                 error: function() {
-                    alert('create failed');
-                }
+                    if(lng == 'ar')
+                    {
+                        alert('خطأ في الإنشاء ');
+                    }else
+                    {
+                    alert('Erreur de création');
+                }}
             });
           }
          function uploadFile2(id,dates) {
@@ -472,12 +485,25 @@
                        },
                        error: function(response) {
                          console.log(''+JSON.stringify(response));
-                           alert('Upload failed');
+                         if(lng == 'ar')
+                         {
+                           alert('خطا في العملية')
+                         }
+                         else
+                         {
+                           alert('Opération échouée')
+                         }
                        }
                    })
                  },
                  error: function() {
-                     alert('create failed');
+                    if(lng == 'ar')
+                    {
+                        alert('خطأ في الإنشاء ');
+                    }else
+                    {
+                    alert('Erreur de création');
+                }
                  }
              });
            }
@@ -584,12 +610,25 @@
               $('#progressBar').width('0%');
              },
              error: function() {
-                 alert('Upload failed');
+                if(lng == 'ar')
+                {
+                  alert('خطا في العملية')
+                }
+                else
+                {
+                  alert('Opération échouée')
+                }
              }
          })
        },
        error: function() {
-           alert('create failed');
+        if(lng == 'ar')
+        {
+            alert('خطأ في الإنشاء ');
+        }else
+        {
+        alert('Erreur de création');
+    }
        }
    });
  }
@@ -781,7 +820,7 @@
      }
      else
      {
-         alert('close it with '+i);
+         //alert('close it with '+i);
      }
      }
      else
@@ -795,8 +834,13 @@
              $('#Mheure').addClass('error-handle')
          }
 
-
-         alert('chose time');
+         if(lng =='ar')
+         {
+            alert('حدد التوقيت');
+         }else
+         {
+         alert('Sélectionner l`heure');
+        }
      }
 
  }
@@ -928,7 +972,13 @@
                      success: function (response) {
 
                          var id=$('#ID_NIN').val();
-                         alert('donnee personnel a ajouter')
+                         if(lng == 'ar')
+                         {
+                         alert('تمت إضافة البيانات الشخصي')
+                        }else
+                        {
+                        alert('Les données personnelles a été ajouté')
+                        }
                        window.location.href="/Employe/IsTravaill/"+id;
                      },
                      error: function (xhr) {
@@ -999,7 +1049,13 @@
                      type: 'POST',
                      data: formData,
                      success: function (response) {
-                         alert('Generate Success');
+                        if( lng == 'ar')
+                        {
+                         alert('تم عملية التفعيل بنجاح')
+                        }else
+                        {
+                         alert('Générer avec succès');
+                        }
                          window.location.href="/BioTemplate/search/"+id;
                      },
                      error: function (xhr) {
@@ -1404,7 +1460,13 @@
                                  }
                                  else
                                  {
-                                     alert('svp choisir justifcation')
+                                    if( lng == 'ar')
+                                    {
+                                        alert('حدد المبرر')
+                                    }
+                                    {
+                                     alert('Choisir le motif de justification')
+                                    }
                                      $('#file').addClass('error-handle')
                                      che=0;
                                  }
@@ -1414,7 +1476,13 @@
                              }
                                  else
                                  {
-                                   alert('u don t have permission')
+                                    if( lng == 'ar')
+                                    {
+                                        alert('العمليةغير مسموحة ')
+                                    }else
+                                    {
+                                   alert('Vous avez pas le droit')
+                                    }
                                  }
                                })
 
@@ -1613,7 +1681,13 @@
                              }
                                else
                                {
-                                 alert('u don t have permission')
+                                if( lng == 'ar')
+                                {
+                                    alert('العمليةغير مسموحة ')
+                                }else
+                                {
+                               alert('Vous avez pas le droit')
+                                }
                                }
                              })
 
@@ -1699,7 +1773,13 @@
     }
     else
     {
-        alert('pass the number')
+        if( lng == 'ar')
+                                    {
+                                        alert('لقد تجاوزت العدد المسموح')
+                                    }else
+                                    {
+                                   alert('Tu as dépassé le numéro')
+                                    }
         $(this).addClass('error-handle')
     }
 
@@ -1863,13 +1943,27 @@
                             if(!checksickDaye(date_dcg))
                             {
                                 granted=false
-                                alert('Delai depasser pour le Maladie')
+                                if( lng == 'ar')
+                                {
+                                alert('لقد تم تجاوز الموعد النهائي')
+                                }
+                                else
+                                {
+                                    alert('Le délai a été dépassé')  
+                                }
                             }else
                             {
                                 if(selectedVsitua == 'out')
                                 {
                                     granted=false
-                                    alert('Doive etre ici pour le Maladie')
+                                    if( lng == 'ar')
+                                    {
+                                    alert('الإجازة المرضية يجب أن تكون هنا')
+                                    }
+                                    else
+                                    {
+                                        alert('Congé maladie doit être ici')  
+                                    }
                                 }
                             }
                          }
@@ -1896,7 +1990,14 @@
                              type:'POST',
                              success:function(response)
                              {
-                                 alert('add_to holiday')
+                                if( lng == 'ar')
+                                {
+                                 alert('تم إنشاء الإجازة')
+                                }
+                                else
+                                {
+                                    alert('Le congé a été créé')  
+                                }
 
                                  if(response.status == 200)
                                      {
@@ -1924,7 +2025,14 @@
                      {
                          if(total_cgj <= 0)
                          {
-                             alert('pas de jour a ajouter')
+                            if(lng =='ar')
+                            {
+                                alert('لم يتبقى أيام للعطلة')
+                            }
+                            else
+                            {
+                                alert('pas de jour a ajouter')
+                            }
                          }
                          if(granted == false)
                          {
@@ -1936,7 +2044,14 @@
                      }
                  }else
                  {
-                     alert('empty files');
+                    if(lng == 'ar')
+                    {
+                     alert('لايوجد ملف');
+                    }
+                    else
+                    {
+                        alert('Fichier est Vide');
+                    }
                      if( id == null){
                      $('#id_emp').addClass('error-handle')}
                      if(file[0].files.length == 0){
@@ -2004,7 +2119,14 @@
                }
                  else
                  {
-                   alert('you dont');
+                    if( lng == 'ar')
+                    {
+                  alert ('غير مسموح');
+                    }
+                    else
+                    {
+                        alert ('Vous avez pas le droit');
+                    }
                  }
      });
 
@@ -2030,7 +2152,14 @@
                }
                  else
                  {
-                   alert('you dont');
+                    if( lng == 'ar')
+                    {
+                  alert ('غير مسموح');
+                    }
+                    else
+                    {
+                        alert ('Vous avez pas le droit');
+                    }
                  }
      });
      $('#btn-dir').click(function(e){
@@ -2053,7 +2182,14 @@
                }
                  else
                  {
-                   alert('you dont');
+                    if( lng == 'ar')
+                    {
+                  alert ('غير مسموح');
+                    }
+                    else
+                    {
+                        alert ('Vous avez pas le droit');
+                    }
                  }
      });
      })
