@@ -156,6 +156,14 @@
                 </div>
         </div>
 </div>
+<dialog id="myDialog">
+        <label>Confirm Action</label>
+        <input type="text" placeholder="{{__('lang.discis')}}"></input>
+        <div class="dialog-buttons">
+            <button onclick="confirmAction()">{{__('lang.btn.enregistrer')}}</button>
+            <button onclick="cancelDialog()">{{__('lang.cancel')}}</button>
+        </div>
+    </dialog>
 </body>
 <script>
      var id = '{{ $employe->id_nin }}';

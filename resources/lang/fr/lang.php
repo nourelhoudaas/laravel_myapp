@@ -59,6 +59,8 @@ return [
     'date_chng'=>'Date  Changement',
     'date_archi'=>'Date Archivage',
     'date_insrt'=>'Date Insertion',
+    'discis'=>'ٌReference de decision',
+    'inst_dicsio'=>'ٌEntre decision',
     'post'=>'Poste',
     'post_fnc'=>'Fonction',
     'post_sup'=>'Post Superieur',

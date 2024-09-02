@@ -31,7 +31,12 @@
  * 
  * 
  */
-
+function showDialog() {
+    // Get the dialog element
+    var dialog = document.getElementById("myDialog");
+    // Show the dialog
+    dialog.showModal();
+}
 
 /***
  * 
@@ -1074,6 +1079,7 @@
                      success: function (response) {
                         if( lng == 'ar')
                         {
+                            showDialog()
                          alert('تم عملية التفعيل بنجاح')
                         }else
                         {
