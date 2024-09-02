@@ -1092,7 +1092,7 @@ foreach($allwor as $workig)
                 $msgunsc='فشلت العملية';
                 $msgdateins=' فشلت عملية الإضافة';
                 $ups=' تم التحديث ';
-                    $upsnot='خطا في التحديث';
+                $upsnot='خطا في التحديث';
                 }
                 $cng=Conge::where('id_nin',$request->get('ID_NIN'))
                 ->select('id_nin','ref_cong','nbr_jours','date_debut_cong','id_cong','date_fin_cong',DB::raw('YEAR(date_debut_cong) as annee'))

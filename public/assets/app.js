@@ -74,21 +74,44 @@
                 var rowNumber = index + 1;
                 if(post.statut =='NoJustier')
                     {
+                        if( lng == 'ar')
+                            {
                 var row = '<tr>' +
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
-                            '<td>' + post.statut + '    </td>' +
+                            '<td>غير مبررة   </td>' +
                           '</tr>';
+                        }else
+                        {
+                            var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td> No Justfier </td>' +
+                          '</tr>';
+                        }
                    }
                    else
                    {
+                    if(lng == 'ar')
+                        {
                     var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">التبرير </a></td>' +
+                          '</tr>';
+                        }
+                        else
+                        {
+                            var row = '<tr>' +
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
                             '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">' + post.statut + '</a></td>' +
                           '</tr>';
+                        }
                    }
                 tableBody.append(row);
             });
@@ -839,7 +862,7 @@
             alert('حدد التوقيت');
          }else
          {
-         alert('Sélectionner l`heure');
+           alert('Sélectionner l`heure');
         }
      }
 
