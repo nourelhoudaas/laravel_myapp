@@ -649,9 +649,7 @@ main .recent_order a:hover{
 .progress-bar {
   background-color: #2F8D46
 }
-.stepper-wrapper {
 
-}
 .stepper-item {
   position: relative;
   display: flex;
@@ -1499,8 +1497,7 @@ color: red;
 }
 .float-export
 {
-  position: fixed;
-  right: 0px;
+  position: fixed;  
   bottom: 0px;
   background-color: #e6f4fc;
   width: 100px;
@@ -1585,5 +1582,36 @@ color: red;
   .user-details .input-box input:valid{
     border-color: #9b59b6;
   }
+.labels
+{
+  font-weight: bolder;
+  font-size: 18px;
+  font-style: oblique;
+  font-family: none;
+}
+.file-get-handle
+{  display: inline-block;
+  padding: 6px 12px;
+  background-color: #ffffff;
+  color: rgb(7, 6, 6);
+  border-radius: 4px;
 
-
+}
+input[type='file']
+{
+  display: none;
+}
+.file-get-handle:hover
+{
+  scale: 1.2;
+  background-color: #bdfcb8;
+  cursor: pointer;
+}
+.rsid
+{
+  right: 0px;
+}
+.lsid
+{
+  left: 0px;
+}

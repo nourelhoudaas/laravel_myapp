@@ -122,8 +122,12 @@
         </div>
         <hr>
             <div class="form-group">
-                <label for="exampleFormControlFile1">{{ __('lang.filejust') }}  </label>
-                <input type="file" class="form-control-file file-input" id="file">
+            <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label> 
+            <input type="file" name="file" id="file"> 
+            <div class="">
+        
+            <label id='file-nm'>{{__('lang.filnull')}}</lable>
+            </div>
             </div>
         </form>
     </div>
@@ -140,6 +144,12 @@
         </script>
     </body>
     <script>
-
+        var flang='{{__("lang.filnull")}}'
+ $('#file').on('change',function(){
+    var label = $('#file-custm');
+    var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
+    label.textContent = fileName;
+      console.log('file handler'+fileName)
+      $('#file-nm').text(''+fileName)})
     </script>
 @endsection

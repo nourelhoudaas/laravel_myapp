@@ -172,13 +172,13 @@
                                                 ->get();
                                             //  return response()->json($detailemp);
                                             //   print_r(compact('detailemp'));
-                                       //  dd($result);
+                                        // dd($result);
                 $postwork=Occupe::where('occupes.id_nin',$id)->distinct()
                                 ->join('posts','posts.id_post','=','occupes.id_post')
                                 ->join('contients','contients.id_post','=','posts.id_post')
                                 ->select('id_occup','date_recrutement')->orderBy('date_recrutement')
                                 ->get();
-                          //      dd($postwork);
+                                //dd($postwork);
                 $nbr=$result->count();
                 $allemp=array();
                 foreach($result as $res)
@@ -206,18 +206,22 @@
                                                 'employes.sexe',
                                                 'employes.email',
                                                 'employes.Phone_num',
+                                                'travails.id_travail',
                                                 'travails.date_chang',
                                                 'travails.date_installation',
                                                 'travails.notation')
                                                 ->orderBy('travails.date_installation','desc')
-                                           //     ->orderBy('occupes.date_recrutement','desc')
+                                                ->orderBy('occupes.date_recrutement','desc')
                                                 ->first();
                     array_push($allemp,$inter)  ;
 
                 }
+                //dd($allemp);
                 $postarr=array();
+                $i=0;
                 foreach($postwork as $single){
                     $inter=DB::table('contients')->join('sous_departements','contients.id_sous_depart','=','sous_departements.id_sous_depart')
+                                                 ->join('travails','travails.id_sous_depart','=','sous_departements.id_sous_depart')   
                                                 ->join('posts','posts.id_post','=','contients.id_post')
                                                 ->join('occupes','occupes.id_post','=','posts.id_post')
                                                 ->join('employes','employes.id_nin','=','occupes.id_nin')
@@ -225,6 +229,7 @@
                                                 ->join('appartients','appartients.id_nin','=','employes.id_nin')
                                                 ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
                                                 ->where('id_occup',$single->id_occup)
+                                                ->where('id_travail',$allemp[$i]->id_travail)
                                                 ->select(
                                                 'niveaux.Nom_niv',
                                                 'niveaux.Nom_niv_ar',
@@ -242,6 +247,7 @@
                                                 ->orderBy('occupes.date_recrutement','desc')
                                                 ->first();
                     array_push($postarr,$inter)  ;
+                    $i++;
                 }
                // $carier=Travail::where('employes.id_nin',$id)
                $detailemp=array();
@@ -250,6 +256,7 @@
                // array_push($detailemp,$postarr[$i],$allemp[$i]);
                 //dd($detailemp[$i]);
                }
+              // dd($postarr);
                $detailemp=$allemp;
              //   dd($detailemp);
                 if($nbr>0){
@@ -972,6 +979,11 @@ foreach($allwor as $workig)
                 ->orderBy('occupes.date_recrutement','desc')
                 ->first();
                 //dd($emp);
+                $empstat='Exist pas';
+                if(app()->getLocale()== 'ar')
+                {
+                    $empstat='لا يوجد';
+                }
                 if(isset($emp))
                 {
                 $cng=Conge::where('id_nin',$emp->id_nin)->orderBy('date_fin_cong','desc')->get();
@@ -979,7 +991,7 @@ foreach($allwor as $workig)
                 else
                 {
                     return response()->json([
-                        'message'=>'pas Employe',
+                        'message'=>$empstat,
                         'status'=>302
                         ]);
                 }
@@ -1063,6 +1075,25 @@ foreach($allwor as $workig)
                 } else {
                     $situation_ar='خارج التراب';
                 }
+                $msgmald='Vérifier la date de congé maladie';
+                $msgdatein='Vérifier la date de congé';
+                $msgdateout='Vérifier le delai de congé';
+                $msgdateins='Opération échouée d`insertion';
+                $msgsuc='Opération réussie';
+                $msgunsc='opération échoué';
+                $ups='mise à jour';
+                $upsnot='n`est pas mise à jour';
+                if(app()->getLocale() == 'ar')
+                {
+                $msgmald='التحقق من تاريخ الإجازة المرضية';
+                $msgdatein='التحقق من تاريخ الإجازة';
+                $msgdateout='التحقق من مدة الإجازة';
+                $msgsuc='تم العملية';
+                $msgunsc='فشلت العملية';
+                $msgdateins=' فشلت عملية الإضافة';
+                $ups=' تم التحديث ';
+                $upsnot='خطا في التحديث';
+                }
                 $cng=Conge::where('id_nin',$request->get('ID_NIN'))
                 ->select('id_nin','ref_cong','nbr_jours','date_debut_cong','id_cong','date_fin_cong',DB::raw('YEAR(date_debut_cong) as annee'))
                 ->orderBy('date_debut_cong','desc')
@@ -1076,7 +1107,7 @@ foreach($allwor as $workig)
 
                         return response()->json([
                             'type'=>$cg->type_cg,
-                            'message'=>'Unsuccess verfier date du debut 1',
+                            'message'=>$msgdatein,
                             'status'=> 404
                         ]);
                         }
@@ -1109,12 +1140,12 @@ foreach($allwor as $workig)
                                         ]);
                                         if($cong->save())
                                         {
-                                            return response()->json(['message'=>'success','status'=>200]);
+                                            return response()->json(['message'=>$msgsuc,'status'=>200]);
                                         }
                                         else
                                         {
                                             return response()->json([
-                                                'message'=>'Unsuccess insering Maladie',
+                                                'message'=>$msgdateins,
                                                 'status'=> 404
                                             ]);
                                         }
@@ -1123,7 +1154,7 @@ foreach($allwor as $workig)
                             else
                             {
                                 return response()->json([
-                                    'message'=>'Unsuccess updating cong',
+                                    'message'=>$upsnot,
                                     'status'=> 404
                                 ]);
                             }
@@ -1131,7 +1162,7 @@ foreach($allwor as $workig)
                         else 
                         {
                             return response()->json([
-                                'message'=>'Unsuccess verfier date du debut Maladie',
+                                'message'=>$msgmald,
                                 'status'=> 404
                             ]);
                         }
@@ -1160,7 +1191,7 @@ foreach($allwor as $workig)
                     if($nbrcng <= 0 && $request->get('type_cg') == 'RF001')
                     {
                         return response()->json([
-                            'message'=>'Unsuccess deminuis le delai '.$nbrcng,
+                            'message'=>$msgdateout.' '.$nbrcng,
                             'status'=> 404
                         ]);
                     }else
@@ -1227,7 +1258,7 @@ foreach($allwor as $workig)
                 if($nbrcng <= 0 && $right == false)
                 {
                     return response()->json([
-                        'message'=>'Unsuccess deminuis le delai '.$nbrcng,
+                        'message'=>$msgdateout.''.$nbrcng,
                         'status'=> 404
                     ]);
                 }else
@@ -1253,13 +1284,13 @@ foreach($allwor as $workig)
                 if($cong->save() )
                 {
                     return response()->json([
-                        'message'=>'Success',
+                        'message'=>$msgsuc,
                         'status'=> 200
                     ]);
                 }else
                 {
                     return response()->json([
-                        'message'=>'Unsuccess',
+                        'message'=>$msgunsc,
                         'status'=> 404
                     ]);
                 }
@@ -1271,13 +1302,13 @@ foreach($allwor as $workig)
                     if($cong->save() )
                 {
                     return response()->json([
-                        'message'=>'Success',
+                        'message'=>$msgsuc,
                         'status'=> 200
                     ]);
                 }else
                 {
                     return response()->json([
-                        'message'=>'Unsuccess',
+                        'message'=>$msgunsc,
                         'status'=> 404,
                     ]);
                 }
@@ -1285,7 +1316,7 @@ foreach($allwor as $workig)
                 else
                 {
                 return response()->json([
-                    'message'=>'Unsuccess verfier la date du debut 2',
+                    'message'=>$msgdateout,
                     'status'=> 404,
                     'type'=>'Situation'
                 ]);
@@ -1315,13 +1346,13 @@ foreach($allwor as $workig)
                             if($cong->save())
                             {
                                 return response()->json([
-                                    'message'=>'Success',
+                                    'message'=>$msgsuc,
                                     'status'=> 200
                                 ]);
                             }else
                             {
                                 return response()->json([
-                                    'message'=>'Unsuccess',
+                                    'message'=>$msgunsc,
                                     'status'=> 404
                                 ]);
                             }
@@ -1333,7 +1364,8 @@ foreach($allwor as $workig)
             {
               $employe=Employe::where('id_nin', $id)->firstOrFail();
               $niv=new Niveau();
-              $dbniv=$niv->SELECT('Nom_niv','Specialité','Specialité_ar','Nom_niv_ar')->distinct()->get();
+              $dbniv=$niv->SELECT('Nom_niv','Nom_niv_ar')->distinct()->get();
+              $dbn=$niv->SELECT('Specialité','Specialité_ar')->distinct()->get();
               $dbempdepart = new Departement();
               $empdepart =$dbempdepart->get();
               if(app()->getLocale() == 'ar')
@@ -1341,7 +1373,7 @@ foreach($allwor as $workig)
              //   dd(app()->getLocale());
               }
 
-              return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
+              return view('addTemplate.travaill',compact('employe','dbniv','empdepart','dbn'));
             }
             function existApp($id)
             {

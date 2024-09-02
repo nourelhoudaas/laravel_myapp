@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -38,6 +40,13 @@ public function __construct(logService $logService)
     public function uploadFile(Request $request)
     {
         // Validate the file
+        $ups='Opération réussie';
+        $upsnot='Echec D` Opération';
+        if(app()->getLocale() == 'ar')
+        {
+            $ups=' تم بنجاح ';
+            $upsnot='خطا في العملية';
+        }
         $date=Carbon::now();
         $request->validate([
             'file' => 'required|file|mimes:jpg,png,pdf|max:2048',
@@ -96,23 +105,23 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
                                                     'Ajouter Un fichier a Em_'.$id."/sous_Dossier :".$sous_dir." Avec Nom".$fielname,
                                                     $mac
                                                 );
-                                            };
+                                            }
                                             //  dd($save);
-                     /*                   }
+                     
                                         
         else
         {
             return response()->json([
-                'message'=>'unsuccess',
+                'message'=> $upsnot,
                 'status'=>302
             ]);
-        }*/
+        }
 
         
 
 
       return response()->json([
-            'message'=>'success',
+            'message'=>$ups,
             'status'=> 200,
             'data'=>['ref_d'=>'Em_'.$id,
                      'sous_d'=>$sous_dir,
@@ -125,6 +134,13 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
     public function cree_dos_sous(Request $request)
     {
         // Define the main directory path
+        $ups='Opération réussie';
+        $upsnot='Echec D` Opération';
+        if(app()->getLocale() == 'ar')
+        {
+            $ups=' تم بنجاح ';
+            $upsnot='خطا في العملية';
+        }
         $request->validate([
             'id_nin'=>'required|integer',
         ]);
@@ -165,11 +181,12 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
          //   echo "Subdirectory already exists.";
         }
      }
-        return response()->json(['success'=>'creating file','code'=>200]);
+        return response()->json(['success'=>$ups,'code'=>200]);
     }
 
     public function getFiles($id)
     {
+        App::setLocale(Session::get('locale', config('app.locale')));
         $empdepart=Departement::get();
         $employe=Employe::where('id_nin',$id)->firstOrFail();
        
@@ -243,13 +260,20 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
 
     public function live_File($directory,$subdir,$filename)
     {
+        $ups='Opération réussie';
+        $upsnot='Echec D` Opération';
+        if(app()->getLocale() == 'ar')
+        {
+            $ups=' تم بنجاح ';
+            $upsnot='خطا في العملية';
+        }
         $id=explode('-',$filename);
         $subd=$id[0];
         $numid=intval($id[1]);
         if($numid == 0)
         {
             return response()->json([
-                'message'=>'aucun file',
+                'message'=> $upsnot,
                 'code'=> 302
             ]);
         }
@@ -265,7 +289,13 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
 
     public function savedb(Request $request)
     {  
-       
+        $ups='Opération réussie';
+        $upsnot='Echec D` Opération';
+        if(app()->getLocale() == 'ar')
+        {
+            $ups=' تم بنجاح ';
+            $upsnot='خطا في العملية';
+        }
         $file=$request->get('fichier');
         $date=Carbon::now();
         $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('fichier'))->orderBy('date_cree_fichier','desc')->orderBy( 'id_fichier','DESC')->get();
@@ -284,7 +314,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
         if(!$dsta)
         {
             return response()->json([
-                'message'=> 'unsuccess of creation Files',
+                'message'=>  $upsnot,
                 'code'=>302
             ]);
         }
@@ -323,14 +353,14 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
             );
            // dd($stock->save());
             return response()->json([
-                'message'=>'success',
+                'message'=>$ups,
                 'code'=> 200
             ]);
 
         }else
         {
             return response()->json([
-                'message'=>'unsuccess',
+                'message'=>$upsnot,
                 'code'=>302
             ]);
         }

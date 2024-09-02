@@ -26,6 +26,18 @@
         })
  *
  */
+/***
+ * 
+ * 
+ * 
+ */
+
+
+/***
+ * 
+ * 
+ * 
+ */
         function fetchPosts(url) {
             $.ajax({
                 url: url,
@@ -62,21 +74,44 @@
                 var rowNumber = index + 1;
                 if(post.statut =='NoJustier')
                     {
+                        if( lng == 'ar')
+                            {
                 var row = '<tr>' +
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
-                            '<td>' + post.statut + '    </td>' +
+                            '<td>غير مبررة   </td>' +
                           '</tr>';
+                        }else
+                        {
+                            var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td> No Justfier </td>' +
+                          '</tr>';
+                        }
                    }
                    else
                    {
+                    if(lng == 'ar')
+                        {
                     var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">التبرير </a></td>' +
+                          '</tr>';
+                        }
+                        else
+                        {
+                            var row = '<tr>' +
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
                             '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">' + post.statut + '</a></td>' +
                           '</tr>';
+                        }
                    }
                 tableBody.append(row);
             });
@@ -162,6 +197,8 @@
                  $('.list-group').removeClass('pad-fr')
                  $('#add-handler').addClass('add-handler-ar')
                  $('#add-handler').removeClass('add-handler-fr')
+                 $('.float-export').removeClass('rsid')
+                 $('.float-export').addClass('lsid')
 
 
              }
@@ -181,6 +218,8 @@
                  $('.list-group').removeClass('pad-ar')
                  $('#add-handler').removeClass('add-handler-ar')
                  $('#add-handler').addClass('add-handler-fr')
+                 $('.float-export').addClass('rsid')
+                 $('.float-export').removeClass('lsid')
              }
          })
 
@@ -256,7 +295,8 @@
                        $('#progressBar').width('0%');
                       },
                       error: function() {
-                          alert('Upload failed');
+
+                          alert(response.message);
                       }
                   })
           }
@@ -354,13 +394,25 @@
                       },
                       error: function(response) {
                         console.log(''+JSON.stringify(response));
-                          alert('Upload failed');
+                          if(lng == 'ar')
+                          {
+                            alert('خطا في العملية')
+                          }
+                          else
+                          {
+                            alert('Opération échouée')
+                          }
                       }
                   })
                 },
                 error: function() {
-                    alert('create failed');
-                }
+                    if(lng == 'ar')
+                    {
+                        alert('خطأ في الإنشاء ');
+                    }else
+                    {
+                    alert('Erreur de création');
+                }}
             });
           }
          function uploadFile2(id,dates) {
@@ -456,12 +508,25 @@
                        },
                        error: function(response) {
                          console.log(''+JSON.stringify(response));
-                           alert('Upload failed');
+                         if(lng == 'ar')
+                         {
+                           alert('خطا في العملية')
+                         }
+                         else
+                         {
+                           alert('Opération échouée')
+                         }
                        }
                    })
                  },
                  error: function() {
-                     alert('create failed');
+                    if(lng == 'ar')
+                    {
+                        alert('خطأ في الإنشاء ');
+                    }else
+                    {
+                    alert('Erreur de création');
+                }
                  }
              });
            }
@@ -568,12 +633,25 @@
               $('#progressBar').width('0%');
              },
              error: function() {
-                 alert('Upload failed');
+                if(lng == 'ar')
+                {
+                  alert('خطا في العملية')
+                }
+                else
+                {
+                  alert('Opération échouée')
+                }
              }
          })
        },
        error: function() {
-           alert('create failed');
+        if(lng == 'ar')
+        {
+            alert('خطأ في الإنشاء ');
+        }else
+        {
+        alert('Erreur de création');
+    }
        }
    });
  }
@@ -765,7 +843,7 @@
      }
      else
      {
-         alert('close it with '+i);
+         //alert('close it with '+i);
      }
      }
      else
@@ -779,8 +857,13 @@
              $('#Mheure').addClass('error-handle')
          }
 
-
-         alert('chose time');
+         if(lng =='ar')
+         {
+            alert('حدد التوقيت');
+         }else
+         {
+           alert('Sélectionner l`heure');
+        }
      }
 
  }
@@ -912,7 +995,13 @@
                      success: function (response) {
 
                          var id=$('#ID_NIN').val();
-                         alert('donnee personnel a ajouter')
+                         if(lng == 'ar')
+                         {
+                         alert('تمت إضافة البيانات الشخصي')
+                        }else
+                        {
+                        alert('Les données personnelles a été ajouté')
+                        }
                        window.location.href="/Employe/IsTravaill/"+id;
                      },
                      error: function (xhr) {
@@ -983,7 +1072,13 @@
                      type: 'POST',
                      data: formData,
                      success: function (response) {
-                         alert('Generate Success');
+                        if( lng == 'ar')
+                        {
+                         alert('تم عملية التفعيل بنجاح')
+                        }else
+                        {
+                         alert('Générer avec succès');
+                        }
                          window.location.href="/BioTemplate/search/"+id;
                      },
                      error: function (xhr) {
@@ -999,7 +1094,14 @@
                 }
                 else
                 {
-                    $('#remq p').text('Confimer leur date Rect et PV installation')
+                    if(lng == 'ar')
+                        {
+                    $('#remq p').text('عليك التأكد من تاريخ التصيب و تاريخ التوظيف')
+                        }
+                        else
+                        {
+                            $('#remq p').text('Confimer leur date Rect et PV installation')
+                        }
                     $('#remq').addClass('remq');
                     $('#PVDate').addClass('error-handle');
                     $('#RecDate').addClass('error-handle');
@@ -1388,7 +1490,13 @@
                                  }
                                  else
                                  {
-                                     alert('svp choisir justifcation')
+                                    if( lng == 'ar')
+                                    {
+                                        alert('حدد المبرر')
+                                    }
+                                    {
+                                     alert('Choisir le motif de justification')
+                                    }
                                      $('#file').addClass('error-handle')
                                      che=0;
                                  }
@@ -1398,7 +1506,13 @@
                              }
                                  else
                                  {
-                                   alert('u don t have permission')
+                                    if( lng == 'ar')
+                                    {
+                                        alert('العمليةغير مسموحة ')
+                                    }else
+                                    {
+                                   alert('Vous avez pas le droit')
+                                    }
                                  }
                                })
 
@@ -1597,7 +1711,13 @@
                              }
                                else
                                {
-                                 alert('u don t have permission')
+                                if( lng == 'ar')
+                                {
+                                    alert('العمليةغير مسموحة ')
+                                }else
+                                {
+                               alert('Vous avez pas le droit')
+                                }
                                }
                              })
 
@@ -1683,7 +1803,29 @@
     }
     else
     {
-        alert('pass the number')
+        if( val.length <= 8)
+            {
+        if( lng == 'ar')
+                                    {
+                                    alert(' لم تستوفي الرقم المسموح أكبر من 8')
+                                    }else
+                                    {
+                                    alert('Tu n`est pas Accomplir les Chiffres plus que 8')
+                                    }
+            }
+            else
+            {
+                if(val.length >= 16)
+                {
+                    if( lng == 'ar')
+                        {
+                        alert(' لقد تجاوزت العدد المسموح أقل من 16')
+                        }else
+                        {
+                        alert('Tu as dépassé les Chiffres Mois que 16  ')
+                        }
+                }
+            }
         $(this).addClass('error-handle')
     }
 
@@ -1847,13 +1989,27 @@
                             if(!checksickDaye(date_dcg))
                             {
                                 granted=false
-                                alert('Delai depasser pour le Maladie')
+                                if( lng == 'ar')
+                                {
+                                alert('لقد تم تجاوز الموعد النهائي')
+                                }
+                                else
+                                {
+                                    alert('Le délai a été dépassé')  
+                                }
                             }else
                             {
                                 if(selectedVsitua == 'out')
                                 {
                                     granted=false
-                                    alert('Doive etre ici pour le Maladie')
+                                    if( lng == 'ar')
+                                    {
+                                    alert('الإجازة المرضية يجب أن تكون هنا')
+                                    }
+                                    else
+                                    {
+                                        alert('Congé maladie doit être ici')  
+                                    }
                                 }
                             }
                          }
@@ -1880,7 +2036,14 @@
                              type:'POST',
                              success:function(response)
                              {
-                                 alert('add_to holiday')
+                                if( lng == 'ar')
+                                {
+                                 alert('تم إنشاء الإجازة')
+                                }
+                                else
+                                {
+                                    alert('Le congé a été créé')  
+                                }
 
                                  if(response.status == 200)
                                      {
@@ -1908,7 +2071,14 @@
                      {
                          if(total_cgj <= 0)
                          {
-                             alert('pas de jour a ajouter')
+                            if(lng =='ar')
+                            {
+                                alert('لم يتبقى أيام للعطلة')
+                            }
+                            else
+                            {
+                                alert('pas de jour a ajouter')
+                            }
                          }
                          if(granted == false)
                          {
@@ -1920,7 +2090,14 @@
                      }
                  }else
                  {
-                     alert('empty files');
+                    if(lng == 'ar')
+                    {
+                     alert('لايوجد ملف');
+                    }
+                    else
+                    {
+                        alert('Fichier est Vide');
+                    }
                      if( id == null){
                      $('#id_emp').addClass('error-handle')}
                      if(file[0].files.length == 0){
@@ -1988,7 +2165,14 @@
                }
                  else
                  {
-                   alert('you dont');
+                    if( lng == 'ar')
+                    {
+                  alert ('غير مسموح');
+                    }
+                    else
+                    {
+                        alert ('Vous avez pas le droit');
+                    }
                  }
      });
 
@@ -2014,7 +2198,14 @@
                }
                  else
                  {
-                   alert('you dont');
+                    if( lng == 'ar')
+                    {
+                  alert ('غير مسموح');
+                    }
+                    else
+                    {
+                        alert ('Vous avez pas le droit');
+                    }
                  }
      });
      $('#btn-dir').click(function(e){
@@ -2037,7 +2228,14 @@
                }
                  else
                  {
-                   alert('you dont');
+                    if( lng == 'ar')
+                    {
+                  alert ('غير مسموح');
+                    }
+                    else
+                    {
+                        alert ('Vous avez pas le droit');
+                    }
                  }
      });
      })
@@ -2046,6 +2244,7 @@
       *
       */
 
+     
 
     //dynamic field Creation with java script
     const addBtn = document.querySelector(".add");
@@ -2128,9 +2327,21 @@ function checksickDaye(maladie) {
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     console.log('different'+diffDays)
     // Check if the date is equal or within two days before the reference date
-    return diffDays >= 0 && diffDays <= 2;
+    return diffDays >= -2 && diffDays <= 2;
 }
 /***
  *
  * end this function of this
+ */
+
+/***
+ * 
+ * 
+ * this for updalod button
+ */
+
+/**
+ * 
+ * end 
+ * 
  */
