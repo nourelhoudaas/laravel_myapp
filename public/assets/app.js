@@ -1770,7 +1770,7 @@
      var idinput=$('#ID_NIN')
      idinput.blur(function(){
         var val=$(this).val()
-        if(val.length > 8 && val.length <=16)
+        if(val.length <=16)
             {
         $.ajax({
             url:'/Employe/check/'+val,
@@ -2327,7 +2327,7 @@ function checksickDaye(maladie) {
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     console.log('different'+diffDays)
     // Check if the date is equal or within two days before the reference date
-    return diffDays >= -2 && diffDays <= 2;
+    return diffDays >= -2 ;
 }
 /***
  *

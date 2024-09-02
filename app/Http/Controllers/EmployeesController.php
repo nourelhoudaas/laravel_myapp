@@ -211,7 +211,7 @@
                                                 'travails.date_installation',
                                                 'travails.notation')
                                                 ->orderBy('travails.date_installation','desc')
-                                                ->orderBy('occupes.date_recrutement','desc')
+                                                //->orderBy('occupes.date_recrutement','desc')
                                                 ->first();
                     array_push($allemp,$inter)  ;
 
@@ -229,7 +229,7 @@
                                                 ->join('appartients','appartients.id_nin','=','employes.id_nin')
                                                 ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
                                                 ->where('id_occup',$single->id_occup)
-                                                ->where('id_travail',$allemp[$i]->id_travail)
+                                               ->where('id_travail',$allemp[$i]->id_travail)
                                                 ->select(
                                                 'niveaux.Nom_niv',
                                                 'niveaux.Nom_niv_ar',
@@ -256,6 +256,7 @@
                // array_push($detailemp,$postarr[$i],$allemp[$i]);
                 //dd($detailemp[$i]);
                }
+
               // dd($postarr);
                $detailemp=$allemp;
              //   dd($detailemp);
@@ -468,6 +469,7 @@
                 'id_sous_depart'=>$soud_dic,
                 'statut'=>$justf,
                 'heure_abs'=>$heur,
+                'id_fichier'=>1,
                 'date_abs'=>$request->get('Date_ABS'),
             ]);
             if($abs->save())
