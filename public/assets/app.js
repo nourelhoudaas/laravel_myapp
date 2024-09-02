@@ -74,21 +74,44 @@
                 var rowNumber = index + 1;
                 if(post.statut =='NoJustier')
                     {
+                        if( lng == 'ar')
+                            {
                 var row = '<tr>' +
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
-                            '<td>' + post.statut + '    </td>' +
+                            '<td>غير مبررة   </td>' +
                           '</tr>';
+                        }else
+                        {
+                            var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td> No Justfier </td>' +
+                          '</tr>';
+                        }
                    }
                    else
                    {
+                    if(lng == 'ar')
+                        {
                     var row = '<tr>' +
+                            '<td>' + rowNumber + '</td>' +
+                            '<td>' + post.date_abs + '</td>' +
+                            '<td>' + post.heure_abs + '</td>' +
+                            '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">التبرير </a></td>' +
+                          '</tr>';
+                        }
+                        else
+                        {
+                            var row = '<tr>' +
                             '<td>' + rowNumber + '</td>' +
                             '<td>' + post.date_abs + '</td>' +
                             '<td>' + post.heure_abs + '</td>' +
                             '<td><a href=/Employe/read_just/'+post.id_fichier+' target="_blank">' + post.statut + '</a></td>' +
                           '</tr>';
+                        }
                    }
                 tableBody.append(row);
             });
@@ -839,7 +862,7 @@
             alert('حدد التوقيت');
          }else
          {
-         alert('Sélectionner l`heure');
+           alert('Sélectionner l`heure');
         }
      }
 
@@ -1071,7 +1094,14 @@
                 }
                 else
                 {
-                    $('#remq p').text('Confimer leur date Rect et PV installation')
+                    if(lng == 'ar')
+                        {
+                    $('#remq p').text('عليك التأكد من تاريخ التصيب و تاريخ التوظيف')
+                        }
+                        else
+                        {
+                            $('#remq p').text('Confimer leur date Rect et PV installation')
+                        }
                     $('#remq').addClass('remq');
                     $('#PVDate').addClass('error-handle');
                     $('#RecDate').addClass('error-handle');
@@ -1773,13 +1803,29 @@
     }
     else
     {
+        if( val.length <= 8)
+            {
         if( lng == 'ar')
                                     {
-                                        alert('لقد تجاوزت العدد المسموح')
+                                    alert(' لم تستوفي الرقم المسموح أكبر من 8')
                                     }else
                                     {
-                                   alert('Tu as dépassé le numéro')
+                                    alert('Tu n`est pas Accomplir les Chiffres plus que 8')
                                     }
+            }
+            else
+            {
+                if(val.length >= 16)
+                {
+                    if( lng == 'ar')
+                        {
+                        alert(' لقد تجاوزت العدد المسموح أقل من 16')
+                        }else
+                        {
+                        alert('Tu as dépassé les Chiffres Mois que 16  ')
+                        }
+                }
+            }
         $(this).addClass('error-handle')
     }
 
@@ -2281,7 +2327,7 @@ function checksickDaye(maladie) {
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     console.log('different'+diffDays)
     // Check if the date is equal or within two days before the reference date
-    return diffDays >= 0 && diffDays <= 2;
+    return diffDays >= -2 && diffDays <= 2;
 }
 /***
  *

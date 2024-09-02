@@ -172,13 +172,13 @@
                                                 ->get();
                                             //  return response()->json($detailemp);
                                             //   print_r(compact('detailemp'));
-                                       //  dd($result);
+                                        // dd($result);
                 $postwork=Occupe::where('occupes.id_nin',$id)->distinct()
                                 ->join('posts','posts.id_post','=','occupes.id_post')
                                 ->join('contients','contients.id_post','=','posts.id_post')
                                 ->select('id_occup','date_recrutement')->orderBy('date_recrutement')
                                 ->get();
-                          //      dd($postwork);
+                                //dd($postwork);
                 $nbr=$result->count();
                 $allemp=array();
                 foreach($result as $res)
@@ -206,18 +206,22 @@
                                                 'employes.sexe',
                                                 'employes.email',
                                                 'employes.Phone_num',
+                                                'travails.id_travail',
                                                 'travails.date_chang',
                                                 'travails.date_installation',
                                                 'travails.notation')
                                                 ->orderBy('travails.date_installation','desc')
-                                           //     ->orderBy('occupes.date_recrutement','desc')
+                                                ->orderBy('occupes.date_recrutement','desc')
                                                 ->first();
                     array_push($allemp,$inter)  ;
 
                 }
+                //dd($allemp);
                 $postarr=array();
+                $i=0;
                 foreach($postwork as $single){
                     $inter=DB::table('contients')->join('sous_departements','contients.id_sous_depart','=','sous_departements.id_sous_depart')
+                                                 ->join('travails','travails.id_sous_depart','=','sous_departements.id_sous_depart')   
                                                 ->join('posts','posts.id_post','=','contients.id_post')
                                                 ->join('occupes','occupes.id_post','=','posts.id_post')
                                                 ->join('employes','employes.id_nin','=','occupes.id_nin')
@@ -225,6 +229,7 @@
                                                 ->join('appartients','appartients.id_nin','=','employes.id_nin')
                                                 ->join('niveaux','niveaux.id_niv','=','appartients.id_niv')
                                                 ->where('id_occup',$single->id_occup)
+                                                ->where('id_travail',$allemp[$i]->id_travail)
                                                 ->select(
                                                 'niveaux.Nom_niv',
                                                 'niveaux.Nom_niv_ar',
@@ -242,6 +247,7 @@
                                                 ->orderBy('occupes.date_recrutement','desc')
                                                 ->first();
                     array_push($postarr,$inter)  ;
+                    $i++;
                 }
                // $carier=Travail::where('employes.id_nin',$id)
                $detailemp=array();
@@ -250,6 +256,7 @@
                // array_push($detailemp,$postarr[$i],$allemp[$i]);
                 //dd($detailemp[$i]);
                }
+              // dd($postarr);
                $detailemp=$allemp;
              //   dd($detailemp);
                 if($nbr>0){
@@ -1086,7 +1093,7 @@ foreach($allwor as $workig)
                 $msgunsc='فشلت العملية';
                 $msgdateins=' فشلت عملية الإضافة';
                 $ups=' تم التحديث ';
-                    $upsnot='خطا في التحديث';
+                $upsnot='خطا في التحديث';
                 }
                 $cng=Conge::where('id_nin',$request->get('ID_NIN'))
                 ->select('id_nin','ref_cong','nbr_jours','date_debut_cong','id_cong','date_fin_cong',DB::raw('YEAR(date_debut_cong) as annee'))
