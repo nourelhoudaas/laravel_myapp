@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <h3 id='emp-info'></h3>
-                </div>   
+                </div>
                 <div class="recent_order">
                     <table id="AbsempTable">
 
@@ -66,9 +66,9 @@
                      <p>{{__('lang.nbr_page')}}: <span id="total-pages"></span></p>
                     </div>
                     <div class="pagination" id='links'>
-                        
+
                     </div>
-                </div>   
+                </div>
                 <div id="mySidenav" class="">
                     <div>
     <a href="javascript:void(0)" class="closebtn" id="close"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
@@ -80,14 +80,14 @@
         <div class="info-handler">
             <label>{{ __('lang.period') }} :</label>
            </br>
-            <div class="info-info"> 
+            <div class="info-info">
                 <div class="form-check info-wid">
                    <input class="form-check-input" type="radio" name="MheureRadio" id="Mheure" value="1">
                    <label class="form-check-label" for="exampleRadios1">
                     {{ __('lang.matin') }}
                    </label>
                 </div>
-           
+
                 <div class="form-check info-wid">
                     <input class="form-check-input" type="radio" name="SheureRadio" id="Sheure" value="2">
                     <label class="form-check-label" for="exampleRadios2">
@@ -100,7 +100,7 @@
         <div class="info-handler">
           <label>{{ __('lang.motif') }} :</label>
       </br>
-          <div class="info-info">  
+          <div class="info-info">
             <div class="form-check info-wid">
                 <input class="form-check-input" type="radio" name="StatusRadio" id="StatusJ" value="F1">
                 <label class="form-check-label" for="exampleRadios1">
@@ -118,14 +118,14 @@
         <div class="info-handler">
           <label>{{ __('lang.motif') }} :</label>
       </br>
-          <div class="info-info" id="checkboxContainer">  
+          <div class="info-info" id="checkboxContainer">
         </div>
         <hr>
             <div class="form-group">
-            <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label> 
-            <input type="file" name="file" id="file"> 
+            <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label>
+            <input type="file" name="file" id="file">
             <div class="">
-        
+
             <label id='file-nm'>{{__('lang.filnull')}}</lable>
             </div>
             </div>
@@ -133,7 +133,7 @@
     </div>
 </div>
             </main>
-    
+
         </div>
         <script>
              var uid='{{$uid}}'

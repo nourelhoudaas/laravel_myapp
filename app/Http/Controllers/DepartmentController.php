@@ -192,7 +192,7 @@ return view('department.edit', compact('departement'));
         $gi = $empdep->count();
 
 
-        return view('department.add_depart', compact('empdep','empdepart','nom_d'));
+        return view('department.liste', compact('empdep','empdepart','nom_d'));
     }
 
     public function store(saveDepartementRequest $request)
