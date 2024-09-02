@@ -1796,13 +1796,29 @@
     }
     else
     {
+        if( val.length <= 8)
+            {
         if( lng == 'ar')
                                     {
-                                        alert('لقد تجاوزت العدد المسموح')
+                                    alert(' لم تستوفي الرقم المسموح أكبر من 8')
                                     }else
                                     {
-                                   alert('Tu as dépassé le numéro')
+                                    alert('Tu n`est pas Accomplir les Chiffres plus que 8')
                                     }
+            }
+            else
+            {
+                if(val.length >= 16)
+                {
+                    if( lng == 'ar')
+                        {
+                        alert(' لقد تجاوزت العدد المسموح أقل من 16')
+                        }else
+                        {
+                        alert('Tu as dépassé les Chiffres Mois que 16  ')
+                        }
+                }
+            }
         $(this).addClass('error-handle')
     }
 
@@ -2304,7 +2320,7 @@ function checksickDaye(maladie) {
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     console.log('different'+diffDays)
     // Check if the date is equal or within two days before the reference date
-    return diffDays >= 0 && diffDays <= 2;
+    return diffDays >= -2 && diffDays <= 2;
 }
 /***
  *
