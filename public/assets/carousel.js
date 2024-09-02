@@ -100,11 +100,20 @@ $(document).ready(function(){
                     type: 'POST',
                     data: formData,
                     success: function (response) {
+
                         alert(response.success);
                         window.location.href = "{{route('BioTemplate.create') }}";
                     },
                     error: function (xhr) {
                         console.log(xhr.responseText);
+                        if( lng == 'ar')
+                        {
+                            alert('خطأ في عملية التحديث')
+                        }
+                        else
+                        {
+                            alert('Opération échouée')
+                        }
                     }
                 });
     });

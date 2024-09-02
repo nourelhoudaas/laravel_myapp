@@ -237,7 +237,8 @@
                         value="@if(app()->getLocale() == 'ar') {{ $last->adress_ar }} @else {{ $last->adress }} @endif"
                         style="border: hidden;background-color: transparent;" disabled>
                       </div>
-                      
+                      <div class="field-holder" id='adr-toadd'>
+                      </div>
                       </div>
 
                       <hr>
@@ -389,6 +390,29 @@ if(md == false){
 $('#pro-mail-add').on('click',function(){
 $("#inp-pro").html('<input class="col-sm-9 text-secondary" id="email_pro" style="height: 35px;width: 100%;border-style: ridge;background-color: transparent;"></input>')
 })
+if( lng == 'ar')
+{
+  $("#adr").attr('id','adrAR')
+  $('#adr-toadd').html('<div class="col-sm-3">'
+                        +'<h6 class="mb-0">Address </h6>'
+                        +'</div>'
+                        +'<input class="col-sm-9 text-secondary"'
+                        +"id='adr'"
+                        +'value="{{ $last->adress }}"'
+                        +' style="border: hidden;background-color: transparent;" disabled>'
+                        +'</div>')
+}
+else
+{
+  $('#adr-toadd').html('<div class="col-sm-3">'
+                        +'<h6 class="mb-0">العنوان</h6>'
+                        +'</div>'
+                        +'<input class="col-sm-9 text-secondary"'
+                        +"id='adrAR'"
+                        +'value="{{ $last->adress_ar }}"'
+                        +' style="border: hidden;background-color: transparent;" disabled>'
+                        +'</div>')
+}
 icon.classList.remove('fa-times')
 icon.classList.add('fa-pencil');
 document.getElementById('Nom_P').disabled=false;
@@ -398,13 +422,28 @@ document.getElementById('Prenom_OAR').disabled=false;
 document.getElementById('Email').disabled=false;
 document.getElementById('phone_pn').disabled=false;
 document.getElementById('dateN').disabled=false;
-document.getElementById('adr').disabled=false;
-//document.getElementById('adrAR').disabled=false;
+if( lng == 'ar')
+{
+  $('#adrAR').prop('disabled', false);
+}else
+{
+  $('#adr').prop('disabled', false);
+}
+
 md=true;
 }
 else
 {
 $('#pro-add').empty()
+$('#adr-toadd').empty()
+if( lng == 'ar')
+{
+  $('#adrAR').prop('disabled', true);
+}else
+{
+  $('#adr').prop('disabled', true);
+}
+
 icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
 document.getElementById('Nom_P').disabled=true;
@@ -414,7 +453,7 @@ document.getElementById('Prenom_OAR').disabled=true;
 document.getElementById('Email').disabled=true;
 document.getElementById('phone_pn').disabled=true;
 document.getElementById('dateN').disabled=true;
-document.getElementById('adr').disabled=true;
+//document.getElementById('adr').disabled=true;
 //document.getElementById('adrAR').disabled=true;
 md=false;
 }

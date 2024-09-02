@@ -41,6 +41,7 @@ return [
     'famill'=>'Situation ',
     'stitua_fam'=>'Situation Familliale',
     'slct_famill'=>' Selectionner Votre Situation',
+    'adresse'=>'Address',
 
     'cel'=>'Celebatiare',
     'marie'=>'Marie',
@@ -162,7 +163,8 @@ return [
     'Retour'=>'Retour',
 
     'deladepa'=>'Le délai a été dépassé',
-    'maladtet'=>'Congé maladie doit être ici'
+    'maladtet'=>'Congé maladie doit être ici',
+    'Lieunaiss'=>'Lieu de Naissance',
 
 ];
 
