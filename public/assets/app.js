@@ -1094,7 +1094,14 @@
                 }
                 else
                 {
-                    $('#remq p').text('Confimer leur date Rect et PV installation')
+                    if(lng == 'ar')
+                        {
+                    $('#remq p').text('عليك التأكد من تاريخ التصيب و تاريخ التوظيف')
+                        }
+                        else
+                        {
+                            $('#remq p').text('Confimer leur date Rect et PV installation')
+                        }
                     $('#remq').addClass('remq');
                     $('#PVDate').addClass('error-handle');
                     $('#RecDate').addClass('error-handle');
