@@ -1096,7 +1096,7 @@
                 {
                     if(lng == 'ar')
                         {
-                    $('#remq p').text('عليك التأكد من تاريخ التصيب و تاريخ التوظيف')
+                    $('#remq p').text('عليك التأكد من تاريخ التنصيب و تاريخ التوظيف')
                         }
                         else
                         {
@@ -1908,7 +1908,7 @@
                     {
                         $('#typ_cg option:eq(2)').prop('selected', true)
                     }
-                     if(response.Jour_congé <= 0 )
+                     if(response.Jour_congé <= 0  && document.getElementById("typ_cg").value == 'RF001')
                      {
                          var currentTime = new Date()
                         $('#checkcg-box').append(pasrdoit);
@@ -1983,7 +1983,7 @@
                                 var selectsitua = document.getElementById("Situation");
                                 var selectedValue = selectElement.value;
                                 var selectedVsitua = selectsitua.value;
-                                console.log('select '+selectedVsitua)
+                                console.log('select '+selectsitua)
                          if(selectedValue == 'RF002')
                          {
                             if(!checksickDaye(date_dcg))
@@ -2069,7 +2069,8 @@
                      }
                      else
                      {
-                         if(total_cgj <= 0)
+                        console.log('dat'+selectedValue)
+                         if(total_cgj <= 0 && selectedValue == 'RF001')
                          {
                             if(lng =='ar')
                             {
@@ -2327,7 +2328,7 @@ function checksickDaye(maladie) {
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     console.log('different'+diffDays)
     // Check if the date is equal or within two days before the reference date
-    return diffDays >= -2 && diffDays <= 2;
+    return diffDays >= -2;
 }
 /***
  *
