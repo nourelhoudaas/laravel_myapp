@@ -68,6 +68,8 @@ return [
     'post_echl'=>'Echellant',
     'post_sup_check'=>'Selection c`est la un Post Super',
     'fonc_check'=>'Selection c`est la une fonction',
+    'PV_inst'=>'Le Refrence du pv Instalation est',
+    'PV_ref'=>'Reference ',
     'obs'=>'Observation',
     'obs_dic'=>'Observation dit par sont directeur',
     'note'=>'la Note',

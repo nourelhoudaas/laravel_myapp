@@ -28,10 +28,24 @@
  */
 /***
  * 
- * 
+ *  decition start
  * 
  */
-function showDialog() {
+function showPV_postsup() {
+    // Get the dialog element
+    var dialog = document.getElementById("myDialog");
+    // Show the dialog
+    dialog.showModal();
+
+}
+function showPV_function() {
+    // Get the dialog element
+    var dialog = document.getElementById("myDialog");
+    // Show the dialog
+    dialog.showModal();
+
+}
+function showPV_Rect() {
     // Get the dialog element
     var dialog = document.getElementById("myDialog");
     // Show the dialog
@@ -41,6 +55,18 @@ function showDialog() {
 
 function confirmAction() {
     // Logic for confirming the action
+
+    var pv=$("#pv_num").val()
+    if ($('#pv_num').hasClass('pv_funct')) {
+        $('#pv_func').text(pv)
+    }
+    if ($('#pv_num').hasClass('pv_postup')) {
+        $('#pv_postsup').text(pv)
+    }
+    if ($('#pv_num').hasClass('pv_rect')) {
+        $('#pv_inst').text(pv)
+    }
+   // var id_p=$('#IDP').val()
     if( lng == 'ar')
     {
      alert('تم عملية التفعيل بنجاح')
@@ -51,6 +77,10 @@ function confirmAction() {
     }
     
     // Close the dialog
+    document.getElementById("pv_num").value='';
+    $('#pv_num').removeClass('pv_postup')
+    $('#pv_num').removeClass('pv_funct')
+    $('#pv_num').removeClass('pv_rect')
     document.getElementById("myDialog").close();
 }
 
@@ -64,8 +94,25 @@ function cancelDialog() {
     {
     alert("Action canceled.");}
     // Close the dialog
+    document.getElementById("pv_num").value='';
+    $('#pv_num').removeClass('pv_postup')
+    $('#pv_num').removeClass('pv_funct')
+    $('#pv_num').removeClass('pv_rect')
     document.getElementById("myDialog").close();
+   
 }
+$(document).ready(function(){
+    $('#post').change(function() {
+        $('#pv_inst').empty()
+        $('#pv_num').addClass('pv_rect')
+        var selectedOption = $(this).val(); // Get the value of the selected option
+        if (selectedOption != '') {
+           
+            showPV_Rect()
+        }
+      });
+})
+
 /***
  * 
  * 
