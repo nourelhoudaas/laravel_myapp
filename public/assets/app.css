@@ -1204,6 +1204,7 @@ cursor:not-allowed ;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   text-align: center;
+  width: 30%;
 }
 
 .formcg-container input {
@@ -1497,7 +1498,7 @@ color: red;
 }
 .float-export
 {
-  position: fixed;  
+  position: fixed;
   bottom: 0px;
   background-color: #e6f4fc;
   width: 100px;

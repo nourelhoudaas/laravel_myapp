@@ -25,33 +25,34 @@ return new class extends Migration
                 'id_contient' => 2,
                 'id_sous_depart' => 10,
                 'id_post' => 20,
-                
-               
+
+
             ],
             [
                 'id_contient' => 50,
                 'id_sous_depart' => 15,
                 'id_post' => 2,
             ],
-
+            [
+             'id_contient' => 3,
             'id_sous_depart' => 15,
             'id_post' => 20,
-            
-           
+
+
         ],
         [
-          
+            'id_contient' => 10,
             'id_sous_depart' => 10,
             'id_post' => 2,
-        
-               
-               
+
+        ]
+
             ]);
-            
-            
+
+
 
     }
-   
+
     /**
      * Reverse the migrations.
      */
