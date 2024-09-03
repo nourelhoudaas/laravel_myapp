@@ -27,7 +27,7 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($departements as $index => $departement)
+                            @foreach ($departement as $index => $departement)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td><a
