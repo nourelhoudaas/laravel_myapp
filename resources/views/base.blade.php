@@ -20,7 +20,7 @@
 
        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.bootstrap5.css">
 
-        @include('script')
+      
 
 
         </head>
@@ -51,8 +51,8 @@
 
 
         
-         
-        
+         @include('script')
+       
     <script>
         var lng='{{app()->getLocale()}}'
         console.log('lang'+lng);
