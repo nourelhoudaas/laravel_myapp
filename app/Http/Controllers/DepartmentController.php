@@ -190,15 +190,24 @@ return view('department.edit', compact('departement'));
 
 //le nbr total des employe pour chaque depart
         $gi = $empdep->count();
+        $departements = Departement::paginate(5);
 
 
-        return view('department.liste', compact('empdep','empdepart','nom_d'));
+        return view('department.add_depart', compact('empdep','empdepart','nom_d','departements'));
     }
 
-    public function store(saveDepartementRequest $request)
+    public function store(Request $request)
 
     {
         Departement::create($request->all());
+      //  Sous_departement::create($request->all());
+        Sous_departement::create([
+
+            $request->get('Nom_depart'),
+            $request->get('Descriptif_depart'),
+
+        ]);
+
        /* return back()->with("succes","la direction a ete créé");
             /* $request->validate([
             'id_depart' => 'required|unique:departements',
@@ -249,7 +258,13 @@ return view('department.edit', compact('departement'));
             'code'=>200
         ]);*/
 
-        return redirect()->back()->with('success', 'Direction créé avec succès.');
+        $departements = Departement::paginate(5);
+
+        $empdepart=Departement::with('Sous_departement')->get();
+
+
+
+        return view('department.liste', compact('departements','empdepart'))->with('success', 'Direction créé avec succès.');
     }
     public function editer($nom)
     {

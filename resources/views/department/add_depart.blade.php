@@ -1,4 +1,5 @@
 
+
 @extends('base')
 
 @section('title', 'Dashboard Direction')
@@ -46,6 +47,11 @@
                                 <input type="text" class="form-control" id="Nom_depart_ar" placeholder="Nom de la Direction en Arabe" name="Nom_depart_ar" required>
 
                             </div>
+                            <div class="text-bg-light p-3">
+                                <label for="setting-input-2" class="fw-bold">{{ __('lang.discr_direc_ar') }}</label>
+                                <input type="text" class="form-control" id="Descriptif_depart_ar" placeholder="Discription de la direction" name="Descriptif_depart_ar" required>
+                            </div>
+
 
 
 
@@ -72,4 +78,3 @@
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
         {!!JsValidator::formRequest('App\Http\Requests\saveDepartementRequest')!!}
-

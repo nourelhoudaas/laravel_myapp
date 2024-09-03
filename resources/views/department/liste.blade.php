@@ -1,3 +1,4 @@
+
 @extends('base')
 
 
@@ -7,15 +8,16 @@
 
     <body>
 
-        <div class="container2">
+
+
 
             <!-- start section aside -->
             @include('./navbar.sidebar')
             <!-- end section aside -->
             <main>
                 <div class="recent_order">
+                    <h1 class="app-page-title">Liste des Directions et Sous Directions</h1>
 
-                    <br></br>
                     <table class="table">
                         <thead>
                             <tr>
@@ -27,7 +29,7 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($departement as $index => $departement)
+                            @foreach ($departements as $index => $departement)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td><a
