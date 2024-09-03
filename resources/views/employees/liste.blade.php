@@ -23,7 +23,20 @@
                         <thead>
 
                             <tr>
-                                <th>
+                            <th>{{ __('lang.refinst') }}
+                                      
+                                </th>
+                            <th>
+                                    <a
+                                        href="{{ route('app_liste_emply', ['champs' => 'id_p', 'direction' => $champs == 'id_p' && $direction == 'asc' ? 'desc' : 'asc']) }}">
+                                        {{ __('lang.ID_p') }}
+                                        @if ($champs == 'id_p')
+                                            {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
+                                        @endif
+                                    </a>
+                                </th>
+
+                            <th>
                                     <a
                                         href="{{ route('app_liste_emply', ['champs' => 'Nom_emp', 'direction' => $champs == 'Nom_emp' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.name') }}
@@ -68,6 +81,12 @@
                                         @endif
                                     </a>
                                 </th>
+                                <th>{{ __('lang.postsup') }}
+                                      
+                                      </th>
+                                <th>{{ __('lang.fct') }}
+                                      
+                                      </th>
                                 <th>
                                     <a
                                         href="{{ route('app_liste_emply', ['champs' => 'Nom_depart', 'direction' => $champs == 'Nom_depart' && $direction == 'asc' ? 'desc' : 'asc']) }}">
@@ -110,6 +129,8 @@
                                     $locale = app()->getLocale();
                                 @endphp
                                 <tr>
+                                <td>  {{ $employe->id_p }}  </td>
+                                <td>  {{ $employe->id_p }}  </td>
                                     <td>
                                         <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
                                             @if ($locale == 'fr')
@@ -135,6 +156,25 @@
                                             {{ $post->Nom_post_ar }}
                                         @endif
                                     </td>
+
+                                
+
+                                    <td>
+                                        @if ($locale == 'fr')
+                                            {{ $post->Nom_post }}
+                                        @elseif ($locale == 'ar')
+                                            {{ $post->Nom_post_ar }}
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if ($locale == 'fr')
+                                            {{ $post->Nom_post }}
+                                        @elseif ($locale == 'ar')
+                                            {{ $post->Nom_post_ar }}
+                                        @endif
+                                    </td>
+
                                     <td>
                                         @if ($locale == 'fr')
                                             {{ $departement->Nom_depart }}
