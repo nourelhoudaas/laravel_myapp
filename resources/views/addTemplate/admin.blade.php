@@ -94,19 +94,46 @@
                         @else
                         
                             <option value='{{$post->id_post}}'>{{$post->Nom_post}}</option>
-                        
+
                         @endif
                         @endforeach
                         </select>
+                    </div >
+                    <div  style="
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+">
+                    <div>  
+                   <div>
+                    <label class="labels" for="sel_posup">{{__('lang.post_sup_check')}}</label>
+                    <input type="checkbox" id="sel_posup" class="col-md-2">
                     </div>
-                    <div class="col-md-6">
+                    <div id="postsup-opt"  class="col-md-6">
+
+                    </div>
+                    <hr>
+                    </div>
+                    <div>
+                       <label class="labels" for="sel_fonc">{{__('lang.fonc_check')}}</label>
+                       <input type="checkbox" id="sel_fonc" class="col-md-2">
+                    </div>
+                    <div id="fonc-opt"  class="col-md-6">
+
+                    </div>
+                    <hr>
+                    </div>
+                    
+                </div>
+                <div class="row mt-2">
+                <div class="col-md-6">
                         <label class="labels">{{__('lang.date_inst')}}</label>
                         <input type="date" class="form-control" id="PVDate">
                     </div>
-                </div>
                 <div class="col-md-6">
                         <label class="labels">{{__('lang.date_rec')}}</label>
                         <input type="date" class="form-control" id="RecDate">
+                    </div>
                     </div>
                 <div class="mt-5 text-center">
                     <button class="btn btn-primary profile-button" type="submit" id="aft">{{ __('lang.submit') }}</button>
@@ -129,6 +156,16 @@
                 </div>
         </div>
 </div>
+<dialog id="myDialog" class="myDial">
+        <label>Confirm Action</label>
+        <br>
+        <input type="text" placeholder="{{__('lang.discis')}}"></input>
+        <hr>
+        <div class="dialog-buttons">
+            <button onclick="confirmAction()">{{__('lang.btn.enregistrer')}}</button>
+            <button onclick="cancelDialog()">{{__('lang.cancel')}}</button>
+        </div>
+    </dialog>
 </body>
 <script>
      var id = '{{ $employe->id_nin }}';
@@ -174,8 +211,81 @@
     label.textContent = fileName;
       console.log('file handler'+fileName)
       $('#file-nm').text(''+fileName)
+   
     })
+    document.getElementById('sel_posup').addEventListener('change', function() {
+    const inputContainer = document.getElementById('postsup-opt');
+    
+    if (this.checked) {
+        showDialog()
+        // Create a new select element
+        const newSelect = document.createElement('select');
+        newSelect.id = 'postsup'; // Optional, for easier manipulation later
+        newSelect.classList='form-select'
+        // Create options for the select element
+        const option1 = document.createElement('option');
+        option1.value = 'option1';
+        option1.text = 'Option 1';
 
+        const option2 = document.createElement('option');
+        option2.value = 'option2';
+        option2.text = 'Option 2';
+
+        const option3 = document.createElement('option');
+        option3.value = 'option3';
+        option3.text = 'Option 3';
+
+        // Add options to the select element
+        newSelect.appendChild(option1);
+        newSelect.appendChild(option2);
+        newSelect.appendChild(option3);
+
+        // Add the select element to the container
+        inputContainer.appendChild(newSelect);
+    } else {
+        // Remove the select element if it exists
+        const dynamicSelect = document.getElementById('postsup');
+        if (dynamicSelect) {
+            inputContainer.removeChild(dynamicSelect);
+        }
+    }
+});
+document.getElementById('sel_fonc').addEventListener('change', function() {
+    const inputContainer = document.getElementById('fonc-opt');
+    
+    if (this.checked) {
+        // Create a new select element
+        const newSelect = document.createElement('select');
+        newSelect.id = 'fonc'; // Optional, for easier manipulation later
+        newSelect.classList='form-select'
+        // Create options for the select element
+        const option1 = document.createElement('option');
+        option1.value = 'option1';
+        option1.text = 'Option 1';
+
+        const option2 = document.createElement('option');
+        option2.value = 'option2';
+        option2.text = 'Option 2';
+
+        const option3 = document.createElement('option');
+        option3.value = 'option3';
+        option3.text = 'Option 3';
+
+        // Add options to the select element
+        newSelect.appendChild(option1);
+        newSelect.appendChild(option2);
+        newSelect.appendChild(option3);
+
+        // Add the select element to the container
+        inputContainer.appendChild(newSelect);
+    } else {
+        // Remove the select element if it exists
+        const dynamicSelect = document.getElementById('fonc');
+        if (dynamicSelect) {
+            inputContainer.removeChild(dynamicSelect);
+        }
+    }
+});
 </script>
 @endsection
 

@@ -31,8 +31,41 @@
  * 
  * 
  */
+function showDialog() {
+    // Get the dialog element
+    var dialog = document.getElementById("myDialog");
+    // Show the dialog
+    dialog.showModal();
 
+}
 
+function confirmAction() {
+    // Logic for confirming the action
+    if( lng == 'ar')
+    {
+     alert('تم عملية التفعيل بنجاح')
+    }
+    else
+    {
+     alert('Générer avec succès');
+    }
+    
+    // Close the dialog
+    document.getElementById("myDialog").close();
+}
+
+function cancelDialog() {
+    // Logic for canceling the action
+    if(lng == 'a')
+    {
+        alert('تم إلغاء التفعيل')
+    }
+    else
+    {
+    alert("Action canceled.");}
+    // Close the dialog
+    document.getElementById("myDialog").close();
+}
 /***
  * 
  * 
@@ -1074,8 +1107,8 @@
                      success: function (response) {
                         if( lng == 'ar')
                         {
-                         alert('تم عملية التفعيل بنجاح')
-                        }else
+                        showDialog()
+                                                }else
                         {
                          alert('Générer avec succès');
                         }
@@ -1770,7 +1803,7 @@
      var idinput=$('#ID_NIN')
      idinput.blur(function(){
         var val=$(this).val()
-        if(val.length > 8 && val.length <=16)
+        if(val.length <=16)
             {
         $.ajax({
             url:'/Employe/check/'+val,
@@ -2328,7 +2361,7 @@ function checksickDaye(maladie) {
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     console.log('different'+diffDays)
     // Check if the date is equal or within two days before the reference date
-    return diffDays >= -2;
+    return diffDays >= -2 ;
 }
 /***
  *

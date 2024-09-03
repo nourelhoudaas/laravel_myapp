@@ -39,7 +39,8 @@ return new class extends Migration
                 'id_nin' => 1254953,
                 'id_p' => 123,
                 'id_post' => 2,
-            ]
+            ],
+           
             ]);
             
 
