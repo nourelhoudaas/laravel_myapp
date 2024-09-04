@@ -42,13 +42,13 @@ return new class extends Migration
             $table->string('Phone_num')->unique();
 
 
-        
+
         });
 
         DB::table('employes')->insert([
-            [  
-            
-            
+            [
+
+
                 'id_nin' => 1254953,
                 'id_p' => 123,
                 'NSS' =>18505482,
@@ -72,17 +72,17 @@ return new class extends Migration
                 'nom_mere_ar'=>'ب',
                 'Date_nais_pere'=>'1975-08-31',
                 'Date_nais_mere'=>'1978-01-21',
-                'situation_familliale'=>'célébataire',
-                'situation_familliale_ar'=>'عازب',
+                'situation_familliale'=>'Célébataire',
+                'situation_familliale_ar'=>'أعزب/عزباء',
                 'nbr_enfants'=>0,
                 'email_pro'=>'s@gmail.com'
-               
-               
+
+
             ],
             [
-             
-                'id_nin' => 254896989,
-                'id_p' => 256,
+
+                'id_nin' => 25499896989,
+                'id_p' => 29956,
                 'NSS' =>25686984,
                 'Nom_emp' => 'boum',
                 'Prenom_emp' => 'fad',
@@ -104,15 +104,75 @@ return new class extends Migration
                 'nom_mere_ar'=>'ب',
                 'Date_nais_pere'=>'1975-08-31',
                 'Date_nais_mere'=>'1978-01-21',
-                'situation_familliale'=>'mariée',
-                'situation_familliale_ar'=>'متزوجة',
+                'situation_familliale'=>'Marié(e)',
+                'situation_familliale_ar'=>'(ة)متزوج',
                 'nbr_enfants'=>0,
                 'email_pro'=>'ss@gmail.com'
-            ]
-               
+            ],
+            [
+                'id_nin' => 586666666,
+                'id_p' => 4859585,
+                'NSS' =>125495635,
+                'Nom_emp' => 'boumhjk',
+                'Prenom_emp' => 'fadk',
+                'Nom_ar_emp' => 'بومد',
+                'Prenom_ar_emp' => 'فاد',
+                'Date_nais' => '2024-07-01',
+                'Lieu_nais' => 'alger',
+                'Lieu_nais_ar' => 'الجزائر',
+                'adress' => 'alger',
+                'adress_ar' =>'الجزائر' ,
+                'sexe' => 'femelle',
+                'email' => 'fghhhgmail.com',
+                'Phone_num' => '458895274',
+                'prenom_pere' => 'moh',
+                'prenom_mere' =>'fff',
+                'nom_mere'=>'be',
+                'prenom_pere_ar'=>'محمد',
+                'prenom_mere_ar'=>'ف',
+                'nom_mere_ar'=>'ب',
+                'Date_nais_pere'=>'1975-08-31',
+                'Date_nais_mere'=>'1978-01-21',
+                'situation_familliale'=>'Divorcé(e)',
+                'situation_familliale_ar'=> '(ة)مطلق',
+                'nbr_enfants'=>0,
+                'email_pro'=>'sfs@gmail.com'
+            ],
+            [
+                'id_nin' => 66746666,
+                'id_p' => 457485,
+                'NSS' =>125635,
+                'Nom_emp' => 'boddumhjk',
+                'Prenom_emp' => 'faddk',
+                'Nom_ar_emp' => 'بومبد',
+                'Prenom_ar_emp' => 'فباد',
+                'Date_nais' => '2024-07-01',
+                'Lieu_nais' => 'alger',
+                'Lieu_nais_ar' => 'الجزائر',
+                'adress' => 'alger',
+                'adress_ar' =>'الجزائر' ,
+                'sexe' => 'femelle',
+                'email' => 'fgdhhhgmail.com',
+                'Phone_num' => '054856',
+                'prenom_pere' => 'moh',
+                'prenom_mere' =>'fff',
+                'nom_mere'=>'be',
+                'prenom_pere_ar'=>'محمد',
+                'prenom_mere_ar'=>'ف',
+                'nom_mere_ar'=>'ب',
+                'Date_nais_pere'=>'1975-08-31',
+                'Date_nais_mere'=>'1978-01-21',
+                'situation_familliale'=>'Marié(e)',
+                'situation_familliale_ar'=> '(ة)متزوج',
+                'nbr_enfants'=>0,
+                'email_pro'=>'sdfs@gmail.com'
+            ],
+
+
+
             ]);
     }
-    
+
      /**
      * Reverse the migrations.
      */

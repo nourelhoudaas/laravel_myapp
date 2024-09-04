@@ -213,7 +213,7 @@ return [
     'nom_ss_direc'=>'Nom Sous-direction',
     'discr_ss_direc'=>'Discription de la sous-direction',
     'encadrement'=> 'Encadrements',
-    'metrise'=>'Metrises',
+    'maîtrise'=>'Maîtrise',
     'executif'=>'Executifs',
     'nbr_emp_depart'=>'Nombre d\'employer pour chaque département',
     'nbr_emp'=>'Nombre d\'employer'

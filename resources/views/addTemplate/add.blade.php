@@ -22,7 +22,7 @@ $id=0;
     text-align: center;
     font-size: 16px; /* Taille du texte */
     margin-top: 10px;
-    
+
 }
 
 .file-label:hover {
@@ -184,13 +184,13 @@ $id=0;
                         <option value="veuve">{{__('lang.veu')}}</option>
                      </select>
                      </div>
-                   
+
                      <div class="col-md-2" id="childrenDiv" style="display: none;">
                         <label class="labels">{{__('lang.children')}}</label>
                         <select select name="nbrenfant" id="nbrenfant"class="form-select form-select-lm mb-3" aria-label="Default select example">
                         </select>
                     </div>
-                
+
 
                 </div>
                 <div class="col-md-6" id="addf">
@@ -203,8 +203,8 @@ $id=0;
         </form>
         <div class="file-holder">
                     <div class="file-select-holder">
-                      <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label> 
-                      <input type="file" name="file" id="file"> 
+                      <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label>
+                      <input type="file" name="file" id="file">
                       <div class="">
                       <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">{{ __('lang.upload') }}</button>
                       <label id='file-nm'>{{__('lang.filnull')}}</lable>
@@ -225,16 +225,16 @@ $id=0;
                               </div>
                           </div>
                   </div>
-    </div>  
+    </div>
 </div>
 
 
 </body>
 
 
- 
+
    <script>
-    
+
         var dir="Personnel";
         var uid='{{$uid}}'
         var id;
@@ -258,30 +258,30 @@ $id=0;
                 // Clear previous input if any
                 inputContainer.innerHTML = '';
                 const lang = "{{ App::getLocale() }}";
-               
+
                 if (dropdown.value === 'marie') {
                     const input = document.createElement('input');
                     const label = document.createElement('label');
                     label.classList='labels'
-                  
+
                     input.type = 'text';
                     label.textContent = @json(__('lang.Prnomdelpoux')); //json pour eviter les carracteres speciaux
                     input.placeholder = @json(__('lang.Saisirleprénomdepoux'));
                     input.classList='form-control'
                     input.name = 'marie';
-                  
+
                     inputContainer.appendChild(label);
                     inputContainer.appendChild(input);
                 }
                 // Add other conditions for different options if needed
-             
+
             });
         });
-       
+
                 document.addEventListener('DOMContentLoaded', () => {
             const situatDropdown = document.getElementById('situat');
             const childrenDiv = document.getElementById('childrenDiv');
-            
+
             situatDropdown.addEventListener('change', () => {
                 const selectedValue = situatDropdown.value;
 

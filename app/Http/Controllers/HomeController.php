@@ -24,7 +24,7 @@ class HomeController extends Controller
     }
 
     //la page dashboard.blade.php
-    public function dashboard(Request $request)
+    public function dashboard( $lang = 'ar')
     {
 
         $employe=Employe::with([
@@ -61,7 +61,36 @@ class HomeController extends Controller
         }
         //dd($empdept);
 
-        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept'));
+     // Définir les situations familiales possibles en fonction de la langue
+     $situations = [
+        'fr' => ['Célébataire', 'Marié(e)', 'Divorcé(e)', 'Veuf(ve)'],
+        'ar' => ['أعزب/عزباء', '(ة)متزوج', '(ة)مطلق', '(ة)أرمل']
+    ];
+
+    // Sélectionner les situations familiales en fonction de la langue
+    $situationList = $situations[$lang];
+
+    // Sélectionner la colonne de situation en fonction de la langue
+    $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_familliale';
+
+    // Compter le nombre d'employés pour chaque situation familiale
+    $situationCounts = Employe::select($situationColumn)
+        ->selectRaw('COUNT(*) as count')
+        ->groupBy($situationColumn)
+        ->pluck('count', $situationColumn)
+        ->toArray();
+
+    // Assurer que toutes les situations sont présentes dans les résultats
+    $data = array_fill_keys($situationList, 0); // Initialise tous les éléments avec 0
+    foreach ($situationCounts as $key => $count) {
+        if (array_key_exists($key, $data)) {
+            $data[$key] = $count;
+        }
+    }
+
+   // dd($data);
+
+        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept','data'));
     }
 
     public function switchLanguage($locale)
