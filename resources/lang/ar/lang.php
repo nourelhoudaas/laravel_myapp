@@ -199,18 +199,12 @@ return [
     'btn.enregistrer'=>'تسجيل',
     'nom_ss_direc'=>'اسم المديرية الفرعية',
     'discr_ss_direc'=>'وصف المديرية الفرعية',
-<<<<<<< HEAD
     'encadrement'=>'الإطارات',
     'maîtrise'=>'التقنيون',
-=======
     'discr_direc_ar'=>'اسم المديرية بالعربية',
     'nom_ss_direc_ar'=>'اسم المديرية الفرعية بالعربية',
      'discr_ss_direc_ar'=>   'وصف المديرية الفرعية بالعربية',
      'msg_ajout_ssdirec'=>'اضافة مديرية فرعية',
-    'encadrement'=>'إطار',
-    'metrise'=>'التقنيون',
->>>>>>> 2b79c0c6000f0063592c5cf0bcc1ebcc09e86bfe
-    'executif'=>'المنفدون',
     'nbr_emp_depart'=>'عدد الموظفين في كل مديرية',
     'nbr_emp'=>'عدد الموظفين',
     'postsup'=>'المنصب ',

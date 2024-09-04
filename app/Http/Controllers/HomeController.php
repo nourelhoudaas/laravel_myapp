@@ -24,9 +24,10 @@ class HomeController extends Controller
     }
 
     //la page dashboard.blade.php
-    public function dashboard( $lang = 'ar')
-    {
 
+    public function dashboard()
+    {
+        $lang=App::getLocale();
         $employe=Employe::with([
     'occupeIdNin.post.contient.sous_departement.departement',
     'occupeIdP.post.contient.sous_departement.departement'
@@ -60,6 +61,8 @@ class HomeController extends Controller
                                          'nbremp'=>$totalEmployes]);
         }
         //dd($empdept);
+// Sélectionner la colonne de situation en fonction de la langue
+$situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_familliale';
 
      // Définir les situations familiales possibles en fonction de la langue
      $situations = [
@@ -69,9 +72,8 @@ class HomeController extends Controller
 
     // Sélectionner les situations familiales en fonction de la langue
     $situationList = $situations[$lang];
+    //dd($situationList);
 
-    // Sélectionner la colonne de situation en fonction de la langue
-    $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_familliale';
 
     // Compter le nombre d'employés pour chaque situation familiale
     $situationCounts = Employe::select($situationColumn)
