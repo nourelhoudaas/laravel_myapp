@@ -50,15 +50,9 @@
 
 
 /***
-<<<<<<< HEAD
  *
  *
  *
-=======
- * 
- *  decition start
- * 
->>>>>>> 395dc4e771cc314f133b9083b708cf675c924246
  */
 function showPV_postsup() {
     // Get the dialog element
@@ -81,6 +75,13 @@ function showPV_Rect() {
     dialog.showModal();
 
 }
+function showPV_cng() {
+    // Get the dialog element
+    var dialog = document.getElementById("myDialog");
+    // Show the dialog
+    dialog.showModal();
+
+}
 
 function confirmAction() {
     // Logic for confirming the action
@@ -94,6 +95,9 @@ function confirmAction() {
     }
     if ($('#pv_num').hasClass('pv_rect')) {
         $('#pv_inst').text(pv)
+    }
+    if ($('#pv_num').hasClass('pv_cng')) {
+        $('#pv_cng').text(pv)
     }
    // var id_p=$('#IDP').val()
     if( lng == 'ar')
@@ -2093,8 +2097,9 @@ $('#sel_posup').change(function() {
          const fileError = $('#file-error');
            $('#conge_confirm').click(function()
                      {
+                        
                         var granted=true;
-                         if(id !== null && file[0].files.length > 0 ){
+                         if(id !== null && file[0].files.length > 0  && $('#pv_cng').text()!=''){
                          var date_dcg=$('#Date_Dcg').val();
                          var date_fcg=$('#Date_Fcg').val();
                          var totaljour=calculateDayscng(date_dcg,date_fcg)
@@ -2147,6 +2152,7 @@ $('#sel_posup').change(function() {
                              date_dcg:$('#Date_Dcg').val(),
                              date_fcg:$('#Date_Fcg').val(),
                              total_cgj:total_cgj,
+                             ref_cng:$('#pv_cng').text(),
                              totaljour:parseInt(totaljour),
                              type_cg:selectedValue,
                              situation:selectedVsitua,

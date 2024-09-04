@@ -1689,7 +1689,6 @@ dialog::backdrop {
 {
   padding: 5px ;
 }
-<<<<<<< HEAD
 .gen-file-handle
 {
   color: black;
@@ -1744,5 +1743,3 @@ cursor: pointer;
 .gen-file-handle:hover .gen-list-handle {
   background-color: #3e8e41;
 }
-=======
->>>>>>> ca1d89671b44a02e085860ea7b38f5fe1a46ad2e
