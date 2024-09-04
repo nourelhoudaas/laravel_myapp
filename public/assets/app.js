@@ -27,9 +27,15 @@
  *
  */
 /***
+<<<<<<< HEAD
+ *
+ *
+ *
+=======
  * 
  *  decition start
  * 
+>>>>>>> 395dc4e771cc314f133b9083b708cf675c924246
  */
 function showPV_postsup() {
     // Get the dialog element
@@ -128,9 +134,9 @@ $('#sel_posup').change(function() {
 });
 })
 /***
- * 
- * 
- * 
+ *
+ *
+ *
  */
         function fetchPosts(url) {
             $.ajax({
@@ -2089,7 +2095,7 @@ $('#sel_posup').change(function() {
                                 }
                                 else
                                 {
-                                    alert('Le délai a été dépassé')  
+                                    alert('Le délai a été dépassé')
                                 }
                             }else
                             {
@@ -2102,7 +2108,7 @@ $('#sel_posup').change(function() {
                                     }
                                     else
                                     {
-                                        alert('Congé maladie doit être ici')  
+                                        alert('Congé maladie doit être ici')
                                     }
                                 }
                             }
@@ -2136,7 +2142,7 @@ $('#sel_posup').change(function() {
                                 }
                                 else
                                 {
-                                    alert('Le congé a été créé')  
+                                    alert('Le congé a été créé')
                                 }
 
                                  if(response.status == 200)
@@ -2339,7 +2345,7 @@ $('#sel_posup').change(function() {
       *
       */
 
-     
+
 
     //dynamic field Creation with java script
     const addBtn = document.querySelector(".add");
@@ -2354,11 +2360,13 @@ function removeInput(){
    function addInput(){
     const name = document.createElement("input");
     name.type="text";
+    name.id='Nom_sous_depart';
     name.placeholder="{{ __('lang.nom_ss_direc') }}";
 
     const discr =document.createElement("input");
     discr.type="text";
     discr.placeholder="{{ __('lang.discr_ss_direc') }}";
+    discr.id='Descriptif_sous_depart';
 
 
 
@@ -2430,13 +2438,13 @@ function checksickDaye(maladie) {
  */
 
 /***
- * 
- * 
+ *
+ *
  * this for updalod button
  */
 
 /**
- * 
- * end 
- * 
+ *
+ * end
+ *
  */

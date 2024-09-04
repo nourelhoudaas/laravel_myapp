@@ -76,7 +76,7 @@ class PostesController extends Controller
 
 
 
-        return redirect('/liste');
+        return redirect('/poste')->with('success', 'Poste mis a jour!');;
 
 
     }

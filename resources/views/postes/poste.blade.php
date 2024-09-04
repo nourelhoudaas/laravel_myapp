@@ -70,8 +70,7 @@
 
                      <!--  <a href="#"  data-bs-toggle="modal" data-bs-target="#readData"><i class="fa fa-edit"></i></a>-->
                      <!--  <a class="fa fa-edit" data-bs-toggle="modal" data-bs-target="readData"><i ></i></a>-->
-                     <a href="#"><i
-                        class="fa fa-edit"></i></a>
+                     <a href="editer/{{$poste->id_post}}"><i class="fa fa-edit"></i></a>
 
                      <form action="#" method="POST" style="display:inline;">
 
