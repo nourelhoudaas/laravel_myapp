@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Employe;
 use App\Models\Departement;
+use App\Models\Travail;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 class HomeController extends Controller
@@ -23,31 +24,18 @@ class HomeController extends Controller
     }
 
     //la page dashboard.blade.php
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-    
-       /* $employe= DB::table('posts')
-        ->join('occupes','occupes.id_post',"=","posts.id_post")
-        ->join('employes','occupes.id_p','=','employes.id_p')
-        ->join('travails','travails.id_p','=','employes.id_p')
-        ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
-        ->join('departements','sous_departements.id_depart','=','departements.id_depart')
-        ->select('employes.id_nin','employes.id_p','employes.Nom_emp','employes.Prenom_emp' ,'posts.Nom_post','sous_departements.Nom_sous_depart','departements.Nom_depart')
-        ->distinct()
-        ->get();
 
-        $empdepart= DB::table('departements')
-          ->get();
-        
-*/
         $employe=Employe::with([
     'occupeIdNin.post.contient.sous_departement.departement',
     'occupeIdP.post.contient.sous_departement.departement'
         ])->get();
-        
+
     //le nbr total des employés
-        
-        $empdept=array();
+  $totalEmployes=$employe->count();
+
+   $empdept=array();
         $empdepart=Departement::get();
         foreach($empdepart as $deprt)
         {
@@ -61,7 +49,7 @@ class HomeController extends Controller
                         $travail = $employe->travailByNin->last();
                         $sousDepartement = $travail->sous_departement ?? null;
                         $departement = $sousDepartement->departement ?? null;
-                    
+
                         // Vérifiez si le département de l'employé correspond à l'ID du département
                         return $departement && $departement->id_depart == $id_dprt;
                     });
@@ -72,8 +60,8 @@ class HomeController extends Controller
                                          'nbremp'=>$totalEmployes]);
         }
         //dd($empdept);
-        $totalEmployes=$employe->count();
-        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdept'));
+
+        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept'));
     }
 
     public function switchLanguage($locale)

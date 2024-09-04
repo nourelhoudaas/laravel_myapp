@@ -199,6 +199,9 @@ return [
     'btn.enregistrer'=>'تسجيل',
     'nom_ss_direc'=>'اسم مديرية الفرعية',
     'discr_ss_direc'=>'وصف المديرية الفرعية',
-
-
+    'encadrement'=>'إطار',
+    'metrise'=>'التقنيون',
+    'executif'=>'المنفدون',
+    'nbr_emp_depart'=>'عدد الموظفين في كل مديرية',
+    'nbr_emp'=>'عدد الموظفين'
 ];
