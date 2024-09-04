@@ -20,7 +20,7 @@ return [
     'pro_mail'=>'Email Professionel',
     'NIN'=>'Numéro d\'Identification National',
     'NSS'=>'Numéro du Sécurité Sociale',
-    'ID_p'=>'IDentification Professionnelle',
+    'ID_p'=>'Numéro de travail',
     'slct_num_tel'=>"Saisir le Numéro Téléphone de l'employé",
     'ctrl_abs'=>'Controll D absences',
     'ctrl_cng'=>'Controll De Congé',
@@ -193,8 +193,10 @@ return [
     'adresse'=>'Adresse',
     'Lieunaiss'=>'Lieu de Naissance',
     'etatcivil'=>'Etat Civil',
-  
-   
+    'postsup'=>'Poste Supèrieur',
+
+   'fct'=>'Fonction ',
+   'refinst'=>'Date et numéro du visa financier',
   
     'title_direc_ssdirec'=>'Direction et Sous Direction',
     'ajout_direc_ssdirec'=>'Ajout',
