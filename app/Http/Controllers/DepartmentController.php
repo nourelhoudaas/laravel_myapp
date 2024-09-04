@@ -9,6 +9,7 @@ use App\Models\Employe;
 use App\Models\Departement;
 use App\Models\Sous_departement;
 use App\Models\Travail;
+use App\Models\Post;
 use App\Http\Requests\saveDepartementRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -146,6 +147,11 @@ return view('department.edit', compact('departement'));
                         'query' => request()->query() // Paramètres de la requête
                     ]
                 );
+
+                $emp=Employe::with ('occupeIdNin.post')->get();
+                //dd($emp);
+
+              
             return view('department.dashboard_depart', compact('paginator','empdep','empdepart','totalEmpDep','nom_d','dep_id','champs','direction'));
                 }
 
@@ -326,5 +332,6 @@ public function delete($id_depart)
             return response()->json(['success'=>'empty','status'=>302]);
         }
     }
+
 
 }
