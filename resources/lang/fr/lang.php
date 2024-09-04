@@ -195,6 +195,8 @@ return [
     'etatcivil'=>'Etat Civil',
     'postsup'=>'Poste Supèrieur',
 
+    'ats'=>'Attestation Du Traivlle',
+
    'fct'=>'Fonction ',
    'refinst'=>'Date et numéro du visa financier',
   

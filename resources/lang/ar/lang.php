@@ -159,6 +159,7 @@ return [
 
     'nbr_page'=>'الصفحة',
     'Departementde'=>'مديرية ',
+    'ats'=>'شهادة عمل',
 
     'Changerlemotdepass'=>'تغيير كلمة المرور',
     'Ancienmotdepass'=>'كلمة المرور السابقة',
