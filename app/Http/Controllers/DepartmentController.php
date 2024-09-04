@@ -148,38 +148,76 @@ return view('department.edit', compact('departement'));
                     ]
                 );
         /************************encadrement_maitris_executif*************** */
-                $encadrement = Employe::
-                join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
-                ->where('posts.Grade_post', '>', 11)
-                ->whereRaw('occupes.date_recrutement = (
-                    SELECT MAX(o2.date_recrutement)
-                    FROM occupes o2
-                    WHERE o2.id_nin = employes.id_nin
-                )') ->count();
-               // dd( $encadrement);
+                $encadrement =Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+                            ->join('sous_departements', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                            ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+                            ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
+                            ->join('posts', 'contients.id_post', '=', 'posts.id_post')
+                            ->join('occupes', 'posts.id_post', '=', 'occupes.id_post')
+                            ->where('departements.id_depart', '=', $dep_id)
+                            ->where('posts.grade_post', '>', 11)
+                            ->whereRaw('occupes.date_recrutement = (
+                                SELECT MAX(o2.date_recrutement)
+                                FROM occupes o2
+                                WHERE o2.id_nin = employes.id_nin
+                            )')
+                            ->whereRaw('travails.date_chang = (
+                                SELECT MAX(t2.date_chang)
+                                FROM travails t2
+                                WHERE t2.id_nin = employes.id_nin
+                            )')
+                            
+                       
+                            ->count();  
+ 
+                         //dd( $encadrement);
 
-               $maitrise = DB::table('employes')
-               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-               ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+    
+
+               $maitrise = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+               ->join('sous_departements', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+               ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+               ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
+               ->join('posts', 'contients.id_post', '=', 'posts.id_post')
+               ->join('occupes', 'posts.id_post', '=', 'occupes.id_post')
+               ->where('departements.id_depart', '=', $dep_id)
                ->whereBetween('posts.Grade_post', [7, 11])
                ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
                    WHERE o2.id_nin = employes.id_nin
-               )') ->count();
+               )')
+               ->whereRaw('travails.date_chang = (
+                   SELECT MAX(t2.date_chang)
+                   FROM travails t2
+                   WHERE t2.id_nin = employes.id_nin
+               )')
+               ->count();
+               
+              
               //dd( $maitrise);
 
-               $executif = DB::table('employes')
-               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-               ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+               $executif = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+               ->join('sous_departements', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+               ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+               ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
+               ->join('posts', 'contients.id_post', '=', 'posts.id_post')
+               ->join('occupes', 'posts.id_post', '=', 'occupes.id_post')
+               ->where('departements.id_depart', '=', $dep_id)
                ->where('posts.Grade_post', '<', 7)
                ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
                    WHERE o2.id_nin = employes.id_nin
-               )') ->count();
-             // dd( $executif);
+               )')
+               ->whereRaw('travails.date_chang = (
+                   SELECT MAX(t2.date_chang)
+                   FROM travails t2
+                   WHERE t2.id_nin = employes.id_nin
+               )')
+               ->count();
+        
+              //dd( $executif);
             return view('department.dashboard_depart', compact('paginator','empdep','empdepart','totalEmpDep','nom_d','dep_id','champs','direction','encadrement','maitrise','executif'));
                 }
 

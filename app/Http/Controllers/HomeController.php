@@ -24,9 +24,10 @@ class HomeController extends Controller
     }
 
     //la page dashboard.blade.php
-    public function dashboard(Request $request)
-    {
 
+    public function dashboard()
+    {
+        $lang=App::getLocale();
         $employe=Employe::with([
     'occupeIdNin.post.contient.sous_departement.departement',
     'occupeIdP.post.contient.sous_departement.departement'
@@ -60,8 +61,56 @@ class HomeController extends Controller
                                          'nbremp'=>$totalEmployes]);
         }
         //dd($empdept);
+// Sélectionner la colonne de situation en fonction de la langue
+$situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_familliale';
 
-        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept'));
+     // Définir les situations familiales possibles en fonction de la langue
+     $situations = [
+        'fr' => ['Célébataire', 'Marié(e)', 'Divorcé(e)', 'Veuf(ve)'],
+        'ar' => ['أعزب/عزباء', '(ة)متزوج', '(ة)مطلق', '(ة)أرمل']
+    ];
+
+    // Sélectionner les situations familiales en fonction de la langue
+    $situationList = $situations[$lang];
+    //dd($situationList);
+
+
+    // Compter le nombre d'employés pour chaque situation familiale
+    $situationCounts = Employe::select($situationColumn)
+        ->selectRaw('COUNT(*) as count')
+        ->groupBy($situationColumn)
+        ->pluck('count', $situationColumn)
+        ->toArray();
+
+    // Assurer que toutes les situations sont présentes dans les résultats
+    $data = array_fill_keys($situationList, 0); // Initialise tous les éléments avec 0
+    foreach ($situationCounts as $key => $count) {
+        if (array_key_exists($key, $data)) {
+            $data[$key] = $count;
+        }
+    }
+
+   // dd($data);
+
+     // Définir les libellés en français
+     $genders = ['Homme', 'Femme'];
+
+     // Compter le nombre d'employés pour chaque sexe
+     $genderCounts = Employe::select('sexe')
+         ->selectRaw('COUNT(*) as count')
+         ->groupBy('sexe')
+         ->pluck('count', 'sexe')
+         ->toArray();
+
+     // Assurer que toutes les situations sont présentes dans les résultats
+     $dataGender = array_fill_keys($genders, 0); // Initialise tous les éléments avec 0
+     foreach ($genderCounts as $key => $count) {
+         if (array_key_exists($key, $dataGender)) {
+             $dataGender[$key] = $count;
+         }
+     }
+     //dd($dataGender);
+        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept','data','dataGender'));
     }
 
     public function switchLanguage($locale)

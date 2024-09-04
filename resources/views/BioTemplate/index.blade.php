@@ -50,7 +50,13 @@
                 <div class="col-md-4 mb-3">
                   <div class="card">
                     <div class="card-body">
-                      <div class="d-flex flex-column align-items-center text-center">
+                      <div class="d-flex flex-column align-items-center text-center"> 
+                        <div class='gen-file-handle'> 
+                          <p class='gen-list-handl'>...</p>
+                          <div class="dropdown-opt">
+                            <button id='gen_ats'>{{__('lang.ats')}}</button>
+                        </div>
+                        </div>
                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                           </br>
                           <div class="mod-but" id="mod-but">

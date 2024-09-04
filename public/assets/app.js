@@ -26,6 +26,29 @@
         })
  *
  */
+
+        $(document).ready(function(){
+            $('#gen_ats').on('click',function()
+        {
+            var genform={
+                ID_NIN:id,
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                _method: 'POST'
+              }
+            $.ajax({
+                url:'/ATS',
+                data:genform,
+                type:'post',
+                success:function(response)
+                {
+                    alert('success');
+                    window.open('/read_rapport/'+id,'_blank');
+                }
+            })
+        })
+        })
+
+
 /***
 <<<<<<< HEAD
  *
@@ -2438,9 +2461,9 @@ function checksickDaye(maladie) {
  */
 
 /***
- *
- *
- * this for updalod button
+ * 
+ * 
+ * this for generation pdf button
  */
 
 /**

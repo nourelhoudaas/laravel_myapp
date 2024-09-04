@@ -490,13 +490,6 @@ main .insights > div.income span{
     background: var(--clr-success);
 }
 
-/* main .insights > div .middle{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-} */
-
 main .insights > div .middle h1{
     font-size: 1.6rem;
 
@@ -518,6 +511,49 @@ main .insights p{
     color: var(--clr-dark);
 }
 
+/***********************************************/
+main .insightss {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+}
+
+main .insightss .sales {
+    background-color: var(--clr-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-raduis);
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+    transition: all .3s ease;
+    text-align: center
+}
+main .insights .sales:hover{
+    box-shadow: none;}
+
+    main .insights > div.expenses span{
+    background: var(--clr-danger);
+}
+
+main .insights > div.income span{
+    background: var(--clr-success);
+}
+main .insightss > div span {
+    background: coral;
+    padding: 0.5rem; /* Fixed padding to make it consistent */
+    border-radius: 50%;
+    color: var(--clr-white);
+    font-size: 2rem;
+}
+
+main .insightss > div .middle h1 {
+    font-size: 1.6rem;
+}
+
+main .insightss h1, main .insightss h3, main .insightss p {
+    color: var(--clr-dark);
+}
+/*=============================================*/
 
 
 main .recent_order{
@@ -865,7 +901,7 @@ transform: scale(1.05) rotate(-1deg);
     width: 100%;
     padding: 10px;
     display: grid;
-    grid-template-columns: 1.5fr 0.9fr;
+    grid-template-columns: 0.5fr 0.9fr;
     grid-gap: 200px;
     min-height: 100px;
 }
@@ -873,9 +909,33 @@ transform: scale(1.05) rotate(-1deg);
     position: relative;
     background-color: var(--clr-white);
     padding: 30px;
-    width: 90%;
+    max-width: 940px;
+    width: 800px;
     box-shadow: 0 7px 25 rgba(0,0,0,0.8);
     border-radius: 20px;
+}
+.graphBox .box2{
+    position: relative;
+    background-color: var(--clr-white);
+    padding: 20px;
+    max-width: 800px;
+    width: 800px;
+    box-shadow: 0 7px 25 rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    height: 400px;
+    margin-left: -6rem;
+}
+.graphBox .box3{
+    position: absolute;
+    background-color: var(--clr-white);
+    padding: 20px;
+    box-shadow: 0 7px 25 rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    width: 400px;
+    height: 400px;
+    left: 41rem;
+    top: 27rem;
+
 }
 
 /* ****************************************************************************************************
@@ -1642,3 +1702,60 @@ dialog::backdrop {
 {
   padding: 5px ;
 }
+<<<<<<< HEAD
+.gen-file-handle
+{
+  color: black;
+  width: 100%;
+    text-align: start;
+}
+.gen-file-handle:hover
+{
+cursor: pointer;
+}
+.gen-list-handl
+{
+  background-color: #ffffff;
+  color: rgb(3, 3, 3);
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: start;
+}
+.dropdown-opt
+{
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: end;
+}
+.dropdown-opt button {
+  text-align: center;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+.dropdown-opt button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown content on hover */
+.gen-file-handle:hover .dropdown-opt {
+  display: block;
+}
+
+/* Change background color of dropdown button on hover */
+.gen-file-handle:hover .gen-list-handle {
+  background-color: #3e8e41;
+}
+=======
+>>>>>>> ca1d89671b44a02e085860ea7b38f5fe1a46ad2e

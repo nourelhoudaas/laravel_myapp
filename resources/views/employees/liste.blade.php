@@ -23,9 +23,6 @@
                         <thead>
 
                             <tr>
-                            <th>{{ __('lang.refinst') }}
-                                      
-                                </th>
                             <th>
                                     <a
                                         href="{{ route('app_liste_emply', ['champs' => 'id_p', 'direction' => $champs == 'id_p' && $direction == 'asc' ? 'desc' : 'asc']) }}">
@@ -129,8 +126,8 @@
                                     $locale = app()->getLocale();
                                 @endphp
                                 <tr>
-                                <td>  {{ $employe->id_p }}  </td>
-                                <td>  {{ $employe->id_p }}  </td>
+                        
+                                <td>  {{ $employe->id_emp}}  </td>
                                     <td>
                                         <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
                                             @if ($locale == 'fr')
@@ -161,17 +158,17 @@
 
                                     <td>
                                         @if ($locale == 'fr')
-                                            {{ $post->Nom_post }}
+                                        {{ '-' }}
                                         @elseif ($locale == 'ar')
-                                            {{ $post->Nom_post_ar }}
+                                        {{ '-' }}
                                         @endif
                                     </td>
 
                                     <td>
                                         @if ($locale == 'fr')
-                                            {{ $post->Nom_post }}
+                                        {{ '-' }}
                                         @elseif ($locale == 'ar')
-                                            {{ $post->Nom_post_ar }}
+                                        {{ '-' }}
                                         @endif
                                     </td>
 

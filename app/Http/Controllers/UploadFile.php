@@ -436,4 +436,73 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
         return response()->download($zipFilePath)->deleteFileAfterSend(true);
      
     }
+    function create_ats(Request $request)
+    {
+
+        $emp=Employe::join('occupes','occupes.id_nin','=','employes.id_nin')->where('employes.id_nin',$request->get('ID_NIN'))->first();
+        $fullname=$emp->Nom_emp.' '.$emp->Prenom_emp;
+        $fullnamear=$emp->Nom_ar_emp.' '.$emp->Prenom_ar_emp;
+        $latex = '
+\documentclass[a4paper]{article}
+\usepackage[left=2cm, right=2cm, top=1cm, bottom=3cm]{geometry}
+\usepackage{fontspec}
+\usepackage{arabxetex}
+\usepackage[absolute,overlay]{textpos}
+% Set the main font to a font that supports Arabic script
+\setmainfont{Arial}
+
+\begin{document}
+
+\title{\textarab{الجمهورية الجزائرية الديمقراطية الشعبية} \\\Republique Algerienne Democratique et populaire }
+\author{\textarab{وزارة الإتصال} \\\ Minister De La Communication}
+
+\maketitle
+Direction de L Admission et des Moyens. \hfill  \textarab{ المديرية الإداة و الوسائل العامة} \\\
+Sous-Direction Des Personnels. \hfill  \textarab{ المديرية الفرعية للمستخدمين } \\\
+N°: \hspace{1cm}   /SDP/DAM/MC/2024 . \hfill  \textarab{ رقم:\hspace{1cm}    م ف م/م ا و/و إ/2024 }
+
+\begin{center}
+\textarab{شهادة عمل} \\\
+ATTESTATION DE TRAVAIL
+\end{center}
+\begin{flushleft}
+\hspace{1cm} Les sous-directeur des personnls certifie par la present que Monsieur \textbf{'.$fullname.'} ne 28 Mars 1994 , a Blida, Occupe le Grade d \textbf{ingenieur d Etat }en informatique, aus Niveau du Ministere de La Communication, De puis le \textbf{18 fevrier 2024},a ce jour \\\
+\hspace{1cm} en foi de quoi cette attestation est établie
+\end{flushleft}
+\begin{flushright}
+\hspace{1cm}\textarab{يشهد المدير الفرعي للمستخدمين با السيد \textbf{\textarab{'.$fullnamear.'}} المولود في 28 مارس 1994  ، الشاغر منصب \textbf{\textarab{مهندس دولة في}} الإعلام الآلي و ذلك إبتداء من \textbf{\textarab{ 18 فيفري 2024 }} إلى يومنا هذا .} \\\
+\textarab{ تم تحرير هذه الشهادة لمى يسمح به القانون  }
+\end{flushright}
+
+\vspace*{\fill}
+ 
+\textarab{حررة ب \hspace{1cm}} \hfill  Faite Le : \hspace{1cm} a :
+\end{document}';
+            // Define paths
+            $storagePath = storage_path('app/public/employees/Em_'.$request->get('ID_NIN'));
+            $texFile = $storagePath . DIRECTORY_SEPARATOR . 'report.tex';
+            $pdfFile = $storagePath . DIRECTORY_SEPARATOR . 'report.pdf';
+    
+            // Ensure the storage directory exists
+            if (!is_dir($storagePath)) {
+                mkdir($storagePath, 0755, true);
+            }
+    
+            // Save LaTeX code to a temporary .tex file
+            file_put_contents($texFile, $latex);
+    
+            // Compile LaTeX code to PDF using xelatex
+            $output = shell_exec("xelatex -output-directory={$storagePath} {$texFile}");
+    
+            // Return the PDF as a download
+            if (file_exists($pdfFile)) {
+                return redirect()->to('storage/employees/Em_'.$request->get('ID_NIN').'/report.pdf');
+            } else {
+                return response('Failed to generate PDF', 500);
+            }
+    }
+    function read_report($id)
+    {
+        return redirect()->to('storage/employees/Em_'.$id.'/report.pdf');
+    }
 }
