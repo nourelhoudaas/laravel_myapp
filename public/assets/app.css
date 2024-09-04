@@ -1199,6 +1199,7 @@ cursor:not-allowed ;
 }
 
 .formcg-container {
+  width: 30%;
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -1615,4 +1616,29 @@ input[type='file']
 .lsid
 {
   left: 0px;
+}
+.myDial
+{
+  width: 50%;
+}
+dialog {
+  text-align: center;
+  border-radius: 10px;
+  padding: 20px;
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+.dialog-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+#func-handl
+{
+  padding: 5px ;
+}
+#pv-handl
+{
+  padding: 5px ;
 }

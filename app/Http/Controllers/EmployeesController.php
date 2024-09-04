@@ -51,7 +51,12 @@
                 }, SORT_REGULAR, $direction === 'desc');
 
 
-            } elseif ($champs === 'Nom_depart') {
+            } elseif ($champs === 'id_p') {
+                $employe = $employe->sortBy(function($emp) {
+                    return optional($emp->id_p);
+                }, SORT_REGULAR, $direction === 'desc');
+            }
+             elseif ($champs === 'Nom_depart') {
             $employe = $employe->sortBy(function($emp) {
                 return optional(optional($emp->travailByNin->last())->sous_departement->departement)->Nom_depart;
             }, SORT_REGULAR, $direction === 'desc');

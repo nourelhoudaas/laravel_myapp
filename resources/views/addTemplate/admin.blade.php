@@ -86,7 +86,7 @@
                     <div class="col-md-6">
                         <label class="labels">{{__('lang.post')}}</label>
                         <select type="text" class="form-select" placeholder="Diplome" value="" id="post">
-                        <option>{{__('lang.slct_post')}}</option>
+                        <option value="">{{__('lang.slct_post')}}</option>
                         @foreach($dbpost as $post)
                         @if (app()->getLocale() == 'ar')
                         
@@ -98,6 +98,10 @@
                         @endif
                         @endforeach
                         </select>
+                        <div >
+                            <label class='labels'>{{__('lang.PV_inst')}}</label>
+                            <p id='pv_inst'></p>
+                        </div>
                     </div >
                     <div  style="
     width: 50%;
@@ -109,7 +113,7 @@
                     <label class="labels" for="sel_posup">{{__('lang.post_sup_check')}}</label>
                     <input type="checkbox" id="sel_posup" class="col-md-2">
                     </div>
-                    <div id="postsup-opt"  class="col-md-6">
+                    <div id="postsup-opt"  class="col-md-11" style="display: flex; align-items: center;">
 
                     </div>
                     <hr>
@@ -118,7 +122,7 @@
                        <label class="labels" for="sel_fonc">{{__('lang.fonc_check')}}</label>
                        <input type="checkbox" id="sel_fonc" class="col-md-2">
                     </div>
-                    <div id="fonc-opt"  class="col-md-6">
+                    <div id="fonc-opt"  class="col-md-11" style="display: flex; align-items: center;">
 
                     </div>
                     <hr>
@@ -156,9 +160,11 @@
                 </div>
         </div>
 </div>
-<dialog id="myDialog">
+<dialog id="myDialog" class="myDial">
         <label>Confirm Action</label>
-        <input type="text" placeholder="{{__('lang.discis')}}"></input>
+        <br>
+        <input type="text" placeholder="{{__('lang.discis')}}" id='pv_num'></input>
+        <hr>
         <div class="dialog-buttons">
             <button onclick="confirmAction()">{{__('lang.btn.enregistrer')}}</button>
             <button onclick="cancelDialog()">{{__('lang.cancel')}}</button>
@@ -215,23 +221,33 @@
     const inputContainer = document.getElementById('postsup-opt');
     
     if (this.checked) {
+        showPV_postsup()
         // Create a new select element
         const newSelect = document.createElement('select');
         newSelect.id = 'postsup'; // Optional, for easier manipulation later
         newSelect.classList='form-select'
         // Create options for the select element
         const option1 = document.createElement('option');
-        option1.value = 'option1';
-        option1.text = 'Option 1';
-
+        option1.value = 'Chef_bur_res';
+      
         const option2 = document.createElement('option');
-        option2.value = 'option2';
-        option2.text = 'Option 2';
-
+        option2.value = 'Chef_bur_SI';
+       
         const option3 = document.createElement('option');
-        option3.value = 'option3';
-        option3.text = 'Option 3';
-
+        option3.value = 'respons_secI';
+        
+        if( lng =='ar')
+        {
+        option1.text = 'مكلف بالشبكات';
+        option3.text = 'مكلف بانظمة المعلوماتية';
+        option2.text = 'مكلف بالانظمة الحماية';
+        }
+        else
+        {
+        option1.text = 'Chargé Reseaux';
+        option3.text = 'Chargé Systeme information';
+        option2.text = 'Chargé Securité du System';
+        }
         // Add options to the select element
         newSelect.appendChild(option1);
         newSelect.appendChild(option2);
@@ -239,11 +255,29 @@
 
         // Add the select element to the container
         inputContainer.appendChild(newSelect);
+        var divfunctpv=document.createElement('div')
+        divfunctpv.id='pv-handl'
+        var labal=document.createElement('label')
+        labal.classList.add='labels'
+        labal.textContent ='{{__("lang.PV_ref")}}'
+        labal.style.fontSize = "16px";
+        labal.style.fontWeight = "bold";  // Set font size // Set background color
+        var textp=document.createElement('p')
+        textp.id='pv_postsup'
+        textp.text='test'
+        textp.classList.add='labels'
+        divfunctpv.appendChild(labal)
+        divfunctpv.appendChild(textp)
+        inputContainer.appendChild(divfunctpv)
+        $('#pv_num').addClass('pv_postup')
     } else {
         // Remove the select element if it exists
         const dynamicSelect = document.getElementById('postsup');
+        const dynamicpost = document.getElementById('pv-handl');
         if (dynamicSelect) {
             inputContainer.removeChild(dynamicSelect);
+            inputContainer.removeChild(dynamicpost);
+            $('#pv_num').removeClass('pv_postup')
         }
     }
 });
@@ -252,22 +286,35 @@ document.getElementById('sel_fonc').addEventListener('change', function() {
     
     if (this.checked) {
         // Create a new select element
+        showPV_function()
         const newSelect = document.createElement('select');
         newSelect.id = 'fonc'; // Optional, for easier manipulation later
         newSelect.classList='form-select'
+        $('#pv_num').addClass('pv_funct')
         // Create options for the select element
         const option1 = document.createElement('option');
-        option1.value = 'option1';
-        option1.text = 'Option 1';
+        option1.value = 'sous_dic';
+       
 
         const option2 = document.createElement('option');
-        option2.value = 'option2';
-        option2.text = 'Option 2';
+        option2.value = 'Dir';
+       
 
         const option3 = document.createElement('option');
-        option3.value = 'option3';
-        option3.text = 'Option 3';
-
+        option3.value = 'SG';
+       
+        if( lng =='ar')
+        {
+        option1.text = 'مدير فرعي';
+        option3.text = 'مدير';
+        option2.text = 'أمين عام';
+        }
+        else
+        {
+        option1.text = 'Sous-Directeur';
+        option3.text = 'Directeur';
+        option2.text = 'Secrétiare General';
+        }
         // Add options to the select element
         newSelect.appendChild(option1);
         newSelect.appendChild(option2);
@@ -275,11 +322,29 @@ document.getElementById('sel_fonc').addEventListener('change', function() {
 
         // Add the select element to the container
         inputContainer.appendChild(newSelect);
+        var divfunctpv=document.createElement('div')
+        divfunctpv.id='func-handl'
+        var labal=document.createElement('label')
+        labal.classList.add='labels'
+        labal.textContent ='{{__("lang.PV_ref")}}'
+        labal.style.fontSize = "16px";
+        labal.style.fontWeight = "bold";
+        var textp=document.createElement('p')
+        textp.id='pv_func'
+        textp.text='test'
+        textp.classList.add='labels'
+        divfunctpv.appendChild(labal)
+        divfunctpv.appendChild(textp)
+        inputContainer.appendChild(divfunctpv)
     } else {
         // Remove the select element if it exists
         const dynamicSelect = document.getElementById('fonc');
+        const dynamicfunct = document.getElementById('func-handl');
         if (dynamicSelect) {
             inputContainer.removeChild(dynamicSelect);
+            inputContainer.removeChild(dynamicfunct);
+            $('#pv_num').removeClass('pv_funct')
+
         }
     }
 });
