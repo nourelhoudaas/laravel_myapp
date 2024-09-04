@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('post_sups', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('id_postsup');
+            $table->string('Nom_postsup');
+            $table->string('Nom_postsup_ar');
+            
+
+          
+
         });
     }
 
