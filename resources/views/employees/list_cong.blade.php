@@ -250,6 +250,7 @@
                     </div>
                     <hr>
                     <div>
+                        <label class='lables'>{{__('lang.discis')}}</label>
                      <p id='pv_cng'></p>
                     </div>
                     <hr>

@@ -2222,11 +2222,11 @@ $('#sel_posup').change(function() {
                  {
                     if(lng == 'ar')
                     {
-                     alert('لايوجد ملف');
+                     alert(' لايوجد ملف أو لايوحد رقم المقرر');
                     }
                     else
                     {
-                        alert('Fichier est Vide');
+                        alert('Fichier est Vide ou bien aucune Ref');
                     }
                      if( id == null){
                      $('#id_emp').addClass('error-handle')}
