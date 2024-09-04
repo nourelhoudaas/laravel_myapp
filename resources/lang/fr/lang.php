@@ -3,7 +3,7 @@
 return [
     'Action'=>'Action',
     'mnc'=>'Ministère de la Communication',
-    'dashboard'=>'Tableau de Bord de ',
+    'dashboard'=>'Tableau de Bord  ',
     'Depratement'=>'Directions',
     'AddDir'=>'Ajouter une Direction',
     'ListDir'=>'Liste des Directions',
@@ -93,7 +93,7 @@ return [
     'slct_sous_dept'=>'Séléctionner la Sous Direction',
     'slct_type_cng'=>'Séléctionner le Titre du Congé',
     'slct_post'=>'Séléctionner le Titre du Poste',
-    'nbr_jour'=>'Nombres de jours Restants',
+    'nbr_jour'=>'Nombres de jours Restants du congé',
     'dans'=>'Térritoire national ',
     'hors'=>'Hors térritoire national ',
     'ver_cng'=>'Passer Vers Le Congé',

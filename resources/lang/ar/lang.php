@@ -2,7 +2,7 @@
 return [
     'Action'=>'فعل',
     'mnc'=>'وزارة الإتصال',
-    'dashboard'=>'واجهة',
+    'dashboard'=>'الواجهة',
     'Depratement'=>'المديريات',
     'AddDir'=>'إضافة مديرية',
     'ListDir'=>'قائمة المديريات',
