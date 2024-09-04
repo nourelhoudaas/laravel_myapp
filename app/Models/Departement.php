@@ -22,4 +22,5 @@ class Departement extends Model
         return $this-> hasMany(Sous_departement::class,'id_depart','id_depart');
     }
 
+
 }

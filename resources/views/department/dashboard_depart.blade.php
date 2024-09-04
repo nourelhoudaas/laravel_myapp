@@ -21,53 +21,57 @@
         <!-- main section start -->
         <main>
 
-            <h1>{{ __('lang.Departementde') }} 
-                
+            <h1>{{ __('lang.Departementde') }}
+
             {{ $nom_d }}</h1>
-            <div class="insights">
+            <div class="insightss">
                 <!-- start Employees -->
                 <div class="sales">
                     <span class="material-symbols-outlined">groups</span>
                     <div class="middle">
                         <div class="left">
                             <h3>{{ __('lang.nbr_all_users') }}</h3>
-                            <h1 id="total-employees">{{$totalEmpDep}}</h1>
+                            <h1>{{ $totalEmpDep}}</h1>
                         </div>
-
                     </div>
-
+                </div>
+                <!-- end Employees -->
+            </div>
+            <div class="insights">
+                <!-- start Employees -->
+                <div class="sales">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>{{ __('lang.encadrement') }}</h3>
+                            <h1>{{$encadrement }}</h1>
+                        </div>
+                    </div>
                 </div>
                 <!-- end Employees -->
 
                 <!-- start Absence -->
-                <div class="expenses">
-                    <span class="material-symbols-outlined">visibility</span>
+                <div class="income">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>{{ __('lang.Theorique') }}</h3>
-                            <h1></h1>
+                        <h3>{{ __('lang.maîtrise') }}</h3>
+                        <h1>{{$maitrise }}</h1>
                         </div>
                     </div>
-
                 </div>
                 <!-- end Absence -->
 
                 <!-- start Presence -->
-                <div class="income">
-                    <span class="material-symbols-outlined">how_to_reg</span>
+                <div class="expenses">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>{{ __('lang.Prevu') }}</h3>
-
-                           <h1>
-                           {{$totalEmpDep}}
-                           </h1>
+                            <h3>{{ __('lang.executif') }}</h3>
+                            <h1>{{$executif }}</h1>
                         </div>
-
                     </div>
-
                 </div>
-                <!-- end Presence -->
             </div>
             <!-- end inside -->
 
@@ -169,7 +173,7 @@
                                         {{ $employe->Prenom_ar_emp }}
                                         @endif
                                     </td>
-                               
+
                                     <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
                                     <td>{{ $employe->occupeIdNin->last()->date_recrutement  }}</td>
 
@@ -201,7 +205,7 @@
                     <div class="pagination">
                         {{ $paginator->links() }}
                     </div>
-                  
+
             </div>
             <!-- end resent order -->
 

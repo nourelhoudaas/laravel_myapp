@@ -42,13 +42,13 @@ return new class extends Migration
             $table->string('Phone_num')->unique();
 
 
-        
+
         });
 
         DB::table('employes')->insert([
-            [  
-            
-            
+            [
+
+
                 'id_nin' => 1254953,
                 'id_p' => 123,
                 'NSS' =>18505482,
@@ -72,15 +72,15 @@ return new class extends Migration
                 'nom_mere_ar'=>'ب',
                 'Date_nais_pere'=>'1975-08-31',
                 'Date_nais_mere'=>'1978-01-21',
-                'situation_familliale'=>'célébataire',
-                'situation_familliale_ar'=>'عازب',
+                'situation_familliale'=>'Célébataire',
+                'situation_familliale_ar'=>'أعزب/عزباء',
                 'nbr_enfants'=>0,
                 'email_pro'=>'s@gmail.com'
-               
-               
+
+
             ],
             [
-             
+
                 'id_nin' => 254896989,
                 'id_p' => 256,
                 'NSS' =>25686984,
@@ -104,15 +104,17 @@ return new class extends Migration
                 'nom_mere_ar'=>'ب',
                 'Date_nais_pere'=>'1975-08-31',
                 'Date_nais_mere'=>'1978-01-21',
-                'situation_familliale'=>'mariée',
-                'situation_familliale_ar'=>'متزوجة',
+                'situation_familliale'=>'Marié(e)',
+                'situation_familliale_ar'=>'(ة)متزوج',
                 'nbr_enfants'=>0,
                 'email_pro'=>'ss@gmail.com'
-            ]
-               
+            ],
+
+
+
             ]);
     }
-    
+
      /**
      * Reverse the migrations.
      */

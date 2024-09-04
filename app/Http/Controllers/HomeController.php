@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Employe;
 use App\Models\Departement;
+use App\Models\Travail;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 class HomeController extends Controller
@@ -23,31 +24,19 @@ class HomeController extends Controller
     }
 
     //la page dashboard.blade.php
+
     public function dashboard()
     {
-    
-       /* $employe= DB::table('posts')
-        ->join('occupes','occupes.id_post',"=","posts.id_post")
-        ->join('employes','occupes.id_p','=','employes.id_p')
-        ->join('travails','travails.id_p','=','employes.id_p')
-        ->join('sous_departements','sous_departements.id_sous_depart','=','travails.id_sous_depart')
-        ->join('departements','sous_departements.id_depart','=','departements.id_depart')
-        ->select('employes.id_nin','employes.id_p','employes.Nom_emp','employes.Prenom_emp' ,'posts.Nom_post','sous_departements.Nom_sous_depart','departements.Nom_depart')
-        ->distinct()
-        ->get();
-
-        $empdepart= DB::table('departements')
-          ->get();
-        
-*/
+        $lang=App::getLocale();
         $employe=Employe::with([
     'occupeIdNin.post.contient.sous_departement.departement',
     'occupeIdP.post.contient.sous_departement.departement'
         ])->get();
-        
+
     //le nbr total des employés
-        
-        $empdept=array();
+  $totalEmployes=$employe->count();
+
+   $empdept=array();
         $empdepart=Departement::get();
         foreach($empdepart as $deprt)
         {
@@ -61,7 +50,7 @@ class HomeController extends Controller
                         $travail = $employe->travailByNin->last();
                         $sousDepartement = $travail->sous_departement ?? null;
                         $departement = $sousDepartement->departement ?? null;
-                    
+
                         // Vérifiez si le département de l'employé correspond à l'ID du département
                         return $departement && $departement->id_depart == $id_dprt;
                     });
@@ -72,8 +61,38 @@ class HomeController extends Controller
                                          'nbremp'=>$totalEmployes]);
         }
         //dd($empdept);
-        $totalEmployes=$employe->count();
-        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdept'));
+// Sélectionner la colonne de situation en fonction de la langue
+$situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_familliale';
+
+     // Définir les situations familiales possibles en fonction de la langue
+     $situations = [
+        'fr' => ['Célébataire', 'Marié(e)', 'Divorcé(e)', 'Veuf(ve)'],
+        'ar' => ['أعزب/عزباء', '(ة)متزوج', '(ة)مطلق', '(ة)أرمل']
+    ];
+
+    // Sélectionner les situations familiales en fonction de la langue
+    $situationList = $situations[$lang];
+    //dd($situationList);
+
+
+    // Compter le nombre d'employés pour chaque situation familiale
+    $situationCounts = Employe::select($situationColumn)
+        ->selectRaw('COUNT(*) as count')
+        ->groupBy($situationColumn)
+        ->pluck('count', $situationColumn)
+        ->toArray();
+
+    // Assurer que toutes les situations sont présentes dans les résultats
+    $data = array_fill_keys($situationList, 0); // Initialise tous les éléments avec 0
+    foreach ($situationCounts as $key => $count) {
+        if (array_key_exists($key, $data)) {
+            $data[$key] = $count;
+        }
+    }
+
+   // dd($data);
+
+        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept','data'));
     }
 
     public function switchLanguage($locale)

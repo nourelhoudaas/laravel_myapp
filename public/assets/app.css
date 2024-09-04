@@ -490,13 +490,6 @@ main .insights > div.income span{
     background: var(--clr-success);
 }
 
-/* main .insights > div .middle{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-} */
-
 main .insights > div .middle h1{
     font-size: 1.6rem;
 
@@ -518,6 +511,49 @@ main .insights p{
     color: var(--clr-dark);
 }
 
+/***********************************************/
+main .insightss {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+}
+
+main .insightss .sales {
+    background-color: var(--clr-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-raduis);
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+    transition: all .3s ease;
+    text-align: center
+}
+main .insights .sales:hover{
+    box-shadow: none;}
+
+    main .insights > div.expenses span{
+    background: var(--clr-danger);
+}
+
+main .insights > div.income span{
+    background: var(--clr-success);
+}
+main .insightss > div span {
+    background: coral;
+    padding: 0.5rem; /* Fixed padding to make it consistent */
+    border-radius: 50%;
+    color: var(--clr-white);
+    font-size: 2rem;
+}
+
+main .insightss > div .middle h1 {
+    font-size: 1.6rem;
+}
+
+main .insightss h1, main .insightss h3, main .insightss p {
+    color: var(--clr-dark);
+}
+/*=============================================*/
 
 
 main .recent_order{
@@ -874,8 +910,19 @@ transform: scale(1.05) rotate(-1deg);
     background-color: var(--clr-white);
     padding: 30px;
     width: 90%;
+
     box-shadow: 0 7px 25 rgba(0,0,0,0.8);
     border-radius: 20px;
+}
+.graphBox .box2{
+    position: relative;
+    background-color: var(--clr-white);
+    padding: 20px;
+    width: 90%;
+    box-shadow: 0 7px 25 rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    margin-top: -10rem;
+    margin-right: 30rem;
 }
 
 /* ****************************************************************************************************
@@ -1499,7 +1546,7 @@ color: red;
 }
 .float-export
 {
-  position: fixed;  
+  position: fixed;
   bottom: 0px;
   background-color: #e6f4fc;
   width: 100px;
@@ -1642,6 +1689,7 @@ dialog::backdrop {
 {
   padding: 5px ;
 }
+<<<<<<< HEAD
 .gen-file-handle
 {
   color: black;
@@ -1696,3 +1744,5 @@ cursor: pointer;
 .gen-file-handle:hover .gen-list-handle {
   background-color: #3e8e41;
 }
+=======
+>>>>>>> ca1d89671b44a02e085860ea7b38f5fe1a46ad2e

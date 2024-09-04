@@ -47,7 +47,17 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-        
+        DB::table('users')->insert([
+            [  
+            
+                'name' => 'fadia',
+                'id_nin' => 1254953,
+                'id_p' => 123,
+                'username' => 'fadia',
+                'password' => '$2y$12$QMNdYb8dQXCgpdWM9NF4OebBiHPAyKplRHoDqJFmqQnSXd9cCg1SW',
+                'nbr_login' => 0,
+            ],
+        ]);
     
     }
 

@@ -9,7 +9,7 @@ main .insightss {
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
-    
+
 }
 
 main .insightss .sales {
@@ -72,38 +72,20 @@ main .insightss h1, main .insightss h3, main .insightss p {
                         </div>
                     </div>
                     <!-- end Employees -->
-
-                    <!-- start Absence 
-                    <div class="expenses">
-                        <span class="material-symbols-outlined">trending_down</span>
-                        <div class="middle">
-                            <div class="left">
-                                <h3>Absence</h3>
-                                <h1>0</h1>
-                            </div>
-                        </div>
-                    </div-->
-                    <!-- end Absence -->
-
-                    <!-- start Presence >
-                    <div class="income">
-                        <span class="material-symbols-outlined">trending_up</span>
-                        <div class="middle">
-                            <div class="left">
-                                <h3>Presence</h3>
-                                <h1>{{ $totalEmployes }}</h1>
-                            </div>
-                        </div>
-                    </div-->
-                    <!-- end Presence -->
                 </div>
+
+
 
                 {{-- chart --}}
                 <div class="graphBox">
                     <div class="box">
                         <canvas id="myChart" ></canvas>
                     </div>
+
                     <div class="box">
+                        <canvas id="situationChart" ></canvas>
+                    </div>
+                    <div class="box2">
                         <canvas id="myChart2" ></canvas>
                     </div>
                 </div>
@@ -115,10 +97,10 @@ main .insightss h1, main .insightss h3, main .insightss p {
 
 {{-- chartt1 --}}
 <script>
-     
+
 </script>
 <script>
-     var dept=@json($empdept);
+    var dept=@json($empdept);
    var lang='{{app()->getLocale()}}'
    var deptlis=[];
    var nbrem=[]
@@ -136,25 +118,149 @@ main .insightss h1, main .insightss h3, main .insightss p {
         }
         nbrem.push(element.nbremp)
     });
-    const ctx = document.getElementById('myChart');
+
     var langth_pr = '{{app()->getLocale()}}';
-    var labelTheorique;
-    var labelPrevu;
+    var nbr_emp_depart;
+    var nbr_emp;
+    var situ_emp;
 
     if (langth_pr == 'ar') {
-        labelTheorique = 'النظري';
-        labelPrevu = 'المتوقع';
+        nbr_emp_depart = 'عدد الموظفين في كل مديرية';
+        nbr_emp = 'عدد الموظفين';
+        situ_emp = 'توزيع العاملين حسب الحالة العائلية';
+
     } else {
-        labelTheorique = 'Théorique';
-        labelPrevu = 'Prévu';
+        nbr_emp_depart = 'Nombre d\'employés pour chaque département';
+        nbr_emp = 'Nombre d\'employés';
+        situ_emp = 'Répartition des Employés par Situation Familiale';
+
     }
 
 
+const ctx = document.getElementById('myChart');
+    console.log(nbrem)
     new Chart(ctx, {
         type: 'bar',
         data: {
+            labels:deptlis,
+            datasets: [{
+                label: nbr_emp,
+                data: nbrem,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+            }]
+        },
+        options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        ticks: {
+                            stepSize: 1, // Forcer les nombres entiers sur l'axe X
+
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0 // Éviter les valeurs décimales sur l'axe Y
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: nbr_emp_depart, // Le texte du titre
+                        position: 'bottom', // Positionner le titre sous le graphique
+                        padding: {
+                            top: 10, // Ajouter un espace entre le graphique et le titre
+                            bottom: -0
+                        },
+                        font: {
+                            size: 16 // Taille de la police du titre
+                        }
+                    }
+                }
+            }
+
+    });
+
+
+
+  // Récupérer les données PHP dans JavaScript
+  const situationData = @json($data);
+
+// Extraire les labels (situations familiales) et les données (nombre d'employés)
+const labels = Object.keys(situationData);
+const data = Object.values(situationData);
+
+// Créer le graphique circulaire avec Chart.js
+const ctx2 = document.getElementById('situationChart').getContext('2d');
+const situationChart = new Chart(ctx2, {
+    type: 'bar', // Utiliser 'doughnut' pour un chart en forme de donut
+    data: {
+        labels: labels,
+        datasets: [{
+            label: nbr_emp,
+            data: data,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        ticks: {
+                            stepSize: 1, // Forcer les nombres entiers sur l'axe X
+
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0 // Éviter les valeurs décimales sur l'axe Y
+                        }
+                    }
+                },
+        plugins: {
+            title: {
+                display: true,
+                text: situ_emp,
+                position: 'bottom',
+                padding: {
+                            top: 10, // Ajouter un espace entre le graphique et le titre
+                            bottom: -0
+                        },
+                font: {
+                    size: 16
+                }
+            }
+        }
+    }
+});
+/*
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
         labels: deptlis, // Two labels
-       
+
         datasets: [
             {
                 label: labelTheorique,  // Dataset label
@@ -180,33 +286,11 @@ main .insightss h1, main .insightss h3, main .insightss p {
                         beginAtZero: true
                     }
                 }
-            }   
-    });
-
-/* chartt2*/
-
-    const ctx2 = document.getElementById('myChart2');
-    console.log(nbrem)
-    new Chart(ctx2, {
-        type: 'doughnut',
-        data: {
-            labels:deptlis,
-            datasets: [{
-                label: '# of Votes',
-                data: nbrem,
-                borderWidth: 1
-            }]
-        },
-        options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
             }
-    });
+    });*/
+
+//chartt2
+
 </script>
 
 @endsection

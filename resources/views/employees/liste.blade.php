@@ -23,9 +23,6 @@
                         <thead>
 
                             <tr>
-                            <th>{{ __('lang.refinst') }}
-                                      
-                                </th>
                             <th>
                                     <a
                                         href="{{ route('app_liste_emply', ['champs' => 'id_p', 'direction' => $champs == 'id_p' && $direction == 'asc' ? 'desc' : 'asc']) }}">
@@ -43,7 +40,7 @@
                                         @if ($champs == 'Nom_emp')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    </a>
+                                    ></a>
                                 </th>
                                 <th>
                                     <a
@@ -115,7 +112,7 @@
                                     </a>
                                 </th>
 
-                              
+
                             </tr>
                         </thead>
                         <tbody>
@@ -129,8 +126,8 @@
                                     $locale = app()->getLocale();
                                 @endphp
                                 <tr>
-                                <td>  {{ $employe->id_p }}  </td>
-                                <td>  {{ $employe->id_p }}  </td>
+                        
+                                <td>  {{ $employe->id_emp}}  </td>
                                     <td>
                                         <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
                                             @if ($locale == 'fr')
@@ -161,17 +158,17 @@
 
                                     <td>
                                         @if ($locale == 'fr')
-                                            {{ $post->Nom_post }}
+                                        {{ '-' }}
                                         @elseif ($locale == 'ar')
-                                            {{ $post->Nom_post_ar }}
+                                        {{ '-' }}
                                         @endif
                                     </td>
 
                                     <td>
                                         @if ($locale == 'fr')
-                                            {{ $post->Nom_post }}
+                                        {{ '-' }}
                                         @elseif ($locale == 'ar')
-                                            {{ $post->Nom_post_ar }}
+                                        {{ '-' }}
                                         @endif
                                     </td>
 
@@ -190,7 +187,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $travail->date_installation }}</td>
-                                   
+
                                 </tr>
                             @endforeach
                         </tbody>
@@ -199,12 +196,12 @@
                     <div class="pagination">
                         {{ $paginator->links() }}
                     </div>
-                  
+
                 </div>
 
             </main>
 
-             
+
         </div>
         <script>
     $(document).ready(function(){
@@ -229,7 +226,7 @@
                 lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
                 zeroRecords: 'لم يتم العثور على شيء - عذراً',
                 search: 'بحث: ',
-      
+
             };
         } else if (lang === 'fr') {
             language = {
@@ -239,20 +236,20 @@
                 lengthMenu: 'Afficher _MENU_ enregistrements par page',
                 zeroRecords: 'Rien trouvé - désolé',
                 search: 'Recherche: '
-                
+
 
             };
         }
 
         let table = new DataTable('#myTable', {
             language: language,
-        
+
         initComplete: function () {
             if (lang === 'ar') {
                 // Adjust CSS for RTL (Arabic)
                 $('dataTable_filter').css('text-align', 'left'); // Search box to the left
-             
-            } 
+
+            }
         },
         direction: lang == 'ar' ? 'rtl' : 'ltr' // Control text direction
     });

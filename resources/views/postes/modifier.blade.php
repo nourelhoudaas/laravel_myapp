@@ -11,13 +11,15 @@
 
             <div class="app-card-body" >
 
-                    <form action="poste.update" method="POST">
-                    @csrf
-                    @method('PUT')
+                    <form action="{{ route('update.poste',$post->id_post)}}" method="Post">
+
+                        {{ csrf_field() }}
+
+
 
                     <div class= "text-bg-light p-3">
                         <label for="setting-input-1" class="fw-bold">Nom du poste</label>
-                        <input type="text" class="form-control" id="Nom_post" placeholder="Nom du poste" name="Nom_depart" value="{{$post->Nom_post}}" required >
+                        <input type="text" class="form-control" id="Nom_post" placeholder="Nom du poste" name="Nom_post" value="{{$post->Nom_post}}" required >
 
                     </div>
                     <div class="text-bg-light p-3">

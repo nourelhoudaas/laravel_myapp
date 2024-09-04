@@ -88,7 +88,7 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/Employe/list_abs/{id}','get_list_absemp')->name('emp_list_abs');
     Route::get('/Employe/read_just/{id}','read_just')->name('emp_read_justif');
 
-    
+
 
 });
 });
@@ -105,7 +105,7 @@ Route::controller(DepartmentController::class)->group(function(){
     Route::post('/add_depart','store')->name('app_store_depart');
     Route::get('/depcount/{id}','get_emp_dep')->name('app_emp_depart');
     Route::get('/direction/{id}','get_sdic')->name('app_get_sdirection');
-    
+
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
 
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
@@ -152,8 +152,14 @@ Route::controller(PostesController::class)->group(function(){
     Route::get('/poste','Listeposte')->name('liste_post');
     Route::post('/postes/add_poste','store')->name('app_store_poste');
 
-    Route::get('/postes/modifier/{post}','editer')->name('poste.modifier');
-    Route::put('/postes/editer/{post}','update')->name('poste.update');
+    Route::get('/postes/modifier/{post}','editer')->name('modifier.post');
+
+    Route::get('/editer/{post}','editer')->name('poste.edit');
+
+    Route::post('/postes/update/{post}','update')->name('update.poste');
+
+
+
     Route::get('/post/{id_post}', 'delete')->name('post.delete');
 });
 
