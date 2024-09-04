@@ -81,13 +81,13 @@ main .insightss h1, main .insightss h3, main .insightss p {
                     <div class="box">
                         <canvas id="myChart" ></canvas>
                     </div>
-
-                    <div class="box">
+                    <div class="box2">
                         <canvas id="situationChart" ></canvas>
                     </div>
-                    <div class="box2">
-                        <canvas id="myChart2" ></canvas>
+                    <div class="box3">
+                        <canvas id="genderChart" ></canvas>
                     </div>
+
                 </div>
             </main>
             <!-- end main -->
@@ -128,12 +128,13 @@ main .insightss h1, main .insightss h3, main .insightss p {
         nbr_emp_depart = 'عدد الموظفين في كل مديرية';
         nbr_emp = 'عدد الموظفين';
         situ_emp = 'توزيع العاملين حسب الحالة العائلية';
+        sexe='توزيع الموظفين حسب الجنس';
 
     } else {
         nbr_emp_depart = 'Nombre d\'employés pour chaque département';
         nbr_emp = 'Nombre d\'employés';
         situ_emp = 'Répartition des Employés par Situation Familiale';
-
+        sexe='Répartition des Employés par Sexe'
     }
 
 
@@ -254,43 +255,44 @@ const situationChart = new Chart(ctx2, {
         }
     }
 });
-/*
+//****************************************************************
+const genderData = @json($dataGender);
 
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-        labels: deptlis, // Two labels
+        const labels2 = Object.keys(genderData);
+        const data2 = Object.values(genderData);
 
-        datasets: [
-            {
-                label: labelTheorique,  // Dataset label
-                data: [20, 20], // Data for the two labels
-                backgroundColor: 'rgba(0, 147, 0, 0.8)', // Bar color
-                borderColor: 'rgba(0, 255, 0, 1)', // Bar border color
-                borderWidth: 1
+        const ctx3 = document.getElementById('genderChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'doughnut',
+            data: {
+                labels2: labels2,
+                datasets: [{
+                    label: nbr_emp,
+                    data: data2,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
             },
-            {
-                label: labelPrevu, // Second Dataset label
-                data: nbrem, // Data for the two labels
-                backgroundColor: 'rgba(0, 55, 255, 0.72)', // Bar color
-                borderColor: 'rgba(153, 102, 255, 1)', // Bar border color
-                borderWidth: 1
-            }
-        ]
-    },
-    options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: sexe,
+                        position: 'bottom',
+                        font: {
+                            size: 16
+                        }
                     }
                 }
             }
-    });*/
-
-//chartt2
-
+        });
 </script>
 
 @endsection

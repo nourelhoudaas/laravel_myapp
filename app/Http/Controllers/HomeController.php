@@ -92,7 +92,25 @@ $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_famil
 
    // dd($data);
 
-        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept','data'));
+     // Définir les libellés en français
+     $genders = ['Homme', 'Femme'];
+
+     // Compter le nombre d'employés pour chaque sexe
+     $genderCounts = Employe::select('sexe')
+         ->selectRaw('COUNT(*) as count')
+         ->groupBy('sexe')
+         ->pluck('count', 'sexe')
+         ->toArray();
+
+     // Assurer que toutes les situations sont présentes dans les résultats
+     $dataGender = array_fill_keys($genders, 0); // Initialise tous les éléments avec 0
+     foreach ($genderCounts as $key => $count) {
+         if (array_key_exists($key, $dataGender)) {
+             $dataGender[$key] = $count;
+         }
+     }
+     //dd($dataGender);
+        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept','data','dataGender'));
     }
 
     public function switchLanguage($locale)

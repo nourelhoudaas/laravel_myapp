@@ -33,8 +33,8 @@ return [
     'birtday'=>'Date de Naissance',
     'plc'=>'Lieu de Naissance',
     'sx'=>'sexe',
-    'sx_ma'=>'Mâle',
-    'sx_fm'=>'Femelle',
+    'sx_ma'=>'Homme',
+    'sx_fm'=>'Femme',
     'edit'=>'Edit',
     'tran'=>'Transferer',
     'files'=>'Dossier',
@@ -197,6 +197,8 @@ return [
 
 
     'postsup'=>'Poste Supèrieur',
+
+    'ats'=>'Attestation Du Traivlle',
 
    'fct'=>'Fonction ',
    'refinst'=>'Date et numéro du visa financier',
