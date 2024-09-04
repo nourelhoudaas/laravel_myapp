@@ -228,17 +228,26 @@
         newSelect.classList='form-select'
         // Create options for the select element
         const option1 = document.createElement('option');
-        option1.value = 'option1';
-        option1.text = 'Option 1';
-
+        option1.value = 'Chef_bur_res';
+      
         const option2 = document.createElement('option');
-        option2.value = 'option2';
-        option2.text = 'Option 2';
-
+        option2.value = 'Chef_bur_SI';
+       
         const option3 = document.createElement('option');
-        option3.value = 'option3';
-        option3.text = 'Option 3';
-
+        option3.value = 'respons_secI';
+        
+        if( lng =='ar')
+        {
+        option1.text = 'مكلف بالشبكات';
+        option3.text = 'مكلف بانظمة المعلوماتية';
+        option2.text = 'مكلف بالانظمة الحماية';
+        }
+        else
+        {
+        option1.text = 'Chargé Reseaux';
+        option3.text = 'Chargé Systeme information';
+        option2.text = 'Chargé Securité du System';
+        }
         // Add options to the select element
         newSelect.appendChild(option1);
         newSelect.appendChild(option2);
@@ -284,17 +293,28 @@ document.getElementById('sel_fonc').addEventListener('change', function() {
         $('#pv_num').addClass('pv_funct')
         // Create options for the select element
         const option1 = document.createElement('option');
-        option1.value = 'option1';
-        option1.text = 'Option 1';
+        option1.value = 'sous_dic';
+       
 
         const option2 = document.createElement('option');
-        option2.value = 'option2';
-        option2.text = 'Option 2';
+        option2.value = 'Dir';
+       
 
         const option3 = document.createElement('option');
-        option3.value = 'option3';
-        option3.text = 'Option 3';
-
+        option3.value = 'SG';
+       
+        if( lng =='ar')
+        {
+        option1.text = 'مدير فرعي';
+        option3.text = 'مدير';
+        option2.text = 'أمين عام';
+        }
+        else
+        {
+        option1.text = 'Sous-Directeur';
+        option3.text = 'Directeur';
+        option2.text = 'Secrétiare General';
+        }
         // Add options to the select element
         newSelect.appendChild(option1);
         newSelect.appendChild(option2);
@@ -307,9 +327,7 @@ document.getElementById('sel_fonc').addEventListener('change', function() {
         var labal=document.createElement('label')
         labal.classList.add='labels'
         labal.textContent ='{{__("lang.PV_ref")}}'
-        label.style.fontSize = "20px";  // Set font size
-        label.style.backgroundColor = "lightyellow";  // Set background color
-        label.style.padding = "5px";  // Set padding
+        labal.style.fontSize = "16px";
         labal.style.fontWeight = "bold";
         var textp=document.createElement('p')
         textp.id='pv_func'

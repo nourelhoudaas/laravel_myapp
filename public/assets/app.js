@@ -111,8 +111,22 @@ $(document).ready(function(){
             showPV_Rect()
         }
       });
+    })
+$(document).ready(function(){
+$('#sel_fonc').change(function() {
+    if ($(this).is(':checked')) {
+        $('#sel_posup').prop('checked', false);
+        $('#postsup-opt').empty()
+    }
+});
+$('#sel_posup').change(function() {
+    if ($(this).is(':checked')) {
+        $('#sel_fonc').prop('checked', false);
+        $('#fonc-opt').empty()
+    }
+    
+});
 })
-
 /***
  * 
  * 
