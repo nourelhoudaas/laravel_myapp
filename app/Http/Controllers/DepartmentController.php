@@ -200,14 +200,22 @@ return view('department.edit', compact('departement'));
 
     {
         Departement::create($request->all());
-      //  Sous_departement::create($request->all());
-        Sous_departement::create([
+        $id=Departement::select('id_depart')->where('nom_depart',$request->get('Nom_depart'))->first();
 
-            $request->get('Nom_depart'),
-            $request->get('Descriptif_depart'),
+     //   Sous_departement::create($request->all());
 
-        ]);
 
+       $sdb= DB::table('sous_departements')->insert(['id_depart'=>$id->id_depart,
+        'Nom_sous_depart'=>$request->get('Nom_sous_depart'),
+        'Descriptif_sous_depart'=>$request->get('Descriptif_sous_depart'),
+        'Nom_sous_depart_ar'=>$request->get('Nom_sous_depart_ar'),
+        'Descriptif_sous_depart_ar'=>$request->get('Descriptif_sous_depart_ar'),
+
+       ]);
+       /*([
+
+        ]);-*/
+     //  $sdb->save();
        /* return back()->with("succes","la direction a ete créé");
             /* $request->validate([
             'id_depart' => 'required|unique:departements',
@@ -222,41 +230,10 @@ return view('department.edit', compact('departement'));
             'Descriptif_sous_depart_ar' => 'required',*/
 
        /* ]);
-        Departement::create($request->all());
 
-        return redirect('/departements')->with('success', 'direction ajouté avec succès.');
-       /* dd($request);
-        Departement::create([
-            $request->get('id_depart'),
-            $request->get('Nom_depart'),
-            $request->get('Descriptif_depart'),
-            $request->get('Nom_depart_ar'),
-            $request->get('Descriptif_depart_ar'),
-
-            ]);
-            $deprt=Departement::get();
-            if (re)
-        return response()->json([
-            'message'=>'success',
-            'dert'=>$deprt,
-            'code'=>200
+  ode'=>200
         ]);*/
-        /*select departement.id_depat from departement where nom_depart = $request*/
-      /*  Sous_departement::create([
-            $request->get('id_depart'),
-            $request->get('Nom_depart'),
-            $request->get('Descriptif_depart'),
-            $request->get('Nom_depart_ar'),
-            $request->get('Descriptif_depart_ar'),
 
-
-            ]);
-            $s_deprt=Sous_departement::get();
-        return response()->json([
-            'message'=>'success',
-            's_dert'=>$s_deprt,
-            'code'=>200
-        ]);*/
 
         $departements = Departement::paginate(5);
 
@@ -264,7 +241,7 @@ return view('department.edit', compact('departement'));
 
 
 
-        return view('department.liste', compact('departements','empdepart'))->with('success', 'Direction créé avec succès.');
+        return view('department.liste', compact('departements','empdepart','request'))->with('success', 'Direction créé avec succès.');
     }
     public function editer($nom)
     {

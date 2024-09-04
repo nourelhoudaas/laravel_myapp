@@ -35,35 +35,47 @@
 
                             <div class= "text-bg-light p-3">
                                 <label for="setting-input-1" class="fw-bold">{{ __('lang.nom_direc') }} </label>
-                                <input type="text" class="form-control" id="Nom_depart" placeholder="Nom de la Direction" name="Nom_depart" required>
+                                <input type="text" class="form-control" id="Nom_depart" placeholder="" name="Nom_depart" required>
 
                             </div>
                             <div class="text-bg-light p-3">
                                 <label for="setting-input-2" class="fw-bold">{{ __('lang.discr_direc') }}</label>
-                                <input type="text" class="form-control" id="Descriptif_depart" placeholder="Discription de la direction" name="Descriptif_depart" required>
+                                <input type="text" class="form-control" id="Descriptif_depart" placeholder="" name="Descriptif_depart" required>
                             </div>
                             <div class= "text-bg-light p-3">
                                 <label for="setting-input-1" class="fw-bold">{{ __('lang.nom_direc_ar') }}</label>
-                                <input type="text" class="form-control" id="Nom_depart_ar" placeholder="Nom de la Direction en Arabe" name="Nom_depart_ar" required>
+                                <input type="text" class="form-control" id="Nom_depart_ar" placeholder="" name="Nom_depart_ar" required>
 
                             </div>
                             <div class="text-bg-light p-3">
                                 <label for="setting-input-2" class="fw-bold">{{ __('lang.discr_direc_ar') }}</label>
-                                <input type="text" class="form-control" id="Descriptif_depart_ar" placeholder="Discription de la direction" name="Descriptif_depart_ar" required>
+                                <input type="text" class="form-control" id="Descriptif_depart_ar" placeholder="" name="Descriptif_depart_ar" required>
+                            </div>
+                            <div class= "section-title"><h4>{{ __('lang.msg_ajout_ssdirec') }}</h4></div>
+                            <div class= "text-bg-light p-3">
+                                <label for="setting-input-1" class="fw-bold">{{ __('lang.nom_ss_direc') }}</label>
+                                <input type="text" class="form-control" id="Nom_sous_depart" placeholder="" name="Nom_sous_depart" required>
+
+                            </div>
+                            <div class="text-bg-light p-3">
+                                <label for="setting-input-2" class="fw-bold">{{ __('lang.discr_ss_direc') }}</label>
+                                <input type="text" class="form-control" id="Descriptif_sous_depart" placeholder="" name="Descriptif_sous_depart" required>
+                            </div>
+                            <div class="text-bg-light p-3">
+                                <label for="setting-input-2" class="fw-bold">{{ __('lang.nom_ss_direc_ar') }}</label>
+                                <input type="text" class="form-control" id="Nom_sous_depart_ar" placeholder="" name="Nom_sous_depart_ar" required>
+                            </div>
+                            <div class="text-bg-light p-3">
+                                <label for="setting-input-2" class="fw-bold">{{ __('lang.discr_ss_direc_ar') }}</label>
+                                <input type="text" class="form-control" id="Descriptif_sous_depart_ar" placeholder="" name="Descriptif_sous_depart_ar" required>
                             </div>
 
 
 
 
-                            <div class="container">
-                                <div class="wrap">
-                                    <h4 class= >{{ __('lang.msg_aj_ssdirect') }}</h4>
-                                    <a href="#" class="add">&plus;</a>
-                                </div>
-                                <div class="inp-group"></div>
 
 
-                            </div>
+
 
 
                             <button type="submit" class="btn btn-primary">{{ __('lang.btn.enregistrer') }}</button>
