@@ -149,7 +149,7 @@ return view('department.edit', compact('departement'));
                 );
         /************************encadrement_maitris_executif*************** */
                 $encadrement = Employe::
-                join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                join('occupe', 'employes.id_nin', '=', 'occupes.id_nin')
                 ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
                 ->where('posts.Grade_post', '>', 11)
                 ->whereRaw('occupes.date_recrutement = (
@@ -157,7 +157,7 @@ return view('department.edit', compact('departement'));
                     FROM occupes o2
                     WHERE o2.id_nin = employes.id_nin
                 )') ->count();
-                //dd( $encadrement);
+               // dd( $encadrement);
 
                $maitrise = DB::table('employes')
                ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
