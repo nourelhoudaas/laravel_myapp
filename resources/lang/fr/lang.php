@@ -193,11 +193,14 @@ return [
     'adresse'=>'Adresse',
     'Lieunaiss'=>'Lieu de Naissance',
     'etatcivil'=>'Etat Civil',
+
+
+
     'postsup'=>'Poste Supèrieur',
 
    'fct'=>'Fonction ',
    'refinst'=>'Date et numéro du visa financier',
-  
+
     'title_direc_ssdirec'=>'Direction et Sous Direction',
     'ajout_direc_ssdirec'=>'Ajout',
     'msg_ajout'=>'Ajouter une nouvelle direction avec des sous directions',
@@ -205,11 +208,20 @@ return [
     'nom_direc'=>'Nom de la Direction',
     'discr_direc'=>'Description de la Direction',
     'nom_direc_ar'=>'Nom de la Direction en arabe',
-    'msg_aj_ssdirect'=>'Ajouter une sous direction',
     'btn.enregistrer'=>'Enregistrer',
     'nom_ss_direc'=>'Nom Sous-direction',
     'discr_ss_direc'=>'Discription de la sous-direction',
+    'discr_direc_ar'=>'Discription de la direction en Arabe',
+    'nom_ss_direc_ar'=>'nom de sous direction en arabe',
+    'discr_ss_direc_ar'=>'discription de sous direction en Arabe',
+    'msg_ajout_ssdirec'=>'Ajouter une sous direction',
 
+
+    'encadrement'=> 'Encadrements',
+    'metrise'=>'Metrises',
+    'executif'=>'Executifs',
+    'nbr_emp_depart'=>'Nombre d\'employer pour chaque département',
+    'nbr_emp'=>'Nombre d\'employer'
 
 
 
