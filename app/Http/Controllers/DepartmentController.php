@@ -147,12 +147,40 @@ return view('department.edit', compact('departement'));
                         'query' => request()->query() // Paramètres de la requête
                     ]
                 );
+        /************************encadrement_maitris_executif*************** */
+                $encadrement = Employe::
+                join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+                ->where('posts.Grade_post', '>', 11)
+                ->whereRaw('occupes.date_recrutement = (
+                    SELECT MAX(o2.date_recrutement)
+                    FROM occupes o2
+                    WHERE o2.id_nin = employes.id_nin
+                )') ->count();
+                //dd( $encadrement);
 
-                $emp=Employe::with ('occupeIdNin.post')->get();
-                //dd($emp);
+               $maitrise = DB::table('employes')
+               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+               ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+               ->whereBetween('posts.Grade_post', [7, 11])
+               ->whereRaw('occupes.date_recrutement = (
+                   SELECT MAX(o2.date_recrutement)
+                   FROM occupes o2
+                   WHERE o2.id_nin = employes.id_nin
+               )') ->count();
+              //dd( $maitrise);
 
-              
-            return view('department.dashboard_depart', compact('paginator','empdep','empdepart','totalEmpDep','nom_d','dep_id','champs','direction'));
+               $executif = DB::table('employes')
+               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+               ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+               ->where('posts.Grade_post', '<', 7)
+               ->whereRaw('occupes.date_recrutement = (
+                   SELECT MAX(o2.date_recrutement)
+                   FROM occupes o2
+                   WHERE o2.id_nin = employes.id_nin
+               )') ->count();
+             // dd( $executif);
+            return view('department.dashboard_depart', compact('paginator','empdep','empdepart','totalEmpDep','nom_d','dep_id','champs','direction','encadrement','maitrise','executif'));
                 }
 
 
