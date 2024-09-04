@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('id_nin');
             $table->integer('id_p');
             $table->integer('id_post');
+            $table->string('ref_PV');
+            $table->string('ref_Decision')->default('New');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('id_post')->references('id_post')->on('posts');
@@ -30,7 +32,7 @@ return new class extends Migration
                 'id_nin' => 254896989,
                 'id_p' => 256,
                 'id_post' => 20,
-               
+                'ref_PV'=>'1N'
             ],
             [
                 'id_occup' => 10,
@@ -39,14 +41,15 @@ return new class extends Migration
                 'id_nin' => 1254953,
                 'id_p' => 123,
                 'id_post' => 2,
+                'ref_PV'=>'2N'
             ],
-           
+
             ]);
-            
+
 
     }
-    
-    
+
+
     /**
      * Reverse the migrations.
      */

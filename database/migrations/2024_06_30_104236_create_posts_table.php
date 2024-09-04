@@ -24,8 +24,8 @@ return new class extends Migration
                 'Nom_post' => 'ingénieur en informatique',
                 'Grade_post' => 1,
                 'Nom_post_ar' => 'مهندس دولة في الاعلام الالي',
-             
-               
+
+
             ],
             [
                 'id_post' => 20,
@@ -33,10 +33,10 @@ return new class extends Migration
                 'Grade_post' => 2,
                 'Nom_post_ar' => 'تقني في الاعلام الالي',
             ]
-               
+
             ]);
     }
-  
+
     /**
      * Reverse the migrations.
      */

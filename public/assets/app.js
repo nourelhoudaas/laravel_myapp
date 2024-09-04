@@ -27,17 +27,112 @@
  *
  */
 /***
+<<<<<<< HEAD
  *
  *
  *
+=======
+ * 
+ *  decition start
+ * 
+>>>>>>> 395dc4e771cc314f133b9083b708cf675c924246
  */
-function showDialog() {
+function showPV_postsup() {
     // Get the dialog element
     var dialog = document.getElementById("myDialog");
     // Show the dialog
     dialog.showModal();
+
+}
+function showPV_function() {
+    // Get the dialog element
+    var dialog = document.getElementById("myDialog");
+    // Show the dialog
+    dialog.showModal();
+
+}
+function showPV_Rect() {
+    // Get the dialog element
+    var dialog = document.getElementById("myDialog");
+    // Show the dialog
+    dialog.showModal();
+
 }
 
+function confirmAction() {
+    // Logic for confirming the action
+
+    var pv=$("#pv_num").val()
+    if ($('#pv_num').hasClass('pv_funct')) {
+        $('#pv_func').text(pv)
+    }
+    if ($('#pv_num').hasClass('pv_postup')) {
+        $('#pv_postsup').text(pv)
+    }
+    if ($('#pv_num').hasClass('pv_rect')) {
+        $('#pv_inst').text(pv)
+    }
+   // var id_p=$('#IDP').val()
+    if( lng == 'ar')
+    {
+     alert('تم عملية التفعيل بنجاح')
+    }
+    else
+    {
+     alert('Générer avec succès');
+    }
+    
+    // Close the dialog
+    document.getElementById("pv_num").value='';
+    $('#pv_num').removeClass('pv_postup')
+    $('#pv_num').removeClass('pv_funct')
+    $('#pv_num').removeClass('pv_rect')
+    document.getElementById("myDialog").close();
+}
+
+function cancelDialog() {
+    // Logic for canceling the action
+    if(lng == 'a')
+    {
+        alert('تم إلغاء التفعيل')
+    }
+    else
+    {
+    alert("Action canceled.");}
+    // Close the dialog
+    document.getElementById("pv_num").value='';
+    $('#pv_num').removeClass('pv_postup')
+    $('#pv_num').removeClass('pv_funct')
+    $('#pv_num').removeClass('pv_rect')
+    document.getElementById("myDialog").close();
+   
+}
+$(document).ready(function(){
+    $('#post').change(function() {
+        $('#pv_inst').empty()
+        $('#pv_num').addClass('pv_rect')
+        var selectedOption = $(this).val(); // Get the value of the selected option
+        if (selectedOption != '') {
+           
+            showPV_Rect()
+        }
+      });
+    })
+$(document).ready(function(){
+$('#sel_fonc').change(function() {
+    if ($(this).is(':checked')) {
+        $('#sel_posup').prop('checked', false);
+        $('#postsup-opt').empty()
+    }
+});
+$('#sel_posup').change(function() {
+    if ($(this).is(':checked')) {
+        $('#sel_fonc').prop('checked', false);
+        $('#fonc-opt').empty()
+    }
+    
+});
+})
 /***
  *
  *
@@ -1079,9 +1174,8 @@ function showDialog() {
                      success: function (response) {
                         if( lng == 'ar')
                         {
-                            showDialog()
-                         alert('تم عملية التفعيل بنجاح')
-                        }else
+                        showDialog()
+                                                }else
                         {
                          alert('Générer avec succès');
                         }
@@ -1102,7 +1196,7 @@ function showDialog() {
                 {
                     if(lng == 'ar')
                         {
-                    $('#remq p').text('عليك التأكد من تاريخ التصيب و تاريخ التوظيف')
+                    $('#remq p').text('عليك التأكد من تاريخ التنصيب و تاريخ التوظيف')
                         }
                         else
                         {
@@ -1914,7 +2008,7 @@ function showDialog() {
                     {
                         $('#typ_cg option:eq(2)').prop('selected', true)
                     }
-                     if(response.Jour_congé <= 0 )
+                     if(response.Jour_congé <= 0  && document.getElementById("typ_cg").value == 'RF001')
                      {
                          var currentTime = new Date()
                         $('#checkcg-box').append(pasrdoit);
@@ -1989,7 +2083,7 @@ function showDialog() {
                                 var selectsitua = document.getElementById("Situation");
                                 var selectedValue = selectElement.value;
                                 var selectedVsitua = selectsitua.value;
-                                console.log('select '+selectedVsitua)
+                                console.log('select '+selectsitua)
                          if(selectedValue == 'RF002')
                          {
                             if(!checksickDaye(date_dcg))
@@ -2075,7 +2169,8 @@ function showDialog() {
                      }
                      else
                      {
-                         if(total_cgj <= 0)
+                        console.log('dat'+selectedValue)
+                         if(total_cgj <= 0 && selectedValue == 'RF001')
                          {
                             if(lng =='ar')
                             {
