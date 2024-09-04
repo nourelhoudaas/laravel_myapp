@@ -3,7 +3,7 @@
 return [
     'Action'=>'Action',
     'mnc'=>'Ministère de la Communication',
-    'dashboard'=>'Tableau de Bord',
+    'dashboard'=>'Tableau de Bord de ',
     'Depratement'=>'Directions',
     'AddDir'=>'Ajouter une Direction',
     'ListDir'=>'Liste des Directions',
@@ -123,14 +123,14 @@ return [
 
 
     'DosierD'=>'Dossier D`Employé',
-    'Admin'=>'Adminstrative',
-    'Niveaux'=>'Educative',
-    'Congé'=>'Congés',
-    'Social'=>'Socialle',
-    'Contonsion'=>'Constonsions',
-    'Promotion'=>'Promotions',
-    'Maladie'=>'Maladies',
-    'Personnel'=>'Personnels',
+    'Admin'=>'Dossier Administratif ',
+    'Niveaux'=>'Dossier Educatif',
+    'Congé'=>'Dossier des Congés',
+    'Social'=>'Dossier de Social',
+    'Contonsion'=>'Dossier de Constonsions',
+    'Promotion'=>'Dossier de Promotions',
+    'Maladie'=>'Dossier de Maladies',
+    'Personnel'=>'Dossier Personnel',
     'upload'=>'Importer',
 
 
@@ -193,10 +193,12 @@ return [
     'adresse'=>'Adresse',
     'Lieunaiss'=>'Lieu de Naissance',
     'etatcivil'=>'Etat Civil',
-
+    'nbr_restant'=>'Nombre de jours Restants',
 
 
     'postsup'=>'Poste Supèrieur',
+
+    'ats'=>'Attestation Du Traivlle',
 
    'fct'=>'Fonction ',
    'refinst'=>'Date et numéro du visa financier',

@@ -2,7 +2,7 @@
 return [
     'Action'=>'فعل',
     'mnc'=>'وزارة الإتصال',
-    'dashboard'=>'الواجهة',
+    'dashboard'=>'واجهة',
     'Depratement'=>'المديريات',
     'AddDir'=>'إضافة مديرية',
     'ListDir'=>'قائمة المديريات',
@@ -159,6 +159,7 @@ return [
 
     'nbr_page'=>'الصفحة',
     'Departementde'=>'مديرية ',
+    'ats'=>'شهادة عمل',
 
     'Changerlemotdepass'=>'تغيير كلمة المرور',
     'Ancienmotdepass'=>'كلمة المرور السابقة',
