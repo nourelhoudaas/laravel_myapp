@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('filieres', function (Blueprint $table) {
+        Schema::create('secteurs', function (Blueprint $table) {
+            $table->integer('id_secteur');
+            $table->string(' Nom_secteur');
+            $table->string('Nom_secteur_ar');
             $table->integer('id_filiere');
-            $table->string('Nom_filiere');
-            $table->string('Nom_filiere_ar');
+            $table->foreign('id_filiere')->references('id_filiere')->on('filieres');
+
+            
         });
     }
 
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('filieres');
+        Schema::dropIfExists('secteurs');
     }
 };

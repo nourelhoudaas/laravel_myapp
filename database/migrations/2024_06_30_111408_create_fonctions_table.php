@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_sups', function (Blueprint $table) {
-            $table->integer('id_postsup');
-            $table->string('Nom_postsup');
-            $table->string('Nom_postsup_ar');
-            
-
-          
-
+        Schema::create('fonctions', function (Blueprint $table) {
+            $table->integer('code_fonction');
+            $table->string('Nom_fonction');
+            $table->string('Nom_fonction_ar');
+            $table->float('Moyenne');
+        
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_sups');
+        Schema::dropIfExists('fonctions');
     }
 };

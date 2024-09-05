@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('specialite_fils', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('post_sups', function (Blueprint $table) {
+            $table->integer('id_postsup');
+            $table->string('Nom_postsup');
+            $table->string('Nom_postsup_ar');
+            $table->string('Niveau_sup');
+            $table->string('point_indsup');
+            
+
+          
+
         });
     }
 
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('specialite_fils');
+        Schema::dropIfExists('post_sups');
     }
 };
