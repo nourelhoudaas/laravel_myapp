@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('fonctions', function (Blueprint $table) {
-            $table->integer('code_fonction');
+            $table->integer('id_fonction')->primary();
             $table->string('Nom_fonction');
             $table->string('Nom_fonction_ar');
             $table->float('Moyenne');

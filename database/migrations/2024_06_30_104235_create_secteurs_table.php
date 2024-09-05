@@ -12,14 +12,34 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('secteurs', function (Blueprint $table) {
-            $table->integer('id_secteur');
-            $table->string(' Nom_secteur');
+            $table->integer('id_secteur')->primary()->autoIncrement();
+            $table->string('Nom_secteur');
             $table->string('Nom_secteur_ar');
             $table->integer('id_filiere');
             $table->foreign('id_filiere')->references('id_filiere')->on('filieres');
-
-            
         });
+
+        DB::table('secteurs')->insert([
+            [
+                
+                'Nom_secteur' => 'ingénierie',
+                'Nom_secteur_ar' => 'سلك المهندسين',
+                'id_filiere' => 1,
+
+
+            ],
+            
+            [
+                
+                'Nom_secteur' => 'téchnicien',
+                'Nom_secteur_ar' => 'سلك التقنيون',
+                'id_filiere' => 1,
+
+
+            ],
+            
+
+            ]);
     }
 
     /**

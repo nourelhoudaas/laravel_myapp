@@ -12,10 +12,31 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('filieres', function (Blueprint $table) {
-            $table->integer('id_filiere');
+            $table->integer('id_filiere')->primary()->autoIncrement();
             $table->string('Nom_filiere');
             $table->string('Nom_filiere_ar');
         });
+
+        DB::table('filieres')->insert([
+            [
+                
+                'Nom_filiere' => 'informatique',
+                'Nom_filiere_ar' => 'الاعلام الالي',
+             
+
+
+            ],
+            [
+                
+                'Nom_filiere' => 'statistique',
+                'Nom_filiere_ar' => 'الاحصاء',
+             
+
+
+            ],
+            
+
+            ]);
     }
 
     /**

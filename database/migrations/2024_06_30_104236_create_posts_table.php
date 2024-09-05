@@ -26,6 +26,7 @@ return new class extends Migration
                 'Nom_post' => 'ingénieur en informatique',
                 'Grade_post' => 1,
                 'Nom_post_ar' => 'مهندس دولة في الاعلام الالي',
+                'id_secteur' => 1,
 
 
             ],
@@ -34,6 +35,7 @@ return new class extends Migration
                 'Nom_post' => 'technicien supérieur en info',
                 'Grade_post' => 2,
                 'Nom_post_ar' => 'تقني في الاعلام الالي',
+                'id_secteur' => 2,
             ]
 
             ]);

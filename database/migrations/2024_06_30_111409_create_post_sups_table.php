@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('post_sups', function (Blueprint $table) {
-            $table->integer('id_postsup');
+            $table->integer('id_postsup')->primary()->autoIncrement();
             $table->string('Nom_postsup');
             $table->string('Nom_postsup_ar');
             $table->string('Niveau_sup');
-            $table->string('point_indsup');
+            $table->integer('point_indsup');
             
 
           
