@@ -26,6 +26,25 @@
         })
  *
  */
+/**
+ * 
+ * 
+ * spinner funcitons
+ * 
+ */
+function showLoadingSpinner() {
+    $('#loadingSpinner').css('display','flex'); 
+}
+
+// Function to hide the loading spinner
+function hideLoadingSpinner() {
+    $('#loadingSpinner').css('display','none');
+}
+/**
+ * 
+ * 
+ * end function
+ */
 
         $(document).ready(function(){
             $('#gen_ats').on('click',function()
@@ -431,6 +450,7 @@ $('#sel_posup').change(function() {
 
 
           function uploadFile3(id,dates) {
+            showLoadingSpinner()
             var formData = new FormData();
             var formDataF = new FormData();
             var formDataU=new FormData();
@@ -506,10 +526,12 @@ $('#sel_posup').change(function() {
                                 if(responses.code == 200)
                                     {
                                         uploadjust(id,dates,response.data.filename,response.data.sous_d)
+                                        hideLoadingSpinner()
                                         alert(response.message)
                                         console.log('add to stocke  ->'+responses.message)
                                     }else
                                     {
+                                        hideLoadingSpinner()
                                         alert(response.message)
                                     }
                             }
@@ -521,6 +543,7 @@ $('#sel_posup').change(function() {
                         }
                       },
                       error: function(response) {
+                        hideLoadingSpinner()
                         console.log(''+JSON.stringify(response));
                           if(lng == 'ar')
                           {
@@ -536,6 +559,7 @@ $('#sel_posup').change(function() {
                 error: function() {
                     if(lng == 'ar')
                     {
+                        hideLoadingSpinner()
                         alert('خطأ في الإنشاء ');
                     }else
                     {
@@ -544,6 +568,7 @@ $('#sel_posup').change(function() {
             });
           }
          function uploadFile2(id,dates) {
+            showLoadingSpinner()
              var formData = new FormData();
              var formDataF = new FormData();
              //using jquery this only this time
@@ -619,11 +644,12 @@ $('#sel_posup').change(function() {
                                  if(responses.code == 200)
                                      {
                                         uploadtitre(id,dates,response.data.filename,response.data.sous_d)
+                                        hideLoadingSpinner
                                         console.log('add to stocke  ->'+responses.message)
 
                                      }else
                                      {
-
+                                        hideLoadingSpinner()
                                          alert(response.message)
                                      }
                              }
@@ -635,6 +661,7 @@ $('#sel_posup').change(function() {
                          }
                        },
                        error: function(response) {
+                        hideLoadingSpinner()
                          console.log(''+JSON.stringify(response));
                          if(lng == 'ar')
                          {
@@ -648,6 +675,7 @@ $('#sel_posup').change(function() {
                    })
                  },
                  error: function() {
+                    hideLoadingSpinner()
                     if(lng == 'ar')
                     {
                         alert('خطأ في الإنشاء ');
@@ -658,7 +686,7 @@ $('#sel_posup').change(function() {
                  }
              });
            }
- function uploadFile() {
+ function uploadFile() {    
    var formData = new FormData();
    var formDataF = new FormData();
    var file = document.getElementById('file').files[0];
@@ -675,6 +703,7 @@ $('#sel_posup').change(function() {
     formDataF.append('sous', dir);
     console.log('button of'+this.id);
     console.log('button of'+this.dir);
+    showLoadingSpinner()
    $.ajax({
        url: '/upload/creedossier',
        type: 'POST',
@@ -744,9 +773,12 @@ $('#sel_posup').change(function() {
                                      $('#progressWrapper').hide();
                                      $('#progressBar').width('0%');
                            //  console.log('add to stocke  ->'+responses.message)
-                             alert(response.message)
+                           hideLoadingSpinner() 
+                           alert(response.message)
+                             
                                  }else
                                  {
+                                    hideLoadingSpinner()
                                      alert(response.message)
                                  }
                          }
@@ -761,6 +793,7 @@ $('#sel_posup').change(function() {
               $('#progressBar').width('0%');
              },
              error: function() {
+                hideLoadingSpinner()
                 if(lng == 'ar')
                 {
                   alert('خطا في العملية')
@@ -775,6 +808,7 @@ $('#sel_posup').change(function() {
        error: function() {
         if(lng == 'ar')
         {
+            hideLoadingSpinner()
             alert('خطأ في الإنشاء ');
         }else
         {
@@ -785,6 +819,7 @@ $('#sel_posup').change(function() {
  }
  function uploadjust(id,date,file,dir)
  {
+    showLoadingSpinner()
     console.log('file name'+JSON.stringify(file))
     var dataform={
           id_nin:id,
@@ -803,6 +838,7 @@ $('#sel_posup').change(function() {
         {
             if(response.code == 200)
             {
+                hideLoadingSpinner()
                 alert(response.success)
                 $.ajax({
 
@@ -817,6 +853,7 @@ $('#sel_posup').change(function() {
  }
  function uploadtitre(id,date,file,dir)
  {
+    showLoadingSpinner()
     console.log('file name'+JSON.stringify(file))
     var dataform={
           id_nin:id,
@@ -835,6 +872,7 @@ $('#sel_posup').change(function() {
         {
             if(response.code == 200)
             {
+                hideLoadingSpinner()
                 alert(response.success)
                 window.location.href='/conge';
             }
@@ -1078,6 +1116,7 @@ $('#sel_posup').change(function() {
          $(this).removeClass('error-handle')
      });
      $('#btn-sv').click(function(e){
+        showLoadingSpinner()
          e.preventDefault();
          var sitar;
          var sitfr;
@@ -1159,7 +1198,12 @@ $('#sel_posup').change(function() {
                          var id=$('#ID_NIN').val();
                          if(lng == 'ar')
                          {
+<<<<<<< HEAD
+                         alert('تمت إضافة البيانات الشخصي')
+                         hideLoadingSpinner()
+=======
                          alert('تمت إضافة البيانات الشخصية')
+>>>>>>> b83c46b857324b7d248bf8714ca4dbcf74f35428
                         }else
                         {
                         alert('Données personnelles ajoutées')
@@ -1297,7 +1341,7 @@ $('#sel_posup').change(function() {
  });
      $('#aft2').click(function(e){
          e.preventDefault();
-
+        showLoadingSpinner()
                  // Assuming you are searching by ID_NIN
                  var formData = {
                      ID_NIN:id,
@@ -1316,9 +1360,11 @@ $('#sel_posup').change(function() {
                      type: 'POST',
                      data: formData,
                      success: function (response) {
+                        hideLoadingSpinner()
                          window.location.href="/Employe/IsEducat/"+id;
                      },
                      error: function (xhr) {
+                        hideLoadingSpinner()
                          console.log(xhr.responseText);
                          var error=xhr.responseJSON;
                          $.each(error.errors,function(key,val)
@@ -1629,7 +1675,7 @@ $('#sel_posup').change(function() {
                                  }
                                  $("#close").click(function()
                              {
-
+                                        showLoadingSpinner()
                                  var jst= $("#StatusJ").is(":checked");
                                    var nojst= $("#StatusNoJ").is(":checked");
                                    var fil=$("#file").val();
@@ -1640,6 +1686,7 @@ $('#sel_posup').change(function() {
                                      $('#file').removeClass('error-handle')
                                      closeNav(absensform,id_nin,absens)
                                      uploadFile3(id,dates)
+                                     hideLoadingSpinner()
                                      che++;
                                    }
                                   else
@@ -2294,6 +2341,7 @@ $('#sel_posup').change(function() {
      $('#btn-ch').click(function(e){
          e.preventDefault();
          console.log('testing '+ md);
+         showLoadingSpinner()
          if(md){
                  // Assuming you are searching by ID_NIN
                  var formData = {
@@ -2323,10 +2371,13 @@ $('#sel_posup').change(function() {
                      {
                         alert(response.success)
                         location.reload();
+                        hideLoadingSpinner()
                      }
                      },
                      error: function (xhr) {
                          console.log(xhr.responseText);
+
+                         hideLoadingSpinner()
                      }
                  });
 
@@ -2347,6 +2398,7 @@ $('#sel_posup').change(function() {
      $('#btn-tr').click(function(e){
          e.preventDefault();
          console.log('testing '+ md+' had lang '+lng);
+         showLoadingSpinner()
          if(md){
                      // Assuming you are searching by ID_NIN
                  //  alert('you can');
@@ -2356,10 +2408,12 @@ $('#sel_posup').change(function() {
                      success: function (response) {
                          md=false;
                       //   alert(response.success);
+                      hideLoadingSpinner()
                        window.location.href='/Employe/IsEducat/' + id
                      },
                      error: function (xhr) {
                          console.log(xhr.responseText);
+                         hideLoadingSpinner()
                      }
                  });
 

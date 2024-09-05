@@ -27,6 +27,9 @@
     <div class="step-name">{{ __('lang.generat') }} </div>
   </div>
 </div>
+<div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md">

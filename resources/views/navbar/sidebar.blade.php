@@ -150,4 +150,5 @@
                     <span class="nav__name">{{ __('lang.logout') }}</span>
                 </a>
             </nav>
+    </div>
         </div>

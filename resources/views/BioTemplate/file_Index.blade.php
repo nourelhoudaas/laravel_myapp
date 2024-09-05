@@ -23,6 +23,9 @@
 
 <body>
 @include('navbar.sidebar')
+<div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
  <h6>{{__('lang.DosierD')}} : {{$emp_name}} {{$emp_sur}}</h6>
     <div class="container mt-5">
         <div class="row">
