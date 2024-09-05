@@ -217,10 +217,12 @@ return [
     'nom_ss_direc_ar'=>'nom de sous direction en arabe',
     'discr_ss_direc_ar'=>'discription de sous direction en Arabe',
     'msg_ajout_ssdirec'=>'Ajouter une sous direction',
+    'msg_list_direct_ssdirect'=>'Liste des Directions et Sous Directions',
+
 
 
     'encadrement'=> 'Encadrements',
-    'maîtrise'=>'Maîtrise',
+    'maîtrise'=>'Maîtrises',
     'executif'=>'Executifs',
     'nbr_emp_depart'=>'Répartition des employés pour chaque département',
     'nbr_emp'=>'Nombre d\'employer'

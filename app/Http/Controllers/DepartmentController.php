@@ -10,6 +10,7 @@ use App\Models\Departement;
 use App\Models\Sous_departement;
 use App\Models\Travail;
 use App\Models\Post;
+use App\Models\Contient;
 use App\Http\Requests\saveDepartementRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -48,6 +49,7 @@ return view('department.edit', compact('departement'));
                 'occupeIdNin.post',
                 'travailByNin.sous_departement.departement'
             ])
+
             ->get();
             //dd( $empdep);
             //filter fct de laravel
@@ -148,76 +150,38 @@ return view('department.edit', compact('departement'));
                     ]
                 );
         /************************encadrement_maitris_executif*************** */
-                $encadrement =Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
-                            ->join('sous_departements', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-                            ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
-                            ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-                            ->join('posts', 'contients.id_post', '=', 'posts.id_post')
-                            ->join('occupes', 'posts.id_post', '=', 'occupes.id_post')
-                            ->where('departements.id_depart', '=', $dep_id)
-                            ->where('posts.grade_post', '>', 11)
-                            ->whereRaw('occupes.date_recrutement = (
-                                SELECT MAX(o2.date_recrutement)
-                                FROM occupes o2
-                                WHERE o2.id_nin = employes.id_nin
-                            )')
-                            ->whereRaw('travails.date_chang = (
-                                SELECT MAX(t2.date_chang)
-                                FROM travails t2
-                                WHERE t2.id_nin = employes.id_nin
-                            )')
-                            
-                       
-                            ->count();  
- 
-                         //dd( $encadrement);
+                $encadrement = Employe::
+                join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+                ->where('posts.Grade_post', '>', 11)
+                ->whereRaw('occupes.date_recrutement = (
+                    SELECT MAX(o2.date_recrutement)
+                    FROM occupes o2
+                    WHERE o2.id_nin = employes.id_nin
+                )') ->count();
+               // dd( $encadrement);
 
-    
-
-               $maitrise = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
-               ->join('sous_departements', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-               ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
-               ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-               ->join('posts', 'contients.id_post', '=', 'posts.id_post')
-               ->join('occupes', 'posts.id_post', '=', 'occupes.id_post')
-               ->where('departements.id_depart', '=', $dep_id)
+               $maitrise = DB::table('employes')
+               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+               ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
                ->whereBetween('posts.Grade_post', [7, 11])
                ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
                    WHERE o2.id_nin = employes.id_nin
-               )')
-               ->whereRaw('travails.date_chang = (
-                   SELECT MAX(t2.date_chang)
-                   FROM travails t2
-                   WHERE t2.id_nin = employes.id_nin
-               )')
-               ->count();
-               
-              
+               )') ->count();
               //dd( $maitrise);
 
-               $executif = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
-               ->join('sous_departements', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-               ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
-               ->join('contients', 'sous_departements.id_sous_depart', '=', 'contients.id_sous_depart')
-               ->join('posts', 'contients.id_post', '=', 'posts.id_post')
-               ->join('occupes', 'posts.id_post', '=', 'occupes.id_post')
-               ->where('departements.id_depart', '=', $dep_id)
+               $executif = DB::table('employes')
+               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+               ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
                ->where('posts.Grade_post', '<', 7)
                ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
                    WHERE o2.id_nin = employes.id_nin
-               )')
-               ->whereRaw('travails.date_chang = (
-                   SELECT MAX(t2.date_chang)
-                   FROM travails t2
-                   WHERE t2.id_nin = employes.id_nin
-               )')
-               ->count();
-        
-              //dd( $executif);
+               )') ->count();
+             // dd( $executif);
             return view('department.dashboard_depart', compact('paginator','empdep','empdepart','totalEmpDep','nom_d','dep_id','champs','direction','encadrement','maitrise','executif'));
                 }
 
@@ -271,7 +235,10 @@ return view('department.edit', compact('departement'));
     public function store(Request $request)
 
     {
-        Departement::create($request->all());
+       $cheeck =Departement::select('id_depart')->where('nom_depart',$request->get('Nom_depart'))->first();
+
+       if(!isset($cheeck))
+       { Departement::create($request->all());}
         $id=Departement::select('id_depart')->where('nom_depart',$request->get('Nom_depart'))->first();
 
      //   Sous_departement::create($request->all());
@@ -390,6 +357,16 @@ public function delete($id_depart)
             return response()->json(['success'=>'empty','status'=>302]);
         }
     }
+    public function liste_contient(Request $request)
+    {
+        $empdepart=Departement::with('sous_departement')->get();
+        $direction = $request->input('direction', 'asc');
+
+
+
+        return view('department.listcontient', compact('empdepart','direction'));
+    }
+
 
 
 }
