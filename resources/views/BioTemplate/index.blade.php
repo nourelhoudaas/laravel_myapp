@@ -50,8 +50,8 @@
                 <div class="col-md-4 mb-3">
                   <div class="card">
                     <div class="card-body">
-                      <div class="d-flex flex-column align-items-center text-center"> 
-                        <div class='gen-file-handle'> 
+                      <div class="d-flex flex-column align-items-center text-center">
+                        <div class='gen-file-handle'>
                           <p class='gen-list-handl'>...</p>
                           <div class="dropdown-opt">
                             <button id='gen_ats'>{{__('lang.ats')}}</button>
@@ -66,28 +66,28 @@
                           <h4>{{__('lang.NIN')}} :<p id="ID_NIN">{{$last->id_nin}}</p></h4>
                           <h4>{{$last->Nom_emp}} {{$last->Prenom_emp}}</h4>
                           <h4>{{$last->Nom_ar_emp}} {{$last->Prenom_ar_emp}}</h4>
-                        
+
                           <h6>
                          @if(app()->getLocale() == 'ar')
-                            @if($last->sexe == 'femelle')
-                            {{ __('lang.sx_fm') }}  
+                            @if($last->sexe == 'Femme')
+                            {{ __('lang.sx_fm') }}
                             @else
-                                {{ __('lang.sx_ma') }}  
+                                {{ __('lang.sx_ma') }}
                             @endif
                         @else
-                            @if($last->sexe  == 'femelle')
-                                {{ __('lang.sx_fm') }} 
+                            @if($last->sexe  == 'Femme')
+                                {{ __('lang.sx_fm') }}
                             @else
-                                {{ __('lang.sx_ma') }}  
+                                {{ __('lang.sx_ma') }}
                             @endif
                         @endif
-                       
+
                         </h6>
                           <div class="row">
-                          @if(app()->getLocale() == 'ar') 
+                          @if(app()->getLocale() == 'ar')
                             <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p><p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p></div>
                             <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}}, {{__('lang.mnc')}}</p>
-                            @else 
+                            @else
                             <p class="text-secondary mb-1">{{$last->Nom_post}}</p><p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p></div>
                             <p class="text-muted font-size-sm">{{$last->Nom_sous_depart}},{{$last->Nom_depart}}, {{__('lang.mnc')}}</p>
                           @endif
@@ -101,7 +101,7 @@
                     @if(isset($last->email_pro) && $last->email_pro != null)
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="mail_pro">
                         <h6 class="mb-0">
-                        
+
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                           {{__('lang.pro_mail')}}
                         </h6>
@@ -109,7 +109,7 @@
                       </li>
                       @else
                       <div id="pro-add">
-                    
+
                       </div>
                       @endif
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -130,7 +130,7 @@
                         <div >
                           <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}} </span>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
-                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} : 
+                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} :
                             @if( app()->getLocale() == 'ar')
                            {{$last->Nom_niv_ar}}
                            @else
@@ -139,7 +139,7 @@
                           </h6>
                           </div>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
-                           <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} : 
+                           <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} :
                            @if( app()->getLocale() == 'ar')
                            {{$last->Specialité_ar}}
                            @else
@@ -222,17 +222,17 @@
                                 id="lieuN"
                                 value="@if(app()->getLocale() == 'ar') {{ $last->Lieu_nais_ar }} @else {{ $last->Lieu_nais }} @endif"
                                 style="border: hidden; background-color: transparent; text-align: center;"   disabled>
-                              
+
                       </div>
                       </div>
 
                       </div>
-                                      
 
-                 
+
+
 
                   <hr>
-                      
+
                       <div class="field">
                         <div  class="field-holder">
                         <div class="col-sm-3">

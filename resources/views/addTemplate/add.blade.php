@@ -45,7 +45,7 @@ $id=0;
     <div class="step-counter">3</div>
     <div class="step-name">{{ __('lang.admindata') }}</div>
   </div>
-  <div class="stepper-item">
+  <div class="stepper-item active">
     <div class="step-counter">4</div>
     <div class="step-name">{{ __('lang.generat') }} </div>
   </div>
@@ -196,7 +196,7 @@ $id=0;
                 <div class="col-md-6" id="addf">
                       </div>
                 <div class="mt-5 text-end">
-                    <button class="btn btn-primary profile-button" type="submit" id="btn-sv">{{ __('lang.next') }}</button>
+                    <button class="btn btn-primary btn-group2" type="submit" id="btn-sv">{{ __('lang.next') }}</button>
                 </div>
             </div>
         </div>
