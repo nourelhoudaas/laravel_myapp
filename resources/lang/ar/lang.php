@@ -203,6 +203,7 @@ return [
     'msg_list_direct_ssdirect'=>'قائمة المديريات والمديريات الفرعية',
     'encadrement'=>'الإطارات',
     'maîtrise'=>'التقنيون',
+    'executif'=>'المنفدون',
     'discr_direc_ar'=>'اسم المديرية بالعربية',
     'nom_ss_direc_ar'=>'اسم المديرية الفرعية بالعربية',
      'discr_ss_direc_ar'=>   'وصف المديرية الفرعية بالعربية',
