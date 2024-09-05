@@ -137,9 +137,6 @@
                                                   {{ $employe->Prenom_ar_emp }}
                                                 @endif
                                             </td>
-                                            <td>{{ $employe->Phone_num }}</td>
-
-                                            <td>
                                                 @if ($locale == 'fr')
                                                      {{ $employe->occupeIdNin->last()->post->Nom_post ?? 'N/A' }}
                                                   @elseif ($locale == 'ar')
@@ -165,18 +162,8 @@
                                             <td>{{ $conge->date_debut_cong }}</td>
                                             <td>{{ $conge->date_fin_cong }}</td>
                                             <td>{{ floor(Carbon::parse($today)->diffInDays($conge->date_fin_cong)+2) }}</td>
-                                            <td>
-                                                @if ($locale == 'fr')
-                                                    {{ $conge->situation }}
-                                                @elseif ($locale == 'ar')
-                                                    {{ $conge->situation_AR }}
-                                                @endif
-                                               </td>
                                                <td class="abs-info" id="cng{{$employe->id_nin}}">
                                                <a href="/Employe/read_just/{{$conge->id_fichier}}" target="_blank"> {{$conge->ref_cng}}</a>
-                                               </td>
-                                               <td class="rep-info" id="cng{{$employe->id_nin}}">
-                                               <a href="#" target="_blank"> <i class="fa fa-reply" aria-hidden="true"></i></a>
                                                </td>
                                         </tr>
                                         @endif
@@ -337,27 +324,23 @@
                     if (lng === 'fr') {
                 row = '<tr><td>' + employe.Nom_emp + '</td>' +
                                 '<td>' + employe.Prenom_emp + '</td>' +
-                                '<td>' + employe.Phone_num + '</td>' +
                                 '<td>' + employe.Nom_post + '</td>' +
                                 '<td>' + employe.Nom_sous_depart + '</td>' +
                                 '<td>' + employe.titre_cong + '</td>' +
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation + '</td>'+
                                 '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
                                 '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></i></a></td></tr>';
             } else if (lng === 'ar') {
                 row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +
-                                '<td>' + employe.Phone_num + '</td>' +
                                 '<td>' + employe.Nom_post_ar + '</td>' +
                                 '<td>' + employe.Nom_sous_depart_ar + '</td>' +
                                 '<td>' + employe.titre_cong_ar + '</td>' +
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation_AR + '</td>'+
                                 '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
                                 '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></a></td></tr>';
             }
