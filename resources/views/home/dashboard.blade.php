@@ -23,7 +23,7 @@
                 $uid=auth()->id()
                 @endphp
                 @if(isset($uid))
-                <h1>{{ __('lang.dashboard') }} {{Auth::user()->username }}</h1>
+                <h1>{{ __('lang.dashboard') }} de {{Auth::user()->username }}</h1>
                 @else
                 <h1>{{ __('lang.TableaudebordsansuserId') }}</h1>
                 @endif
