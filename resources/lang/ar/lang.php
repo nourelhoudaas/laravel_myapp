@@ -200,6 +200,7 @@ return [
     'btn.enregistrer'=>'تسجيل',
     'nom_ss_direc'=>'اسم المديرية الفرعية',
     'discr_ss_direc'=>'وصف المديرية الفرعية',
+    'msg_list_direct_ssdirect'=>'قائمة المديريات والمديريات الفرعية',
     'encadrement'=>'الإطارات',
     'maîtrise'=>'التقنيون',
     'discr_direc_ar'=>'اسم المديرية بالعربية',

@@ -16,11 +16,11 @@
             <!-- end section aside -->
             <main>
                 <div class="recent_order">
-                    <h1 class="app-page-title">Liste des Directions et Sous Directions</h1>
+                    <h1 class="app-page-title">{{ __('lang.msg_list_direct_ssdirect') }}</h1>
 
                     <table class="table">
                         <thead>
-                            <tr>
+                    <tr>
                                 <th>{{ __('lang.id_drec') }} </th>
                                 <th>{{ __('lang.nom_direct') }} </th>
                                 <th>{{ __('lang.nom_sous_direct') }} </th>
