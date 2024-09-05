@@ -1120,26 +1120,37 @@ $('#sel_posup').change(function() {
          e.preventDefault();
          var sitar;
          var sitfr;
+         var sexe;
                  selectElement =document.querySelector('#Sexe');
              output = selectElement.value;
+             switch (true) {
+                case output =='male':
+                    sexe='Homme'
+                    break;
+                case output =='femelle':
+                       sexe='Femme'
+                        break;
+                        default:
+                            break;
+                     }
              selectSituat =document.querySelector('#situat');
              outputS = selectSituat.value;
              selectenf =document.querySelector('#nbrenfant');
              outputF = selectenf.value;
              switch (true) {
-                case selectSituat =='cel':
+                case outputS =='cel':
                     sitar='أعزب/عزباء'
                     sitfr='Célibataire '
                     break;
-                case selectSituat =='marie':
+                case outputS =='marie':
                         sitar='متزوج(ة)'
                         sitfr='Marié(e)'
                         break;
-                case selectSituat =='Divor':
+                case outputS =='Divor':
                             sitar='مطلق(ة)'
                             sitfr='Divorcé(e)'
                             break;
-                case selectSituat =='veuve':
+                case outputS =='veuve':
                     sitar='ارمل(ة)'
                     sitfr='Veuf(ve)'
                 break;
@@ -1170,9 +1181,9 @@ $('#sel_posup').change(function() {
                      date_nais_mer:'1999-06-02',
                      Situatar:sitar,
                      Situat:sitfr,
-                     Situat:outputS,
+                    // Situat:outputS,
                      nbrenfant:outputF,
-                     Sexe:output,
+                     Sexe:sexe,
                      EMAIL:$('#EMAIL').val(),
                      _token: $('meta[name="csrf-token"]').attr('content'),
                      _method: 'POST'
@@ -1187,11 +1198,15 @@ $('#sel_posup').change(function() {
                          var id=$('#ID_NIN').val();
                          if(lng == 'ar')
                          {
+<<<<<<< HEAD
                          alert('تمت إضافة البيانات الشخصي')
                          hideLoadingSpinner()
+=======
+                         alert('تمت إضافة البيانات الشخصية')
+>>>>>>> b83c46b857324b7d248bf8714ca4dbcf74f35428
                         }else
                         {
-                        alert('Les données personnelles ont étaient ajoutés')
+                        alert('Données personnelles ajoutées')
                         }
                        window.location.href="/Employe/IsTravaill/"+id;
                      },
@@ -1294,7 +1309,7 @@ $('#sel_posup').change(function() {
                         }
                         else
                         {
-                            $('#remq p').text('Confimer leur date Rect et PV installation')
+                            $('#remq p').text('Vous devez vérifier la date d\'instalation et la date de recrutement')
                         }
                     $('#remq').addClass('remq');
                     $('#PVDate').addClass('error-handle');
@@ -1576,9 +1591,9 @@ $('#sel_posup').change(function() {
                                  }else
                                  {
                                  $("#AbsempTable thead").append('<tr><th>Numero</th>'
-                                 +'<th>Date Du L`Absence</th>'
-                                 +'<th>Heure</th>'
-                                 +'<th>Statu</th>'
+                                 +'<th>Date d\'absence</th>'
+                                 +'<th>Heure d\'absence</th>'
+                                 +'<th>Motif de l\'absence</th>'
                                  +'</tr>')
                                  }
 
@@ -1783,7 +1798,7 @@ $('#sel_posup').change(function() {
                                $("#AbsempTable thead").append('<tr><th>Numero</th>'
                                +'<th>Date d\'bsence</th>'
                                +'<th>Heure d\'bsence</th>'
-                               +'<th>Raison de l\'absence</th>'
+                               +'<th>Motif de l\'absence</th>'
                                +'</tr>')
                                }
 
@@ -1910,7 +1925,7 @@ $('#sel_posup').change(function() {
                                {
                                 if( lng == 'ar')
                                 {
-                                    alert('العمليةغير مسموحة ')
+                                    alert('العملية غير مسموحة ')
                                 }else
                                 {
                                alert('Opération non autorisée')
@@ -2004,10 +2019,10 @@ $('#sel_posup').change(function() {
             {
         if( lng == 'ar')
                                     {
-                                    alert(' لم تستوفي الرقم المسموح أكبر من 8')
+                                    alert(' (لم تستوفي الرقم المسموح (أكبر من 8')
                                     }else
                                     {
-                                    alert('Tu n`est pas Accomplir les Chiffres plus que 8')
+                                    alert('Vous n\'avez pas atteint le nombre autorisé (supérieur à 8)')
                                     }
             }
             else
@@ -2016,10 +2031,10 @@ $('#sel_posup').change(function() {
                 {
                     if( lng == 'ar')
                         {
-                        alert(' لقد تجاوزت العدد المسموح أقل من 16')
+                        alert('لقد تجاوزت العدد المسموح (أقل من 16)')
                         }else
                         {
-                        alert('Tu as dépassé les Chiffres Mois que 16  ')
+                        alert('Vous avez dépassé le nombre autorisé (moins de 16)  ')
                         }
                 }
             }
@@ -2051,7 +2066,7 @@ $('#sel_posup').change(function() {
                    if(response.status != 302){
                     result=response;
                     id=response.employe.id_nin
-                    type="Conge Annulle"
+                    type="Congé annuel"
                     if(response.hasOwnProperty("type"))
                     {
                         type=response.type
@@ -2095,7 +2110,7 @@ $('#sel_posup').change(function() {
                 }
                 else
                 {
-                    $('#total_cgj').val(response.Jour_congé+' Jour(s) de Maladie')
+                    $('#total_cgj').val(response.Jour_congé+' Jour(s) de maladie')
                 }
                     if(type != 'Maladie')
                     {
@@ -2167,7 +2182,7 @@ $('#sel_posup').change(function() {
          const fileError = $('#file-error');
            $('#conge_confirm').click(function()
                      {
-                        
+
                         var granted=true;
                          if(id !== null && file[0].files.length > 0  && $('#pv_cng').text()!=''){
                          var date_dcg=$('#Date_Dcg').val();
@@ -2206,7 +2221,7 @@ $('#sel_posup').change(function() {
                                     }
                                     else
                                     {
-                                        alert('Congé maladie doit être ici')
+                                        alert('Les congés de maladie doivent être ici')
                                     }
                                 }
                             }
@@ -2273,11 +2288,11 @@ $('#sel_posup').change(function() {
                          {
                             if(lng =='ar')
                             {
-                                alert('لم يتبقى أيام للعطلة')
+                                alert('لقد استخدمت كل أيام إجازتك')
                             }
                             else
                             {
-                                alert('pas de jour a ajouter')
+                                alert('Vous avez utilisé tous vos jours de congé')
                             }
                          }
                          if(granted == false)
@@ -2292,11 +2307,11 @@ $('#sel_posup').change(function() {
                  {
                     if(lng == 'ar')
                     {
-                     alert(' لايوجد ملف أو لايوحد رقم المقرر');
+                     alert(' ملف فارغ أو لا يوجد رقم المقرر');
                     }
                     else
                     {
-                        alert('Fichier est Vide ou bien aucune Ref');
+                        alert('Dossier vide ou pas de numéro de décision');
                     }
                      if( id == null){
                      $('#id_emp').addClass('error-handle')}
@@ -2371,7 +2386,7 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('غير مسموح العملية');
+                  alert ('عملية غير مسموحة');
                     }
                     else
                     {
@@ -2407,7 +2422,7 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('غير مسموح العملية');
+                  alert ('عملية غير مسموحة');
                     }
                     else
                     {
@@ -2437,7 +2452,7 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('غير مسموح العملية');
+                  alert ('عملية غير مسموحة');
                     }
                     else
                     {

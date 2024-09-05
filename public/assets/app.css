@@ -60,6 +60,8 @@ h3 {
 
 a {
   text-decoration: none;
+  color: var(--first-color);
+  font-weight: bold;
 }
 
 img {
@@ -614,6 +616,9 @@ main .recent_order a:hover{
 }
 /*-------------- CSS ADD and Bio --------*/
 
+.text2{
+    text-align: justify;
+}
 #progressbar {
   margin-bottom: 30px;
   overflow: hidden;
@@ -621,7 +626,7 @@ main .recent_order a:hover{
 }
 
 #progressbar .active {
-  color: #2F8D46
+  color: var(--first-color)
 }
 
 #progressbar li {
@@ -675,7 +680,7 @@ main .recent_order a:hover{
 
 #progressbar li.active:before,
 #progressbar li.active:after {
-  background: #2F8D46
+  background: var(--first-color)
 }
 
 .progress {
@@ -683,7 +688,7 @@ main .recent_order a:hover{
 }
 
 .progress-bar {
-  background-color: #2F8D46
+  background-color: var(--first-color);
 }
 
 .stepper-item {
@@ -696,6 +701,10 @@ main .recent_order a:hover{
   @media (max-width: 768px) {
     font-size: 12px;
   }
+}
+.step-name{
+    font-weight: bold;
+    color: var(--first-color);
 }
 
 .stepper-item::before {
@@ -736,13 +745,13 @@ main .recent_order a:hover{
 }
 
 .stepper-item.completed .step-counter {
-  background-color: #4bb543;
+  background-color: var(--first-color);
 }
 
 .stepper-item.completed::after {
   position: absolute;
   content: "";
-  border-bottom: 2px solid #4bb543;
+  border-bottom: 2px solid var(--first-color);
   width: 100%;
   top: 20px;
   left: 50%;
@@ -1367,10 +1376,12 @@ cursor:not-allowed ;
 
 
 .lang-handler
-{display: flex;
+{
+    display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+color: var(--first-color);
 }
 
 
@@ -1757,6 +1768,7 @@ cursor: pointer;
 .gen-file-handle:hover .gen-list-handle {
   background-color: #3e8e41;
 }
+<<<<<<< HEAD
 /** waiting spinner for response*/
 .spinner-overlay {
   position: fixed;
@@ -1788,3 +1800,28 @@ cursor: pointer;
 }
 /** waiting spinner for response*/
 
+=======
+
+/*=======================BUTTON============================================*/
+
+.btn-group2{
+
+    height: 100%;
+    width: 30%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg,var( --clr-danger), var(--first-color));
+}
+
+
+.btn-group2:hover{
+    background: linear-gradient(-135deg, var( --clr-danger), var(--first-color));
+}
+/*++++++++++++++++++++++++++++++++++++++++++++++++++*/
+>>>>>>> b83c46b857324b7d248bf8714ca4dbcf74f35428

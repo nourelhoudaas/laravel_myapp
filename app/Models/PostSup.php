@@ -14,21 +14,17 @@ class PostSup extends Model
     protected $keyType = 'integer'; 
     public $timestamps = false;
 
-    protected $fillable=['id_postsup',	'Nom_postsup',	'Nom_postsup_ar'];
+    protected $fillable=['id_postsup',	'Nom_postsup',	'Nom_postsup_ar','Niveau_sup','point_indsup'];
 
     public function contient ()
     {
-        return $this->hasMany(Contient::class,'id_post','id_post');
+        return $this->hasMany(Contient::class,'id_postsup','id_postsup');
     }
 
     public function occupeIdNin()
     {
-        return $this->hasMany(Occupe::class,'id_post','id_post');
+        return $this->hasMany(Occupe::class,'id_postsup','id_postsup');
     }
 
-    public function niveau()
-    {
-        return $this->hasMany(Niveau::class,'id_post','id_post');
-    }
    
 }

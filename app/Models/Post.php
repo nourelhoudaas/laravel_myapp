@@ -14,7 +14,7 @@ class Post extends Model
     protected $keyType = 'integer'; 
     public $timestamps = false;
 
-    protected $fillable=['id_post',	'Nom_post',	'Grade_post','Nom_post_ar'];
+    protected $fillable=['id_post',	'Nom_post',	'Grade_post','Nom_post_ar','id_secteur'];
 
     public function contient ()
     {
@@ -29,5 +29,9 @@ class Post extends Model
     public function niveau()
     {
         return $this->hasMany(Niveau::class,'id_post','id_post');
+    }
+    public function posts()
+    {
+        return $this->belongsTo(Secteur::class,'id_secteur','id_secteur');
     }
 }

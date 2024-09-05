@@ -140,6 +140,7 @@
                                                   {{ $employe->Prenom_ar_emp }}
                                                 @endif
                                             </td>
+                                            <td>
                                                 @if ($locale == 'fr')
                                                      {{ $employe->occupeIdNin->last()->post->Nom_post ?? 'N/A' }}
                                                   @elseif ($locale == 'ar')
@@ -156,6 +157,9 @@
                                             </td>
 
                                             <td>
+                                              {{ $conge->nbr_jours  }}
+                                            </td>
+                                            <td>
                                                 @if ($locale == 'fr')
                                                     {{ $conge->type_conge->titre_cong ?? 'N/A'  }}
                                                 @elseif ($locale == 'ar')
@@ -165,9 +169,10 @@
                                             <td>{{ $conge->date_debut_cong }}</td>
                                             <td>{{ $conge->date_fin_cong }}</td>
                                             <td>{{ floor(Carbon::parse($today)->diffInDays($conge->date_fin_cong)+2) }}</td>
-                                               <td class="abs-info" id="cng{{$employe->id_nin}}">
+                                              
+                                            <td class="abs-info" id="cng{{$employe->id_nin}}">
                                                <a href="/Employe/read_just/{{$conge->id_fichier}}" target="_blank"> {{$conge->ref_cng}}</a>
-                                               </td>
+                                            </td>
                                         </tr>
                                         @endif
                                     @endforeach
