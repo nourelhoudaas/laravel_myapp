@@ -683,7 +683,7 @@ main .recent_order a:hover{
 }
 
 .progress-bar {
-  background-color: #2F8D46
+  background-color: var(--first-color);
 }
 
 .stepper-item {

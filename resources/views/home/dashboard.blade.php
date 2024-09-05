@@ -243,8 +243,8 @@ const translations = {
         'Femme': 'Femme'
     },
     'ar': {
-        'Homme': 'رجل',
-        'Femme': 'امرأة'
+        'Homme': 'ذكر',
+        'Femme': 'أنثى'
     }
 };
 
