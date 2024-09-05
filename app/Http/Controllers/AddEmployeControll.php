@@ -158,6 +158,7 @@ try {
         'date_installation'	=>$Request->get('DatePV'),
         'date_chang'=>Carbon::now(),
         'notation'	=>0,
+        
     ]);
 
       //ajouter l'action dans table log
@@ -308,7 +309,9 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
         'echellant'=>0	,
         'id_nin'=>$request->get('ID_NIN'),
         'id_p'=>$request->get('ID_P')	,
-        'id_post'=>$request->get('post')
+        'id_post'=>$request->get('post'),
+        'ref_PV'=>'REF001'	,
+
       ]);
 
         $this->logService->logAction(

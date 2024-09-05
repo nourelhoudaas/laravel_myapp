@@ -160,7 +160,7 @@ return [
     'nom_sous_direct'=>'Nom sous Direction',
     'title_list_direc'=>'Listes des Directions et  les Sous Directions',
 
-
+    'nombre_de_joursrestnat'=>'Le total des jours  ',
     'nbr_page'=>'Numero de Page',
     'Departementde'=>' Direction de',
 
