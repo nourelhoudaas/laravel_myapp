@@ -924,6 +924,7 @@ transform: scale(1.05) rotate(-1deg);
     border-radius: 20px;
     height: 400px;
     margin-left: -6rem;
+    margin-right: -6rem;
 }
 .graphBox .box3{
     position: absolute;
