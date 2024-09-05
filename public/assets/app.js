@@ -1180,7 +1180,7 @@ $('#sel_posup').change(function() {
                  // Assuming you are searching by ID_NIN
                  var dateinst=  new Date($('#PVDate').val());
                  var daterec=new Date($('#RecDate').val());
-                if(dateinst <= daterec)
+                if(dateinst <= daterec && $('#pv_inst').text()!='')
                 {
                  var formData = {
                      ID_NIN:id,
@@ -1190,6 +1190,9 @@ $('#sel_posup').change(function() {
                      post:$('#post').val(),
                      PVDate:$('#PVDate').val(),
                      RecDate:$('#RecDate').val(),
+                     PV_grad:$('#pv_inst').text(),
+                     pv_postsup:$('#pv_postsup').text(),
+                     pv_func:$('#pv_func').text(),
                      _token: $('meta[name="csrf-token"]').attr('content'),
                      _method: 'POST'
                  };
@@ -1202,7 +1205,7 @@ $('#sel_posup').change(function() {
                         if( lng == 'ar')
                         {
                         showDialog()
-                                                }else
+                        }else
                         {
                          alert('Générer avec succès');
                         }

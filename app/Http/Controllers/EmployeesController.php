@@ -1108,6 +1108,35 @@ foreach($allwor as $workig)
                 ->get();
                 $delai=0;
                 $right=false;
+                if(!isset($cng))
+                {
+                    if($request->get('type_cg') == 'RF001' && $request->get('total_cgj') > 0)
+                    {
+                        $cong=new Conge([
+                            'id_nin'=>$request->get('ID_NIN'),
+                            'id_p'=>$request->get('ID_P'),
+                            'date_debut_cong'=>$request->get('date_dcg'),
+                            'date_fin_cong'=>$request->get('date_fcg'),
+                            'nbr_jours'=>$request->get('total_cgj'),
+                            'ref_cong'=>$request->get('type_cg'),
+                            'ref_cng'=>$request->get('ref_cng'),
+                            'situation'=>$request->get('situation'),
+                            'situation_AR'=>$situation_ar,
+                            'id_sous_depart'=>$request->get('SDic')
+                                ]);
+                                if($cong->save())
+                                {
+                                    return response()->json(['message'=>$msgsuc,'status'=>200]);
+                                }
+                                else
+                                {
+                                    return response()->json([
+                                        'message'=>$msgdateins,
+                                        'status'=> 404
+                                    ]);
+                                }
+                    }
+                }
                 if(isset($cng))
                 {
                 foreach($cng as $cg)
@@ -1226,7 +1255,17 @@ foreach($allwor as $workig)
 
 
                 }
-           
+            }
+
+            /*== if($delai > 31)
+                {
+                // dd($delai);
+                    return response()->json([
+                        'message'=>'Unsuccess consume the years',
+                        'status'=> 302
+                    ]);
+                }*/
+                //dd($cng);
                 if($cng->count() > 0)
             {
                 if(Carbon::now()->year >= $cng[0]->annee  && $request->get('type_cg') == 'RF001')
@@ -1328,7 +1367,7 @@ foreach($allwor as $workig)
                 }
             }
             }
-        }else
+            else
             {
                 $startDate = Carbon::parse($request->get('date_dcg'));
 
