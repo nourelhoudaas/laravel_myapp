@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Departement;
+use App\Models\Post;
 use App\Models\Employe;
 use App\Models\Fichier;
 use App\Models\Stocke;
@@ -438,10 +439,31 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
     }
     function create_ats(Request $request)
     {
-
-        $emp=Employe::join('occupes','occupes.id_nin','=','employes.id_nin')->where('employes.id_nin',$request->get('ID_NIN'))->first();
+        $emp=Employe::join('occupes','occupes.id_nin','=','employes.id_nin')
+                     ->orderBy('occupes.date_recrutement','desc')
+                     ->where('employes.id_nin',$request->get('ID_NIN'))->first();
         $fullname=$emp->Nom_emp.' '.$emp->Prenom_emp;
         $fullnamear=$emp->Nom_ar_emp.' '.$emp->Prenom_ar_emp;
+        $datenai=$emp->Date_nais;
+        $id_post=$emp->id_post;
+        $date_rec=$emp->date_recrutement;
+        $post=Post::select('Nom_post','Nom_post_ar')
+                   ->where('id_post',$id_post)
+                   ->first();
+/***------------------------------------------------------------ */
+                   Carbon::setLocale('fr');
+                   $date = Carbon::parse($datenai);
+                   $date_rec=Carbon::parse($date_rec);
+                   // Format the date to show the month name
+                   $datefr = $date->translatedFormat('l, d F Y');
+                   $date_rfr =$date_rec->translatedFormat('l, d F Y');
+/***------------------------------------------------------------------ */
+                   $date = Carbon::parse($datenai);
+                   Carbon::setLocale('ar');
+                   $datear = $date->translatedFormat('l, d F Y');
+                   $date_rar =$date_rec->translatedFormat('l, d F Y');
+
+/***-------------------------------------------------------------- */
         $latex = '
 \documentclass[a4paper]{article}
 \usepackage[left=2cm, right=2cm, top=1cm, bottom=3cm]{geometry}
@@ -466,11 +488,11 @@ N°: \hspace{1cm}   /SDP/DAM/MC/2024 . \hfill  \textarab{ رقم:\hspace{1cm}   
 ATTESTATION DE TRAVAIL
 \end{center}
 \begin{flushleft}
-\hspace{1cm} Les sous-directeur des personnls certifie par la present que Monsieur \textbf{'.$fullname.'} ne 28 Mars 1994 , a Blida, Occupe le Grade d \textbf{ingenieur d Etat }en informatique, aus Niveau du Ministere de La Communication, De puis le \textbf{18 fevrier 2024},a ce jour \\\
+\hspace{1cm} Les sous-directeur des personnls certifie par la present que Monsieur \textbf{'.$fullname.'} ne '.$datefr.' , a Blida, Occupe le Grade d \textbf{'.$post->Nom_post.'}, aus Niveau du Ministere de La Communication, De puis le \textbf{'.$date_rfr.'},a ce jour \\\
 \hspace{1cm} en foi de quoi cette attestation est établie
 \end{flushleft}
 \begin{flushright}
-\hspace{1cm}\textarab{يشهد المدير الفرعي للمستخدمين با السيد \textbf{\textarab{'.$fullnamear.'}} المولود في 28 مارس 1994  ، الشاغر منصب \textbf{\textarab{مهندس دولة في}} الإعلام الآلي و ذلك إبتداء من \textbf{\textarab{ 18 فيفري 2024 }} إلى يومنا هذا .} \\\
+\hspace{1cm}\textarab{يشهد المدير الفرعي للمستخدمين با السيد \textbf{\textarab{'.$fullnamear.'}} المولود في '.$datear.'  ، الشاغر منصب \textbf{\textarab{'.$post->Nom_post_ar.'}}  و ذلك إبتداء من \textbf{\textarab{ '.$date_rar.'}} إلى يومنا هذا .} \\\
 \textarab{ تم تحرير هذه الشهادة لمى يسمح به القانون  }
 \end{flushright}
 

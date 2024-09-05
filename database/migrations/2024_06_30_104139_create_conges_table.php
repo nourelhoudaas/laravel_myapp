@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('id_sous_depart');
             $table->integer('id_p');
             $table->integer('id_fichier')->default(1);
+            $table->string('ref_cng')->nullable();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('ref_cong')->references('ref_cong')->on('type_congs');

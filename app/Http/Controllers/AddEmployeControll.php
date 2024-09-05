@@ -288,7 +288,8 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
       'Dic'=>'required|integer|',
       'SDic'=>'required|integer|',
       'post'=>'required|integer|',
-      'PVDate'=>'required|date'
+      'PVDate'=>'required|date',
+      'PV_grad'=>'required|string'
   ]);
 
     $travaill=new Travail([
@@ -304,14 +305,26 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
 
     if($travaill->save())
     {
+      $pvf=$request->get('pv_func');
+      $pvc=$request->get('pv_postsup');
+      $pv=$request->get('PV_grad');
+      if(isset($pvc))
+      {
+        $pv= $pvc;
+      }
+      else
+      {if(isset($pvf))
+        {
+          $pv=$pvf;
+        }
+      }
       Occupe::create([
         'date_recrutement'=>$request->get('RecDate'),
         'echellant'=>0	,
         'id_nin'=>$request->get('ID_NIN'),
         'id_p'=>$request->get('ID_P')	,
-        'id_post'=>$request->get('post'),
-        'ref_PV'=>'REF001'	,
-
+        'ref_PV'=>$pv,
+        'id_post'=>$request->get('post')
       ]);
 
         $this->logService->logAction(

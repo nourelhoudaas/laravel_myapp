@@ -924,6 +924,7 @@ transform: scale(1.05) rotate(-1deg);
     border-radius: 20px;
     height: 400px;
     margin-left: -6rem;
+    margin-right: -6rem;
 }
 .graphBox .box3{
     position: absolute;
@@ -1702,7 +1703,6 @@ dialog::backdrop {
 {
   padding: 5px ;
 }
-<<<<<<< HEAD
 .gen-file-handle
 {
   color: black;
@@ -1757,5 +1757,3 @@ cursor: pointer;
 .gen-file-handle:hover .gen-list-handle {
   background-color: #3e8e41;
 }
-=======
->>>>>>> ca1d89671b44a02e085860ea7b38f5fe1a46ad2e

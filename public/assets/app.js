@@ -50,15 +50,10 @@
 
 
 /***
-<<<<<<< HEAD
  *
  *
  *
-=======
- * 
- *  decition start
- * 
->>>>>>> 395dc4e771cc314f133b9083b708cf675c924246
+>>>>>>> 4f8d0fbfcd3660709f4aa8fdcc70fb74e2f106a1
  */
 function showPV_postsup() {
     // Get the dialog element
@@ -81,6 +76,13 @@ function showPV_Rect() {
     dialog.showModal();
 
 }
+function showPV_cng() {
+    // Get the dialog element
+    var dialog = document.getElementById("myDialog");
+    // Show the dialog
+    dialog.showModal();
+
+}
 
 function confirmAction() {
     // Logic for confirming the action
@@ -95,6 +97,9 @@ function confirmAction() {
     if ($('#pv_num').hasClass('pv_rect')) {
         $('#pv_inst').text(pv)
     }
+    if ($('#pv_num').hasClass('pv_cng')) {
+        $('#pv_cng').text(pv)
+    }
    // var id_p=$('#IDP').val()
     if( lng == 'ar')
     {
@@ -104,7 +109,7 @@ function confirmAction() {
     {
      alert('Générer avec succès');
     }
-    
+
     // Close the dialog
     document.getElementById("pv_num").value='';
     $('#pv_num').removeClass('pv_postup')
@@ -128,7 +133,7 @@ function cancelDialog() {
     $('#pv_num').removeClass('pv_funct')
     $('#pv_num').removeClass('pv_rect')
     document.getElementById("myDialog").close();
-   
+
 }
 $(document).ready(function(){
     $('#post').change(function() {
@@ -136,7 +141,7 @@ $(document).ready(function(){
         $('#pv_num').addClass('pv_rect')
         var selectedOption = $(this).val(); // Get the value of the selected option
         if (selectedOption != '') {
-           
+
             showPV_Rect()
         }
       });
@@ -153,7 +158,7 @@ $('#sel_posup').change(function() {
         $('#sel_fonc').prop('checked', false);
         $('#fonc-opt').empty()
     }
-    
+
 });
 })
 /***
@@ -1074,12 +1079,34 @@ $('#sel_posup').change(function() {
      });
      $('#btn-sv').click(function(e){
          e.preventDefault();
+         var sitar;
+         var sitfr;
                  selectElement =document.querySelector('#Sexe');
              output = selectElement.value;
              selectSituat =document.querySelector('#situat');
              outputS = selectSituat.value;
              selectenf =document.querySelector('#nbrenfant');
              outputF = selectenf.value;
+             switch (true) {
+                case selectSituat =='cel':
+                    sitar='أعزب/عزباء'
+                    sitfr='Célibataire '
+                    break;
+                case selectSituat =='marie':
+                        sitar='متزوج(ة)'
+                        sitfr='Marié(e)'
+                        break;
+                case selectSituat =='Divor':
+                            sitar='مطلق(ة)'
+                            sitfr='Divorcé(e)'
+                            break;
+                case selectSituat =='veuve':
+                    sitar='ارمل(ة)'
+                    sitfr='Veuf(ve)'
+                break;
+                default:
+                    break;
+             }
                  // Assuming you are searching by ID_NIN
                  var formData = {
                      ID_NIN:parseInt($('#ID_NIN').val()),
@@ -1102,7 +1129,8 @@ $('#sel_posup').change(function() {
                      Prenom_mereAR:$('#Prenom_mereAR').val(),
                      date_nais_per:'1990-06-02',
                      date_nais_mer:'1999-06-02',
-                     Situatar:'اعزب',
+                     Situatar:sitar,
+                     Situat:sitfr,
                      Situat:outputS,
                      nbrenfant:outputF,
                      Sexe:output,
@@ -1123,7 +1151,7 @@ $('#sel_posup').change(function() {
                          alert('تمت إضافة البيانات الشخصي')
                         }else
                         {
-                        alert('Les données personnelles a été ajouté')
+                        alert('Les données personnelles ont étaient ajoutés')
                         }
                        window.location.href="/Employe/IsTravaill/"+id;
                      },
@@ -1176,7 +1204,7 @@ $('#sel_posup').change(function() {
                  // Assuming you are searching by ID_NIN
                  var dateinst=  new Date($('#PVDate').val());
                  var daterec=new Date($('#RecDate').val());
-                if(dateinst <= daterec)
+                if(dateinst <= daterec && $('#pv_inst').text()!='')
                 {
                  var formData = {
                      ID_NIN:id,
@@ -1186,6 +1214,9 @@ $('#sel_posup').change(function() {
                      post:$('#post').val(),
                      PVDate:$('#PVDate').val(),
                      RecDate:$('#RecDate').val(),
+                     PV_grad:$('#pv_inst').text(),
+                     pv_postsup:$('#pv_postsup').text(),
+                     pv_func:$('#pv_func').text(),
                      _token: $('meta[name="csrf-token"]').attr('content'),
                      _method: 'POST'
                  };
@@ -1198,7 +1229,7 @@ $('#sel_posup').change(function() {
                         if( lng == 'ar')
                         {
                         showDialog()
-                                                }else
+                        }else
                         {
                          alert('Générer avec succès');
                         }
@@ -1530,8 +1561,8 @@ $('#sel_posup').change(function() {
                                  dir='Maladie';
                                  $('#StatusJ').change(function()
                                  {
-                                     var Type='Type'
-                                     var Admin='Adminstrative'
+                                     var Type='Type de licence'
+                                     var Admin='Adminstratif'
                                      var Maladi='Maladie'
                                      const selectedColor = $('input[name="StatusRadio"]:checked').val();
                                      console.log(''+selectedColor)
@@ -1615,7 +1646,7 @@ $('#sel_posup').change(function() {
                                  {
                                     if( lng == 'ar')
                                     {
-                                        alert('حدد المبرر')
+                                        alert('اختر سبب التبرير')
                                     }
                                     {
                                      alert('Choisir le motif de justification')
@@ -1631,10 +1662,10 @@ $('#sel_posup').change(function() {
                                  {
                                     if( lng == 'ar')
                                     {
-                                        alert('العمليةغير مسموحة ')
+                                        alert('العملية غير مسموحة ')
                                     }else
                                     {
-                                   alert('Vous avez pas le droit')
+                                   alert('Opération non autorisée')
                                     }
                                  }
                                })
@@ -1707,9 +1738,9 @@ $('#sel_posup').change(function() {
                                }else
                                {
                                $("#AbsempTable thead").append('<tr><th>Numero</th>'
-                               +'<th>Date Du L`Absence</th>'
-                               +'<th>Heure</th>'
-                               +'<th>Statu</th>'
+                               +'<th>Date d\'bsence</th>'
+                               +'<th>Heure d\'bsence</th>'
+                               +'<th>Raison de l\'absence</th>'
                                +'</tr>')
                                }
 
@@ -1736,8 +1767,8 @@ $('#sel_posup').change(function() {
                                 dir='Maladie';
                                  $('#StatusJ').change(function()
                                  {
-                                     var Type='Type'
-                                     var Admin='Adminstrative'
+                                     var Type='Type de licence'
+                                     var Admin='Adminstratif'
                                      var Maladi='Maladie'
                                      const selectedColor = $('input[name="StatusRadio"]:checked').val();
                                      console.log(''+selectedColor)
@@ -1839,7 +1870,7 @@ $('#sel_posup').change(function() {
                                     alert('العمليةغير مسموحة ')
                                 }else
                                 {
-                               alert('Vous avez pas le droit')
+                               alert('Opération non autorisée')
                                 }
                                }
                              })
@@ -2093,8 +2124,9 @@ $('#sel_posup').change(function() {
          const fileError = $('#file-error');
            $('#conge_confirm').click(function()
                      {
+                        
                         var granted=true;
-                         if(id !== null && file[0].files.length > 0 ){
+                         if(id !== null && file[0].files.length > 0  && $('#pv_cng').text()!=''){
                          var date_dcg=$('#Date_Dcg').val();
                          var date_fcg=$('#Date_Fcg').val();
                          var totaljour=calculateDayscng(date_dcg,date_fcg)
@@ -2147,6 +2179,7 @@ $('#sel_posup').change(function() {
                              date_dcg:$('#Date_Dcg').val(),
                              date_fcg:$('#Date_Fcg').val(),
                              total_cgj:total_cgj,
+                             ref_cng:$('#pv_cng').text(),
                              totaljour:parseInt(totaljour),
                              type_cg:selectedValue,
                              situation:selectedVsitua,
@@ -2165,7 +2198,7 @@ $('#sel_posup').change(function() {
                                 }
                                 else
                                 {
-                                    alert('Le congé a été créé')
+                                    alert('Le congé a été crée')
                                 }
 
                                  if(response.status == 200)
@@ -2216,11 +2249,11 @@ $('#sel_posup').change(function() {
                  {
                     if(lng == 'ar')
                     {
-                     alert('لايوجد ملف');
+                     alert(' لايوجد ملف أو لايوحد رقم المقرر');
                     }
                     else
                     {
-                        alert('Fichier est Vide');
+                        alert('Fichier est Vide ou bien aucune Ref');
                     }
                      if( id == null){
                      $('#id_emp').addClass('error-handle')}
@@ -2291,11 +2324,11 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('غير مسموح');
+                  alert ('غير مسموح العملية');
                     }
                     else
                     {
-                        alert ('Vous avez pas le droit');
+                        alert ('Opération non autorisée');
                     }
                  }
      });
@@ -2324,11 +2357,11 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('غير مسموح');
+                  alert ('غير مسموح العملية');
                     }
                     else
                     {
-                        alert ('Vous avez pas le droit');
+                        alert ('Opération non autorisée');
                     }
                  }
      });
@@ -2354,11 +2387,11 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('غير مسموح');
+                  alert ('غير مسموح العملية');
                     }
                     else
                     {
-                        alert ('Vous avez pas le droit');
+                        alert ('Opération non autorisée');
                     }
                  }
      });
@@ -2461,8 +2494,8 @@ function checksickDaye(maladie) {
  */
 
 /***
- * 
- * 
+ *
+ *
  * this for generation pdf button
  */
 
