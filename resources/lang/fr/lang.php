@@ -222,7 +222,7 @@ return [
     'encadrement'=> 'Encadrements',
     'maîtrise'=>'Maîtrise',
     'executif'=>'Executifs',
-    'nbr_emp_depart'=>'Nombre d\'employer pour chaque département',
+    'nbr_emp_depart'=>'Répartition des employés pour chaque département',
     'nbr_emp'=>'Nombre d\'employer'
 
 

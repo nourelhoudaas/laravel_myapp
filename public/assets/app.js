@@ -55,9 +55,9 @@
  *
  *
 =======
- * 
+ *
  *  decition start
- * 
+ *
 >>>>>>> 395dc4e771cc314f133b9083b708cf675c924246
  */
 function showPV_postsup() {
@@ -104,7 +104,7 @@ function confirmAction() {
     {
      alert('Générer avec succès');
     }
-    
+
     // Close the dialog
     document.getElementById("pv_num").value='';
     $('#pv_num').removeClass('pv_postup')
@@ -128,7 +128,7 @@ function cancelDialog() {
     $('#pv_num').removeClass('pv_funct')
     $('#pv_num').removeClass('pv_rect')
     document.getElementById("myDialog").close();
-   
+
 }
 $(document).ready(function(){
     $('#post').change(function() {
@@ -136,7 +136,7 @@ $(document).ready(function(){
         $('#pv_num').addClass('pv_rect')
         var selectedOption = $(this).val(); // Get the value of the selected option
         if (selectedOption != '') {
-           
+
             showPV_Rect()
         }
       });
@@ -153,7 +153,7 @@ $('#sel_posup').change(function() {
         $('#sel_fonc').prop('checked', false);
         $('#fonc-opt').empty()
     }
-    
+
 });
 })
 /***
@@ -1123,7 +1123,7 @@ $('#sel_posup').change(function() {
                          alert('تمت إضافة البيانات الشخصي')
                         }else
                         {
-                        alert('Les données personnelles a été ajouté')
+                        alert('Les données personnelles ont étaient ajoutés')
                         }
                        window.location.href="/Employe/IsTravaill/"+id;
                      },
@@ -1530,8 +1530,8 @@ $('#sel_posup').change(function() {
                                  dir='Maladie';
                                  $('#StatusJ').change(function()
                                  {
-                                     var Type='Type'
-                                     var Admin='Adminstrative'
+                                     var Type='Type de licence'
+                                     var Admin='Adminstratif'
                                      var Maladi='Maladie'
                                      const selectedColor = $('input[name="StatusRadio"]:checked').val();
                                      console.log(''+selectedColor)
@@ -1615,7 +1615,7 @@ $('#sel_posup').change(function() {
                                  {
                                     if( lng == 'ar')
                                     {
-                                        alert('حدد المبرر')
+                                        alert('اختر سبب التبرير')
                                     }
                                     {
                                      alert('Choisir le motif de justification')
@@ -1631,10 +1631,10 @@ $('#sel_posup').change(function() {
                                  {
                                     if( lng == 'ar')
                                     {
-                                        alert('العمليةغير مسموحة ')
+                                        alert('العملية غير مسموحة ')
                                     }else
                                     {
-                                   alert('Vous avez pas le droit')
+                                   alert('Opération non autorisée')
                                     }
                                  }
                                })
@@ -1707,9 +1707,9 @@ $('#sel_posup').change(function() {
                                }else
                                {
                                $("#AbsempTable thead").append('<tr><th>Numero</th>'
-                               +'<th>Date Du L`Absence</th>'
-                               +'<th>Heure</th>'
-                               +'<th>Statu</th>'
+                               +'<th>Date d\'bsence</th>'
+                               +'<th>Heure d\'bsence</th>'
+                               +'<th>Raison de l\'absence</th>'
                                +'</tr>')
                                }
 
@@ -1736,8 +1736,8 @@ $('#sel_posup').change(function() {
                                 dir='Maladie';
                                  $('#StatusJ').change(function()
                                  {
-                                     var Type='Type'
-                                     var Admin='Adminstrative'
+                                     var Type='Type de licence'
+                                     var Admin='Adminstratif'
                                      var Maladi='Maladie'
                                      const selectedColor = $('input[name="StatusRadio"]:checked').val();
                                      console.log(''+selectedColor)
@@ -1839,7 +1839,7 @@ $('#sel_posup').change(function() {
                                     alert('العمليةغير مسموحة ')
                                 }else
                                 {
-                               alert('Vous avez pas le droit')
+                               alert('Opération non autorisée')
                                 }
                                }
                              })
@@ -2165,7 +2165,7 @@ $('#sel_posup').change(function() {
                                 }
                                 else
                                 {
-                                    alert('Le congé a été créé')
+                                    alert('Le congé a été crée')
                                 }
 
                                  if(response.status == 200)
@@ -2291,11 +2291,11 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('غير مسموح');
+                  alert ('غير مسموح العملية');
                     }
                     else
                     {
-                        alert ('Vous avez pas le droit');
+                        alert ('Opération non autorisée');
                     }
                  }
      });
@@ -2324,11 +2324,11 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('غير مسموح');
+                  alert ('غير مسموح العملية');
                     }
                     else
                     {
-                        alert ('Vous avez pas le droit');
+                        alert ('Opération non autorisée');
                     }
                  }
      });
@@ -2354,11 +2354,11 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('غير مسموح');
+                  alert ('غير مسموح العملية');
                     }
                     else
                     {
-                        alert ('Vous avez pas le droit');
+                        alert ('Opération non autorisée');
                     }
                  }
      });
@@ -2461,8 +2461,8 @@ function checksickDaye(maladie) {
  */
 
 /***
- * 
- * 
+ *
+ *
  * this for generation pdf button
  */
 

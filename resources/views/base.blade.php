@@ -20,7 +20,7 @@
 
        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.bootstrap5.css">
 
-      
+
 
 
         </head>
@@ -50,9 +50,9 @@
          {{-- nos script js--}}
 
 
-        
+
          @include('script')
-       
+
     <script>
         var lng='{{app()->getLocale()}}'
         console.log('lang'+lng);
@@ -66,4 +66,6 @@
         </script>
 
        <script src="https://cdn.datatables.net/2.1.4/js/dataTables.bootstrap5.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 </html>
