@@ -3,7 +3,7 @@
 return [
     'Action'=>'Action',
     'mnc'=>'Ministère de la Communication',
-    'dashboard'=>'Tableau de Bord de ',
+    'dashboard'=>'Tableau de Bord  ',
     'Depratement'=>'Directions',
     'AddDir'=>'Ajouter une Direction',
     'ListDir'=>'Liste des Directions',
@@ -93,7 +93,7 @@ return [
     'slct_sous_dept'=>'Séléctionner la Sous Direction',
     'slct_type_cng'=>'Séléctionner le Titre du Congé',
     'slct_post'=>'Séléctionner le Titre du Poste',
-    'nbr_jour'=>'Nombres de jours Restants',
+    'nbr_jour'=>'Nombres de jours Restants du congé',
     'dans'=>'Térritoire national ',
     'hors'=>'Hors térritoire national ',
     'ver_cng'=>'Passer Vers Le Congé',
@@ -160,7 +160,7 @@ return [
     'nom_sous_direct'=>'Nom sous Direction',
     'title_list_direc'=>'Listes des Directions et  les Sous Directions',
 
-
+    'nombre_de_joursrestnat'=>'Le total des jours  ',
     'nbr_page'=>'Numero de Page',
     'Departementde'=>' Direction de',
 
@@ -224,7 +224,7 @@ return [
     'encadrement'=> 'Encadrements',
     'maîtrise'=>'Maîtrise',
     'executif'=>'Executifs',
-    'nbr_emp_depart'=>'Nombre d\'employer pour chaque département',
+    'nbr_emp_depart'=>'Répartition des employés pour chaque département',
     'nbr_emp'=>'Nombre d\'employer'
 
 

@@ -102,16 +102,17 @@
                                 <tr>
                                     <th>{{ __('lang.name') }}</th>
                                     <th>{{ __('lang.surname') }}</th>
-                                    <th>{{ __('lang.num_tel') }} </th>
+                                    <!--th>{{ __('lang.num_tel') }} </th-->
                                     <th>{{ __('lang.post') }}</th>
                                     <th>{{ __('lang.sous_dept') }}</th>
+                                    <th>{{ __('lang.nombre_de_joursrestnat') }}</th>
                                     <th>{{ __('lang.type_cng') }}</th>
                                     <th>{{ __('lang.date_deb_cng') }}</th>
                                     <th>{{ __('lang.date_fin_cng') }}</th>
                                     <th>{{ __('lang.nbr_jour') }}</th>
-                                    <th>{{ __('lang.stuation') }}</th>
-                                    <th>{{ __('lang.disc') }}</th>
-                                    <th>{{__('lang.repr')}}</th>
+                                    <!--th>{{ __('lang.stuation') }}</th-->
+                                    <th>{{ __('lang.discis') }}</th>
+                                    <!--th>{{__('lang.repr')}}</th-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -136,9 +137,6 @@
                                                   {{ $employe->Prenom_ar_emp }}
                                                 @endif
                                             </td>
-                                            <td>{{ $employe->Phone_num }}</td>
-
-                                            <td>
                                                 @if ($locale == 'fr')
                                                      {{ $employe->occupeIdNin->last()->post->Nom_post ?? 'N/A' }}
                                                   @elseif ($locale == 'ar')
@@ -164,18 +162,8 @@
                                             <td>{{ $conge->date_debut_cong }}</td>
                                             <td>{{ $conge->date_fin_cong }}</td>
                                             <td>{{ floor(Carbon::parse($today)->diffInDays($conge->date_fin_cong)+2) }}</td>
-                                            <td>
-                                                @if ($locale == 'fr')
-                                                    {{ $conge->situation }}
-                                                @elseif ($locale == 'ar')
-                                                    {{ $conge->situation_AR }}
-                                                @endif
-                                               </td>
                                                <td class="abs-info" id="cng{{$employe->id_nin}}">
-                                               <a href="/Employe/read_just/{{$conge->id_fichier}}" target="_blank"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i></a>
-                                               </td>
-                                               <td class="rep-info" id="cng{{$employe->id_nin}}">
-                                               <a href="#" target="_blank"> <i class="fa fa-reply" aria-hidden="true"></i></a>
+                                               <a href="/Employe/read_just/{{$conge->id_fichier}}" target="_blank"> {{$conge->ref_cng}}</a>
                                                </td>
                                         </tr>
                                         @endif
@@ -249,13 +237,27 @@
                     <div id="file-error" class="error-tooltip">File is required</div>
                     </div>
                     <hr>
+                    <div>
+                        <label class='lables'>{{__('lang.discis')}}</label>
+                     <p id='pv_cng'></p>
+                    </div>
+                    <hr>
                     <button type="button" id="conge_confirm">{{ __('lang.ver_cng') }}</button>
                     <button type="button" id="cancel-conge" class="close-formcg-btn">{{ __('lang.cancel') }} </button>
-
+                   
                 </form>
             </div>
         </div>
-
+        <dialog id="myDialog" class="myDial">
+        <label>Confirm Action</label>
+        <br>
+        <input type="text" placeholder="{{__('lang.discis')}}" id='pv_num' class='pv_cng'></input>
+        <hr>
+        <div class="dialog-buttons">
+            <button onclick="confirmAction()">{{__('lang.btn.enregistrer')}}</button>
+            <button onclick="cancelDialog()">{{__('lang.cancel')}}</button>
+        </div>
+    </dialog>                               
         </body>
         <script>
         var flang='{{__("lang.filnull")}}'
@@ -322,28 +324,24 @@
                     if (lng === 'fr') {
                 row = '<tr><td>' + employe.Nom_emp + '</td>' +
                                 '<td>' + employe.Prenom_emp + '</td>' +
-                                '<td>' + employe.Phone_num + '</td>' +
                                 '<td>' + employe.Nom_post + '</td>' +
                                 '<td>' + employe.Nom_sous_depart + '</td>' +
                                 '<td>' + employe.titre_cong + '</td>' +
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation + '</td>'+
-                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>'+
+                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
                                 '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></i></a></td></tr>';
             } else if (lng === 'ar') {
                 row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +
-                                '<td>' + employe.Phone_num + '</td>' +
                                 '<td>' + employe.Nom_post_ar + '</td>' +
                                 '<td>' + employe.Nom_sous_depart_ar + '</td>' +
                                 '<td>' + employe.titre_cong_ar + '</td>' +
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
-                                '<td>' + employe.situation_AR + '</td>'+
-                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></a></td>'+
+                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
                                 '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></a></td></tr>';
             }
             employeeTableBody.append(row);
@@ -359,11 +357,13 @@
             }
         
             $('#file').on('change',function(){
-    var label = $('#file-custm');
-    var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
-    label.textContent = fileName;
-      console.log('file handler'+fileName)
-      $('#file-nm').text(''+fileName)
+            
+            var label = $('#file-custm');
+            var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
+            label.textContent = fileName;
+            console.log('file handler'+fileName)
+            $('#file-nm').text(''+fileName)
+            showPV_cng()
     })
     </script>
     @endsection

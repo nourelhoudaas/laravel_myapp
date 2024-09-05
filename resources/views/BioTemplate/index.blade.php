@@ -173,7 +173,7 @@
                       <hr>
                       <div class="field">
                         <div class="field-holder">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                           <h6 class="mb-0">Prénom</h6>
                         </div>
                         <input class="col-sm-9 text-secondary" id='Prenom_O' value=' {{$last->Prenom_emp}}' style="border: hidden;background-color: transparent;" disabled>

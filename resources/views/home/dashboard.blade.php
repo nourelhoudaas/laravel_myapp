@@ -3,50 +3,18 @@
 @section('title', 'Dashboard')
 
 @section('content')
-
 <style>
-main .insightss {
-    display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
 
-}
-
-main .insightss .sales {
-    background-color: var(--clr-white);
-    padding: var(--card-padding);
-    border-radius: var(--card-border-raduis);
-    margin-top: 1rem;
-    box-shadow: var(--box-shadow);
-    transition: all .3s ease;
-    text-align: center
-}
-main .insights .sales:hover{
-    box-shadow: none;}
-
-    main .insights > div.expenses span{
-    background: var(--clr-danger);
-}
-
-main .insights > div.income span{
-    background: var(--clr-success);
-}
-main .insightss > div span {
-    background: coral;
-    padding: 0.5rem; /* Fixed padding to make it consistent */
-    border-radius: 50%;
-    color: var(--clr-white);
-    font-size: 2rem;
-}
-
-main .insightss > div .middle h1 {
-    font-size: 1.6rem;
-}
-
-main .insightss h1, main .insightss h3, main .insightss p {
-    color: var(--clr-dark);
-}
+    .chart-label {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+    }
 </style>
+
     <body>
 
             <!-- main section start -->
@@ -55,7 +23,7 @@ main .insightss h1, main .insightss h3, main .insightss p {
                 $uid=auth()->id()
                 @endphp
                 @if(isset($uid))
-                <h1>{{ __('lang.dashboard') }} {{Auth::user()->username }}</h1>
+                <h1>{{ __('lang.dashboard') }} de {{Auth::user()->username }}</h1>
                 @else
                 <h1>{{ __('lang.TableaudebordsansuserId') }}</h1>
                 @endif
@@ -86,6 +54,7 @@ main .insightss h1, main .insightss h3, main .insightss p {
                     </div>
                     <div class="box3">
                         <canvas id="genderChart" ></canvas>
+                        <div class="chart-label" id="chartLabel"></div>
                     </div>
 
                 </div>
@@ -96,9 +65,10 @@ main .insightss h1, main .insightss h3, main .insightss p {
 
 
 {{-- chartt1 --}}
-<script>
 
-</script>
+
+
+
 <script>
     var dept=@json($empdept);
    var lang='{{app()->getLocale()}}'
@@ -124,17 +94,21 @@ main .insightss h1, main .insightss h3, main .insightss p {
     var nbr_emp;
     var situ_emp;
 
+
     if (langth_pr == 'ar') {
-        nbr_emp_depart = 'عدد الموظفين في كل مديرية';
+        nbr_emp_depart = 'توزيع الموظفين في كل مديرية';
         nbr_emp = 'عدد الموظفين';
-        situ_emp = 'توزيع العاملين حسب الحالة العائلية';
+        situ_emp = 'توزيع الموظفين حسب الحالة العائلية';
         sexe='توزيع الموظفين حسب الجنس';
 
+
+
     } else {
-        nbr_emp_depart = 'Nombre d\'employés pour chaque département';
+        nbr_emp_depart = 'Répartition des employés pour chaque département';
         nbr_emp = 'Nombre d\'employés';
         situ_emp = 'Répartition des Employés par Situation Familiale';
-        sexe='Répartition des Employés par Sexe'
+        sexe='Répartition des Employés par Sexe';
+
     }
 
 
@@ -256,43 +230,81 @@ const situationChart = new Chart(ctx2, {
     }
 });
 //****************************************************************
+// Récupérer les données PHP dans JavaScript
 const genderData = @json($dataGender);
 
-        const labels2 = Object.keys(genderData);
-        const data2 = Object.values(genderData);
+// Passer la langue sélectionnée (exemple: 'fr' pour français, 'ar' pour arabe)
+const selectedLanguage = @json($lang);
 
-        const ctx3 = document.getElementById('genderChart').getContext('2d');
-        new Chart(ctx3, {
-            type: 'doughnut',
-            data: {
-                labels2: labels2,
-                datasets: [{
-                    label: nbr_emp,
-                    data: data2,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+// Définir les traductions pour chaque langue
+const translations = {
+    'fr': {
+        'Homme': 'Homme',
+        'Femme': 'Femme'
+    },
+    'ar': {
+        'Homme': 'رجل',
+        'Femme': 'امرأة'
+    }
+};
+
+// Extraire les labels (sexes) et les données (nombre d'employés)
+const labels2 = Object.keys(genderData);
+const data2 = Object.values(genderData);
+
+// Sélectionner les traductions en fonction de la langue
+const labelMapping = translations[selectedLanguage] || translations['fr'];
+
+// Log pour déboguer
+console.log(labelMapping);
+
+// Remapper les labels pour le graphique
+const translatedLabels2 = labels2.map(label => labelMapping[label] || label);
+
+// Créer le graphique doughnut avec Chart.js
+const ctx3 = document.getElementById('genderChart').getContext('2d');
+const genderChart = new Chart(ctx3, {
+    type: 'doughnut',
+    data: {
+        labels: translatedLabels2, // Utiliser les labels traduits ici
+        datasets: [{
+            label: nbr_emp,
+            data: data2,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            datalabels: {
+                display: true,
+                color: '#000',
+                formatter: (value, context) => {
+                    // Afficher les labels traduits
+                    return context.chart.data.labels[context.dataIndex];
+                },
+                font: {
+                    weight: 'bold'
+                }
             },
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: sexe,
-                        position: 'bottom',
-                        font: {
-                            size: 16
-                        }
-                    }
+            title: {
+                display: true,
+                text: sexe,
+                position: 'bottom',
+                font: {
+                    size: 16
                 }
             }
-        });
+        }
+    }
+});
 </script>
 
 @endsection

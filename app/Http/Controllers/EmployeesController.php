@@ -1073,6 +1073,7 @@ foreach($allwor as $workig)
                     'date_fcg'=>'required|date',
                     'type_cg'=>'required|string',
                     'situation'=>'required|string',
+                    'ref_cng'=>'required||string'
                 ]
                 );
                
@@ -1107,8 +1108,47 @@ foreach($allwor as $workig)
                 ->get();
                 $delai=0;
                 $right=false;
+              
+                if(count($cng) == 0)
+                {
+                   
+                    if($request->get('type_cg') == 'RF001' && $request->get('total_cgj') > 0)
+                    {
+                        $start = Carbon::parse($request->get('date_dcg'));
+                        $end = Carbon::parse($request->get('date_fcg'));
+                        $daysDifference = $start->diffInDays($end);
+                        $res=$request->get('total_cgj')-$daysDifference;
+                      //  dd(intval($res));
+                        $cong=new Conge([
+                            'id_nin'=>$request->get('ID_NIN'),
+                            'id_p'=>$request->get('ID_P'),
+                            'date_debut_cong'=>$request->get('date_dcg'),
+                            'date_fin_cong'=>$request->get('date_fcg'),
+                            'nbr_jours'=>$res,
+                            'ref_cong'=>$request->get('type_cg'),
+                            'ref_cng'=>$request->get('ref_cng'),
+                            'situation'=>$request->get('situation'),
+                            'situation_AR'=>$situation_ar,
+                            'id_sous_depart'=>$request->get('SDic')
+                                ]);
+                                if($cong->save())
+                                {
+                                    return response()->json(['message'=>$msgsuc,'status'=>200]);
+                                }
+                                else
+                                {
+                                    return response()->json([
+                                        'message'=>$msgdateins,
+                                        'status'=> 404
+                                    ]);
+                                }
+                    }
+                }
+                if(isset($cng))
+                {
                 foreach($cng as $cg)
                 {
+                    
                     if($request->get('date_dcg') < $cg->date_fin_cong  && $request->get('type_cg') == 'RF001')
                     {
 
@@ -1141,6 +1181,7 @@ foreach($allwor as $workig)
                                     'date_fin_cong'=>$request->get('date_fcg'),
                                     'nbr_jours'=>0,
                                     'ref_cong'=>$request->get('type_cg'),
+                                    'ref_cng'=>$request->get('ref_cng'),
                                     'situation'=>$request->get('situation'),
                                     'situation_AR'=>$situation_ar,
                                     'id_sous_depart'=>$request->get('SDic')
@@ -1210,6 +1251,7 @@ foreach($allwor as $workig)
                         'date_debut_cong'=>$request->get('date_dcg'),
                         'date_fin_cong'=>$request->get('date_fcg'),
                         'nbr_jours'=>intval($nbrcng),
+                        'ref_cng'=>$request->get('ref_cng'),
                         'ref_cong'=>$request->get('type_cg'),
                         'situation'=>$request->get('situation'),
                         'situation_AR'=>$situation_ar,
@@ -1220,6 +1262,7 @@ foreach($allwor as $workig)
 
 
                 }
+            }
 
             /*== if($delai > 31)
                 {
@@ -1277,6 +1320,7 @@ foreach($allwor as $workig)
                     'date_debut_cong'=>$request->get('date_dcg'),
                     'date_fin_cong'=>$request->get('date_fcg'),
                     'nbr_jours'=>intval($nbrcng),
+                    'ref_cng'=>$request->get('ref_cng'),
                     'ref_cong'=>$request->get('type_cg'),
                     'situation'=>$request->get('situation'),
                     'situation_AR'=>$situation_ar,
@@ -1346,6 +1390,7 @@ foreach($allwor as $workig)
                         'date_fin_cong'=>$request->get('date_fcg'),
                         'nbr_jours'=>intval($monthsDifference * 30),
                         'ref_cong'=>$request->get('type_cg'),
+                        'ref_cng'=>$request->get('ref_cng'),
                         'situation'=>$request->get('situation'),
                         'situation_AR'=>$situation_ar,
                         'id_sous_depart'=>$request->get('SDic')

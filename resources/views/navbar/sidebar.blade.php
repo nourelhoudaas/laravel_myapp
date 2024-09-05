@@ -20,8 +20,10 @@
                 <div class="right">
                 <div class="top">
                     <div class='lang-handler'>
-                            <a href="{{ url('lang/fr') }}" id="fr-lang"><span>Francais</span></a>
-                            <a href="{{ url('lang/ar') }}" id="ar-lang"  ><span>العربية</span></a>
+                            <a href="{{ url('lang/fr') }}" id="fr-lang">
+                                francais
+                              </a>
+                            <a href="{{ url('lang/ar') }}" id="ar-lang"  >العربية</a>
                         </div>
                     <div class="profile">
                         <div class="info">

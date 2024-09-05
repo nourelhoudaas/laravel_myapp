@@ -110,7 +110,7 @@ $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_famil
          }
      }
      //dd($dataGender);
-        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept','data','dataGender'));
+        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept','data','dataGender','lang'));
     }
 
     public function switchLanguage($locale)
