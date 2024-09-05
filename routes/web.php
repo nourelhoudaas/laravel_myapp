@@ -108,9 +108,12 @@ Route::controller(DepartmentController::class)->group(function(){
 
     Route::match(['get', 'post'], '/dashboard_depart{dep_id}','dashboard_depart')
 
+
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
-    Route::get('/department/{departement}', 'delete')->name('department.delete');
+   // Route::get('/department/listcontient','liste_contient')->name('liste.contient');
+    Route::match(['get', 'post'], '/listcontient','liste_contient')->name('liste.contient');
+    Route::get('/depart/{departement}', 'delete')->name('department.delete');
 
 
 });
@@ -136,8 +139,6 @@ Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploa
 Route::post('/upload/creedossier',[UploadFile::class,'cree_dos_sous'])->name('cree_doss_emp');
 Route::get('/upload/getFiles/{id}',[UploadFile::class,'getFiles'])->name('getfile_all_emp');
 Route::post('/whoiam',[UploadFile::class,'savedb'])->name('who_stocke');
-Route::post('/ATS',[UploadFile::class,'create_ats'])->name('emp_gen_ATS');
-Route::get('/read_rapport/{id}',[UploadFile::class,'read_report'])->name('emp_read_file');
 Route::get('/realwhoiam/{id}',[UploadFile::class,'getname'])->name('who_name');
 Route::get('/live/read/{dir}/{subdir}/{file}',[UploadFile::class,'live_File'])->name('read_file_emp');
 });
