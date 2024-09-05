@@ -45,7 +45,7 @@ $id=0;
     <div class="step-counter">3</div>
     <div class="step-name">{{ __('lang.admindata') }}</div>
   </div>
-  <div class="stepper-item">
+  <div class="stepper-item active">
     <div class="step-counter">4</div>
     <div class="step-name">{{ __('lang.generat') }} </div>
   </div>

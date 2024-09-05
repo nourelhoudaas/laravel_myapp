@@ -621,7 +621,7 @@ main .recent_order a:hover{
 }
 
 #progressbar .active {
-  color: #2F8D46
+  color: var(--first-color)
 }
 
 #progressbar li {
@@ -675,7 +675,7 @@ main .recent_order a:hover{
 
 #progressbar li.active:before,
 #progressbar li.active:after {
-  background: #2F8D46
+  background: var(--first-color)
 }
 
 .progress {
@@ -696,6 +696,10 @@ main .recent_order a:hover{
   @media (max-width: 768px) {
     font-size: 12px;
   }
+}
+.step-name{
+    font-weight: bold;
+    color: var(--first-color);
 }
 
 .stepper-item::before {
@@ -736,13 +740,13 @@ main .recent_order a:hover{
 }
 
 .stepper-item.completed .step-counter {
-  background-color: #4bb543;
+  background-color: var(--first-color);
 }
 
 .stepper-item.completed::after {
   position: absolute;
   content: "";
-  border-bottom: 2px solid #4bb543;
+  border-bottom: 2px solid var(--first-color);
   width: 100%;
   top: 20px;
   left: 50%;
