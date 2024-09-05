@@ -1078,12 +1078,34 @@ $('#sel_posup').change(function() {
      });
      $('#btn-sv').click(function(e){
          e.preventDefault();
+         var sitar;
+         var sitfr;
                  selectElement =document.querySelector('#Sexe');
              output = selectElement.value;
              selectSituat =document.querySelector('#situat');
              outputS = selectSituat.value;
              selectenf =document.querySelector('#nbrenfant');
              outputF = selectenf.value;
+             switch (true) {
+                case selectSituat =='cel':
+                    sitar='أعزب/عزباء'
+                    sitfr='Célibataire '
+                    break;
+                case selectSituat =='marie':
+                        sitar='متزوج(ة)'
+                        sitfr='Marié(e)'
+                        break;
+                case selectSituat =='Divor':
+                            sitar='مطلق(ة)'
+                            sitfr='Divorcé(e)'
+                            break;
+                case selectSituat =='veuve':
+                    sitar='ارمل(ة)'
+                    sitfr='Veuf(ve)'
+                break;
+                default:
+                    break;
+             }
                  // Assuming you are searching by ID_NIN
                  var formData = {
                      ID_NIN:parseInt($('#ID_NIN').val()),
@@ -1106,7 +1128,8 @@ $('#sel_posup').change(function() {
                      Prenom_mereAR:$('#Prenom_mereAR').val(),
                      date_nais_per:'1990-06-02',
                      date_nais_mer:'1999-06-02',
-                     Situatar:'اعزب',
+                     Situatar:sitar,
+                     Situat:sitfr,
                      Situat:outputS,
                      nbrenfant:outputF,
                      Sexe:output,

@@ -102,16 +102,17 @@
                                 <tr>
                                     <th>{{ __('lang.name') }}</th>
                                     <th>{{ __('lang.surname') }}</th>
-                                    <th>{{ __('lang.num_tel') }} </th>
+                                    <!--th>{{ __('lang.num_tel') }} </th-->
                                     <th>{{ __('lang.post') }}</th>
                                     <th>{{ __('lang.sous_dept') }}</th>
+                                    <th>{{ __('lang.nombre_de_joursrestnat') }}</th>
                                     <th>{{ __('lang.type_cng') }}</th>
                                     <th>{{ __('lang.date_deb_cng') }}</th>
                                     <th>{{ __('lang.date_fin_cng') }}</th>
                                     <th>{{ __('lang.nbr_jour') }}</th>
-                                    <th>{{ __('lang.stuation') }}</th>
-                                    <th>{{ __('lang.disc') }}</th>
-                                    <th>{{__('lang.repr')}}</th>
+                                    <!--th>{{ __('lang.stuation') }}</th-->
+                                    <th>{{ __('lang.discis') }}</th>
+                                    <!--th>{{__('lang.repr')}}</th-->
                                 </tr>
                             </thead>
                             <tbody>
