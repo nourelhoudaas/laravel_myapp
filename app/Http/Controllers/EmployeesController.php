@@ -1108,16 +1108,23 @@ foreach($allwor as $workig)
                 ->get();
                 $delai=0;
                 $right=false;
-                if(!isset($cng))
+              
+                if(count($cng) == 0)
                 {
+                   
                     if($request->get('type_cg') == 'RF001' && $request->get('total_cgj') > 0)
                     {
+                        $start = Carbon::parse($request->get('date_dcg'));
+                        $end = Carbon::parse($request->get('date_fcg'));
+                        $daysDifference = $start->diffInDays($end);
+                        $res=$request->get('total_cgj')-$daysDifference;
+                      //  dd(intval($res));
                         $cong=new Conge([
                             'id_nin'=>$request->get('ID_NIN'),
                             'id_p'=>$request->get('ID_P'),
                             'date_debut_cong'=>$request->get('date_dcg'),
                             'date_fin_cong'=>$request->get('date_fcg'),
-                            'nbr_jours'=>$request->get('total_cgj'),
+                            'nbr_jours'=>$res,
                             'ref_cong'=>$request->get('type_cg'),
                             'ref_cng'=>$request->get('ref_cng'),
                             'situation'=>$request->get('situation'),
