@@ -9,6 +9,9 @@
 @section('content')
 
     <body>
+    <div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
         <div class="container2">
             <!-- start section aside -->
             @include('./navbar.sidebar')

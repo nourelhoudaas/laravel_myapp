@@ -43,6 +43,9 @@
 
                     <!-- Page Heading -->
                     <div class="container">
+                    <div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
         <div class="main-body">
 
               <!-- /Breadcrumb -->
