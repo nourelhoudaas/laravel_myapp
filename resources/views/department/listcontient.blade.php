@@ -68,7 +68,7 @@
             <!-- start resent order -->
 
             <div class="recent_order">
-                <h1>La liste des Postes des Sous Direction </h1>
+                <h1>La liste des Postes des Sous Directions </h1>
 
                 <table id='myDataTable' class="table">
 

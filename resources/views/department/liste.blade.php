@@ -28,16 +28,31 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                             $locale = app()->getLocale();
+                             @endphp
 
                             @foreach ($departements as $index => $departement)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td><a
+                                    <td>
+
+                                        @if ($locale == 'fr')
+                                        <a
                                             href="{{ route('app_dashboard_depart', $departement->id_depart) }}">{{ $departement->Nom_depart }}</a>
+                                            @elseif ($locale == 'ar')
+                                            <a
+                                            href="{{ route('app_dashboard_depart', $departement->id_depart) }}">{{ $departement->Nom_depart_ar }}</a>
+                                            @endif
                                     </td>
                                     <td>
+
                                         @foreach ($departement->sous_departement as $sous_departement)
+                                        @if ($locale == 'fr')
                                             {{ $sous_departement->Nom_sous_depart }}<br>
+                                            @elseif ($locale == 'ar')
+                                            {{ $sous_departement->Nom_sous_depart_ar }}<br>
+                                            @endif
                                         @endforeach
                                     </td>
 
