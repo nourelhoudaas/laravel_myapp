@@ -123,6 +123,9 @@
                                     $travail = $employe->travailByNin->last();
                                     $sousDepartement = $travail->sous_departement;
                                     $departement = $sousDepartement->departement;
+                                    $postsup = $employe->occupeIdNin->last()->post_sups;
+                                    $fonction = $employe->occupeIdNin->last()->fonctions;
+
                                     $locale = app()->getLocale();
                                 @endphp
                                 <tr>
@@ -158,17 +161,17 @@
 
                                     <td>
                                         @if ($locale == 'fr')
-                                        {{ '-' }}
+                                        {{ $postsup->Nom_postsup ?? '-'}}
                                         @elseif ($locale == 'ar')
-                                        {{ '-' }}
+                                        {{ $postsup->Nom_postsup_ar?? '-' }}
                                         @endif
                                     </td>
 
                                     <td>
                                         @if ($locale == 'fr')
-                                        {{ '-' }}
+                                        {{ $fonction->Nom_fonction ?? '-'}}
                                         @elseif ($locale == 'ar')
-                                        {{ '-' }}
+                                        {{ $fonction->Nom_fonction_ar?? '-' }}
                                         @endif
                                     </td>
 

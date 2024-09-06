@@ -1440,10 +1440,17 @@ foreach($allwor as $workig)
               $Appartient=appartient::where('id_nin', $id)->get();
               $post=New Post();
               $dbpost=$post->get();
+              
               $dbempdepart = new Departement();
                   $empdepart =$dbempdepart->get();
+
+                  $fonction = new Fonction();
+                  $fct =$fonction->get();
+
+                  $postsup = new PostSup();
+                  $postsupp =$postsup->get();
                   //dd(app()->getLocale());
-              return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
+              return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart','postsupp','fct'));
             }
             function find_emp($id)
             {

@@ -22,6 +22,27 @@ return new class extends Migration
           
 
         });
+        DB::table('post_sups')->insert([
+            [
+             
+                'Nom_postsup' => 'chargé Reseaux',
+                'Nom_postsup_ar' => 'مكلف بالشبكات',
+                'Niveau_sup' => 1,
+                
+                'point_indsup' => 140,
+
+
+            ],
+            [
+               
+                'Nom_postsup' => 'chargé Systeme information',
+                'Nom_postsup_ar' => 'مكلف بانظمة المعلوماتية',
+                'Niveau_sup' => 3,
+              
+                'point_indsup' => 214,
+            ]
+
+            ]);
     }
 
     /**

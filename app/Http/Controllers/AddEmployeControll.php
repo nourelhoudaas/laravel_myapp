@@ -324,6 +324,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
         'id_nin'=>$request->get('ID_NIN'),
         'id_p'=>$request->get('ID_P')	,
         'ref_PV'=>$pv,
+        'ref_base'=>$request->get('PV_grad'),
         'id_post'=>$request->get('post')
       ]);
 

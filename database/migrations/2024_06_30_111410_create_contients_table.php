@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_contient')->primary()->autoIncrement();
             $table->integer('id_post');
             $table->integer('id_postsup')->nullable();
-            $table->integer('id_fonction')->nullable();
+            $table->string('id_fonction')->nullable();
             $table->foreign('id_postsup')->references('id_postsup')->on('post_sups');
             $table->foreign('id_fonction')->references('id_fonction')->on('fonctions');
             $table->foreign('id_post')->references('id_post')->on('posts');

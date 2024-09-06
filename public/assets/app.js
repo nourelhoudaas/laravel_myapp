@@ -1227,6 +1227,7 @@ $('#sel_posup').change(function() {
                      RecDate:$('#RecDate').val(),
                      PV_grad:$('#pv_inst').text(),
                      pv_postsup:$('#pv_postsup').text(),
+                    
                      pv_func:$('#pv_func').text(),
                      _token: $('meta[name="csrf-token"]').attr('content'),
                      _method: 'POST'
@@ -1239,7 +1240,7 @@ $('#sel_posup').change(function() {
                      success: function (response) {
                         if( lng == 'ar')
                         {
-                        showDialog()
+                        alert('لقد تمت العملية بنجاح');
                         }else
                         {
                          alert('Générer avec succès');
