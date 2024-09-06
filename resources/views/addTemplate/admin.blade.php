@@ -29,6 +29,9 @@
     <div class="step-name">{{ __('lang.generat') }} </div>
   </div>
 </div>
+<div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md">
@@ -64,13 +67,13 @@
                             <option>{{__('lang.slct_dept')}}</option>
                               @foreach($dbdirection as $dbd)
                               @if(app()->getLocale() == 'ar')
-                              
+
                               <option value='{{$dbd->id_depart}}'>{{$dbd->Nom_depart_ar}}</option>
-                              
+
                               @else
-                              
+
                               <option value='{{$dbd->id_depart}}'>{{$dbd->Nom_depart}}</option>
-                              
+
                               @endif
                               @endforeach
                         </select>
@@ -89,10 +92,10 @@
                         <option value="">{{__('lang.slct_post')}}</option>
                         @foreach($dbpost as $post)
                         @if (app()->getLocale() == 'ar')
-                        
+
                             <option value='{{$post->id_post}}'>{{$post->Nom_post_ar}}</option>
                         @else
-                        
+
                             <option value='{{$post->id_post}}'>{{$post->Nom_post}}</option>
 
                         @endif
@@ -108,7 +111,7 @@
     display: flex;
     flex-direction: column;
 ">
-                    <div>  
+                    <div>
                    <div>
                     <label class="labels" for="sel_posup">{{__('lang.post_sup_check')}}</label>
                     <input type="checkbox" id="sel_posup" class="col-md-2">
@@ -127,7 +130,7 @@
                     </div>
                     <hr>
                     </div>
-                    
+
                 </div>
                 <div class="row mt-2">
                 <div class="col-md-6">
@@ -140,7 +143,7 @@
                     </div>
                     </div>
                 <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="submit" id="aft">{{ __('lang.submit') }}</button>
+                    <button class="btn btn-primary  btn-group2" type="submit" id="aft">{{ __('lang.submit') }}</button>
                 </div>
             </div>
         </div>
@@ -215,11 +218,11 @@
     label.textContent = fileName;
       console.log('file handler'+fileName)
       $('#file-nm').text(''+fileName)
-   
+
     })
     document.getElementById('sel_posup').addEventListener('change', function() {
     const inputContainer = document.getElementById('postsup-opt');
-    
+
     if (this.checked) {
         showPV_postsup()
         // Create a new select element
@@ -229,13 +232,13 @@
         // Create options for the select element
         const option1 = document.createElement('option');
         option1.value = 'Chef_bur_res';
-      
+
         const option2 = document.createElement('option');
         option2.value = 'Chef_bur_SI';
-       
+
         const option3 = document.createElement('option');
         option3.value = 'respons_secI';
-        
+
         if( lng =='ar')
         {
         option1.text = 'مكلف بالشبكات';
@@ -283,7 +286,7 @@
 });
 document.getElementById('sel_fonc').addEventListener('change', function() {
     const inputContainer = document.getElementById('fonc-opt');
-    
+
     if (this.checked) {
         // Create a new select element
         showPV_function()
@@ -294,15 +297,15 @@ document.getElementById('sel_fonc').addEventListener('change', function() {
         // Create options for the select element
         const option1 = document.createElement('option');
         option1.value = 'sous_dic';
-       
+
 
         const option2 = document.createElement('option');
         option2.value = 'Dir';
-       
+
 
         const option3 = document.createElement('option');
         option3.value = 'SG';
-       
+
         if( lng =='ar')
         {
         option1.text = 'مدير فرعي';

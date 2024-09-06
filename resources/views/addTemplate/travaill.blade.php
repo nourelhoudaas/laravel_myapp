@@ -27,6 +27,9 @@
     <div class="step-name">{{ __('lang.generat') }} </div>
   </div>
 </div>
+<div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md">
@@ -99,8 +102,8 @@
                         <input type="date" class="form-control" id="DipDate">
                     </div>
                 </div>
-                <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="submit" id="aft2">{{ __('lang.next') }}</button>
+                <div class="mt-5 text-center ">
+                    <button class="btn btn-primary  btn-group2" type="submit" id="aft2">{{ __('lang.next') }}</button>
                 </div>
             </div>
         </div>
@@ -111,7 +114,7 @@
             <label for="file" class="file-get-handle" id="file-custm">{{__("lang.Choisirunfichier")}}</label>
             <input type="file" name="file" id="file">
         </br>
-        
+
             <div class="">
             <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">{{ __('lang.upload') }}</button>
                         </div>

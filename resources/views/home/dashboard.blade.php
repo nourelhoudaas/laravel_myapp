@@ -23,7 +23,7 @@
                 $uid=auth()->id()
                 @endphp
                 @if(isset($uid))
-                <h1>{{ __('lang.dashboard') }} de {{Auth::user()->username }}</h1>
+                <h1>{{ __('lang.Tableau_de_Bord_de') }} {{Auth::user()->username }}</h1>
                 @else
                 <h1>{{ __('lang.TableaudebordsansuserId') }}</h1>
                 @endif
@@ -243,8 +243,8 @@ const translations = {
         'Femme': 'Femme'
     },
     'ar': {
-        'Homme': 'رجل',
-        'Femme': 'امرأة'
+        'Homme': 'ذكر',
+        'Femme': 'أنثى'
     }
 };
 
