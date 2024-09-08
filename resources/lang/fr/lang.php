@@ -3,7 +3,8 @@
 return [
     'Action'=>'Action',
     'mnc'=>'Ministère de la Communication',
-    'dashboard'=>'Tableau de Bord  ',
+    'dashboard'=>'Tableau de Bord de ',
+
     'Depratement'=>'Directions',
     'AddDir'=>'Ajouter une Direction',
     'ListDir'=>'Liste des Directions',
@@ -23,7 +24,7 @@ return [
     'ID_p'=>'Numéro de travail',
     'slct_num_tel'=>"Saisir le Numéro Téléphone de l'employé",
     'ctrl_abs'=>'Controll D absences',
-    'ctrl_cng'=>'Controll De Congé',
+    'ctrl_cng'=>'Gestion des congés des employés',
     'lst_emp'=>'Liste Des Employés',
     'nbr_abs'=>'Absence',
     'nbr_all_users'=>'Total des Employés',

@@ -922,6 +922,7 @@ transform: scale(1.05) rotate(-1deg);
     width: 800px;
     box-shadow: 0 7px 25 rgba(0,0,0,0.8);
     border-radius: 20px;
+    max-height: 300px;
 }
 .graphBox .box2{
     position: relative;
@@ -934,6 +935,7 @@ transform: scale(1.05) rotate(-1deg);
     height: 400px;
     margin-left: -6rem;
     margin-right: -6rem;
+    max-height: 300px;
 }
 .graphBox .box3{
     position: absolute;
@@ -1799,3 +1801,26 @@ cursor: pointer;
 }
 /** waiting spinner for response*/
 
+
+/*=======================BUTTON============================================*/
+
+.btn-group2{
+
+    height: 100%;
+    width: 30%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg,var( --clr-danger), var(--first-color));
+}
+
+
+.btn-group2:hover{
+    background: linear-gradient(-135deg, var( --clr-danger), var(--first-color));
+}
+/*++++++++++++++++++++++++++++++++++++++++++++++++++*/

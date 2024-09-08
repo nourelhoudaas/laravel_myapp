@@ -27,13 +27,13 @@
  *
  */
 /**
- * 
- * 
+ *
+ *
  * spinner funcitons
- * 
+ *
  */
 function showLoadingSpinner() {
-    $('#loadingSpinner').css('display','flex'); 
+    $('#loadingSpinner').css('display','flex');
 }
 
 // Function to hide the loading spinner
@@ -41,8 +41,8 @@ function hideLoadingSpinner() {
     $('#loadingSpinner').css('display','none');
 }
 /**
- * 
- * 
+ *
+ *
  * end function
  */
 
@@ -686,7 +686,7 @@ $('#sel_posup').change(function() {
                  }
              });
            }
- function uploadFile() {    
+ function uploadFile() {
    var formData = new FormData();
    var formDataF = new FormData();
    var file = document.getElementById('file').files[0];
@@ -773,9 +773,9 @@ $('#sel_posup').change(function() {
                                      $('#progressWrapper').hide();
                                      $('#progressBar').width('0%');
                            //  console.log('add to stocke  ->'+responses.message)
-                           hideLoadingSpinner() 
+                           hideLoadingSpinner()
                            alert(response.message)
-                             
+
                                  }else
                                  {
                                     hideLoadingSpinner()
@@ -1198,9 +1198,12 @@ $('#sel_posup').change(function() {
                          var id=$('#ID_NIN').val();
                          if(lng == 'ar')
                          {
+
+                         hideLoadingSpinner()
                          alert('تمت إضافة البيانات الشخصية')
                         }else
                         {
+                            hideLoadingSpinner()
                         alert('Données personnelles ajoutées')
                         }
                        window.location.href="/Employe/IsTravaill/"+id;
@@ -1208,6 +1211,7 @@ $('#sel_posup').change(function() {
                      error: function (xhr) {
 
                          console.log(xhr.responseJSON);
+                         hideLoadingSpinner()
                          var error=xhr.responseJSON;
                          $.each(error.errors,function(key,val)
                      {
@@ -1250,7 +1254,7 @@ $('#sel_posup').change(function() {
      $('#aft').click(function(e){
          e.preventDefault();
 
-
+                showLoadingSpinner()
                  // Assuming you are searching by ID_NIN
                  var dateinst=  new Date($('#PVDate').val());
                  var daterec=new Date($('#RecDate').val());
@@ -1278,14 +1282,17 @@ $('#sel_posup').change(function() {
                      success: function (response) {
                         if( lng == 'ar')
                         {
-                        showDialog()
+                            hideLoadingSpinner()
+                            alert('تمت العملية بنجاح')
                         }else
                         {
+                            hideLoadingSpinner()
                          alert('Générer avec succès');
                         }
                          window.location.href="/BioTemplate/search/"+id;
                      },
                      error: function (xhr) {
+                        hideLoadingSpinner()
                          console.log(xhr.responseText);
                          var error=xhr.responseJSON;
                          $.each(error.errors,function(key,val)
@@ -2417,10 +2424,12 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
+                        hideLoadingSpinner()
                   alert ('عملية غير مسموحة');
                     }
                     else
                     {
+                        hideLoadingSpinner()
                         alert ('Opération non autorisée');
                     }
                  }
@@ -2447,7 +2456,7 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('عملية غير مسموحة');
+                        alert ('عملية غير مسموحة');
                     }
                     else
                     {

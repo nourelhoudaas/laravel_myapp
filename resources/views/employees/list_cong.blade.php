@@ -334,23 +334,25 @@
                                 '<td>' + employe.Prenom_emp + '</td>' +
                                 '<td>' + employe.Nom_post + '</td>' +
                                 '<td>' + employe.Nom_sous_depart + '</td>' +
+                                '<td>' + employe.nbr_jours+'</td>'+
                                 '<td>' + employe.titre_cong + '</td>' +
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
                                 '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
-                                '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></i></a></td></tr>';
+                                '</tr>';
             } else if (lng === 'ar') {
                 row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
                                 '<td>' + employe.Prenom_ar_emp + '</td>' +
                                 '<td>' + employe.Nom_post_ar + '</td>' +
                                 '<td>' + employe.Nom_sous_depart_ar + '</td>' +
+                                '<td>' + employe.nbr_jours+'</td>'+
                                 '<td>' + employe.titre_cong_ar + '</td>' +
                                 '<td>' + employe.date_debut_cong + '</td>' +
                                 '<td>' + employe.date_fin_cong + '</td>' +
                                 '<td>' + employe.joursRestants + '</td>' +
                                 '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
-                                '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></a></td></tr>';
+                                '</tr>';
             }
             employeeTableBody.append(row);
         });
