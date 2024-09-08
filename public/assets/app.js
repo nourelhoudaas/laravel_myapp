@@ -27,13 +27,13 @@
  *
  */
 /**
- * 
- * 
+ *
+ *
  * spinner funcitons
- * 
+ *
  */
 function showLoadingSpinner() {
-    $('#loadingSpinner').css('display','flex'); 
+    $('#loadingSpinner').css('display','flex');
 }
 
 // Function to hide the loading spinner
@@ -41,8 +41,8 @@ function hideLoadingSpinner() {
     $('#loadingSpinner').css('display','none');
 }
 /**
- * 
- * 
+ *
+ *
  * end function
  */
 
@@ -686,7 +686,7 @@ $('#sel_posup').change(function() {
                  }
              });
            }
- function uploadFile() {    
+ function uploadFile() {
    var formData = new FormData();
    var formDataF = new FormData();
    var file = document.getElementById('file').files[0];
@@ -773,9 +773,9 @@ $('#sel_posup').change(function() {
                                      $('#progressWrapper').hide();
                                      $('#progressBar').width('0%');
                            //  console.log('add to stocke  ->'+responses.message)
-                           hideLoadingSpinner() 
+                           hideLoadingSpinner()
                            alert(response.message)
-                             
+
                                  }else
                                  {
                                     hideLoadingSpinner()
@@ -1198,10 +1198,12 @@ $('#sel_posup').change(function() {
                          var id=$('#ID_NIN').val();
                          if(lng == 'ar')
                          {
-                         alert('تمت إضافة البيانات الشخصي')
+
                          hideLoadingSpinner()
+                         alert('تمت إضافة البيانات الشخصية')
                         }else
                         {
+                            hideLoadingSpinner()
                         alert('Données personnelles ajoutées')
                         }
                        window.location.href="/Employe/IsTravaill/"+id;
@@ -1209,6 +1211,7 @@ $('#sel_posup').change(function() {
                      error: function (xhr) {
 
                          console.log(xhr.responseJSON);
+                         hideLoadingSpinner()
                          var error=xhr.responseJSON;
                          $.each(error.errors,function(key,val)
                      {
@@ -1252,6 +1255,7 @@ $('#sel_posup').change(function() {
          e.preventDefault();
 
 
+
                  // Assuming you are searching by ID_NIN
                  var dateinst=  new Date($('#PVDate').val());
                  var daterec=new Date($('#RecDate').val());
@@ -1266,8 +1270,9 @@ $('#sel_posup').change(function() {
                      PVDate:$('#PVDate').val(),
                      RecDate:$('#RecDate').val(),
                      PV_grad:$('#pv_inst').text(),
-                     pv_postsup:$('#pv_postsup').text(),
-                     pv_func:$('#pv_func').text(),
+                     pv_postsup:parseInt(id_postsup),
+                    
+                     pv_func:id_func,
                      _token: $('meta[name="csrf-token"]').attr('content'),
                      _method: 'POST'
                  };
@@ -1279,14 +1284,17 @@ $('#sel_posup').change(function() {
                      success: function (response) {
                         if( lng == 'ar')
                         {
-                        alert('تمت العملية بنجاح')
+                            hideLoadingSpinner()
+                        alert('لقد تمت العملية بنجاح');
                         }else
                         {
+                            hideLoadingSpinner()
                          alert('Générer avec succès');
                         }
                          window.location.href="/BioTemplate/search/"+id;
                      },
                      error: function (xhr) {
+                        hideLoadingSpinner()
                          console.log(xhr.responseText);
                          var error=xhr.responseJSON;
                          $.each(error.errors,function(key,val)
@@ -1311,6 +1319,7 @@ $('#sel_posup').change(function() {
                     $('#PVDate').addClass('error-handle');
                     $('#RecDate').addClass('error-handle');
                 }
+     });
      });
  });
  //TRAVAIL
@@ -1372,7 +1381,6 @@ $('#sel_posup').change(function() {
                  });
      });
  });
-      });
  //TRAVAIL
  $(document).ready(function () {
      var currentGfgStep, nextGfgStep, previousGfgStep;
@@ -2092,21 +2100,21 @@ $('#sel_posup').change(function() {
                                 $('#total_cgj').val(' يوم واحد')
                                 break;
                             case response.Jour_congé === 2:
-                                $('#total_cgj').val('(0'+response.Jour_congé+') يومان')
+                                $('#total_cgj').val('(0'+response.Jour_congé+')-يومان')
                                 break;
                             default:
-                                $('#total_cgj').val(response.Jour_congé+' أيام')
+                                $('#total_cgj').val(response.Jour_congé+'-أيام')
                                 break;
                         }
                     }
                     else
                     {
-                        $('#total_cgj').val(response.Jour_congé+' Jour(s)')
+                        $('#total_cgj').val(response.Jour_congé+'-Jour(s)')
                     }
                 }
                 else
                 {
-                    $('#total_cgj').val(response.Jour_congé+' Jour(s) de maladie')
+                    $('#total_cgj').val(response.Jour_congé+'-Jour(s) de maladie')
                 }
                     if(type != 'Maladie')
                     {
@@ -2418,10 +2426,12 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
+                        hideLoadingSpinner()
                   alert ('عملية غير مسموحة');
                     }
                     else
                     {
+                        hideLoadingSpinner()
                         alert ('Opération non autorisée');
                     }
                  }
@@ -2448,7 +2458,7 @@ $('#sel_posup').change(function() {
                  {
                     if( lng == 'ar')
                     {
-                  alert ('عملية غير مسموحة');
+                        alert ('عملية غير مسموحة');
                     }
                     else
                     {

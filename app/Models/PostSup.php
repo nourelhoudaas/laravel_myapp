@@ -21,7 +21,7 @@ class PostSup extends Model
         return $this->hasMany(Contient::class,'id_postsup','id_postsup');
     }
 
-    public function occupeIdNin()
+    public function occupe()
     {
         return $this->hasMany(Occupe::class,'id_postsup','id_postsup');
     }
