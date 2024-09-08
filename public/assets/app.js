@@ -1254,7 +1254,8 @@ $('#sel_posup').change(function() {
      $('#aft').click(function(e){
          e.preventDefault();
 
-                showLoadingSpinner()
+
+
                  // Assuming you are searching by ID_NIN
                  var dateinst=  new Date($('#PVDate').val());
                  var daterec=new Date($('#RecDate').val());
@@ -1269,8 +1270,9 @@ $('#sel_posup').change(function() {
                      PVDate:$('#PVDate').val(),
                      RecDate:$('#RecDate').val(),
                      PV_grad:$('#pv_inst').text(),
-                     pv_postsup:$('#pv_postsup').text(),
-                     pv_func:$('#pv_func').text(),
+                     pv_postsup:parseInt(id_postsup),
+                    
+                     pv_func:id_func,
                      _token: $('meta[name="csrf-token"]').attr('content'),
                      _method: 'POST'
                  };
@@ -1282,8 +1284,7 @@ $('#sel_posup').change(function() {
                      success: function (response) {
                         if( lng == 'ar')
                         {
-                            hideLoadingSpinner()
-                            alert('تمت العملية بنجاح')
+                        alert('لقد تمت العملية بنجاح');
                         }else
                         {
                             hideLoadingSpinner()
@@ -1317,6 +1318,7 @@ $('#sel_posup').change(function() {
                     $('#PVDate').addClass('error-handle');
                     $('#RecDate').addClass('error-handle');
                 }
+     });
      });
  });
  //TRAVAIL
@@ -1378,7 +1380,6 @@ $('#sel_posup').change(function() {
                  });
      });
  });
-      });
  //TRAVAIL
  $(document).ready(function () {
      var currentGfgStep, nextGfgStep, previousGfgStep;

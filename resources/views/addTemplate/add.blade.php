@@ -65,6 +65,16 @@
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img class="rounded-circle mt-5" width="150px" src="{{ asset('assets/main/img/profile.jpg')}}">
                 {{-- <span class="font-weight-bold">ADMIN</span>
+<<<<<<< HEAD
+=======
+
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <div class="col-md">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <img class="rounded-circle mt-5" width="150px" src="{{ asset('assets/main/img/profile.jpg') }}">
+                        {{-- <span class="font-weight-bold">ADMIN</span>
+>>>>>>> b3e2b7ae3903005306a22f85a08451e12f0a2d0a
                 <span class="text-black-50">ADMIN@mail.com.my</span> --}}
 
                     </div>

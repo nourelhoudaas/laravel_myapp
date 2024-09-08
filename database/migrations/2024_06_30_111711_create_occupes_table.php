@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('ref_base');
 
             $table->integer('id_postsup')->nullable();
-            $table->integer('id_fonction')->nullable();
+            $table->string('id_fonction')->nullable();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('id_post')->references('id_post')->on('posts');

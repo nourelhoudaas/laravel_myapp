@@ -8,6 +8,8 @@
     use App\Models\Contient;
     use App\Models\Niveau;
     use App\Models\Occupe;
+    use App\Models\Fonction;
+    use App\Models\PostSup;
     use App\Models\Sous_departement;
     use Illuminate\Http\Request;
     use App\Models\Departement;
@@ -1166,11 +1168,13 @@ foreach($allwor as $workig)
                        // dd($diff);
                         if (!$mald_deb->between($current->copy()->subDays(2), $current))
                          {
-                            
+                            $startcng=Carbon::parse($cg->date_debut_cng);
                             $start = Carbon::parse($cg->date_fin_cong);
+                            $consume=$startcng->diffInDays($start);
+                            $nbrcngbef=$cg->nbr_jours;
                             $end = Carbon::parse($request->get('date_fcg'));
                             $daysDifference = $start->diffInDays($end);
-                            $nbrcg=$cg->nbr_jours+$daysDifference;
+                            $nbrcg=$nbrcngbef-$consume+$daysDifference;
                             $cg->update(['date_fin_cong'=>$request->get('date_dcg'),'nbr_jours'=>$nbrcg]) ; 
                             if($cg)
                             {
@@ -1424,7 +1428,7 @@ foreach($allwor as $workig)
               {
              //   dd(app()->getLocale());
               }
-
+             
               return view('addTemplate.travaill',compact('employe','dbniv','empdepart','dbn'));
             }
             function existApp($id)
@@ -1440,11 +1444,31 @@ foreach($allwor as $workig)
               $Appartient=appartient::where('id_nin', $id)->get();
               $post=New Post();
               $dbpost=$post->get();
+              
               $dbempdepart = new Departement();
                   $empdepart =$dbempdepart->get();
+
+                  $fonction = new Fonction();
+                  $fct =$fonction->get();
+
+                  $postsup = new PostSup();
+                  $postsupp =$postsup->get();
                   //dd(app()->getLocale());
-              return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
-            }
+                  //dd($postsupp);
+                  return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart','postsupp','fct'));
+                }
+                public function getPostSups()
+                    {
+                        $postsup = PostSup::all();  
+                        $fonction = Fonction::all(); 
+                            //dd( $fonction);
+
+                            return response()->json([
+                                'post_sups' => $postsup,
+                                'fonction'=>$fonction,
+                                
+                            ]);
+                    }
             function find_emp($id)
             {
                 $find=Employe::where('id_nin',$id)->first();
