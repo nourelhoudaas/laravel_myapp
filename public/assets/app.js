@@ -27,13 +27,13 @@
  *
  */
 /**
- * 
- * 
+ *
+ *
  * spinner funcitons
- * 
+ *
  */
 function showLoadingSpinner() {
-    $('#loadingSpinner').css('display','flex'); 
+    $('#loadingSpinner').css('display','flex');
 }
 
 // Function to hide the loading spinner
@@ -41,8 +41,8 @@ function hideLoadingSpinner() {
     $('#loadingSpinner').css('display','none');
 }
 /**
- * 
- * 
+ *
+ *
  * end function
  */
 
@@ -686,7 +686,7 @@ $('#sel_posup').change(function() {
                  }
              });
            }
- function uploadFile() {    
+ function uploadFile() {
    var formData = new FormData();
    var formDataF = new FormData();
    var file = document.getElementById('file').files[0];
@@ -773,9 +773,9 @@ $('#sel_posup').change(function() {
                                      $('#progressWrapper').hide();
                                      $('#progressBar').width('0%');
                            //  console.log('add to stocke  ->'+responses.message)
-                           hideLoadingSpinner() 
+                           hideLoadingSpinner()
                            alert(response.message)
-                             
+
                                  }else
                                  {
                                     hideLoadingSpinner()
@@ -1198,12 +1198,9 @@ $('#sel_posup').change(function() {
                          var id=$('#ID_NIN').val();
                          if(lng == 'ar')
                          {
-<<<<<<< HEAD
-                         alert('تمت إضافة البيانات الشخصي')
+
                          hideLoadingSpinner()
-=======
                          alert('تمت إضافة البيانات الشخصية')
->>>>>>> b83c46b857324b7d248bf8714ca4dbcf74f35428
                         }else
                         {
                         alert('Données personnelles ajoutées')
