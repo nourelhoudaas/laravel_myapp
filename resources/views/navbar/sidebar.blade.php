@@ -46,7 +46,7 @@
         <div class="nav" id="navbar">
             <nav class="nav__container">
                 <div >
-                    <a href="#" class="nav__link nav__logo">
+                    <a href="{{route('app_dashboard')}}" class="nav__link nav__logo">
                         <!-- <i class='bx bxs-disc nav__icon' ></i> -->
                         <i ><img src="{{ asset('assets/main/img/logo_ministere.svg')}}" alt="" ></i>
                         <span class="nav__logo-name"></span>

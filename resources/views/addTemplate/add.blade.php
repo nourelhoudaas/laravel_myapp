@@ -56,7 +56,6 @@
             </div>
         </div>
 
-
 <div id="loadingSpinner" class="spinner-overlay">
         <div class="spinner"></div>
     </div>
@@ -67,14 +66,12 @@
                 <img class="rounded-circle mt-5" width="150px" src="{{ asset('assets/main/img/profile.jpg')}}">
                 {{-- <span class="font-weight-bold">ADMIN</span>
 
-
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
                 <div class="col-md">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                         <img class="rounded-circle mt-5" width="150px" src="{{ asset('assets/main/img/profile.jpg') }}">
                         {{-- <span class="font-weight-bold">ADMIN</span>
-
                 <span class="text-black-50">ADMIN@mail.com.my</span> --}}
 
                     </div>
