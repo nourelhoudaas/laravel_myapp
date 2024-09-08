@@ -1198,12 +1198,11 @@ $('#sel_posup').change(function() {
                          var id=$('#ID_NIN').val();
                          if(lng == 'ar')
                          {
-<<<<<<< HEAD
+
                          alert('تمت إضافة البيانات الشخصي')
                          hideLoadingSpinner()
-=======
-                         alert('تمت إضافة البيانات الشخصية')
->>>>>>> b83c46b857324b7d248bf8714ca4dbcf74f35428
+
+                       
                         }else
                         {
                         alert('Données personnelles ajoutées')
@@ -1256,6 +1255,7 @@ $('#sel_posup').change(function() {
          e.preventDefault();
 
 
+
                  // Assuming you are searching by ID_NIN
                  var dateinst=  new Date($('#PVDate').val());
                  var daterec=new Date($('#RecDate').val());
@@ -1270,9 +1270,9 @@ $('#sel_posup').change(function() {
                      PVDate:$('#PVDate').val(),
                      RecDate:$('#RecDate').val(),
                      PV_grad:$('#pv_inst').text(),
-                     pv_postsup:$('#pv_postsup').text(),
+                     pv_postsup:parseInt(id_postsup),
                     
-                     pv_func:$('#pv_func').text(),
+                     pv_func:id_func,
                      _token: $('meta[name="csrf-token"]').attr('content'),
                      _method: 'POST'
                  };
@@ -1316,6 +1316,7 @@ $('#sel_posup').change(function() {
                     $('#PVDate').addClass('error-handle');
                     $('#RecDate').addClass('error-handle');
                 }
+     });
      });
  });
  //TRAVAIL
@@ -1377,7 +1378,6 @@ $('#sel_posup').change(function() {
                  });
      });
  });
-      });
  //TRAVAIL
  $(document).ready(function () {
      var currentGfgStep, nextGfgStep, previousGfgStep;

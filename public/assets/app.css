@@ -1770,7 +1770,7 @@ cursor: pointer;
 .gen-file-handle:hover .gen-list-handle {
   background-color: #3e8e41;
 }
-<<<<<<< HEAD
+
 /** waiting spinner for response*/
 .spinner-overlay {
   position: fixed;
@@ -1802,7 +1802,7 @@ cursor: pointer;
 }
 /** waiting spinner for response*/
 
-=======
+
 
 /*=======================BUTTON============================================*/
 
@@ -1826,4 +1826,4 @@ cursor: pointer;
     background: linear-gradient(-135deg, var( --clr-danger), var(--first-color));
 }
 /*++++++++++++++++++++++++++++++++++++++++++++++++++*/
->>>>>>> b83c46b857324b7d248bf8714ca4dbcf74f35428
+

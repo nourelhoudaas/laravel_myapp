@@ -11,7 +11,7 @@ class Fonction extends Model
     protected $table = 'fonctions';
     protected $primaryKey = 'id_fonction';
     public $incrementing = true; 
-    protected $keyType = 'integer'; 
+    protected $keyType = 'string'; 
     public $timestamps = false;
 
     protected $fillable=['id_fonction',	'Nom_fonction',	'Nom_fonction_ar','Moyenne'];

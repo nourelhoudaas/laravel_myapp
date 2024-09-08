@@ -8,6 +8,8 @@
     use App\Models\Contient;
     use App\Models\Niveau;
     use App\Models\Occupe;
+    use App\Models\Fonction;
+    use App\Models\PostSup;
     use App\Models\Sous_departement;
     use Illuminate\Http\Request;
     use App\Models\Departement;
@@ -1424,7 +1426,7 @@ foreach($allwor as $workig)
               {
              //   dd(app()->getLocale());
               }
-
+             
               return view('addTemplate.travaill',compact('employe','dbniv','empdepart','dbn'));
             }
             function existApp($id)
@@ -1450,8 +1452,21 @@ foreach($allwor as $workig)
                   $postsup = new PostSup();
                   $postsupp =$postsup->get();
                   //dd(app()->getLocale());
-              return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart','postsupp','fct'));
-            }
+                  //dd($postsupp);
+                  return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart','postsupp','fct'));
+                }
+                public function getPostSups()
+                    {
+                        $postsup = PostSup::all();  
+                        $fonction = Fonction::all(); 
+                            //dd( $fonction);
+
+                            return response()->json([
+                                'post_sups' => $postsup,
+                                'fonction'=>$fonction,
+                                
+                            ]);
+                    }
             function find_emp($id)
             {
                 $find=Employe::where('id_nin',$id)->first();

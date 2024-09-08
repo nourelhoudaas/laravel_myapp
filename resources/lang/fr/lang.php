@@ -226,8 +226,10 @@ return [
     'maîtrise'=>'Maîtrises',
     'executif'=>'Executifs',
     'nbr_emp_depart'=>'Répartition des employés pour chaque département',
-    'nbr_emp'=>'Nombre d\'employer'
-
+    'nbr_emp'=>'Nombre d\'employer',
+    'slct_post_sup' =>'Séléctionner le poste supèrieur',
+    'slct_fonc'=>'Séléctionner la fonction',
+    
 
 
 ];

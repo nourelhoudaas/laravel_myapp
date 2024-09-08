@@ -34,8 +34,8 @@ class HomeController extends Controller
         ])->get();
 
     //le nbr total des employés
-  $totalEmployes=$employe->count();
-
+    $totalEmployess=$employe->count();
+//dd($totalEmployess);
    $empdept=array();
         $empdepart=Departement::get();
         foreach($empdepart as $deprt)
@@ -110,7 +110,7 @@ $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_famil
          }
      }
      //dd($dataGender);
-        return view('home.dashboard',compact('employe','totalEmployes','empdepart','empdep','empdept','data','dataGender','lang'));
+        return view('home.dashboard',compact('employe','totalEmployess','empdepart','empdep','empdept','data','dataGender','lang'));
     }
 
     public function switchLanguage($locale)
