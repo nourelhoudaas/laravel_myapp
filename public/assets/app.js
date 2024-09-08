@@ -1279,7 +1279,7 @@ $('#sel_posup').change(function() {
                      success: function (response) {
                         if( lng == 'ar')
                         {
-                        showDialog()
+                        alert('تمت العملية بنجاح')
                         }else
                         {
                          alert('Générer avec succès');

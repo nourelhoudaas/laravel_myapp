@@ -15,7 +15,7 @@ class Occupe extends Model
     public $timestamps = false;
     
 
-    protected $fillable=['id_occup'	,'date_recrutement',	'echellant','id_post'	,'id_nin','id_p','ref_PV','ref_Decision'];
+    protected $fillable=['id_occup'	,'date_recrutement',	'echellant','id_post'	,'id_nin','id_p','ref_base','ref_PV','ref_Decision'];
 
     public function employe()
     {

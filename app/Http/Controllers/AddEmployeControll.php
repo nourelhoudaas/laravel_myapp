@@ -303,30 +303,33 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     ]);
     //dd($travaill);
 
-    if($travaill->save())
+    if(isset($travaill))
     {
       $pvf=$request->get('pv_func');
       $pvc=$request->get('pv_postsup');
+      $pvi='new';
       $pv=$request->get('PV_grad');
       if(isset($pvc))
       {
-        $pv= $pvc;
+        $pvi= $pvc;
       }
       else
       {if(isset($pvf))
         {
-          $pv=$pvf;
+          $pvi=$pvf;
         }
       }
+   //   dd($pv);
       Occupe::create([
         'date_recrutement'=>$request->get('RecDate'),
         'echellant'=>0	,
         'id_nin'=>$request->get('ID_NIN'),
         'id_p'=>$request->get('ID_P')	,
-        'ref_PV'=>$pv,
+        'ref_base'=>$pv,
+        'ref_PV'=>$pvi,
         'id_post'=>$request->get('post')
       ]);
-
+      $travaill->save();
         $this->logService->logAction(
         Auth::user()->id,
         $request->get('ID_NIN'),
