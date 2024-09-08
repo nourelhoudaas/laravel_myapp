@@ -65,8 +65,6 @@
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img class="rounded-circle mt-5" width="150px" src="{{ asset('assets/main/img/profile.jpg')}}">
                 {{-- <span class="font-weight-bold">ADMIN</span>
-<<<<<<< HEAD
-=======
 
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
@@ -74,7 +72,6 @@
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                         <img class="rounded-circle mt-5" width="150px" src="{{ asset('assets/main/img/profile.jpg') }}">
                         {{-- <span class="font-weight-bold">ADMIN</span>
->>>>>>> b3e2b7ae3903005306a22f85a08451e12f0a2d0a
                 <span class="text-black-50">ADMIN@mail.com.my</span> --}}
 
                     </div>
@@ -124,7 +121,9 @@
                                 </div>
                                 <div class="row mt-3 just">
                                     <div class="col-md-12">
+  
 
+                                    
                                         <label class="labels">{{ __('lang.num_tel') }}</label>
                                         <input type="text" class="form-control"
                                             placeholder="{{ __('lang.slct_num_tel') }}" value="" id="PHONE_NB">
