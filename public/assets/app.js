@@ -1198,12 +1198,7 @@ $('#sel_posup').change(function() {
                          var id=$('#ID_NIN').val();
                          if(lng == 'ar')
                          {
-<<<<<<< HEAD
-                         alert('تمت إضافة البيانات الشخصي')
-                         hideLoadingSpinner()
-=======
                          alert('تمت إضافة البيانات الشخصية')
->>>>>>> b83c46b857324b7d248bf8714ca4dbcf74f35428
                         }else
                         {
                         alert('Données personnelles ajoutées')

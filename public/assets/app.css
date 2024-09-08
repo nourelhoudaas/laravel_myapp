@@ -1768,7 +1768,6 @@ cursor: pointer;
 .gen-file-handle:hover .gen-list-handle {
   background-color: #3e8e41;
 }
-<<<<<<< HEAD
 /** waiting spinner for response*/
 .spinner-overlay {
   position: fixed;
@@ -1800,28 +1799,3 @@ cursor: pointer;
 }
 /** waiting spinner for response*/
 
-=======
-
-/*=======================BUTTON============================================*/
-
-.btn-group2{
-
-    height: 100%;
-    width: 30%;
-    border-radius: 5px;
-    border: none;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: linear-gradient(135deg,var( --clr-danger), var(--first-color));
-}
-
-
-.btn-group2:hover{
-    background: linear-gradient(-135deg, var( --clr-danger), var(--first-color));
-}
-/*++++++++++++++++++++++++++++++++++++++++++++++++++*/
->>>>>>> b83c46b857324b7d248bf8714ca4dbcf74f35428
