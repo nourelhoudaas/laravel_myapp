@@ -324,27 +324,16 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
           $pvi=$pvf;
         }
       }
-<<<<<<< HEAD
-   //   dd($pv);
-=======
       if($request->get('pv_postsup') > 0)
       {
         $id_postsup=$request->get('pv_postsup');
       }
       
->>>>>>> 088e2f68cc9b745ccc5305ee9d2c3ae283e0ded5
       Occupe::create([
         'date_recrutement'=>$request->get('RecDate'),
         'echellant'=>0	,
         'id_nin'=>$request->get('ID_NIN'),
         'id_p'=>$request->get('ID_P')	,
-<<<<<<< HEAD
-        'ref_base'=>$pv,
-        'ref_PV'=>$pvi,
-        'id_post'=>$request->get('post')
-      ]);
-      $travaill->save();
-=======
         'ref_PV'=>$pv,
         'ref_base'=>$request->get('PV_grad'),
         'id_post'=>$request->get('post'),
@@ -356,7 +345,6 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
 
       ]);
         
->>>>>>> 088e2f68cc9b745ccc5305ee9d2c3ae283e0ded5
         $this->logService->logAction(
         Auth::user()->id,
         $request->get('ID_NIN'),

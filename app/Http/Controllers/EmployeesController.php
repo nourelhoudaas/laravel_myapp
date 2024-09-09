@@ -1012,10 +1012,31 @@ foreach($allwor as $workig)
                     {
                         $totaljour+=$cg->nbr_jours;
                     }
+                    $nbrMal=0;
+                    $nbrsn=0;
+                    $cngMal=Conge::select('nbr_jours')
+                               ->where('ref_cong','RF002')
+                               ->orderBy('date_fin_cong')
+                               ->first();
+                    if(isset($cngMal))
+                    {
+                        $nbrMal=$cngMal->nbr_jours;
+                    }
+
+                    $cngSan=Conge::select('nbr_jours')
+                               ->where('ref_cong','RF003')
+                               ->orderBy('date_fin_cong')
+                               ->first();
+                    if(isset($cngSan))
+                    {
+                        $nbrsn=$cngSan->nbr_jours;
+                    }
                     return response()->json(
                         [
                             'employe'=>$emp,
-                            'Jour_congé'=> $cng[0]->nbr_jours   ,
+                            'Jour_congé_an'=> $cng[0]->nbr_jours   ,
+                            'Jour_congé_mal'=>$nbrMal,
+                            'Jour_congé_sn'=>$nbrsn,
                             'date_congé'=>$cng[0]->date_fin_cong
                         ]
                     );
@@ -1026,14 +1047,35 @@ foreach($allwor as $workig)
                     if(isset($cng[0]) && $cng[0]->ref_cong == 'RF002')
                     {
                         //dd($cng);
+                        $nbrAnu=0;
+                        $nbrsn=0;
+                        $cngAn=Conge::select('nbr_jours')
+                                   ->where('ref_cong','RF001')
+                                   ->orderBy('date_fin_cong')
+                                   ->first();
+                        if(isset($cngAn))
+                        {
+                            $nbrAnu=$cngAn->nbr_jours;
+                        }
+
+                        $cngSan=Conge::select('nbr_jours')
+                                   ->where('ref_cong','RF003')
+                                   ->orderBy('date_fin_cong')
+                                   ->first();
+                        if(isset($cngSan))
+                        {
+                            $nbrsn=$cngAn->nbr_jours;
+                        }
                         $current=Carbon::parse($cng[0]->date_debut_cong);
                         $mald_deb=Carbon::parse($cng[0]->date_fin_cong);
                         $diff = $current->diffInDays($mald_deb);
                         return response()->json(
                             [
                                 'employe'=>$emp,
-                                'Jour_congé'=>$diff   ,
+                                'Jour_congé_mal'=>$diff   ,
                                 'date_congé'=>$cng[0]->date_fin_cong,
+                                'Jour_congé_an'=>$nbrAnu,
+                                'Jour_congé_sn'=>$nbrsn,
                                 'type'=>'Maladie'
                             ]
                         );
@@ -1179,9 +1221,38 @@ foreach($allwor as $workig)
                             $nbrcngbef=$cg->nbr_jours;
                             $end = Carbon::parse($request->get('date_fcg'));
                             $daysDifference = $start->diffInDays($end);
-                            dd($nbrcngbef);
+                            //dd($nbrcngbef);
                             $nbrcg=$nbrcngbef-$consume+$daysDifference;
-                            $cg->update(['date_fin_cong'=>$request->get('date_dcg'),'nbr_jours'=>$nbrcg]) ; 
+                            if($cg->date_fin_cong > $request->get('date_dcg') )
+                            {
+                            $cg->update(['date_fin_cong'=>$request->get('date_dcg'),'nbr_jours'=>$nbrcg]) ;
+                            }
+                            else
+                            {
+                                $cong=new Conge([
+                                    'id_nin'=>$request->get('ID_NIN'),
+                                    'id_p'=>$request->get('ID_P'),
+                                    'date_debut_cong'=>$request->get('date_dcg'),
+                                    'date_fin_cong'=>$request->get('date_fcg'),
+                                    'nbr_jours'=>1,
+                                    'ref_cong'=>$request->get('type_cg'),
+                                    'ref_cng'=>$request->get('ref_cng'),
+                                    'situation'=>$request->get('situation'),
+                                    'situation_AR'=>$situation_ar,
+                                    'id_sous_depart'=>$request->get('SDic')
+                                        ]);
+                                        if($cong->save())
+                                        {
+                                            return response()->json(['message'=>$msgsuc,'status'=>200]);
+                                        }
+                                        else
+                                        {
+                                            return response()->json([
+                                                'message'=>$msgdateins,
+                                                'status'=> 404
+                                            ]);
+                                        }
+                            }
                             if($cg)
                             {
                                 $cong=new Conge([
