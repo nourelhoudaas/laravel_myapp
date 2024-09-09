@@ -81,8 +81,9 @@
                         @csrf
                         <div class="col-md-18">
                             <div class="p-5 py-15">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">{{ __('lang.prof_set') }}</h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3 title">
+                                    {{-- <h4 class="text-right">{{ __('lang.prof_set') }}</h4> --}}
+                                    <span class="space">{{ __('lang.prof_set') }}</span>
                                 </div>
                                 <div class="row mt-2 just">
                                     <div class="col-md-12">
@@ -121,9 +122,9 @@
                                 </div>
                                 <div class="row mt-3 just">
                                     <div class="col-md-12">
-  
 
-                                    
+
+
                                         <label class="labels">{{ __('lang.num_tel') }}</label>
                                         <input type="text" class="form-control"
                                             placeholder="{{ __('lang.slct_num_tel') }}" value="" id="PHONE_NB">
@@ -171,9 +172,9 @@
                                             <option value="femelle">{{ __('lang.sx_fm') }}</option>
                                         </select>
                                     </div>
-                                    <hr>
-                                    <span>{{ __('lang.stitua_fam') }}</span>
-                                    <hr>
+
+                                    <div  class="space"> <span  class="title">{{ __('lang.stitua_fam') }}</span></div>
+
                                     <div class="row mt-3 just">
                                         <div class="col-md-6">
                                             <label class="labels">Prénom du Père</label>

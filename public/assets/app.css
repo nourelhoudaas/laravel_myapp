@@ -1767,20 +1767,20 @@ cursor: pointer;
     background: linear-gradient(-135deg, var( --clr-danger), var(--first-color));
 }
 /*++++++++++++++++++++++++++++++++++++++++++++++++++*/
-html:lang(fr) main .title {
+html:lang(fr)  .title {
     /* font-size: 25px; */
     font-size: 2rem;
     font-weight: 500;
     position: relative;
   }
-   html:lang(ar) main .title {
+   html:lang(ar)  .title {
     font-size: 2rem;
     font-weight: 500;
     position: relative;
   }
 
   /* Trait décoratif pour la langue française */
-html:lang(fr) main .title::before {
+html:lang(fr)  .title::before {
     content: "";
     position: absolute;
     left: 0; /* Aligné à droite */
@@ -1792,52 +1792,22 @@ html:lang(fr) main .title::before {
   }
 
   /* Trait décoratif pour la langue arabe */
-  html:lang(ar) main .title::before {
+  html:lang(ar)  .title::before {
     content: "";
     position: absolute;
     right: 0; /* Aligné à gauche */
-    bottom: 0;
+    bottom: -8px;
     height: 3px;
     width: 50px;
     border-radius: 5px;
     background: linear-gradient(135deg, var(--clr-danger), var(--first-color));
+  }
+  .space{
+    margin-top: 35px;
+    margin-bottom: 10px;
   }
 /*==========================TABLEAU=========================*/
-html:lang(fr) .recent_order .title{
-    /* font-size: 25px; */
-    font-size: 2rem;
-    font-weight: 500;
-    position: relative;
-  }
-   html:lang(ar) .recent_order .title{
-    font-size: 2rem;
-    font-weight: 500;
-    position: relative;
-  }
 
-  /* Trait décoratif pour la langue française */
-html:lang(fr) .recent_order .title::before {
-    content: "";
-    position: absolute;
-    left: 0; /* Aligné à droite */
-    bottom: 0;
-    height: 3px;
-    width: 50px;
-    border-radius: 5px;
-    background: linear-gradient(135deg, var(--clr-danger), var(--first-color));
-  }
-
-  /* Trait décoratif pour la langue arabe */
-  html:lang(ar) .recent_order .title::before {
-    content: "";
-    position: absolute;
-    right: 0; /* Aligné à gauche */
-    bottom: 0;
-    height: 3px;
-    width: 50px;
-    border-radius: 5px;
-    background: linear-gradient(135deg, var(--clr-danger), var(--first-color));
-  }
 .styled-table {
     border-collapse: collapse;
     margin-top: 10rem;
