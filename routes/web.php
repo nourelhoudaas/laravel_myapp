@@ -112,7 +112,7 @@ Route::controller(DepartmentController::class)->group(function(){
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
    // Route::get('/department/listcontient','liste_contient')->name('liste.contient');
-    Route::match(['get', 'post'], '/listcontient','liste_contient')->name('liste.contient');
+    Route::match(['get', 'post'], '/listcontient{ss_dep}','liste_contient')->name('app_liste_contient');
     Route::get('/depart/{departement}', 'delete')->name('department.delete');
 
 

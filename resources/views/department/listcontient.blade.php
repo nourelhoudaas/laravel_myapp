@@ -21,7 +21,7 @@
 
 
 
-
+            <h1>sous direction</h1>
 
             <div class="insightss">
 
@@ -50,9 +50,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- end Absence -->
 
-                <!-- start Presence -->
+
                 <div class="expenses">
                     <span class="material-symbols-outlined">supervised_user_circle</span>
                     <div class="middle">
@@ -63,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <!-- end inside -->
+
 
             <!-- start resent order -->
 
@@ -76,8 +75,13 @@
                         <tr>
                         <thead>
     <tr>
-    <th>
-
+        <th>
+            <a href="{{ route('app_liste_contient', ['dep_id' => $dep_id, 'champs' => 'Nom_post', 'direction' => ($champs == 'Nom_post' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            {{ __('lang.post') }}
+                @if($champs == 'Nom_post')
+                    {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
+                @endif
+            </a>
         </th>
         <th>
 

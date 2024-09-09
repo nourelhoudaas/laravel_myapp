@@ -40,6 +40,7 @@
                                         @if ($locale == 'fr')
                                         <a
                                             href="{{ route('app_dashboard_depart', $departement->id_depart) }}">{{ $departement->Nom_depart }}</a>
+
                                             @elseif ($locale == 'ar')
                                             <a
                                             href="{{ route('app_dashboard_depart', $departement->id_depart) }}">{{ $departement->Nom_depart_ar }}</a>
@@ -47,11 +48,15 @@
                                     </td>
                                     <td>
 
-                                        @foreach ($departement->sous_departement as $sous_departement)
+                                        @foreach ($ss_dep->sous_departement as $sous_departement)
                                         @if ($locale == 'fr')
-                                            {{ $sous_departement->Nom_sous_depart }}<br>
+                                        <a
+                                        href="{{ route('app_liste_contient',$ss_dep->Nom_sous_depart) }}"> {{ $sous_departement->Nom_sous_depart }}<br></a>
+
+
                                             @elseif ($locale == 'ar')
-                                            {{ $sous_departement->Nom_sous_depart_ar }}<br>
+                                            <a
+                                            href="{{ route('app_liste_contient', $departement->Nom_sous_depart_ar) }}"> {{ $sous_departement->Nom_sous_depart_ar }}<br>
                                             @endif
                                         @endforeach
                                     </td>

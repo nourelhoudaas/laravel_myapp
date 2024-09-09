@@ -357,14 +357,140 @@ public function delete($id_depart)
             return response()->json(['success'=>'empty','status'=>302]);
         }
     }
-    public function liste_contient(Request $request)
+    public function liste_contient(Request $request,$ss_dep)
     {
         $empdepart=Departement::with('sous_departement')->get();
         $direction = $request->input('direction', 'asc');
 
+            $nom_d = Sous_departement::where('Nom_sous_depart')->value('Nom_sous_depart');
+            /////
+            $champs = $request->input('champs', 'Nom_emp'); // Champ de tri par défaut
+            $direction = $request->input('direction', 'asc'); // Direction de tri par défaut
+
+            $employes = Employe::with([
+                'occupeIdNin.post',
+                'travailByNin.sous_departement.departement'
+            ])
+
+            ->get();
+            //dd( $empdep);
+            //filter fct de laravel
+            $empdep = $employes->filter(function($employe) {
+                $post = $employe->occupeIdNin->last()->post ?? null;
+
+                $sousDepartement = $travail->sous_departement ?? null;
+                $departement = $sousDepartement->departement ?? null;
+
+                // Vérifiez si le département de l'employé correspond à l'ID du département
+                return $departement && $departement->id_depart;
+            });
+
+            //optional pour si ya null il envoi pas erreur il envoi null
+            //SORT_REGULAR veut dire que les éléments doivent être triés en utilisant la comparaison des valeurs telles qu'elles sont, sans conversion spéciale.
+
+            if ($champs === 'Nom_post') {
+            $empdep = $empdep->sortBy(function($emp) {
+                return optional($emp->occupeIdNin->last())->post->Nom_post;
+            }, SORT_REGULAR, $direction === 'desc');
 
 
-        return view('department.listcontient', compact('empdepart','direction'));
+            } elseif ($champs === 'Nom_depart') {
+            $empdep = $empdep->sortBy(function($emp) {
+            return optional(optional($emp->travailByNin->last())->sous_departement->departement)->Nom_depart;
+            }, SORT_REGULAR, $direction === 'desc');
+
+            } elseif ($champs === 'Nom_sous_depart') {
+            $empdep = $empdep->sortBy(function($emp) {
+            return optional($emp->travailByNin->last())->sous_departement->Nom_sous_depart;
+            }, SORT_REGULAR, $direction === 'desc');
+
+            } else {
+            $empdep = $empdep->sortBy($champs, SORT_REGULAR, $direction === 'desc');
+            }
+
+            $empdep = $empdep->values();
+            $locale = app()->getLocale();
+            //dd($empdep);
+                    $empdepart=Departement::get();
+
+                    /*$empdepart= DB::table('departements')
+                    ->get();*/
+                        if ($locale == 'fr'){
+                            $nom_d = Sous_departement::where('Nom_sous_depart', $ss_dep)->value('Nom_sous_depart');
+                        }
+
+                        elseif ($locale == 'ar'){
+                            $nom_d = Sous_departement::where('Nom_sous_depart', $ss_dep)->value('Nom_sous_depart_ar');
+                        }
+
+
+
+
+
+            //le nbr total des employe pour chaque depart
+                    $totalEmpDep = $empdep->count();
+                // dd($totalEmpDep);
+
+                    // Définir le nombre d'éléments par page
+                $perPage = 5; // Par exemple, 2 éléments par page
+                $page = 1; // Page actuelle
+                                    if(request()->get('page') != null)
+                                    {
+                                        $page=   request()->get('page');
+                                    }
+                $offset = ($page - 1) * $perPage;
+
+                // Extraire les éléments pour la page actuelle
+                $items = $empdep->slice($offset, $perPage)->values();
+                //dd($items);
+
+                // Créer le paginator
+                $paginator = new LengthAwarePaginator(
+                    $items, // Items de la page actuelle
+                    $empdep->count(), // Nombre total d'éléments
+                    $perPage, // Nombre d'éléments par page
+                    $page, // Page actuelle
+                    [
+                        'path' => request()->url(), // URL actuel
+                        'query' => request()->query() // Paramètres de la requête
+                    ]
+                );
+        /************************encadrement_maitris_executif*************** */
+                $encadrement = Employe::
+                join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+                ->where('posts.Grade_post', '>', 11)
+                ->whereRaw('occupes.date_recrutement = (
+                    SELECT MAX(o2.date_recrutement)
+                    FROM occupes o2
+                    WHERE o2.id_nin = employes.id_nin
+                )') ->count();
+               // dd( $encadrement);
+
+               $maitrise = DB::table('employes')
+               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+               ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+               ->whereBetween('posts.Grade_post', [7, 11])
+               ->whereRaw('occupes.date_recrutement = (
+                   SELECT MAX(o2.date_recrutement)
+                   FROM occupes o2
+                   WHERE o2.id_nin = employes.id_nin
+               )') ->count();
+              //dd( $maitrise);
+
+               $executif = DB::table('employes')
+               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+               ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+               ->where('posts.Grade_post', '<', 7)
+               ->whereRaw('occupes.date_recrutement = (
+                   SELECT MAX(o2.date_recrutement)
+                   FROM occupes o2
+                   WHERE o2.id_nin = employes.id_nin
+               )') ->count();
+             // dd( $executif);
+
+
+        return view('department.listcontient', compact('paginator','empdep','empdepart','totalEmpDep','nom_d','champs','direction','encadrement','maitrise','executif'));
     }
 
 
