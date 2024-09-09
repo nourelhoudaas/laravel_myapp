@@ -3,8 +3,8 @@
 return [
     'Action'=>'Action',
     'mnc'=>'Ministère de la Communication',
-    'dashboard'=>'Tableau de Bord de ',
-
+    'dashboard'=>'Tableau de Bord',
+    'tableauVide'=>'Aucune donnée disponible dans le tableau',
     'Depratement'=>'Directions',
     'AddDir'=>'Ajouter une Direction',
     'ListDir'=>'Liste des Directions',
@@ -229,7 +229,7 @@ return [
     'nbr_emp'=>'Nombre d\'employer',
     'slct_post_sup' =>'Séléctionner le poste supèrieur',
     'slct_fonc'=>'Séléctionner la fonction',
-    
+
 
 
 ];

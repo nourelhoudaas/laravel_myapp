@@ -58,6 +58,7 @@
         console.log('lang'+lng);
 
     </script>
-    {{--alert delete--}}
+
+
 
 </html>

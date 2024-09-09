@@ -1,26 +1,19 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('assets/lib/bootstrap/js/bootstrap.js')}}"></script>
 <script src="{{ asset('assets/lib/jquery/jquery.js')}}"></script>
 <script src="{{ asset('assets/main/user/user.js')}}"></script>
-<script src="{{ asset('assets/lib/bootstrap/js/bootstrap.js') }}"></script>
-<script src="{{ asset('assets/lib/jquery/jquery.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ asset('assets/main/user/user.js') }}"></script>
 <script src="{{ asset('assets/app.js') }}"></script>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
+<script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.4/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+    integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
     <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js"></script>
-       <script src="https://cdn.datatables.net/2.1.4/js/dataTables.bootstrap5.js"></script>
-       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--}}
 
 <script>
     /*==================== SHOW NAVBAR ====================*/
@@ -69,6 +62,7 @@ $(document).ready(function() {
             infoFiltered: '',
             lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
             zeroRecords: 'لم يتم العثور على شيء - عذراً',
+            emptyTable: 'لا توجد بيانات في الجدول',
             search: 'بحث: ',
             oPaginate: {
                 sNext: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span><span class="pagination-default"></span>',
@@ -83,6 +77,7 @@ $(document).ready(function() {
             lengthMenu: 'Afficher _MENU_ enregistrements par page',
             zeroRecords: 'Rien trouvé - désolé',
             search: 'Recherche: ',
+            emptyTable: 'Aucune donnée disponible dans le tableau',
             oPaginate: {
                 sNext: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
                 sPrevious : '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'

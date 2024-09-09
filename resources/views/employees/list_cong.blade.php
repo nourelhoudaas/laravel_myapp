@@ -324,45 +324,49 @@
             success: function(response) {
                 // Clear the table
                 employeeTableBody.empty();
-                // Insert data into the table
-                console.log('ea'+JSON.stringify(response))
-                response.forEach(employe => {
 
-                    var row = '';
-                 //   row.classList.add("employee-row");
-                    if (lng === 'fr') {
-                row = '<tr><td>' + employe.Nom_emp + '</td>' +
-                                '<td>' + employe.Prenom_emp + '</td>' +
-                                '<td>' + employe.Nom_post + '</td>' +
-                                '<td>' + employe.Nom_sous_depart + '</td>' +
-                                '<td>' + employe.nbr_jours+'</td>'+
-                                '<td>' + employe.titre_cong + '</td>' +
-                                '<td>' + employe.date_debut_cong + '</td>' +
-                                '<td>' + employe.date_fin_cong + '</td>' +
-                                '<td>' + employe.joursRestants + '</td>' +
-                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
-                                '</tr>';
-            } else if (lng === 'ar') {
-                row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
-                                '<td>' + employe.Prenom_ar_emp + '</td>' +
-                                '<td>' + employe.Nom_post_ar + '</td>' +
-                                '<td>' + employe.Nom_sous_depart_ar + '</td>' +
-                                '<td>' + employe.nbr_jours+'</td>'+
-                                '<td>' + employe.titre_cong_ar + '</td>' +
-                                '<td>' + employe.date_debut_cong + '</td>' +
-                                '<td>' + employe.date_fin_cong + '</td>' +
-                                '<td>' + employe.joursRestants + '</td>' +
-                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
-                                '</tr>';
-            }
-            employeeTableBody.append(row);
-        });
-         },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Error:', textStatus, errorThrown);
-            }
-
-        });
+ // Check if the response contains data
+ if (response.length === 0) {
+            // If no data, display a "No data" message
+            employeeTableBody.append('<tr><td colspan="10" style="text-align:center;">{{ __('lang.tableauVide') }}</td></tr>');
+        } else {
+            // Insert data into the table
+            console.log('ea' + JSON.stringify(response));
+            response.forEach(employe => {
+                var row = '';
+                if (lng === 'fr') {
+                    row = '<tr><td>' + employe.Nom_emp + '</td>' +
+                                  '<td>' + employe.Prenom_emp + '</td>' +
+                                  '<td>' + employe.Nom_post + '</td>' +
+                                  '<td>' + employe.Nom_sous_depart + '</td>' +
+                                  '<td>' + employe.nbr_jours + '</td>' +
+                                  '<td>' + employe.titre_cong + '</td>' +
+                                  '<td>' + employe.date_debut_cong + '</td>' +
+                                  '<td>' + employe.date_fin_cong + '</td>' +
+                                  '<td>' + employe.joursRestants + '</td>' +
+                                  '<td class="abs-info" id="cng' + employe.id_nin + '"><a href=/Employe/read_just/' + employe.id_fichier + ' target="_blank">' + employe.ref_cng + '</a></td>' +
+                                  '</tr>';
+                } else if (lng === 'ar') {
+                    row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
+                                  '<td>' + employe.Prenom_ar_emp + '</td>' +
+                                  '<td>' + employe.Nom_post_ar + '</td>' +
+                                  '<td>' + employe.Nom_sous_depart_ar + '</td>' +
+                                  '<td>' + employe.nbr_jours + '</td>' +
+                                  '<td>' + employe.titre_cong_ar + '</td>' +
+                                  '<td>' + employe.date_debut_cong + '</td>' +
+                                  '<td>' + employe.date_fin_cong + '</td>' +
+                                  '<td>' + employe.joursRestants + '</td>' +
+                                  '<td class="abs-info" id="cng' + employe.id_nin + '"><a href=/Employe/read_just/' + employe.id_fichier + ' target="_blank">' + employe.ref_cng + '</a></td>' +
+                                  '</tr>';
+                }
+                employeeTableBody.append(row);
+            });
+        }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        console.error('Error:', textStatus, errorThrown);
+    }
+});
 
         }
             }
