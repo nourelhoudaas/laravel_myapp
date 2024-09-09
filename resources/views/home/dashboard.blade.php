@@ -33,9 +33,9 @@
                     <div class="sales">
                         <span class="material-symbols-outlined">groups</span>
                         <div class="middle">
-                            <div class="left">
+                        <div class="left">
                                 <h3>{{ __('lang.nbr_all_users') }}</h3>
-                                <h1>{{ $totalEmployes}}</h1>
+                                <h1>{{ $totalEmployess}}</h1>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ class Occupe extends Model
     public $timestamps = false;
     
 
-    protected $fillable=['id_occup'	,'date_recrutement',	'echellant','id_post'	,'id_nin','id_p','ref_PV','ref_Decision'];
+    protected $fillable=['id_occup'	,'date_recrutement',	'echellant','id_post'	,'id_nin','id_p','ref_PV','ref_Decision','ref_base','id_postsup','id_fonction'];
 
     public function employe()
     {
@@ -25,6 +25,16 @@ class Occupe extends Model
     public function post()
     {
         return $this->belongsTo(Post::class,'id_post','id_post');
+    }
+
+    public function occupe()
+    {
+        return $this->belongsTo(PostSup::class,'id_postsup','id_postsup');
+    }
+
+    public function fonction()
+    {
+        return $this->belongsTo(Fonction::class,'id_fonction','id_fonction');
     }
 
 }

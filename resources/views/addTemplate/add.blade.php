@@ -121,7 +121,9 @@
                                 </div>
                                 <div class="row mt-3 just">
                                     <div class="col-md-12">
+  
 
+                                    
                                         <label class="labels">{{ __('lang.num_tel') }}</label>
                                         <input type="text" class="form-control"
                                             placeholder="{{ __('lang.slct_num_tel') }}" value="" id="PHONE_NB">

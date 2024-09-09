@@ -8,6 +8,8 @@
     use App\Models\Contient;
     use App\Models\Niveau;
     use App\Models\Occupe;
+    use App\Models\Fonction;
+    use App\Models\PostSup;
     use App\Models\Sous_departement;
     use Illuminate\Http\Request;
     use App\Models\Departement;
@@ -1108,11 +1110,16 @@ foreach($allwor as $workig)
                 ->get();
                 $delai=0;
                 $right=false;
-              
+                $allday='';
+                if(gettype($request->get('total_cgj')) == 'string')
+                {
+                    $allday=explode('-',$request->get('total_cgj'));
+                    //dd(intval($allday[0]));
+                };
                 if(count($cng) == 0)
                 {
                    
-                    if($request->get('type_cg') == 'RF001' && $request->get('total_cgj') > 0)
+                    if($request->get('type_cg') == 'RF001' && intval($allday[0]) > 0)
                     {
                         $start = Carbon::parse($request->get('date_dcg'));
                         $end = Carbon::parse($request->get('date_fcg'));
@@ -1166,11 +1173,14 @@ foreach($allwor as $workig)
                        // dd($diff);
                         if (!$mald_deb->between($current->copy()->subDays(2), $current))
                          {
-                            
+                            $startcng=Carbon::parse($cg->date_debut_cng);
                             $start = Carbon::parse($cg->date_fin_cong);
+                            $consume=$startcng->diffInDays($start);
+                            $nbrcngbef=$cg->nbr_jours;
                             $end = Carbon::parse($request->get('date_fcg'));
                             $daysDifference = $start->diffInDays($end);
-                            $nbrcg=$cg->nbr_jours+$daysDifference;
+                            dd($nbrcngbef);
+                            $nbrcg=$nbrcngbef-$consume+$daysDifference;
                             $cg->update(['date_fin_cong'=>$request->get('date_dcg'),'nbr_jours'=>$nbrcg]) ; 
                             if($cg)
                             {
@@ -1179,7 +1189,7 @@ foreach($allwor as $workig)
                                     'id_p'=>$request->get('ID_P'),
                                     'date_debut_cong'=>$request->get('date_dcg'),
                                     'date_fin_cong'=>$request->get('date_fcg'),
-                                    'nbr_jours'=>0,
+                                    'nbr_jours'=>1,
                                     'ref_cong'=>$request->get('type_cg'),
                                     'ref_cng'=>$request->get('ref_cng'),
                                     'situation'=>$request->get('situation'),
@@ -1226,7 +1236,6 @@ foreach($allwor as $workig)
                     $all=$request->get('total_cgj');
                     $all=intval($all);
                     $date=intval($monthsDifference*30);
-
                     if( $all > $date)
                     {
                         $nbrcng= $all - $date;
@@ -1236,7 +1245,7 @@ foreach($allwor as $workig)
                         $nbrcng=-1;
                     }
                 //  dd($nbrcng);
-                    if($nbrcng <= 0 && $request->get('type_cg') == 'RF001')
+                    if($nbrcng <= 0 && $request->get('type_cg') == 'RF001' && $cg->ref_cong != 'RF002')
                     {
                         return response()->json([
                             'message'=>$msgdateout.' '.$nbrcng,
@@ -1244,13 +1253,19 @@ foreach($allwor as $workig)
                         ]);
                     }else
                     {
-                    // dd(intval($nbrcng));
+                        $dat=Conge::select('nbr_jours')
+                                   ->where('ref_cong','RF001')
+                                   ->where('id_nin',$request->get('ID_NIN'))
+                                   ->orderBy('date_fin_cong','desc')
+                                   ->first();  
+                     $newcngs=$dat->nbr_jours-$all;
+                   //  dd(intval($newcngs));
                         $cong=new Conge([
                         'id_nin'=>$request->get('ID_NIN'),
                         'id_p'=>$request->get('ID_P'),
                         'date_debut_cong'=>$request->get('date_dcg'),
                         'date_fin_cong'=>$request->get('date_fcg'),
-                        'nbr_jours'=>intval($nbrcng),
+                        'nbr_jours'=>intval($newcngs),
                         'ref_cng'=>$request->get('ref_cng'),
                         'ref_cong'=>$request->get('type_cg'),
                         'situation'=>$request->get('situation'),
@@ -1258,6 +1273,18 @@ foreach($allwor as $workig)
                         
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
+                            if( $cong->save())
+                            {
+                                return response()->json(['message'=>$msgsuc,'status'=>200]);
+                            }
+                            else
+                            {
+                                return response()->json([
+                                    'message'=>$msgmald,
+                                    'status'=> 404
+                                ]);
+
+                            }
                     }
 
 
@@ -1424,7 +1451,7 @@ foreach($allwor as $workig)
               {
              //   dd(app()->getLocale());
               }
-
+             
               return view('addTemplate.travaill',compact('employe','dbniv','empdepart','dbn'));
             }
             function existApp($id)
@@ -1440,11 +1467,31 @@ foreach($allwor as $workig)
               $Appartient=appartient::where('id_nin', $id)->get();
               $post=New Post();
               $dbpost=$post->get();
+              
               $dbempdepart = new Departement();
                   $empdepart =$dbempdepart->get();
+
+                  $fonction = new Fonction();
+                  $fct =$fonction->get();
+
+                  $postsup = new PostSup();
+                  $postsupp =$postsup->get();
                   //dd(app()->getLocale());
-              return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
-            }
+                  //dd($postsupp);
+                  return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart','postsupp','fct'));
+                }
+                public function getPostSups()
+                    {
+                        $postsup = PostSup::all();  
+                        $fonction = Fonction::all(); 
+                            //dd( $fonction);
+
+                            return response()->json([
+                                'post_sups' => $postsup,
+                                'fonction'=>$fonction,
+                                
+                            ]);
+                    }
             function find_emp($id)
             {
                 $find=Employe::where('id_nin',$id)->first();
