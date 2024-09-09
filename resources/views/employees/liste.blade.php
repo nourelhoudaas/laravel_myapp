@@ -22,7 +22,7 @@
                 <div class="recent_order">
                     <div class="title">{{ __('lang.lst_emp') }}</div>
                     {{-- <h1 class="title">{{ __('lang.lst_emp') }}</h1> --}}
-                    <table  class="styled-table" id='myTable' style="width:100%">
+                    <table  class="styled-table" id='myTable' >
 
                         <thead>
 
@@ -226,47 +226,7 @@
     })
 </script>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
-            <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js" ></script>
-<script>
-$(document).ready(function() {
-    let lang = "{{ app()->getLocale() }}";
-    let language = {};
 
-    if (lang === 'ar') {
-        language = {
-            info: 'عرض الصفحة _PAGE_ من _PAGES_',
-            infoEmpty: 'لا توجد سجلات متاحة',
-            infoFiltered: '',
-            lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
-            zeroRecords: 'لم يتم العثور على شيء - عذراً',
-            search: 'بحث: '
-        };
-    } else if (lang === 'fr') {
-        language = {
-            info: 'Affichage de la page _PAGE_ sur _PAGES_',
-            infoEmpty: 'Aucun enregistrement disponible',
-            infoFiltered: '',
-            lengthMenu: 'Afficher _MENU_ enregistrements par page',
-            zeroRecords: 'Rien trouvé - désolé',
-            search: 'Recherche: '
-        };
-    }
-
-    $('#myTable').DataTable({
-        "dom": '<"top"f>rt<"bottom"lp><"clear">',
-        pagingType: "simple",
-        oLanguage: {
-            oPaginate: {
-               sNext: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
-            sPrevious: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'
-            }
-        },
-        language: language,
-
-    });
-});
-</script>
 
     </body>
 @endsection

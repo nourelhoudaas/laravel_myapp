@@ -23,9 +23,9 @@
                 $uid=auth()->id()
                 @endphp
                 @if(isset($uid))
-                <h1>{{ __('lang.Tableau_de_Bord_de') }} {{Auth::user()->username }}</h1>
+               <div class="title"> <h1>{{ __('lang.Tableau_de_Bord_de') }} {{Auth::user()->username }}</h1></div>
                 @else
-                <h1>{{ __('lang.TableaudebordsansuserId') }}</h1>
+                <div class="title"><h1>{{ __('lang.TableaudebordsansuserId') }}</h1></div>
                 @endif
 
                 <div class="insightss">

@@ -36,8 +36,9 @@
                         </select>
                 </div>
                 <div class="recent_order">
-                    <h1>{{ __('lang.ctrl_abs') }}</h1>
-                    <table id="AbsTable">
+                    <div class="title">{{ __('lang.ctrl_abs') }}</div>
+
+                    <table id="AbsTable" class="styled-table">
 
                         <thead>
 
@@ -57,13 +58,13 @@
                     <h3 id='emp-info'></h3>
                 </div>
                 <div class="recent_order">
-                    <table id="AbsempTable">
+                    {{-- <table class="styled-table" id="AbsempTable">
 
                         <thead>
 
                         </thead>
                         <tbody></tbody>
-                    </table>
+                    </table> --}}
                     <div id="pagination-info">
                      <p>{{__('lang.nbr_absence')}}: <span id="total-posts"></span></p>
                      <p>{{__('lang.nbr_page')}}: <span id="total-pages"></span></p>
