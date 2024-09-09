@@ -2566,3 +2566,4 @@ function checksickDaye(maladie) {
  * end
  *
  */
+

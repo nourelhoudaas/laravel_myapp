@@ -14,7 +14,13 @@
 <script src="{{ asset('assets/main/user/user.js') }}"></script>
 <script src="{{ asset('assets/app.js') }}"></script>
 
-
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
+    <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js"></script>
+       <script src="https://cdn.datatables.net/2.1.4/js/dataTables.bootstrap5.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 
 <script>
     /*==================== SHOW NAVBAR ====================*/
@@ -45,3 +51,151 @@
     linkColor.forEach(l => l.addEventListener('click', colorLink))
 </script>
 
+{{-- /*=======================================DATATABLE===============================================*/ --}}
+<script>
+
+$(document).ready(function() {
+    if ($.fn.DataTable.isDataTable('#myTable')) {
+                $('#myTable').DataTable().destroy();
+            }
+
+    let lang = "{{ app()->getLocale() }}";
+    let oLanguage = {};
+
+    if (lang === 'ar') {
+        oLanguage = {
+            info: 'عرض الصفحة _PAGE_ من _PAGES_',
+            infoEmpty: 'لا توجد سجلات متاحة',
+            infoFiltered: '',
+            lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
+            zeroRecords: 'لم يتم العثور على شيء - عذراً',
+            search: 'بحث: ',
+            oPaginate: {
+                sNext: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span><span class="pagination-default"></span>',
+                sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
+            }
+        };
+    } else if (lang === 'fr') {
+        oLanguage = {
+            info: 'Affichage de la page _PAGE_ sur _PAGES_',
+            infoEmpty: 'Aucun enregistrement disponible',
+            infoFiltered: '',
+            lengthMenu: 'Afficher _MENU_ enregistrements par page',
+            zeroRecords: 'Rien trouvé - désolé',
+            search: 'Recherche: ',
+            oPaginate: {
+                sNext: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                sPrevious : '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'
+            }
+        };
+    }
+
+
+    $('#myTable').DataTable({
+        "dom": '<"top"f>rt<"bottom"lp><"clear">',
+        pagingType: "simple",
+        language: oLanguage,
+
+    });
+});
+</script>
+
+<script>
+
+    $(document).ready(function() {
+        if ($.fn.DataTable.isDataTable('#AbsTable')) {
+                    $('#AbsTable').DataTable().destroy();
+                }
+
+        let lang = "{{ app()->getLocale() }}";
+        let oLanguage = {};
+
+        if (lang === 'ar') {
+            oLanguage = {
+                info: 'عرض الصفحة _PAGE_ من _PAGES_',
+                infoEmpty: 'لا توجد سجلات متاحة',
+                infoFiltered: '',
+                lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
+                zeroRecords: 'لم يتم العثور على شيء - عذراً',
+                emptyTable: 'لا توجد بيانات في الجدول',
+                search: 'بحث: ',
+                oPaginate: {
+                    sNext: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span><span class="pagination-default"></span>',
+                    sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
+                }
+            };
+        } else if (lang === 'fr') {
+            oLanguage = {
+                info: 'Affichage de la page _PAGE_ sur _PAGES_',
+                infoEmpty: 'Aucun enregistrement disponible',
+                infoFiltered: '',
+                emptyTable: 'Aucune donnée disponible dans le tableau',
+                lengthMenu: 'Afficher _MENU_ enregistrements par page',
+                zeroRecords: 'Rien trouvé - désolé',
+                search: 'Recherche: ',
+                oPaginate: {
+                    sNext: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                    sPrevious : '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'
+                }
+            };
+        }
+
+
+        $('#AbsTable').DataTable({
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            pagingType: "simple",
+            language: oLanguage,
+
+        });
+    });
+    </script>
+
+<script>
+
+    $(document).ready(function() {
+        if ($.fn.DataTable.isDataTable('#CngTable')) {
+                    $('#CngTable').DataTable().destroy();
+                }
+
+        let lang = "{{ app()->getLocale() }}";
+        let oLanguage = {};
+
+        if (lang === 'ar') {
+            oLanguage = {
+                info: 'عرض الصفحة _PAGE_ من _PAGES_',
+                infoEmpty: 'لا توجد سجلات متاحة',
+                infoFiltered: '',
+                lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
+                zeroRecords: 'لم يتم العثور على شيء - عذراً',
+                emptyTable: 'لا توجد بيانات في الجدول',
+                search: 'بحث: ',
+                oPaginate: {
+                    sNext: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span><span class="pagination-default"></span>',
+                    sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
+                }
+            };
+        } else if (lang === 'fr') {
+            oLanguage = {
+                info: 'Affichage de la page _PAGE_ sur _PAGES_',
+                infoEmpty: 'Aucun enregistrement disponible',
+                infoFiltered: '',
+                emptyTable: 'Aucune donnée disponible dans le tableau',
+                lengthMenu: 'Afficher _MENU_ enregistrements par page',
+                zeroRecords: 'Rien trouvé - désolé',
+                search: 'Recherche: ',
+                oPaginate: {
+                    sNext: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                    sPrevious : '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'
+                }
+            };
+        }
+
+
+        $('#CngTable').DataTable({
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            pagingType: "simple",
+            language: oLanguage,
+
+        });
+    });
+    </script>
