@@ -247,6 +247,7 @@
                                                 'posts.Nom_post_ar',
                                                 'occupes.date_recrutement',
                                                 'occupes.echellant',
+                                                'occupes.id_occup',
                                                 'departements.Nom_depart',
                                                 'departements.Nom_depart_ar',
                                                 'sous_departements.Nom_sous_depart',

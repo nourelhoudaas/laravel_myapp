@@ -340,11 +340,11 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
         'id_postsup'=>$id_postsup,
         'id_fonction'=>$request->get('pv_func'),
        
-
         
 
       ]);
         
+      $travaill->save();
         $this->logService->logAction(
         Auth::user()->id,
         $request->get('ID_NIN'),

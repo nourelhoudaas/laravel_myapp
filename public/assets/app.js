@@ -65,6 +65,21 @@ function hideLoadingSpinner() {
                 }
             })
         })
+        $('.more-info').on('click',function(){
+           var idocp=$(this).attr('id')
+           var genform={
+            ID_NIN:id,
+            idocp:idocp,
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            _method: 'POST'
+          }
+            console.log('id is'+idocp);
+            $.ajax({
+                url:'/BioTemplate/carrier/',
+                data:genform,
+                type:'post',
+            })
+        })
         })
 
 

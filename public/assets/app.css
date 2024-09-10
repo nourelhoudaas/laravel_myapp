@@ -1806,6 +1806,22 @@ html:lang(fr)  .title::before {
     margin-top: 35px;
     margin-bottom: 10px;
   }
+
+.more-info
+{
+  font-size: 18;
+}
+.more-info:hover
+{
+  border-radius: 8px;
+  background-color: #e7f2ff;
+  scale: 1.1;
+  cursor: pointer;
+}
+
+
+
+
 /*==========================TABLEAU=========================*/
 
 .styled-table {

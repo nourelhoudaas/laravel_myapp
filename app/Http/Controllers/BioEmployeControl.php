@@ -11,6 +11,7 @@ use \App\Models\Niveau;
 use \App\Models\Post;
 use \App\Models\Fichier;
 use \App\Models\Absence;
+use \App\Models\Occupe;
 use Illuminate\Support\Facades\DB;
 use App\Services\logService;
 use Illuminate\Support\Facades\Auth;
@@ -172,6 +173,47 @@ class BioEmployeControl extends Controller
                     'code'=>404,
                 ]);
             }
+    }
+    public function getcarrier(Request $request)
+    {   
+
+      //  dd($request);
+        $idar=explode(' ',$request->get('idocp'));
+      //  dd($idar);
+        $idtr=intval($idar[0]);
+        $idocp=intval($idar[1]);
+      /*  $req='SELECT * FROM `occupes` JOIN posts on posts.id_post = occupes.id_post
+						JOIN secteurs on secteurs.id_secteur=posts.id_secteur
+                        JOIN filieres on filieres.id_filiere = secteurs.id_filiere
+						JOIN contients on contients.id_post = posts.id_post
+                        JOIN sous_departements on sous_departements.id_sous_depart = contients.id_sous_depart
+                        JOIN travails on travails.id_sous_depart = sous_departements.id_sous_depart
+                        WHERE travails.id_travail=21 and occupes.id_occup=12';*/
+        $carrier=Occupe::join('posts','posts.id_post','=','occupes.id_post')
+                        ->join('secteurs','secteurs.id_secteur','=','posts.id_secteur')
+                        ->join('filieres','filieres.id_filiere','=','secteurs.id_filiere')
+                        ->join('contients','contients.id_post','=','posts.id_post')
+                        ->join('sous_departements','sous_departements.id_sous_depart','=','contients.id_sous_depart')
+                        ->join('travails','travails.id_sous_depart','=','sous_departements.id_sous_depart')
+                        ->where('travails.id_travail',$idtr)
+                        ->where('occupes.id_occup',$idocp)
+                        ->first();
+                        dd($carrier);
+                        if($carrier)
+                        {
+                            return response()->json([
+                                'message'=>__('lang.next'),
+                                'emp'=>$carrier,
+                                'status'=>200,
+                            ]);
+                        }
+                        else
+                        {
+                            return response()->json([
+                                'message'=>'Pas de recorde',
+                                'status'=>302,
+                            ]);
+                        }
     }
 
 }

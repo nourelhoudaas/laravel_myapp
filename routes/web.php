@@ -139,9 +139,12 @@ Route::middleware('auth')->group(function () {
 Route::put('/BioTemplate/edit/{id}',[BioEmployeControl::class,'update'])->name('BioTemplate.update');
 Route::put('/BioTemplate/add_justFile',[BioEmployeControl::class,'update_just'])->name('emp_abs_justfile');
 Route::put('/BioTemplate/add_titreFile',[BioEmployeControl::class,'update_cng'])->name('emp_cng_titrefile');
+Route::post('/BioTemplate/carrier/',[BioEmployeControl::class,'getcarrier'])->name('emp_more_info');
 Route::post('/upload/numdossiers',[UploadFile::class,'uploadFile'])->name('uploadFile');
 Route::post('/upload/creedossier',[UploadFile::class,'cree_dos_sous'])->name('cree_doss_emp');
 Route::get('/upload/getFiles/{id}',[UploadFile::class,'getFiles'])->name('getfile_all_emp');
+Route::post('/ATS',[UploadFile::class,'create_ats'])->name('emp_ats');
+Route::get('/read_rapport/{id}',[UploadFile::class,'read_report'])->name('emp_rapport');
 Route::post('/whoiam',[UploadFile::class,'savedb'])->name('who_stocke');
 Route::get('/realwhoiam/{id}',[UploadFile::class,'getname'])->name('who_name');
 Route::get('/live/read/{dir}/{subdir}/{file}',[UploadFile::class,'live_File'])->name('read_file_emp');
