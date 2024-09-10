@@ -158,7 +158,7 @@ try {
         'date_installation'	=>$Request->get('DatePV'),
         'date_chang'=>Carbon::now(),
         'notation'	=>0,
-        
+
     ]);
 
       //ajouter l'action dans table log
@@ -282,7 +282,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
   }*/
   function GenDecision(Request $request)
   {
-   // dd($request); 
+   // dd($request);
     $id_postsup=null;
     $request->validate([
       'ID_NIN' => 'required|integer',
@@ -294,9 +294,9 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
       'PV_grad'=>'required|string',
       'id_postsup' => 'integer',
       'id_fonction'=>'string',
-     
+
   ]);
- 
+
     $travaill=new Travail([
       'date_chang' => Carbon::now(),
       'date_installation'=>$request->get('PVDate'),
@@ -328,7 +328,7 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
       {
         $id_postsup=$request->get('pv_postsup');
       }
-      
+
       Occupe::create([
         'date_recrutement'=>$request->get('RecDate'),
         'echellant'=>0	,
@@ -339,11 +339,11 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
         'id_post'=>$request->get('post'),
         'id_postsup'=>$id_postsup,
         'id_fonction'=>$request->get('pv_func'),
-       
-        
+
+
+
 
       ]);
-        
       $travaill->save();
         $this->logService->logAction(
         Auth::user()->id,

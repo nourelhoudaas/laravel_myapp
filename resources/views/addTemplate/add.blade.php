@@ -82,8 +82,8 @@
                         <div class="col-md-18">
                             <div class="p-5 py-15">
                                 <div class="d-flex justify-content-between align-items-center mb-3 title">
-                                    {{-- <h4 class="text-right">{{ __('lang.prof_set') }}</h4> --}}
-                                    <span class="space">{{ __('lang.prof_set') }}</span>
+
+                                    <h4>{{ __('lang.persondata') }}</h4>
                                 </div>
                                 <div class="row mt-2 just">
                                     <div class="col-md-12">
