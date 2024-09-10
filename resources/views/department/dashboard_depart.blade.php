@@ -148,7 +148,7 @@
 
                     <tbody>
 
-                        @foreach ($paginator as $employe)
+                        @foreach ($empdep as $employe)
                             @php
                                 $post = $employe->occupeIdNin->last()->post;
                                 $travail = $employe->travailByNin->last();
