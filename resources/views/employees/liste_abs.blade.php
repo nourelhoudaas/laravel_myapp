@@ -18,11 +18,11 @@
             <!-- main section start -->
             <main>
                 <div class="title"><h1>{{ __('lang.ctrl_abs') }}</h1></div>
+                <div class="recent_order">
                 <div class="date" id="ddate">
                     <input type="date" id="abs_date">
                 </div>
-                <div>
-                    <br>
+                <div class="space"></div>
                 <select type="text" class="form-select" value="" id="Dep">
                         <option value="">{{ __('lang.slct_dept') }}</option>
                         @foreach($empdepart as $empdeparts)
@@ -35,6 +35,7 @@
                         </option>
                         @endforeach
                         </select>
+                    </div>
                 </div>
                 <div class="recent_order">
 
@@ -59,20 +60,15 @@
                     <h3 id='emp-info'></h3>
                 </div>
                 <div class="recent_order">
-                    {{-- <table class="styled-table" id="AbsempTable">
-
-                        <thead>
-
-                        </thead>
+                    <table class="styled-table" id="AbsempTable">
+                        <thead></thead>
                         <tbody></tbody>
-                    </table> --}}
+                    </table>
                     <div id="pagination-info">
                      <p>{{__('lang.nbr_absence')}}: <span id="total-posts"></span></p>
                      <p>{{__('lang.nbr_page')}}: <span id="total-pages"></span></p>
                     </div>
-                    <div class="pagination" id='links'>
-
-                    </div>
+                    <div class="pagination" id='links'></div>
                 </div>
                 <div id="mySidenav" class="">
                     <div>

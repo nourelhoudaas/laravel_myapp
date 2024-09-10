@@ -52,9 +52,9 @@
             @csrf
         <div class="col-md-10 just">
             <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-3 title">
 
-                    <h4 class="text-right">{{__('lang.prof_set')}}</h4>
+                    <h4 >{{__('lang.admindata')}}</h4>
                 </div>
                 <div class="row mt-2">
                 <div class="col-md-12">
@@ -266,7 +266,7 @@
     .then(response => response.json())
     .then(data => {
         const postSupData = data.post_sups;
-        
+
         postSupData.forEach(post_sups => {
             const option = document.createElement('option');
             option.value = post_sups.id_postsup;
@@ -310,20 +310,20 @@ $(document).ready(function() {
     $('#sel_posup').on('change', function() {
         if ($(this).is(':checked')) {
             showPV_function();
-            
+
             $.ajax({
                 url: '/Employe/PostSups',
                 type: "GET",
                 dataType: "json",
                 success: function(response) {
                     $('#postsup-opt').empty(); // Clear existing container
-                    
+
                     // Create a new select element
                     const newSelect = $('<select id="postsup-select" class="form-select"></select>');
-                    
+
                     // Add a default option
                     newSelect.append('<option value="">{{ __("lang.slct_post_sup") }}</option>');
-                    
+
                     // Populate the select with received data
                     $.each(response.post_sups, function(key, value) {
                         const optionText = (lang === 'ar') ? value.Nom_postsup_ar : value.Nom_postsup;
@@ -340,19 +340,19 @@ $(document).ready(function() {
                         $('#id_fonction').val(''); // Reset fonction field
                         id_postsup=selectedPostSupId;
                         id_func='';
-                        console.log('Post Sup ID:', id_postsup);  
+                        console.log('Post Sup ID:', id_postsup);
                     });
 
                     // Add the PV handling div
                     var divfunctpv = $('<div id="pv-handl"></div>');
                     var labal = $('<label class="labels" style="font-size: 16px; font-weight: bold;">{{ __("lang.PV_ref") }}</label>');
                     var textp = $('<p id="pv_postsup" class="labels">test</p>');
-                    
+
                     divfunctpv.append(labal);
                     divfunctpv.append(textp);
-                    
+
                     $('#postsup-opt').append(divfunctpv); // Add the new div to the container
-                    
+
                     $('#pv_num').addClass('pv_postup');
                 },
                 error: function(xhr, status, error) {
@@ -373,20 +373,20 @@ $(document).ready(function() {
     $('#sel_fonc').on('change', function() {
         if ($(this).is(':checked')) {
             showPV_function();
-            
+
             $.ajax({
                 url: '/Employe/PostSups',
                 type: "GET",
                 dataType: "json",
                 success: function(response) {
                     $('#fonc-opt').empty(); // Clear existing container
-                    
+
                     // Create a new select element
                     const newSelect = $('<select id="fonc" class="form-select"></select>');
-                    
+
                     // Add a default option
                     newSelect.append('<option value="">{{ __("lang.slct_fonc") }}</option>');
-                    
+
                     // Populate the select with received data
                     console.log('-'+JSON.stringify(response))
                     $.each(response.fonction, function(key, value) {
@@ -404,7 +404,7 @@ $(document).ready(function() {
                         $('#id_postsup').val('0');
                         id_func=selectedfonctId;
                         id_postsup=0;
-                        console.log('id_fonction :', id_func);  
+                        console.log('id_fonction :', id_func);
 
                     });
 
@@ -412,14 +412,14 @@ $(document).ready(function() {
                     var divfunctpv = $('<div id="pv-handl"></div>');
                     var labal = $('<label class="labels" style="font-size: 16px; font-weight: bold;">{{ __("lang.PV_ref") }}</label>');
                     var textp = $('<p id="pv_func" class="labels">test</p>');
-                    
+
                     divfunctpv.append(labal);
                     divfunctpv.append(textp);
-                    
+
                     $('#fonc-opt').append(divfunctpv); // Add the new div to the container
-                    
+
                     $('#pv_num').addClass('pv_funct');
-                    
+
                 },
                 error: function(xhr, status, error) {
                     console.error('Erreur lors de la récupération des postes supérieurs:', error);
