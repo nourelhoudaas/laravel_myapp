@@ -121,7 +121,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($paginator as $employe)
+                            @foreach($emptypeconge as $employe)
                                     @foreach($employe->congeIdNin as $conge)
                                     @php
                                     $show=floor(Carbon::parse($today)->diffInDays($conge->date_debut_cong))
@@ -183,9 +183,7 @@
                             </tbody>
                         </table>
 
-                        {{-- <div class="pagination">
-                        {{ $paginator->links() }}
-                    </div> --}}
+
 
                     </div>
                 </main>

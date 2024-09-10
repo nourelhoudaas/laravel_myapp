@@ -17,6 +17,7 @@
 
             <!-- main section start -->
             <main>
+                <div class="title"><h1>{{ __('lang.ctrl_abs') }}</h1></div>
                 <div class="date" id="ddate">
                     <input type="date" id="abs_date">
                 </div>
@@ -36,7 +37,7 @@
                         </select>
                 </div>
                 <div class="recent_order">
-                    <div class="title">{{ __('lang.ctrl_abs') }}</div>
+
 
                     <table id="AbsTable" class="styled-table">
 

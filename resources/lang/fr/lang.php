@@ -23,7 +23,7 @@ return [
     'NSS'=>'Numéro du Sécurité Sociale',
     'ID_p'=>'Numéro de travail',
     'slct_num_tel'=>"Saisir le Numéro Téléphone de l'employé",
-    'ctrl_abs'=>'Controll D absences',
+    'ctrl_abs'=>'Control des absences',
     'ctrl_cng'=>'Gestion des congés des employés',
     'lst_emp'=>'Liste Des Employés',
     'nbr_abs'=>'Absence',

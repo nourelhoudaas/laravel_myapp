@@ -97,7 +97,7 @@
                             if(request()->get('page') != null)
                             {
                                 $page=   request()->get('page');
-                            } 
+                            }
         $offset = ($page - 1) * $perPage;
 
         // Extraire les éléments pour la page actuelle
@@ -228,7 +228,7 @@
                 $i=0;
                 foreach($postwork as $single){
                     $inter=DB::table('contients')->join('sous_departements','contients.id_sous_depart','=','sous_departements.id_sous_depart')
-                                                 ->join('travails','travails.id_sous_depart','=','sous_departements.id_sous_depart')   
+                                                 ->join('travails','travails.id_sous_depart','=','sous_departements.id_sous_depart')
                                                 ->join('posts','posts.id_post','=','contients.id_post')
                                                 ->join('occupes','occupes.id_post','=','posts.id_post')
                                                 ->join('employes','employes.id_nin','=','occupes.id_nin')
@@ -319,13 +319,13 @@
                        ->where('departements.id_depart',$id_dep)
                        ->orderBy('travails.date_installation','desc')
                        ->get();
-                     
+
         foreach($emps as $empl)
         {
             array_push($allwor,$empl);
         }
        // dd($allwor);
-   
+
          $empdpart=array();
          $fis=array();
      foreach($allwor as $workig)
@@ -396,18 +396,18 @@
 
              // Définir le nombre d'éléments par page
              $perPage = 4; // Par exemple, 2 éléments par page
-             $total = count($empdpart); 
+             $total = count($empdpart);
              $page = 1; // Page actuelle
                                  if(request()->get('page') != null)
                                  {
                                      $page=request()->get('page');
-                                 } 
+                                 }
              $offset = ($page - 1) * $perPage;
-     
+
              // Extraire les éléments pour la page actuelle
              $items = array_slice($empdpart,$offset, $perPage);
             // dd($items);
-     
+
              // Créer le paginator
              $paginator = new LengthAwarePaginator(
                  $items, // Items de la page actuelle
@@ -418,13 +418,13 @@
                      'path' => request()->url(), // URL actuel
                      'query' => request()->query() // Paramètres de la requête
                  ]
-             ); 
+             );
                 $empdepart=Departement::get();
             $nom_d = Departement::where('id_depart', $id_dep)->value('Nom_depart');
 
             return response()->json(['paginator'=>$paginator,'employe'=>$empdpart]);
    // return response()->json($empdpart);
-    
+
         }
 
 
@@ -523,7 +523,7 @@
                             if(request()->get('page') != null)
                             {
                                 $page=   request()->get('page');
-                            } 
+                            }
         $offset = ($page - 1) * $perPage;
 
         // Extraire les éléments pour la page actuelle
@@ -563,10 +563,10 @@
         })->count();
          // dd($typecon);
 
-        
+
 
          //array_push($empcng,$emptypeconge);
-         
+
             return view('employees.list_cong',compact('paginator','emptypeconge','empdepart','typecon','today','count','countExceptionnel'));
 
             }
@@ -632,7 +632,7 @@
                         'query' => request()->query() // Paramètres de la requête
                     ]
                 );
-                
+
                /* // Ajoutez ces lignes pour obtenir les informations de pagination
                 $currentPage = $paginator->currentPage(); // Page actuelle
                 $totalPages = $paginator->lastPage(); // Nombre total de pages
@@ -642,7 +642,7 @@
                 }
                // dd($empcng);
 
-          
+
            /*    return view('employees.list_cong', [
                 'response' => [
                     'paginator' => $paginator,
@@ -653,7 +653,7 @@
             ]);*/
       return response()->json($empcng);
    /*   return response()->json([
-        
+
         'empcng' => $empcng ,'paginator' => $paginator
     ]);*/
             }
@@ -667,7 +667,7 @@
 
 
 
-         /**  ------ Original pas suppression ------------------ */       
+         /**  ------ Original pas suppression ------------------ */
                 //dd($department);
                /* $today = Carbon::now()->format('Y-m-d');
                 $query = Employe::query()
@@ -771,7 +771,7 @@ foreach($allwor as $workig)
                      ->join('departements','departements.id_depart','=','sous_departements.id_depart')
                      ->where('contients.id_contient',$idcnt->id_contient)
                      ->where('employes.id_nin',$emp->id_nin)
-                     ->where('conges.date_fin_cong', '>=', $today)   
+                     ->where('conges.date_fin_cong', '>=', $today)
                      ->orderBy('date_recrutement','desc')
                      ->select(
                         'employes.*',
@@ -791,14 +791,14 @@ foreach($allwor as $workig)
 
                       while ( $i < count($empdpartcng) && $find == false) {
                           # code...
-                         
+
                           if($empdpartcng[$i]->id_nin == $emps->id_nin )
                           {
 
                               $find = true;
                              // print_r('------- insrt:::'.$emps->id_nin.'find');
                           }
-                        
+
 
                           $i++;
                       }
@@ -818,7 +818,7 @@ foreach($allwor as $workig)
   }
           $empdepart=Departement::get();
              //   dd($empdpartcng);
-            return response()->json($empdpartcng);  
+            return response()->json($empdpartcng);
              /** ------------------------- Modification  Terminer--------------------------------- */
             }
 
@@ -924,8 +924,8 @@ foreach($allwor as $workig)
                      ->join('departements','departements.id_depart','=','sous_departements.id_depart')
                      ->where('contients.id_contient',$idcnt->id_contient)
                      ->where('employes.id_nin',$emp->id_nin)
-                     ->where('conges.date_fin_cong', '>=', $today)  
-                     ->where('type_congs.ref_cong', $typeconge) 
+                     ->where('conges.date_fin_cong', '>=', $today)
+                     ->where('type_congs.ref_cong', $typeconge)
                      ->orderBy('date_recrutement','desc')
                      ->select(
                         'employes.*',
@@ -945,14 +945,14 @@ foreach($allwor as $workig)
 
                       while ( $i < count($empdpartcng) && $find == false) {
                           # code...
-                         
+
                           if($empdpartcng[$i]->id_nin == $emps->id_nin )
                           {
 
                               $find = true;
                              // print_r('------- insrt:::'.$emps->id_nin.'find');
                           }
-                        
+
 
                           $i++;
                       }
@@ -972,7 +972,7 @@ foreach($allwor as $workig)
   }
           $empdepart=Departement::get();
              //   dd($empdpartcng);
-            return response()->json($empdpartcng);  
+            return response()->json($empdpartcng);
 
         }
 
@@ -1120,7 +1120,7 @@ foreach($allwor as $workig)
                     'ref_cng'=>'required||string'
                 ]
                 );
-               
+
                 if($request->get('situation') == 'algerie')
                 {
                     $situation_ar='الجزائر';
@@ -1160,7 +1160,7 @@ foreach($allwor as $workig)
                 };
                 if(count($cng) == 0)
                 {
-                   
+
                     if($request->get('type_cg') == 'RF001' && intval($allday[0]) > 0)
                     {
                         $start = Carbon::parse($request->get('date_dcg'));
@@ -1197,7 +1197,7 @@ foreach($allwor as $workig)
                 {
                 foreach($cng as $cg)
                 {
-                    
+
                     if($request->get('date_dcg') < $cg->date_fin_cong  && $request->get('type_cg') == 'RF001')
                     {
 
@@ -1278,7 +1278,7 @@ foreach($allwor as $workig)
                                                 'status'=> 404
                                             ]);
                                         }
-                                        
+
                             }
                             else
                             {
@@ -1287,8 +1287,8 @@ foreach($allwor as $workig)
                                     'status'=> 404
                                 ]);
                             }
-                         } 
-                        else 
+                         }
+                        else
                         {
                             return response()->json([
                                 'message'=>$msgmald,
@@ -1328,7 +1328,7 @@ foreach($allwor as $workig)
                                    ->where('ref_cong','RF001')
                                    ->where('id_nin',$request->get('ID_NIN'))
                                    ->orderBy('date_fin_cong','desc')
-                                   ->first();  
+                                   ->first();
                      $newcngs=$dat->nbr_jours-$all;
                    //  dd(intval($newcngs));
                         $cong=new Conge([
@@ -1341,7 +1341,7 @@ foreach($allwor as $workig)
                         'ref_cong'=>$request->get('type_cg'),
                         'situation'=>$request->get('situation'),
                         'situation_AR'=>$situation_ar,
-                        
+
                         'id_sous_depart'=>$request->get('SDic')
                             ]);
                             if( $cong->save())
@@ -1522,7 +1522,7 @@ foreach($allwor as $workig)
               {
              //   dd(app()->getLocale());
               }
-             
+
               return view('addTemplate.travaill',compact('employe','dbniv','empdepart','dbn'));
             }
             function existApp($id)
@@ -1538,7 +1538,7 @@ foreach($allwor as $workig)
               $Appartient=appartient::where('id_nin', $id)->get();
               $post=New Post();
               $dbpost=$post->get();
-              
+
               $dbempdepart = new Departement();
                   $empdepart =$dbempdepart->get();
 
@@ -1553,14 +1553,14 @@ foreach($allwor as $workig)
                 }
                 public function getPostSups()
                     {
-                        $postsup = PostSup::all();  
-                        $fonction = Fonction::all(); 
+                        $postsup = PostSup::all();
+                        $fonction = Fonction::all();
                             //dd( $fonction);
 
                             return response()->json([
                                 'post_sups' => $postsup,
                                 'fonction'=>$fonction,
-                                
+
                             ]);
                     }
             function find_emp($id)
@@ -1606,7 +1606,7 @@ foreach($allwor as $workig)
                      ]
                     );
                     return response()->json(['emp'=>$emp,
-                                             'list_abs'=>$paginator  
+                                             'list_abs'=>$paginator
                                             ]);
             }
             function read_just($id)
@@ -1617,7 +1617,7 @@ foreach($allwor as $workig)
                // dd($file);
                 $subdir=$file->ref_Dossier;
                 $fichier=$file->sous_d.'-'.$id;
-                
+
                 return redirect()->route('read_file_emp',['dir'=>'employees','subdir'=>$subdir,'file'=>$fichier]);
                 }
                 else
