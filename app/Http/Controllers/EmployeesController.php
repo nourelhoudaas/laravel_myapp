@@ -1614,7 +1614,7 @@ foreach($allwor as $workig)
                      ]
                     );
                     return response()->json(['emp'=>$emp,
-                                             'list_abs'=>$paginator
+                                             'list_abs'=>$list_abs
                                             ]);
             }
             function read_just($id)
