@@ -21,7 +21,7 @@ class Fonction extends Model
         return $this->hasMany(Contient::class,'id_fonction','id_fonction');
     }
 
-    public function occupe()
+    public function occupeIdNin()
     {
         return $this->hasMany(Occupe::class,'id_fonction','id_fonction');
     }

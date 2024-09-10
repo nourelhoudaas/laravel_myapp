@@ -31,13 +31,20 @@
 
                 $champs = $request->input('champs', 'Nom_emp'); // Champ par défaut pour le tri
                 $direction = $request->input('direction', 'asc'); // Ordre par défaut ascendant
-
+               /* $fct = Fonction::select('id_fonction', 'Nom_fonction')
+                ->with(['occupeIdNin:id_occup,id_fonction,date_recrutement']) // Sélectionner les colonnes de la relation
+                ->get();
+               dd($fct);
+         */
                 $employe = Employe::with([
-                    'occupeIdNin.post',
-                    'travailByNin.sous_departement.departement'
+                    'occupeIdNin.post',  
+                    'occupeIdNin.fonction',
+                    'occupeIdNin.postsup',
+                    'travailByNin.sous_departement.departement',
+                
                 ])
                 ->get();
-            // dd( $employe);
+           // dd( $employe);
 
         //optional pour si ya null il envoi pas erreur il envoi null
         //SORT_REGULAR veut dire que les éléments doivent être triés en utilisant la comparaison des valeurs telles qu'elles sont, sans conversion spéciale.
@@ -514,11 +521,11 @@
                 'congeIdNin.type_conge'
             ])->whereHas('congeIdNin', function($query) use ($today) {
                 $query->where('date_fin_cong', '>=', $today)
-                ->orderBy('date_fin_cong','desc');
+              ->orderBy('date_fin_cong','desc');
             })->get();
-           //dd($paginator);
+          //dd($emptypeconge);
             // Définir le nombre d'éléments par page
-       $perPage = 1; // Par exemple, 2 éléments par page
+       $perPage = 5; // Par exemple, 2 éléments par page
         $page = 1; // Page actuelle
                             if(request()->get('page') != null)
                             {
