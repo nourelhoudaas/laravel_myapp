@@ -126,7 +126,7 @@ return view('department.edit', compact('departement'));
                 // dd($totalEmpDep);
 
                     // Définir le nombre d'éléments par page
-                $perPage = 5; // Par exemple, 2 éléments par page
+                $perPage = 2; // Par exemple, 2 éléments par page
                 $page = 1; // Page actuelle
                                     if(request()->get('page') != null)
                                     {

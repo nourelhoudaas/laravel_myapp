@@ -18,7 +18,7 @@
 
         <!-- main section start -->
         <main>
-            <div class="title"><h1>{{ __('lang.Departementde') }} {{ $nom_d }}</h1></div>
+            <div class="title "><h1>{{ __('lang.Departementde') }} {{ $nom_d }}</h1></div>
 
 
             <div class="insightss">
@@ -148,7 +148,7 @@
 
                     <tbody>
 
-                        @foreach ($paginator as $employe)
+                        @foreach ($empdep as $employe)
                             @php
                                 $post = $employe->occupeIdNin->last()->post;
                                 $travail = $employe->travailByNin->last();

@@ -130,14 +130,14 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($paginator as $employe)
+                            @foreach ($employe as $employe)
                                 @php
                                     $post = $employe->occupeIdNin->last()->post;
                                     $travail = $employe->travailByNin->last();
                                     $sousDepartement = $travail->sous_departement;
                                     $departement = $sousDepartement->departement;
-                                    $postsup = $employe->occupeIdNin->last()->post_sups;
-                                    $fonction = $employe->occupeIdNin->last()->fonctions;
+                                    $postsup = $employe->occupeIdNin->last()->postsup;
+                                    $fonction = $employe->occupeIdNin->last()->fonction;
 
                                     $locale = app()->getLocale();
                                 @endphp

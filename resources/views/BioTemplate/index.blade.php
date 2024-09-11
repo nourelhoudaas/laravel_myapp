@@ -334,6 +334,7 @@
                             <div class="card-info">
                               <p>{{__('lang.start')}} : {{$detailemp[$i]->date_installation}}</p>
                             </div>
+                            <p class="more-info" id='{{$detailemp[$i]->id_travail}} {{$postarr[$i]->id_occup}}'> ...</p>
                             </div>
                           </div>
                       </div>

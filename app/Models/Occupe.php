@@ -27,7 +27,7 @@ class Occupe extends Model
         return $this->belongsTo(Post::class,'id_post','id_post');
     }
 
-    public function occupe()
+    public function postsup()
     {
         return $this->belongsTo(PostSup::class,'id_postsup','id_postsup');
     }

@@ -61,9 +61,10 @@
                             </div>
                         </div>
                     </div>
+
                         <!-- end Presence -->
-                    <div>
-                        <hr>
+                    <div class="recent_order">
+                        {{-- <hr> --}}
                         <select name="type-conge" type="text" class="form-select form-select-lm mb-3" id="type-conge">
                             <option value="">{{ __('lang.slct_type_cng') }}</option>
                             @foreach($typecon as $typeconges)
@@ -82,7 +83,7 @@
 
                             @endforeach
                         </select>
-                        <hr>
+                        {{-- <hr> --}}
                         <select type="text" class="form-select" id="Depcng">
                             <option value="">{{ __('lang.slct_dept') }}</option>
                             @foreach($empdepart as $empdeparts)
@@ -120,7 +121,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($paginator as $employe)
+                            @foreach($emptypeconge as $employe)
                                     @foreach($employe->congeIdNin as $conge)
                                     @php
                                     $show=floor(Carbon::parse($today)->diffInDays($conge->date_debut_cong))
@@ -182,9 +183,7 @@
                             </tbody>
                         </table>
 
-                        {{-- <div class="pagination">
-                        {{ $paginator->links() }}
-                    </div> --}}
+
 
                     </div>
                 </main>
