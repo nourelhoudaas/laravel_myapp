@@ -254,6 +254,7 @@
                                                 'posts.Nom_post_ar',
                                                 'occupes.date_recrutement',
                                                 'occupes.echellant',
+                                                'occupes.id_occup',
                                                 'departements.Nom_depart',
                                                 'departements.Nom_depart_ar',
                                                 'sous_departements.Nom_sous_depart',
@@ -1613,7 +1614,7 @@ foreach($allwor as $workig)
                      ]
                     );
                     return response()->json(['emp'=>$emp,
-                                             'list_abs'=>$paginator
+                                             'list_abs'=>$list_abs
                                             ]);
             }
             function read_just($id)

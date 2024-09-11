@@ -46,24 +46,41 @@ function hideLoadingSpinner() {
  * end function
  */
 
-$(document).ready(function () {
-    $('#gen_ats').on('click', function () {
-        var genform = {
-            ID_NIN: id,
+        $(document).ready(function(){
+            $('#gen_ats').on('click',function()
+        {
+            var genform={
+                ID_NIN:id,
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                _method: 'POST'
+              }
+            $.ajax({
+                url:'/ATS',
+                data:genform,
+                type:'post',
+                success:function(response)
+                {
+                    alert('success');
+                    window.open('/read_rapport/'+id,'_blank');
+                }
+            })
+        })
+        $('.more-info').on('click',function(){
+           var idocp=$(this).attr('id')
+           var genform={
+            ID_NIN:id,
+            idocp:idocp,
             _token: $('meta[name="csrf-token"]').attr('content'),
             _method: 'POST'
-        }
-        $.ajax({
-            url: '/ATS',
-            data: genform,
-            type: 'post',
-            success: function (response) {
-                alert('success');
-                window.open('/read_rapport/' + id, '_blank');
-            }
+          }
+            console.log('id is'+idocp);
+            $.ajax({
+                url:'/BioTemplate/carrier/',
+                data:genform,
+                type:'post',
+            })
         })
-    })
-})
+        })
 
 
 /***
@@ -1464,20 +1481,25 @@ $(document).ready(function () {
                                 $('#AbsempTable thead').empty();
                                 $('#AbsempTable tbody').empty();
                                 if (lng == 'ar') {
-                                    $("#AbsempTable thead").append('<tr><th>رقم</th>'
+                                    $("#AbsempTable thead").append('<tr style="text-align: center;"><th>رقم</th>'
                                         + '<th>تاريخ الغياب</th>'
                                         + '<th>توقيت الغياب</th>'
                                         + '<th>سبب الغياب</th>'
                                         + '</tr>')
                                 } else {
-                                    $("#AbsempTable thead").append('<tr><th>Numero</th>'
+                                    $("#AbsempTable thead").append('<tr style="text-align: center;"><th>Numero</th>'
                                         + '<th>Date d\'absence</th>'
                                         + '<th>Heure d\'absence</th>'
                                         + '<th>Motif de l\'absence</th>'
                                         + '</tr>')
                                 }
-
-                                fetchPosts('/Employe/list_abs/' + idsa[1])
+                                $.get('/Employe/list_abs/' + idsa[1],function(response)
+                                {
+                                    console.log('data table -'+JSON.stringify(response.list_abs))
+                                    absTabel(response.list_abs)
+                                })
+                             //   absTabel()
+                             //   fetchPosts('/Employe/list_abs/' + idsa[1])
 
                             }
                             )
@@ -1649,20 +1671,25 @@ $(document).ready(function () {
                                 $('#AbsempTable thead').empty();
                                 $('#AbsempTable tbody').empty();
                                 if (lng == 'ar') {
-                                    $("#AbsempTable thead").append('<tr><th>رقم</th>'
+                                    $("#AbsempTable thead").append('<tr style="text-align: center;"><th>رقم</th>'
                                         + '<th>تاريخ الغياب</th>'
                                         + '<th>توقيت الغياب</th>'
                                         + '<th>سبب الغياب</th>'
                                         + '</tr>')
                                 } else {
-                                    $("#AbsempTable thead").append('<tr><th>Numero</th>'
+                                    $("#AbsempTable thead").append('<tr style="text-align: center;"><th>Numero</th>'
                                         + '<th>Date d\'bsence</th>'
                                         + '<th>Heure d\'bsence</th>'
                                         + '<th>Motif de l\'absence</th>'
                                         + '</tr>')
                                 }
 
-                                fetchPosts('/Employe/list_abs/' + idsa[1])
+                                $.get('/Employe/list_abs/' + idsa[1],function(response)
+                                {
+                                    console.log('data table -'+JSON.stringify(response.list_abs))
+                                    absTabel(response.list_abs)
+                                })
+                               // fetchPosts('/Employe/list_abs/' + idsa[1])
 
                             }
                             )

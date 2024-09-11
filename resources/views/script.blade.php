@@ -147,6 +147,64 @@ $(document).ready(function() {
 
 
 <script>
+    function absTabel(reponse){
+    $(document).ready(function() {
+        if ($.fn.DataTable.isDataTable('#AbsempTable')) {
+                    $('#AbsempTable').DataTable().destroy();
+                }
+
+        let lang = "{{ app()->getLocale() }}";
+        let oLanguage = {};
+        columnshead =[{'data':'id_nin'},{'data':'date_abs'},{'data':'heure_abs'},{'data':'statut'}]  
+        if (lang === 'ar') {
+           // columnshead =[{'data':'رقم'},{'data':'date_abs'},{'data':'heure_abs'},{'data':'statut'}]
+            oLanguage = {
+                info: 'عرض الصفحة _PAGE_ من _PAGES_',
+                infoEmpty: 'لا توجد سجلات متاحة',
+                infoFiltered: '',
+                lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
+                zeroRecords: 'لم يتم العثور على شيء - عذراً',
+                emptyTable: 'لا توجد بيانات في الجدول',
+                search: 'بحث: ',
+                oPaginate: {
+                    sNext: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span><span class="pagination-default"></span>',
+                    sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
+                }
+            };
+        } else if (lang === 'fr') {
+            oLanguage = {
+           //     columnshead =[{'data':'Numero'},{'data':'Date d\'bsence'},{'data':'Heure d\'bsence'},{'data':'Motif de l\'absence'}] 
+                info: 'Affichage de la page _PAGE_ sur _PAGES_',
+                infoEmpty: 'Aucun enregistrement disponible',
+                infoFiltered: '',
+                emptyTable: 'Aucune donnée disponible dans le tableau',
+                lengthMenu: 'Afficher _MENU_ enregistrements par page',
+                zeroRecords: 'Rien trouvé - désolé',
+                search: 'Recherche: ',
+                oPaginate: {
+                    sNext: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                    sPrevious : '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'
+                }
+            };
+        }
+
+
+        $('#AbsempTable').DataTable({
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            pagingType: "simple",
+            data:reponse,
+            columns:columnshead,
+            language: oLanguage,
+            "rowCallback": function(row, data, index) {
+            // Add row number to the first column (index 0)
+            $('td:eq(0)', row).html(index + 1);
+        }
+
+        });
+    });}
+    </script>
+
+<script>
 
     $(document).ready(function() {
         if ($.fn.DataTable.isDataTable('#CngTable')) {
