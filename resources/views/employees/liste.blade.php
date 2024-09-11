@@ -9,6 +9,9 @@
 @section('content')
 
     <body>
+    <div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
         <div class="container2">
             <!-- start section aside -->
             @include('./navbar.sidebar')
@@ -17,99 +20,109 @@
             <!-- main section start -->
             <main>
                 <div class="recent_order">
-                    <h1>{{ __('lang.lst_emp') }}</h1>
-                    <table  class="table" id='myTable'>
+                    <div class="title">{{ __('lang.lst_emp') }}</div>
+                    {{-- <h1 class="title">{{ __('lang.lst_emp') }}</h1> --}}
+                    <table  class="styled-table" id='myTable' >
 
                         <thead>
 
                             <tr>
                             <th>
-                                    <a
+                                    {{-- <a
                                         href="{{ route('app_liste_emply', ['champs' => 'id_p', 'direction' => $champs == 'id_p' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.ID_p') }}
                                         @if ($champs == 'id_p')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    </a>
+                                    </a> --}}
+                                    {{ __('lang.ID_p') }}
                                 </th>
 
                             <th>
-                                    <a
+                                    {{-- <a
                                         href="{{ route('app_liste_emply', ['champs' => 'Nom_emp', 'direction' => $champs == 'Nom_emp' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.name') }}
-                                        @if ($champs == 'Nom_emp')
+                                         @if ($champs == 'Nom_emp')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    ></a>
+                                    </a> --}}
+                                    {{ __('lang.name') }}
                                 </th>
                                 <th>
-                                    <a
+                                    {{-- <a
                                         href="{{ route('app_liste_emply', ['champs' => 'Prenom_emp', 'direction' => $champs == 'Prenom_emp' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.surname') }}
                                         @if ($champs == 'Prenom_emp')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    </a>
+                                    </a> --}}
+                                    {{ __('lang.surname') }}
                                 </th>
                                 <th>
-                                    <a
+                                    {{-- <a
                                         href="{{ route('app_liste_emply', ['champs' => 'age', 'direction' => $champs == 'age' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.age') }}
                                         @if ($champs == 'age')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    </a>
+                                    </a> --}}
+                                    {{ __('lang.age') }}
                                 </th>
                                 <th>
-                                    <a
+                                    {{-- <a
                                         href="{{ route('app_liste_emply', ['champs' => 'date_recrutement', 'direction' => $champs == 'date_recrutement' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.date_rec') }}
                                         @if ($champs == 'date_recrutement')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    </a>
+                                    </a> --}}
+                                    {{ __('lang.date_rec') }}
                                 </th>
                                 <th>
-                                    <a
+                                    {{-- <a
                                         href="{{ route('app_liste_emply', ['champs' => 'Nom_post', 'direction' => $champs == 'Nom_post' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.post') }}
                                         @if ($champs == 'Nom_post')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    </a>
+                                    </a> --}}
+                                    {{ __('lang.post') }}
                                 </th>
                                 <th>{{ __('lang.postsup') }}
-                                      
+
                                       </th>
                                 <th>{{ __('lang.fct') }}
-                                      
+
                                       </th>
                                 <th>
-                                    <a
+                                    {{-- <a
                                         href="{{ route('app_liste_emply', ['champs' => 'Nom_depart', 'direction' => $champs == 'Nom_depart' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.dept') }}
                                         @if ($champs == 'Nom_depart')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    </a>
+                                    </a> --}}
+                                    {{ __('lang.dept') }}
                                 </th>
                                 <th>
-                                    <a
+                                    {{-- <a
                                         href="{{ route('app_liste_emply', ['champs' => 'Nom_sous_depart', 'direction' => $champs == 'Nom_sous_depart' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.sous_dept') }}
                                         @if ($champs == 'Nom_sous_depart')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    </a>
+                                    </a> --}}
+                                    {{ __('lang.sous_dept') }}
                                 </th>
                                 <th>
-                                    <a
+                                    {{-- <a
                                         href="{{ route('app_liste_emply', ['champs' => 'date_installation', 'direction' => $champs == 'date_installation' && $direction == 'asc' ? 'desc' : 'asc']) }}">
                                         {{ __('lang.date_inst') }}
                                         @if ($champs == 'date_installation')
                                             {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
                                         @endif
-                                    </a>
+                                    </a> --}}
+                                    {{ __('lang.date_inst') }}
                                 </th>
 
 
@@ -123,10 +136,13 @@
                                     $travail = $employe->travailByNin->last();
                                     $sousDepartement = $travail->sous_departement;
                                     $departement = $sousDepartement->departement;
+                                    $postsup = $employe->occupeIdNin->last()->post_sups;
+                                    $fonction = $employe->occupeIdNin->last()->fonctions;
+
                                     $locale = app()->getLocale();
                                 @endphp
                                 <tr>
-                        
+
                                 <td>  {{ $employe->id_emp}}  </td>
                                     <td>
                                         <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
@@ -154,21 +170,21 @@
                                         @endif
                                     </td>
 
-                                
+
 
                                     <td>
                                         @if ($locale == 'fr')
-                                        {{ '-' }}
+                                        {{ $postsup->Nom_postsup ?? '-'}}
                                         @elseif ($locale == 'ar')
-                                        {{ '-' }}
+                                        {{ $postsup->Nom_postsup_ar?? '-' }}
                                         @endif
                                     </td>
 
                                     <td>
                                         @if ($locale == 'fr')
-                                        {{ '-' }}
+                                        {{ $fonction->Nom_fonction ?? '-'}}
                                         @elseif ($locale == 'ar')
-                                        {{ '-' }}
+                                        {{ $fonction->Nom_fonction_ar?? '-' }}
                                         @endif
                                     </td>
 
@@ -192,10 +208,10 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <hr>
-                    <div class="pagination">
+
+                    {{-- <div class="pagination">
                         {{ $paginator->links() }}
-                    </div>
+                    </div> --}}
 
                 </div>
 
@@ -210,51 +226,7 @@
     })
 </script>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
-            <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js" ></script>
-<script>
 
-    $(document).ready(function() {
-        let lang = "{{ app()->getLocale() }}";
-        let language = {};
-
-        if (lang === 'ar') {
-            language = {
-                info: 'عرض الصفحة _PAGE_ من _PAGES_',
-                infoEmpty: 'لا توجد سجلات متاحة',
-                infoFiltered: '',
-                lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
-                zeroRecords: 'لم يتم العثور على شيء - عذراً',
-                search: 'بحث: ',
-
-            };
-        } else if (lang === 'fr') {
-            language = {
-                info: 'Affichage de la page _PAGE_ sur _PAGES_',
-                infoEmpty: 'Aucun enregistrement disponible',
-                infoFiltered: '',
-                lengthMenu: 'Afficher _MENU_ enregistrements par page',
-                zeroRecords: 'Rien trouvé - désolé',
-                search: 'Recherche: '
-
-
-            };
-        }
-
-        let table = new DataTable('#myTable', {
-            language: language,
-
-        initComplete: function () {
-            if (lang === 'ar') {
-                // Adjust CSS for RTL (Arabic)
-                $('dataTable_filter').css('text-align', 'left'); // Search box to the left
-
-            }
-        },
-        direction: lang == 'ar' ? 'rtl' : 'ltr' // Control text direction
-    });
-});
-</script>
 
     </body>
 @endsection

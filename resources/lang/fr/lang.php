@@ -3,7 +3,8 @@
 return [
     'Action'=>'Action',
     'mnc'=>'Ministère de la Communication',
-    'dashboard'=>'Tableau de Bord  ',
+    'dashboard'=>'Tableau de Bord',
+    'tableauVide'=>'Aucune donnée disponible dans le tableau',
     'Depratement'=>'Directions',
     'AddDir'=>'Ajouter une Direction',
     'ListDir'=>'Liste des Directions',
@@ -23,7 +24,7 @@ return [
     'ID_p'=>'Numéro de travail',
     'slct_num_tel'=>"Saisir le Numéro Téléphone de l'employé",
     'ctrl_abs'=>'Controll D absences',
-    'ctrl_cng'=>'Controll De Congé',
+    'ctrl_cng'=>'Gestion des congés des employés',
     'lst_emp'=>'Liste Des Employés',
     'nbr_abs'=>'Absence',
     'nbr_all_users'=>'Total des Employés',
@@ -225,7 +226,10 @@ return [
     'maîtrise'=>'Maîtrises',
     'executif'=>'Executifs',
     'nbr_emp_depart'=>'Répartition des employés pour chaque département',
-    'nbr_emp'=>'Nombre d\'employer'
+    'nbr_emp'=>'Nombre d\'employer',
+    'slct_post_sup' =>'Séléctionner le poste supèrieur',
+    'slct_fonc'=>'Séléctionner la fonction',
+    'lst_post'=>'liste des Postes',
 
 
 

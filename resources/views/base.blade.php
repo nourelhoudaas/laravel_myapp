@@ -58,14 +58,7 @@
         console.log('lang'+lng);
 
     </script>
-    {{--alert delete--}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js"></script>
-    <script>
-        let table = new DataTable('#myDataTable');
-        </script>
 
-       <script src="https://cdn.datatables.net/2.1.4/js/dataTables.bootstrap5.js"></script>
-       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+
 </html>

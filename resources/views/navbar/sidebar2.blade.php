@@ -58,5 +58,6 @@
             <h3>Logout</h3>
         </a>
     </div>
+    
 </aside>
 <!-- end aside -->

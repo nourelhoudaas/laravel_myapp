@@ -3,7 +3,7 @@
     $locale = app()->getLocale();
 @endphp
 
- 
+
  @extends('base')
 
     @section('title', 'Employees')
@@ -13,6 +13,9 @@
     $uid=auth()->id();
     @endphp
         <body>
+        <div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
             <div class="container2">
                 <!-- start section aside -->
                 @include('./navbar.sidebar')
@@ -20,7 +23,8 @@
 
                 <!-- main section start -->
                 <main>
-                <h1>{{ __('lang.ctrl_cng') }}</h1>
+                    <div class="title"><h1>{{ __('lang.ctrl_cng') }}</h1></div>
+
                     <div class="insights">
                         <!-- start Employees -->
                         <div class="sales">
@@ -66,7 +70,7 @@
                                     @php
                                         $locale = app()->getLocale();
                                       /*  if ($locale == 'ar') {
-                                            dd($typeconges->titre_cong_ar); 
+                                            dd($typeconges->titre_cong_ar);
                                                 }*/
                                         @endphp
 
@@ -75,7 +79,7 @@
                                     @else
                                         <option value='{{$typeconges->ref_cong}}'>{{$typeconges->titre_cong}}</option>
                                     @endif
-                           
+
                             @endforeach
                         </select>
                         <hr>
@@ -91,13 +95,13 @@
                                  @elseif ($locale == 'ar')
                                         <option value='{{$empdeparts->id_depart}}'>{{$empdeparts->Nom_depart_ar}}</option>
                                  @endif
-                            
+
                             @endforeach
                         </select>
                     </div>
-                    <hr>
+
                     <div class="recent_order">
-                        <table id="CngTable">
+                        <table class="styled-table"id="CngTable">
                             <thead>
                                 <tr>
                                     <th>{{ __('lang.name') }}</th>
@@ -130,13 +134,14 @@
                                                     {{ $employe->Nom_ar_emp }}
                                                  @endif
                                             </td>
-                                            <td> 
+                                            <td>
                                                 @if ($locale == 'fr')
                                                   {{ $employe->Prenom_emp }}
                                                 @elseif ($locale == 'ar')
                                                   {{ $employe->Prenom_ar_emp }}
                                                 @endif
                                             </td>
+                                            <td>
                                                 @if ($locale == 'fr')
                                                      {{ $employe->occupeIdNin->last()->post->Nom_post ?? 'N/A' }}
                                                   @elseif ($locale == 'ar')
@@ -153,6 +158,9 @@
                                             </td>
 
                                             <td>
+                                              {{ $conge->nbr_jours  }}
+                                            </td>
+                                            <td>
                                                 @if ($locale == 'fr')
                                                     {{ $conge->type_conge->titre_cong ?? 'N/A'  }}
                                                 @elseif ($locale == 'ar')
@@ -162,21 +170,22 @@
                                             <td>{{ $conge->date_debut_cong }}</td>
                                             <td>{{ $conge->date_fin_cong }}</td>
                                             <td>{{ floor(Carbon::parse($today)->diffInDays($conge->date_fin_cong)+2) }}</td>
-                                               <td class="abs-info" id="cng{{$employe->id_nin}}">
+
+                                            <td class="abs-info" id="cng{{$employe->id_nin}}">
                                                <a href="/Employe/read_just/{{$conge->id_fichier}}" target="_blank"> {{$conge->ref_cng}}</a>
-                                               </td>
+                                            </td>
                                         </tr>
                                         @endif
                                     @endforeach
                                 @endforeach
-                          
+
                             </tbody>
                         </table>
-                        <hr>
-                        <div class="pagination">
+
+                        {{-- <div class="pagination">
                         {{ $paginator->links() }}
-                    </div>
-                 
+                    </div> --}}
+
                     </div>
                 </main>
             </div>
@@ -231,7 +240,7 @@
                     </div>
                     <br>
                     <div>
-                    <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label> 
+                    <label for="file" class='file-get-handle' id="file-custm">{{__("lang.Choisirunfichier")}}</label>
                     <input type="file" name="file" id="file" style="height:40px" required>
                     <label id='file-nm'>{{__('lang.filnull')}}</lable>
                     <div id="file-error" class="error-tooltip">File is required</div>
@@ -244,7 +253,7 @@
                     <hr>
                     <button type="button" id="conge_confirm">{{ __('lang.ver_cng') }}</button>
                     <button type="button" id="cancel-conge" class="close-formcg-btn">{{ __('lang.cancel') }} </button>
-                   
+
                 </form>
             </div>
         </div>
@@ -257,7 +266,7 @@
             <button onclick="confirmAction()">{{__('lang.btn.enregistrer')}}</button>
             <button onclick="cancelDialog()">{{__('lang.cancel')}}</button>
         </div>
-    </dialog>                               
+    </dialog>
         </body>
         <script>
         var flang='{{__("lang.filnull")}}'
@@ -281,7 +290,7 @@
         });
     });
 
-    //les constants pour éléments de selection par type,dep et total des filtres 
+    //les constants pour éléments de selection par type,dep et total des filtres
     const typeCongeSelect = document.getElementById("type-conge");
     const departmentSelect = document.getElementById("Depcng");
         const employeeTableBody = $("#CngTable tbody");
@@ -294,7 +303,7 @@
             const selectedTypeConge = typeCongeSelect.value;
             const selectedDepartment = departmentSelect.value;
             let url = '';
-      
+
         if (selectedTypeConge && selectedDepartment) {
             url = `/conge/filtercongdep/${selectedTypeConge}/${selectedDepartment}`;
         } else if (selectedTypeConge) {
@@ -302,10 +311,10 @@
         } else if (selectedDepartment) {
             url = `/conge/filterbydep/${selectedDepartment}`;
         }
-            if(url) 
+            if(url)
 
         {console.log(url);
-           
+
     //console.log(selectedTypeConge);
     //une requete get est envoyé à l'url /conge/filter avec type_cong et dep
     $.ajax({
@@ -315,49 +324,55 @@
             success: function(response) {
                 // Clear the table
                 employeeTableBody.empty();
-                // Insert data into the table
-                console.log('ea'+JSON.stringify(response))
-                response.forEach(employe => {
 
-                    var row = '';
-                 //   row.classList.add("employee-row");
-                    if (lng === 'fr') {
-                row = '<tr><td>' + employe.Nom_emp + '</td>' +
-                                '<td>' + employe.Prenom_emp + '</td>' +
-                                '<td>' + employe.Nom_post + '</td>' +
-                                '<td>' + employe.Nom_sous_depart + '</td>' +
-                                '<td>' + employe.titre_cong + '</td>' +
-                                '<td>' + employe.date_debut_cong + '</td>' +
-                                '<td>' + employe.date_fin_cong + '</td>' +
-                                '<td>' + employe.joursRestants + '</td>' +
-                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
-                                '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></i></a></td></tr>';
-            } else if (lng === 'ar') {
-                row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
-                                '<td>' + employe.Prenom_ar_emp + '</td>' +
-                                '<td>' + employe.Nom_post_ar + '</td>' +
-                                '<td>' + employe.Nom_sous_depart_ar + '</td>' +
-                                '<td>' + employe.titre_cong_ar + '</td>' +
-                                '<td>' + employe.date_debut_cong + '</td>' +
-                                '<td>' + employe.date_fin_cong + '</td>' +
-                                '<td>' + employe.joursRestants + '</td>' +
-                                '<td class="abs-info" id="cng'+employe.id_nin+'"><a href=/Employe/read_just/'+employe.id_fichier+' target="_blank">'+employe.ref_cng+'</a></td>'+
-                                '<td class="rep-info" id="cng'+employe.id_nin+'"><a href=# target="_blank"><i class="fa fa-reply" aria-hidden="true"></i></a></td></tr>';
-            }
-            employeeTableBody.append(row);
-        });
-         },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Error:', textStatus, errorThrown);
-            }
-        
-        });
+ // Check if the response contains data
+ if (response.length === 0) {
+            // If no data, display a "No data" message
+            employeeTableBody.append('<tr><td colspan="10" style="text-align:center;">{{ __('lang.tableauVide') }}</td></tr>');
+        } else {
+            // Insert data into the table
+            console.log('ea' + JSON.stringify(response));
+            response.forEach(employe => {
+                var row = '';
+                if (lng === 'fr') {
+                    row = '<tr><td>' + employe.Nom_emp + '</td>' +
+                                  '<td>' + employe.Prenom_emp + '</td>' +
+                                  '<td>' + employe.Nom_post + '</td>' +
+                                  '<td>' + employe.Nom_sous_depart + '</td>' +
+                                  '<td>' + employe.nbr_jours + '</td>' +
+                                  '<td>' + employe.titre_cong + '</td>' +
+                                  '<td>' + employe.date_debut_cong + '</td>' +
+                                  '<td>' + employe.date_fin_cong + '</td>' +
+                                  '<td>' + employe.joursRestants + '</td>' +
+                                  '<td class="abs-info" id="cng' + employe.id_nin + '"><a href=/Employe/read_just/' + employe.id_fichier + ' target="_blank">' + employe.ref_cng + '</a></td>' +
+                                  '</tr>';
+                } else if (lng === 'ar') {
+                    row = '<tr><td>' + employe.Nom_ar_emp + '</td>' +
+                                  '<td>' + employe.Prenom_ar_emp + '</td>' +
+                                  '<td>' + employe.Nom_post_ar + '</td>' +
+                                  '<td>' + employe.Nom_sous_depart_ar + '</td>' +
+                                  '<td>' + employe.nbr_jours + '</td>' +
+                                  '<td>' + employe.titre_cong_ar + '</td>' +
+                                  '<td>' + employe.date_debut_cong + '</td>' +
+                                  '<td>' + employe.date_fin_cong + '</td>' +
+                                  '<td>' + employe.joursRestants + '</td>' +
+                                  '<td class="abs-info" id="cng' + employe.id_nin + '"><a href=/Employe/read_just/' + employe.id_fichier + ' target="_blank">' + employe.ref_cng + '</a></td>' +
+                                  '</tr>';
+                }
+                employeeTableBody.append(row);
+            });
+        }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        console.error('Error:', textStatus, errorThrown);
+    }
+});
 
-        } 
+        }
             }
-        
+
             $('#file').on('change',function(){
-            
+
             var label = $('#file-custm');
             var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
             label.textContent = fileName;

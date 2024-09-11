@@ -23,9 +23,9 @@
                 $uid=auth()->id()
                 @endphp
                 @if(isset($uid))
-                <h1>{{ __('lang.dashboard') }} de {{Auth::user()->username }}</h1>
+               <div class="title"> <h1>{{ __('lang.Tableau_de_Bord_de') }} {{Auth::user()->username }}</h1></div>
                 @else
-                <h1>{{ __('lang.TableaudebordsansuserId') }}</h1>
+                <div class="title"><h1>{{ __('lang.TableaudebordsansuserId') }}</h1></div>
                 @endif
 
                 <div class="insightss">
@@ -33,9 +33,9 @@
                     <div class="sales">
                         <span class="material-symbols-outlined">groups</span>
                         <div class="middle">
-                            <div class="left">
+                        <div class="left">
                                 <h3>{{ __('lang.nbr_all_users') }}</h3>
-                                <h1>{{ $totalEmployes}}</h1>
+                                <h1>{{ $totalEmployess}}</h1>
                             </div>
                         </div>
                     </div>
@@ -243,8 +243,8 @@ const translations = {
         'Femme': 'Femme'
     },
     'ar': {
-        'Homme': 'رجل',
-        'Femme': 'امرأة'
+        'Homme': 'ذكر',
+        'Femme': 'أنثى'
     }
 };
 

@@ -72,7 +72,7 @@ return new class extends Migration
                 'nom_mere_ar'=>'ب',
                 'Date_nais_pere'=>'1975-08-31',
                 'Date_nais_mere'=>'1978-01-21',
-                'situation_familliale'=>'Célébataire',
+                'situation_familliale'=>'Célibataire',
                 'situation_familliale_ar'=>'أعزب/عزباء',
                 'nbr_enfants'=>0,
                 'email_pro'=>'s@gmail.com'

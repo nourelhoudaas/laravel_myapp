@@ -10,6 +10,7 @@
 
   /*========== Colors ==========*/
   --first-color: #138827;
+  --second-color: #1388271f;
   --first-color-light: #F4F0FA;
   --title-color: #19181B;
   --text-color: #58555E;
@@ -60,6 +61,8 @@ h3 {
 
 a {
   text-decoration: none;
+  color: var(--first-color);
+  font-weight: bold;
 }
 
 img {
@@ -553,67 +556,12 @@ main .insightss > div .middle h1 {
 main .insightss h1, main .insightss h3, main .insightss p {
     color: var(--clr-dark);
 }
-/*=============================================*/
 
-
-main .recent_order{
-    margin-top: 2rem;
-}
-
-main .recent_order h2{
-    color: var(--clr-dark);
-}
-
-main .recent_order table{
-    background-color: var(--clr-white);
-    width: 100%;
-    border-radius: var(--card-border-raduis);
-    padding: var(--card-padding);
-    text-align: center;
-    box-shadow: var(--box-shadow);
-    transition: all .3s ease;
-    color: var(--clr-dark);
-}
-
-main .recent_order table:hover{
-    box-shadow: none;
-}
-main table {
-  border-collapse: separate;
-  text-indent: initial;
-  border-spacing: 2px;
-
-}
-
-main table tbody tr{
-    height: 3.8rem;
-
-    border-bottom: 1px solid var(--clr-white);
-    color: var(--clr-dark-variant);
-}
-
-main table tbody td{
-    height: 3.8rem;
-    border-bottom: 1px solid var(--clr-dark);
-    place-content: center;
-}
-
-main table tbody tr:last-child td{
-    border: none;
-}
-
-main .recent_order a{
-    text-align: center;
-    display: block;
-    margin: 1rem;
-    color: var(--clr-dark);
-}
-main .recent_order a:hover{
-    color: var(--first-color);
-
-}
 /*-------------- CSS ADD and Bio --------*/
 
+.text2{
+    text-align: justify;
+}
 #progressbar {
   margin-bottom: 30px;
   overflow: hidden;
@@ -621,7 +569,7 @@ main .recent_order a:hover{
 }
 
 #progressbar .active {
-  color: #2F8D46
+  color: var(--first-color)
 }
 
 #progressbar li {
@@ -675,7 +623,7 @@ main .recent_order a:hover{
 
 #progressbar li.active:before,
 #progressbar li.active:after {
-  background: #2F8D46
+  background: var(--first-color)
 }
 
 .progress {
@@ -683,7 +631,7 @@ main .recent_order a:hover{
 }
 
 .progress-bar {
-  background-color: #2F8D46
+  background-color: var(--first-color);
 }
 
 .stepper-item {
@@ -696,6 +644,10 @@ main .recent_order a:hover{
   @media (max-width: 768px) {
     font-size: 12px;
   }
+}
+.step-name{
+    font-weight: bold;
+    color: var(--first-color);
 }
 
 .stepper-item::before {
@@ -736,13 +688,13 @@ main .recent_order a:hover{
 }
 
 .stepper-item.completed .step-counter {
-  background-color: #4bb543;
+  background-color: var(--first-color);
 }
 
 .stepper-item.completed::after {
   position: absolute;
   content: "";
-  border-bottom: 2px solid #4bb543;
+  border-bottom: 2px solid var(--first-color);
   width: 100%;
   top: 20px;
   left: 50%;
@@ -913,6 +865,7 @@ transform: scale(1.05) rotate(-1deg);
     width: 800px;
     box-shadow: 0 7px 25 rgba(0,0,0,0.8);
     border-radius: 20px;
+    max-height: 300px;
 }
 .graphBox .box2{
     position: relative;
@@ -925,6 +878,7 @@ transform: scale(1.05) rotate(-1deg);
     height: 400px;
     margin-left: -6rem;
     margin-right: -6rem;
+    max-height: 300px;
 }
 .graphBox .box3{
     position: absolute;
@@ -1367,10 +1321,12 @@ cursor:not-allowed ;
 
 
 .lang-handler
-{display: flex;
+{
+    display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+color: var(--first-color);
 }
 
 
@@ -1609,11 +1565,11 @@ color: red;
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.15);
   }
-  .container .title{
+  /* .container .title{
     font-size: 25px;
     font-weight: 500;
     position: relative;
-  }
+  } */
 
   .content form .user-details{
     display: flex;
@@ -1757,3 +1713,370 @@ cursor: pointer;
 .gen-file-handle:hover .gen-list-handle {
   background-color: #3e8e41;
 }
+/** waiting spinner for response*/
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  display: none; /* Initially hidden */
+}
+
+.spinner {
+  text-align: center;
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/** waiting spinner for response*/
+
+
+/*=======================BUTTON============================================*/
+
+.btn-group2{
+
+    height: 100%;
+    width: 30%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg,var( --clr-danger), var(--first-color));
+}
+
+
+.btn-group2:hover{
+    background: linear-gradient(-135deg, var( --clr-danger), var(--first-color));
+}
+/*++++++++++++++++++++++++++++++++++++++++++++++++++*/
+html:lang(fr) main .title {
+    /* font-size: 25px; */
+    font-size: 2rem;
+    font-weight: 500;
+    position: relative;
+  }
+   html:lang(ar) main .title {
+    font-size: 2rem;
+    font-weight: 500;
+    position: relative;
+  }
+
+  /* Trait décoratif pour la langue française */
+html:lang(fr) main .title::before {
+    content: "";
+    position: absolute;
+    left: 0; /* Aligné à droite */
+    bottom: 0;
+    height: 3px;
+    width: 50px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, var(--clr-danger), var(--first-color));
+  }
+
+  /* Trait décoratif pour la langue arabe */
+  html:lang(ar) main .title::before {
+    content: "";
+    position: absolute;
+    right: 0; /* Aligné à gauche */
+    bottom: 0;
+    height: 3px;
+    width: 50px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, var(--clr-danger), var(--first-color));
+  }
+/*==========================TABLEAU=========================*/
+html:lang(fr) .recent_order .title{
+    /* font-size: 25px; */
+    font-size: 2rem;
+    font-weight: 500;
+    position: relative;
+  }
+   html:lang(ar) .recent_order .title{
+    font-size: 2rem;
+    font-weight: 500;
+    position: relative;
+  }
+
+  /* Trait décoratif pour la langue française */
+html:lang(fr) .recent_order .title::before {
+    content: "";
+    position: absolute;
+    left: 0; /* Aligné à droite */
+    bottom: 0;
+    height: 3px;
+    width: 50px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, var(--clr-danger), var(--first-color));
+  }
+
+  /* Trait décoratif pour la langue arabe */
+  html:lang(ar) .recent_order .title::before {
+    content: "";
+    position: absolute;
+    right: 0; /* Aligné à gauche */
+    bottom: 0;
+    height: 3px;
+    width: 50px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, var(--clr-danger), var(--first-color));
+  }
+.styled-table {
+    border-collapse: collapse;
+    margin-top: 10rem;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    transition: all .3s ease;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+}
+
+.styled-table thead tr {
+    /* background-color: var(--first-color); */
+    background: linear-gradient(135deg, var(--first-color), var(--clr-danger));
+
+    color: #ffffff;
+    text-align: left;
+
+
+}
+thead{
+    height: 3.8rem;
+}
+
+.styled-table th{
+    /* padding: 50px 50px; */
+    margin: 1rem;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid var(--clr-dark);
+    font-weight: var( --font-medium);
+
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    /* background-color: #f3f3f3; */
+    background-color: var(--clr-color-background);
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid var(--first-color);
+}
+
+.styled-table tbody tr:hover {
+    font-weight: bold;
+    background-color: var(--second-color) !important;
+
+}
+
+#myTable tbody tr td {
+    text-align: center;
+}
+
+#myTable thead tr th {
+    text-align: center;
+}
+
+.dt-search {
+    font-weight: bold !important;
+}
+/* Pour la langue française */
+
+/* Conteneur au-dessus du tableau */
+html:lang(fr) .top {
+    display: flex;
+    justify-content: flex-end; /* Aligner à droite */
+    margin-bottom: 10px;
+}
+
+/* Conteneur sous le tableau */
+html:lang(fr) .bottom {
+    display: flex;
+    justify-content: space-between; /* Espace entre le sélecteur et la pagination */
+    align-items: center; /* Centrer verticalement */
+    margin-top: 10px;
+}
+
+/* Aligner le sélecteur de lignes à gauche */
+html:lang(fr) .bottom .dataTables_length {
+    text-align: left;
+}
+
+/* Aligner la pagination à droite */
+html:lang(fr) .bottom .dataTables_paginate {
+    text-align: right;
+}
+
+/* Pour la langue arabe */
+
+/* Conteneur au-dessus du tableau */
+html:lang(ar) .top {
+    display: flex;
+    justify-content: flex-end; /* Aligner à gauche */
+    margin-bottom: 10px;
+
+}
+
+/* Conteneur sous le tableau */
+html:lang(ar) .bottom {
+    display: flex;
+    justify-content: space-between; /* Espace entre le sélecteur et la pagination */
+    align-items: center; /* Centrer verticalement */
+    margin-top: 10px;
+}
+
+/* Aligner le sélecteur de lignes à droite */
+html:lang(ar) .bottom .dataTables_length {
+    text-align: right;
+}
+
+/* Aligner la pagination à gauche */
+html:lang(ar) .bottom .dataTables_paginate {
+    text-align: left;
+}
+/* Cible le champ de recherche dans la classe dt-search */
+.dt-search input[type="search"] {
+    font-weight: bold; /* Rend le texte en gras */
+    font-size: 16px; /* Ajuste la taille de la police */
+    color: #333; /* Change la couleur du texte */
+    border: 1px solid #ccc; /* Modifie la bordure */
+    padding: 5px; /* Ajuste l'espacement interne */
+    border-radius: 4px; /* Ajoute des coins arrondis */
+}
+
+/* Cible le label ou le conteneur du champ de recherche si nécessaire */
+.dt-search label {
+    font-weight: bold; /* Rend le texte du label en gras */
+}
+
+.pagination-fa{
+color: var(--first-color);
+
+}
+.disabled .pagination-fa{
+/*color: cadetblue;*/
+color: var(--second-color) !important;
+}
+.paginate_button{
+
+border: none !important;
+}
+.paginate_button:hover{
+background: none !important;
+border: none !important;
+}
+.paginate_button:focus{
+outline: none !important;
+border: none !important;
+}
+.paginate_button:active{
+background: none !important;
+
+}
+
+/* Styles pour améliorer la visibilité de la sélection */
+tr.selected {
+background-color: var(--second-color) !important;
+}
+
+tr:hover {
+cursor: pointer;
+}
+
+
+/*=============================================*/
+
+
+
+html:lang(fr) main .recent_order{
+    margin-top: 2rem;
+            background-color: #fff;
+            padding: 20px 10px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            margin-right: -5rem;
+            width: 1800px;
+            max-width: 1800px;
+}
+
+html:lang(ar) main .recent_order{
+    margin-top: 2rem;
+            background-color: #fff;
+            padding: 20px 10px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            margin-left: -5rem;
+            width: 1800px;
+            max-width: 1800px;
+}
+
+
+
+main .recent_order table{
+    background-color: var(--clr-white);
+    width: 1800px;
+    max-width: 1800px;
+    border-radius: var(--card-border-raduis);
+    padding: var(--card-padding);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transition: all .3s ease;
+    color: var(--clr-dark);
+}
+
+main .recent_order table:hover{
+    box-shadow: none;
+}
+main table {
+  border-collapse: separate;
+  text-indent: initial;
+  border-spacing: 2px;
+
+}
+
+main table tbody tr{
+    height: 3.8rem;
+    border-bottom: 1px solid var(--clr-white);
+    color: var(--clr-dark-variant);
+}
+
+main table tbody td{
+    height: 3.8rem;
+    border-bottom: 1px solid var(--clr-dark);
+    place-content: center;
+}
+
+main table tbody tr:last-child td{
+    border: none;
+}
+
+main .recent_order a{
+    text-align: center;
+    display: block;
+    margin: 0.5rem;
+    color: var(--clr-dark);
+}
+main .recent_order a:hover{
+    color: var(--first-color);
+
+}
+/*================================================\TABLEAU==================================*/

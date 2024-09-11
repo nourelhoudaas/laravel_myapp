@@ -20,11 +20,15 @@ return new class extends Migration
             $table->integer('id_post');
             $table->string('ref_PV');
             $table->string('ref_Decision')->default('New');
-           // $table->integer('id_postsup');
+            $table->string('ref_base');
+
+            $table->integer('id_postsup')->nullable();
+            $table->string('id_fonction')->nullable();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('id_post')->references('id_post')->on('posts');
-          //  $table->foreign('id_postsup')->references('id_postsup')->on('post_sups');
+            $table->foreign('id_postsup')->references('id_postsup')->on('post_sups');
+            $table->foreign('id_fonction')->references('id_fonction')->on('fonctions');
         });
         DB::table('occupes')->insert([
             [
@@ -34,7 +38,8 @@ return new class extends Migration
                 'id_nin' => 254896989,
                 'id_p' => 256,
                 'id_post' => 20,
-                'ref_PV'=>'1N'
+                'ref_PV'=>'1N',
+                'ref_base'=>'1N'
             ],
             [
                 'id_occup' => 10,
@@ -43,7 +48,8 @@ return new class extends Migration
                 'id_nin' => 1254953,
                 'id_p' => 123,
                 'id_post' => 2,
-                'ref_PV'=>'2N'
+                'ref_PV'=>'2N',
+                'ref_base'=>'2N'
             ],
 
             ]);
