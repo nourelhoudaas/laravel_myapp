@@ -993,7 +993,7 @@ foreach($allwor as $workig)
                 ->join('contients', 'posts.id_post', '=', 'contients.id_post')
                 ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
-                ->orderBy('occupes.date_recrutement','desc')
+                ->orderBy('occupes.date_recrutement','asc')
                 ->first();
                 //dd($emp);
                 $empstat='Exist pas';
@@ -1106,7 +1106,7 @@ foreach($allwor as $workig)
                 return response()->json(
                     [
                         'employe'=>$emp,
-                        'Jour_congé'=>round($totaljour),
+                        'Jour_congé_an'=>round($totaljour),
                     ]
                 );
                 }
@@ -1225,12 +1225,14 @@ foreach($allwor as $workig)
                          {
                             $startcng=Carbon::parse($cg->date_debut_cng);
                             $start = Carbon::parse($cg->date_fin_cong);
-                            $consume=$startcng->diffInDays($start);
-                            $nbrcngbef=$cg->nbr_jours;
                             $end = Carbon::parse($request->get('date_fcg'));
-                            $daysDifference = $start->diffInDays($end);
-                            //dd($nbrcngbef);
-                            $nbrcg=$nbrcngbef-$consume+$daysDifference;
+                            $consume=$startcng->diffInDays($mald_deb);
+                            $nbrcngbef=$cg->nbr_jours;
+                           // dd($nbrcngbef);
+                            $daysDifference = $mald_deb->diffInDays($end);
+                           // dd($daysDifference);
+                            $nbrcg=$nbrcngbef+$daysDifference;
+                            //dd($nbrcg);
                             if($cg->date_fin_cong > $request->get('date_dcg') )
                             {
                             $cg->update(['date_fin_cong'=>$request->get('date_dcg'),'nbr_jours'=>$nbrcg]) ;
@@ -1242,7 +1244,7 @@ foreach($allwor as $workig)
                                     'id_p'=>$request->get('ID_P'),
                                     'date_debut_cong'=>$request->get('date_dcg'),
                                     'date_fin_cong'=>$request->get('date_fcg'),
-                                    'nbr_jours'=>1,
+                                    'nbr_jours'=>$consume,
                                     'ref_cong'=>$request->get('type_cg'),
                                     'ref_cng'=>$request->get('ref_cng'),
                                     'situation'=>$request->get('situation'),
@@ -1268,7 +1270,7 @@ foreach($allwor as $workig)
                                     'id_p'=>$request->get('ID_P'),
                                     'date_debut_cong'=>$request->get('date_dcg'),
                                     'date_fin_cong'=>$request->get('date_fcg'),
-                                    'nbr_jours'=>1,
+                                    'nbr_jours'=>$consume,
                                     'ref_cong'=>$request->get('type_cg'),
                                     'ref_cng'=>$request->get('ref_cng'),
                                     'situation'=>$request->get('situation'),

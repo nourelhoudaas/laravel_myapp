@@ -1406,7 +1406,7 @@ $(document).ready(function () {
         let list_abs = new Object()
         var dep = $(this).val();
         var dates = $('#abs_date').val();
-        console.log('date' + $.isEmptyObject(dateabs));
+        console.log('date' + $.isEmptyObject(dateabs)+'data '+JSON.stringify(dateabs));
         if (!$.isEmptyObject(dateabs)) {
             if (dep) {
                 $.ajax({
@@ -1415,17 +1415,18 @@ $(document).ready(function () {
                     success: function (response) {
                         $('#AbsTable tbody').empty();
                         list_abs = response
-                        list_abs.absens = false;
+                        list_abs.employe.absens = false;
                         list_abs.employe.forEach(function (item) {
                             console.log('--' + JSON.stringify(list_abs.employe));
                             //  if()
-                            list_abs.employe.forEach(function (itemsdate) {
+                            dateabs.forEach(function (itemsdate) {
                                 if (item.id_nin === itemsdate.id_nin) {
                                     item.absens = true;
+                                    console.log(' i use for changing'+item.absens)
                                 }
                             })
                         });
-                        //  console.log('list'+JSON.stringify(list_abs))
+                          console.log('list'+JSON.stringify(list_abs))
                         list_abs.employe.forEach(function (item) {
                             if (item.absens) {
                                 if (lng == 'ar') {
