@@ -1226,17 +1226,35 @@ foreach($allwor as $workig)
                         if (!$mald_deb->between($current->copy()->subDays(2), $current))
                          {
                             $startcng=Carbon::parse($cg->date_debut_cng);
-                            $start = Carbon::parse($cg->date_fin_cong);
+                            $endcng = Carbon::parse($cg->date_fin_cong);
+                            $cngall=$startcng->diffInDays($endcng);
                             $end = Carbon::parse($request->get('date_fcg'));
                             $consume=$startcng->diffInDays($mald_deb);
                             $nbrcngbef=$cg->nbr_jours;
                            // dd($nbrcngbef);
                             $daysDifference = $mald_deb->diffInDays($end);
+                            $difdays=$mald_deb->diffInDays($endcng);
                            // dd($daysDifference);
                             $nbrcg=$nbrcngbef+$daysDifference;
                             //dd($nbrcg);
+                            if($endcng < $end)
+                            {  
+                                $dff=$mald_deb->diffInDays($endcng);
+                                $nbrcg=$nbrcngbef+$dff;
+                            }
+                            else
+                            {
+                                if($endcng > $mald_deb )
+                                {
+                                $dff=$mald_deb->diffInDays($end);
+                                $diff=$startcng->diffInDays($mald_deb);
+                                $rest=$nbrcngbef+$diff+$dff;
+                                $nbrcg=$rest;
+                                }
+                            }
                             if($cg->date_fin_cong > $request->get('date_dcg') )
                             {
+                               // dd(intval($nbrcg));
                             $cg->update(['date_fin_cong'=>$request->get('date_dcg'),'nbr_jours'=>$nbrcg]) ;
                             }
                             else
