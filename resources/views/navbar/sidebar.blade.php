@@ -90,7 +90,7 @@
                                             <span class="nav__name">{{ __('lang.AddDir') }}</span>
 
                                         </a>
-                                        <a href="{{route('app_liste_dir',['dep_id'=>$empdepart->id_depart])}}" class="nav__link">
+                                        <a href="{{route('app_liste_dir')}}" class="nav__link">
                                             <i class='bx bx-list-ul nav__icon' ></i>
                                                 <span class="nav__name">{{ __('lang.ListDir') }}</span>
 

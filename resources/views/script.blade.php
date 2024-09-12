@@ -155,8 +155,8 @@ $(document).ready(function() {
 
         let lang = "{{ app()->getLocale() }}";
         let oLanguage = {};
-        columnshead =[{'data':'id_nin'},{'data':'date_abs'},{'data':'heure_abs'},{'data':'statut'}]  
         if (lang === 'ar') {
+            columnshead =[{'data':'id_nin'},{'data':'date_abs'},{'data':'heure_abs'},{'data':'statut_ar'}]
            // columnshead =[{'data':'رقم'},{'data':'date_abs'},{'data':'heure_abs'},{'data':'statut'}]
             oLanguage = {
                 info: 'عرض الصفحة _PAGE_ من _PAGES_',
@@ -172,8 +172,10 @@ $(document).ready(function() {
                 }
             };
         } else if (lang === 'fr') {
+            columnshead =[{'data':'id_nin'},{'data':'date_abs'},{'data':'heure_abs'},{'data':'statut'}]
+
             oLanguage = {
-           //     columnshead =[{'data':'Numero'},{'data':'Date d\'bsence'},{'data':'Heure d\'bsence'},{'data':'Motif de l\'absence'}] 
+           //     columnshead =[{'data':'Numero'},{'data':'Date d\'bsence'},{'data':'Heure d\'bsence'},{'data':'Motif de l\'absence'}]
                 info: 'Affichage de la page _PAGE_ sur _PAGES_',
                 infoEmpty: 'Aucun enregistrement disponible',
                 infoFiltered: '',
@@ -198,6 +200,21 @@ $(document).ready(function() {
             "rowCallback": function(row, data, index) {
             // Add row number to the first column (index 0)
             $('td:eq(0)', row).html(index + 1);
+             // Check if 'statut' is "justifier"
+             if (data.statut === 'justifier' || data.statut_ar==='مبرر') {
+                $(row).css('cursor', 'pointer'); // Change cursor to pointer to indicate it's clickable
+
+                // Make the entire row clickable
+                $(row).on('click', function() {
+                    window.location.href = '/Employe/read_just/' + data.id_nin; // Redirige vers une URL basée sur id_nin
+                });
+
+
+            } else {
+                // If statut is not 'justifier', do nothing or add specific behavior
+                $(row).css('cursor', 'not-allowed'); // Change cursor to indicate it's not clickable
+                //$('td:eq(3)', row).html('Non justifier'); // Indicate 'Non justifier' in the 'statut' column
+            }
         }
 
         });

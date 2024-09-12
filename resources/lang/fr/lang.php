@@ -156,7 +156,7 @@ return [
     'reason'=>'Veuillez saisir ou discuter la raison pour laquelle vous avez oublié votre mot de passe',
     'envoiforgotpass'=>'Envoyer',
     'nom_direct'=>'Nom Direction',
-    'id_drec'=>'ID direction',
+    'id_drec'=>'Id direction',
     'nom_sous_direct'=>'Nom sous Direction',
     'title_list_direc'=>'Listes des Directions et  les Sous Directions',
 

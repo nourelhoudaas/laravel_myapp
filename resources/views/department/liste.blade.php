@@ -15,16 +15,20 @@
             @include('./navbar.sidebar')
             <!-- end section aside -->
             <main>
+                <div class="title"><h1 >{{ __('lang.msg_list_direct_ssdirect') }}</h1></div>
                 <div class="recent_order">
-                    <h1 class="app-page-title">{{ __('lang.msg_list_direct_ssdirect') }}</h1>
 
+<<<<<<< HEAD
+                    <table class="styled-table" id="myTable">
+=======
                     <table  class="styled-table" id='myTable'>
+>>>>>>> d6dcbe8616bc40b84698ecb279a35a10a742fbea
                         <thead>
                     <tr>
                                 <th>{{ __('lang.id_drec') }} </th>
                                 <th>{{ __('lang.nom_direct') }} </th>
                                 <th>{{ __('lang.nom_sous_direct') }} </th>
-                                <th>{{ __('lang.Action') }}</th>
+                                {{-- <th>{{ __('lang.Action') }}</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +65,7 @@
                                         @endforeach
                                     </td>
 
-                                    <td>
+                                    {{-- <td>
 
                                         <a href="{{ route('departement.editer', $departement->id_depart) }}"><i
                                                 class="fa fa-edit"></i></a>
@@ -77,7 +81,7 @@
 
 
 
-                                    </td>
+                                    </td> --}}
                             @endforeach
                         </tbody>
                     </table>

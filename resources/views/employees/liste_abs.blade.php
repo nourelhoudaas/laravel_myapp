@@ -51,6 +51,7 @@
                                 <th>{{ __('lang.sous_dept') }} </th>
                                 <th>{{ __('lang.dept') }}</th>
                                 <th>{{ __('lang.stuation') }}</th>
+                                <th>{{ __('lang.stuation') }}</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -59,16 +60,13 @@
                 <div>
                     <h3 id='emp-info'></h3>
                 </div>
-                <div class="recent_order">
-                    <table class="styled-table" id="AbsempTable">
+
+                <div class="recent_order" id="secondDiv" style="display: none; margin_bottom=10px">
+                    <table  class="styled-table" id="AbsempTable" >
                         <thead></thead>
                         <tbody></tbody>
                     </table>
-                    <div id="pagination-info">
-                     <p>{{__('lang.nbr_absence')}}: <span id="total-posts"></span></p>
-                     <p>{{__('lang.nbr_page')}}: <span id="total-pages"></span></p>
-                    </div>
-                    <div class="pagination" id='links'></div>
+
                 </div>
                 <div id="mySidenav" class="">
                     <div>
