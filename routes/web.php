@@ -38,9 +38,7 @@ Route::controller(HomeController::class)->group(function(){
 
 
 Route::middleware('auth')->group(function () {
-
     Route::get('/updatePassword', function () {
-        App::setLocale(Session::get('locale', config('app.locale')));
         return view('auth.updatePassword');
     })->name('password_update');
 
@@ -86,8 +84,6 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('/conge/filtercongdep/{typeconge}/{department} ', 'filtercongdep');
     Route::get('/Employe/IsTravaill/{id}','existToAdd')->name('Employe.istravaill');
     Route::get('/Employe/IsEducat/{id}','existApp')->name('Employe.iseducat');
-    Route::get('/Employe/PostSups','getPostSups')->name('Employe.PostSups');
-    
     Route::get('/Employe/check/{id}','find_emp')->name('find_by_nin');
     Route::get('/Employe/list_abs/{id}','get_list_absemp')->name('emp_list_abs');
     Route::get('/Employe/read_just/{id}','read_just')->name('emp_read_justif');
@@ -116,7 +112,8 @@ Route::controller(DepartmentController::class)->group(function(){
     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
     ->name('app_dashboard_depart');
    // Route::get('/department/listcontient','liste_contient')->name('liste.contient');
-    Route::match(['get', 'post'], '/listcontient','liste_contient')->name('liste.contient');
+    Route::match(['get', 'post'], '/listcontient{ss_dep}','liste_contient')->name('app_liste_contient');
+
     Route::get('/depart/{departement}', 'delete')->name('department.delete');
 
 

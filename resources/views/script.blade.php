@@ -145,6 +145,7 @@ $(document).ready(function() {
     });
     </script>
 
+
 <script>
     function absTabel(reponse){
     $(document).ready(function() {

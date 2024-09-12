@@ -215,6 +215,7 @@ return [
     'nombre_de_joursrestnat'=>'العدد الاجمالي للايام المتبقية',
     'slct_post_sup' =>'اختر منصب ',
     'slct_fonc'=>'اختر وظيفة ',
+    'lst_post'=>'قائمة المناصب',
 
 
 ];
