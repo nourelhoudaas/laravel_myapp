@@ -46,41 +46,39 @@ function hideLoadingSpinner() {
  * end function
  */
 
-        $(document).ready(function(){
-            $('#gen_ats').on('click',function()
-        {
-            var genform={
-                ID_NIN:id,
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                _method: 'POST'
-              }
-            $.ajax({
-                url:'/ATS',
-                data:genform,
-                type:'post',
-                success:function(response)
-                {
-                    alert('success');
-                    window.open('/read_rapport/'+id,'_blank');
-                }
-            })
-        })
-        $('.more-info').on('click',function(){
-           var idocp=$(this).attr('id')
-           var genform={
-            ID_NIN:id,
-            idocp:idocp,
+$(document).ready(function () {
+    $('#gen_ats').on('click', function () {
+        var genform = {
+            ID_NIN: id,
             _token: $('meta[name="csrf-token"]').attr('content'),
             _method: 'POST'
-          }
-            console.log('id is'+idocp);
-            $.ajax({
-                url:'/BioTemplate/carrier/',
-                data:genform,
-                type:'post',
-            })
+        }
+        $.ajax({
+            url: '/ATS',
+            data: genform,
+            type: 'post',
+            success: function (response) {
+                alert('success');
+                window.open('/read_rapport/' + id, '_blank');
+            }
         })
+    })
+    $('.more-info').on('click', function () {
+        var idocp = $(this).attr('id')
+        var genform = {
+            ID_NIN: id,
+            idocp: idocp,
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            _method: 'POST'
+        }
+        console.log('id is' + idocp);
+        $.ajax({
+            url: '/BioTemplate/carrier/',
+            data: genform,
+            type: 'post',
         })
+    })
+})
 
 
 /***
@@ -242,7 +240,7 @@ function populateTable(posts) {
                     '<td>' + rowNumber + '</td>' +
                     '<td>' + post.date_abs + '</td>' +
                     '<td>' + post.heure_abs + '</td>' +
-                    '<td> No Justfier </td>' +
+                    '<td> Non justfier </td>' +
                     '</tr>';
             }
         }
@@ -1361,10 +1359,22 @@ $(document).ready(function () {
 });
 
 // ------------- getting list empl with his dep ------------
+  function showDiv() {
+    // Récupérer le div contenant le deuxième tableau
+    var secondDiv = document.getElementById("secondDiv");
+
+    // Bascule entre affiché et caché
+    if (secondDiv.style.display === "none" || secondDiv.style.display === "") {
+      secondDiv.style.display = "block"; // Affiche le div
+    } else {
+      secondDiv.style.display = "none"; // Cache le div
+    }
+  }
 $(document).ready(function () {
     var datch = $('#abs_date').val();
     var absens = '<i id="stdout-ic" class="fa fa-user-times" aria-hidden="true"></i>';
     var present = '<i id="stdin-ic" class="fa fa-check-circle" aria-hidden="true"></i>';
+
     var dateabs = new Object();
     var che = 0;
     if (datch === '') {
@@ -1413,13 +1423,14 @@ $(document).ready(function () {
                     url: '/liste_abs_deprt/' + dep,
                     method: 'GET',
                     success: function (response) {
+
                         $('#AbsTable tbody').empty();
                         list_abs = response
                         list_abs.absens = false;
                         list_abs.employe.forEach(function (item) {
                             console.log('--' + JSON.stringify(list_abs.employe));
                             //  if()
-                            list_abs.employe.forEach(function (itemsdate) {
+                            dateabs.forEach(function (itemsdate) {
                                 if (item.id_nin === itemsdate.id_nin) {
                                     item.absens = true;
                                 }
@@ -1435,7 +1446,7 @@ $(document).ready(function () {
                                         + '</td><td>' + item.Nom_sous_depart_ar
                                         + '</td><td>' + item.Nom_depart_ar
                                         + '</td><td id="stdin' + item.id_nin + '" class="std-handle abs">' + absens + '</td>'
-                                        + '<td  class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
+                                        + '<td onclick="showDiv()" class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                                 }
                                 else {
                                     $('#AbsTable tbody').append('<tr id=' + item.id_p + '><td><a href=/BioTemplate/search/' + item.id_nin + '>' + item.Nom_emp
@@ -1444,7 +1455,7 @@ $(document).ready(function () {
                                         + '</td><td>' + item.Nom_sous_depart
                                         + '</td><td>' + item.Nom_depart
                                         + '</td><td id="stdout' + item.id_nin + '" class="std-handle abs">' + absens + '</td>'
-                                        + '<td  class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
+                                        + '<td onclick="showDiv()" class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                                 }
                             } else {
                                 if (lng == 'ar') {
@@ -1454,7 +1465,7 @@ $(document).ready(function () {
                                         + '</td><td>' + item.Nom_sous_depart_ar
                                         + '</td><td>' + item.Nom_depart_ar
                                         + '</td><td id="stdin' + item.id_nin + '" class="std-handle pre">' + present + '</td>'
-                                        + '<td  class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
+                                        + '<td onclick="showDiv()" class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                                 }
                                 else {
                                     $('#AbsTable tbody').append('<tr id=' + item.id_p + '><td><a href=/BioTemplate/search/' + item.id_nin + '>' + item.Nom_emp
@@ -1463,7 +1474,7 @@ $(document).ready(function () {
                                         + '</td><td>' + item.Nom_sous_depart
                                         + '</td><td>' + item.Nom_depart
                                         + '</td><td id="stdin' + item.id_nin + '" class="std-handle pre">' + present + '</td>'
-                                        + '<td  class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
+                                        + '<td onclick="showDiv()" class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                                 }
 
                             }
@@ -1481,25 +1492,25 @@ $(document).ready(function () {
                                 $('#AbsempTable thead').empty();
                                 $('#AbsempTable tbody').empty();
                                 if (lng == 'ar') {
-                                    $("#AbsempTable thead").append('<tr style="text-align: center;"><th>رقم</th>'
-                                        + '<th>تاريخ الغياب</th>'
-                                        + '<th>توقيت الغياب</th>'
-                                        + '<th>سبب الغياب</th>'
+                                    $("#AbsempTable thead").append('<tr><th style="text-align:justify">رقم</th>'
+                                        + '<th style="text-align:justify">تاريخ الغياب</th>'
+                                        + '<th style="text-align:justify">توقيت الغياب</th>'
+                                        + '<th style="text-align:justify">سبب الغياب</th>'
                                         + '</tr>')
                                 } else {
-                                    $("#AbsempTable thead").append('<tr style="text-align: center;"><th>Numero</th>'
-                                        + '<th>Date d\'absence</th>'
-                                        + '<th>Heure d\'absence</th>'
-                                        + '<th>Motif de l\'absence</th>'
+                                    $("#AbsempTable thead").append('<tr><th style="text-align:justify">Numero</th>'
+                                        + '<th style="text-align:justify">Date d\'absence</th>'
+                                        + '<th style="text-align:justify">Heure d\'absence</th>'
+                                        + '<th style="text-align:justify">Motif de l\'absence</th>'
                                         + '</tr>')
                                 }
-                                $.get('/Employe/list_abs/' + idsa[1],function(response)
-                                {
-                                    console.log('data table -'+JSON.stringify(response.list_abs))
+
+                                $.get('/Employe/list_abs/' + idsa[1], function (response) {
+                                    console.log('data table -' + JSON.stringify(response.list_abs))
                                     absTabel(response.list_abs)
                                 })
-                             //   absTabel()
-                             //   fetchPosts('/Employe/list_abs/' + idsa[1])
+                                //   absTabel()
+                                //   fetchPosts('/Employe/list_abs/' + idsa[1])
 
                             }
                             )
@@ -1624,6 +1635,9 @@ $(document).ready(function () {
                 });
             } else {
                 $('#AbsTable tbody').empty();
+                $('#AbsTable thead').empty();
+                $('#AbsempTable thead').empty();
+                $('#AbsempTable tbody').empty();
             }
 
 
@@ -1648,7 +1662,7 @@ $(document).ready(function () {
                                     + '</td><td>' + item.Nom_sous_depart_ar
                                     + '</td><td>' + item.Nom_depart_ar
                                     + '</td><td id="stdin' + item.id_nin + '" class="std-handle pre">' + present + '</td>'
-                                    + '<td  class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
+                                    + '<td onclick="showDiv()" class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                             } else {
                                 $('#AbsTable tbody').append('<tr id=' + item.id_p + '><td><a href=/BioTemplate/search/' + item.id_nin + '>' + item.Nom_emp
                                     + '</td><td>' + item.Prenom_emp
@@ -1656,7 +1670,7 @@ $(document).ready(function () {
                                     + '</td><td>' + item.Nom_sous_depart
                                     + '</td><td>' + item.Nom_depart
                                     + '</td><td id="stdin' + item.id_nin + '" class="std-handle pre">' + present + '</td>'
-                                    + '<td class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
+                                    + '<td onclick="showDiv()" class="abs-info" id="abs' + item.id_nin + '"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></td></tr>');
                             }
                             //  console.log('-->>'+$('#stdin').text())
                         });
@@ -1684,12 +1698,11 @@ $(document).ready(function () {
                                         + '</tr>')
                                 }
 
-                                $.get('/Employe/list_abs/' + idsa[1],function(response)
-                                {
-                                    console.log('data table -'+JSON.stringify(response.list_abs))
+                                $.get('/Employe/list_abs/' + idsa[1], function (response) {
+                                    console.log('data table -' + JSON.stringify(response.list_abs))
                                     absTabel(response.list_abs)
                                 })
-                               // fetchPosts('/Employe/list_abs/' + idsa[1])
+                                // fetchPosts('/Employe/list_abs/' + idsa[1])
 
                             }
                             )

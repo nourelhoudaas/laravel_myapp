@@ -37,11 +37,11 @@
                dd($fct);
          */
                 $employe = Employe::with([
-                    'occupeIdNin.post',  
+                    'occupeIdNin.post',
                     'occupeIdNin.fonction',
                     'occupeIdNin.postsup',
                     'travailByNin.sous_departement.departement',
-                
+
                 ])
                 ->get();
            // dd( $employe);
@@ -472,17 +472,20 @@
             }
             if($request->get('justifie') == 'F2')
             {
-                    $justf="NoJustier";
+                    $justf="Non justier";
+                    $justfar="غير مبرر";
             }
             if($request->get('justifie') == 'F1')
             {
                 $justf="Justifie";
+                $justfar="مبرر";
             }
             $abs=new Absence([
                 'id_nin'=>$id_nin,
                 'id_p'=>$id_p,
                 'id_sous_depart'=>$soud_dic,
                 'statut'=>$justf,
+                'statut_ar'=>$justfar,
                 'heure_abs'=>$heur,
                 'id_fichier'=>1,
                 'date_abs'=>$request->get('Date_ABS'),
@@ -1586,11 +1589,20 @@ foreach($allwor as $workig)
             public function get_list_absemp($id)
             {
                 $emp=Employe::where('id_nin',$id)->first();
-                $list_abs=Absence::where('id_nin',$id)->orderBy('date_abs','desc')
-                                  ->select('date_abs', 'heure_abs','statut', 'id_nin', 'id_p', 'id_sous_depart','id_fichier')
+                if(app()->getLocale()== 'ar'){
+                    $list_abs=Absence::where('id_nin',$id)->orderBy('date_abs','desc')
+                                  ->select('date_abs', 'heure_abs', 'statut_ar', 'id_nin', 'id_p', 'id_sous_depart','id_fichier')
                                   ->orderBy('date_abs')
                                   ->distinct()
                                   ->get();
+                }else{
+                    $list_abs=Absence::where('id_nin',$id)->orderBy('date_abs','desc')
+                    ->select('date_abs', 'heure_abs','statut', 'id_nin', 'id_p', 'id_sous_depart','id_fichier')
+                    ->orderBy('date_abs')
+                    ->distinct()
+                    ->get();
+                }
+
                 $perPage = 5; // Par exemple, 2 éléments par page
                     $page = 1; // Page actuelle
                     if(request()->get('page') != null)

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Mon Application</title>
-    <style>
+   <style>
         body, html {
             height: 100%;
             margin: 0;
@@ -67,7 +67,9 @@
         }
     </style>
 </head>
+
 <body>
+
 
 <div class="bg">
     <div class="content">
@@ -78,7 +80,5 @@
         </div>
     </div>
 </div>
-
-
 </body>
 </html>

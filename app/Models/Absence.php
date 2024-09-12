@@ -10,12 +10,12 @@ class Absence extends Model
     use HasFactory;
     protected $table = 'absences';
     protected $primaryKey = 'id_abs';
-    public $incrementing = true; 
-    protected $keyType = 'integer'; 
+    public $incrementing = true;
+    protected $keyType = 'integer';
       // Désactiver les timestamps automatiques
       public $timestamps = false;
 
-      protected $fillable = ['id_abs','date_abs','heure_abs','statut','id_nin','id_p','id_sous_depart','id_fichier'];
+      protected $fillable = ['id_abs','date_abs','heure_abs','statut','statut_ar','id_nin','id_p','id_sous_depart','id_fichier'];
 
       public function employe()
       {
@@ -34,4 +34,3 @@ class Absence extends Model
 
 }
 
-   

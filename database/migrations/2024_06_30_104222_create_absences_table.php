@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('date_abs');
             $table->time('heure_abs');
             $table->string('statut');
+            $table->string('statut_ar');
             $table->integer('id_nin');
             $table->integer('id_p');
             $table->integer('id_sous_depart');

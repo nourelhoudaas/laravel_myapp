@@ -46,13 +46,14 @@
 }
 
 body {
+
   margin: var(--header-height) 0 0 0;
   padding: 1rem 1rem 0;
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
    background-color: var(--body-color);
   color: var(--text-color);
-  height: fit-content;
+  /* height: fit-content; */
 }
 
 h3 {
@@ -1904,13 +1905,18 @@ html:lang(fr)  .title::before {
 
 
 }
+#AbsempTable tbody td{
+    text-align:center;
+}
 thead{
     height: 3.8rem;
+    text-align: left;
 }
 
 .styled-table th{
     /* padding: 50px 50px; */
     margin: 1rem;
+    text-align: left;
 }
 
 .styled-table tbody tr {
@@ -2055,6 +2061,7 @@ cursor: pointer;
 
 html:lang(fr) main .recent_order{
     margin-top: 2rem;
+    margin-bottom: 50px;
             background-color: #fff;
             padding: 20px 10px;
             border-radius: 5px;
@@ -2066,6 +2073,7 @@ html:lang(fr) main .recent_order{
 
 html:lang(ar) main .recent_order{
     margin-top: 2rem;
+    margin-bottom: 50px;
             background-color: #fff;
             padding: 20px 10px;
             border-radius: 5px;
