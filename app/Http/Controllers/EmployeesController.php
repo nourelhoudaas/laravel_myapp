@@ -1350,7 +1350,7 @@ foreach($allwor as $workig)
                                //    dd($dat);
                                    if($dat == null)
                                    {
-                                    $newcngs=$nbrcng;
+                                    $newcngs=$date;
                                    }
 
                                   // dd($newcngs);
