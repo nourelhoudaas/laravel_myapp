@@ -2090,7 +2090,10 @@ $(document).ready(function () {
                     }
                 }
             }
-
+            if(selectedValue == 'RF002' && total_cgj == 0)
+            {
+                total_cgj = 1 ; 
+            }
             if (totaljour > 0 && totaljour <= 30 && total_cgj > 0 && granted == true) {
                 var congeform = {
                     ID_NIN: parseInt(result.employe.id_nin),

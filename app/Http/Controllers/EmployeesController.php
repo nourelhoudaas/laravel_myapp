@@ -1248,8 +1248,8 @@ foreach($allwor as $workig)
                                 if($endcng > $mald_deb )
                                 {
                                 $dff=$mald_deb->diffInDays($end);
-                                $diff=$startcng->diffInDays($mald_deb);
-                                $rest=$nbrcngbef+$diff+$dff;
+                              //  $diff=$startcng->diffInDays($mald_deb);
+                                $rest=$nbrcngbef+$dff;
                                 $nbrcg=$rest;
                                 }
                             }
