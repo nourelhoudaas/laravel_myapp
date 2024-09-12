@@ -1954,19 +1954,19 @@ $(document).ready(function () {
                                             $('#total_cgj').val(response.Jour_congé_an + ' يوم واحد')
                                             break;
                                         case response.Jour_congé === 2:
-                                            $('#total_cgj').val('(0' + response.Jour_congé_an + ')يومان')
+                                            $('#total_cgj').val('(0' + response.Jour_congé_an + '),يومان')
                                             break;
                                         default:
-                                            $('#total_cgj').val(response.Jour_congé_an + 'أيام')
+                                            $('#total_cgj').val(response.Jour_congé_an + ',أيام')
                                             break;
                                     }
                                 }
                                 else {
-                                    $('#total_cgj').val(response.Jour_congé_an + ' Jour(s)')
+                                    $('#total_cgj').val(response.Jour_congé_an + ' ,Jour(s)')
                                 }
                             }
                             if (selectedOption == 'RF002') {
-                                $('#total_cgj').val(response.Jour_congé_mal + ' Jour(s) de maladie')
+                                $('#total_cgj').val(response.Jour_congé_mal + ' ,Jour(s) de maladie')
                             }
 
                         });
@@ -1977,19 +1977,19 @@ $(document).ready(function () {
                                         $('#total_cgj').val(' يوم واحد')
                                         break;
                                     case response.Jour_congé === 2:
-                                        $('#total_cgj').val('(0' + response.Jour_congé_an + ')-يومان')
+                                        $('#total_cgj').val('(0' + response.Jour_congé_an + '),يومان')
                                         break;
                                     default:
-                                        $('#total_cgj').val(response.Jour_congé_an + '-أيام')
+                                        $('#total_cgj').val(response.Jour_congé_an + ',أيام')
                                         break;
                                 }
                             }
                             else {
-                                $('#total_cgj').val(response.Jour_congé_an + '-Jour(s)')
+                                $('#total_cgj').val(response.Jour_congé_an + ',Jour(s)')
                             }
                         }
                         else {
-                            $('#total_cgj').val(response.Jour_congé_mal + '-Jour(s) de maladie')
+                            $('#total_cgj').val(response.Jour_congé_mal + ',Jour(s) de maladie')
                         }
                         if (type != 'Maladie') {
                             $('#typ_cg option:eq(1)').prop('selected', true)
