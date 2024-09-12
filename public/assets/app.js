@@ -74,6 +74,7 @@ function hideLoadingSpinner() {
             _method: 'POST'
           }
             console.log('id is'+idocp);
+          //  $('.more-info-over').css('display','flex')
             $.ajax({
                 url:'/BioTemplate/carrier/',
                 data:genform,
