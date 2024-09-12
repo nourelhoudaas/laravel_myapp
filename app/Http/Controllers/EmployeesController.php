@@ -1669,7 +1669,7 @@ foreach($allwor as $workig)
                 if($id != 0)
                 {
                 $file=Stocke::where('id_fichier',$id)->first();
-               // dd($file);
+            //    dd($file);
                 $subdir=$file->ref_Dossier;
                 $fichier=$file->sous_d.'-'.$id;
 

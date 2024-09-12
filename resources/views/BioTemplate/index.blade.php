@@ -60,9 +60,13 @@
                             <button id='gen_ats'>{{__('lang.ats')}}</button>
                         </div>
                         </div>
-                       <div>
+                       <div class='img-holder'>
                          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                         <div class='profil-upload'><i class="fa fa-pencil" aria-hidden="true" ></i></div>
+                         @if(app()->getLocale() == 'ar')
+                         <div class='profil-uploadar'><i class="fa fa-pencil" aria-hidden="true" ></i></div>
+                         @else
+                         <div class='profil-uploadfr'><i class="fa fa-pencil" aria-hidden="true" ></i></div>
+                         @endif
                       </div>
                           </br>
                           <div class="mod-but" id="mod-but">

@@ -1804,12 +1804,21 @@ cursor: pointer;
   100% { transform: rotate(360deg); }
 }
 /** waiting spinner for response*/
-.profil-upload
+.profil-uploadfr
 {
   width: 40px;
   position: relative;
   bottom: 15px;
   left: 40px;
+  background: #fff;
+  border-radius: 15px
+}
+.profil-uploadar
+{
+  width: 40px;
+  position: relative;
+  bottom: 15px;
+  right: 40px;
   background: #fff;
   border-radius: 15px
 }
@@ -1825,7 +1834,15 @@ cursor: pointer;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }  
-
+.img-holder div
+{
+  background: #ffffff;
+}
+.img-holder div:hover
+{
+  scale: 1.1;
+  background-color: #bdfcb8;
+}
 
 /*=======================BUTTON============================================*/
 
