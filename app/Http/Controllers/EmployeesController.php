@@ -996,7 +996,7 @@ foreach($allwor as $workig)
                 ->join('contients', 'posts.id_post', '=', 'contients.id_post')
                 ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
-                ->orderBy('occupes.date_recrutement','desc')
+                ->orderBy('occupes.date_recrutement','asc')
                 ->first();
                 //dd($emp);
                 $empstat='Exist pas';
@@ -1027,6 +1027,7 @@ foreach($allwor as $workig)
                     $nbrsn=0;
                     $cngMal=Conge::select('nbr_jours')
                                ->where('ref_cong','RF002')
+                               ->where('id_nin',$emp->id_nin)
                                ->orderBy('date_fin_cong')
                                ->first();
                     if(isset($cngMal))
@@ -1109,7 +1110,7 @@ foreach($allwor as $workig)
                 return response()->json(
                     [
                         'employe'=>$emp,
-                        'Jour_congé'=>round($totaljour),
+                        'Jour_congé_an'=>round($totaljour),
                     ]
                 );
                 }
@@ -1166,9 +1167,10 @@ foreach($allwor as $workig)
                 $allday='';
                 if(gettype($request->get('total_cgj')) == 'string')
                 {
-                    $allday=explode('-',$request->get('total_cgj'));
+                    $allday=explode(',',$request->get('total_cgj'));
                     //dd(intval($allday[0]));
                 };
+              //  dd($cng);
                 if(count($cng) == 0)
                 {
 
@@ -1178,7 +1180,7 @@ foreach($allwor as $workig)
                         $end = Carbon::parse($request->get('date_fcg'));
                         $daysDifference = $start->diffInDays($end);
                         $res=$request->get('total_cgj')-$daysDifference;
-                      //  dd(intval($res));
+                        dd(intval($res));
                         $cong=new Conge([
                             'id_nin'=>$request->get('ID_NIN'),
                             'id_p'=>$request->get('ID_P'),
@@ -1206,6 +1208,7 @@ foreach($allwor as $workig)
                 }
                 if(isset($cng))
                 {
+                    //dd($cng);
                 foreach($cng as $cg)
                 {
 
@@ -1227,15 +1230,35 @@ foreach($allwor as $workig)
                         if (!$mald_deb->between($current->copy()->subDays(2), $current))
                          {
                             $startcng=Carbon::parse($cg->date_debut_cng);
-                            $start = Carbon::parse($cg->date_fin_cong);
-                            $consume=$startcng->diffInDays($start);
-                            $nbrcngbef=$cg->nbr_jours;
+                            $endcng = Carbon::parse($cg->date_fin_cong);
+                            $cngall=$startcng->diffInDays($endcng);
                             $end = Carbon::parse($request->get('date_fcg'));
-                            $daysDifference = $start->diffInDays($end);
-                            //dd($nbrcngbef);
-                            $nbrcg=$nbrcngbef-$consume+$daysDifference;
+                            $consume=$startcng->diffInDays($mald_deb);
+                            $nbrcngbef=$cg->nbr_jours;
+                           // dd($nbrcngbef);
+                            $daysDifference = $mald_deb->diffInDays($end);
+                            $difdays=$mald_deb->diffInDays($endcng);
+                           // dd($daysDifference);
+                            $nbrcg=$nbrcngbef+$daysDifference;
+                            //dd($nbrcg);
+                            if($endcng < $end)
+                            {
+                                $dff=$mald_deb->diffInDays($endcng);
+                                $nbrcg=$nbrcngbef+$dff;
+                            }
+                            else
+                            {
+                                if($endcng > $mald_deb )
+                                {
+                                $dff=$mald_deb->diffInDays($end);
+                              //  $diff=$startcng->diffInDays($mald_deb);
+                                $rest=$nbrcngbef+$dff;
+                                $nbrcg=$rest;
+                                }
+                            }
                             if($cg->date_fin_cong > $request->get('date_dcg') )
                             {
+                               // dd(intval($nbrcg));
                             $cg->update(['date_fin_cong'=>$request->get('date_dcg'),'nbr_jours'=>$nbrcg]) ;
                             }
                             else
@@ -1245,7 +1268,7 @@ foreach($allwor as $workig)
                                     'id_p'=>$request->get('ID_P'),
                                     'date_debut_cong'=>$request->get('date_dcg'),
                                     'date_fin_cong'=>$request->get('date_fcg'),
-                                    'nbr_jours'=>1,
+                                    'nbr_jours'=>$daysDifference,
                                     'ref_cong'=>$request->get('type_cg'),
                                     'ref_cng'=>$request->get('ref_cng'),
                                     'situation'=>$request->get('situation'),
@@ -1271,7 +1294,7 @@ foreach($allwor as $workig)
                                     'id_p'=>$request->get('ID_P'),
                                     'date_debut_cong'=>$request->get('date_dcg'),
                                     'date_fin_cong'=>$request->get('date_fcg'),
-                                    'nbr_jours'=>1,
+                                    'nbr_jours'=>$daysDifference,
                                     'ref_cong'=>$request->get('type_cg'),
                                     'ref_cng'=>$request->get('ref_cng'),
                                     'situation'=>$request->get('situation'),
@@ -1307,6 +1330,7 @@ foreach($allwor as $workig)
                             ]);
                         }
                     }
+
                     $startDate = Carbon::parse($request->get('date_dcg'));
 
 
@@ -1316,17 +1340,22 @@ foreach($allwor as $workig)
                     $monthsDifference = $startDate->diffInMonths($endDate);
                     $len=$cng->count()-1;
                     $all=$request->get('total_cgj');
+                    $newcngs=0;
                     $all=intval($all);
+
                     $date=intval($monthsDifference*30);
+
                     if( $all > $date)
                     {
                         $nbrcng= $all - $date;
+                        $newcngs= $nbrcng;
                     }
                     else
                     {
                         $nbrcng=-1;
-                    }
+                                           }
                 //  dd($nbrcng);
+
                     if($nbrcng <= 0 && $request->get('type_cg') == 'RF001' && $cg->ref_cong != 'RF002')
                     {
                         return response()->json([
@@ -1340,8 +1369,14 @@ foreach($allwor as $workig)
                                    ->where('id_nin',$request->get('ID_NIN'))
                                    ->orderBy('date_fin_cong','desc')
                                    ->first();
-                     $newcngs=$dat->nbr_jours-$all;
-                   //  dd(intval($newcngs));
+                               //    dd($dat);
+                                   if($dat == null)
+                                   {
+                                    $newcngs=$date;
+                                   }
+
+                                  // dd($newcngs);
+                       // dd(intval($newcngs));
                         $cong=new Conge([
                         'id_nin'=>$request->get('ID_NIN'),
                         'id_p'=>$request->get('ID_P'),

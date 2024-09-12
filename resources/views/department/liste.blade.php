@@ -18,7 +18,11 @@
                 <div class="title"><h1 >{{ __('lang.msg_list_direct_ssdirect') }}</h1></div>
                 <div class="recent_order">
 
+<<<<<<< HEAD
                     <table class="styled-table" id="myTable">
+=======
+                    <table  class="styled-table" id='myTable'>
+>>>>>>> d6dcbe8616bc40b84698ecb279a35a10a742fbea
                         <thead>
                     <tr>
                                 <th>{{ __('lang.id_drec') }} </th>
@@ -40,6 +44,7 @@
                                         @if ($locale == 'fr')
                                         <a
                                             href="{{ route('app_dashboard_depart', $departement->id_depart) }}">{{ $departement->Nom_depart }}</a>
+
                                             @elseif ($locale == 'ar')
                                             <a
                                             href="{{ route('app_dashboard_depart', $departement->id_depart) }}">{{ $departement->Nom_depart_ar }}</a>
@@ -49,9 +54,13 @@
 
                                         @foreach ($departement->sous_departement as $sous_departement)
                                         @if ($locale == 'fr')
-                                            {{ $sous_departement->Nom_sous_depart }}<br>
+                                        <a
+                                        href="/listcontient{{$sous_departement->Nom_sous_depart}}"> {{ $sous_departement->Nom_sous_depart }}<br></a>
+
+
                                             @elseif ($locale == 'ar')
-                                            {{ $sous_departement->Nom_sous_depart_ar }}<br>
+                                            <a
+                                            href="/listcontient/{{$sous_departement->Nom_sous_depart_ar}}"> {{ $sous_departement->Nom_sous_depart_ar }}<br>
                                             @endif
                                         @endforeach
                                     </td>

@@ -1416,7 +1416,7 @@ $(document).ready(function () {
         let list_abs = new Object()
         var dep = $(this).val();
         var dates = $('#abs_date').val();
-        console.log('date' + $.isEmptyObject(dateabs));
+        console.log('date' + $.isEmptyObject(dateabs)+'data '+JSON.stringify(dateabs));
         if (!$.isEmptyObject(dateabs)) {
             if (dep) {
                 $.ajax({
@@ -1426,17 +1426,18 @@ $(document).ready(function () {
 
                         $('#AbsTable tbody').empty();
                         list_abs = response
-                        list_abs.absens = false;
+                        list_abs.employe.absens = false;
                         list_abs.employe.forEach(function (item) {
                             console.log('--' + JSON.stringify(list_abs.employe));
                             //  if()
                             dateabs.forEach(function (itemsdate) {
                                 if (item.id_nin === itemsdate.id_nin) {
                                     item.absens = true;
+                                    console.log(' i use for changing'+item.absens)
                                 }
                             })
                         });
-                        //  console.log('list'+JSON.stringify(list_abs))
+                          console.log('list'+JSON.stringify(list_abs))
                         list_abs.employe.forEach(function (item) {
                             if (item.absens) {
                                 if (lng == 'ar') {
@@ -1966,19 +1967,19 @@ $(document).ready(function () {
                                             $('#total_cgj').val(response.Jour_congé_an + ' يوم واحد')
                                             break;
                                         case response.Jour_congé === 2:
-                                            $('#total_cgj').val('(0' + response.Jour_congé_an + ')يومان')
+                                            $('#total_cgj').val('(0' + response.Jour_congé_an + '),يومان')
                                             break;
                                         default:
-                                            $('#total_cgj').val(response.Jour_congé_an + 'أيام')
+                                            $('#total_cgj').val(response.Jour_congé_an + ',أيام')
                                             break;
                                     }
                                 }
                                 else {
-                                    $('#total_cgj').val(response.Jour_congé_an + ' Jour(s)')
+                                    $('#total_cgj').val(response.Jour_congé_an + ' ,Jour(s)')
                                 }
                             }
                             if (selectedOption == 'RF002') {
-                                $('#total_cgj').val(response.Jour_congé_mal + ' Jour(s) de maladie')
+                                $('#total_cgj').val(response.Jour_congé_mal + ' ,Jour(s) de maladie')
                             }
 
                         });
@@ -1989,19 +1990,19 @@ $(document).ready(function () {
                                         $('#total_cgj').val(' يوم واحد')
                                         break;
                                     case response.Jour_congé === 2:
-                                        $('#total_cgj').val('(0' + response.Jour_congé_an + ')-يومان')
+                                        $('#total_cgj').val('(0' + response.Jour_congé_an + '),يومان')
                                         break;
                                     default:
-                                        $('#total_cgj').val(response.Jour_congé_an + '-أيام')
+                                        $('#total_cgj').val(response.Jour_congé_an + ',أيام')
                                         break;
                                 }
                             }
                             else {
-                                $('#total_cgj').val(response.Jour_congé_an + '-Jour(s)')
+                                $('#total_cgj').val(response.Jour_congé_an + ',Jour(s)')
                             }
                         }
                         else {
-                            $('#total_cgj').val(response.Jour_congé_mal + '-Jour(s) de maladie')
+                            $('#total_cgj').val(response.Jour_congé_mal + ',Jour(s) de maladie')
                         }
                         if (type != 'Maladie') {
                             $('#typ_cg option:eq(1)').prop('selected', true)
@@ -2102,7 +2103,10 @@ $(document).ready(function () {
                     }
                 }
             }
-
+            if(selectedValue == 'RF002' && total_cgj == 0)
+            {
+                total_cgj = 1 ; 
+            }
             if (totaljour > 0 && totaljour <= 30 && total_cgj > 0 && granted == true) {
                 var congeform = {
                     ID_NIN: parseInt(result.employe.id_nin),

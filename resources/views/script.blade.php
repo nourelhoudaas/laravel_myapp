@@ -160,7 +160,7 @@ $(document).ready(function() {
            // columnshead =[{'data':'رقم'},{'data':'date_abs'},{'data':'heure_abs'},{'data':'statut'}]
             oLanguage = {
                 info: 'عرض الصفحة _PAGE_ من _PAGES_',
-                infoEmpty: 'لا توجد سجلات متاحة',
+                infoEmpty: 'لا توجد سجلات للغيابات متاحة',
                 infoFiltered: '',
                 lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
                 zeroRecords: 'لم يتم العثور على شيء - عذراً',
@@ -179,7 +179,7 @@ $(document).ready(function() {
                 info: 'Affichage de la page _PAGE_ sur _PAGES_',
                 infoEmpty: 'Aucun enregistrement disponible',
                 infoFiltered: '',
-                emptyTable: 'Aucune donnée disponible dans le tableau',
+                emptyTable: 'Aucune donnée d`absence disponible dans le tableau',
                 lengthMenu: 'Afficher _MENU_ enregistrements par page',
                 zeroRecords: 'Rien trouvé - désolé',
                 search: 'Recherche: ',

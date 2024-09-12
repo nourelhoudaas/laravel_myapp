@@ -228,6 +228,7 @@ return [
     'nbr_emp'=>'Nombre d\'employer',
     'slct_post_sup' =>'Séléctionner le poste supèrieur',
     'slct_fonc'=>'Séléctionner la fonction',
+    'lst_post'=>'liste des Postes',
 
 
 
