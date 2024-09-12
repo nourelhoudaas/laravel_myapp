@@ -19,33 +19,36 @@ return new class extends Migration
             $table->string('type_fichier');
             $table->date('date_cree_fichier');
         });
+ // Définir la valeur de départ de l'auto-incrémentation à 2
+ DB::statement('ALTER TABLE fichiers AUTO_INCREMENT = 2');
+
 
         DB::table('fichiers')->insert([
-            [  
-         
+            [
+
                 'nom_fichier' => 'fff',
                 'hash_fichier' => 'fff',
                 'taille_fichier' => '20',
                 'type_fichier' =>'img',
                 'date_cree_fichier' =>'2024-01-11',
-              
-                
-               
+
+
+
             ],
             [
-          
+
                 'nom_fichier' => 'ggg',
                 'hash_fichier' => 'ggggg',
                 'taille_fichier' => '20',
                 'type_fichier' =>'img',
                 'date_cree_fichier' =>'2024-08-11',
-                
+
             ]
-               
+
             ]);
 
 
-    
+
     }
 
     /**
