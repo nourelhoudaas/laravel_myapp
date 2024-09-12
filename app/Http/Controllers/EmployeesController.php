@@ -1024,6 +1024,7 @@ foreach($allwor as $workig)
                     $nbrsn=0;
                     $cngMal=Conge::select('nbr_jours')
                                ->where('ref_cong','RF002')
+                               ->where('id_nin',$emp->id_nin)
                                ->orderBy('date_fin_cong')
                                ->first();
                     if(isset($cngMal))
