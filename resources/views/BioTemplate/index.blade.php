@@ -60,7 +60,14 @@
                             <button id='gen_ats'>{{__('lang.ats')}}</button>
                         </div>
                         </div>
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                       <div class='img-holder'>
+                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                         @if(app()->getLocale() == 'ar')
+                         <div class='profil-uploadar'><i class="fa fa-pencil" aria-hidden="true" ></i></div>
+                         @else
+                         <div class='profil-uploadfr'><i class="fa fa-pencil" aria-hidden="true" ></i></div>
+                         @endif
+                      </div>
                           </br>
                           <div class="mod-but" id="mod-but">
                              <i class="fa fa-times" aria-hidden="true" id="btn-icon">...</i>
@@ -374,6 +381,16 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+   <div class='more-info-over' style='display:none'>
+    <div class='card mb-3'>
+      <div class ='card-body'>
+        <div> tetsing only</div>
+      </div>
+    </div>
+   </div>
+
+
+
     <script src="{{ asset('assets/carousel.js')}}"></script>
     <script src="{{ asset('assets/app.js')}}"></script>
     <!--script src="../js/printPD.js"></script>

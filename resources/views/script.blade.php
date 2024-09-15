@@ -206,6 +206,7 @@ $(document).ready(function() {
 
                 // Make the entire row clickable
                 $(row).on('click', function() {
+                    console.log('file '+data.id_fichier)
                     window.location.href = '/Employe/read_just/' + data.id_fichier; // Redirige vers une URL basée sur id_nin
                 });
 
