@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('type_fichier');
             $table->date('date_cree_fichier');
         });
+ // Définir la valeur de départ de l'auto-incrémentation à 2
+ DB::statement('ALTER TABLE fichiers AUTO_INCREMENT = 2');
 
-
+/*
         DB::table('fichiers')->insert([
             [
 
@@ -44,7 +46,7 @@ return new class extends Migration
             ]
 
             ]);
-
+*/
 
 
     }

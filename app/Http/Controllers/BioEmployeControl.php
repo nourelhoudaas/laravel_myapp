@@ -108,7 +108,7 @@ class BioEmployeControl extends Controller
                         ->where('date_abs',$request->get('date_abs'))->first();
 
         $update=Absence::find($update->id_abs);
-        dd($update);
+        //dd($update);
         $update->update(['id_fichier'=>$id_file->id_fichier]);
         $ups='mise à jour';
         $upsnot='Erreur de mise à jour';

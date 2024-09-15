@@ -917,17 +917,17 @@ function closeNav(absensform, id_nin, absens) {
             });
         });
         console.log('the data select are ' + JSON.stringify(selectedValues[0].value))
-        justfi = selectedValues[0].value;
+        justifier = selectedValues[0].value;
     }
     else {
         selectedB = '';
-        justfi = ''
+        justifier = ''
     }
 
 
     jour = soire + matin;
     absensform.jour = jour
-    absensform.justifie = justfi;
+    absensform.justifie = justifier;
     console.log('version final is :: -->' + JSON.stringify(absensform));
     $('#mySidenav').removeClass('toRight')
     if (soire !== '' || matin !== '') {
@@ -2105,7 +2105,7 @@ $(document).ready(function () {
             }
             if(selectedValue == 'RF002' && total_cgj == 0)
             {
-                total_cgj = 1 ; 
+                total_cgj = 1 ;
             }
             if (totaljour > 0 && totaljour <= 30 && total_cgj > 0 && granted == true) {
                 var congeform = {
