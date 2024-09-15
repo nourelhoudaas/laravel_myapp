@@ -563,7 +563,6 @@
             $query->where('date_fin_cong', '>=', $today)
                 ->whereIn('titre_cong', ['annuel']);
         })->count();
-
         $countExceptionnel= Employe::with([
             'occupeIdNin.post',
             'travailByNin.sous_departement.departement',

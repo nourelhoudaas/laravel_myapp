@@ -111,7 +111,7 @@ class BioEmployeControl extends Controller
         dd($update);
         $update->update(['id_fichier'=>$id_file->id_fichier]);
         $ups='mise à jour';
-        $upsnot='n`est pas mise à jour';
+        $upsnot='Erreur de mise à jour';
         if(app()->getLocale() == 'ar')
         {
             $ups=' تم التحديث ';
@@ -154,7 +154,7 @@ class BioEmployeControl extends Controller
         $update=Conge::find($update->id_cong);
         $update->update(['id_fichier'=>$id_file->id_fichier]);
         $ups='mise à jour';
-        $upsnot='n`est pas mise à jour';
+        $upsnot='Erreur de mise à jour';
         if(app()->getLocale() == 'ar')
         {
             $ups=' تم التحديث ';

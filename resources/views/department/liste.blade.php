@@ -65,6 +65,7 @@
                                         @endforeach
                                     </td>
 
+
                                     {{-- <td>
 
                                         <a href="{{ route('departement.editer', $departement->id_depart) }}"><i
