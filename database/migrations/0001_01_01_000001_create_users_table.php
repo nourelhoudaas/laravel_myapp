@@ -50,10 +50,10 @@ return new class extends Migration
         DB::table('users')->insert([
             [  
             
-                'name' => 'fadia',
+                'name' => 'ing',
                 'id_nin' => 1254953,
                 'id_p' => 123,
-                'username' => 'fadia',
+                'username' => 'ing',
                 'password' => '$2y$12$QMNdYb8dQXCgpdWM9NF4OebBiHPAyKplRHoDqJFmqQnSXd9cCg1SW',
                 'nbr_login' => 0,
             ],

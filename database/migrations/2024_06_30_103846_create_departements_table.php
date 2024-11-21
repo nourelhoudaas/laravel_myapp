@@ -22,19 +22,52 @@ return new class extends Migration
         DB::table('departements')->insert([
             [
               
-                'Nom_depart' => 'developpement',
-                'Descriptif_depart' => 'developpement',
-                'Nom_depart_ar' => 'تطوير',
-                'Descriptif_depart_ar' => 'تطوير',
+                'Nom_depart' => "Développement et de l'Investissement",
+                'Descriptif_depart' => "Développement et de l'Investissement",
+                'Nom_depart_ar' => '  التطوير و الاستثمار',
+                'Descriptif_depart_ar' => '  التطوير و الاستثمار',
                
             ], 
             [
              
-                'Nom_depart' => 'personnel',
-                'Descriptif_depart' => 'personnel',
-                'Nom_depart_ar' => 'ادارة-المستخدمين',
-                'Descriptif_depart_ar' => 'ادارة-المستخدمين',
+                'Nom_depart' => "Administration et des Moyens",
+                'Descriptif_depart' => "Administration et des Moyens",
+                'Nom_depart_ar' => 'الإدارة والوسائل ',
+                'Descriptif_depart_ar' => 'الإدارة والوسائل',
             ]
+            , 
+            [
+             
+                'Nom_depart' => "La Coopération et de la Formation",
+                'Descriptif_depart' => "La Coopération et de la Formation",
+                'Nom_depart_ar' => 'التعاون  والتكوين ',
+                'Descriptif_depart_ar' => 'التعاون  والتكوين',
+            ]
+            , 
+            [
+             
+                'Nom_depart' => "La Communication Institutionnelle",
+                'Descriptif_depart' => "La Communication Institutionnelle",
+                'Nom_depart_ar' => 'الاتصال المؤسساتي',
+                'Descriptif_depart_ar' => 'الاتصال المؤسساتي',
+            ]
+            , 
+            [
+             
+                'Nom_depart' => "Affaires Juridiques, de la Documentation et des Archives",
+                'Descriptif_depart' => "Affaires Juridiques, de la Documentation et des Archives",
+                'Nom_depart_ar' => 'الشؤون  القانونية  والتوثيق  والأرشيف',
+                'Descriptif_depart_ar' => 'الشؤون  القانونية  والتوثيق  والأرشيف',
+            ]
+            , 
+            [
+             
+                'Nom_depart' => "Médias",
+                'Descriptif_depart' => "Médias",
+                'Nom_depart_ar' => ' وسائل  الإعلام',
+                'Descriptif_depart_ar' => ' وسائل  الإعلام',
+            ]
+           
                
             ]);
     }

@@ -22,7 +22,7 @@ return new class extends Migration
  // Définir la valeur de départ de l'auto-incrémentation à 2
  DB::statement('ALTER TABLE fichiers AUTO_INCREMENT = 2');
 
-/*
+
         DB::table('fichiers')->insert([
             [
 
@@ -46,7 +46,7 @@ return new class extends Migration
             ]
 
             ]);
-*/
+
 
 
     }

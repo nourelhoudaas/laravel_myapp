@@ -18,11 +18,7 @@
                 <div class="title"><h1 >{{ __('lang.msg_list_direct_ssdirect') }}</h1></div>
                 <div class="recent_order">
 
-<<<<<<< HEAD
-                    <table class="styled-table" id="myTable">
-=======
                     <table  class="styled-table" id='myTable'>
->>>>>>> d6dcbe8616bc40b84698ecb279a35a10a742fbea
                         <thead>
                     <tr>
                                 <th>{{ __('lang.id_drec') }} </th>
