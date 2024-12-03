@@ -461,8 +461,9 @@
         //   dd(intval($request->get('ID_P')));
         // dd($request);
             $heur='13:00:00';
-             $justf="justifier";
-             $justfar='';
+            $justf="justifier";
+                $justfar="مبرر";
+
             if($request->get('jour') == '21')
             {
                 $heur='08:30:00';
@@ -475,11 +476,13 @@
             {
                     $justf="Non justier";
                     $justfar="غير مبرر";
+
             }
             if($request->get('justifier') == 'F1')
             {
                 $justf="justifier";
                 $justfar="مبرر";
+
             }
             $abs=new Absence([
                 'id_nin'=>$id_nin,
@@ -491,6 +494,7 @@
                 'id_fichier'=>1,
                 'date_abs'=>$request->get('Date_ABS'),
             ]);
+           // dd($abs);
             if($abs->save())
             {
                 return response()->json([
@@ -504,6 +508,7 @@
                     'status'=>404
                 ]);
             }
+
         }
             public function list_cong()
             {
