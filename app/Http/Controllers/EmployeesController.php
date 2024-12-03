@@ -462,6 +462,7 @@
         // dd($request);
             $heur='13:00:00';
              $justf="justifier";
+             $justfar='';
             if($request->get('jour') == '21')
             {
                 $heur='08:30:00';
