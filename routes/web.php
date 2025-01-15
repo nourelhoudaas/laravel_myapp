@@ -70,6 +70,10 @@ Route::controller(LoginController::class)->group(function(){
 Route::middleware('auth')->group(function () {
 Route::controller(EmployeesController::class)->group(function(){
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
+    Route::get('/exportPdfCatg','exportPdfCatg')->name('app_export_catg'); //impression liste par categorie
+    Route::get('/exportPdfFnc','exportPdfFnc')->name('app_export_fnc'); //impression liste par fonction
+    Route::get('/exportPdfCat','exportPdfCat')->name('app_export_cat'); //impression liste par contrat actuel
+    Route::get('/exportPdf','exportPdf')->name('app_export_emply'); //impression liste globale
     Route::get('/liste_abs','AbsenceEmply')->name('app_abs_emply');
     Route::get('/addTemplate/formulaire','createF')->name('app_add_emply');
     Route::get('/liste_abs_deprt/{id_dep}','listabs_depart')->name('list_abs_emply');

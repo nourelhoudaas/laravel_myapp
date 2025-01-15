@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 @import "./lib/bootstrap/css/bootstrap.css";
 @import "./main/user/user.css";
+@import "~@fonticons/fonticons/css/fonticons.min.css";
 /*========== VARIABLES CSS ==========*/
 :root {
   --header-height: 3.5rem;
