@@ -19,9 +19,9 @@ return new class extends Migration
             $table->integer('id_p');
             $table->integer('id_post');
             $table->string('ref_PV');
-            $table->string('visa_CF');
-            $table->date('date_CF');
-            $table->string('type_CTR');
+            $table->string('visa_CF')->nullable();
+            $table->date('date_CF')->nullable();
+            $table->string('type_CTR')->nullable();
             $table->string('ref_Decision')->default('New');
             $table->string('ref_base');
 
