@@ -8,7 +8,7 @@
 
 @section('content')
 
-<body>
+
     <div id="loadingSpinner" class="spinner-overlay">
         <div class="spinner"></div>
     </div>
@@ -75,85 +75,100 @@
                     <tbody>
 
                         @foreach ($employe as $employe)
-                                                @php
-                                                    $post = $employe->occupeIdNin->last()->post;
-                                                    $travail = $employe->travailByNin->last();
-                                                    $sousDepartement = $travail->sous_departement;
-                                                    $departement = $sousDepartement->departement;
-                                                    $postsup = $employe->occupeIdNin->last()->postsup;
-                                                    $fonction = $employe->occupeIdNin->last()->fonction;
-                                                    $occupe = $employe->occupeIdNin->last();
+                                            @php
+                                                $occupeIdNin = $employe->occupeIdNin;
+                                                $travailByNin = $employe->travailByNin;
 
-                                                    $locale = app()->getLocale();
-                                                @endphp
-                                                <tr>
+                                                $post = null;
+                                                $travail = null;
+                                                $sousDepartement = null;
+                                                $departement = null;
+                                                $postsup = null;
+                                                $fonction = null;
+                                                $occupe = null;
 
-                                                    <td> {{ $employe->id_emp}} </td>
-                                                    <td>
-                                                        <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
-                                                            @if ($locale == 'fr')
-                                                                {{ $employe->Nom_emp }}
-                                                            @elseif ($locale == 'ar')
-                                                                {{ $employe->Nom_ar_emp }}
-                                                            @endif
-                                                        </a>
-                                                    </td>
-                                                    <td>
+                                                if ($occupeIdNin && $occupeIdNin->isNotEmpty()) {
+                                                    $occupe = $occupeIdNin->last();
+                                                    if ($occupe) {
+                                                        $post = $occupe->post ?? null;
+                                                        $postsup = $occupe->postsup ?? null;
+                                                        $fonction = $occupe->fonction ?? null;
+                                                    }
+                                                }
+
+                                                if ($travailByNin && $travailByNin->isNotEmpty()) {
+                                                    $travail = $travailByNin->last();
+                                                    if ($travail) {
+                                                        $sousDepartement = $travail->sous_departement ?? null;
+                                                        if ($sousDepartement) {
+                                                            $departement = $sousDepartement->departement ?? null;
+                                                        }
+                                                    }
+                                                }
+
+                                                $locale = app()->getLocale();
+                                            @endphp
+                                            <tr>
+                                                <td>{{ $employe->id_emp }}</td>
+                                                <td>
+                                                    <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
                                                         @if ($locale == 'fr')
-                                                            {{ $employe->Prenom_emp }}
+                                                            {{ $employe->Nom_emp }}
                                                         @elseif ($locale == 'ar')
-                                                            {{ $employe->Prenom_ar_emp }}
+                                                            {{ $employe->Nom_ar_emp }}
                                                         @endif
-                                                    </td>
-                                                    <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
-                                                    <td>{{ $employe->occupeIdNin->last()->date_recrutement }}</td>
-                                                    <td>{{ $occupe->date_CF ?? '-'}}</td>
-                                                    <td>{{ $occupe->visa_CF ?? '-'}}</td>
-                                                    <td>
-                                                        @if ($locale == 'fr')
-                                                            {{ $post->Nom_post }}
-                                                        @elseif ($locale == 'ar')
-                                                            {{ $post->Nom_post_ar }}
-                                                        @endif
-                                                    </td>
-
-
-
-                                                    <td>
-                                                        @if ($locale == 'fr')
-                                                            {{ $postsup->Nom_postsup ?? '-'}}
-                                                        @elseif ($locale == 'ar')
-                                                            {{ $postsup->Nom_postsup_ar ?? '-' }}
-                                                        @endif
-                                                    </td>
-
-                                                    <td>
-                                                        @if ($locale == 'fr')
-                                                            {{ $fonction->Nom_fonction ?? '-'}}
-                                                        @elseif ($locale == 'ar')
-                                                            {{ $fonction->Nom_fonction_ar ?? '-' }}
-                                                        @endif
-                                                    </td>
-
-                                                    <td>
-                                                        @if ($locale == 'fr')
-                                                            {{ $departement->Nom_depart }}
-                                                        @elseif ($locale == 'ar')
-                                                            {{ $departement->Nom_depart_ar }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($locale == 'fr')
-                                                            {{ $sousDepartement->Nom_sous_depart }}
-                                                        @elseif ($locale == 'ar')
-                                                            {{ $sousDepartement->Nom_sous_depart_ar }}
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $travail->date_installation }}</td>
-
-                                                </tr>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    @if ($locale == 'fr')
+                                                        {{ $employe->Prenom_emp }}
+                                                    @elseif ($locale == 'ar')
+                                                        {{ $employe->Prenom_ar_emp }}
+                                                    @endif
+                                                </td>
+                                                <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
+                                                <td>{{ $occupe->date_recrutement ?? '-' }}</td>
+                                                <td>{{ $occupe->date_CF ?? '-' }}</td>
+                                                <td>{{ $occupe->visa_CF ?? '-' }}</td>
+                                                <td>
+                                                    @if ($locale == 'fr')
+                                                        {{ $post->Nom_post ?? '-' }}
+                                                    @elseif ($locale == 'ar')
+                                                        {{ $post->Nom_post_ar ?? '-' }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($locale == 'fr')
+                                                        {{ $postsup->Nom_postsup ?? '-' }}
+                                                    @elseif ($locale == 'ar')
+                                                        {{ $postsup->Nom_postsup_ar ?? '-' }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($locale == 'fr')
+                                                        {{ $fonction->Nom_fonction ?? '-' }}
+                                                    @elseif ($locale == 'ar')
+                                                        {{ $fonction->Nom_fonction_ar ?? '-' }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($locale == 'fr')
+                                                        {{ $departement->Nom_depart ?? '-' }}
+                                                    @elseif ($locale == 'ar')
+                                                        {{ $departement->Nom_depart_ar ?? '-' }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($locale == 'fr')
+                                                        {{ $sousDepartement->Nom_sous_depart ?? '-' }}
+                                                    @elseif ($locale == 'ar')
+                                                        {{ $sousDepartement->Nom_sous_depart_ar ?? '-' }}
+                                                    @endif
+                                                </td>
+                                                <td>{{ $travail->date_installation ?? '-' }}</td>
+                                            </tr>
                         @endforeach
-                    </tbody>
+                        </>
                 </table>
 
                 {{-- <div class="pagination">
@@ -174,6 +189,20 @@
     </script>
 
 
+    <button id="test-btn">Tester</button>
+    <div id="test-spinner" class="spinner" style="display: none; margin-left: 10px;"></div>
 
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const testBtn = document.getElementById('test-btn');
+            if (testBtn) {
+                testBtn.addEventListener('click', function () {
+                    console.log('Clic sur test-btn');
+                    handleExport("{{ route('app_export_emply') }}", 'test-spinner', 'test-btn', 'test.pdf');
+                });
+            }
+        });
+    </script>
+
+
 @endsection
