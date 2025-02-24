@@ -106,6 +106,7 @@
             linkElement.style.opacity = '1';
         });
     }
+
 </script>
     <script>
         var lng='{{app()->getLocale()}}'

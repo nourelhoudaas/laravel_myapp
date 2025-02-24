@@ -167,6 +167,11 @@
                                     <i class='bx bxs-notepad nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.cont_act') }}</span>
                                 </a>
+                                <!-- Bouton pour générer une attestation -->
+                                <a href="#" class="nav__link" onclick="generateAttestation(event, this)">
+                                    <i class='bx bxs-certificate nav__icon'></i>
+                                    <span class="nav__name">{{ __('lang.attestation') }}</span>
+                                </a>
                             </div>
                         </div>
                     </div>
