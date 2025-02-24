@@ -25,7 +25,7 @@ use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class EmployeesController extends Controller
-{   
+{
     //! IMPRESSION LISTE GLOBALE
     public function exportPdf()
     {
@@ -39,35 +39,34 @@ class EmployeesController extends Controller
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
-        ->setPaper('a4','landscape')
-        ->setOptions([
-            'encoding'=> 'UTF-8',
-           
-        ]);
-        return $pdf->download('Liste des employés.pdf');
+            ->setPaper('a4', 'landscape')
+            ->setOptions(['encoding' => 'UTF-8']);
+
+        return $pdf->download('liste_globale.pdf'); // Changement ici
     }
 
     //! IMPRESSION CATEGORIE
     public function exportPdfCatg()
     {
         $employe = Employe::with([
-            'occupeIdNin.post',
-            'occupeIdNin.fonction',
-            'occupeIdNin.postsup',
+            'occupeIdNin.post' => function ($query) {
+                $query->whereBetween('Grade_post', [1, 16]);
+            },
             'travailByNin.sous_departement.departement',
-        ])->get();
+        ])
+            ->whereHas('occupeIdNin.post', function ($query) {
+                $query->whereBetween('Grade_post', [1, 16]);
+            })
+            ->get();
 
         $empdepart = Departement::get();
 
-        $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
-        ->setPaper('a4','landscape')
-        ->setOptions([
-            'encoding'=> 'UTF-8',
-           
-        ]);
-        return $pdf->download('Liste des employés.pdf');
-    }
+        $pdf = PDF::loadView('impression/liste_par_catg', compact('employe', 'empdepart'))
+            ->setPaper('a4', 'landscape')
+            ->setOptions(['encoding' => 'UTF-8']);
 
+        return $pdf->download('liste_par_categorie.pdf'); // Changement ici
+    }
     //! IMPRESSION FONCTION
     public function exportPdfFnc()
     {
@@ -81,16 +80,16 @@ class EmployeesController extends Controller
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
-        ->setPaper('a4','landscape')
-        ->setOptions([
-            'encoding'=> 'UTF-8',
-           
-        ]);
-        return $pdf->download('Liste des employés.pdf');
+            ->setPaper('a4', 'landscape')
+            ->setOptions([
+                'encoding' => 'UTF-8',
+
+            ]);
+        return $pdf->stream('Liste des employés.pdf');
     }
 
     //! IMPRESSION CONTRAT ACTUEL
-        public function exportPdfCat()
+    public function exportPdfCat()
     {
         $employe = Employe::with([
             'occupeIdNin.post',
@@ -102,12 +101,12 @@ class EmployeesController extends Controller
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
-        ->setPaper('a4','landscape')
-        ->setOptions([
-            'encoding'=> 'UTF-8',
-           
-        ]);
-        return $pdf->download('Liste des employés.pdf');
+            ->setPaper('a4', 'landscape')
+            ->setOptions([
+                'encoding' => 'UTF-8',
+
+            ]);
+        return $pdf->stream('Liste des employés.pdf');
     }
     public function ListeEmply(Request $request)
     {

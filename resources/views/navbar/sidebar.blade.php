@@ -134,30 +134,36 @@
                         </div>
                     </div>
 
-                    <!-- IMPRERSSION DES LISTES -->
+                    <!-- IMPRESSION DES LISTES -->
                     <div class="nav__dropdown">
                         <a href="#" class="nav__link">
                             <i class='bx bxs-printer nav__icon'></i>
                             <span class="nav__name">{{ __('lang.imp') }}</span>
                             <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
                         </a>
-
                         <div class="nav__dropdown-collapse">
                             <div class="nav__dropdown-content">
-                                <a href="{{route('app_export_emply')}}" class="nav__link">
+                                <!-- Lien pour exporter la liste globale -->
+                                <a href="{{ route('app_export_emply') }}" class="nav__link"
+                                    onclick="generatePdf(event, this, '{{ route('app_export_emply') }}')">
                                     <i class='bx bx-list-ul nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.list_global') }}</span>
                                 </a>
-                                <a href="{{route('app_export_catg')}}" class="nav__link">
+                                <!-- Lien pour exporter par catégorie -->
+                                <a href="{{ route('app_export_catg') }}" class="nav__link"
+                                    onclick="generatePdf(event, this, '{{ route('app_export_catg') }}')">
                                     <i class='bx bxs-category-alt nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.par_cat') }}</span>
                                 </a>
-
-                                <a href="{{route('app_export_fnc')}}" class="nav__link">
+                                <!-- Lien pour exporter par fonction -->
+                                <a href="{{ route('app_export_fnc') }}" class="nav__link"
+                                    onclick="generatePdf(event, this, '{{ route('app_export_fnc') }}')">
                                     <i class='bx bxs-graduation nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.par_fnc') }}</span>
                                 </a>
-                                <a href="{{route('app_export_cat')}}" class="nav__link">
+                                <!-- Lien pour exporter par contrat actif -->
+                                <a href="{{ route('app_export_cat') }}" class="nav__link"
+                                    onclick="generatePdf(event, this, '{{ route('app_export_cat') }}')">
                                     <i class='bx bxs-notepad nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.cont_act') }}</span>
                                 </a>
@@ -172,6 +178,6 @@
                     <i class='bx bx-log-out nav__icon'></i>
                     <span class="nav__name">{{ __('lang.logout') }}</span>
                 </a>
+            </div>
     </nav>
-</div>
 </div>

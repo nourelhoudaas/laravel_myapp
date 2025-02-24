@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('sexe');
             $table->string('email')->nullable();
             $table->string('email_pro')->nullable();;
-            $table->string('Phone_num')->unique();
+            $table->string('Phone_num', 100);
 
 
 
