@@ -69,6 +69,7 @@ Route::controller(LoginController::class)->group(function(){
 
 Route::middleware('auth')->group(function () {
 Route::controller(EmployeesController::class)->group(function(){
+    Route::get('/exportPdfAttes/{id_emp}', 'exportPdfAttes')->name('app_export_attes'); //impression attestation
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
     Route::get('/exportPdfCatg','exportPdfCatg')->name('app_export_catg'); //impression liste par categorie
     Route::get('/exportPdfFnc','exportPdfFnc')->name('app_export_fnc'); //impression liste par fonction

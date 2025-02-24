@@ -33,6 +33,7 @@ return [
     'list_global'=> 'Par liste globale',
     'date_CF'=> 'Date CF',
     'visa_CF'=> 'Visa CF',
+    'attestation'=> 'Attestation de travail',
     'par_cat'=> 'Par catégorie',
     'par_fnc'=> 'Par fonction',
     'cont_act'=> 'Par contrat actuel',

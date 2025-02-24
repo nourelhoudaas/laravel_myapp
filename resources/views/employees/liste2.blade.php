@@ -170,7 +170,7 @@
                                                 <!-- Nouvelle colonne pour le bouton Attestation -->
                                                 <td>
                                                     <button class=" attestation-btn"
-                                                        onclick="generateAttestation(event, this, '{{ route('app_export_attes', parameters: $employe->id_emp) }}')">
+                                                        onclick="generateAttestation(event, this, '{{ route('app_export_attes', $employe->id_emp) }}')">
                                                         <i class='bx bxs-file'></i>
                                                         <span class="spinner" style="display: none;"></span>
                                                     </button>

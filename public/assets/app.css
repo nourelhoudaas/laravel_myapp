@@ -2191,3 +2191,25 @@ main .recent_order a:hover{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.attestation-btn {
+  background-color: #138827; /* Bleu de base */
+  color: white;
+  border: none;
+  padding: 8px; /* Réduction pour un bouton plus compact */
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex; /* Utilisation de flex pour centrer */
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+  width: 40px; /* Largeur fixe pour uniformité */
+  height: 40px; /* Hauteur fixe pour uniformité */
+  position: relative; /* Pour positionner le spinner */
+  transition: background-color 0.3s ease; /* Animation au survol */
+}
+.attestation-btn:hover {
+  background-color: #138827; /* Bleu plus foncé au survol */
+}
+.attestation-btn i {
+  font-size: 24px; /* Taille de l'icône */
+  color: #ffffff; /* Couleur blanche pour contraste */
+}

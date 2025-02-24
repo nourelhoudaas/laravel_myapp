@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log; // Importation correcte du facade Log
+use Exception;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Absence;
 use App\Models\Stocke;
@@ -79,13 +81,52 @@ class EmployeesController extends Controller
 
         $empdepart = Departement::get();
 
-        $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
+        $pdf = PDF::loadView('impression/liste_par_fnc', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
-            ->setOptions([
-                'encoding' => 'UTF-8',
+            ->setOptions(['encoding' => 'UTF-8']);
 
-            ]);
-        return $pdf->stream('Liste des employés.pdf');
+        return $pdf->download('liste_par_fonction.pdf'); // Changement ici
+    }
+    //! IMPRESSION ATTESTATION
+    public function exportPdfAttes($id_emp)
+    {
+        try {
+            Log::info("Début de exportPdfAttes pour id_emp : {$id_emp}");
+
+            // Charger l'employé avec ses relations
+            $employe = Employe::with(['occupeIdNin.post', 'occupeIdNin.fonction', 'occupeIdNin.postsup', 'travailByNin.sous_departement.departement'])
+                ->where('id_emp', $id_emp)
+                ->first();
+
+            if (!$employe) {
+                Log::warning("Aucun employé trouvé pour id_emp : {$id_emp}");
+                throw new Exception("Employé avec l'ID {$id_emp} non trouvé");
+            }
+
+            Log::info('Employé chargé : ', [$employe->toArray()]);
+
+            // Vérifier les relations
+            $occupe = $employe->occupeIdNin->isNotEmpty() ? $employe->occupeIdNin->toArray() : [];
+            $travail = $employe->travailByNin->isNotEmpty() ? $employe->travailByNin->toArray() : [];
+            Log::info('OccupeIdNin : ', $occupe);
+            Log::info('TravailByNin : ', $travail);
+
+            $data = ['employe' => $employe];
+
+            // Vérifier si la vue existe
+            if (!view()->exists('impression/attestation_travail')) {
+                Log::error("La vue pdf.attestation n'existe pas");
+                throw new Exception("La vue pdf.attestation n'existe pas");
+            }
+
+            $pdf = Pdf::loadView('impression/attestation_travail', $data);
+            $pdf->setPaper('A4', 'portrait');
+
+            return $pdf->download('attestation_' . ($employe->Nom_emp ?? 'inconnu') . '_' . now()->format('Ymd_His') . '.pdf');
+        } catch (Exception $e) {
+            Log::error('Erreur lors de la génération du PDF : ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            return response()->json(['error' => 'Erreur lors de la génération du PDF : ' . $e->getMessage()], 500);
+        }
     }
 
     //! IMPRESSION CONTRAT ACTUEL
