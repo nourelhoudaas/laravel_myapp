@@ -9,9 +9,9 @@
 @section('content')
 
 
-    <div id="loadingSpinner" class="spinner-overlay">
+    <!-- <div id="loadingSpinner" class="spinner-overlay">
         <div class="spinner"></div>
-    </div>
+    </div> -->
     <div>
         <!-- start section aside -->
         @include('./navbar.sidebar')
@@ -170,7 +170,7 @@
                                                 <!-- Nouvelle colonne pour le bouton Attestation -->
                                                 <td>
                                                     <button class=" attestation-btn"
-                                                        onclick="generateAttestation(event, this, '{{ route('app_export_attes', parameters: $employe->id_emp) }}')">
+                                                        onclick="generateAttestationList(event, this, '{{ route('app_export_attesList', parameters: $employe->id_emp) }}')">
                                                         <i class='bx bxs-file'></i>
                                                         <span class="spinner" style="display: none;"></span>
                                                     </button>
@@ -197,58 +197,55 @@
         })
     </script>
 <!-- Script pour gérer la génération de l'attestation -->
-<script>
-        function generateAttestation(event, buttonElement, url) {
-            event.preventDefault();
-            console.log('url' + url);
-            // Afficher le spinner
-            const spinner = buttonElement.querySelector('.spinner');
-            spinner.style.display = 'inline-block';
+ <script>
+    function generateAttestation(event, linkElement, url) {
+        event.preventDefault();
 
-            // Cacher l'icône pendant le chargement
-            const icon = buttonElement.querySelector('i');
-            icon.style.display = 'none';
+        const spinner = document.createElement('span');
+        spinner.className = 'spinner';
+        linkElement.appendChild(spinner);
+        
+        linkElement.style.pointerEvents = 'none';
+        linkElement.style.opacity = '0.6';
 
-            // Désactiver le bouton
-            buttonElement.disabled = true;
-            buttonElement.style.opacity = '0.6';
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la génération du PDF');
+            }
+            // Récupérer le nom du fichier depuis l'en-tête Content-Disposition si disponible
+            const filename = response.headers.get('Content-Disposition')?.match(/filename="(.+)"/)?.[1] || 'attestation.pdf';
+            return response.blob().then(blob => ({ blob, filename }));
+            //console.log('filename '+filename);
+        })
+        .then(({ blob, filename }) => {
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            console.log('filenamess '+filename);
+            a.download = filename; // Utiliser le nom fourni par le serveur
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(downloadUrl);
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+            alert('Une erreur est survenue lors de la génération du PDF.');
+        })
+        .finally(() => {
+            linkElement.removeChild(spinner);
+            linkElement.style.pointerEvents = 'auto';
+            linkElement.style.opacity = '1';
+        });
+    }
+</script> 
 
-            // Faire la requête pour générer le PDF
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erreur lors de la génération du PDF');
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                const downloadUrl = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = downloadUrl;
-                a.download = 'attestation_' + Date.now() + '.pdf';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(downloadUrl);
-            })
-            .catch(error => {
-                console.error('Erreur :', error);
-                alert('Une erreur est survenue lors de la génération du PDF.');
-            })
-            .finally(() => {
-                // Masquer le spinner et réafficher l'icône
-                spinner.style.display = 'none';
-                icon.style.display = 'block';
-                buttonElement.disabled = false;
-                buttonElement.style.opacity = '1';
-            });
-        }
-    </script>   
 
 
 @endsection

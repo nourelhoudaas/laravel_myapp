@@ -88,12 +88,11 @@ class EmployeesController extends Controller
         return $pdf->download('liste_par_fonction.pdf'); // Changement ici
     }
     //! IMPRESSION ATTESTATION
-    public function exportPdfAttes($id_emp)
+    public function exportPdfAttesList($id_emp)
     {
         try {
             Log::info("Début de exportPdfAttes pour id_emp : {$id_emp}");
 
-            // Charger l'employé avec ses relations
             $employe = Employe::with(['occupeIdNin.post', 'occupeIdNin.fonction', 'occupeIdNin.postsup', 'travailByNin.sous_departement.departement'])
                 ->where('id_emp', $id_emp)
                 ->first();
@@ -104,28 +103,61 @@ class EmployeesController extends Controller
             }
 
             Log::info('Employé chargé : ', [$employe->toArray()]);
-
-            // Vérifier les relations
-            $occupe = $employe->occupeIdNin->isNotEmpty() ? $employe->occupeIdNin->toArray() : [];
-            $travail = $employe->travailByNin->isNotEmpty() ? $employe->travailByNin->toArray() : [];
-            Log::info('OccupeIdNin : ', $occupe);
-            Log::info('TravailByNin : ', $travail);
+            Log::info('OccupeIdNin : ', $employe->occupeIdNin->isNotEmpty() ? $employe->occupeIdNin->toArray() : []);
+            Log::info('TravailByNin : ', $employe->travailByNin->isNotEmpty() ? $employe->travailByNin->toArray() : []);
 
             $data = ['employe' => $employe];
 
-            // Vérifier si la vue existe
-            if (!view()->exists('impression/attestation_travail')) {
-                Log::error("La vue pdf.attestation n'existe pas");
-                throw new Exception("La vue pdf.attestation n'existe pas");
-            }
-
-            $pdf = Pdf::loadView('impression/attestation_travail', $data);
+            $pdf = Pdf::loadView('impression.attestation_travail', $data);
             $pdf->setPaper('A4', 'portrait');
 
-            return $pdf->download('attestation_' . ($employe->Nom_emp ?? 'inconnu') . '_' . now()->format('Ymd_His') . '.pdf');
+            // Nom du fichier : attestation_<nom_emp>_<date>.pdf
+            $filename = 'attestation_' . ($employe->Nom_emp ?? 'inconnu') . '_' . now()->format('Y-m-d') . '.pdf';
+            log::info('filename:', [$filename]);
+            return $pdf->download($filename);
         } catch (Exception $e) {
             Log::error('Erreur lors de la génération du PDF : ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
             return response()->json(['error' => 'Erreur lors de la génération du PDF : ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function exportPdfAttes($nom)
+    {
+        try {
+            Log::info("Début de exportPdfAttes pour nom : {$nom}");
+
+            // Recherche par Nom_emp ou Nom_ar_emp selon la locale
+            $employe = Employe::with(['occupeIdNin.post', 'occupeIdNin.fonction', 'occupeIdNin.postsup', 'travailByNin.sous_departement.departement'])
+                ->where(function ($query) use ($nom) {
+                    $locale = app()->getLocale();
+                    if ($locale == 'fr') {
+                        $query->where('Nom_emp', $nom);
+                    } else {
+                        $query->where('Nom_ar_emp', $nom);
+                    }
+                })
+                ->first();
+
+            if (!$employe) {
+                Log::info("Aucun employé trouvé pour nom : {$nom}");
+                // Retourner une réponse JSON avec statut 404
+                return response()->json(['message' => "Aucun employé trouvé avec le nom '{$nom}'"], 404);
+            }
+
+            Log::info('Employé chargé : ', [$employe->toArray()]);
+            Log::info('OccupeIdNin : ', $employe->occupeIdNin->isNotEmpty() ? $employe->occupeIdNin->toArray() : []);
+            Log::info('TravailByNin : ', $employe->travailByNin->isNotEmpty() ? $employe->travailByNin->toArray() : []);
+
+            $data = ['employe' => $employe];
+
+            $pdf = Pdf::loadView('impression.attestation_travail', $data);
+            $pdf->setPaper('A4', 'portrait');
+
+            $filename = 'attestation_' . ($employe->Nom_emp ?? 'inconnu') . '_' . now()->format('Y-m-d') . '.pdf';
+            return $pdf->download($filename);
+        } catch (Exception $e) {
+            Log::error('Erreur technique lors de la génération du PDF : ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            return response()->json(['error' => 'Erreur technique lors de la génération du PDF : ' . $e->getMessage()], 500);
         }
     }
 
