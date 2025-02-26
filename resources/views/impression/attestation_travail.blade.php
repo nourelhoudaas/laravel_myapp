@@ -6,7 +6,7 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>Attestation de Travail</title>
+    <!-- <title>Attestation de Travail</title> -->
     <style>
         body {
             font-family: 'DejaVu Sans', Arial, sans-serif;
