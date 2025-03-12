@@ -4,15 +4,30 @@
     @php
     $id=0;
     @endphp
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Ajouter Employer</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <link href="{{ asset('assets/app.css')}}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="{{ asset('assets/main.css')}}" rel="stylesheet" type="text/css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Personnel</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/HRTemplat/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
-<body>  
+@extends('base')
+<body>
+    @include('./navbar.sidebar')  
 <div class="stepper-wrapper">
   <div class="stepper-item completed">
     <div class="step-counter">1</div>
@@ -145,9 +160,6 @@
                             <div id="progressWrapper" style="display: none;">
                                <div id="progressBar" style="width: 0%; height: 20px; background-color: #4caf50;"></div>
                             </div>
-                            </div>
-                            <div class="icon">
-                                x
                             </div>
                         </div>
                     </div>

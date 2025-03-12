@@ -24,7 +24,7 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/','home')->name('app_home');
     Route::get('/about', 'about')->name('app_about');
     Route::match(['get', 'post'], '/dashboard','dashboard')
-    //     ->middleware('auth') //pour acceder a cette page il faut s'authentifier
+     //    ->middleware('auth') //pour acceder a cette page il faut s'authentifier
          ->name('app_dashboard');
 });
 
@@ -41,7 +41,7 @@ Route::controller(EmployeesController::class)->group(function(){
     Route::get('\liste','ListeEmply')->name('app_liste_emply');
     Route::get('\addTemplate/formulaire','createF')->name('app_add_emply');
     Route::get('\liste_abs','AbsenceEmply')->name('app_abs_emply');
-    Route::get('\BioTemplate/search/{id}','getall')->name('BioTemplate.detail');
+    Route::get('/BioTemplate/search/{id}','getall')->name('BioTemplate.detail');
 
 });
 
