@@ -78,33 +78,3 @@ document.addEventListener("DOMContentLoaded", function() {
         }); 
     }); 
 }); 
-$(document).ready(function(){
-    $('#btn-ch').click(function(e){
-        e.preventDefault();
-
-                var id = '{{ $employe->ID_NIN }}'; // Assuming you are searching by ID_NIN
-                var formData = {
-                    ID_NIN: $('#ID_NIN').val(),
-                    Nom_P: $('#Nom_P').val(),
-                    Prenom_O: $('#Prenom_O').val(),
-                    Date_Nais_P: $('#Date_Nais_P').val(),
-                    Lieu_N: $('#Lieu_N').val(),
-                    Address: $('#Address').val(),
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    _method: 'PUT'
-                };
-
-                $.ajax({
-                    url: '/BioTemplate/edit/' + id,
-                    type: 'POST',
-                    data: formData,
-                    success: function (response) {
-                        alert(response.success);
-                        window.location.href = "{{route('BioTemplate.create') }}";
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-    });
-});

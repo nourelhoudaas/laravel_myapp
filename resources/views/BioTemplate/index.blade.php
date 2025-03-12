@@ -24,11 +24,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
+@extends('base')
 <body>
 
-
+@include('./navbar.sidebar')
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="margin-top: 35px;">
 
         <!-- Sidebar -->
         <?php // require '../fragmentation/side.php'; ?>
@@ -67,7 +68,7 @@
                           <h4>{{$detailemp[$nbr]->Nom_emp}} {{$detailemp[$nbr]->Prenom_emp}}</h4>
                           <h4>{{$detailemp[$nbr]->Nom_ar_emp}} {{$detailemp[$nbr]->Prenom_ar_emp}}</h4>
                           <div class="row"><p class="text-secondary mb-1">{{$detailemp[$nbr]->Nom_post}}</p><p class="text-secondary mb-1">العرببية</p></div>
-                          <p class="text-muted font-size-sm">{{$detailemp[$nbr]->Nom_sous_depart}},{{$detailemp[$nbr]->Nom_sous_depart}}, Minister</p>
+                          <p class="text-muted font-size-sm">{{$detailemp[$nbr]->Nom_sous_depart}},{{$detailemp[$nbr]->Nom_depart}}, Minister</p>
                         </div>
                       </div>
                     </div>
@@ -395,6 +396,7 @@ document.addEventListener("DOMContentLoaded", function() {
 $(document).ready(function(){
     $('#btn-ch').click(function(e){
         e.preventDefault();
+        console.log('testing '+ md);
         if(md){
                 var id = '{{ $detailemp[0]->id_nin }}'; // Assuming you are searching by ID_NIN
                 var formData = {

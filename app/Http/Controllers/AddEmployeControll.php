@@ -9,6 +9,7 @@ use App\Models\Employe;
 use App\Models\Bureau;
 use App\Models\Sous_departement;
 use App\Models\Travail;
+use App\Models\Occupe;
 use App\Models\Contient;
 use App\Models\appartient;
 use App\Models\Niveau;
@@ -91,7 +92,9 @@ class AddEmployeControll extends Controller
           //  $dbbureau=$bureau->get();
           //  $dbdirection=$Direction->get();
             $dbniv=$niv->get();
-            return view('addTemplate.travaill',compact('employe','$dbniv'));
+            $dbempdepart = new Departement();
+            $empdepart =$dbempdepart->get();
+            return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
         }
         else
         {
@@ -138,7 +141,9 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $niv=new Niveau();
     $dbniv=$niv->get();
-    return view('addTemplate.travaill',compact('employe','dbniv'));
+    $dbempdepart = new Departement();
+    $empdepart =$dbempdepart->get();
+    return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
   }
 
 //------------- add a appartient table
@@ -153,14 +158,10 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
       $dbsdirection=$SDirection->get();
       $dbdirection=$Direction->get();
       $idn=$niv->ID_N;
-    $Request->validate([
-        'ID_NIN' => 'required|integer',
-        'ID_P' => 'required|integer|',
-        'Dip'=>'required|string|',
-        'Spec'=>'required|string|',
-        'DipDate'=>'required|date'
-    ]);
+    $post=New Post();
+       $dbpost=$post->get();
     $id=$Request->get('ID_NIN');
+    $employe=Employe::where('id_nin', $id)->firstOrFail();
     $Appartient=Appartient::where('id_nin', $id)->get();
     if($Appartient->count() > 0)
     {
@@ -170,16 +171,24 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
        $dbpost=$post->get();
         $employe=Employe::where('id_nin', $id)->firstOrFail();
      //   dd($employe);
-        return view('addTemplate.admin',compact('employe','dbdirection','bureau','dbpost','dbsdirection'));
+     $dbempdepart = new Departement();
+        $empdepart =$dbempdepart->get();
+        return view('addTemplate.admin',compact('employe','dbdirection','bureau','dbpost','dbsdirection','empdepart'));
     }
     //---------------- this for add to Level Education and his Diploma -------------------------
-
+    $Request->validate([
+      'ID_NIN' => 'required|integer',
+      'ID_P' => 'required|integer|',
+      'Dip'=>'required|string|',
+      'Spec'=>'required|string|',
+      'DipDate'=>'required|date'
+  ]);
        
         $niv=Niveau::where('Nom_niv',$Request->get('Dip'))
                      ->where('Specialité',$Request->get('Spec'))
                      ->first();
       //dd($niv);
-      
+       $idn=$niv->id_niv;
         $test= DB::table('appartients')->insert([
              'id_nin' => $Request->get('ID_NIN'),
              'id_p' => $Request->get('ID_P'),
@@ -187,7 +196,9 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
              'id_appar' => $Request->get('DipRef'),
              'Date_op'	=>$Request->get('DipDate'),
          ]);
-         return view('addTemplate.admin',compact('employe','dbbureau','dbsdirection','dbdirection'));
+         $dbempdepart = new Departement();
+        $empdepart =$dbempdepart->get();
+         return view('addTemplate.admin',compact('employe','dbbureau','dbsdirection','dbdirection','dbpost','empdepart'));
 
   }
     function existApp($id)
@@ -203,7 +214,9 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
     $Appartient=Appartient::where('id_nin', $id)->get();
     $post=New Post();
     $dbpost=$post->get();
-    return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection'));
+    $dbempdepart = new Departement();
+        $empdepart =$dbempdepart->get();
+    return view('addTemplate.admin',compact('employe','dbbureau','dbdirection','dbpost','dbsdirection','empdepart'));
   }
   function GenDecision(Request $request)
   { 
@@ -226,8 +239,16 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
       'id_bureau'=>406,
     ]);
     //dd($travaill);
+  
     if($travaill->save())
     {
+      Occupe::create([
+        'date_recrutement'=>$request->get('PVDate'),
+        'echellant'=>0	,
+        'id_nin'=>$request->get('ID_NIN'),	
+        'id_p'=>$request->get('ID_P')	,
+        'id_post'=>$request->get('post')
+      ]);
       return redirect()->back()->with('message',"This is Success Message");
     }
     else
