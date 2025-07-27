@@ -54,7 +54,59 @@
 
 
          @include('script')
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function generatePdf(event, linkElement, url) {
+        // Empêcher le comportement par défaut du lien
+        event.preventDefault();
 
+        // Créer un élément spinner dynamiquement
+        const spinner = document.createElement('span');
+        spinner.className = 'spinner';
+        
+        // Ajouter le spinner après le texte du lien
+        linkElement.appendChild(spinner);
+        
+        // Désactiver le lien pendant la génération
+        linkElement.style.pointerEvents = 'none';
+        linkElement.style.opacity = '0.6';
+
+        // Faire la requête pour générer le PDF
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la génération du PDF');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            // Créer un lien temporaire pour télécharger le PDF
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = url.split('/').pop() + '.pdf'; // Nom du fichier basé sur l'URL
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(downloadUrl);
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+            alert('Une erreur est survenue lors de la génération du PDF.');
+        })
+        .finally(() => {
+            // Supprimer le spinner et réactiver le lien
+            linkElement.removeChild(spinner);
+            linkElement.style.pointerEvents = 'auto';
+            linkElement.style.opacity = '1';
+        });
+    }
+</script>
     <script>
         var lng='{{app()->getLocale()}}'
         console.log('lang'+lng);

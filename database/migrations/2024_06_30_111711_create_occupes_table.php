@@ -41,6 +41,9 @@ return new class extends Migration
                 'id_nin' => 254896989,
                 'id_p' => 256,
                 'id_post' => 20,
+                'visa_CF'=>'1N',
+                'type_CTR' => 'CDI',
+                'date_CF'=> '2024-07-03',
                 'ref_PV'=>'1N',
                 'ref_base'=>'1N'
             ],
@@ -51,6 +54,9 @@ return new class extends Migration
                 'id_nin' => 1254953,
                 'id_p' => 123,
                 'id_post' => 2,
+                'visa_CF'=>'1N5',
+                'date_CF'=> '2024-05-03',
+                'type_CTR'=> 'CDI',
                 'ref_PV'=>'2N',
                 'ref_base'=>'2N'
             ],
