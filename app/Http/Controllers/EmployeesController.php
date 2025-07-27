@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Log; // Importation correcte du facade Log
-use Exception;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Absence;
 use App\Models\Stocke;
@@ -27,7 +25,7 @@ use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class EmployeesController extends Controller
-{
+{   
     //! IMPRESSION LISTE GLOBALE
     public function exportPdf()
     {
@@ -83,8 +81,6 @@ class EmployeesController extends Controller
         return $pdf->stream('Liste des employés_catégorie_.pdf');
     }
 
-        return $pdf->download('liste_par_categorie.pdf'); // Changement ici
-    }
     //! IMPRESSION FONCTION
     public function exportPdfFnc()
     {
@@ -107,7 +103,7 @@ class EmployeesController extends Controller
     }
 
     //! IMPRESSION CONTRAT ACTUEL
-    public function exportPdfCat()
+        public function exportPdfCat()
     {
         $employe = Employe::with([
             'occupeIdNin.post',
