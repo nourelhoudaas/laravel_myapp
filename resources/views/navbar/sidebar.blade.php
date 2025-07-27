@@ -134,14 +134,13 @@
                         </div>
                     </div>
 
-                    <!-- IMPRERSSION DES LISTES -->
+                    <!-- IMPRESSION DES LISTES -->
                     <div class="nav__dropdown">
                         <a href="#" class="nav__link">
                             <i class='bx bxs-printer nav__icon'></i>
                             <span class="nav__name">{{ __('lang.imp') }}</span>
                             <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
                         </a>
-
                         <div class="nav__dropdown-collapse">
                             <div class="nav__dropdown-content">
 
@@ -201,6 +200,7 @@
                     <i class='bx bx-log-out nav__icon'></i>
                     <span class="nav__name">{{ __('lang.logout') }}</span>
                 </a>
+            </div>
     </nav>
 </div>
 </div>
