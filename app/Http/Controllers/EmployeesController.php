@@ -41,7 +41,6 @@ class EmployeesController extends Controller
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
-<<<<<<< HEAD
         ->setPaper('a4','landscape')
         ->setOptions([
             'encoding'=> 'UTF-8',
@@ -49,12 +48,6 @@ class EmployeesController extends Controller
         ]);
         //return $pdf->download('Liste des employés.pdf');
         return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
-=======
-            ->setPaper('a4', 'landscape')
-            ->setOptions(['encoding' => 'UTF-8']);
-
-        return $pdf->download('liste_globale.pdf'); // Changement ici
->>>>>>> 4a8a2df729b4f53da778cc4bfb1ed30062fb648a
     }
 
     //! IMPRESSION CATEGORIE
@@ -62,7 +55,6 @@ class EmployeesController extends Controller
     {
         $employe = Employe::with([
             'occupeIdNin.post' => function ($query) {
-<<<<<<< HEAD
                 $query->whereBetween('Grade_post', [1, 16]); // Filtrer par grade
             },
             'occupeIdNin.fonctions', // Inclure la relation "fonctions"
@@ -79,21 +71,10 @@ class EmployeesController extends Controller
     
         
     
-=======
-                $query->whereBetween('Grade_post', [1, 16]);
-            },
-            'travailByNin.sous_departement.departement',
-        ])
-            ->whereHas('occupeIdNin.post', function ($query) {
-                $query->whereBetween('Grade_post', [1, 16]);
-            })
-            ->get();
->>>>>>> 4a8a2df729b4f53da778cc4bfb1ed30062fb648a
 
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression/liste_par_catg', compact('employe', 'empdepart'))
-<<<<<<< HEAD
         ->setPaper('a4','landscape')
         ->setOptions([
             'encoding'=> 'UTF-8',
@@ -101,10 +82,6 @@ class EmployeesController extends Controller
         ]);
         return $pdf->stream('Liste des employés_catégorie_.pdf');
     }
-=======
-            ->setPaper('a4', 'landscape')
-            ->setOptions(['encoding' => 'UTF-8']);
->>>>>>> 4a8a2df729b4f53da778cc4bfb1ed30062fb648a
 
         return $pdf->download('liste_par_categorie.pdf'); // Changement ici
     }
@@ -120,7 +97,6 @@ class EmployeesController extends Controller
 
         $empdepart = Departement::get();
 
-<<<<<<< HEAD
         $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
         ->setPaper('a4','landscape')
         ->setOptions([
@@ -128,86 +104,6 @@ class EmployeesController extends Controller
            
         ]);
         return $pdf->stream('Liste des employés.pdf');
-=======
-        $pdf = PDF::loadView('impression/liste_par_fnc', compact('employe', 'empdepart'))
-            ->setPaper('a4', 'landscape')
-            ->setOptions(['encoding' => 'UTF-8']);
-
-        return $pdf->download('liste_par_fonction.pdf'); // Changement ici
-    }
-    //! IMPRESSION ATTESTATION
-    public function exportPdfAttesList($id_emp)
-    {
-        try {
-            Log::info("Début de exportPdfAttes pour id_emp : {$id_emp}");
-
-            $employe = Employe::with(['occupeIdNin.post', 'occupeIdNin.fonction', 'occupeIdNin.postsup', 'travailByNin.sous_departement.departement'])
-                ->where('id_emp', $id_emp)
-                ->first();
-
-            if (!$employe) {
-                Log::warning("Aucun employé trouvé pour id_emp : {$id_emp}");
-                throw new Exception("Employé avec l'ID {$id_emp} non trouvé");
-            }
-
-            Log::info('Employé chargé : ', [$employe->toArray()]);
-            Log::info('OccupeIdNin : ', $employe->occupeIdNin->isNotEmpty() ? $employe->occupeIdNin->toArray() : []);
-            Log::info('TravailByNin : ', $employe->travailByNin->isNotEmpty() ? $employe->travailByNin->toArray() : []);
-
-            $data = ['employe' => $employe];
-
-            $pdf = Pdf::loadView('impression.attestation_travail', $data);
-            $pdf->setPaper('A4', 'portrait');
-
-            // Nom du fichier : attestation_<nom_emp>_<date>.pdf
-            $filename = 'attestation_' . ($employe->Nom_emp ?? 'inconnu') . '_' . now()->format('Y-m-d') . '.pdf';
-            log::info('filename:', [$filename]);
-            return $pdf->download($filename);
-        } catch (Exception $e) {
-            Log::error('Erreur lors de la génération du PDF : ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
-            return response()->json(['error' => 'Erreur lors de la génération du PDF : ' . $e->getMessage()], 500);
-        }
-    }
-
-    public function exportPdfAttes($nom)
-    {
-        try {
-            Log::info("Début de exportPdfAttes pour nom : {$nom}");
-
-            // Recherche par Nom_emp ou Nom_ar_emp selon la locale
-            $employe = Employe::with(['occupeIdNin.post', 'occupeIdNin.fonction', 'occupeIdNin.postsup', 'travailByNin.sous_departement.departement'])
-                ->where(function ($query) use ($nom) {
-                    $locale = app()->getLocale();
-                    if ($locale == 'fr') {
-                        $query->where('Nom_emp', $nom);
-                    } else {
-                        $query->where('Nom_ar_emp', $nom);
-                    }
-                })
-                ->first();
-
-            if (!$employe) {
-                Log::info("Aucun employé trouvé pour nom : {$nom}");
-                // Retourner une réponse JSON avec statut 404
-                return response()->json(['message' => "Aucun employé trouvé avec le nom '{$nom}'"], 404);
-            }
-
-            Log::info('Employé chargé : ', [$employe->toArray()]);
-            Log::info('OccupeIdNin : ', $employe->occupeIdNin->isNotEmpty() ? $employe->occupeIdNin->toArray() : []);
-            Log::info('TravailByNin : ', $employe->travailByNin->isNotEmpty() ? $employe->travailByNin->toArray() : []);
-
-            $data = ['employe' => $employe];
-
-            $pdf = Pdf::loadView('impression.attestation_travail', $data);
-            $pdf->setPaper('A4', 'portrait');
-
-            $filename = 'attestation_' . ($employe->Nom_emp ?? 'inconnu') . '_' . now()->format('Y-m-d') . '.pdf';
-            return $pdf->download($filename);
-        } catch (Exception $e) {
-            Log::error('Erreur technique lors de la génération du PDF : ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
-            return response()->json(['error' => 'Erreur technique lors de la génération du PDF : ' . $e->getMessage()], 500);
-        }
->>>>>>> 4a8a2df729b4f53da778cc4bfb1ed30062fb648a
     }
 
     //! IMPRESSION CONTRAT ACTUEL
@@ -223,21 +119,12 @@ class EmployeesController extends Controller
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
-<<<<<<< HEAD
         ->setPaper('a4','landscape')
         ->setOptions([
             'encoding'=> 'UTF-8',
            
         ]);
         return $pdf->stream ('Liste des employés.pdf');
-=======
-            ->setPaper('a4', 'landscape')
-            ->setOptions([
-                'encoding' => 'UTF-8',
-
-            ]);
-        return $pdf->stream('Liste des employés.pdf');
->>>>>>> 4a8a2df729b4f53da778cc4bfb1ed30062fb648a
     }
     public function ListeEmply(Request $request)
     {

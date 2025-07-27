@@ -66,10 +66,7 @@ class Employe extends Model
 
     //par categorie
     // Relation avec la table occupes
-    public function occupeIdNin()
-    {
-        return $this->hasMany(Occupe::class, 'id_nin', 'id_nin');
-    }
+
 
     // Relation avec la table travails (si besoin)
     public function travailByNin()
