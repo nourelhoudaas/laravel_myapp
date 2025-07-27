@@ -41,6 +41,14 @@ class Occupe extends Model
     {
         return $this->belongsTo(Fonction::class, 'id_fonction', 'id_fonction');
     }
-
+    // par categor
+    public function fonctions()
+    {
+        return $this->belongsToMany(Fonction::class, 'contients', 'id_post', 'id_fonction');
+    }
+    public function postSups()
+    {
+        return $this->belongsToMany(PostSup::class, 'contients', 'id_post', 'id_postsup');
+    }
 }
 

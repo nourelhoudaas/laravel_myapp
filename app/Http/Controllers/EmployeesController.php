@@ -44,28 +44,41 @@ class EmployeesController extends Controller
             'encoding'=> 'UTF-8',
            
         ]);
-        return $pdf->download('Liste des employés.pdf');
+        //return $pdf->download('Liste des employés.pdf');
+        return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
     }
 
     //! IMPRESSION CATEGORIE
     public function exportPdfCatg()
     {
         $employe = Employe::with([
-            'occupeIdNin.post',
-            'occupeIdNin.fonction',
-            'occupeIdNin.postsup',
-            'travailByNin.sous_departement.departement',
-        ])->get();
+            'occupeIdNin.post' => function ($query) {
+                $query->whereBetween('Grade_post', [1, 16]); // Filtrer par grade
+            },
+            'occupeIdNin.fonctions', // Inclure la relation "fonctions"
+            'occupeIdNin.postSups', // Inclure la relation "postsup"
+            'travailByNin.sous_departement.departement', // Inclure le département via travail et sous-département
+        ])
+        ->whereHas('occupeIdNin.post', function ($query) {
+            $query->whereBetween('Grade_post', [1, 16]) // Filtrer par grade
+                  ->whereDoesntHave('fonctions') // Exclure les postes liés à une fonction
+                  ->whereDoesntHave('postSups'); // Exclure les postes liés à un postsup
+        })
+        ->get();
+        
+    
+        
+    
 
         $empdepart = Departement::get();
 
-        $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
+        $pdf = PDF::loadView('impression/liste_par_catg', compact('employe', 'empdepart'))
         ->setPaper('a4','landscape')
         ->setOptions([
             'encoding'=> 'UTF-8',
            
         ]);
-        return $pdf->download('Liste des employés.pdf');
+        return $pdf->stream('Liste des employés_catégorie_.pdf');
     }
 
     //! IMPRESSION FONCTION
@@ -86,7 +99,7 @@ class EmployeesController extends Controller
             'encoding'=> 'UTF-8',
            
         ]);
-        return $pdf->download('Liste des employés.pdf');
+        return $pdf->stream('Liste des employés.pdf');
     }
 
     //! IMPRESSION CONTRAT ACTUEL
@@ -107,7 +120,7 @@ class EmployeesController extends Controller
             'encoding'=> 'UTF-8',
            
         ]);
-        return $pdf->download('Liste des employés.pdf');
+        return $pdf->stream ('Liste des employés.pdf');
     }
     public function ListeEmply(Request $request)
     {

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->integer('id_p')->unique();
             $table->foreign('id_p')->references('id_p')->on('employes');
-            $table->string('username')->unique();
+            $table->string('username', 191)->unique();
             //$table->string('email')->unique();
            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
