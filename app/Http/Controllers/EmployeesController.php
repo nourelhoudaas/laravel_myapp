@@ -431,7 +431,7 @@ class EmployeesController extends Controller
         $fis = array();
         foreach ($allwor as $workig) {
             $travs = Travail::where('travails.id_nin', $workig->id_nin)
-                ->join('Employes', 'Employes.id_nin', '=', 'travails.id_nin')
+                ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
                 // ->where('departements.id_depart',$id_dep)
