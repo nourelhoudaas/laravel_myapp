@@ -452,13 +452,13 @@ class EmployeesController extends Controller
                 ->orderBy('date_recrutement', 'desc')
                 ->first();
 
-            $emps = Employe::join('occupes', 'occupes.id_nin', '=', 'Employes.id_nin')
+            $emps = Employe::join('occupes', 'occupes.id_nin', '=', 'employes.id_nin')
                 ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
                 ->join('contients', 'contients.id_post', '=', 'posts.id_post')
                 ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
                 ->where('contients.id_contient', $idcnt->id_contient)
-                ->where('Employes.id_nin', $emp->id_nin)
+                ->where('employes.id_nin', $emp->id_nin)
                 ->orderBy('date_recrutement', 'desc')
                 ->first();
             $find = false;
@@ -829,7 +829,7 @@ class EmployeesController extends Controller
         $fis = array();
         foreach ($allwor as $workig) {
             $travs = Travail::where('travails.id_nin', $workig->id_nin)
-                ->join('Employes', 'Employes.id_nin', '=', 'travails.id_nin')
+                ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
                 // ->where('departements.id_depart',$id_dep)
@@ -972,7 +972,7 @@ class EmployeesController extends Controller
         $fis = array();
         foreach ($allwor as $workig) {
             $travs = Travail::where('travails.id_nin', $workig->id_nin)
-                ->join('Employes', 'Employes.id_nin', '=', 'travails.id_nin')
+                ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
                 // ->where('departements.id_depart',$id_dep)
