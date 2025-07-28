@@ -44,6 +44,31 @@
                             </div>
 
 
+                             <div class= "text-bg-light p-3">
+                                <label for="setting-input-1" class="fw-bold">Nom du Sectrue </label>
+                                <input type="text" class="form-control" id="Nom_secteur" placeholder="Nom de la Direction" name="Nom_secteur" required>
+
+                            </div>
+
+                            <div class= "text-bg-light p-3">
+                                <label for="setting-input-1" class="fw-bold">Nom du Secteur en Arabe</label>
+                                <input type="text" class="form-control" id="Nom_secteur_ar" placeholder="Nom de la Direction en Arabe" name="Nom_secteur_ar" required>
+
+                            </div>
+
+
+                            <div class= "text-bg-light p-3">
+                                <label for="setting-input-1" class="fw-bold">Nom du filiere </label>
+                                <input type="text" class="form-control" id="Nom_filiere" placeholder="Nom de la Direction" name="Nom_filiere" required>
+
+                            </div>
+
+                            <div class= "text-bg-light p-3">
+                                <label for="setting-input-1" class="fw-bold">Nom du filiere en Arabe</label>
+                                <input type="text" class="form-control" id="Nom_filiere_ar" placeholder="Nom de la Direction en Arabe" name="Nom_filiere_ar" required>
+
+                            </div>
+                        
                             <button type="submit" class="btn btn-primary">Enregistrer</button>
                         </form>
                     </div><!--//app-card-body-->
