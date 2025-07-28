@@ -46,7 +46,7 @@
             <div class="row g-4 settings-section">
 <div>
 
-                <button class="btn btn-success newUser" data-bs-toggle="modal" data-bs-target="#userForm"><i class="bi bi-plus-circle">Poste</i></button>
+                <!--button class="btn btn-success newUser" data-bs-toggle="modal" data-bs-target="#userForm"><i class="bi bi-plus-circle">Poste</i></button-->
 
             </div>
             <table id='myDataTable' class="table">
