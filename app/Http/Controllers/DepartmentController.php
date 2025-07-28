@@ -232,6 +232,17 @@ return view('department.edit', compact('departement'));
         return view('department.add_depart', compact('empdep','empdepart','nom_d','departements'));
     }
 
+    public function dashboard_sous()
+    {
+        $alldepart=Departement::get();
+        return view('department.add_sous_depart',compact('alldepart'));
+    }
+
+    public function store_sous(Request $request)
+    {
+
+    }
+
     public function store(Request $request)
 
     {

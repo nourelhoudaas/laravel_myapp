@@ -256,6 +256,7 @@ class EmployeesController extends Controller
         // dd($id);
         $dbempdepart = new Departement();
         $empdepart = $dbempdepart->get();
+        //dd($id);
         $last = Occupe::join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
             ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
             ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
@@ -265,7 +266,11 @@ class EmployeesController extends Controller
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
             ->where('employes.id_nin', $id)
             ->first();
-        // dd($last);
+        
+        if (!isset($last))
+        {
+             return redirect('/Employe/IsTravaill/'.$id);
+        }
         $result = DB::table('employes')->distinct()
             ->join('travails', 'travails.id_nin', '=', 'employes.id_nin')
             ->join('occupes', 'employes.id_nin', "=", 'occupes.id_nin')
@@ -286,7 +291,12 @@ class EmployeesController extends Controller
             ->join('contients', 'contients.id_post', '=', 'posts.id_post')
             ->select('id_occup', 'date_recrutement')->orderBy('date_recrutement')
             ->get();
-        //dd($postwork);
+      
+        if (count($postwork) == 0 && count($result))
+        {
+                
+               return redirect('/Employe/IsEducat/'.$id);
+        }
         $nbr = $result->count();
         $allemp = array();
         foreach ($result as $res) {

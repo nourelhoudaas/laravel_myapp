@@ -15,7 +15,7 @@ return new class extends Migration
             //$table->id();
             $table->integer('id')->autoIncrement();
             $table->string('name');
-            $table->integer('id_nin');
+            $table->decimal('id_nin', 18, 0)->unique();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->integer('id_p')->unique();
             $table->foreign('id_p')->references('id_p')->on('employes');

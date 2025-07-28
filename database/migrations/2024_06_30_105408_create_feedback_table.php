@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('Descriptif_feedback');
             $table->string('type_feedback_ar');
             $table->string('Descriptif_feedback_ar');
-            $table->integer('id_nin');
+            $table->decimal('id_nin', 18, 0)->unique();
             $table->integer('id_p');
             $table->integer('id_post');
             $table->foreign('id_nin')->references('id_nin')->on('employes');

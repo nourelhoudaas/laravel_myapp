@@ -142,9 +142,11 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
             $ups=' تم بنجاح ';
             $upsnot='خطا في العملية';
         }
+//  dd($request->get('id_nin'));
         $request->validate([
             'id_nin'=>'required|integer',
         ]);
+       
         $id=$request->get('id_nin');
         
        // $sous_dir=$request->get('sous');

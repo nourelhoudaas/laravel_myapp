@@ -79,18 +79,9 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-<<<<<<< HEAD
-                        <label class="labels">Sous-Direction</label>
-                        <select type="text" class="form-select" value="" placeholder="Filiere" id="SDic">
-                        <option>Selection la sous Direction</option>
-                        @foreach($dbsdirection as $dic)
-                                <option value="{{$dic->id_sous_depart}}">{{$dic->Nom_sous_depart}}</option>
-                        @endforeach      
-=======
                         <label class="labels">{{__('lang.sous_dept')}}</label>
                         <select type="text" class="form-select" value="" placeholder="Filiere" id="SDic">
                         <option>{{__('lang.slct_sous_dept')}}</option>
->>>>>>> 4a8a2df729b4f53da778cc4bfb1ed30062fb648a
                         </select>
                     </div>
                 </div>

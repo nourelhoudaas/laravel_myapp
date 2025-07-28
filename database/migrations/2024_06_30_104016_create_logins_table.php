@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_log')->primary()->autoIncrement();
             $table->DateTime('date_login');
             $table->DateTime('date_logout')->nullable();
-            $table->integer('id_nin');
+            $table->decimal('id_nin', 18, 0)->unique();
             $table->integer('id_p');
             $table->integer('id');
             $table->foreign('id_nin')->references('id_nin')->on('employes');

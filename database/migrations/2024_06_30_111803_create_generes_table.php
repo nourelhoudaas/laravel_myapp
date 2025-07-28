@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_genr')->primary()->autoIncrement();
             $table->date('date_creation');
             $table->string('ref_Dossier')->unique();
-            $table->integer('id_nin');
+            $table->decimal('id_nin', 18, 0)->unique();
             $table->integer('id_p');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
