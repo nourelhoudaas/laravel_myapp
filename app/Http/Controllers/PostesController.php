@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Departement;
 use App\Models\Post;
+use App\Models\Filiere;
+use App\Models\Secteur;
 
 
 use Illuminate\Http\Request;
@@ -62,8 +64,29 @@ class PostesController extends Controller
             'Nom_post_ar'=>'required',
     ]);
 
-        Post::create($request->all());
+        $filier=Filiere::create([
+            'Nom_filiere'=>$request->input('Nom_filiere'),
+            'Nom_filiere_ar'=>$request->input('Nom_filiere_ar')
+        ]);
+        if( isset($filier))
+        {
+            $sect=Secteur::create([
+                'Nom_secteur'=>$request->input('Nom_secteur'),
+                'Nom_secteur_ar'=>$request->input('Nom_secteur_ar'),
+                'id_filiere'=>$filier->id_filiere,
+            ]);
+            if(isset($sect))
+            {
+                Post::create([
+                    'Nom_post'=>$request->input('Nom_post'),
+                    'Grade_post'=>$request->input('Grade_post'),
+                    'Nom_post_ar'=>$request->input('Nom_post_ar'),
+                    'id_secteur'=>$sect->id_secteur
+                ]);
 
+            }
+        }
+        
        //return response()->json(['success'=>'sucess']);
         return redirect('/poste')->with('success', 'Poste ajouté avec succès.');
     }
