@@ -68,8 +68,8 @@ return [
     'date_insrt'=>'Date Insertion',
     'discis'=>'ٌRéférence de decision',
     'inst_dicsio'=>'ٌEntrer la décision',
-    'post'=>'Poste',
-    'post_fnc'=>'Fonction',
+    'post'=>'Grade',
+    'post_fnc'=>'Fonction Supèrieur',
     'post_sup'=>'Poste Supèrieur',
     'post_grad'=>'Grade',
     'post_echl'=>'Echellant',
@@ -152,9 +152,9 @@ return [
     'autre'=>'Dossier de Correspondances Et Divers',
 
 
-    'persondata'=>'Données Personnelles',
-    'educatdata'=>'Données Educatives',
-    'admindata'=>'Données Administratives',
+    'persondata'=>'Informations Personnelles',
+    'educatdata'=>'Dipômes et Qualifications',
+    'admindata'=>'Parcours Professionnel et administratif',
     'generat'=>'Décision Finale',
 
     'next'=>'Suivant',
