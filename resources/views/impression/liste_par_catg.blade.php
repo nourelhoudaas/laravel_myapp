@@ -119,7 +119,7 @@
 
         <!-- Tableau des employés par grade -->
         @foreach(range(1, 16) as $grade)
-                <div class="{{ $loop->first ? '-' : 'page-break' }}"> <!-- Saut de page sauf pour le premier grade -->
+                <div class="{{ $loop->first ? '' : 'page-break' }}"> <!-- Saut de page sauf pour le premier grade -->
                     <h3>Grade {{ $grade }}</h3>
                     <table>
                         <thead>
@@ -141,7 +141,7 @@
                                 // Filtrer les employés par grade
                                 $employeesByGrade = $employe->filter(function ($employee) use ($grade) {
                                     $lastPost = $employee->occupeIdNin->last()->post ?? null;
-                                    return $lastPost && $lastPost->Grade_post === $grade;
+                                    return $lastPost && $lastPost->grade === $grade;
                                 });
                             @endphp
 
@@ -163,19 +163,25 @@
 
                                             <tr>
                                                 <td>{{ $employee->id_emp }}</td>
-                                                <td>{{ $locale == 'fr' ? $employee->Nom_emp : $employee->Nom_ar_emp }}</td>
-                                                <td>{{ $locale == 'fr' ? $employee->Prenom_emp : $employee->Prenom_ar_emp }}</td>
-                                                <td>{{ $employee->occupeIdNin->last()->date_recrutement ?? '-' }}</td>
-                                                <td>{{ $employee->occupeIdNin->last()->date_CF ?? '-' }}</td>
-                                                <td>{{ $employee->occupeIdNin->last()->visa_CF ?? '-' }}</td>
-                                                <td>{{ $locale == 'fr' ? ($post->Nom_post ?? '-') : ($post->Nom_post_ar ?? '-') }}</td>
                                                 <td>
-                                                    {{ $locale == 'fr' ? ($sousDepartement->Nom_sous_depart ?? '-') : ($sousDepartement->Nom_sous_depart_ar ?? '-') }}
+                                                    {{ $locale == 'fr' ? $employee->Nom_emp : $employee->Nom_ar_emp }}
                                                 </td>
                                                 <td>
-                                                    {{ $locale == 'fr' ? ($departement->Nom_depart ?? '-') : ($departement->Nom_depart_ar ?? '-') }}
+                                                    {{ $locale == 'fr' ? $employee->Prenom_emp : $employee->Prenom_ar_emp }}
                                                 </td>
-                                                <td>{{ $travail->date_installation ?? '-' }}</td>
+                                                <td>{{ $employee->occupeIdNin->last()->date_recrutement ?? '' }}</td>
+                                                <td>{{ $employee->date_CF }}</td>
+                                                <td>{{ $employee->visa_CF }}</td>
+                                                <td>
+                                                    {{ $locale == 'fr' ? ($post->Nom_post ?? '') : ($post->Nom_post_ar ?? '') }}
+                                                </td>
+                                                <td>
+                                                    {{ $locale == 'fr' ? ($sousDepartement->Nom_sous_depart ?? '') : ($sousDepartement->Nom_sous_depart_ar ?? '') }}
+                                                </td>
+                                                <td>
+                                                    {{ $locale == 'fr' ? ($departement->Nom_depart ?? '') : ($departement->Nom_depart_ar ?? '') }}
+                                                </td>
+                                                <td>{{ $travail->date_installation ?? '' }}</td>
                                             </tr>
                             @empty
                                 <tr>

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Log; // Importation correcte du facade Log
-use Exception;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Absence;
 use App\Models\Stocke;
@@ -27,7 +25,7 @@ use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class EmployeesController extends Controller
-{
+{   
     //! IMPRESSION LISTE GLOBALE
     public function exportPdf()
     {
@@ -41,10 +39,13 @@ class EmployeesController extends Controller
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
-            ->setPaper('a4', 'landscape')
-            ->setOptions(['encoding' => 'UTF-8']);
-
-        return $pdf->download('liste_globale.pdf'); // Changement ici
+        ->setPaper('a4','landscape')
+        ->setOptions([
+            'encoding'=> 'UTF-8',
+           
+        ]);
+        //return $pdf->download('Liste des employés.pdf');
+        return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
     }
 
     //! IMPRESSION CATEGORIE
@@ -52,23 +53,34 @@ class EmployeesController extends Controller
     {
         $employe = Employe::with([
             'occupeIdNin.post' => function ($query) {
-                $query->whereBetween('Grade_post', [1, 16]);
+                $query->whereBetween('Grade_post', [1, 16]); // Filtrer par grade
             },
-            'travailByNin.sous_departement.departement',
+            'occupeIdNin.fonctions', // Inclure la relation "fonctions"
+            'occupeIdNin.postSups', // Inclure la relation "postsup"
+            'travailByNin.sous_departement.departement', // Inclure le département via travail et sous-département
         ])
-            ->whereHas('occupeIdNin.post', function ($query) {
-                $query->whereBetween('Grade_post', [1, 16]);
-            })
-            ->get();
+        ->whereHas('occupeIdNin.post', function ($query) {
+            $query->whereBetween('Grade_post', [1, 16]) // Filtrer par grade
+                  ->whereDoesntHave('fonctions') // Exclure les postes liés à une fonction
+                  ->whereDoesntHave('postSups'); // Exclure les postes liés à un postsup
+        })
+        ->get();
+        
+    
+        
+    
 
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression/liste_par_catg', compact('employe', 'empdepart'))
-            ->setPaper('a4', 'landscape')
-            ->setOptions(['encoding' => 'UTF-8']);
-
-        return $pdf->download('liste_par_categorie.pdf'); // Changement ici
+        ->setPaper('a4','landscape')
+        ->setOptions([
+            'encoding'=> 'UTF-8',
+           
+        ]);
+        return $pdf->stream('Liste des employés_catégorie_.pdf');
     }
+
     //! IMPRESSION FONCTION
     public function exportPdfFnc()
     {
@@ -81,88 +93,17 @@ class EmployeesController extends Controller
 
         $empdepart = Departement::get();
 
-        $pdf = PDF::loadView('impression/liste_par_fnc', compact('employe', 'empdepart'))
-            ->setPaper('a4', 'landscape')
-            ->setOptions(['encoding' => 'UTF-8']);
-
-        return $pdf->download('liste_par_fonction.pdf'); // Changement ici
-    }
-    //! IMPRESSION ATTESTATION
-    public function exportPdfAttesList($id_emp)
-    {
-        try {
-            Log::info("Début de exportPdfAttes pour id_emp : {$id_emp}");
-
-            $employe = Employe::with(['occupeIdNin.post', 'occupeIdNin.fonction', 'occupeIdNin.postsup', 'travailByNin.sous_departement.departement'])
-                ->where('id_emp', $id_emp)
-                ->first();
-
-            if (!$employe) {
-                Log::warning("Aucun employé trouvé pour id_emp : {$id_emp}");
-                throw new Exception("Employé avec l'ID {$id_emp} non trouvé");
-            }
-
-            Log::info('Employé chargé : ', [$employe->toArray()]);
-            Log::info('OccupeIdNin : ', $employe->occupeIdNin->isNotEmpty() ? $employe->occupeIdNin->toArray() : []);
-            Log::info('TravailByNin : ', $employe->travailByNin->isNotEmpty() ? $employe->travailByNin->toArray() : []);
-
-            $data = ['employe' => $employe];
-
-            $pdf = Pdf::loadView('impression.attestation_travail', $data);
-            $pdf->setPaper('A4', 'portrait');
-
-            // Nom du fichier : attestation_<nom_emp>_<date>.pdf
-            $filename = 'attestation_' . ($employe->Nom_emp ?? 'inconnu') . '_' . now()->format('Y-m-d') . '.pdf';
-            log::info('filename:', [$filename]);
-            return $pdf->download($filename);
-        } catch (Exception $e) {
-            Log::error('Erreur lors de la génération du PDF : ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
-            return response()->json(['error' => 'Erreur lors de la génération du PDF : ' . $e->getMessage()], 500);
-        }
-    }
-
-    public function exportPdfAttes($nom)
-    {
-        try {
-            Log::info("Début de exportPdfAttes pour nom : {$nom}");
-
-            // Recherche par Nom_emp ou Nom_ar_emp selon la locale
-            $employe = Employe::with(['occupeIdNin.post', 'occupeIdNin.fonction', 'occupeIdNin.postsup', 'travailByNin.sous_departement.departement'])
-                ->where(function ($query) use ($nom) {
-                    $locale = app()->getLocale();
-                    if ($locale == 'fr') {
-                        $query->where('Nom_emp', $nom);
-                    } else {
-                        $query->where('Nom_ar_emp', $nom);
-                    }
-                })
-                ->first();
-
-            if (!$employe) {
-                Log::info("Aucun employé trouvé pour nom : {$nom}");
-                // Retourner une réponse JSON avec statut 404
-                return response()->json(['message' => "Aucun employé trouvé avec le nom '{$nom}'"], 404);
-            }
-
-            Log::info('Employé chargé : ', [$employe->toArray()]);
-            Log::info('OccupeIdNin : ', $employe->occupeIdNin->isNotEmpty() ? $employe->occupeIdNin->toArray() : []);
-            Log::info('TravailByNin : ', $employe->travailByNin->isNotEmpty() ? $employe->travailByNin->toArray() : []);
-
-            $data = ['employe' => $employe];
-
-            $pdf = Pdf::loadView('impression.attestation_travail', $data);
-            $pdf->setPaper('A4', 'portrait');
-
-            $filename = 'attestation_' . ($employe->Nom_emp ?? 'inconnu') . '_' . now()->format('Y-m-d') . '.pdf';
-            return $pdf->download($filename);
-        } catch (Exception $e) {
-            Log::error('Erreur technique lors de la génération du PDF : ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
-            return response()->json(['error' => 'Erreur technique lors de la génération du PDF : ' . $e->getMessage()], 500);
-        }
+        $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
+        ->setPaper('a4','landscape')
+        ->setOptions([
+            'encoding'=> 'UTF-8',
+           
+        ]);
+        return $pdf->stream('Liste des employés.pdf');
     }
 
     //! IMPRESSION CONTRAT ACTUEL
-    public function exportPdfCat()
+        public function exportPdfCat()
     {
         $employe = Employe::with([
             'occupeIdNin.post',
@@ -174,12 +115,12 @@ class EmployeesController extends Controller
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
-            ->setPaper('a4', 'landscape')
-            ->setOptions([
-                'encoding' => 'UTF-8',
-
-            ]);
-        return $pdf->stream('Liste des employés.pdf');
+        ->setPaper('a4','landscape')
+        ->setOptions([
+            'encoding'=> 'UTF-8',
+           
+        ]);
+        return $pdf->stream ('Liste des employés.pdf');
     }
     public function ListeEmply(Request $request)
     {
@@ -490,7 +431,7 @@ class EmployeesController extends Controller
         $fis = array();
         foreach ($allwor as $workig) {
             $travs = Travail::where('travails.id_nin', $workig->id_nin)
-                ->join('Employes', 'Employes.id_nin', '=', 'travails.id_nin')
+                ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
                 // ->where('departements.id_depart',$id_dep)
@@ -511,13 +452,13 @@ class EmployeesController extends Controller
                 ->orderBy('date_recrutement', 'desc')
                 ->first();
 
-            $emps = Employe::join('occupes', 'occupes.id_nin', '=', 'Employes.id_nin')
+            $emps = Employe::join('occupes', 'occupes.id_nin', '=', 'employes.id_nin')
                 ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
                 ->join('contients', 'contients.id_post', '=', 'posts.id_post')
                 ->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
                 ->where('contients.id_contient', $idcnt->id_contient)
-                ->where('Employes.id_nin', $emp->id_nin)
+                ->where('employes.id_nin', $emp->id_nin)
                 ->orderBy('date_recrutement', 'desc')
                 ->first();
             $find = false;
@@ -888,7 +829,7 @@ class EmployeesController extends Controller
         $fis = array();
         foreach ($allwor as $workig) {
             $travs = Travail::where('travails.id_nin', $workig->id_nin)
-                ->join('Employes', 'Employes.id_nin', '=', 'travails.id_nin')
+                ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
                 // ->where('departements.id_depart',$id_dep)
@@ -1031,7 +972,7 @@ class EmployeesController extends Controller
         $fis = array();
         foreach ($allwor as $workig) {
             $travs = Travail::where('travails.id_nin', $workig->id_nin)
-                ->join('Employes', 'Employes.id_nin', '=', 'travails.id_nin')
+                ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
                 // ->where('departements.id_depart',$id_dep)

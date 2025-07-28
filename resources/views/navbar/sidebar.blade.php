@@ -143,35 +143,52 @@
                         </a>
                         <div class="nav__dropdown-collapse">
                             <div class="nav__dropdown-content">
-                                <!-- Lien pour exporter la liste globale -->
-                                <a href="{{ route('app_export_emply') }}" class="nav__link"
-                                    onclick="generatePdf(event, this, '{{ route('app_export_emply') }}')">
+
+                                <!-- Premier bouton : Liste globale -->
+                                <button id="export-emply-btn" class="nav__link"
+                                    style="background: none; border: none; cursor: pointer;">
                                     <i class='bx bx-list-ul nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.list_global') }}</span>
-                                </a>
-                                <!-- Lien pour exporter par catégorie -->
-                                <a href="{{ route('app_export_catg') }}" class="nav__link"
-                                    onclick="generatePdf(event, this, '{{ route('app_export_catg') }}')">
+                                </button>
+                                <div id="spinner-emply" class="spinner" style="display: none; margin-left: 10px;"></div>
+
+                                <!-- Bouton pour exporter par catégorie -->
+                                <button id="export-catg-btn" class="nav__link"
+                                    style="background: none; border: none; cursor: pointer;">
                                     <i class='bx bxs-category-alt nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.par_cat') }}</span>
-                                </a>
-                                <!-- Lien pour exporter par fonction -->
-                                <a href="{{ route('app_export_fnc') }}" class="nav__link"
-                                    onclick="generatePdf(event, this, '{{ route('app_export_fnc') }}')">
+                                </button>
+                                <div id="spinner-catg" class="spinner" style="display: none; margin-left: 10px;"></div>
+
+                                <!-- Bouton pour exporter par fonction -->
+                                <button id="export-fnc-btn" class="nav__link"
+                                    style="background: none; border: none; cursor: pointer;">
                                     <i class='bx bxs-graduation nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.par_fnc') }}</span>
-                                </a>
-                                <!-- Lien pour exporter par contrat actif -->
-                                <a href="{{ route('app_export_cat') }}" class="nav__link"
-                                    onclick="generatePdf(event, this, '{{ route('app_export_cat') }}')">
+                                </button>
+                                <div id="spinner-fnc" class="spinner" style="display: none; margin-left: 10px;"></div>
+
+                                <!-- Bouton pour exporter par contrat actif -->
+                                <button id="export-cat-btn" class="nav__link"
+                                    style="background: none; border: none; cursor: pointer;">
                                     <i class='bx bxs-notepad nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.cont_act') }}</span>
-                                </a>
-                                <!-- Bouton pour générer une attestation -->
-                                <a href="#" class="nav__link" onclick="generateAttestation(event, this)">
-                                    <i class='bx bxs-file nav__icon'></i>
-                                    <span class="nav__name">{{ __('lang.attestation') }}</span>
-                                </a>
+                                </button>
+                                <div id="spinner-cat" class="spinner" style="display: none; margin-left: 10px;"></div>
+
+                                <!-- <a href="{{route('app_export_catg')}}" class="nav__link">
+                                    <i class='bx bxs-category-alt nav__icon'></i>
+                                    <span class="nav__name">{{ __('lang.par_cat') }}</span>
+                                </a> -->
+                                <!-- <a href="{{route('app_export_fnc')}}" class="nav__link">
+                                    <i class='bx bxs-graduation nav__icon'></i>
+                                    <span class="nav__name">{{ __('lang.par_fnc') }}</span>
+                                </a> -->
+                                <!-- <a href="{{route('app_export_cat')}}" class="nav__link">
+                                    <i class='bx bxs-notepad nav__icon'></i>
+                                    <span class="nav__name">{{ __('lang.cont_act') }}</span>
+                                </a> -->
+
                             </div>
                         </div>
                     </div>
@@ -186,3 +203,58 @@
             </div>
     </nav>
 </div>
+</div>
+
+<!-- JavaScript pour gérer la génération du PDF -->
+<script>
+    // Fonction générique pour gérer la génération du PDF
+    function handleExport(route, spinnerId, buttonId, fileName) {
+        // Afficher le spinner
+        document.getElementById(spinnerId).style.display = 'inline-block';
+        // Désactiver le bouton
+        document.getElementById(buttonId).disabled = true;
+
+        // Envoyer une requête à la route pour générer le PDF
+        fetch(route, {
+            method: 'GET',
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            // Créer un lien pour télécharger le PDF
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName; // Utiliser le nom de fichier personnalisé
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Masquer le spinner et réactiver le bouton
+            document.getElementById(spinnerId).style.display = 'none';
+            document.getElementById(buttonId).disabled = false;
+        })
+        .catch(error => {
+            console.error('Erreur lors de la génération du PDF :', error);
+            // Masquer le spinner et réactiver le bouton en cas d'erreur
+            document.getElementById(spinnerId).style.display = 'none';
+            document.getElementById(buttonId).disabled = false;
+        });
+    }
+
+    // Associer les boutons à leurs routes respectives avec des noms de fichiers personnalisés
+    document.getElementById('export-emply-btn').addEventListener('click', function() {
+        handleExport("{{ route('app_export_emply') }}", 'spinner-emply', 'export-emply-btn', 'liste_globale.pdf');
+    });
+
+    document.getElementById('export-catg-btn').addEventListener('click', function() {
+        handleExport("{{ route('app_export_catg') }}", 'spinner-catg', 'export-catg-btn', 'par_categorie.pdf');
+    });
+
+    document.getElementById('export-fnc-btn').addEventListener('click', function() {
+        handleExport("{{ route('app_export_fnc') }}", 'spinner-fnc', 'export-fnc-btn', 'par_fonction.pdf');
+    });
+
+    document.getElementById('export-cat-btn').addEventListener('click', function() {
+        handleExport("{{ route('app_export_cat') }}", 'spinner-cat', 'export-cat-btn', 'contrats_actifs.pdf');
+    });
+</script>
