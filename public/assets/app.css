@@ -2180,155 +2180,16 @@ main .recent_order a:hover{
 }
 /*================================================\TABLEAU==================================*/
 /* Style pour le spinner*/
-
-.spinner-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; /* Au-dessus de tout */
-}
-
 .spinner {
+  display: inline-block;
   border: 4px solid #f3f3f3;
   border-top: 4px solid #3498db;
   border-radius: 50%;
-  width: 40px; /* Taille plus grande pour visibilité */
-  height: 40px;
+  width: 20px;
+  height: 20px;
   animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-.attestation-btn {
-  background-color: #138827; /* Bleu de base */
-  color: white;
-  border: none;
-  padding: 8px; /* Réduction pour un bouton plus compact */
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex; /* Utilisation de flex pour centrer */
-  justify-content: center; /* Centrer horizontalement */
-  align-items: center; /* Centrer verticalement */
-  width: 40px; /* Largeur fixe pour uniformité */
-  height: 40px; /* Hauteur fixe pour uniformité */
-  position: relative; /* Pour positionner le spinner */
-  transition: background-color 0.3s ease; /* Animation au survol */
-}
-.attestation-btn:hover {
-  background-color: #138827; /* Bleu plus foncé au survol */
-}
-.attestation-btn i {
-  font-size: 24px; /* Taille de l'icône */
-  color: #ffffff; /* Couleur blanche pour contraste */
-}
-
-/* Styles pour l'alerte (déjà présents) */
-.custom-alert {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-}
-.custom-alert-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
-  text-align: center;
-}
-.custom-alert-content p {
-  margin: 0 0 15px 0;
-  font-size: 16px;
-  color: #333;
-}
-.custom-alert-button {
-  background: #138827;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease;
-}
-.custom-alert-button:hover {
-  background: #138827;
-}
-
-/* Styles pour la modale de saisie */
-.custom-input {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-}
-.custom-input-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
-  text-align: center;
-}
-.custom-input-content p {
-  margin: 0 0 15px 0;
-  font-size: 16px;
-  color: #333;
-}
-.custom-input-field {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-.custom-input-field:focus {
-  border-color: #138827;
-  outline: none;
-}
-.custom-input-buttons {
-  display: flex;
-  justify-content: space-around;
-}
-.custom-input-button {
-  background: #138827;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease;
-}
-.custom-input-button:hover {
-  background: #138827;
-}
-.custom-input-cancel {
-  background: #ff7782; /* Rouge pour annuler */
-}
-.custom-input-cancel:hover {
-  background: #ff7782;
 }

@@ -30,8 +30,14 @@ class Employe extends Model
 
     public function occupe()
     {
-        return $this->hasMany(Occupe::class, 'id_nin', 'id_nin');
+        return $this->hasMany(Occupe::class, ['id_nin','id_p'], ['id_nin','id_p']);
+        
     }
+    /*public function occupeIdNin()
+    {
+        return $this->hasMany(Occupe::class, 'id_nin', 'id_nin');
+    }*/
+    
     public function occupeIdP()
     {
         return $this->hasMany(Occupe::class, 'id_p', 'id_p');
@@ -42,13 +48,54 @@ class Employe extends Model
         return $this->hasMany(Occupe::class, 'id_nin', 'id_nin');
     }
 
+
+    public function congeIdNin()
+    {
+        return $this->hasMany(Conge::class, 'id_nin', 'id_nin');
+    }
+    
+    public function congeIdP()
+    {
+        return $this->hasMany(Conge::class, 'id_p', 'id_p');
+    }
+
+    public function LogIdnin()
+    {
+        return $this->hasMany(Log::class, 'id_nin', 'id_nin');
+    }
+
+    //par categorie
+    // Relation avec la table occupes
+
+
+    // Relation avec la table travails (si besoin)
     public function travailByNin()
     {
         return $this->hasMany(Travail::class, 'id_nin', 'id_nin');
     }
 
-    public function sousDepartements()
+    // Relation avec les fonctions via Contient
+    public function fonctions()
     {
-        return $this->hasManyThrough(Sous_departement::class, Travail::class, 'id_nin', 'id_sous_depart', 'id_nin', 'id_sous_depart');
+        return $this->belongsToMany(Fonction::class, 'contients', 'id_post', 'id_fonction');
     }
+
+    // Relation avec postSups via Contient
+    public function postSups()
+    {
+        return $this->belongsToMany(PostSup::class, 'contients', 'id_post', 'id_postsup');
+    }
+
+    // Relation avec les postes via Occupe
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'occupes', ['id_p', 'id_nin'], ['id_post']);
+    }
+
+    // Relation avec les employeurs via Occupe
+    public function employers()
+    {
+        return $this->belongsToMany(Employe::class, 'occupes', 'id_post', ['id_p', 'id_nin']);
+    }
+    
 }

@@ -172,8 +172,8 @@
                         </td>
                         <td>{{ Carbon::parse($employee->Date_nais)->age ?? '-' }}</td>
                         <td>{{ $employee->occupeIdNin->last()->date_recrutement ?? '-' }}</td>
-                        <td>{{ $employee->occupeIdNin->last()->date_CF ?? '-' }}</td>
-                        <td>{{ $employee->occupeIdNin->last()->visa_CF ?? '-' }}</td>
+                        <td>{{ $employee->date_CF ?? '-' }}</td>
+                        <td>{{ $employee->visa_CF ?? '-' }}</td>
                         <td>
                             @if ($locale == 'fr')
                                 {{ $post->Nom_post ?? '-' }}
@@ -220,6 +220,40 @@
             <p>&copy; {{ date('Y') }} Ministère de la communication. Tous droits réservés.</p>
         </div>
     </div>
+     <!-- JavaScript pour gérer le spinner et la génération du PDF -->
+     <script>
+        function generatePdf() {
+            // Afficher le spinner
+            document.getElementById('spinner').style.display = 'inline-block';
+            // Désactiver le bouton
+            document.getElementById('generate-pdf-btn').disabled = true;
 
+            // Envoyer une requête au serveur pour générer le PDF
+            fetch('/generate-pdf', {
+                method: 'GET',
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                // Créer un lien pour télécharger le PDF
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'document.pdf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+                // Masquer le spinner et réactiver le bouton
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('generate-pdf-btn').disabled = false;
+            })
+            .catch(error => {
+                console.error('Erreur lors de la génération du PDF :', error);
+                // Masquer le spinner et réactiver le bouton en cas d'erreur
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('generate-pdf-btn').disabled = false;
+            });
+        }
+    </script>
 </body>
 </html>
