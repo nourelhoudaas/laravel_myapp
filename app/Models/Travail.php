@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Employe;
-use App\Models\Sous_Departement;
+use App\Models\Sous_departement;
 use App\Models\Bureau;
 
 class Travail extends Model
