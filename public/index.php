@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use app\Http\Requests\saveDepartementRequest;
 
 define('LARAVEL_START', microtime(true));
 

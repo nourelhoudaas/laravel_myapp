@@ -3,25 +3,51 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Login;
 use DateTimeImmutable;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Services\EmailService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
-
-
 
 //---------------------------------------------------------------------LOGOUT---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
     public function logout()
     {
+        App::setLocale(Session::get('locale', config('app.locale')));
+         // Récupérer l'usr connecté
+    $user = Auth::user();
+
+    if ($user) {
+        // si usr est authntifié
+        $login = Login::where('id', $user->id)
+                            ->whereNull('date_logout')
+                            ->first();
+
+        if ($login) {
+            // Mettre à jour la date de logout
+            $login->update(['date_logout' => new \DateTimeImmutable]);
+        }
+
+        // Déconnecter l'utilisateur and redirect to login
         Auth::logout();
+
         return redirect()->route('login');
+        
     }
+
+    // Si l'utilisateur n'est pas connecté, rediriger vers la page de login
+    return redirect('/login')->withErrors(['message' => __('lang.Aucunutilisateurconnecté'  )]);
+}
+       
+    
 
 
 //---------------------------------------------------------------------CONSTRUCTEURS---------------------------------------------------------------------------------------
@@ -126,13 +152,52 @@ public function existIDNIN()
 //---------------------------------------------------------------------PASSWORD FORGOTEN---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-public function forgotPassword()
-{
-    return view('auth.forgot_password');
-}
+    public function forgotPassword(Request $request)
+    {
+        App::setLocale(Session::get('locale', config('app.locale')));
+        return view('auth.forgot_password');
 
+    }
 
+    public function checkUsername(Request $request)
+        {
+            $username = $request->query('username');
+            // dd($username);
+            if (User::where('username', $username)->exists()) {
+                return response()->json(['exists' => true]);
+            } else {
+                return response()->json(['exists' => false]);
+            }
+        }
 
+        public function sendResetLinkEmail(Request $request)
+            {   
+                App::setLocale(Session::get('locale', config('app.locale')));
+                $request->validate([
+                'username' => 'required|string',
+                'reason' => 'required|string',
+            ]);
+
+            $user = User::where('username', $request->username)->first();
+
+            if (!$user) {
+                return redirect()->route('login')->with('erreur',  __('lang.Lemotutilisateurnestpastrouvé'));
+            }
+
+            $emailData = [
+                'username' => $request->username,
+                'reason' => $request->reason,
+            ];
+
+            Mail::raw("Username: {$emailData['username']}\nReason: {$emailData['reason']}", function($message) {
+                $message->to('test@example.com') 
+                        ->subject('Mot de passe oublié - Raison fournie')
+                        ->from(config('mail.from.address'), config('mail.from.name'));
+            });
+
+            return back()->with('status', __('lang.Votreréponseaétéenvoyéavecsuccess'));
+        }
+            
 
 
 
@@ -320,6 +385,7 @@ public function forgotPassword()
 
 //---------------------------------------------------------------------FORGOT PASSWORD---------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 }

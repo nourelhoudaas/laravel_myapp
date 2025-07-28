@@ -1,218 +1,371 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    @php
-    $id=0;
-    @endphp
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="{{ asset('assets/app.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/main.css')}}" rel="stylesheet" type="text/css">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Personnel</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="/HRTemplat/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="../css/main.css" rel="stylesheet" type="text/css">
-</head>
+@php
+    $id = 0;
+@endphp
 @extends('base')
-<body>
-    @include('./navbar.sidebar')  
-<div class="stepper-wrapper">
-  <div class="stepper-item completed">
-    <div class="step-counter">1</div>
-    <div class="step-name">Donneé Personnel</div>
-  </div>
-  <div class="stepper-item active">
-    <div class="step-counter">2</div>
-    <div class="step-name">Donneé Educative</div>
-  </div>
-  <div class="stepper-item active">
-    <div class="step-counter">3</div>
-    <div class="step-name">Donnée Administrative</div>
-  </div>
-  <div class="stepper-item">
-    <div class="step-counter">4</div>
-    <div class="step-name">Genere Dicision </div>
-  </div>
-</div>
+
+@section('title', 'Formulaire')
+
+@section('content')
+    @php
+        $uid = auth()->id();
+    @endphp
+    <style>
+        .file-label {
+            display: inline-block;
+            padding: 10px 20px;
+            /* Espacement interne pour agrandir le cadre */
+            background-color: #f8f9fa;
+            /* Couleur de fond */
+            color: #007bff;
+            /* Couleur du texte */
+            cursor: pointer;
+            border: 2px solid #007bff;
+            /* Bordure pour le cadre */
+            border-radius: 5px;
+            /* Coins légèrement arrondis */
+            text-align: center;
+            font-size: 16px;
+            /* Taille du texte */
+            margin-top: 10px;
+
+        }
+
+        .file-label:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <body>
+
+        <div class="" id="prog-add">
+            <div class="stepper-item completed">
+                <div class="step-counter">1</div>
+                <div class="step-name">{{ __('lang.persondata') }}</div>
+            </div>
+            <div class="stepper-item active">
+                <div class="step-counter">2</div>
+                <div class="step-name">{{ __('lang.educatdata') }}</div>
+            </div>
+            <div class="stepper-item active">
+                <div class="step-counter">3</div>
+                <div class="step-name">{{ __('lang.admindata') }}</div>
+            </div>
+            <div class="stepper-item active">
+                <div class="step-counter">4</div>
+                <div class="step-name">{{ __('lang.generat') }} </div>
+            </div>
+        </div>
+
+<div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                <span class="font-weight-bold">ADMIN</span>
-                <span class="text-black-50">ADMIN@mail.com.my</span>
-                <span> 
+                <img class="rounded-circle mt-5" width="150px" src="{{ asset('assets/main/img/profile.jpg')}}">
+                {{-- <span class="font-weight-bold">ADMIN</span>
 
-                </span>
-            </div>
-        </div>
-        <div class="form-holder">
-        <form class="form-fa" action="/Employe/add" method="POST">
-            @csrf
-        <div class="col-md-10">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-         
-                    <h4 class="text-right">Profile Settings</h4>
-                </div>
-                <div class="row mt-2">
-                <div class="col-md-12">
-                        <label class="labels">NIN</label>
-                        <input type="text" class="form-control" placeholder="enter NIN" value="" id="NIN">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="labels">Nom</label>
-                        <input type="text" class="form-control" placeholder="Nom" value="" id="name">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="labels">Prenom</label>
-                        <input type="text" class="form-control" value="" placeholder="Prenom" id="sname">
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <div class="col-md">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <img class="rounded-circle mt-5" width="150px" src="{{ asset('assets/main/img/profile.jpg') }}">
+                        {{-- <span class="font-weight-bold">ADMIN</span>
+                <span class="text-black-50">ADMIN@mail.com.my</span> --}}
+
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-6" style="direction: rtl;">
-                        <label class="labels">الإسم</label>
-                        <input type="text" class="form-control" placeholder="الإسم" value="" id="nameAR" style="direction: rtl;">
-                    </div>
-                    <div class="col-md-6" style="direction: rtl;">
-                        <label class="labels">اللقب</label>
-                        <input type="text" class="form-control" value="" placeholder=" ...اللقب" id="prenomAR" style="direction: rtl;">
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <label class="labels">Numero Telephone</label>
-                        <input type="text" class="form-control" placeholder="enter Numero" value="" id="nbrphone">
-                    </div>
-                    <div class="col-md-12">
-                        <label class="labels">Address Line 1</label>
-                        <input type="text" class="form-control" placeholder="enter address line 1" value="" id="adr1">
-                    </div>
-                    <div class="col-md-12" style="direction: rtl;">
-                        <label class="labels">العنوان</label>
-                        <input type="text" class="form-control" placeholder="شارع ..." value="" id="adr1AR" style="direction: rtl;">
-                    </div>
-                    <div class="col-md-12">
-                        <label class="labels">date Naissance</label>
-                        <input type="date" class="form-control" value="" id="brtday">
-                    </div>
-                    <div class="row mt-3">
-                    <div class="col-md-6">
-                        <label class="labels">Lieu</label>
-                        <input type="text" class="form-control" placeholder="Wilaya" value="" id="plc">
-                    </div>
-                    <div class="col-md-6" style="direction: rtl;">
-                        <label class="labels">مكان الإزدياد</label>
-                        <input type="text" class="form-control" value="" placeholder="ولاية ..." id="plcAR" style="direction: rtl;">
-                    </div>
-                </div>
-                    <div class="col-md-12">
-                        <label class="labels">Email ID</label>
-                        <input type="text" class="form-control" placeholder="enter email" value="" id="mail">
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                    <label class="labels">Sexe</label>
-                       <select name="sexe" id="sexe"class="form-select form-select-lg mb-3" aria-label="Default select example">
-                            <option value="">--Please choose an option--</option>
-                            <option value="Femme">Femme</option>
-                            <option value="Homme">Homme</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                       
-                    </div>
-                </div>
-                <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="submit" id="btn-sv">Save Profile</button>
-                </div>
-            </div>
-        </div>
-        </form>
-        <div class="file-holder">
-          <div class="file-select-holder">
-            <label for="file">Choose file:</label>
-            <input type="file" name="file" id="file"> </br>
-            <div class="">
-            <button class="button-33" type="button" id="upload-button" onclick="uploadFile()">Upload</button>
-            </div>
-          </div>
-                <div>
-                    <div class="file-upload">
-                        <div class="file-prog">
-                            <div class="file-name" id='file1'>
-                                <p> Fichier 1 </p>
+                <div class="form-holder">
+                    <form class="form-fa " action="/Employe/add" method="POST">
+                        @csrf
+                        <div class="col-md-18">
+                            <div class="p-5 py-15">
+                                <div class="d-flex justify-content-between align-items-center mb-3 title">
+
+                                    <h4>{{ __('lang.persondata') }}</h4>
+                                </div>
+                                <div class="row mt-2 just">
+                                    <div class="col-md-12">
+                                        <label class="labels">{{ __('lang.NIN') }}</label>
+                                        <input type="text" class="form-control" placeholder="{{ __('lang.nin') }}"
+                                            value="" id="ID_NIN">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="labels">{{ __('lang.NSS') }}</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="{{ __('lang.nss') }}"value="" id="ID_SS">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="labels">Nom</label>
+                                        <input type="text" class="form-control" placeholder="Saisir le Nom de l'employé"
+                                            value="" id="Nom_P">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="labels">Prénom</label>
+                                        <input type="text" class="form-control" value=""
+                                            placeholder="Saisir le Prénom de l'employé" id="Prenom_O">
+                                    </div>
+                                </div>
+                                <div class="row mt-2 just">
+                                    <div class="col-md-6" style="direction: rtl;">
+                                        <label class="labels">اللقب</label>
+                                        <input type="text" class="form-control" value=""
+                                            placeholder=" ادخل لقب الموظف " id="Prenom_AR" style="direction: rtl;">
+                                    </div>
+                                    <div class="col-md-6" style="direction: rtl;">
+                                        <label class="labels">الإسم</label>
+                                        <input type="text" class="form-control" placeholder=" ادخل إسم الموظف"
+                                            value="" id="Nom_PAR" style="direction: rtl;">
+                                    </div>
+
+                                </div>
+                                <div class="row mt-3 just">
+                                    <div class="col-md-12">
+
+
+
+                                        <label class="labels">{{ __('lang.num_tel') }}</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="{{ __('lang.slct_num_tel') }}" value="" id="PHONE_NB">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="labels">Adresse</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Saisir l'adresse résidentielle de l'employé" value=""
+                                            id="Address">
+                                    </div>
+                                    <div class="col-md-12" style="direction: rtl;">
+                                        <label class="labels">العنوان</label>
+                                        <input type="text" class="form-control" placeholder="ادخل عنوان سكن الموظف "
+                                            value="" id="AddressAR" style="direction: rtl;">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="labels">{{ __('lang.birtday') }}</label>
+                                        <input type="date" class="form-control" value="" id="Date_Nais_P">
+                                    </div>
+                                    <div class="row mt-3 just">
+                                        <div class="col-md-6">
+                                            <label class="labels">Lieu de Naissance</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Saisir le lieu de naissance" value="" id="Lieu_N">
+                                        </div>
+                                        <div class="col-md-6" style="direction: rtl;">
+                                            <label class="labels">مكان الميلاد</label>
+                                            <input type="text" class="form-control" value=""
+                                                placeholder="ادخل مكان الميلاد" id="Lieu_AR" style="direction: rtl;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="labels">{{ __('lang.mail') }}</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="{{ __('lang.slct_mail') }}" value="" id="EMAIL">
+                                    </div>
+                                </div>
+                                <div class="row mt-3 just">
+                                    <div class="col-md-6">
+                                        <label class="labels">{{ __('lang.sx') }} </label>
+                                        <select name="sexe" id="Sexe"class="form-select form-select-lm mb-3"
+                                            aria-label="Default select example">
+                                            <option value=""></option>
+                                            <option value="male">{{ __('lang.sx_ma') }}</option>
+                                            <option value="femelle">{{ __('lang.sx_fm') }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div  class="space"> <span  class="title">{{ __('lang.stitua_fam') }}</span></div>
+
+                                    <div class="row mt-3 just">
+                                        <div class="col-md-6">
+                                            <label class="labels">Prénom du Père</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Saisir le prénom du Père de l'employé" value=""
+                                                id="Prenom_Per">
+                                        </div>
+                                        <div class="col-md-6" style="direction: rtl;">
+                                            <label class="labels">إسم الأب</label>
+                                            <input type="text" class="form-control" value=""
+                                                placeholder="ادخل اسم اب الموظف" id="Prenom_PerAR"
+                                                style="direction: rtl;">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3 just">
+                                        <div class="col-md-6">
+                                            <label class="labels">Nom du Mère </label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Saisir le nom du mère de l'employé " value=""
+                                                id="Nom_mere">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="labels">Prénom du Mère </label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Saisir le prénom du mère de l'employé" value=""
+                                                id="Prenom_mere">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3 just">
+                                        <div class="col-md-6" style="direction: rtl;">
+                                            <label class="labels">لقب الأم</label>
+                                            <input type="text" class="form-control" placeholder="ادخل لقب ام الموظف"
+                                                value="" id="Nom_mereAR">
+                                        </div>
+                                        <div class="col-md-6" style="direction: rtl;">
+                                            <label class="labels">إسم الأم</label>
+                                            <input type="text" class="form-control" value=""
+                                                placeholder="ادخل اسم ام الموظف" id="Prenom_mereAR"
+                                                style="direction: rtl;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="labels">{{ __('lang.stitua_fam') }} </label>
+                                        <select select name="situat"
+                                            id="situat"class="form-select form-select-lm mb-3"
+                                            aria-label="Default select example">
+                                            <option value="">{{ __('lang.slct_famill') }}</option>
+                                            <option value="cel">{{ __('lang.cel') }}</option>
+                                            <option value="marie">{{ __('lang.marie') }}</option>
+                                            <option value="Divor">{{ __('lang.divor') }}</option>
+                                            <option value="veuve">{{ __('lang.veu') }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2" id="childrenDiv" style="display: none;">
+                                        <label class="labels">{{ __('lang.children') }}</label>
+                                        <select select name="nbrenfant"
+                                            id="nbrenfant"class="form-select form-select-lm mb-3"
+                                            aria-label="Default select example">
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6 text2" id="addf">
+                                </div>
+                                <div class="mt-5 text-end">
+                                    <button class="btn btn-primary btn-group2" type="submit"
+                                        id="btn-sv">{{ __('lang.next') }}</button>
+                                </div>
                             </div>
-                            <div class="prog-holder">
-                            <div id="progressWrapper" style="display: none;">
-                               <div id="progressBar" style="width: 0%; height: 20px; background-color: #4caf50;"></div>
+                        </div>
+                    </form>
+                    <div class="file-holder">
+                        <div class="file-select-holder">
+                            <label for="file" class='file-get-handle'
+                                id="file-custm">{{ __('lang.Choisirunfichier') }}</label>
+                            <input type="file" name="file" id="file">
+                            <div class="">
+                                <button class="button-33" type="button" id="upload-button"
+                                    onclick="uploadFile()">{{ __('lang.upload') }}</button>
+                                <label id='file-nm'>{{ __('lang.filnull') }}</lable>
                             </div>
+                        </div>
+                        <div>
+                            <div class="file-upload">
+                                <div class="file-prog">
+                                    <div class="file-name" id='file1'>
+
+                                    </div>
+                                    <div class="prog-holder">
+                                        <div id="progressWrapper" style="display: none;">
+                                            <div id="progressBar"
+                                                style="width: 0%; height: 20px; background-color: #4caf50;"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-        </div>
-</div>
-    </div>
+            </div>
 
-</body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-     $(document).ready(function(){
-    $('#btn-sv').click(function(e){
-        e.preventDefault();
-                selectElement =document.querySelector('#sexe');
-            output = selectElement.value;
-                // Assuming you are searching by ID_NIN
-                var formData = {
-                    ID_NIN:parseInt($('#NIN').val()),
-                    Nom_P:$('#name').val(),
-                    Prenom_O:$('#sname').val(),
-                    Nom_PAR:$('#nameAR').val(),
-                    Prenom_AR:$('#prenomAR').val(),
-                    PHONE_NB : parseInt($('#nbrphone').val()),
-                    Address :$('#adr1').val(),
-                    AddressAR :$('#adr1AR').val(),
-                    Date_Nais_P: $('#brtday').val(),
-                    Lieu_N:$('#plc').val(),
-                    Lieu_AR:$('#plcAR').val(),
-                    Sexe:output,
-                    EMAIL:$('#mail').val(),
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    _method: 'POST'
-                };
+    </body>
 
-                $.ajax({
-                    url: '/Employe/add/',
-                    type: 'POST',
-                    data: formData,
-                    success: function (response) {
-                        alert('donnee personnel a ajouter')
-                        var id=$('#NIN').val();
-                      window.location.href="/Employe/IsTravaill/"+id;
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseText);
+
+
+    <script>
+        var dir = "Personnel";
+        var uid = '{{ $uid }}'
+        var id;
+        var flang = '{{ __('lang.filnull') }}'
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdown = document.getElementById('nbrenfant');
+            const maxNumber = 10; // Change this to the desired maximum number
+
+            for (let i = 0; i <= maxNumber; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                dropdown.appendChild(option);
+            }
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdown = document.getElementById('situat');
+            const inputContainer = document.getElementById('addf');
+
+            dropdown.addEventListener('change', () => {
+                // Clear previous input if any
+                inputContainer.innerHTML = '';
+                const lang = "{{ App::getLocale() }}";
+
+                if (dropdown.value === 'marie') {
+                    const input = document.createElement('input');
+                    const label = document.createElement('label');
+                    label.classList = 'labels'
+
+                    input.type = 'text';
+                    label.textContent = @json(__('lang.Prnomdelpoux'));
+                    input.placeholder = @json(__('lang.Saisirleprénomdepoux'));
+                    // Définir le contenu et le style en fonction de la langue
+                    if (lang === 'ar') {
+
+                        label.style.textAlign = "right";
+                        label.style.direction = "ltr"; // Français (de gauche à droite)
+
+
+                        input.style.textAlign = "right";
+                        input.style.direction = "ltr"; // Français
+                    } else if (lang === 'fr') {
+
+                        label.style.textAlign = "left";
+                        label.style.direction = "rtl"; // Arabe (de droite à gauche)
+
+
+                        input.style.textAlign = "left";
+                        input.style.direction = "rtl"; // Arabe
                     }
-                });
-    });
-});
-</script>
 
-<script src="{{ asset('assets/app.js')}}"></script>
-</html>
+                    input.classList = 'form-control'
+                    input.name = 'marie';
+
+                    inputContainer.appendChild(label);
+                    inputContainer.appendChild(input);
+                }
+                // Add other conditions for different options if needed
+
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const situatDropdown = document.getElementById('situat');
+            const childrenDiv = document.getElementById('childrenDiv');
+
+            situatDropdown.addEventListener('change', () => {
+                const selectedValue = situatDropdown.value;
+
+                if (selectedValue === 'marie' || selectedValue === 'Divor' || selectedValue === 'veuve') {
+                    childrenDiv.style.display = 'block';
+                } else {
+                    childrenDiv.style.display = 'none';
+                }
+            });
+        });
+        $('#file').on('change', function() {
+            var label = $('#file-custm');
+            var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
+            label.textContent = fileName;
+            console.log('file handler' + fileName)
+            $('#file-nm').text('' + fileName)
+        })
+    </script>
+@endsection

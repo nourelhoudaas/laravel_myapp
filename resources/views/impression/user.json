@@ -1,0 +1,71 @@
+[{
+    "id": 1101,
+    "name": "Diana Roberts",
+    "username": "DianaQueen",
+    "email": "diana@test.com",
+    "phone": "024-648-3222"
+},
+{
+    "id": 1102,
+    "name": "Steven king",
+    "username": "bond007",
+    "email": "jamesbond@test.com",
+    "phone": "024-648-2111"
+},
+{
+    "id": 1103,
+    "name": "Alex king",
+    "username": "ruler#wise",
+    "email": "ruler@test.com",
+    "phone": "024-648-4332"
+},
+{
+    "id": 1104,
+    "name": "Clementina DuBuque",
+    "username": "Moriah.Stanton",
+    "email": "Rey.Padberg@Test.com",
+    "phone": "024-648-5443"
+},
+{
+    "id": 1105,
+    "name": "Simon Erik",
+    "username": "Clark.Stanton",
+    "email": "clark@test.com",
+    "phone": "024-648-3804"
+},
+{
+    "id": 1106,
+    "name": "Bruce Wayne",
+    "username": "bat@gotham",
+    "email": "bruceWayneTest@test.com",
+    "phone": "024-648-3804"
+},
+{
+    "id": 1107,
+    "name": "peter parker",
+    "username": "human$spider",
+    "email": "spiderTest@test.com",
+    "phone": "024-648-2223"
+},
+{
+    "id": 1108,
+    "name": "Kent clarke",
+    "username": "kryptoniana#universe",
+    "email": "manofsteel@test.com",
+    "phone": "024-648-3322"
+},
+{
+    "id": 1109,
+    "name": "Tony Stark",
+    "username": "Iron man",
+    "email": "stark@test.com",
+    "phone": "024-648-3804"
+},
+{
+    "id": 1110,
+    "name": "Rogers Ancient",
+    "username": "steve#rogers",
+    "email": "rogers@test.com",
+    "phone": "024-648-2211"
+}
+]

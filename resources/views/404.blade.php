@@ -24,6 +24,6 @@
     <a href="{{ url('/') }}">vers Accuil</a>
 </div>
 </div>
-   
+
 </body>
 </html>
