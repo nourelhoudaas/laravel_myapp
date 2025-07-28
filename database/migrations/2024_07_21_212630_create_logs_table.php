@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->integer('id_log')->primary()->autoIncrement();
             $table->string('action');
-            $table->integer('id_nin');
+            $table->decimal('id_nin', 18, 0);
             $table->integer('id');
             $table->string('adresse_mac');
             $table->timestamp('date_action');

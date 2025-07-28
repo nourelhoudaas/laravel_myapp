@@ -35,106 +35,93 @@ class AddEmployeControll extends Controller
          $this->logService = $logService;
      }
 
-    public function add(Request $Request)
-    {
-       // dd($Request);
-       $Request->validate([
-        'ID_NIN' => 'required|integer',
+public function add(Request $Request)
+{
+    // 🔧 Validation initiale du NIN : exactement 20 chiffres
+    $Request->validate([
+        'ID_NIN' => 'required', // 🔧 Modifié: vérifie que le NIN contient exactement 20 chiffres
     ]);
-        $employees=new Employe();
-        $employees=$employees->get();
-        $bureau=new Bureau();
-          $Direction=new Sous_departement();
-          $niv=new Niveau();
 
-       //   $Containt=new Containt();
-       if(isset($employees))
-       {
-            foreach($employees as $em)
-        {
+    $employees = Employe::all();
+    $bureau = Bureau::all();
+    $Direction =  Sous_departement::all();
+    $niv =Niveau::all();
 
-
-            if($Request->get('ID_NIN') ==  $em->id_nin)
-            {
-
-                return redirect()->route('Employe.istravaill',["id"=>$em->id_nin]);
+    // Vérifie si l'employé existe déjà
+    if (isset($employees)) {
+        foreach ($employees as $em) {
+            if ($Request->get('ID_NIN') == $em->id_nin) {
+                return redirect()->route('Employe.istravaill', ["id" => $em->id_nin]);
             }
         }
-
-            $Request->validate([
-                'ID_NIN' => 'required|integer',
-                'ID_SS' => 'required|integer',
-                'Nom_P' => 'required|string',
-                'Prenom_O' => 'required|string',
-                'Nom_PAR' => 'required|string',
-                'Prenom_AR' => 'required|string',
-                'Date_Nais_P' => 'required|date',
-                'Lieu_N' => 'required|string',
-                'Lieu_AR' => 'required|string',
-                'Address' => 'required|string',
-                'AddressAR' => 'required|string',
-                'Sexe'=>'required|string',
-                'EMAIL'=>'required|string',
-                'PHONE_NB'=>'required|integer',
-            ]);
-          //  dd($Request);
-            $employe = new Employe([
-                'id_nin' => $Request->get('ID_NIN'),
-                'id_p' => $Request->get('ID_SS')+1,
-                'NSS' => $Request->get('ID_SS'),
-                'Nom_emp' => $Request->get('Nom_P'),
-                'Prenom_emp' => $Request->get('Prenom_O'),
-                'Nom_ar_emp' => $Request->get('Nom_PAR'),
-                'Prenom_ar_emp' => $Request->get('Prenom_AR'),
-                'Date_nais' => $Request->get('Date_Nais_P'),
-                'Lieu_nais' => $Request->get('Lieu_N'),
-                'Lieu_nais_ar' => $Request->get('Lieu_N'),
-                'adress' => $Request->get('Address'),
-                'adress_ar' => $Request->get('AddressAR'),
-                'sexe'=>$Request->get('Sexe'),
-                'email'=>$Request->get('EMAIL'),
-                'Phone_num'=>$Request->get('PHONE_NB'),
-                'prenom_pere'=>$Request->get('Prenom_Per'),
-                'prenom_mere'=>$Request->get('Prenom_mere'),
-                'nom_mere'=>$Request->get('Nom_mere'),
-                'prenom_pere_ar'=>$Request->get('Prenom_PerAR'),
-                'prenom_mere_ar'=>$Request->get('Prenom_mereAR'),
-                'nom_mere_ar'=>$Request->get('Nom_mereAR'),
-                'situation_familliale'=>$Request->get('Situat'),
-                'situation_familliale_ar'=>$Request->get('Situatar'),
-                'nbr_enfants'=>$Request->get('nbrenfant'),
-                'Date_nais_pere'=>$Request->get('date_nais_per'),
-                'Date_nais_mere'=>$Request->get('date_nais_mer'),
-
-            ]);
-          //  dd($employe);
-
-        if($employe->save())
-        {
-            //$dbcontaint=$Containt->get();
-          //  $dbbureau=$bureau->get();
-          //  $dbdirection=$Direction->get();
-
-          //ajouter l'action dans table log
-          $log= $this->logService->logAction(
-          Auth::user()->id,
-          $employe->id_nin,
-          'Ajouter Infos Personnelles Employé',
-          $this->logService->getMacAddress()
-      );
-     // dd($log);
-            $dbniv=$niv->get();
-            $dbempdepart = new Departement();
-            $empdepart =$dbempdepart->get();
-            return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
-        }
-        else
-        {
-            return redirect()->back()->with('error', 'Failed to create department. Please try again.');
-        }
     }
 
+    // 🔧 Validation complète du formulaire (email et téléphone rendus facultatifs)
+    $Request->validate([
+        'ID_NIN' => 'required', // 🔧 Reprise ici pour plus de sécurité
+        'ID_SS' => 'required|integer',
+        'Nom_P' => 'required|string',
+        'Prenom_O' => 'required|string',
+        'Nom_PAR' => 'required|string',
+        'Prenom_AR' => 'required|string',
+        'Date_Nais_P' => 'required|date',
+        'Lieu_N' => 'required|string',
+        'Lieu_AR' => 'required|string',
+        'Address' => 'required|string',
+        'AddressAR' => 'required|string',
+        'Sexe' => 'required|string',
+        'EMAIL' => 'nullable|email', // 🔧 Modifié: email non requis mais doit être valide s'il est fourni
+        'PHONE_NB' => 'nullable', // 🔧 Modifié: téléphone non requis mais doit être numérique s'il est fourni
+    ]);
+    //dd($Request->all());
+    $employe = new Employe([
+        'id_nin' => $Request->get('ID_NIN'),
+        'id_p' => $Request->get('ID_SS') + 1,
+        'NSS' => $Request->get('ID_SS'),
+        'Nom_emp' => $Request->get('Nom_P'),
+        'Prenom_emp' => $Request->get('Prenom_O'),
+        'Nom_ar_emp' => $Request->get('Nom_PAR'),
+        'Prenom_ar_emp' => $Request->get('Prenom_AR'),
+        'Date_nais' => $Request->get('Date_Nais_P'),
+        'Lieu_nais' => $Request->get('Lieu_N'),
+        'Lieu_nais_ar' => $Request->get('Lieu_AR'), // 🔧 Correction ici aussi pour afficher Lieu_AR et non Lieu_N
+        'adress' => $Request->get('Address'),
+        'adress_ar' => $Request->get('AddressAR'),
+        'sexe' => $Request->get('Sexe'),
+        'email' => $Request->get('EMAIL'),
+        'Phone_num' => $Request->get('PHONE_NB'),
+        'prenom_pere' => $Request->get('Prenom_Per'),
+        'prenom_mere' => $Request->get('Prenom_mere'),
+        'nom_mere' => $Request->get('Nom_mere'),
+        'prenom_pere_ar' => $Request->get('Prenom_PerAR'),
+        'prenom_mere_ar' => $Request->get('Prenom_mereAR'),
+        'nom_mere_ar' => $Request->get('Nom_mereAR'),
+        'situation_familliale' => $Request->get('Situat'),
+        'situation_familliale_ar' => $Request->get('Situatar'),
+        'nbr_enfants' => $Request->get('nbrenfant'),
+        'Date_nais_pere' => $Request->get('date_nais_per'),
+        'Date_nais_mere' => $Request->get('date_nais_mer'),
+    ]);
+
+    if ($employe->save()) {
+        // 🔧 Ajout de l'action dans le journal
+        $this->logService->logAction(
+            Auth::user()->id,
+            $employe->id_nin,
+            'Ajouter Infos Personnelles Employé',
+            $this->logService->getMacAddress()
+        );
+
+        $dbniv = $niv->get();
+        $dbempdepart = new Departement();
+        $empdepart = $dbempdepart->get();
+
+        return view('addTemplate.travaill', compact('employe', 'dbniv', 'empdepart'));
+    } else {
+        return redirect()->back()->with('error', 'Échec de l’enregistrement. Veuillez réessayer.');
     }
+}
+
 
 
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('employes', function (Blueprint $table) {
             $table->integer('id_emp')->primary()->autoIncrement();
-            $table->integer('id_nin')->unique();
+            $table->decimal('id_nin', 18, 0)->unique();
             $table->integer('id_p')->unique();
             $table->integer('NSS')->unique();
             $table->string('Nom_emp');
@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('sexe');
             $table->string('email')->nullable();
             $table->string('email_pro')->nullable();;
-            $table->string('Phone_num', 100);
+            $table->string('Phone_num', 100)->nullable();
 
 
 
