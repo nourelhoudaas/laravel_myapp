@@ -229,18 +229,18 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-2" id="childrenDiv" style="display: none;">
+                                    <!-- <div class="col-md-2" id="childrenDiv" style="display: none;">
                                         <label class="labels">{{ __('lang.children') }}</label>
                                         <select select name="nbrenfant"
                                             id="nbrenfant"class="form-select form-select-lm mb-3"
                                             aria-label="Default select example">
                                         </select>
-                                    </div>
+                                    </div> -->
 
 
                                 </div>
-                                <div class="col-md-6 text2" id="addf">
-                                </div>
+                                <!-- <div class="col-md-6 text2" id="addf">
+                                </div> -->
                                 <div class="mt-5 text-end">
                                     <button class="btn btn-primary btn-group2" type="submit"
                                         id="btn-sv">{{ __('lang.next') }}</button>
@@ -288,7 +288,7 @@
         var uid = '{{ $uid }}'
         var id;
         var flang = '{{ __('lang.filnull') }}'
-        document.addEventListener('DOMContentLoaded', () => {
+       /* document.addEventListener('DOMContentLoaded', () => {
             const dropdown = document.getElementById('nbrenfant');
             const maxNumber = 10; // Change this to the desired maximum number
 
@@ -298,8 +298,8 @@
                 option.textContent = i;
                 dropdown.appendChild(option);
             }
-        });
-        document.addEventListener('DOMContentLoaded', () => {
+        });*/
+     /* document.addEventListener('DOMContentLoaded', () => {
             const dropdown = document.getElementById('situat');
             const inputContainer = document.getElementById('addf');
 
@@ -344,9 +344,9 @@
                 // Add other conditions for different options if needed
 
             });
-        });
+        });*/
 
-        document.addEventListener('DOMContentLoaded', () => {
+       /*ocument.addEventListener('DOMContentLoaded', () => {
             const situatDropdown = document.getElementById('situat');
             const childrenDiv = document.getElementById('childrenDiv');
 
@@ -359,7 +359,7 @@
                     childrenDiv.style.display = 'none';
                 }
             });
-        });
+        });*/
         $('#file').on('change', function() {
             var label = $('#file-custm');
             var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
