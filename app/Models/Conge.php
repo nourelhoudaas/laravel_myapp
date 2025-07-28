@@ -8,4 +8,36 @@ use Illuminate\Database\Eloquent\Model;
 class Conge extends Model
 {
     use HasFactory;
+    protected $table = 'conges';
+    protected $primaryKey = 'id_cong';
+    public $incrementing = true; 
+    protected $keyType = 'integer'; 
+      // Désactiver les timestamps automatiques
+      public $timestamps = false;
+
+
+    
+    protected $fillable = [
+        'id_cong', 'date_debut_cong', 'date_fin_cong', 'ref_cong', 'id_nin','id_p','nbr_jours','situation','id_sous_depart','situation_AR','id_fichier','ref_cng'
+    ];
+
+    public function type_conge()
+    {
+        return $this->belongsTo(type_cong::class, 'ref_cong','ref_cong');
+    }
+
+    public function employe()
+    {
+        return $this->belongsTo(Employe::class, ['id_nin','id_p'],['id_nin','id_p']);
+    }
+
+    public function sous_departement()
+    {
+        return $this->belongsTo(Sous_departement::class, 'id_sous_depart','id_sous_depart');
+    }
+    public function fichier()
+      {
+          return $this-> belongsTo(Sous_departement::class,'id_fichier','id_fichier');
+      }
+
 }

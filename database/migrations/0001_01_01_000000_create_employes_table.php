@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('id_emp')->primary()->autoIncrement();
             $table->integer('id_nin')->unique();
             $table->integer('id_p')->unique();
+            $table->integer('NSS')->unique();
             $table->string('Nom_emp');
             $table->string('Prenom_emp');
             $table->string('Nom_ar_emp');
@@ -24,14 +25,97 @@ return new class extends Migration
             $table->string('Lieu_nais_ar');
             $table->string('adress');
             $table->string('adress_ar');
+            $table->string('prenom_pere');
+            $table->string('prenom_mere');
+            $table->string('nom_mere');
+            $table->string('prenom_pere_ar');
+            $table->string('prenom_mere_ar');
+            $table->string('nom_mere_ar');
+            $table->date('Date_nais_pere');
+            $table->date('Date_nais_mere');
+            $table->string('situation_familliale');
+            $table->string('situation_familliale_ar');
+            $table->integer('nbr_enfants');
             $table->string('sexe');
-            $table->string('email')->nullable();;
-            $table->string('Phone_num')->unique();
+            $table->string('email')->nullable();
+            $table->string('email_pro')->nullable();;
+            $table->string('Phone_num', 100);
+
+
 
         });
+
+        DB::table('employes')->insert([
+            [
+
+
+                'id_nin' => 1254953,
+                'id_p' => 123,
+                'NSS' =>18505482,
+                'Nom_emp' => 'mohamed',
+                'Prenom_emp' => 'mohamed',
+                'Nom_ar_emp' => 'محمد',
+                'Prenom_ar_emp' => 'محمد',
+                'Date_nais' => '2000-01-11',
+                'Lieu_nais' => 'alger',
+                'Lieu_nais_ar' => 'الجزائر',
+                'adress' => 'alger',
+                'adress_ar' => 'الجزائر',
+                'sexe' => 'Homme',
+                'email' => 'fagmail.com',
+                'Phone_num' => '0124367555',
+                'prenom_pere' => 'moh',
+                'prenom_mere' =>'fff',
+                'nom_mere'=>'be',
+                'prenom_pere_ar'=>'محمد',
+                'prenom_mere_ar'=>'ف',
+                'nom_mere_ar'=>'ب',
+                'Date_nais_pere'=>'1975-08-31',
+                'Date_nais_mere'=>'1978-01-21',
+                'situation_familliale'=>'Célibataire',
+                'situation_familliale_ar'=>'أعزب/عزباء',
+                'nbr_enfants'=>0,
+                'email_pro'=>'s@gmail.com'
+
+
+            ],
+            [
+
+                'id_nin' => 254896989,
+                'id_p' => 256,
+                'NSS' =>25686984,
+                'Nom_emp' => 'yacine',
+                'Prenom_emp' => 'yacine',
+                'Nom_ar_emp' => 'ياسين',
+                'Prenom_ar_emp' => 'ياسين',
+                'Date_nais' => '2024-07-01',
+                'Lieu_nais' => 'alger',
+                'Lieu_nais_ar' => 'الجزائر',
+                'adress' => 'alger',
+                'adress_ar' =>'الجزائر' ,
+                'sexe' => 'Homme',
+                'email' => 'fgmail.com',
+                'Phone_num' => '01573645525',
+                'prenom_pere' => 'moh',
+                'prenom_mere' =>'fff',
+                'nom_mere'=>'be',
+                'prenom_pere_ar'=>'محمد',
+                'prenom_mere_ar'=>'ف',
+                'nom_mere_ar'=>'ب',
+                'Date_nais_pere'=>'1975-08-31',
+                'Date_nais_mere'=>'1978-01-21',
+                'situation_familliale'=>'Marié(e)',
+                'situation_familliale_ar'=>'(ة)متزوج',
+                'nbr_enfants'=>0,
+                'email_pro'=>'ss@gmail.com'
+            ],
+
+
+
+            ]);
     }
 
-    /**
+     /**
      * Reverse the migrations.
      */
     public function down(): void

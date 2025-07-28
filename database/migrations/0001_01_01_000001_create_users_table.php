@@ -19,12 +19,18 @@ return new class extends Migration
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->integer('id_p')->unique();
             $table->foreign('id_p')->references('id_p')->on('employes');
-            $table->string('username')->unique();
+            $table->string('username', 191)->unique();
             //$table->string('email')->unique();
            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             //$table->rememberToken();
             $table->timestamps();
+            $table->timestamp('password_changed_at')->nullable();
+            $table->timestamp('password_created_at')->nullable();
+            $table->string('nv_password')->nullable(); 
+            $table->integer('nbr_login');
+            
+
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -41,8 +47,21 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+        DB::table('users')->insert([
+            [  
+            
+                'name' => 'ing',
+                'id_nin' => 1254953,
+                'id_p' => 123,
+                'username' => 'ing',
+                'password' => '$2y$12$QMNdYb8dQXCgpdWM9NF4OebBiHPAyKplRHoDqJFmqQnSXd9cCg1SW',
+                'nbr_login' => 0,
+            ],
+        ]);
+    
     }
 
+  
     /**
      * Reverse the migrations.
      */

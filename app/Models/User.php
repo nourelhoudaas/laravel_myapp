@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +30,11 @@ class User extends Authenticatable
         //'activation_token',
         'id_nin',
         'id_p',
+        'password_changed_at',
+        'password_created_at',
+         'nv_password' ,
+         'nbr_login'
+        
 
     ];
 
@@ -55,8 +61,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function compte()
+    public function login()
     {
-        return $this->hasMany(Login::class, ['id','id'], ['id','id']);
+        return $this->hasMany(Login::class, 'id','id');
+    }
+
+    public function log()
+    {
+        return $this->hasMany(Log::class,'id','id');
     }
 }

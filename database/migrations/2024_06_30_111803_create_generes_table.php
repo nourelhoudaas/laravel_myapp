@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('generes', function (Blueprint $table) {
             $table->integer('id_genr')->primary()->autoIncrement();
             $table->date('date_creation');
-            $table->integer('ref_Dossier')->unique();
-            $table->integer('id_nin')->unique();
-            $table->integer('id_p')->unique();
+            $table->string('ref_Dossier')->unique();
+            $table->integer('id_nin');
+            $table->integer('id_p');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('ref_Dossier')->references('ref_Dossier')->on('dossiers');

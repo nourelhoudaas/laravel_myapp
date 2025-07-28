@@ -1,3 +1,9 @@
+@php
+    use Carbon\Carbon;
+
+@endphp
+
+
 @extends('base')
 
 @section('title', 'Dashboard Direction')
@@ -12,84 +18,196 @@
 
         <!-- main section start -->
         <main>
+            <div class="title "><h1>{{ __('lang.Departementde') }} {{ $nom_d }}</h1></div>
 
-            <h1> Department of {{ $nom_d }}</h1>
-            <div class="insights">
+
+            <div class="insightss">
                 <!-- start Employees -->
                 <div class="sales">
                     <span class="material-symbols-outlined">groups</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Total Employees</h3>
+                            <h3>{{ __('lang.nbr_all_users') }}</h3>
                             <h1>{{ $totalEmpDep }}</h1>
                         </div>
-
                     </div>
-
+                </div>
+                <!-- end Employees -->
+            </div>
+            <div class="insights">
+                <!-- start Employees -->
+                <div class="sales">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>{{ __('lang.encadrement') }}</h3>
+                            <h1>{{ $encadrement }}</h1>
+                        </div>
+                    </div>
                 </div>
                 <!-- end Employees -->
 
                 <!-- start Absence -->
-                <div class="expenses">
-                    <span class="material-symbols-outlined">trending_down</span>
+                <div class="income">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Absence</h3>
-                            <h1>0</h1>
+                            <h3>{{ __('lang.maîtrise') }}</h3>
+                            <h1>{{ $maitrise }}</h1>
                         </div>
                     </div>
-
                 </div>
                 <!-- end Absence -->
 
                 <!-- start Presence -->
-                <div class="income">
-                    <span class="material-symbols-outlined">trending_up</span>
+                <div class="expenses">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Presence</h3>
-                            <h1>{{ $totalEmpDep }}</h1>
+                            <h3>{{ __('lang.executif') }}</h3>
+                            <h1>{{ $executif }}</h1>
                         </div>
-
                     </div>
-
                 </div>
-                <!-- end Presence -->
             </div>
             <!-- end inside -->
 
             <!-- start resent order -->
 
             <div class="recent_order">
-                <h1>List Employees</h1>
-                <table>
+                <div class="title">{{ __('lang.lst_emp') }}</div>
+                <table  class="styled-table" id='myTable'>
                     <thead>
                         <tr>
-                            <th>NOM</th>
-                            <th>PRENOM</th>
-                            <th>Poste</th>
-                            <th>Sous direction</th>
+
+                            <th>
+                                {{-- <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_emp', 'direction' => ($champs == 'Nom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+             {{ __('lang.name') }}
+                @if ($champs == 'Nom_emp')
+                    {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
+                @endif
+            </a> --}}
+                                {{ __('lang.name') }}
+                            </th>
+                            <th>
+                                {{-- <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Prenom_emp', 'direction' => ($champs == 'Prenom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            {{ __('lang.surname') }}
+                @if ($champs == 'Prenom_emp')
+                    {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
+                @endif
+            </a> --}}
+                                {{ __('lang.surname') }}
+                            </th>
+                            <th>
+                                {{-- <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'age', 'direction' => ($champs == 'age' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            {{ __('lang.age') }}
+                @if ($champs == 'age')
+                    {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
+                @endif
+            </a> --}}
+                                {{ __('lang.age') }}
+                            </th>
+                            <th>
+                                {{-- <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'date_recrutement', 'direction' => ($champs == 'date_recrutement' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            {{ __('lang.date_rec') }}
+                @if ($champs == 'date_recrutement')
+                    {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
+                @endif
+            </a> --}}
+                                {{ __('lang.date_rec') }}
+                            </th>
+                            <th>
+                                {{-- <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_post', 'direction' => ($champs == 'Nom_post' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            {{ __('lang.post') }}
+                @if ($champs == 'Nom_post')
+                    {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
+                @endif
+            </a> --}}
+                                {{ __('lang.post') }}
+                            </th>
+                            <th>
+                                {{-- <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_sous_depart', 'direction' => ($champs == 'Nom_sous_depart' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            {{ __('lang.sous_dept') }}
+            @if ($champs == 'Nom_sous_depart')
+                    {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
+                @endif
+            </a> --}}
+                                {{ __('lang.sous_dept') }}
+                            </th>
+                            <th>
+                                {{-- <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'date_installation', 'direction' => ($champs == 'date_installation' && $direction == 'asc') ? 'desc' : 'asc']) }}">
+            {{ __('lang.date_inst') }}
+                @if ($champs == 'date_installation')
+                    {!! $direction == 'asc' ? '&#9650;' : '&#9660;' !!}
+                @endif
+            </a> --}}
+                                {{ __('lang.date_inst') }}
+                            </th>
                         </tr>
                     </thead>
+
                     <tbody>
 
-                        @foreach ($empdep as $emp)
+                        @foreach ($empdep as $employe)
+                            @php
+                                $post = $employe->occupeIdNin->last()->post;
+                                $travail = $employe->travailByNin->last();
+                                $sousDepartement = $travail->sous_departement;
+                                $locale = app()->getLocale();
+                            @endphp
                             <tr>
                                 <td>
-                                    <a
-                                        href="{{ route('BioTemplate.detail', ['id' => $emp->id_nin]) }}">{{ $emp->Nom_emp }}</a>
+                                    <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
+                                        @if ($locale == 'fr')
+                                            {{ $employe->Nom_emp }}
+                                        @elseif ($locale == 'ar')
+                                            {{ $employe->Nom_ar_emp }}
+                                        @endif
+                                    </a>
                                 </td>
-                                <td>{{ $emp->Prenom_emp }}</td>
-                                <td>{{ $emp->Nom_post }}</td>
-                                <td>{{ $emp->Nom_sous_depart }}</td>
+                                <td>
+                                    @if ($locale == 'fr')
+                                        {{ $employe->Prenom_emp }}
+                                    @elseif ($locale == 'ar')
+                                        {{ $employe->Prenom_ar_emp }}
+                                    @endif
+                                </td>
+
+                                <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
+                                <td>{{ $employe->occupeIdNin->last()->date_recrutement }}</td>
+
+                                <td>
+                                    @if ($locale == 'fr')
+                                        {{ $post->Nom_post }}
+                                    @elseif ($locale == 'ar')
+                                        {{ $post->Nom_post_ar }}
+                                    @endif
+                                </td>
+
+                                <td>
+                                    @if ($locale == 'fr')
+                                        {{ $sousDepartement->Nom_sous_depart }}
+                                    @elseif ($locale == 'ar')
+                                        {{ $sousDepartement->Nom_sous_depart_ar }}
+                                    @endif
+                                </td>
+
+                                <td>{{ $travail->date_installation }}</td>
 
                             </tr>
                         @endforeach
 
+
                     </tbody>
                 </table>
+
+                {{-- <div class="pagination">
+                        {{ $paginator->links() }}
+                    </div> --}}
+
             </div>
             <!-- end resent order -->
+
         </main>
         <!-- main section end -->
 

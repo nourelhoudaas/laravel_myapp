@@ -15,14 +15,57 @@ return new class extends Migration
             $table->integer('id_occup')->primary()->autoIncrement();
             $table->date('date_recrutement');
             $table->float('echellant');
-            $table->integer('id_nin')->unique();
-            $table->integer('id_p')->unique();
-            $table->integer('id_post')->unique();
+            $table->integer('id_nin');
+            $table->integer('id_p');
+            $table->integer('id_post');
+            $table->string('ref_PV');
+            $table->string('visa_CF')->nullable();
+            $table->date('date_CF')->nullable();
+            $table->string('type_CTR')->nullable();
+            $table->string('ref_Decision')->default('New');
+            $table->string('ref_base');
+
+            $table->integer('id_postsup')->nullable();
+            $table->string('id_fonction')->nullable();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('id_post')->references('id_post')->on('posts');
+            $table->foreign('id_postsup')->references('id_postsup')->on('post_sups');
+            $table->foreign('id_fonction')->references('id_fonction')->on('fonctions');
         });
+        DB::table('occupes')->insert([
+            [
+                'id_occup' => 4,
+                'date_recrutement' => '2024-07-03',
+                'echellant' => 13,
+                'id_nin' => 254896989,
+                'id_p' => 256,
+                'id_post' => 20,
+                'visa_CF'=>'1N',
+                'type_CTR' => 'CDI',
+                'date_CF'=> '2024-07-03',
+                'ref_PV'=>'1N',
+                'ref_base'=>'1N'
+            ],
+            [
+                'id_occup' => 10,
+                'date_recrutement' => '2024-04-14',
+                'echellant' => 13,
+                'id_nin' => 1254953,
+                'id_p' => 123,
+                'id_post' => 2,
+                'visa_CF'=>'1N5',
+                'date_CF'=> '2024-05-03',
+                'type_CTR'=> 'CDI',
+                'ref_PV'=>'2N',
+                'ref_base'=>'2N'
+            ],
+
+            ]);
+
+
     }
+
 
     /**
      * Reverse the migrations.
