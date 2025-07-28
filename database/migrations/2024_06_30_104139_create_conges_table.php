@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('nbr_jours');
             $table->string('situation_AR');
             $table->string('ref_cong');
-            $table->integer('id_nin');
+            $table->decimal('id_nin', 18, 0)->unique();
             $table->integer('id_sous_depart');
             $table->integer('id_p');
             $table->integer('id_fichier')->default(1);

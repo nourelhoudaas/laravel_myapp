@@ -417,7 +417,7 @@ function uploadFile_space() {
     var file = document.getElementById("file").files[0];
     formDataF.append("file", file);
     formDataF.append("_token", $('meta[name="csrf-token"]').attr("content"));
-    formDataF.append("id_nin", parseInt(id));
+    formDataF.append("id_nin", id);
     formDataF.append("sous", dir);
     console.log("button of" + this.id);
     console.log("button of" + this.dir);
@@ -496,9 +496,9 @@ function uploadFile3(id, dates) {
         formData.append("_method", "POST");
     formDataF.append("_token", $('meta[name="csrf-token"]').attr("content")),
         formDataF.append("_method", "POST");
-    formData.append("id_nin", parseInt(id));
+    formData.append("id_nin", id);
     formData.append("sous", dir);
-    formDataF.append("id_nin", parseInt(id));
+    formDataF.append("id_nin", id);
     formDataF.append("sous", dir);
     console.log("button of v3" + this.id);
     console.log("button of v3" + this.dir);
@@ -621,9 +621,9 @@ function uploadFile2(id, dates) {
         formData.append("_method", "POST");
     formDataF.append("_token", $('meta[name="csrf-token"]').attr("content")),
         formDataF.append("_method", "POST");
-    formData.append("id_nin", parseInt(id));
+    formData.append("id_nin", id);
     formData.append("sous", dir);
-    formDataF.append("id_nin", parseInt(id));
+    formDataF.append("id_nin", id);
     formDataF.append("nom_fichier", file.name);
     formDataF.append("sous", dir);
     console.log("button of v" + id);
@@ -676,7 +676,7 @@ function uploadFile2(id, dates) {
                             "messsage " + JSON.stringify(response.data)
                         );
                         var stockForm = {
-                            id_nin: parseInt(id),
+                            id_nin: id,
                             id: uid,
                             ref_d: response.data.ref_d,
                             sous_d: response.data.sous_d,
@@ -751,9 +751,9 @@ function uploadFile() {
     if (!id) {
         id = $("#ID_NIN").val();
     }
-    formData.append("id_nin", parseInt(id));
+    formData.append("id_nin", id);
     formData.append("sous", dir);
-    formDataF.append("id_nin", parseInt(id));
+    formDataF.append("id_nin", id);
     formDataF.append("sous", dir);
     console.log("button of" + this.id);
     console.log("button of" + this.dir);
@@ -2430,7 +2430,7 @@ idinput.blur(function () {
                 granted == true
             ) {
                 var congeform = {
-                    ID_NIN: parseInt(result.employe.id_nin),
+                    ID_NIN: result.employe.id_nin,
                     ID_P: parseInt(result.employe.id_p),
                     Dic: parseInt(result.employe.id_depart),
                     SDic: parseInt(result.employe.id_sous_depart),
@@ -2457,7 +2457,7 @@ idinput.blur(function () {
 
                         if (response.status == 200) {
                             uploadFile2(
-                                parseInt(result.employe.id_nin),
+                                result.employe.id_nin,
                                 date_dcg
                             );
                         } else {
