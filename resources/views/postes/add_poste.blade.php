@@ -34,7 +34,7 @@
 
                             </div>
                             <div class="text-bg-light p-3">
-                                <label for="setting-input-2" class="fw-bold">Grede Poste</label>
+                                <label for="setting-input-2" class="fw-bold">Grade Poste</label>
                                 <input type="text" class="form-control" id="Grade_post" placeholder="Discription de la direction" name="Grade_post" required>
                             </div>
                             <div class= "text-bg-light p-3">

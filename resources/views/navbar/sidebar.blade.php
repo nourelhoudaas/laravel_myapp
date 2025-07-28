@@ -130,6 +130,15 @@
                                     <i class="fa fa-paper-plane" aria-hidden="true" style="margin-right:10px;"></i>
                                     <span class="nav__name">{{ __('lang.list_cng') }}</span>
                                 </a>
+                                <!-- post config -->
+                                <a href="{{route('app_poste')}}" class="nav__link">
+                                    <i class="fa fa-puzzle-piece" aria-hidden="true" style="margin-right:10px;"></i>
+                                    <span class="nav__name">{{ __('lang.slct_fonc') }}</span>
+                                </a>
+                                <a href="{{route('liste_post')}}" class="nav__link">
+                                    <i class="fa fa-list-alt" aria-hidden="true" style="margin-right:10px;"></i>
+                                    <span class="nav__name">{{ __('lang.lst_post') }}</span>
+                                </a>
                             </div>
                         </div>
                     </div>

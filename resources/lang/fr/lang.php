@@ -248,6 +248,13 @@ return [
     'lst_post'=>'liste des Postes',
 
 
+    'Post'=>'Nom Du post',
+    'grade'=>'Code du post',
+     
+    'post_sup'=>'Post Superieur',
+    'grade_sup'=>'Code Du post Superieur',
 
+    'fonction'=>'Nom du Fonction',
+    'grade_font'=>'Code Du fonction',
 ];
 
