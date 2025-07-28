@@ -74,7 +74,7 @@ public function add(Request $Request)
         'PHONE_NB' => 'nullable', // 🔧 Modifié: téléphone non requis mais doit être numérique s'il est fourni
     ]);
     //dd($Request->all());
-    $employe = new Employe([
+    $employe = Employe::create([
         'id_nin' => $Request->get('ID_NIN'),
         'id_p' => $Request->get('ID_SS') + 1,
         'NSS' => $Request->get('ID_SS'),
