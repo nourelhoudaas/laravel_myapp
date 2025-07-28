@@ -113,7 +113,7 @@ public function add(Request $Request)
         );
 
         $dbniv = $niv->get();
-        $dbempdepart = new Departement();
+        $dbempdepart = Departement::all();
         $empdepart = $dbempdepart->get();
 
         return view('addTemplate.travaill', compact('employe', 'dbniv', 'empdepart'));

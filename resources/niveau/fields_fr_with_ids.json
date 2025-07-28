@@ -1,0 +1,375 @@
+{
+  "1": {
+    "category": "Sciences et Technologies",
+    "specialties": {
+      "1": {
+        "name": "Génie Civil"
+      },
+      "2": {
+        "name": "Génie Mécanique"
+      },
+      "3": {
+        "name": "Génie Électrique"
+      },
+      "4": {
+        "name": "Électronique"
+      },
+      "5": {
+        "name": "Électromécanique"
+      },
+      "6": {
+        "name": "Automatique"
+      },
+      "7": {
+        "name": "Génie Industriel"
+      },
+      "8": {
+        "name": "Mécatronique"
+      },
+      "9": {
+        "name": "Énergies Renouvelables"
+      },
+      "10": {
+        "name": "Architecture"
+      },
+      "11": {
+        "name": "Urbanisme"
+      }
+    }
+  },
+  "2": {
+    "category": "Sciences de la Nature et de la Vie",
+    "specialties": {
+      "12": {
+        "name": "Biologie Cellulaire et Moléculaire"
+      },
+      "13": {
+        "name": "Biologie Animale"
+      },
+      "14": {
+        "name": "Biologie Végétale"
+      },
+      "15": {
+        "name": "Microbiologie Appliquée"
+      },
+      "16": {
+        "name": "Biotechnologie"
+      },
+      "17": {
+        "name": "Génétique"
+      },
+      "18": {
+        "name": "Écologie et Environnement"
+      },
+      "19": {
+        "name": "Biochimie"
+      },
+      "20": {
+        "name": "Sciences de l'Alimentation"
+      },
+      "21": {
+        "name": "Agronomie Générale"
+      },
+      "22": {
+        "name": "Protection des Plantes"
+      }
+    }
+  },
+  "3": {
+    "category": "Sciences Exactes",
+    "specialties": {
+      "23": {
+        "subcategory": "Mathématiques",
+        "name": "Mathématiques Fondamentales"
+      },
+      "24": {
+        "subcategory": "Mathématiques",
+        "name": "Mathématiques Appliquées"
+      },
+      "25": {
+        "subcategory": "Mathématiques",
+        "name": "Statistiques"
+      },
+      "26": {
+        "subcategory": "Mathématiques",
+        "name": "Mathématiques et Informatique"
+      },
+      "27": {
+        "subcategory": "Physique",
+        "name": "Physique Fondamentale"
+      },
+      "28": {
+        "subcategory": "Physique",
+        "name": "Physique des Matériaux"
+      },
+      "29": {
+        "subcategory": "Physique",
+        "name": "Énergétique"
+      },
+      "30": {
+        "subcategory": "Physique",
+        "name": "Physique Médicale"
+      },
+      "31": {
+        "subcategory": "Physique",
+        "name": "Électronique et Instrumentation"
+      },
+      "32": {
+        "subcategory": "Chimie",
+        "name": "Chimie Organique"
+      },
+      "33": {
+        "subcategory": "Chimie",
+        "name": "Chimie Analytique"
+      },
+      "34": {
+        "subcategory": "Chimie",
+        "name": "Chimie Industrielle"
+      },
+      "35": {
+        "subcategory": "Chimie",
+        "name": "Chimie des Matériaux"
+      },
+      "36": {
+        "subcategory": "Chimie",
+        "name": "Chimie Pharmaceutique"
+      },
+      "37": {
+        "subcategory": "Informatique",
+        "name": "Génie Logiciel"
+      },
+      "38": {
+        "subcategory": "Informatique",
+        "name": "Systèmes d’Information"
+      },
+      "39": {
+        "subcategory": "Informatique",
+        "name": "Réseaux et Systèmes"
+      },
+      "40": {
+        "subcategory": "Informatique",
+        "name": "Sécurité Informatique"
+      },
+      "41": {
+        "subcategory": "Informatique",
+        "name": "Science des Données"
+      },
+      "42": {
+        "subcategory": "Informatique",
+        "name": "Intelligence Artificielle"
+      }
+    }
+  },
+  "4": {
+    "category": "Sciences Économiques, Commerciales et de Gestion",
+    "specialties": {
+      "43": {
+        "name": "Économie Internationale"
+      },
+      "44": {
+        "name": "Économie du Développement"
+      },
+      "45": {
+        "name": "Sciences Commerciales"
+      },
+      "46": {
+        "name": "Marketing"
+      },
+      "47": {
+        "name": "Commerce International"
+      },
+      "48": {
+        "name": "Comptabilité"
+      },
+      "49": {
+        "name": "Audit et Contrôle"
+      },
+      "50": {
+        "name": "Banque et Assurance"
+      },
+      "51": {
+        "name": "Gestion"
+      },
+      "52": {
+        "name": "Gestion des Ressources Humaines"
+      }
+    }
+  },
+  "5": {
+    "category": "Droit et Sciences Politiques",
+    "specialties": {
+      "53": {
+        "name": "Droit Public"
+      },
+      "54": {
+        "name": "Droit Privé"
+      },
+      "55": {
+        "name": "Droit Pénal"
+      },
+      "56": {
+        "name": "Droit Administratif"
+      },
+      "57": {
+        "name": "Droit des Affaires"
+      },
+      "58": {
+        "name": "Droit Constitutionnel"
+      },
+      "59": {
+        "name": "Relations Internationales"
+      }
+    }
+  },
+  "6": {
+    "category": "Sciences Humaines et Sociales",
+    "specialties": {
+      "60": {
+        "name": "Psychologie Clinique"
+      },
+      "61": {
+        "name": "Psychologie Sociale"
+      },
+      "62": {
+        "name": "Neuropsychologie"
+      },
+      "63": {
+        "name": "Sociologie Générale"
+      },
+      "64": {
+        "name": "Sociologie du Travail"
+      },
+      "65": {
+        "name": "Sociologie de l’Éducation"
+      },
+      "66": {
+        "name": "Histoire Contemporaine"
+      },
+      "67": {
+        "name": "Anthropologie"
+      },
+      "68": {
+        "name": "Philosophie"
+      },
+      "69": {
+        "name": "Sciences de l'Éducation"
+      }
+    }
+  },
+  "7": {
+    "category": "Langues et Littératures",
+    "specialties": {
+      "70": {
+        "name": "Langue et Littérature Arabe"
+      },
+      "71": {
+        "name": "Linguistique Arabe"
+      },
+      "72": {
+        "name": "Langue et Littérature Française"
+      },
+      "73": {
+        "name": "Linguistique Française"
+      },
+      "74": {
+        "name": "FLE (Français Langue Étrangère)"
+      },
+      "75": {
+        "name": "Langue et Littérature Anglaise"
+      },
+      "76": {
+        "name": "Linguistique Anglaise"
+      },
+      "77": {
+        "name": "Traduction"
+      },
+      "78": {
+        "name": "Langue Espagnole"
+      },
+      "79": {
+        "name": "Langue Allemande"
+      }
+    }
+  },
+  "8": {
+    "category": "Sciences Médicales et Paramédicales",
+    "specialties": {
+      "80": {
+        "name": "Médecine Générale"
+      },
+      "81": {
+        "name": "Pharmacie"
+      },
+      "82": {
+        "name": "Chirurgie Dentaire"
+      },
+      "83": {
+        "name": "Kinésithérapie"
+      },
+      "84": {
+        "name": "Infirmier"
+      },
+      "85": {
+        "name": "Biologie Médicale"
+      },
+      "86": {
+        "name": "Imagerie Médicale"
+      },
+      "87": {
+        "name": "Anesthésie-Réanimation"
+      },
+      "88": {
+        "name": "Santé Publique"
+      }
+    }
+  },
+  "9": {
+    "category": "Arts et Lettres",
+    "specialties": {
+      "89": {
+        "name": "Beaux-Arts"
+      },
+      "90": {
+        "name": "Design Graphique"
+      },
+      "91": {
+        "name": "Cinéma et Audiovisuel"
+      },
+      "92": {
+        "name": "Musique"
+      },
+      "93": {
+        "name": "Théâtre"
+      },
+      "94": {
+        "name": "Patrimoine Culturel"
+      }
+    }
+  },
+  "10": {
+    "category": "Formations Techniques Supérieures",
+    "specialties": {
+      "95": {
+        "name": "Maintenance Industrielle"
+      },
+      "96": {
+        "name": "Réseaux Informatiques"
+      },
+      "97": {
+        "name": "Topographie"
+      },
+      "98": {
+        "name": "Électromécanique"
+      },
+      "99": {
+        "name": "Froid et Climatisation"
+      },
+      "100": {
+        "name": "Sécurité et Hygiène Industrielle"
+      },
+      "101": {
+        "name": "Dessin de Bâtiment"
+      }
+    }
+  }
+}
