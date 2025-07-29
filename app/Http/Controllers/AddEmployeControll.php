@@ -201,86 +201,94 @@ public function add(Request $Request)
 
 //------------- add a appartient table
 
-    public function existToAddApp(Request $Request)
-    {
-        $niv          = new Niveau();
-   
-        $bureau       = new Bureau();
-        $Direction    = new Departement();
-        $SDirection   = new Sous_departement();
-        $dbbureau     = $bureau->get();
-        $dbsdirection = $SDirection->get();
-        $dbdirection  = $Direction->get();
-        $idn          = $niv->ID_N;
-        $post         = new Post();
-        $dbpost       = $post->get();
-        $id           = $Request->get('ID_NIN');
-        // dd($id);
+public function existToAddApp(Request $Request)
+{
+    $niv          = new Niveau();
+    $bureau       = new Bureau();
+    $Direction    = new Departement();
+    $SDirection   = new Sous_departement();
+    $dbbureau     = $bureau->get();
+    $dbsdirection = $SDirection->get();
+    $dbdirection  = $Direction->get();
+    $idn          = $niv->ID_N;
+    $post         = new Post();
+    $dbpost       = $post->get();
+    $id           = $Request->get('ID_NIN');
+    $employe = Employe::where('id_nin', $id)->firstOrFail();
+
+    $Appartient = Appartient::where('id_nin', $id)->get();
+    if ($Appartient->count() > 0) {
+        //----------------- send To next $etp for Donnée Administration ----------------------
+        $post    = new Post();
+        $dbpost  = $post->get();
         $employe = Employe::where('id_nin', $id)->firstOrFail();
-
-        $Appartient = Appartient::where('id_nin', $id)->get();
-        if ($Appartient->count() > 0) {
-            //----------------- send To next $etp for Donnée Administration ----------------------
-            //  dd($Appartient);
-
-            $post    = new Post();
-            $dbpost  = $post->get();
-            $employe = Employe::where('id_nin', $id)->firstOrFail();
-            //   dd($employe);
-            $dbempdepart = new Departement();
-            $empdepart   = $dbempdepart->get();
-            return view('addTemplate.admin', compact('employe', 'dbdirection', 'bureau', 'dbpost', 'dbsdirection', 'empdepart'));
-        }
-        //---------------- this for add to Level Education and his Diploma -------------------------
-          //    dd( $niv);
-        $Request->validate([
-            'ID_NIN'  => 'required|integer',
-            'ID_P'    => 'required|integer|',
-            'Dip'     => 'required|string|',
-            'Dip_ar'     => 'required|string|',
-            'Spec'    => 'required|string|',
-            'Spec_ar'    => 'required|string|',
-            'DipDate' => 'required|date',
-        ]);
-
-        //dd($Request->all());
-        $niv = DB::table('niveaux')->insert(
-            [
-            'Nom_niv' => $Request->input('Dip'),
-            'Nom_niv_ar'=> $Request->input('Dip_ar'),
-            'Specialite'=> $Request->input('Spec'),
-            'Specialite_ar' => $Request->input('Spec_ar'),
-            'Descriptif_niv'=>"",
-            'Descriptif_niv_ar'=>"",
-              ]
-          );
-         $niv=Niveau::where('Nom_niv',$Request->input('Dip'))->first();
-       //  dd( $niv);
-        $idn = $niv->id_niv;
-
-        $Request->validate([
-            'DipRef' => 'required|string',
-        ]);
-        $test = DB::table('appartients')->insert([
-            'id_nin'   => $Request->get('ID_NIN'),
-            'id_p'     => $Request->get('ID_P'),
-            'id_niv'   => $idn,
-            'id_appar' => $Request->get('DipRef'),
-            'Date_op'  => $Request->get('DipDate'),
-        ]);
-
-        //ajouter l'action dans table log
-        $this->logService->logAction(
-            Auth::user()->id,
-            $Request->get('ID_NIN'),
-            'Ajouter Niveau Education Employé',
-            $this->logService->getMacAddress()
-        );
         $dbempdepart = new Departement();
         $empdepart   = $dbempdepart->get();
-        return view('addTemplate.admin', compact('employe', 'dbbureau', 'dbsdirection', 'dbdirection', 'dbpost', 'empdepart'));
-
+        return view('addTemplate.admin', compact('employe', 'dbdirection', 'dbbureau', 'dbpost', 'dbsdirection', 'empdepart'));
     }
+
+    //---------------- this for add to Level Education and his Diploma -------------------------
+    // 🔧 Validation des champs (tous facultatifs sauf ID_NIN)
+    $Request->validate([
+        'ID_NIN'  => 'required|integer', // 🔧 Garde ID_NIN obligatoire
+        'ID_P'    => 'nullable|integer',
+        'Dip'     => 'nullable|string',
+        'Dip_ar'  => 'nullable|string',
+        'Spec'    => 'nullable|string',
+        'Spec_ar' => 'nullable|string',
+        'DipDate' => 'nullable|date',
+        'DipRef'  => 'nullable|string',
+    ]);
+
+    // 🔧 Liste des champs non-NULLABLE dans la table `niveaux`
+    $nonNullableFieldsNiveaux = [
+        'Nom_niv', 'Nom_niv_ar', 'Specialite', 'Specialite_ar'
+    ];
+
+    // 🔧 Liste des champs non-NULLABLE dans la table `appartients`
+    $nonNullableFieldsAppartients = [
+        'id_nin', 'id_p', 'id_niv', 'id_appar', 'Date_op'
+    ];
+
+    // 🔧 Préparation des données pour la table `niveaux`
+    $niveauxData = [
+        'Nom_niv'          => $Request->input('Dip') ?? 'null', // 🔧 Non-NULLABLE : "null" si vide
+        'Nom_niv_ar'       => $Request->input('Dip_ar') ?? 'null', // 🔧 Non-NULLABLE
+        'Specialite'       => $Request->input('Spec') ?? 'null', // 🔧 Non-NULLABLE
+        'Specialite_ar'    => $Request->input('Spec_ar') ?? 'null', // 🔧 Non-NULLABLE
+        'Descriptif_niv'   => $Request->input('Descriptif_niv') ?? '', // 🔧 Déjà vide dans le code original
+        'Descriptif_niv_ar'=> $Request->input('Descriptif_niv_ar') ?? '',
+    ];
+
+    // 🔧 Insertion dans la table `niveaux`
+    $niv = DB::table('niveaux')->insert($niveauxData);
+    $niv = Niveau::where('Nom_niv', $Request->input('Dip') ?? 'null')->firstOrFail();
+    $idn = $niv->id_niv;
+
+    // 🔧 Préparation des données pour la table `appartients`
+    $appartientsData = [
+        'id_nin'   => $Request->get('ID_NIN') ?? '', // 🔧 Non-NULLABLE : chaîne vide si non fourni
+        'id_p'     => $Request->get('ID_P') ?? 0, // 🔧 Non-NULLABLE : 0 si vide
+        'id_niv'   => $idn, // 🔧 Non-NULLABLE : déjà généré
+        'id_appar' => $Request->get('DipRef') ?? 'null', // 🔧 Non-NULLABLE : "null" si vide
+        'Date_op'  => $Request->get('DipDate') ?? '1990-01-01', // 🔧 Non-NULLABLE : date par défaut
+    ];
+
+    // 🔧 Insertion dans la table `appartients`
+    $test = DB::table('appartients')->insert($appartientsData);
+
+    // Ajouter l'action dans la table log
+    $this->logService->logAction(
+        Auth::user()->id,
+        $Request->get('ID_NIN'),
+        'Ajouter Niveau Education Employé',
+        $this->logService->getMacAddress()
+    );
+
+    $dbempdepart = new Departement();
+    $empdepart   = $dbempdepart->get();
+    return view('addTemplate.admin', compact('employe', 'dbbureau', 'dbsdirection', 'dbdirection', 'dbpost', 'empdepart'));
+}
     /*function existApp($id)
   {
     $employe=Employe::where('id_nin', $id)->firstOrFail();
