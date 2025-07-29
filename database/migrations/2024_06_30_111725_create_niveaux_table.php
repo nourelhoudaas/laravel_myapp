@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('niveaux', function (Blueprint $table) {
             $table->integer('id_niv')->primary()->autoIncrement();
             $table->string('Nom_niv');
-            $table->string('Specialite
-');
+            $table->string('Specialite');
             $table->string('Descriptif_niv');
             $table->string('Nom_niv_ar');
-            $table->string('Specialite
-_ar');
+            $table->string('Specialite_ar');
             $table->integer('moyenne_niv')->nullable();
             $table->integer('major_niv')->nullable();
             $table->Date('date_major')->nullable();
@@ -31,530 +29,444 @@ _ar');
         });
         DB::table('niveaux')->insert([
        [
-              "Specialite
-" => "Génie Logiciel"
+              "Specialite" => "Génie Logiciel"
             ,
             "Descriptif_niv"=>"",
             "Nom_niv" => "Master 2"
              ,
-             "Specialite
-_ar" => "الهندسة البرمجية"
+             "Specialite_ar" => "الهندسة البرمجية"
               ,"Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""
              
             ],
 
             [
-              "Specialite
-" => "Systèmes d’Information",
+              "Specialite" => "Systèmes d’Information",
             "Descriptif_niv"=>"",
               "Nom_niv" => "Master 2"
              ,
-             "Specialite
-_ar" => "نظم المعلومات"
+             "Specialite_ar" => "نظم المعلومات"
               , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""             
             ],
 
             [
-              "Specialite
-" => "Réseaux et Systèmes",
+              "Specialite" => "Réseaux et Systèmes",
             "Descriptif_niv"=>"",
               "Nom_niv" => "Master 2"
              ,
-             "Specialite
-_ar" => "الشبكات والأنظمة"
+             "Specialite_ar" => "الشبكات والأنظمة"
               , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""             
             ],
 
             [
-              "Specialite
-" => "Sécurité Informatique",
+              "Specialite" => "Sécurité Informatique",
             "Descriptif_niv"=>"",
               "Nom_niv" => "Master 2"
              ,
-             "Specialite
-_ar" => "أمن المعلومات"
+             "Specialite_ar" => "أمن المعلومات"
               , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""             
             ],
 
             [
-              "Specialite
-" => "Science des Données",
+              "Specialite" => "Science des Données",
             "Descriptif_niv"=>"",
               "Nom_niv" => "Master 2"
              ,
-             "Specialite
-_ar" => "علم البيانات"
+             "Specialite_ar" => "علم البيانات"
               , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""             
             ],
 
             [
-              "Specialite
-" => "Intelligence Artificielle",
+              "Specialite" => "Intelligence Artificielle",
             "Descriptif_niv"=>"",
               "Nom_niv" => "Master 2"
              ,
-             "Specialite
-_ar" => "الذكاء الاصطناعي"
+             "Specialite_ar" => "الذكاء الاصطناعي"
               , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""             
             ],
 
              [
-          "Specialite
-" => "Économie Internationale",
+          "Specialite" => "Économie Internationale",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "الاقتصاد الدولي"
+         "Specialite_ar" => "الاقتصاد الدولي"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Économie du Développement",
+          "Specialite" => "Économie du Développement",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "اقتصاد التنمية"
+         "Specialite_ar" => "اقتصاد التنمية"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Sciences Commerciales",
+          "Specialite" => "Sciences Commerciales",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "العلوم التجارية"
+         "Specialite_ar" => "العلوم التجارية"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Marketing",
+          "Specialite" => "Marketing",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "التسويق"
+         "Specialite_ar" => "التسويق"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Commerce International",
+          "Specialite" => "Commerce International",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "التجارة الدولية"
+         "Specialite_ar" => "التجارة الدولية"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Comptabilité",
+          "Specialite" => "Comptabilité",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "المحاسبة"
+         "Specialite_ar" => "المحاسبة"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Audit et Contrôle",
+          "Specialite" => "Audit et Contrôle",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "التدقيق والرقابة"
+         "Specialite_ar" => "التدقيق والرقابة"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Banque et Assurance",
+          "Specialite" => "Banque et Assurance",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "البنوك والتأمين"
+         "Specialite_ar" => "البنوك والتأمين"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Gestion",
+          "Specialite" => "Gestion",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "التسيير"
+         "Specialite_ar" => "التسيير"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Gestion des Ressources Humaines",
+          "Specialite" => "Gestion des Ressources Humaines",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "تسيير الموارد البشرية"
+         "Specialite_ar" => "تسيير الموارد البشرية"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
                  [
-          "Specialite
-" => "Droit Public",
+          "Specialite" => "Droit Public",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "القانون العام"
+         "Specialite_ar" => "القانون العام"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Droit Privé",
+          "Specialite" => "Droit Privé",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "القانون الخاص"
+         "Specialite_ar" => "القانون الخاص"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Droit Pénal",
+          "Specialite" => "Droit Pénal",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "القانون الجنائي"
+         "Specialite_ar" => "القانون الجنائي"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Droit Administratif",
+          "Specialite" => "Droit Administratif",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "القانون الإداري"
+         "Specialite_ar" => "القانون الإداري"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Droit des Affaires",
+          "Specialite" => "Droit des Affaires",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "قانون الأعمال"
+         "Specialite_ar" => "قانون الأعمال"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Droit Constitutionnel",
+          "Specialite" => "Droit Constitutionnel",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "القانون الدستوري"
+         "Specialite_ar" => "القانون الدستوري"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Relations Internationales",
+          "Specialite" => "Relations Internationales",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "العلاقات الدولية"
+         "Specialite_ar" => "العلاقات الدولية"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
    
 
           [
-          "Specialite
-" => "Psychologie Clinique",
+          "Specialite" => "Psychologie Clinique",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "علم النفس السريري"
+         "Specialite_ar" => "علم النفس السريري"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Psychologie Sociale",
+          "Specialite" => "Psychologie Sociale",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "علم النفس الاجتماعي"
+         "Specialite_ar" => "علم النفس الاجتماعي"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Neuropsychologie",
+          "Specialite" => "Neuropsychologie",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "علم النفس العصبي"
+         "Specialite_ar" => "علم النفس العصبي"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Sociologie Générale",
+          "Specialite" => "Sociologie Générale",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "علم الاجتماع العام"
+         "Specialite_ar" => "علم الاجتماع العام"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Sociologie du Travail",
+          "Specialite" => "Sociologie du Travail",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "علم اجتماع العمل"
+         "Specialite_ar" => "علم اجتماع العمل"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Sociologie de l’Éducation",
+          "Specialite" => "Sociologie de l’Éducation",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "علم اجتماع التربية"
+         "Specialite_ar" => "علم اجتماع التربية"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Histoire Contemporaine",
+          "Specialite" => "Histoire Contemporaine",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "التاريخ المعاصر"
+         "Specialite_ar" => "التاريخ المعاصر"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Anthropologie",
+          "Specialite" => "Anthropologie",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "الأنثروبولوجيا"
+         "Specialite_ar" => "الأنثروبولوجيا"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Philosophie",
+          "Specialite" => "Philosophie",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "الفلسفة"
+         "Specialite_ar" => "الفلسفة"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
         [
-          "Specialite
-" => "Sciences de l'Éducation",
+          "Specialite" => "Sciences de l'Éducation",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Master 2"
          ,
-         "Specialite
-_ar" => "علوم التربية"
+         "Specialite_ar" => "علوم التربية"
           , "Nom_niv_ar" => "ماستر 2"
               ,"Descriptif_niv_ar"=>""         
         ],
 
                 [
-          "Specialite
-" => "Langue et Littérature Arabe",
+          "Specialite" => "Langue et Littérature Arabe",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "اللغة والأدب العربي"
+         "Specialite_ar" => "اللغة والأدب العربي"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        ],
 
         [
-          "Specialite
-" => "Linguistique Arabe",
+          "Specialite" => "Linguistique Arabe",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "اللسانيات العربية"
+         "Specialite_ar" => "اللسانيات العربية"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        ],
 
         [
-          "Specialite
-" => "Langue et Littérature Française",
+          "Specialite" => "Langue et Littérature Française",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "اللغة والأدب الفرنسي"
+         "Specialite_ar" => "اللغة والأدب الفرنسي"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        ],
 
         [
-          "Specialite
-" => "Linguistique Française",
+          "Specialite" => "Linguistique Française",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "اللسانيات الفرنسية"
+         "Specialite_ar" => "اللسانيات الفرنسية"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        ],
 
         [
-          "Specialite
-" => "FLE (Français Langue Étrangère)",
+          "Specialite" => "FLE (Français Langue Étrangère)",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "الفرنسية كلغة أجنبية (FLE)"
+         "Specialite_ar" => "الفرنسية كلغة أجنبية (FLE)"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        ],
 
         [
-          "Specialite
-" => "Langue et Littérature Anglaise",
+          "Specialite" => "Langue et Littérature Anglaise",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "اللغة والأدب الإنجليزي"
+         "Specialite_ar" => "اللغة والأدب الإنجليزي"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        ],
 
         [
-          "Specialite
-" => "Linguistique Anglaise",
+          "Specialite" => "Linguistique Anglaise",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "اللسانيات الإنجليزية"
+         "Specialite_ar" => "اللسانيات الإنجليزية"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        ],
 
         [
-          "Specialite
-" => "Traduction",
+          "Specialite" => "Traduction",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "الترجمة"
+         "Specialite_ar" => "الترجمة"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        ],
 
         [
-          "Specialite
-" => "Langue Espagnole",
+          "Specialite" => "Langue Espagnole",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "اللغة الإسبانية"
+         "Specialite_ar" => "اللغة الإسبانية"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        ],
 
         [
-          "Specialite
-" => "Langue Allemande",
+          "Specialite" => "Langue Allemande",
         "Descriptif_niv"=>"",
           "Nom_niv" => "Licence"
 
          ,
-         "Specialite
-_ar" => "اللغة الألمانية"
+         "Specialite_ar" => "اللغة الألمانية"
           , "Nom_niv_ar" => "ليسانس"
 
               ,"Descriptif_niv_ar"=>""        
@@ -562,85 +474,71 @@ _ar" => "اللغة الألمانية"
 
 
                     [
-          "Specialite
-" => "Maintenance Industrielle",
+          "Specialite" => "Maintenance Industrielle",
          "Nom_niv" => "BTS / TS",
          "Descriptif_niv_ar"=>"",
          "Descriptif_niv"=>"",
-         "Specialite
-_ar" => "الصيانة الصناعية"
+         "Specialite_ar" => "الصيانة الصناعية"
           , "Nom_niv_ar" => "تقني سام",
            
          
         ],
 
         [
-          "Specialite
-" => "Réseaux Informatiques",
+          "Specialite" => "Réseaux Informatiques",
          "Nom_niv" => "BTS / TS"
          ,
-         "Specialite
-_ar" => "الشبكات المعلوماتية"
+         "Specialite_ar" => "الشبكات المعلوماتية"
           , "Nom_niv_ar" => "تقني سام",
          "Descriptif_niv_ar"=>"",
          "Descriptif_niv"=>"",
         ],
 
         [
-          "Specialite
-" => "Topographie",
+          "Specialite" => "Topographie",
          "Nom_niv" => "BTS / TS"
          ,
-         "Specialite
-_ar" => "الطبوغرافيا"
+         "Specialite_ar" => "الطبوغرافيا"
           , "Nom_niv_ar" => "تقني سام",
          "Descriptif_niv_ar"=>"",
          "Descriptif_niv"=>"",
         ],
 
         [
-          "Specialite
-" => "Électromécanique",
+          "Specialite" => "Électromécanique",
          "Nom_niv" => "BTS / TS"
          ,
-         "Specialite
-_ar" => "الإلكتروميكانيك"
+         "Specialite_ar" => "الإلكتروميكانيك"
           , "Nom_niv_ar" => "تقني سام",
          "Descriptif_niv_ar"=>"",
          "Descriptif_niv"=>"",
         ],
 
         [
-          "Specialite
-" => "Froid et Climatisation",
+          "Specialite" => "Froid et Climatisation",
          "Nom_niv" => "BTS / TS"
          ,
-         "Specialite
-_ar" => "التبريد والتكييف"
+         "Specialite_ar" => "التبريد والتكييف"
           , "Nom_niv_ar" => "تقني سام",
          "Descriptif_niv_ar"=>"",
          "Descriptif_niv"=>"",
         ],
 
         [
-          "Specialite
-" => "Sécurité et Hygiène Industrielle",
+          "Specialite" => "Sécurité et Hygiène Industrielle",
          "Nom_niv" => "BTS / TS"
          ,
-         "Specialite
-_ar" => "السلامة والنظافة الصناعية"
+         "Specialite_ar" => "السلامة والنظافة الصناعية"
           , "Nom_niv_ar" => "تقني سام",
          "Descriptif_niv_ar"=>"",
          "Descriptif_niv"=>"",
         ],
 
         [
-          "Specialite
-" => "Dessin de Bâtiment",
+          "Specialite" => "Dessin de Bâtiment",
          "Nom_niv" => "BTS / TS"
          ,
-         "Specialite
-_ar" => "رسم البناء"
+         "Specialite_ar" => "رسم البناء"
           , "Nom_niv_ar" => "تقني سام",
          "Descriptif_niv_ar"=>"",
          "Descriptif_niv"=>"",
