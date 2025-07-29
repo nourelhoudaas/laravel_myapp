@@ -45,8 +45,7 @@ public function add(Request $Request)
     $employees = Employe::all();
     $bureau = Bureau::all();
     $Direction =  Sous_departement::all();
-    $niv =Niveau::all();
-
+    //$niv =;
     // Vérifie si l'employé existe déjà
     if (isset($employees)) {
         foreach ($employees as $em) {
@@ -112,7 +111,8 @@ public function add(Request $Request)
             $this->logService->getMacAddress()
         );
 
-        $dbniv = $niv;
+        $dbniv = Niveau::all();
+       // dd($dbniv);
         $dbempdepart = Departement::all();
         $empdepart = $dbempdepart;
 

@@ -57,14 +57,19 @@
                         <label class="labels">{{__('lang.ref_dipl')}}</label>
                         <input type="text" class="form-control" placeholder="{{__('lang.slct_ref_dipl')}}" value="" id="DipRef">
                     </div>
+                     @php
+                        dd($dbniv);
+                        @endphp
                     <div class="col-md-6">
                         <label class="labels">{{__('lang.spec_dipl')}}</label>
                         <select type="text" class="form-select" placeholder="Specialité" value="" id="Spec">
-                        <option value="">{{__('lang.slct_spec_dipl')}}</option>
-                            @foreach($dbniv as $niv)
+                        
+                            <option value="">{{__('lang.slct_spec_dipl')}}</option>
+                        @foreach($dbniv as $niv)
+                            
                             @if (app()->getLocale() == 'ar')
 
-                                <option value="{{$niv->Specialité}}">{{$niv->Specialité_ar}}</option>
+                                <option value="{{$niv->Specialité_ar}}">{{$niv->Specialité_ar}}</option>
 
                             @else
 
@@ -82,16 +87,17 @@
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <label class="labels">{{__('lang.nom_dipl')}}</label>
+                      
                         <select type="text" class="form-select" placeholder="Diplome" value="" id="Dip">
                             <option value="">{{__('lang.slct_nom_dipl')}}</option>
                             @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
-
-                                <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv_ar}}</option>
+                         
+                                <option value="{{$niv->id_niv}}">{{$niv->Nom_niv_ar}}</option>
 
                             @else
 
-                                <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv}}</option>
+                                <option value="{{$niv->id_niv}}">{{$niv->Nom_niv}}</option>
 
                             @endif
                             @endforeach
