@@ -167,18 +167,16 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
 
   function existToAdd($id)
   {
-    dd($id);
+    //dd($id);
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $niv=new Niveau();
-    $dbniv=$niv->SELECT('Nom_niv','Specialite
-','Specialite
-_ar','Nom_niv_ar')->distinct()->get();
-    dd($dbniv);
+    $dbniv=$niv->SELECT('Nom_niv','Specialite','Specialite_ar','Nom_niv_ar')->distinct()->get();
+  //dd($dbniv);
     $dbempdepart = new Departement();
     $empdepart =$dbempdepart->get();
     if(app()->getLocale() == 'ar')
     {
-      dd(app()->getLocale());
+//      dd(app()->getLocale());
     }
 
     return view('addTemplate.travaill',compact('employe','dbniv','empdepart'));
@@ -226,8 +224,7 @@ _ar','Nom_niv_ar')->distinct()->get();
   ]);
 
         $niv=Niveau::where('Nom_niv',$Request->get('Dip'))
-                     ->where('Specialite
-',$Request->get('Spec'))
+                     ->where('Specialite',$Request->get('Spec'))
                      ->first();
      // dd($niv);
        $idn=$niv->id_niv;
