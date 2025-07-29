@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date_recrutement');
             $table->float('echellant');
             $table->decimal('id_nin', 18, 0)->unique();
-            $table->integer('id_p');
+            $table->bigInteger('id_p');
             $table->integer('id_post');
             $table->string('ref_PV');
             $table->string('visa_CF')->nullable();
