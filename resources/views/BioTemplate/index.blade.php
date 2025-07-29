@@ -151,11 +151,9 @@
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} :
                            @if( app()->getLocale() == 'ar')
-                           {{$last->Specialite
-_ar}}
+                           {{$last->Specialite_ar}}
                            @else
-                           {{$last->Specialite
-}}
+                           {{$last->Specialite}}
                            @endif
                           </h6>
                           </div>
@@ -212,7 +210,7 @@ _ar}}
                         <div class="col-sm-3">
                           <h6 class="mb-0">{{__('lang.num_tel')}}</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" type="number"
+                        <input class="col-sm-9 text-secondary" 
                         id='phone_pn'
                         value='0{{$last->Phone_num}}'
                         style="border: hidden;background-color: transparent;" disabled>
