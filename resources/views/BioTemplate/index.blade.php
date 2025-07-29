@@ -151,9 +151,11 @@
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} :
                            @if( app()->getLocale() == 'ar')
-                           {{$last->Specialité_ar}}
+                           {{$last->Specialite
+_ar}}
                            @else
-                           {{$last->Specialité}}
+                           {{$last->Specialite
+}}
                            @endif
                           </h6>
                           </div>

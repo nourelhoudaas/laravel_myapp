@@ -352,8 +352,8 @@ class EmployeesController extends Controller
                 ->select(
                     'niveaux.Nom_niv',
                     'niveaux.Nom_niv_ar',
-                    'niveaux.Specialité',
-                    'niveaux.Specialité_ar',
+                    'niveaux.Specialite',
+                    'niveaux.Specialite_ar',
                     'posts.Grade_post',
                     'posts.Nom_post',
                     'posts.Nom_post_ar',
@@ -1557,7 +1557,7 @@ class EmployeesController extends Controller
         $employe = Employe::where('id_nin', $id)->firstOrFail();
         $niv = new Niveau();
         $dbniv = $niv->SELECT('Nom_niv', 'Nom_niv_ar')->distinct()->get();
-        $dbn = $niv->SELECT('Specialité', 'Specialité_ar')->distinct()->get();
+        $dbn = $niv->SELECT('Specialite', 'Specialite_ar')->distinct()->get();
         $dbempdepart = new Departement();
         $empdepart = $dbempdepart->get();
         if (app()->getLocale() == 'ar') {
