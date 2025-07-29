@@ -57,27 +57,26 @@
                         <label class="labels">{{__('lang.ref_dipl')}}</label>
                         <input type="text" class="form-control" placeholder="{{__('lang.slct_ref_dipl')}}" value="" id="DipRef">
                     </div>
-                     @php
-                        dd($dbniv);
-                        @endphp
                     <div class="col-md-6">
-                        <label class="labels">{{__('lang.spec_dipl')}}</label>
-                        <select type="text" class="form-select" placeholder="Specialité" value="" id="Spec">
-                        
-                            <option value="">{{__('lang.slct_spec_dipl')}}</option>
-                        @foreach($dbniv as $niv)
-                            
+                        <label class="labels">Specialite</label>
+                      {{--  <select type="text" class="form-select" placeholder="Specialite" value="" id="Spec">
+                        <option value="">{{__('lang.slct_spec_dipl')}}</option>
+                           
+                            @foreach($dbn as $niv)
                             @if (app()->getLocale() == 'ar')
 
-                                <option value="{{$niv->Specialité_ar}}">{{$niv->Specialité_ar}}</option>
+                                <option value="{{$niv->Specialite}}">{{$niv->Specialite_ar}}</option>
 
                             @else
 
-                                <option value="{{$niv->Specialité}}">{{$niv->Specialité}}</option>
+                                <option value="{{$niv->Specialite}}">{{$niv->Specialite}}</option>
 
                             @endif
                             @endforeach
-                        </select>
+                        </select> --}}
+                        <input type="text" class="form-control" placeholder="Specialite" value="" name="Spec" id="Spec"/> 
+                        <label class="labels" style="direction: rtl">التخصص</label>
+                        <input type="text" class="form-control" placeholder="التخصص" value="" name="Spec_ar" id="Spec_ar"/> 
                     </div>
                     <div class="col-md-6">
                         <label class="labels">{{__('lang.filier_dipl')}}</label>
@@ -86,22 +85,22 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label class="labels">{{__('lang.nom_dipl')}}</label>
+                        <label class="labels">Diplome</label>
                       
-                        <select type="text" class="form-select" placeholder="Diplome" value="" id="Dip">
+                       {{-- <select type="text" class="form-select" placeholder="Diplome" value="" id="Dip">
                             <option value="">{{__('lang.slct_nom_dipl')}}</option>
                             @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
                          
-                                <option value="{{$niv->id_niv}}">{{$niv->Nom_niv_ar}}</option>
-
+                                <option value="{{$niv->Nom_niv_ar}}">{{$niv->Nom_niv_ar}}</option>
                             @else
-
-                                <option value="{{$niv->id_niv}}">{{$niv->Nom_niv}}</option>
-
+                                <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv}}</option>
                             @endif
                             @endforeach
-                        </select>
+                        </select>--}}
+                        <input class="form-control" placeholder="Diplome" value="" id="Dip">
+                        <label class="labels" style="direction: rtl">الشهادة</label>
+                        <input class="form-control" placeholder="الشهادة" value="" id="Dip_ar">
                     </div>
                     <div class="col-md-6">
                         <label class="labels">{{__('lang.dat_optn_dipl')}}</label>
