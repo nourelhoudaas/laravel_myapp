@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('statut');
             $table->string('statut_ar');
             $table->decimal('id_nin', 18, 0)->unique();
-            $table->integer('id_p');
+            $table->bigInteger('id_p');
             $table->integer('id_sous_depart');
             $table->integer('id_fichier');
             $table->foreign('id_nin')->references('id_nin')->on('employes');

@@ -112,9 +112,9 @@ public function add(Request $Request)
             $this->logService->getMacAddress()
         );
 
-        $dbniv = $niv->get();
+        $dbniv = $niv;
         $dbempdepart = Departement::all();
-        $empdepart = $dbempdepart->get();
+        $empdepart = $dbempdepart;
 
         return view('addTemplate.travaill', compact('employe', 'dbniv', 'empdepart'));
     } else {

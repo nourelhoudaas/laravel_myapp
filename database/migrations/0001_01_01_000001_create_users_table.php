@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('id_nin', 18, 0)->unique();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
-            $table->integer('id_p')->unique();
+            $table->bigInteger('id_p')->unique();
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->string('username', 191)->unique();
             //$table->string('email')->unique();
