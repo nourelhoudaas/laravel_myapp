@@ -243,8 +243,8 @@ public function add(Request $Request)
             'DipDate' => 'required|date',
         ]);
 
-        dd($Request->input('Dip_ar'));
-        $niv = Niveau::create(
+        //dd($Request->all());
+        $niv = DB::table('niveaux')->insert(
             [
             'Nom_niv' => $Request->input('Dip'),
             'Nom_niv_ar'=> $Request->input('Dip_ar'),
@@ -252,10 +252,12 @@ public function add(Request $Request)
             'Specialite_ar' => $Request->input('Spec_ar'),
             'Descriptif_niv'=>"",
             'Descriptif_niv_ar'=>"",
-                        ]
+              ]
           );
-         
+         $niv=Niveau::where('Nom_niv',$Request->input('Dip'))->first();
+       //  dd( $niv);
         $idn = $niv->id_niv;
+
         $Request->validate([
             'DipRef' => 'required|string',
         ]);
