@@ -1577,9 +1577,10 @@ class EmployeesController extends Controller
         $dbbureau = $bureau->get();
         $dbdirection = $Direction->get();
         $Appartient = appartient::where('id_nin', $id)->get();
-        $post = new Post();
+        $post = Post::join('secteurs','secteurs.id_secteur','=','posts.id_secteur')
+                        ->join('filieres','filieres.id_filiere','=','secteurs.id_filiere');
         $dbpost = $post->get();
-
+        //dd($dbpost);
         $dbempdepart = new Departement();
         $empdepart = $dbempdepart->get();
 
