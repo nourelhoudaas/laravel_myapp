@@ -247,10 +247,14 @@ return [
     'slct_fonc'=>'Séléctionner la fonction',
     'lst_post'=>'liste des Postes',
 
+    'list_pts'=>'List Globale Des Grade',
+    'nom_glb_grad'=>'Nom du Grade',
     'ajot_pos'=>'Operation du Insertion un Grade',
     'Post'=>'Nom Du Grade en Latin',
     'grade'=>'Categorie',
     'Post_ar'=>'Nom Du Grade en Arabe',
+
+
 
     'sec_'=>'Nom du Corp en Latin',
     'sec_ar'=>'Nom du Corp en Arabe',
