@@ -2531,7 +2531,7 @@ $(document).ready(function () {
                 Prenom_OAR: $("#Prenom_OAR").val(),
                 Nom_PAR: $("#Nom_PAR").val(),
                 Email: $("#Email").val(),
-                phone_pn: parseInt($("#phone_pn").val()),
+                phone_pn: $("#phone_pn").val(),
                 dateN: $("#dateN").val(),
                 adr: $("#adr").val(),
                 adrAR: $("#adrAR").val(),
