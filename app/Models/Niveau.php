@@ -14,8 +14,8 @@ class Niveau extends Model
     protected $keyType = 'integer'; 
     public $timestamps = false;
     
-    protected $fillablel=['id_niv'	,'Nom_niv'	,'Specialité',	'Descriptif_niv',
-    'Nom_niv_ar','Specialité_ar','Descriptif_niv_ar','id_post','moyenne_niv',
+    protected $fillablel=['id_niv'	,'Nom_niv'	,'Specialite',	'Descriptif_niv',
+    'Nom_niv_ar','Specialite_ar','Descriptif_niv_ar','id_post','moyenne_niv',
     'major_niv','date_major'
 ];
   

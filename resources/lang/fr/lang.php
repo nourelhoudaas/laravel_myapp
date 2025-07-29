@@ -111,8 +111,10 @@ return [
     'niv_edu'=>'Niveau Educatif',
     'ref_dipl'=>'Référence Du Diplôme',
     'slct_ref_dipl'=>'Entrer la Référrence Du Diplôme',
-    'spec_dipl'=>'Specialité',
-    'slct_spec_dipl'=>'Séléctionner La Specialité',
+    'spec_dipl'=>'Specialite
+',
+    'slct_spec_dipl'=>'Séléctionner La Specialite
+',
     'filier_dipl'=>'Filiere',
     'nom_dipl'=>'Diplôme',
     'slct_nom_dipl'=>'Séléctionner Le Diplôme',

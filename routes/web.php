@@ -98,7 +98,7 @@ Route::controller(EmployeesController::class)->group(function(){
 
 });
 });
-
+Route::middleware('auth')->group(function () {
 Route::controller(DepartmentController::class)->group(function(){
 
     Route::get('\add_depart/{dep_id}','AddDepart')->name('app_add_depart');
@@ -106,7 +106,7 @@ Route::controller(DepartmentController::class)->group(function(){
     Route::get('/liste','ListeDepart')->name('app_liste_dir');
     Route::get('/departmnet/editer/{departement}','editer')->name('departement.editer');
     Route::put('/departmnet/editer/{departement}','update')->name('departement.update');
-
+    Route::get('/add_sous_depart','dashboard_sous')->name('app_store');
 
     Route::post('/add_depart','store')->name('app_store_depart');
     Route::get('/depcount/{id}','get_emp_dep')->name('app_emp_depart');
@@ -124,7 +124,7 @@ Route::controller(DepartmentController::class)->group(function(){
 
 
 });
-
+});
 
 //Route::get('/addTemplate',[EmployeControl::class,'create'])->name('Employe.create');
 
@@ -154,6 +154,7 @@ Route::get('/live/read/{dir}/{subdir}/{file}',[UploadFile::class,'live_File'])->
 });
 
 //postes
+Route::middleware('auth')->group(function () {
 Route::controller(PostesController::class)->group(function(){
 
    // Route::post('/postes/add_poste','addposte')->name('app_poste');
@@ -173,8 +174,7 @@ Route::controller(PostesController::class)->group(function(){
 
     Route::get('/post/{id_post}', 'delete')->name('post.delete');
 });
-
-
+});
 
 Route::get('/export_dossier/{id}',[UploadFile::class,'export_fichier'])->name('export_file_emp');
 
