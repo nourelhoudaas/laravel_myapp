@@ -113,6 +113,7 @@ public function add(Request $Request)
         );
 
         $dbniv = $niv;
+        dd($dbniv);
         $dbempdepart = Departement::all();
         $empdepart = $dbempdepart;
 
@@ -166,10 +167,13 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
 
   function existToAdd($id)
   {
+    dd($id);
     $employe=Employe::where('id_nin', $id)->firstOrFail();
     $niv=new Niveau();
-    $dbniv=$niv->SELECT('Nom_niv','Specialité','Specialité_ar','Nom_niv_ar')->distinct()->get();
-
+    $dbniv=$niv->SELECT('Nom_niv','Specialite
+','Specialite
+_ar','Nom_niv_ar')->distinct()->get();
+    dd($dbniv);
     $dbempdepart = new Departement();
     $empdepart =$dbempdepart->get();
     if(app()->getLocale() == 'ar')
@@ -222,7 +226,8 @@ return redirect()->route('Employe.create')->with('success', 'User created succes
   ]);
 
         $niv=Niveau::where('Nom_niv',$Request->get('Dip'))
-                     ->where('Specialité',$Request->get('Spec'))
+                     ->where('Specialite
+',$Request->get('Spec'))
                      ->first();
      // dd($niv);
        $idn=$niv->id_niv;
