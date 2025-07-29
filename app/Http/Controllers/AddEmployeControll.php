@@ -33,93 +33,118 @@ class AddEmployeControll extends Controller
         $this->logService = $logService;
     }
 
-    public function add(Request $Request)
-    {
-        // 🔧 Validation initiale du NIN : exactement 20 chiffres
-        $Request->validate([
-            'ID_NIN' => 'required', // 🔧 Modifié: vérifie que le NIN contient exactement 20 chiffres
-        ]);
+public function add(Request $Request)
+{
+    // 🔧 Validation initiale du NIN : exactement 20 chiffres
+    $Request->validate([
+        'ID_NIN' => 'required', // 🔧 Garde ID_NIN obligatoire
+    ]);
 
-        $employees = Employe::all();
-        $bureau    = Bureau::all();
-        $Direction = Sous_departement::all();
-        $niv       = Niveau::all();
+    $employees = Employe::all();
+    $bureau    = Bureau::all();
+    $Direction = Sous_departement::all();
+    $niv       = Niveau::all();
 
-        // Vérifie si l'employé existe déjà
-        if (isset($employees)) {
-            foreach ($employees as $em) {
-                if ($Request->get('ID_NIN') == $em->id_nin) {
-                    return redirect()->route('Employe.istravaill', ["id" => $em->id_nin]);
-                }
+    // Vérifie si l'employé existe déjà
+    if (isset($employees)) {
+        foreach ($employees as $em) {
+            if ($Request->get('ID_NIN') == $em->id_nin) {
+                return redirect()->route('Employe.istravaill', ["id" => $em->id_nin]);
             }
         }
-
-        // 🔧 Validation complète du formulaire (email et téléphone rendus facultatifs)
-        $Request->validate([
-            'ID_NIN'      => 'required', // 🔧 Reprise ici pour plus de sécurité
-            'ID_SS'       => 'required|integer',
-            'Nom_P'       => 'required|string',
-            'Prenom_O'    => 'required|string',
-            'Nom_PAR'     => 'required|string',
-            'Prenom_AR'   => 'required|string',
-            'Date_Nais_P' => 'required|date',
-            'Lieu_N'      => 'required|string',
-            'Lieu_AR'     => 'required|string',
-            'Address'     => 'required|string',
-            'AddressAR'   => 'required|string',
-            'Sexe'        => 'required|string',
-            'EMAIL'       => 'nullable|email', // 🔧 Modifié: email non requis mais doit être valide s'il est fourni
-            'PHONE_NB'    => 'nullable',       // 🔧 Modifié: téléphone non requis mais doit être numérique s'il est fourni
-        ]);
-        //dd($Request->all());
-        $employe = Employe::create([
-            'id_nin'                  => $Request->get('ID_NIN'),
-            'id_p'                    => $Request->get('ID_SS') + 1,
-            'NSS'                     => $Request->get('ID_SS'),
-            'Nom_emp'                 => $Request->get('Nom_P'),
-            'Prenom_emp'              => $Request->get('Prenom_O'),
-            'Nom_ar_emp'              => $Request->get('Nom_PAR'),
-            'Prenom_ar_emp'           => $Request->get('Prenom_AR'),
-            'Date_nais'               => $Request->get('Date_Nais_P'),
-            'Lieu_nais'               => $Request->get('Lieu_N'),
-            'Lieu_nais_ar'            => $Request->get('Lieu_AR'), // 🔧 Correction ici aussi pour afficher Lieu_AR et non Lieu_N
-            'adress'                  => $Request->get('Address'),
-            'adress_ar'               => $Request->get('AddressAR'),
-            'sexe'                    => $Request->get('Sexe'),
-            'email'                   => $Request->get('EMAIL'),
-            'Phone_num'               => $Request->get('PHONE_NB'),
-            'prenom_pere'             => $Request->get('Prenom_Per'),
-            'prenom_mere'             => $Request->get('Prenom_mere'),
-            'nom_mere'                => $Request->get('Nom_mere'),
-            'prenom_pere_ar'          => $Request->get('Prenom_PerAR'),
-            'prenom_mere_ar'          => $Request->get('Prenom_mereAR'),
-            'nom_mere_ar'             => $Request->get('Nom_mereAR'),
-            'situation_familliale'    => $Request->get('Situat'),
-            'situation_familliale_ar' => $Request->get('Situatar'),
-            'nbr_enfants'             => $Request->get('nbrenfant'),
-            'Date_nais_pere'          => $Request->get('date_nais_per'),
-            'Date_nais_mere'          => $Request->get('date_nais_mer'),
-        ]);
-
-        if ($employe->save()) {
-            // 🔧 Ajout de l'action dans le journal
-            $this->logService->logAction(
-                Auth::user()->id,
-                $employe->id_nin,
-                'Ajouter Infos Personnelles Employé',
-                $this->logService->getMacAddress()
-            );
-
-            $dbniv = $niv;
-            dd($dbniv);
-            $dbempdepart = Departement::all();
-            $empdepart   = $dbempdepart;
-
-            return view('addTemplate.travaill', compact('employe', 'dbniv', 'empdepart'));
-        } else {
-            return redirect()->back()->with('error', 'Échec de l’enregistrement. Veuillez réessayer.');
-        }
     }
+
+    // 🔧 Validation complète du formulaire (tous les champs sauf ID_NIN sont facultatifs)
+    $Request->validate([
+        'ID_NIN'      => 'required', // 🔧 Garde ID_NIN obligatoire
+        'ID_SS'       => 'nullable|integer',
+        'Nom_P'       => 'nullable|string',
+        'Prenom_O'    => 'nullable|string',
+        'Nom_PAR'     => 'nullable|string',
+        'Prenom_AR'   => 'nullable|string',
+        'Date_Nais_P' => 'nullable|date',
+        'Lieu_N'      => 'nullable|string',
+        'Lieu_AR'     => 'nullable|string',
+        'Address'     => 'nullable|string',
+        'AddressAR'   => 'nullable|string',
+        'Sexe'        => 'nullable|string',
+        'EMAIL'       => 'nullable|email',
+        'PHONE_NB'    => 'nullable',
+        'Prenom_Per'  => 'nullable|string',
+        'Prenom_mere' => 'nullable|string',
+        'Nom_mere'    => 'nullable|string',
+        'Prenom_PerAR' => 'nullable|string',
+        'Prenom_mereAR' => 'nullable|string',
+        'Nom_mereAR'  => 'nullable|string',
+        'Situat'      => 'nullable|string',
+        'Situatar'    => 'nullable|string',
+        'nbrenfant'   => 'nullable|integer',
+        'date_nais_per' => 'nullable|date',
+        'date_nais_mer' => 'nullable|date',
+    ]);
+
+    // 🔧 Liste des champs non-NULLABLE dans la base de données
+    $nonNullableFields = [
+        'Nom_emp', 'Prenom_emp', 'Nom_ar_emp', 'Prenom_ar_emp', 
+        'Lieu_nais', 'Lieu_nais_ar', 'adress', 'adress_ar', 'sexe', 
+        'Date_nais', 'prenom_pere', 'prenom_mere', 'nom_mere', 
+        'prenom_pere_ar', 'prenom_mere_ar', 'nom_mere_ar', 
+        'situation_familliale', 'situation_familliale_ar', 'nbr_enfants'
+    ];
+
+    // 🔧 Préparation des données avec gestion des champs vides
+    $data = [
+        'id_nin'                  => $Request->get('ID_NIN') ?? '',
+        'id_p'                    => $Request->get('ID_SS') ? ($Request->get('ID_SS') + 1) : null,
+        'NSS'                     => $Request->get('ID_SS') ?? null,
+        'Nom_emp'                 => $Request->get('Nom_P') ?? 'null', // 🔧 Non-NULLABLE : "null" si vide
+        'Prenom_emp'              => $Request->get('Prenom_O') ?? 'null', // 🔧 Non-NULLABLE
+        'Nom_ar_emp'              => $Request->get('Nom_PAR') ?? 'null', // 🔧 Non-NULLABLE
+        'Prenom_ar_emp'           => $Request->get('Prenom_AR') ?? 'null', // 🔧 Non-NULLABLE
+        'Date_nais'               => $Request->get('Date_Nais_P') ?? '1990-01-01', // 🔧 Non-NULLABLE : date par défaut
+        'Lieu_nais'               => $Request->get('Lieu_N') ?? 'null', // 🔧 Non-NULLABLE
+        'Lieu_nais_ar'            => $Request->get('Lieu_AR') ?? 'null', // 🔧 Non-NULLABLE
+        'adress'                  => $Request->get('Address') ?? 'null', // 🔧 Non-NULLABLE
+        'adress_ar'               => $Request->get('AddressAR') ?? 'null', // 🔧 Non-NULLABLE
+        'sexe'                    => $Request->get('Sexe') ?? 'null', // 🔧 Non-NULLABLE : "null" si vide
+        'email'                   => $Request->get('EMAIL') ?? null,
+        'Phone_num'               => $Request->get('PHONE_NB') ?? null,
+        'prenom_pere'             => $Request->get('Prenom_Per') ?? 'null', // 🔧 Non-NULLABLE : "null" si vide
+        'prenom_mere'             => $Request->get('Prenom_mere') ?? 'null', // 🔧 Non-NULLABLE
+        'nom_mere'                => $Request->get('Nom_mere') ?? 'null', // 🔧 Non-NULLABLE
+        'prenom_pere_ar'          => $Request->get('Prenom_PerAR') ?? 'null', // 🔧 Non-NULLABLE
+        'prenom_mere_ar'          => $Request->get('Prenom_mereAR') ?? 'null', // 🔧 Non-NULLABLE
+        'nom_mere_ar'             => $Request->get('Nom_mereAR') ?? 'null', // 🔧 Non-NULLABLE
+        'situation_familliale'    => $Request->get('Situat') ?? 'null', // 🔧 Non-NULLABLE : "null" si vide
+        'situation_familliale_ar' => $Request->get('Situatar') ?? 'null', // 🔧 Non-NULLABLE : "null" si vide
+        'nbr_enfants'             => $Request->get('nbrenfant') ?? 0, // 🔧 Non-NULLABLE : 0 si vide
+        'Date_nais_pere'          => $Request->get('date_nais_per') ?? '1990-01-01', // 🔧 Non-NULLABLE : date par défaut
+        'Date_nais_mere'          => $Request->get('date_nais_mer') ?? '1990-01-01', // 🔧 Non-NULLABLE : date par défaut
+    ];
+
+    // Création de l'employé
+    $employe = Employe::create($data);
+
+    if ($employe->save()) {
+        // 🔧 Ajout de l'action dans le journal
+        $this->logService->logAction(
+            Auth::user()->id,
+            $employe->id_nin,
+            'Ajouter Infos Personnelles Employé',
+            $this->logService->getMacAddress()
+        );
+
+        $dbniv = $niv;
+        $dbn=$niv;
+        $dbempdepart = Departement::all();
+        $empdepart   = $dbempdepart;
+
+        return view('addTemplate.travaill', compact('employe', 'dbniv', 'empdepart', 'dbn'));
+    } else {
+        return redirect()->back()->with('error', 'Échec de l’enregistrement. Veuillez réessayer.');
+    }
+}
+
 
     public function addToDep(Request $Request)
     {
