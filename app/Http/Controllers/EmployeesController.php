@@ -291,10 +291,9 @@ class EmployeesController extends Controller
             ->join('contients', 'contients.id_post', '=', 'posts.id_post')
             ->select('id_occup', 'date_recrutement')->orderBy('date_recrutement')
             ->get();
-      
+       //dd($postwork);
         if (count($postwork) == 0 && count($result))
-        {
-                
+        { 
                return redirect('/Employe/IsEducat/'.$id);
         }
         $nbr = $result->count();
@@ -378,9 +377,9 @@ class EmployeesController extends Controller
             //dd($detailemp[$i]);
         }
 
-        // dd($postarr);
+       //  dd($postarr);
         $detailemp = $allemp;
-        //   dd($detailemp);
+        //  dd($detailemp);
         if ($nbr > 0) {
             $nbr = $nbr - 1;
             return view('BioTemplate.index', compact('detailemp', 'nbr', 'empdepart', 'last', 'postarr'));

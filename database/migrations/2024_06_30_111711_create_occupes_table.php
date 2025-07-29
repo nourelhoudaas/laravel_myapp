@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_occup')->primary()->autoIncrement();
             $table->date('date_recrutement');
             $table->float('echellant');
-            $table->decimal('id_nin', 18, 0)->unique();
+            $table->decimal('id_nin', 18, 0);
             $table->bigInteger('id_p');
             $table->integer('id_post');
             $table->string('ref_PV');
@@ -35,12 +35,12 @@ return new class extends Migration
         });
         DB::table('occupes')->insert([
             [
-                'id_occup' => 4,
+                'id_occup' => 1,
                 'date_recrutement' => '2024-07-03',
                 'echellant' => 13,
                 'id_nin' => 254896989,
                 'id_p' => 256,
-                'id_post' => 20,
+                'id_post' => 1,
                 'visa_CF'=>'1N',
                 'type_CTR' => 'CDI',
                 'date_CF'=> '2024-07-03',
@@ -48,7 +48,7 @@ return new class extends Migration
                 'ref_base'=>'1N'
             ],
             [
-                'id_occup' => 10,
+                'id_occup' => 2,
                 'date_recrutement' => '2024-04-14',
                 'echellant' => 13,
                 'id_nin' => 1254953,
