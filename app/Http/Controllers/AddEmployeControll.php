@@ -8,6 +8,7 @@ use App\Models\Employe;
 use App\Models\Niveau;
 use App\Models\Occupe;
 use App\Models\Post;
+use App\Models\Contient;
 use App\Models\Sous_departement;
 use App\Models\Travail;
 use App\Services\logService;
@@ -348,20 +349,35 @@ public function existToAddApp(Request $Request)
             if ($request->get('pv_postsup') > 0) {
                 $id_postsup = $request->get('pv_postsup');
             }
-
-            Occupe::create([
+            //dd($id_postsup,$request->get('pv_func'));
+            $postschekc=Post::where('id_post',$request->get('post'))->first();
+           // dd($postschekc->id_post);
+            $ops=new Occupe([
                 'date_recrutement' => $request->get('RecDate'),
                 'echellant'        => 0,
                 'id_nin'           => $request->get('ID_NIN'),
                 'id_p'             => $request->get('ID_P'),
                 'ref_PV'           => $pv,
                 'ref_base'         => $request->get('PV_grad'),
-                'id_post'          => $request->get('post'),
+                'id_post'          => $postschekc->id_post,
                 'id_postsup'       => $id_postsup,
                 'id_fonction'      => $request->get('pv_func'),
 
             ]);
+           if( $ops->save())
+           {
+           $cont=new Contient([
+            'id_post'=>$postschekc->id_post,
+            'id_sous_depart'=>$request->get('SDic'),
+            'id_fonction'=>$request->get('pv_func'),
+            'id_postsup'=>$id_postsup,
+           ]);
+          // dd($cont);
+           $cont->save();
+           }
             $travaill->save();
+           
+           // dd($ops);
             $this->logService->logAction(
                 Auth::user()->id,
                 $request->get('ID_NIN'),

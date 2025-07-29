@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date_installation');
             $table->date('date_chang');
             $table->float('notation');
-            $table->decimal('id_nin', 18, 0)->unique();
+            $table->decimal('id_nin', 18, 0);
             $table->integer('id_sous_depart');
             $table->bigInteger('id_p');
             $table->integer('id_bureau');
