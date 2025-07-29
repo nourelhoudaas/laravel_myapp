@@ -12,7 +12,7 @@
 
     <div class="container2">
         <div class="recent_order">
-            <h1 class="app-page-title">Liste des Postes</h1>
+            <h1 class="app-page-title">{{__('lang.list_pts')}}</h1>
             <hr class="mb-4">
             <div class="row g-4 settings-section">
 <div>
@@ -25,10 +25,10 @@
 
             <tr >
 
-                <th>Nom Poste</th>
-                <th>Grade poste</th>
-                <th>Nom arabe</th>
-                <th>action</th>
+                <th>>{{__('lang.Post')}}</th>
+                <th>{{__('lang.grade')}}</th>
+                <th>{{__('lang.Post_ar')}}</th>
+                <th>{{__('lang.Post_ar')}}</th>
             </tr>
         </thead>
         <tbody>

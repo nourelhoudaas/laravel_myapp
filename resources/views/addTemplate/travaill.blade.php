@@ -61,7 +61,7 @@
                         <label class="labels">{{__('lang.spec_dipl')}}</label>
                         <select type="text" class="form-select" placeholder="Specialité" value="" id="Spec">
                         <option value="">{{__('lang.slct_spec_dipl')}}</option>
-                            @foreach($dbn as $niv)
+                            @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
 
                                 <option value="{{$niv->Specialité}}">{{$niv->Specialité_ar}}</option>
