@@ -177,6 +177,8 @@ return [
     'nbr_page'=>'الصفحة',
     'Departementde'=>'مديرية ',
     'ats'=>'شهادة عمل',
+    'update'=>'',
+
 
     'Changerlemotdepass'=>'تغيير كلمة المرور',
     'Ancienmotdepass'=>'كلمة المرور السابقة',
@@ -256,5 +258,14 @@ return [
 
     'fonction'=>'وظيفة العليا',
     'grade_font'=>'رمز الوظيفة العليا',
-
+     'dashboard_sub_dir'=> 'لوحة القيادة للوحدة الفرعية',
+     'msg_list_sub_direct'=>'قائمة الوحدات الفرعية',
+     'id_sub_depart'=>'ID المديرية الفرعية',
+     'select_department'=>'اختر مديرية',
+    'AddSubDir'=>'اضافة مديرية فرعية',
+    'ListSubDir'=>'قائمة المديريات الفرعية',
+       
 ];
+
+
+   

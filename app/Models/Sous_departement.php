@@ -16,7 +16,16 @@ protected $primaryKey = 'id_sous_depart';
     protected $keyType = 'integer'; 
     public $timestamps = false;
 
-protected $fillabel=['id_sous_depart',	'id_depart',	'Nom_sous_depart',	'Descriptif_sous_depart','Nom_sous_depart_ar','Descriptif_sous_depart_ar'];
+    protected $fillable = [
+    'id_sous_depart',
+    'id_depart',
+    'Nom_sous_depart',
+    'Descriptif_sous_depart',
+    'Nom_sous_depart_ar',
+    'Descriptif_sous_depart_ar'
+];
+
+//protected $fillabel=['id_sous_depart',	'id_depart',	'Nom_sous_depart',	'Descriptif_sous_depart','Nom_sous_depart_ar','Descriptif_sous_depart_ar'];
 
 public function travail()
 {
