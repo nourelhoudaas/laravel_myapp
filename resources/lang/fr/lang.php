@@ -249,7 +249,7 @@ return [
     'slct_post_sup' =>'Séléctionner le poste supèrieur',
     'slct_fonc'=>'Séléctionner la fonction',
     'lst_post'=>'liste des Postes',
-
+    'nvl_post'=>'Insérer Nouveau Grade',
     'list_pts'=>'List Globale Des Grade',
     'nom_glb_grad'=>'Nom du Grade',
     'ajot_pos'=>'Operation du Insertion un Grade',
