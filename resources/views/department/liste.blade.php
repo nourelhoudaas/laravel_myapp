@@ -24,7 +24,7 @@
                                 <th>{{ __('lang.id_drec') }} </th>
                                 <th>{{ __('lang.nom_direct') }} </th>
                                 <th>{{ __('lang.nom_sous_direct') }} </th>
-                                {{-- <th>{{ __('lang.Action') }}</th> --}}
+                                 <th>{{ __('lang.Action') }}</th> 
                             </tr>
                         </thead>
                         <tbody>
@@ -60,8 +60,11 @@
                                             @endif
                                         @endforeach
                                     </td>
-
-
+                                    
+                                    <td>
+                                             <a href="{{ route('departement.editer', $departement->id_depart) }}"><i
+                                                class="fa fa-edit"></i></a>
+                                    </td>
                                     {{-- <td>
 
                                         <a href="{{ route('departement.editer', $departement->id_depart) }}"><i
