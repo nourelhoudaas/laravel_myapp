@@ -537,7 +537,7 @@ public function delete($id_depart)
         $subDepartment->Descriptif_sous_depart_ar = $request->Descriptif_sous_depart_ar;
         $subDepartment->save();
 
-        $subDepartment->load('department');
+        //$subDepartment->load('departments');
 
         return redirect()->route('app_liste_sub_dir')
             ->with('success', 'Sous-direction ajoutée avec succès.')
