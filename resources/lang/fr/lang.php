@@ -160,7 +160,7 @@ return [
     'next'=>'Suivant',
     'cancel'=>'Annuller',
     'submit'=>'Enregister',
-
+    
     'num_tel'=>'Numéro Téléphone',
     'langage'=>'francais',
     'logout'=>'Se Déconnecter',
@@ -256,5 +256,15 @@ return [
 
     'fonction'=>'Nom du Fonction',
     'grade_font'=>'Code Du fonction',
+    'dashboard_sub_dir'=> 'Tableau de bord Sous-direction',
+    'msg_list_sub_direct'=>'Liste des Sous-directions',
+    'id_sub_depart'=>'ID Sous-direction',
+    'select_department'=>'selectionner une direction',
+    'AddSubDir'=>'Ajouter une sous Direction',
+    'ListSubDir'=>'Liste des Sous-Directions',
+
+   
+    
+   
 ];
 
