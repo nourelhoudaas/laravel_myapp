@@ -20,7 +20,7 @@ class DepartmentController extends Controller
 {
     public function ListeDepart()
     {
-        $departements = Departement::paginate(5);
+        $departements = Departement::paginate(10);
 
        $empdepart=Departement::with('sous_departement')->get();
 

@@ -199,7 +199,7 @@ class BioEmployeControl extends Controller
                         ->where('travails.id_travail',$idtr)
                         ->where('occupes.id_occup',$idocp)
                         ->first();
-                        dd($carrier);
+                        //dd($carrier);
                         if($carrier)
                         {
                             return response()->json([
