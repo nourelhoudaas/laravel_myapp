@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('id_niv')->references('id_niv')->on('niveaux');
             $table->decimal('id_nin', 18, 0)->unique();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
-            $table->integer('id_p');
+            $table->bigInteger('id_p');
             $table->foreign('id_p')->references('id_p')->on('employes');
         });
         DB::table('appartients')->insert([

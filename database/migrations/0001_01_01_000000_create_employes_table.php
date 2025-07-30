@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('employes', function (Blueprint $table) {
             $table->integer('id_emp')->primary()->autoIncrement();
             $table->decimal('id_nin', 18, 0)->unique();
-            $table->integer('id_p')->unique();
-            $table->integer('NSS')->unique();
+            $table->bigInteger('id_p')->unique();
+            $table->bigInteger('NSS')->unique();
             $table->string('Nom_emp');
             $table->string('Prenom_emp');
             $table->string('Nom_ar_emp');

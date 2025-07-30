@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->integer('id_post')->primary()->autoIncrement();
             $table->string('Nom_post');
-            $table->integer('Grade_post');
+            $table->string('Grade_post');
             $table->string('Nom_post_ar');
             $table->integer('id_secteur');
             $table->foreign('id_secteur')->references('id_secteur')->on('secteurs');
@@ -22,7 +22,7 @@ return new class extends Migration
 
         DB::table('posts')->insert([
             [
-                'id_post' => 2,
+                'id_post' => 1,
                 'Nom_post' => 'ingénieur en informatique',
                 'Grade_post' => 1,
                 'Nom_post_ar' => 'مهندس دولة في الاعلام الالي',
@@ -31,7 +31,7 @@ return new class extends Migration
 
             ],
             [
-                'id_post' => 20,
+                'id_post' => 2,
                 'Nom_post' => 'technicien supérieur en info',
                 'Grade_post' => 2,
                 'Nom_post_ar' => 'تقني في الاعلام الالي',

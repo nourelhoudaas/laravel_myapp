@@ -235,6 +235,7 @@ return view('department.edit', compact('departement'));
     public function dashboard_sous()
     {
         $alldepart=Departement::get();
+
         return view('department.add_sous_depart',compact('alldepart'));
     }
 
@@ -285,7 +286,7 @@ return view('department.edit', compact('departement'));
         ]);*/
 
 
-        $departements = Departement::paginate(5);
+        $departements = Departement::paginate(10);
 
         $empdepart=Departement::with('Sous_departement')->get();
 

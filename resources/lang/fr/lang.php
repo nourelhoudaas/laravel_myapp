@@ -68,8 +68,8 @@ return [
     'date_insrt'=>'Date Insertion',
     'discis'=>'ٌRéférence de decision',
     'inst_dicsio'=>'ٌEntrer la décision',
-    'post'=>'Poste',
-    'post_fnc'=>'Fonction',
+    'post'=>'Grade',
+    'post_fnc'=>'Fonction Supèrieur',
     'post_sup'=>'Poste Supèrieur',
     'post_grad'=>'Grade',
     'post_echl'=>'Echellant',
@@ -111,8 +111,10 @@ return [
     'niv_edu'=>'Niveau Educatif',
     'ref_dipl'=>'Référence Du Diplôme',
     'slct_ref_dipl'=>'Entrer la Référrence Du Diplôme',
-    'spec_dipl'=>'Specialité',
-    'slct_spec_dipl'=>'Séléctionner La Specialité',
+    'spec_dipl'=>'Specialite
+',
+    'slct_spec_dipl'=>'Séléctionner La Specialite
+',
     'filier_dipl'=>'Filiere',
     'nom_dipl'=>'Diplôme',
     'slct_nom_dipl'=>'Séléctionner Le Diplôme',
@@ -152,9 +154,9 @@ return [
     'autre'=>'Dossier de Correspondances Et Divers',
 
 
-    'persondata'=>'Données Personnelles',
-    'educatdata'=>'Données Educatives',
-    'admindata'=>'Données Administratives',
+    'persondata'=>'Informations Personnelles',
+    'educatdata'=>'Dipômes et Qualifications',
+    'admindata'=>'Parcours Professionnel et administratif',
     'generat'=>'Décision Finale',
 
     'next'=>'Suivant',
@@ -247,10 +249,21 @@ return [
     'slct_fonc'=>'Séléctionner la fonction',
     'lst_post'=>'liste des Postes',
 
+    'list_pts'=>'List Globale Des Grade',
+    'nom_glb_grad'=>'Nom du Grade',
+    'ajot_pos'=>'Operation du Insertion un Grade',
+    'Post'=>'Nom Du Grade en Latin',
+    'grade'=>'Categorie',
+    'Post_ar'=>'Nom Du Grade en Arabe',
 
-    'Post'=>'Nom Du post',
-    'grade'=>'Code du post',
-     
+
+
+    'sec_'=>'Nom du Corp en Latin',
+    'sec_ar'=>'Nom du Corp en Arabe',
+
+    'filier'=>'Nom Du Filier en Latin',
+    'filier_ar'=>'Nom du Filier en Arab',
+
     'post_sup'=>'Post Superieur',
     'grade_sup'=>'Code Du post Superieur',
 
