@@ -146,11 +146,12 @@ return [
     'PromotionPost'=>'Dossier de Mouvement Dans Les Post sup',
     'Retrait'=>'Dossier Contractuel',
     'TransfIntern'=>'Dossier de Affections Internes',
-    'TransferExter'=>'Dossier de Mutation Externes',
+    'TransferExter'=>'Dossier de Mutation Externes(Mutation)',
     'Dispon'=>'Dossier de Mises En Disponibilites',
     'Attach'=>'Dossier de Detachement',
     'ServNation'=>'Dossier de Service National',
     'Nota'=>'Dossier de Notations Annuelles, Formations et Recyclage',
+    'Movsupfunt'=>'Dossier du Movement dans Les Posts Superieure',
     'autre'=>'Dossier de Correspondances Et Divers',
 
 

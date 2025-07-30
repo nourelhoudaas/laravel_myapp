@@ -162,7 +162,7 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
         }*/
         $folder=['Admin','Niveaux','Congé','Social','Contonsion','Promotion','Maladie','Personnel',
                  'Rect','PromotionGrade','PromotionPost','Retrait','TransfIntern','TransferExter',
-                 'Dispon','Attach','ServNation','Nota','autre'];
+                 'Dispon','Attach','ServNation','Nota','Movsupfunt','autre'];
         for($i=0;$i<count($folder);$i++)
         {
         $subDirectoryPath[$i] = $mainDirectoryPath . '/'.$folder[$i];
