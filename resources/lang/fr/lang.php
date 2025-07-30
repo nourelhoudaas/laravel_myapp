@@ -146,11 +146,12 @@ return [
     'PromotionPost'=>'Dossier de Mouvement Dans Les Post sup',
     'Retrait'=>'Dossier Contractuel',
     'TransfIntern'=>'Dossier de Affections Internes',
-    'TransferExter'=>'Dossier de Mutation Externes',
+    'TransferExter'=>'Dossier de Mutation Externes(Mutation)',
     'Dispon'=>'Dossier de Mises En Disponibilites',
     'Attach'=>'Dossier de Detachement',
     'ServNation'=>'Dossier de Service National',
     'Nota'=>'Dossier de Notations Annuelles, Formations et Recyclage',
+    'Movsupfunt'=>'Dossier du Movement dans Les Posts Superieure',
     'autre'=>'Dossier de Correspondances Et Divers',
 
 
@@ -162,7 +163,7 @@ return [
     'next'=>'Suivant',
     'cancel'=>'Annuller',
     'submit'=>'Enregister',
-
+    
     'num_tel'=>'Numéro Téléphone',
     'langage'=>'francais',
     'logout'=>'Se Déconnecter',
@@ -248,7 +249,7 @@ return [
     'slct_post_sup' =>'Séléctionner le poste supèrieur',
     'slct_fonc'=>'Séléctionner la fonction',
     'lst_post'=>'liste des Postes',
-
+    'nvl_post'=>'Insérer Nouveau Grade',
     'list_pts'=>'List Globale Des Grade',
     'nom_glb_grad'=>'Nom du Grade',
     'ajot_pos'=>'Operation du Insertion un Grade',
@@ -269,5 +270,15 @@ return [
 
     'fonction'=>'Nom du Fonction',
     'grade_font'=>'Code Du fonction',
+    'dashboard_sub_dir'=> 'Tableau de bord Sous-direction',
+    'msg_list_sub_direct'=>'Liste des Sous-directions',
+    'id_sub_depart'=>'ID Sous-direction',
+    'select_department'=>'selectionner une direction',
+    'AddSubDir'=>'Ajouter une sous Direction',
+    'ListSubDir'=>'Liste des Sous-Directions',
+
+   
+    
+   
 ];
 

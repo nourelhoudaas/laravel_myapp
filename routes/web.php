@@ -179,3 +179,20 @@ Route::controller(PostesController::class)->group(function(){
 
 Route::get('/export_dossier/{id}',[UploadFile::class,'export_fichier'])->name('export_file_emp');
 
+
+
+//les sous_directions  
+
+Route::get('/add-sub-depart', [DepartmentController::class, 'createSubDepart'])->name('app_add_sub_depart');
+Route::get('/liste-sub-dir', [DepartmentController::class, 'indexSubDepart'])->name('app_liste_sub_dir');
+Route::post('/add-sub-depart', [DepartmentController::class, 'storeSubDepart'])->name('app_store_sub_depart');
+
+// Modifier une sous-direction
+Route::get('/sub-depart/{id}/edit', [DepartmentController::class, 'edit'])->name('sub_depart.edit');
+// Mettre à jour une sous-direction
+
+Route::put('/sub-depart/{id}', [DepartmentController::class, 'updatesub'])->name('sub_depart.updatesub'); // Mis à jour
+// Supprimer une sous-direction
+Route::delete('/subdepartement/delete/{id}', [DepartmentController::class, 'destroySubDepart'])->name('subdepartement.delete');
+Route::get('/dashboard-sub-depart/{id}', [DepartmentController::class, 'dashboardSubDepart'])->name('app_dashboard_sub_depart');
+

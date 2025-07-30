@@ -26,7 +26,8 @@ class PostesController extends Controller
 
 
         $empdepart=Departement::get();
-        $post = Post::get();
+        $post = Post::join('secteurs','secteurs.id_secteur','=','posts.id_secteur')
+                ->join('filieres','filieres.id_filiere','=','secteurs.id_filiere')->get();
 
 
        // dd($post);
