@@ -34,9 +34,9 @@
         <tbody>
             @foreach ($post as $poste)
                 <tr>
-                    <td>{{ $poste->Nom_post }}</td>
+                    <td>{{ $poste->Nom_post }} / {{$poste->Nom_filiere}}</td>
                     <td>{{ $poste->Grade_post }}</td>
-                    <td>{{ $poste->Nom_post_ar }}</td>
+                    <td>{{ $poste->Nom_post_ar }} / {{$poste->Nom_filiere_ar}}</td>
                     <td>
 
                      <!--  <a href="#"  data-bs-toggle="modal" data-bs-target="#readData"><i class="fa fa-edit"></i></a>-->
