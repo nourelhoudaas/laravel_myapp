@@ -20,7 +20,7 @@ class DepartmentController extends Controller
 {
     public function ListeDepart()
     {
-        $departements = Departement::paginate(5);
+        $departements = Departement::get();
 
        $empdepart=Departement::with('sous_departement')->get();
 
@@ -202,7 +202,14 @@ return view('department.edit', compact('departement'));
 
         ->get();
 
+        $empdepart=Departement::get();
+        $nom_d = Departement::where('id_depart', $dep_id)->value('Nom_depart');
 
+        $gi = $empdep->count();
+        $departements = Departement::get();
+
+        return view('department.add_depart', compact('empdep','empdepart','nom_d','departements'));
+        
     /*$empdep=Employe::with([
         'occupeIdNin.post.contient.sous_departement.departement',
         'occupeIdP.post.contient.sous_departement.departement',
@@ -213,23 +220,18 @@ return view('department.edit', compact('departement'));
 
     })->get();*/
 //dd($empdep);
-        $empdepart=Departement::get();
 
-        /*$empdepart= DB::table('departements')
-        ->get();*/
+/*$empdepart= DB::table('departements')
+->get();*/
 
-        $nom_d = Departement::where('id_depart', $dep_id)->value('Nom_depart');
 
        /* $nom_d = DB::table('departements')
         ->where('id_depart', $dep_id)
         ->value('Nom_depart');*/
 
 //le nbr total des employe pour chaque depart
-        $gi = $empdep->count();
-        $departements = Departement::paginate(5);
 
 
-        return view('department.add_depart', compact('empdep','empdepart','nom_d','departements'));
     }
 
     public function dashboard_sous()
@@ -244,26 +246,55 @@ return view('department.edit', compact('departement'));
 
     }
 
-    public function store(Request $request)
+    // Check if the department name already exists
+    public function checkName(Request $request)
+{
+    $exists = Departement::where('Nom_depart', $request->nom)
+                ->orWhere('Nom_depart_ar', $request->nom)
+                ->exists();
 
-    {
-       $cheeck =Departement::select('id_depart')->where('nom_depart',$request->get('Nom_depart'))->first();
-
-       if(!isset($cheeck))
-       { Departement::create($request->all());}
-        $id=Departement::select('id_depart')->where('nom_depart',$request->get('Nom_depart'))->first();
-
-     //   Sous_departement::create($request->all());
+    return response()->json(['exists' => $exists]);
+}
 
 
-       $sdb= DB::table('sous_departements')->insert(['id_depart'=>$id->id_depart,
-        'Nom_sous_depart'=>$request->get('Nom_sous_depart'),
-        'Descriptif_sous_depart'=>$request->get('Descriptif_sous_depart'),
-        'Nom_sous_depart_ar'=>$request->get('Nom_sous_depart_ar'),
-        'Descriptif_sous_depart_ar'=>$request->get('Descriptif_sous_depart_ar'),
+  public function store(Request $request)
+{
+    // Vérifie si le département existe déjà
+    $existingDepart = Departement::where('Nom_depart', $request->get('Nom_depart'))->first();
 
-       ]);
-       /*([
+    if ($existingDepart) {
+        // Rediriger avec un message d’erreur
+        //dd('Ce département existe déjà.');
+        return redirect()->back()->withInput()->with('error', 'Ce département existe déjà.');
+    }
+
+    // Création du département
+    $departement = Departement::create([
+        'Nom_depart' => $request->get('Nom_depart'),
+        'Descriptif_depart' => $request->get('Descriptif_depart'),
+        'Nom_depart_ar' => $request->get('Nom_depart_ar'),
+        'Descriptif_depart_ar' => $request->get('Descriptif_depart_ar'),
+    ]);
+
+    // Création du sous-département lié
+    DB::table('sous_departements')->insert([
+        'id_depart' => $departement->id_depart,
+        'Nom_sous_depart' => $request->get('Nom_sous_depart'),
+        'Descriptif_sous_depart' => $request->get('Descriptif_sous_depart'),
+        'Nom_sous_depart_ar' => $request->get('Nom_sous_depart_ar'),
+        'Descriptif_sous_depart_ar' => $request->get('Descriptif_sous_depart_ar'),
+    ]);
+
+    // Chargement des données
+    $departements = Departement::get();
+    $empdepart = Departement::with('Sous_departement')->get();
+
+    return view('department.liste', compact('departements', 'empdepart'))
+        ->with('success', 'Direction créée avec succès.');
+
+
+
+    /*([
 
         ]);-*/
      //  $sdb->save();
@@ -286,13 +317,10 @@ return view('department.edit', compact('departement'));
         ]);*/
 
 
-        $departements = Departement::paginate(10);
-
-        $empdepart=Departement::with('Sous_departement')->get();
 
 
 
-        return view('department.liste', compact('departements','empdepart','request'))->with('success', 'Direction créé avec succès.');
+
     }
     public function editer($nom)
     {

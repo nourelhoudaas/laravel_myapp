@@ -68,6 +68,7 @@
                             <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
                         </a>
 
+                        <!-- Liste des direction -->
                         <div class="nav__dropdown-collapse">
                             <div class="nav__dropdown-content">
 
@@ -99,7 +100,6 @@
                             </a>
                         </div>
                     </div>
-
 
                     <div class="nav__dropdown">
                         <a href="#" class="nav__link">

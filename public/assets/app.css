@@ -2069,18 +2069,52 @@ html:lang(ar) .bottom .dataTables_paginate {
 color: var(--first-color);
 
 }
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    background-color: transparent;
+    border: none;
+    color: var(--first-color);
+}
+
+/* Au survol */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: var(--second-color);
+    color: white;
+}
+
+/* Si le bouton est désactivé */
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+    color: gray !important;
+    background-color: transparent !important;
+    cursor: default;
+}
+/* Bouton actif */
+div.dt-container .dt-paging .dt-paging-button.current {
+    background-color: var(--first-color) !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Bouton désactivé */
+div.dt-container .dt-paging .dt-paging-button.disabled {
+    color: gray !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+/*
 .disabled .pagination-fa{
-/*color: cadetblue;*/
+//color: cadetblue;
 color: var(--second-color) !important;
 }
 .paginate_button{
-
 border: none !important;
 }
-.paginate_button:hover{
+ .paginate_button:hover{
 background: none !important;
 border: none !important;
-}
+} */
+
+
 .paginate_button:focus{
 outline: none !important;
 border: none !important;
@@ -2113,7 +2147,7 @@ html:lang(fr) main .recent_order{
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
             margin-right: -5rem;
             width: 1800px;
-            max-width: 1800px;
+            max-width: 1930px;
 }
 
 html:lang(ar) main .recent_order{
@@ -2128,8 +2162,99 @@ html:lang(ar) main .recent_order{
             max-width: 1800px;
 }
 
+/* **********ajout direction sous directon************* */
+html:lang(fr) main .recent_order2{
+    margin-top: 2rem;
+    margin-bottom: 50px;
+            background-color: #fff;
+            padding: 22px 24px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            margin-right: -5rem;
+            width: 1140px;
+            max-width: 1800px;
+            margin-left: 19rem;
+}
 
+html:lang(ar) main .recent_order2{
+    margin-top: 2rem;
+    margin-bottom: 50px;
+            background-color: #fff;
+            padding: 22px 24px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            margin-left: -5rem;
+            width: 1140px;
+            max-width: 1800px;
+            margin-right: 19rem;
+}
 
+  /* Trait décoratif pour la langue française */
+.title2 {
+  position: relative;
+  height: 31px; /* Donne une petite hauteur à la div */
+}
+
+html:lang(fr) .title2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 1085px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, var(--clr-danger), var(--first-color));
+}
+
+html:lang(ar) .title2::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  width: 1085px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, var(--clr-danger), var(--first-color));
+}
+
+html:lang(fr) .btn-group22{
+
+    margin-top: 1rem;
+    margin-left: 44rem;
+    height: 7%;
+    width: 30%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg,var( --clr-danger), var(--first-color));
+}
+
+html:lang(ar) .btn-group22{
+
+    margin-top: 1rem;
+    margin-right: 44rem;
+    height: 7%;
+    width: 30%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg,var( --clr-danger), var(--first-color));
+}
+
+.btn-group22:hover{
+    background: linear-gradient(-135deg, var( --clr-danger), var(--first-color));
+}
+/* ***************************************  */
 main .recent_order table{
     background-color: var(--clr-white);
     width: 1800px;
@@ -2192,4 +2317,10 @@ main .recent_order a:hover{
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Style pour les messages d'erreur */
+.is-invalid {
+    border-color: red;
+    background-color: #ffe6e6;
 }

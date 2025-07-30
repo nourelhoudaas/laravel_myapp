@@ -109,6 +109,7 @@ Route::controller(DepartmentController::class)->group(function(){
     Route::get('/add_sous_depart','dashboard_sous')->name('app_store');
 
     Route::post('/add_depart','store')->name('app_store_depart');
+    Route::post('/departement/check-name','checkName')->name('departement.checkName'); // check if department name already exists
     Route::get('/depcount/{id}','get_emp_dep')->name('app_emp_depart');
     Route::get('/direction/{id}','get_sdic')->name('app_get_sdirection');
 
