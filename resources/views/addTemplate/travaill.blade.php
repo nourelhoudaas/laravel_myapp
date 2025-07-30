@@ -61,7 +61,7 @@
                         <label class="labels">Specialite</label>
                       {{--  <select type="text" class="form-select" placeholder="Specialite" value="" id="Spec">
                         <option value="">{{__('lang.slct_spec_dipl')}}</option>
-                           
+
                             @foreach($dbn as $niv)
                             @if (app()->getLocale() == 'ar')
 
@@ -74,9 +74,9 @@
                             @endif
                             @endforeach
                         </select> --}}
-                        <input type="text" class="form-control" placeholder="Specialite" value="" name="Spec" id="Spec"/> 
+                        <input type="text" class="form-control" placeholder="Specialite" value="" name="Spec" id="Spec"/>
                         <label class="labels" style="direction: rtl">التخصص</label>
-                        <input type="text" class="form-control" placeholder="التخصص" value="" name="Spec_ar" id="Spec_ar"/> 
+                        <input type="text" class="form-control" placeholder="التخصص" value="" name="Spec_ar" id="Spec_ar"/>
                     </div>
                     <div class="col-md-6">
                         <label class="labels">{{__('lang.filier_dipl')}}</label>
@@ -86,12 +86,12 @@
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <label class="labels">Diplome</label>
-                      
+
                        {{-- <select type="text" class="form-select" placeholder="Diplome" value="" id="Dip">
                             <option value="">{{__('lang.slct_nom_dipl')}}</option>
                             @foreach($dbniv as $niv)
                             @if (app()->getLocale() == 'ar')
-                         
+
                                 <option value="{{$niv->Nom_niv_ar}}">{{$niv->Nom_niv_ar}}</option>
                             @else
                                 <option value="{{$niv->Nom_niv}}">{{$niv->Nom_niv}}</option>

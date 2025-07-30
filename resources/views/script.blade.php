@@ -412,3 +412,55 @@
     console.log('lang' + lng);
 
 </script>
+
+<script>
+
+    $(document).ready(function () {
+        if ($.fn.DataTable.isDataTable('#myTable_depart')) {
+            $('#myTable_depart').DataTable().destroy();
+        }
+
+        let lang = "{{ app()->getLocale() }}";
+        let oLanguage = {};
+
+        if (lang === 'ar') {
+            oLanguage = {
+                info: 'عرض الصفحة _PAGE_ من _PAGES_',
+                infoEmpty: 'لا توجد سجلات متاحة',
+                infoFiltered: '',
+                lengthMenu: 'عرض _MENU_ سجلات لكل صفحة',
+                zeroRecords: 'لم يتم العثور على شيء - عذراً',
+                emptyTable: 'لا توجد بيانات في الجدول',
+                search: 'بحث: ',
+                oPaginate: {
+                    sNext: '<span class="pagination-fa"><i class="fa fa-chevron-left"></i></span><span class="pagination-default"></span>',
+                    sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
+                }
+            };
+        } else if (lang === 'fr') {
+            oLanguage = {
+                info: 'Affichage de la page _PAGE_ sur _PAGES_',
+                infoEmpty: 'Aucun enregistrement disponible',
+                infoFiltered: '',
+                lengthMenu: 'Afficher _MENU_ enregistrements par page',
+                zeroRecords: 'Rien trouvé - désolé',
+                search: 'Recherche: ',
+                emptyTable: 'Aucune donnée disponible dans le tableau',
+                oPaginate: {
+                    sNext: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-right" ></i></span>',
+                    sPrevious: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'
+                }
+            };
+        }
+
+
+        $('#myTable_depart').DataTable({
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            pagingType: "simple",
+            language: oLanguage,
+
+        });
+    });
+</script>
+
+

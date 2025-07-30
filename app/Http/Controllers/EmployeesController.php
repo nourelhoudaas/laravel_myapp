@@ -192,7 +192,7 @@ class EmployeesController extends Controller
 
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
-
+/*
         // Définir le nombre d'éléments par page
         $perPage = 5; // Par exemple, 2 éléments par page
         $page = 1; // Page actuelle
@@ -215,8 +215,8 @@ class EmployeesController extends Controller
                 'path' => request()->url(), // URL actuel
                 'query' => request()->query() // Paramètres de la requête
             ]
-        );
-        return view('employees.liste', compact('paginator', 'employe', 'totalEmployes', 'empdepart', 'champs', 'direction'));
+        );*/
+        return view('employees.liste', compact( 'employe', 'totalEmployes', 'empdepart', 'champs', 'direction'));
 
 
     }

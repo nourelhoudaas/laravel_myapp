@@ -9,19 +9,17 @@
 @section('content')
 
     <body>
-        <div id="loadingSpinner" class="spinner-overlay">
+        <!-- <div id="loadingSpinner" class="spinner-overlay">
             <div class="spinner"></div>
-        </div>
-        <div>
-            <!-- start section aside -->
-            @include('./navbar.sidebar')
-            <!-- end section aside -->
+        </div> -->
+        
+          
 
             <!-- main section start -->
             <main>
                 <div class="recent_order">
                     <div class="title">
-                        {{ __('lang.lst_emp') }}
+                       <h1> {{ __('lang.lst_emp') }}</h1>
                     </div>
                     <table class="styled-table" id='myTable'>
 
@@ -171,16 +169,14 @@
                             </>
                     </table>
 
-                    {{-- <div class="pagination">
-                        {{ $paginator->links() }}
-                    </div> --}}
+            
 
                 </div>
 
             </main>
 
 
-        </div>
+        
         <script>
             $(document).ready(function () {
                 var ts = $(".small").text()

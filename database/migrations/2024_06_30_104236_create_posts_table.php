@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->integer('id_post')->primary()->autoIncrement();
             $table->string('Nom_post');
-            $table->integer('Grade_post');
+            $table->string('Grade_post');
             $table->string('Nom_post_ar');
             $table->integer('id_secteur');
             $table->foreign('id_secteur')->references('id_secteur')->on('secteurs');
