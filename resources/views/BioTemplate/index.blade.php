@@ -151,9 +151,9 @@
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} :
                            @if( app()->getLocale() == 'ar')
-                           {{$last->Specialité_ar}}
+                           {{$last->Specialite_ar}}
                            @else
-                           {{$last->Specialité}}
+                           {{$last->Specialite}}
                            @endif
                           </h6>
                           </div>
@@ -210,7 +210,7 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">{{__('lang.num_tel')}}</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" type="number"
+                        <input class="col-sm-9 text-secondary" 
                         id='phone_pn'
                         value='0{{$last->Phone_num}}'
                         style="border: hidden;background-color: transparent;" disabled>
@@ -300,6 +300,7 @@
                     </div-->
                     @php
                     $count=1;
+                    $j=0
                     @endphp
                     @for($i=0;$i<count($detailemp);$i++)
 
@@ -308,30 +309,38 @@
                           <div class="card-body">
 
                             <p>{{__('lang.dept')}} :
+                            
                             @if(app()->getLocale() == 'ar')
-                              {{$postarr[$i]->Nom_sous_depart_ar}}
+                              {{$postarr[$j]->Nom_sous_depart_ar}}
                             @else
-                             {{$postarr[$i]->Nom_sous_depart}}
+                             {{$postarr[$j]->Nom_sous_depart}}
                             @endif
+                           
                             </p>
                            <div class="card-info">
                               <p>
                               {{__('lang.post')}} :
-                              @if(app()->getLocale() == 'ar')
-                              {{$postarr[$i]->Nom_post_ar}}
+                              
+                              @if(app()->getLocale() == 'ar'  )
+                              {{$postarr[$j]->Nom_post_ar}}
                               @else
-                              {{$postarr[$i]->Nom_post}}
+                              {{$postarr[$j]->Nom_post}}
                               @endif
+                             
                               </p>
+                              
                               <p>
-                              {{__('lang.post')}} : {{$postarr[$i]->Grade_post}}
+                              {{__('lang.post')}} : {{$postarr[$j]->Grade_post}}
                               </p>
+                              
                               <p>
                               {{__('lang.note')}} : {{$detailemp[$i]->notation}}
                               </p>
+                              
                               <p>
-                              {{__('lang.post_echl')}}  : {{$postarr[$i]->echellant}}
+                              {{__('lang.post_echl')}}  : {{$postarr[$j]->echellant}}
                               </p>
+                             
                            </div>
                            <p>{{__('lang.obs')}}</p>
                             <div >
@@ -341,12 +350,18 @@
                             <div class="card-info">
                               <p>{{__('lang.start')}} : {{$detailemp[$i]->date_installation}}</p>
                             </div>
-                            <p class="more-info" id='{{$detailemp[$i]->id_travail}} {{$postarr[$i]->id_occup}}'> ...</p>
+                            
+                            <p class="more-info" id='{{$detailemp[$i]->id_travail}} {{$postarr[$j]->id_occup}}'> ...</p>
+                           
                             </div>
                           </div>
                       </div>
                       @php
                         $count++;
+                        if(count($postarr) < $j)
+                        {
+                          $j++;
+                        }
                       @endphp
                       @endfor
 

@@ -7,41 +7,12 @@
 
 
 <body>
-    <?php
-      //connexion à la base de données
-  $con = mysqli_connect("localhost","root","","personnels");
-  if(!$con){
-     echo "Vous n'êtes pas connecté à la base de donnée";
-  }
-    //vérifier que le bouton ajouter a bien été cliqué
-    if(isset($_POST['button'])){
-        //extraction des informations envoyé dans des variables par la methode POST
-        extract($_POST);
-        //verifier que tous les champs ont été remplis
-        if(isset($Nom_post) && isset($Grade_post) &&isset( $Nom_post_ar)){
-             //connexion à la base de donnée
-             include_once "connexion.php";
-             //requête d'ajout
-             $req = mysqli_query($con , "INSERT INTO posts VALUES('$Nom_post', '$Grade_post','$Nom_post_ar')");
-             if($req){//si la requête a été effectuée avec succès , on fait une redirection
-                 header("location: poste.php");
-             }else {//si non
-                 $message = "Poste non ajouté";
-             }
-
-        }else {
-
-            $message = "Veuillez remplir tous les champs !";
-        }
-    }
-
- ?>
  <div>
 
 
     <div class="container2">
         <div class="recent_order">
-            <h1 class="app-page-title">Liste des Postes</h1>
+            <h1 class="app-page-title">{{__('lang.list_pts')}}</h1>
             <hr class="mb-4">
             <div class="row g-4 settings-section">
 <div>
@@ -54,10 +25,10 @@
 
             <tr >
 
-                <th>Nom Poste</th>
-                <th>Grade poste</th>
-                <th>Nom arabe</th>
-                <th>action</th>
+                <th>>{{__('lang.Post')}}</th>
+                <th>{{__('lang.grade')}}</th>
+                <th>{{__('lang.Post_ar')}}</th>
+                <th>{{__('lang.Post_ar')}}</th>
             </tr>
         </thead>
         <tbody>

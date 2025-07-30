@@ -93,10 +93,10 @@
                         @foreach($dbpost as $post)
                         @if (app()->getLocale() == 'ar')
 
-                            <option value='{{$post->id_post}}'>{{$post->Nom_post_ar}}</option>
+                            <option value='{{$post->id_post}}'>{{$post->Nom_post_ar}} / {{$post->Nom_filiere_ar}}</option>
                         @else
 
-                            <option value='{{$post->id_post}}'>{{$post->Nom_post}}</option>
+                            <option value='{{$post->id_post}}'>{{$post->Nom_post}} / {{$post->Nom_filiere}}</option>
 
                         @endif
                         @endforeach

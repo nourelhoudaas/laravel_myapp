@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date_creation');
             $table->string('ref_Dossier')->unique();
             $table->decimal('id_nin', 18, 0)->unique();
-            $table->integer('id_p');
+            $table->bigInteger('id_p');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('ref_Dossier')->references('ref_Dossier')->on('dossiers');

@@ -1125,106 +1125,117 @@ $(document).ready(function () {
     $("#Sexe").focus(function () {
         $(this).removeClass("error-handle");
     });
-    $("#btn-sv").click(function (e) {
-        showLoadingSpinner();
-        e.preventDefault();
-        var sitar;
-        var sitfr;
-        var sexe;
-        selectElement = document.querySelector("#Sexe");
-        output = selectElement.value;
-        switch (true) {
-            case output == "male":
-                sexe = "Homme";
-                break;
-            case output == "femelle":
-                sexe = "Femme";
-                break;
-            default:
-                break;
-        }
-        selectSituat = document.querySelector("#situat");
-        outputS = selectSituat.value;
-        //selectenf = document.querySelector("#nbrenfant");
-        outputF = 0;
-        switch (true) {
-            case outputS == "cel":
-                sitar = "أعزب/عزباء";
-                sitfr = "Célibataire ";
-                break;
-            case outputS == "marie":
-                sitar = "متزوج(ة)";
-                sitfr = "Marié(e)";
-                break;
-            case outputS == "Divor":
-                sitar = "مطلق(ة)";
-                sitfr = "Divorcé(e)";
-                break;
-            case outputS == "veuve":
-                sitar = "ارمل(ة)";
-                sitfr = "Veuf(ve)";
-                break;
-            default:
-                break;
-        }
-        // Assuming you are searching by ID_NIN
-        var formData = {
-            ID_NIN: $("#ID_NIN").val(),
-            ID_SS: parseInt($("#ID_SS").val()),
-            Nom_P: $("#Nom_P").val(),
-            Prenom_O: $("#Prenom_O").val(),
-            Nom_PAR: $("#Nom_PAR").val(),
-            Prenom_AR: $("#Prenom_AR").val(),
-            PHONE_NB: parseInt($("#PHONE_NB").val()),
-            Address: $("#Address").val(),
-            AddressAR: $("#AddressAR").val(),
-            Date_Nais_P: $("#Date_Nais_P").val(),
-            Lieu_N: $("#Lieu_N").val(),
-            Lieu_AR: $("#Lieu_AR").val(),
-            Prenom_Per: $("#Prenom_Per").val(),
-            Prenom_PerAR: $("#Prenom_PerAR").val(),
-            Nom_mere: $("#Nom_mere").val(),
-            Prenom_mere: $("#Prenom_mere").val(),
-            Nom_mereAR: $("#Nom_mereAR").val(),
-            Prenom_mereAR: $("#Prenom_mereAR").val(),
-            date_nais_per: "1990-06-02",
-            date_nais_mer: "1999-06-02",
-            Situatar: sitar,
-            Situat: sitfr,
-            // Situat:outputS,
-            nbrenfant: outputF,
-            Sexe: sexe,
-            EMAIL: $("#EMAIL").val(),
-            _token: $('meta[name="csrf-token"]').attr("content"),
-            _method: "POST",
-        };
+$("#btn-sv").click(function (e) {
+    showLoadingSpinner();
+    e.preventDefault();
 
-        $.ajax({
-            url: "/Employe/add/",
-            type: "POST",
-            data: formData,
-            success: function (response) {
-                var id = $("#ID_NIN").val();
-                if (lng == "ar") {
-                    hideLoadingSpinner();
-                    alert("تمت إضافة البيانات الشخصية");
-                } else {
-                    hideLoadingSpinner();
-                    alert("Données personnelles ajoutées");
-                }
-                window.location.href = "/Employe/IsTravaill/" + id;
-            },
-            error: function (xhr) {
-                console.log(xhr.responseJSON);
-                hideLoadingSpinner();
-                var error = xhr.responseJSON;
+    // Gestion du champ Sexe
+    let sexe = "";
+    const selectElement = document.querySelector("#Sexe");
+    const output = selectElement.value;
+    switch (output) {
+        case "male":
+            sexe = "Homme";
+            break;
+        case "femelle":
+            sexe = "Femme";
+            break;
+        default:
+            sexe = ""; // ✅ Champ facultatif : vide si non sélectionné
+            break;
+    }
+
+    // Gestion du champ Situation familiale
+    let sitar = "";
+    let sitfr = "";
+    const selectSituat = document.querySelector("#situat");
+    const outputS = selectSituat.value;
+    switch (outputS) {
+        case "cel":
+            sitar = "أعزب/عزباء";
+            sitfr = "Célibataire";
+            break;
+        case "marie":
+            sitar = "متزوج(ة)";
+            sitfr = "Marié(e)";
+            break;
+        case "Divor":
+            sitar = "مطلق(ة)";
+            sitfr = "Divorcé(e)";
+            break;
+        case "veuve":
+            sitar = "ارمل(ة)";
+            sitfr = "Veuf(ve)";
+            break;
+        default:
+            sitar = "";
+            sitfr = ""; // ✅ Champ facultatif : vide si non sélectionné
+            break;
+    }
+
+    // Gestion du nombre d'enfants
+    const outputF = $("#nbrenfant").val() ? parseInt($("#nbrenfant").val()) : null; // ✅ Convertit en entier ou null si vide
+
+    // Création de l'objet formData avec gestion des valeurs vides
+    const formData = {
+        ID_NIN: $("#ID_NIN").val() || "", // ✅ Obligatoire, mais on s'assure que ce n'est pas undefined
+        ID_SS: $("#ID_SS").val() ? parseInt($("#ID_SS").val()) : null, // ✅ Facultatif, null si vide
+        Nom_P: $("#Nom_P").val() || "",
+        Prenom_O: $("#Prenom_O").val() || "",
+        Nom_PAR: $("#Nom_PAR").val() || "",
+        Prenom_AR: $("#Prenom_AR").val() || "",
+        PHONE_NB: $("#PHONE_NB").val() || "", // ✅ Pas de parseInt, traité comme chaîne
+        Address: $("#Address").val() || "",
+        AddressAR: $("#AddressAR").val() || "",
+        Date_Nais_P: $("#Date_Nais_P").val() || "",
+        Lieu_N: $("#Lieu_N").val() || "",
+        Lieu_AR: $("#Lieu_AR").val() || "",
+        Prenom_Per: $("#Prenom_Per").val() || "",
+        Prenom_PerAR: $("#Prenom_PerAR").val() || "",
+        Nom_mere: $("#Nom_mere").val() || "",
+        Prenom_mere: $("#Prenom_mere").val() || "",
+        Nom_mereAR: $("#Nom_mereAR").val() || "",
+        Prenom_mereAR: $("#Prenom_mereAR").val() || "",
+        date_nais_per: $("#date_nais_per").val() || "", // ✅ Rendu facultatif
+        date_nais_mer: $("#date_nais_mer").val() || "", // ✅ Rendu facultatif
+        Situatar: sitar,
+        Situat: sitfr,
+        nbrenfant: outputF,
+        Sexe: sexe,
+        EMAIL: $("#EMAIL").val() || "",
+        _token: $('meta[name="csrf-token"]').attr("content"),
+        _method: "POST",
+    };
+
+    $.ajax({
+        url: "/Employe/add/",
+        type: "POST",
+        data: formData,
+        success: function (response) {
+            const id = $("#ID_NIN").val();
+            hideLoadingSpinner();
+            if (lng == "ar") {
+                alert("تمت إضافة البيانات الشخصية");
+            } else {
+                alert("Données personnelles ajoutées");
+            }
+            window.location.href = "/Employe/IsTravaill/" + id;
+        },
+        error: function (xhr) {
+            console.error("Erreur AJAX:", xhr.responseJSON);
+            hideLoadingSpinner();
+            const error = xhr.responseJSON;
+            if (error && error.errors) {
                 $.each(error.errors, function (key, val) {
-                    console.log("key" + key);
-                    $("#" + key + "").addClass("error-handle");
+                    console.log("Erreur sur le champ " + key + ": " + val);
+                    $("#" + key).addClass("error-handle");
                 });
-            },
-        });
+            } else {
+                alert("Une erreur s'est produite lors de l'enregistrement.");
+            }
+        },
     });
+});
 
     //ADMIN
     $(document).ready(function () {
@@ -1340,8 +1351,10 @@ $(document).ready(function () {
             ID_P: idp,
             DipRef: $("#DipRef").val(),
             Spec: $("#Spec").val(),
+            Spec_ar: $("#Spec_ar").val(),
             filr: $("#Filr").val(),
             Dip: $("#Dip").val(),
+            Dip_ar: $("#Dip_ar").val(),
             DipDate: $("#DipDate").val(),
             _token: $('meta[name="csrf-token"]').attr("content"),
             _method: "POST",
@@ -2531,7 +2544,7 @@ $(document).ready(function () {
                 Prenom_OAR: $("#Prenom_OAR").val(),
                 Nom_PAR: $("#Nom_PAR").val(),
                 Email: $("#Email").val(),
-                phone_pn: parseInt($("#phone_pn").val()),
+                phone_pn: $("#phone_pn").val(),
                 dateN: $("#dateN").val(),
                 adr: $("#adr").val(),
                 adrAR: $("#adrAR").val(),

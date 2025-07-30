@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('ref_cong');
             $table->decimal('id_nin', 18, 0)->unique();
             $table->integer('id_sous_depart');
-            $table->integer('id_p');
+            $table->bigInteger('id_p');
             $table->integer('id_fichier')->default(1);
             $table->string('ref_cng')->nullable();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
