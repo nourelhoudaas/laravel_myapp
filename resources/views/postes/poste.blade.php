@@ -25,7 +25,7 @@
 
             <tr >
 
-                <th>>{{__('lang.Post')}}</th>
+                <th>{{__('lang.Post')}}</th>
                 <th>{{__('lang.filier_dipl')}}</th>
                 <th>{{__('lang.grade')}}</th>
                 <th>{{__('lang.Post_ar')}}</th>
