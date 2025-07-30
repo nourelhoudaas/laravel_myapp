@@ -348,7 +348,7 @@ public function existToAddApp(Request $Request)
             if ($request->get('pv_postsup') > 0) {
                 $id_postsup = $request->get('pv_postsup');
             }
-
+            $id__p=intval($request->get('post'));
             Occupe::create([
                 'date_recrutement' => $request->get('RecDate'),
                 'echellant'        => 0,
@@ -356,11 +356,14 @@ public function existToAddApp(Request $Request)
                 'id_p'             => $request->get('ID_P'),
                 'ref_PV'           => $pv,
                 'ref_base'         => $request->get('PV_grad'),
-                'id_post'          => $request->get('post'),
+                'id_post'          => $id__p,
                 'id_postsup'       => $id_postsup,
                 'id_fonction'      => $request->get('pv_func'),
 
             ]);
+            
+            //$ocp-save();
+            //dd($ocp);
             $travaill->save();
             $this->logService->logAction(
                 Auth::user()->id,
