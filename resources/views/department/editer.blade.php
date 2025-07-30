@@ -46,18 +46,6 @@
                             </div>
 
 
-
-                            <div class="container">
-                                <div class="wrap">
-                                    <h4 class= >Modifier une sous direction</h4>
-                                    <a href="#" class="add">&plus;</a>
-                                </div>
-                                <div class="inp-group"></div>
-
-
-                            </div>
-
-
                             <button type="submit" class="btn btn-primary">Sauvegarder</button>
                         </form>
                     </div><!--//app-card-body-->

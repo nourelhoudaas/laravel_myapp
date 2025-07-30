@@ -1273,7 +1273,7 @@ $("#btn-sv").click(function (e) {
                     ID_P: idp,
                     Dic: $("#Dic").val(),
                     SDic: parseInt($("#SDic").val()),
-                    post: $("#post").val(),
+                    post: parseInt($("#post").val()),
                     PVDate: $("#PVDate").val(),
                     RecDate: $("#RecDate").val(),
                     PV_grad: $("#pv_inst").text(),

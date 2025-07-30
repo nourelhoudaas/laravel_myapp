@@ -532,7 +532,93 @@ public function delete($id_depart)
 
         return view('department.listcontient', compact('paginator','empdep','empdepart','totalEmpDep','nom_d','champs','direction','encadrement','maitrise','executif'));
     }
+// Méthode pour afficher le formulaire d'ajout d'une sous-direction
+    public function createSubDepart()
+    {
+        $departments = Departement::all();
+        $empdepart = Departement::all();
+        return view('sub_departments.create', compact('departments', 'empdepart'));
+    }
 
+   public function indexSubDepart()
+{
+    $subDepartments = Sous_departement::with('departement')->paginate(10); // <= Pagination activée
+    $empdepart = Departement::all();
+    return view('sub_departments.index', compact('subDepartments', 'empdepart'));
+}
+
+    public function storeSubDepart(Request $request)
+    {
+        $request->validate([
+            'id_depart' => 'required|exists:departements,id_depart',
+            'Nom_sous_depart' => 'required|string|max:255',
+            'Descriptif_sous_depart' => 'nullable|string',
+            'Nom_sous_depart_ar' => 'required|string|max:255',
+            'Descriptif_sous_depart_ar' => 'nullable|string',
+        ]);
+
+        $subDepartment = new Sous_departement();
+        $subDepartment->id_depart = $request->id_depart;
+        $subDepartment->Nom_sous_depart = $request->Nom_sous_depart;
+        $subDepartment->Descriptif_sous_depart = $request->Descriptif_sous_depart;
+        $subDepartment->Nom_sous_depart_ar = $request->Nom_sous_depart_ar;
+        $subDepartment->Descriptif_sous_depart_ar = $request->Descriptif_sous_depart_ar;
+        $subDepartment->save();
+
+        //$subDepartment->load('departments');
+
+        return redirect()->route('app_liste_sub_dir')
+            ->with('success', 'Sous-direction ajoutée avec succès.')
+            ->with('subDepartment', $subDepartment);
+    }
+public function edit($id)
+    {
+        $subDepartment = Sous_departement::with('departement')->findOrFail($id);
+        $departments = Departement::all();
+        $empdepart = Departement::all(); // Ajoute $empdepart
+        return view('sub_departments.edit', compact('subDepartment', 'departments', 'empdepart')); // Ajoute empdepart dans compact
+    }
+
+    public function updatesub(Request $request, $id)
+    {
+        $subDepartment = Sous_departement::findOrFail($id);
+
+        $request->validate([
+            'id_depart' => 'required|exists:departements,id_depart',
+            'Nom_sous_depart' => 'required|string|max:255',
+            'Descriptif_sous_depart' => 'nullable|string',
+            'Nom_sous_depart_ar' => 'required|string|max:255',
+            'Descriptif_sous_depart_ar' => 'nullable|string',
+        ]);
+
+        $subDepartment->update([
+            'id_depart' => $request->id_depart,
+            'Nom_sous_depart' => $request->Nom_sous_depart,
+            'Descriptif_sous_depart' => $request->Descriptif_sous_depart,
+            'Nom_sous_depart_ar' => $request->Nom_sous_depart_ar,
+            'Descriptif_sous_depart_ar' => $request->Descriptif_sous_depart_ar,
+        ]);
+
+        $subDepartment->load('departement');
+
+        return redirect()->route('app_liste_sub_dir')
+            ->with('success', 'Sous-direction mise à jour avec succès.');
+    }
+
+    public function destroySubDepart($id)
+    {
+        $subDepartment = Sous_departement::findOrFail($id);
+        $subDepartment->delete();
+        return redirect()->route('app_liste_sub_dir')
+            ->with('success', 'Sous-direction supprimée avec succès.');
+    }
+
+    public function dashboardSubDepart($id)
+    {
+        $subDepartment = Sous_departement::with('department')->findOrFail($id);
+        $empdepart = Departement::all();
+        return view('sub_departments.dashboard', compact('subDepartment', 'empdepart'));
+    }
 
 
 }

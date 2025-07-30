@@ -22,7 +22,7 @@ return new class extends Migration
 
         DB::table('posts')->insert([
             [
-                'id_post' => 2,
+                'id_post' => 1,
                 'Nom_post' => 'ingénieur en informatique',
                 'Grade_post' => 1,
                 'Nom_post_ar' => 'مهندس دولة في الاعلام الالي',
@@ -31,7 +31,7 @@ return new class extends Migration
 
             ],
             [
-                'id_post' => 20,
+                'id_post' => 2,
                 'Nom_post' => 'technicien supérieur en info',
                 'Grade_post' => 2,
                 'Nom_post_ar' => 'تقني في الاعلام الالي',

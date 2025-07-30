@@ -100,6 +100,26 @@
                             </a>
                         </div>
                     </div>
+                  <div class="nav__dropdown">
+                        <a href="#" class="nav__link">
+                            <i class='bx bxs-layer nav__icon'></i>
+                            <span class="nav__name">{{ __('lang.sous_dept') }}</span>
+                            <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                        </a>
+                        <div class="nav__dropdown-collapse">
+                            <div class="nav__dropdown-content">
+                                <a href="{{ route('app_add_sub_depart') }}" class="nav__link">
+                                    <i class='bx bx-list-plus nav__icon'></i>
+                                    <span class="nav__name">{{ __('lang.AddSubDir') }}</span>
+                                </a>
+                                <a href="{{ route('app_liste_sub_dir') }}" class="nav__link">
+                                    <i class='bx bx-list-ul nav__icon'></i>
+                                    <span class="nav__name">{{ __('lang.ListSubDir') }}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
 
                     <div class="nav__dropdown">
                         <a href="#" class="nav__link">
