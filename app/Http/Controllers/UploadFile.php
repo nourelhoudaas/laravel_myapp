@@ -160,9 +160,9 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
         {
             return view(404,'Abort');
         }*/
-        $folder=['Admin','Niveaux','Congé','Social','Contonsion','Promotion','Maladie','Personnel',
+        $folder=['Admin','Niveaux','Congé','Contonsion','Promotion',
                  'Rect','PromotionGrade','PromotionPost','Retrait','TransfIntern','TransferExter',
-                 'Dispon','Attach','ServNation','Nota','Movsupfunt','autre'];
+                 'Dispon','Nota','Movsupfunt','autre'];
         for($i=0;$i<count($folder);$i++)
         {
         $subDirectoryPath[$i] = $mainDirectoryPath . '/'.$folder[$i];

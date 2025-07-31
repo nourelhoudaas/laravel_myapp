@@ -115,14 +115,19 @@ function confirmAction() {
     // Logic for confirming the action
 
     var pv = $("#pv_num").val();
+    var cf_visa=$('#num_cf').val();
+    var cf_visa=$('#date_cf').val();
     if ($("#pv_num").hasClass("pv_funct")) {
         $("#pv_func").text(pv);
+        
     }
     if ($("#pv_num").hasClass("pv_postup")) {
         $("#pv_postsup").text(pv);
     }
     if ($("#pv_num").hasClass("pv_rect")) {
         $("#pv_inst").text(pv);
+        $("#csf_visa").text(cf_visa)
+        $("#csf_visa").text(cf_visa)
     }
     if ($("#pv_num").hasClass("pv_cng")) {
         $("#pv_cng").text(pv);

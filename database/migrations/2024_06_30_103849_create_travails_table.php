@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('id_bureau')->references('id_bureau')->on('bureaus');
-            $table->timestamps();
+            //$table->timestamps();
         });
 
         DB::table('travails')->insert([

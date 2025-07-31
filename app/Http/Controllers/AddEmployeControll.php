@@ -341,6 +341,8 @@ public function existToAddApp(Request $Request)
             $pvc = $request->get('pv_postsup');
             $pvi = 'new';
             $pv  = $request->get('PV_grad');
+            $cfvisa=$request->get('csf_visa');
+            $cfdate=$request->get('csf_date');
             if (isset($pvc)) {
                 $pvi = $pvc;
             } else {if (isset($pvf)) {
@@ -348,6 +350,11 @@ public function existToAddApp(Request $Request)
             }}
             if ($request->get('pv_postsup') > 0) {
                 $id_postsup = $request->get('pv_postsup');
+            }
+            if(isset($cfvisa) && isset($cfdate))
+            {
+              $cfvisa=" null";
+              $cfdate=$request->get('RecDate');
             }
             //dd($id_postsup,$request->get('pv_func'));
             $postschekc=Post::where('id_post',$request->get('post'))->first();
@@ -362,8 +369,11 @@ public function existToAddApp(Request $Request)
                 'id_post'          => $postschekc->id_post,
                 'id_postsup'       => $id_postsup,
                 'id_fonction'      => $request->get('pv_func'),
+                'visa_CF'          => $cfvisa,
+                'date_CF'          => $cfdate,
 
             ]);
+           // dd( $ops);
            if( $ops->save())
            {
            $cont=new Contient([
