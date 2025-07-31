@@ -234,12 +234,7 @@ return view('department.edit', compact('departement'));
 
     }
 
-    public function dashboard_sous()
-    {
-        $alldepart=Departement::get();
 
-        return view('department.add_sous_depart',compact('alldepart'));
-    }
 
     public function store_sous(Request $request)
     {
@@ -539,7 +534,12 @@ public function delete($id_depart)
         $empdepart = Departement::all();
         return view('sub_departments.create', compact('departments', 'empdepart'));
     }
+  /* public function dashboard_sous()
+    {
+        $alldepart=Departement::get();
 
+        return view('department.add_sous_depart',compact('alldepart'));
+    }*/
    public function indexSubDepart()
 {
     $subDepartments = Sous_departement::with('departement')->paginate(10); // <= Pagination activée
