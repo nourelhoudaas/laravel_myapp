@@ -3,21 +3,27 @@
 @section('title', 'Ajouter une Sous-direction')
 
 <body>
-    <!-- start section aside -->
-    @include('./navbar.sidebar')
-    <!-- end section aside -->
+<main>
+            <div class="recent_order2">
+                <div class="title">
+                    <h1> {{ __('lang.AddSubDir') }}</h1>
+                </div>
 
-    <h1 class="app-page-title">{{ __('lang.AddSubDir') }}</h1>
-    <hr class="mb-4">
-    <div class="row g-4 settings-section">
-        <div class="col-12 col-md-4">
-          <!--  <h3 class="section-title">{{ __('lang.ajout_direc_ssdirec') }}</h3>-->
-           <!-- <div class="section-intro">{{ __('lang.msg_ajout') }}</div>-->
-        </div>
-        <div class="col-12 col-md-8">
-            <div class="app-card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-                <div class="section-title"><h4>{{ __('lang.msg_ajout_ssdirec') }}</h4></div>
-                <div class="app-card-body">
+
+                {{-- Affichage des messages flash --}}
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+                @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
                     <form action="{{ route('app_store_sub_depart') }}" method="POST">
                         @csrf
 
@@ -37,16 +43,16 @@
                             </div>
                         @endif
 
-                      <!-- <div class="text-bg-light p-3">
-                            <label for="id_sous_depart" class="fw-bold">{{ __('lang.IdSubDepart') }} <span class="text-danger">*</span></label>
+                      <!-- <div class=" p-3">
+                            <label for="id_sous_depart" class="fw-bold">{{ __('lang.IdSubDepart') }} </label>
                             <input type="text" class="form-control @error('id_sous_depart') is-invalid @enderror" id="id_sous_depart" name="id_sous_depart" value="{{ old('id_sous_depart') }}" required>
                             @error('id_sous_depart')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>-->
 
-                        <div class="text-bg-light p-3">
-                            <label for="id_depart" class="fw-bold">{{ __('lang.nom_direc') }} <span class="text-danger">*</span></label>
+                        <div class=" p-3">
+                            <label for="id_depart" class="fw-bold">{{ __('lang.nom_direc') }} </label>
                             <select class="form-control @error('id_depart') is-invalid @enderror" id="id_depart" name="id_depart" required>
                                 <option value="">{{ __('lang.select_department') }}</option>
                                 @foreach ($departments as $department)
@@ -64,15 +70,15 @@
                             @enderror
                         </div>
 
-                        <div class="text-bg-light p-3">
-                            <label for="Nom_sous_depart" class="fw-bold">{{ __('lang.nom_ss_direc') }} <span class="text-danger">*</span></label>
+                        <div class=" p-3">
+                            <label for="Nom_sous_depart" class="fw-bold">{{ __('lang.nom_ss_direc') }} </label>
                             <input type="text" class="form-control @error('Nom_sous_depart') is-invalid @enderror" id="Nom_sous_depart" name="Nom_sous_depart" value="{{ old('Nom_sous_depart') }}" required>
                             @error('Nom_sous_depart')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="text-bg-light p-3">
+                        <div class=" p-3">
                             <label for="Descriptif_sous_depart" class="fw-bold">{{ __('lang.discr_ss_direc') }}</label>
                             <input type="text" class="form-control @error('Descriptif_sous_depart') is-invalid @enderror" id="Descriptif_sous_depart" name="Descriptif_sous_depart" value="{{ old('Descriptif_sous_depart') }}">
                             @error('Descriptif_sous_depart')
@@ -80,15 +86,15 @@
                             @enderror
                         </div>
 
-                        <div class="text-bg-light p-3">
-                            <label for="Nom_sous_depart_ar" class="fw-bold">{{ __('lang.nom_ss_direc_ar') }} <span class="text-danger">*</span></label>
+                        <div class=" p-3">
+                            <label for="Nom_sous_depart_ar" class="fw-bold">{{ __('lang.nom_ss_direc_ar') }} </label>
                             <input type="text" class="form-control @error('Nom_sous_depart_ar') is-invalid @enderror" id="Nom_sous_depart_ar" name="Nom_sous_depart_ar" value="{{ old('Nom_sous_depart_ar') }}" required>
                             @error('Nom_sous_depart_ar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="text-bg-light p-3">
+                        <div class=" p-3">
                             <label for="Descriptif_sous_depart_ar" class="fw-bold">{{ __('lang.discr_ss_direc_ar') }}</label>
                             <input type="text" class="form-control @error('Descriptif_sous_depart_ar') is-invalid @enderror" id="Descriptif_sous_depart_ar" name="Descriptif_sous_depart_ar" value="{{ old('Descriptif_sous_depart_ar') }}">
                             @error('Descriptif_sous_depart_ar')
@@ -96,10 +102,9 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">{{ __('lang.btn.enregistrer') }}</button>
-                        <a href="{{ route('app_liste_sub_dir') }}" class="btn btn-secondary">{{ __('lang.cancel') }}</a>
+                        <button type="submit" class="btn btn-primary btn-group22">{{ __('lang.btn.enregistrer') }}</button>
+                        <a href="{{ route('app_liste_sub_dir') }}" class="btn btn-secondary btn-group222" >{{ __('lang.cancel') }}</a>
                     </form>
-                </div><!--//app-card-body-->
-            </div><!--//app-card-->
-        </div>
+
     </div><!--//row-->
+</main>
