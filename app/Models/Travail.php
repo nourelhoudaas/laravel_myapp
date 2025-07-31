@@ -19,7 +19,7 @@ class Travail extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'id_travail', 'date_chang', 'date_installation', 'notation', 'id_nin', 'id_sous_depart', 'id_p', 'id_bureau'
+        'id_travail', 'date_chang', 'date_installation', 'notation', 'id_nin', 'id_sous_depart', 'id_p', 'id_bureau', 'created_at', 'updated_at'
     ];
 
     public function employe()
