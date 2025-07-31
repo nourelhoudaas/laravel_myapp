@@ -219,7 +219,7 @@ return [
     'postsup'=>'Poste Supèrieur',
 
     'ats'=>'Attestation Du Traivlle',
-
+    'ter_insta'=>'',
    'fct'=>'Fonction ',
    'refinst'=>'Date et numéro du visa financier',
 
