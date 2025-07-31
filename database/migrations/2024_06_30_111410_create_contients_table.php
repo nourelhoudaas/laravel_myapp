@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('id_fonction')->nullable();
             $table->foreign('id_postsup')->references('id_postsup')->on('post_sups');
             $table->foreign('id_fonction')->references('id_fonction')->on('fonctions');
-            $table->foreign('id_post')->references('id_post')->on('posts');
+            //$table->foreign('id_post')->references('id_post')->on('posts');
             $table->integer('id_sous_depart');
             $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
         });
