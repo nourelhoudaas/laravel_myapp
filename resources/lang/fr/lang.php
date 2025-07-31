@@ -21,6 +21,7 @@ return [
     'NIN'=>'Numéro d\'Identification National',
     'NSS'=>'Numéro du Sécurité Sociale',
     'ID_p'=>'Numéro de travail',
+    'num_p'=>'Numéro',
     'slct_num_tel'=>"Saisir le Numéro Téléphone de l'employé",
     'ctrl_abs'=>'Contrôle des absences',
     'ctrl_cng'=>'Gestion des congés des employés',
