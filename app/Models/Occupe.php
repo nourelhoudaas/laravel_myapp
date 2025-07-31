@@ -15,11 +15,11 @@ class Occupe extends Model
     protected $primaryKey = 'id_occup';
     public $incrementing = true;
     protected $keyType = 'integer';
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'id_occup', 'date_recrutement', 'echellant', 'id_post', 'id_nin', 'id_p', 'ref_PV', 'ref_Decision',
-        'ref_base', 'id_postsup', 'id_fonction', 'date_CF', 'visa_CF', 'type_CTR','created_at', 'updated_at'
+        'ref_base', 'id_postsup', 'id_fonction', 'date_CF', 'visa_CF', 'type_CTR',
     ];
 
     public function employe()
