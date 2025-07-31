@@ -27,7 +27,7 @@
 
                             <tr>
                                 <th>
-                                    {{ __('lang.ID_p') }}
+                                    {{ __('lang.num_p') }}
                                 </th>
 
                                 <th>
@@ -42,12 +42,12 @@
                                 <th>
                                     {{ __('lang.date_rec') }}
                                 </th>
-                             {{--   <th>
+                                {{--<th>
                                     {{ __('lang.date_CF') }}
                                 </th>
                                 <th>
                                     {{ __('lang.visa_CF') }}
-                                </th> --}}
+                                </th>--}}
                                 <th>
                                     {{ __('lang.post') }}
                                 </th>
@@ -126,7 +126,7 @@
                                                         </td>
                                                         <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
                                                         <td>{{ $occupe->date_recrutement ?? '-' }}</td>
-                                                      {{--  <td>{{ $occupe->date_CF ?? '-' }}</td>
+                                                       {{-- <td>{{ $occupe->date_CF ?? '-' }}</td>
                                                         <td>{{ $occupe->visa_CF ?? '-' }}</td>--}}
                                                         <td>
                                                             @if ($locale == 'fr')
