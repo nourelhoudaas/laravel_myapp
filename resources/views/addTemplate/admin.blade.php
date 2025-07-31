@@ -103,7 +103,7 @@
                         </select>
                         <div >
                             <label class='labels'>{{__('lang.PV_inst')}}</label>
-                            <p id='pv_inst'></p>
+                            <p id='pv_inst'></p><p id="csf_visa"></p><p>--:</p><p id="csf_date"></p>
                         </div>
                     </div >
                     <div  style="
@@ -171,6 +171,10 @@
         <label>Confirm Action</label>
         <br>
         <input type="text" placeholder="{{__('lang.discis')}}" id='pv_num'></input>
+        <!--div>
+        <input type="text" placeholder="{{__('lang.discis')}}" id='num_cf'></input>
+        <input type="date" placeholder="{{__('lang.discis')}}" id='date_cf'></input>
+        </div-->
         <hr>
         <div class="dialog-buttons">
             <button onclick="confirmAction()">{{__('lang.btn.enregistrer')}}</button>
