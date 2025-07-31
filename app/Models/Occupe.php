@@ -19,7 +19,7 @@ class Occupe extends Model
 
     protected $fillable = [
         'id_occup', 'date_recrutement', 'echellant', 'id_post', 'id_nin', 'id_p', 'ref_PV', 'ref_Decision',
-        'ref_base', 'id_postsup', 'id_fonction', 'date_CF', 'visa_CF', 'type_CTR'
+        'ref_base', 'id_postsup', 'id_fonction', 'date_CF', 'visa_CF', 'type_CTR','created_at', 'updated_at'
     ];
 
     public function employe()
