@@ -29,14 +29,13 @@ return new class extends Migration
             $table->string('id_fonction')->nullable();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->foreign('id_p')->references('id_p')->on('employes');
-            $table->foreign('id_post')->references('id_post')->on('posts');
+            //$table->foreign('id_post')->references('id_post')->on('posts');
             $table->foreign('id_postsup')->references('id_postsup')->on('post_sups');
             $table->foreign('id_fonction')->references('id_fonction')->on('fonctions');
             $table->timestamps();
         });
         DB::table('occupes')->insert([
             [
-<<<<<<< HEAD
                 'id_occup'         => 4,
                 'date_recrutement' => '2024-07-03',
                 'echellant'        => 13,
@@ -51,22 +50,6 @@ return new class extends Migration
             ],
             [
                 'id_occup'         => 10,
-=======
-                'id_occup' => 1,
-                'date_recrutement' => '2024-07-03',
-                'echellant' => 13,
-                'id_nin' => 254896989,
-                'id_p' => 256,
-                'id_post' => 1,
-                'visa_CF'=>'1N',
-                'type_CTR' => 'CDI',
-                'date_CF'=> '2024-07-03',
-                'ref_PV'=>'1N',
-                'ref_base'=>'1N'
-            ],
-            [
-                'id_occup' => 2,
->>>>>>> 35bd43192fb4db4bced46617af2bb2fef10cb233
                 'date_recrutement' => '2024-04-14',
                 'echellant'        => 13,
                 'id_nin'           => 1254953,
