@@ -316,7 +316,7 @@ public function existToAddApp(Request $Request)
             'ID_NIN'      => 'required|integer',
             'ID_P'        => 'required|integer|',
             'Dic'         => 'required|integer|',
-            'SDic'        => 'required|integer|',
+            'SDic'        => 'integer',
             'post'        => 'required|integer|',
             'PVDate'      => 'required|date',
             'PV_grad'     => 'required|string',
