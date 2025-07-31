@@ -103,7 +103,7 @@
                         </select>
                         <div >
                             <label class='labels'>{{__('lang.PV_inst')}}</label>
-                            <p id='pv_inst'></p><p id="csf_visa"></p><p>--:</p><p id="csf_date"></p>
+                            <p id='pv_inst'></p><!--<p id="csf_visa"></p><p>--:</p><p id="csf_date"></p> -->
                         </div>
                     </div >
                     <div  style="
