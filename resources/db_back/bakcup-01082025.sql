@@ -483,7 +483,18 @@ CREATE TABLE `fonctions` (
 
 LOCK TABLES `fonctions` WRITE;
 /*!40000 ALTER TABLE `fonctions` DISABLE KEYS */;
-INSERT INTO `fonctions` VALUES ('3bm','Directeur','مدير',1628),('b3m-1','Sous-directeur','مدير فرعي',1528);
+INSERT INTO `fonctions` (`id_fonction`, `Nom_fonction`, `Nom_fonction_ar`, `Moyenne`) VALUES
+('0h-cbt', 'Chef Cabinet', 'رئيس الديوان ', 1900),
+('1h-sg', 'Secrétaire général', 'أمين عام', 1900),
+('2h-insp', 'Inspecteur général', 'مفتش عام ', 1900),
+('3bm', 'Directeur', 'مدير', 1628),
+('b3m-1', 'Sous-directeur', 'مدير فرعي', 1528),
+('ces-07', 'Chargé d\'études et de synthèses', 'مكلف بالدراسات والتلخيص', 1800),
+('insp-b1', 'Inspecteur', 'مفتش', 1800),
+('res-b12', 'Chargé d\'études et de synthèses, chef du cabinet ministériel de sécurité intérieure de l\'établissement', 'مكلف بالدراسات والتلخيص، مسؤول المكتب الوزاري للأمن الداخلي في المؤسسة ', 1800),
+('res-b14', 'Responsable des études au Cabinet ministériel de la sécurité intérieure de la Fondation', 'رئيس دراسات بالمكتب الوزاري للأمن الداخلي في المؤسسة ', 1800),
+('res-b15', 'Responsable des études au Cabinet ministériel de la sécurité intérieure de la Fondation', 'رئيس دراسات بالمكتب الوزاري للأمن الداخلي في المؤسسة ', 1800),
+('res1-B2', 'Directeur des études', 'مدير دراسات', 1800);
 /*!40000 ALTER TABLE `fonctions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -794,7 +805,21 @@ CREATE TABLE `post_sups` (
 
 LOCK TABLES `post_sups` WRITE;
 /*!40000 ALTER TABLE `post_sups` DISABLE KEYS */;
-INSERT INTO `post_sups` VALUES (1,'chargé Reseaux','مكلف بالشبكات','1',140),(2,'chargé Systeme information','مكلف بانظمة المعلوماتية','3',214);
+INSERT INTO `post_sups` (`id_postsup`, `Nom_postsup`, `Nom_postsup_ar`, `Niveau_sup`, `point_indsup`) VALUES
+(1, 'chargé Reseaux', 'مسؤول الشبكات', '8', 250),
+(3, 'Chef du bureau', 'رئيس مكتب ', '8', 250),
+(4, 'Chargé d\'études et de projet à l\'administration centrale', 'مكلف بالدراسات وبمشروع في الإدارة المركزية ', '8', 250),
+(5, 'Attaché au Cabinet dans l\'Administration centrale', 'ملحق بالديوان في الإدارة المركزية', '8', 250),
+(6, 'Assistant au Cabinet', 'مساعد بالديوان ', '4', 125),
+(7, 'Agent d\'accueil et d\'orientation', 'مكلف بالإستقبال والتوجيه', '4', 125),
+(8, 'Responsable des programmes de traduction et d\'interprétation', 'مكلف ببرامج الترجمة والترجمة الفورية ', '8', 250),
+(9, 'Chargé des programmes statistiques', 'المكلف بالبرامج الإحصائية ', '8', 250),
+(10, 'Chargé d\'études', 'مكلف بالدراسات ', '8', 250),
+(11, 'Chef de parc', 'رئيس حظيرة', '3', 100),
+(12, 'Chef díatelier', 'رئيس ورشة ', '3', 100),
+(13, 'Chef magasinier', 'رئيس مخزن ', '3', 100),
+(14, 'Responsable du service intèrieur', 'مسؤول المصلحة الداخلية ', '3', 100);
+
 /*!40000 ALTER TABLE `post_sups` ENABLE KEYS */;
 UNLOCK TABLES;
 
