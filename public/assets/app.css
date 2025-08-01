@@ -2364,3 +2364,8 @@ main .recent_order a:hover{
     border-color: red;
     background-color: #ffe6e6;
 }
+
+.hidden-select
+{
+    display: none;
+}

@@ -118,11 +118,10 @@ function confirmAction() {
     var cf_visa=$('#num_cf').val();
     var cf_visa=$('#date_cf').val();
     if ($("#pv_num").hasClass("pv_funct")) {
-        $("#pv_func").text(pv);
-        
+        $("#id_fonction").text(pv);
     }
     if ($("#pv_num").hasClass("pv_postup")) {
-        $("#pv_postsup").text(pv);
+        $("#id_postsup").text(pv);
     }
     if ($("#pv_num").hasClass("pv_rect")) {
         $("#pv_inst").text(pv);
@@ -159,6 +158,18 @@ function cancelDialog() {
     $("#pv_num").removeClass("pv_postup");
     $("#pv_num").removeClass("pv_funct");
     $("#pv_num").removeClass("pv_rect");
+    if($('#funtsup').hasClass('hidden-select'))
+    {
+        $('#postsup').addClass('hidden-select')
+       
+    }
+    if($('#postsup').hasClass('hidden-select'))
+    {
+        $('#funtsup').addClass('hidden-select')
+        
+    }
+    $("#sel_fonc").prop("checked", false);
+    $("#sel_posup").prop("checked", false);
     document.getElementById("myDialog").close();
 }
 $(document).ready(function () {
@@ -175,13 +186,13 @@ $(document).ready(function () {
     $("#sel_fonc").change(function () {
         if ($(this).is(":checked")) {
             $("#sel_posup").prop("checked", false);
-            $("#postsup-opt").empty();
+           // $("#postsup-opt").empty();
         }
     });
     $("#sel_posup").change(function () {
         if ($(this).is(":checked")) {
             $("#sel_fonc").prop("checked", false);
-            $("#fonc-opt").empty();
+           // $("#fonc-opt").empty();
         }
     });
 });
@@ -1283,7 +1294,8 @@ $("#btn-sv").click(function (e) {
                     RecDate: $("#RecDate").val(),
                     PV_grad: $("#pv_inst").text(),
                     pv_postsup: parseInt(id_postsup),
-
+                    id_fonction:$('#funtsup').val(),
+                    id_postsup:parseInt($('#postsup').val()),
                     pv_func: id_func,
                     _token: $('meta[name="csrf-token"]').attr("content"),
                     _method: "POST",
