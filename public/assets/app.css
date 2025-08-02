@@ -2369,3 +2369,10 @@ main .recent_order a:hover{
 {
     display: none;
 }
+
+.fa-edit{
+  font-size: 29px;
+}
+.fa-trash{
+  font-size: 29px;
+}

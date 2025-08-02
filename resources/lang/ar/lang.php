@@ -213,6 +213,8 @@ return [
     'ajout_direc_ssdirec'=>'أضافة',
     'msg_ajout'=>'أضافة مديرية و مديرية فرعية جديدة',
     'msg_ajout_direc'=>'اضافة مديرية',
+    'msg_modif_direc'=> 'تغيير مديرية',
+    'msg_modif_sous_direc'=> 'تغيير مديرية فرعية',
     'nom_direc'=>'اسم المديرية',
     'discr_direc'=>'وصف المديرية',
     'nom_direc_ar'=>'اسم المديرية بالعربية',
