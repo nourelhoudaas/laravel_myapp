@@ -118,7 +118,7 @@
                     </div>
                     <div id="postsup-opt"  class="col-md-11" style="display: flex; align-items: center;">
                     <select type="text" class="form-select  hidden-select" placeholder="Diplome" value="" id="postsup">
-                        <option value="0">{{__('lang.post_fnc')}}</option>
+                        <option value="0">{{__('lang.lst_post')}}</option>
                         @foreach($postsupp  as $post)
                         @if (app()->getLocale() == 'ar')
 
