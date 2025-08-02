@@ -67,7 +67,7 @@ $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_famil
      // Définir les situations familiales possibles en fonction de la langue
      $situations = [
         'fr' => ['Célibataire', 'Marié(e)', 'Divorcé(e)', 'Veuf(ve)'],
-        'ar' => ['أعزب/عزباء', '(ة)متزوج', '(ة)مطلق', '(ة)أرمل']
+        'ar' => ['أعزب/عزباء', 'متزوج(ة)', '(ة)مطلق', '(ة)أرمل']
     ];
 
     // Sélectionner les situations familiales en fonction de la langue
@@ -81,7 +81,7 @@ $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_famil
         ->groupBy($situationColumn)
         ->pluck('count', $situationColumn)
         ->toArray();
-
+    
     // Assurer que toutes les situations sont présentes dans les résultats
     $data = array_fill_keys($situationList, 0); // Initialise tous les éléments avec 0
     foreach ($situationCounts as $key => $count) {
