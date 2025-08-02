@@ -218,7 +218,12 @@ public function existToAddApp(Request $Request)
     $dbpost       = $post->get();
     $id           = $Request->get('ID_NIN');
     $employe = Employe::where('id_nin', $id)->firstOrFail();
+    $fonction = new Fonction();
+    $fct = $fonction->get();
 
+    $postsup = new PostSup();
+    $postsupp = $postsup->get();
+    
     $Appartient = Appartient::where('id_nin', $id)->get();
     if ($Appartient->count() > 0) {
         //----------------- send To next $etp for Donnée Administration ----------------------
@@ -227,7 +232,7 @@ public function existToAddApp(Request $Request)
         $employe = Employe::where('id_nin', $id)->firstOrFail();
         $dbempdepart = new Departement();
         $empdepart   = $dbempdepart->get();
-        return view('addTemplate.admin', compact('employe', 'dbdirection', 'dbbureau', 'dbpost', 'dbsdirection', 'empdepart'));
+        return view('addTemplate.admin', compact('employe', 'dbdirection', 'dbbureau', 'dbpost', 'dbsdirection', 'empdepart','postsupp', 'fct'));
     }
 
     //---------------- this for add to Level Education and his Diploma -------------------------
