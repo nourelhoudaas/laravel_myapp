@@ -51,13 +51,19 @@
                             </td>
                             <td>
                                 <!-- Bouton Modifier -->
-                                <a href="{{ route('sub_depart.edit', $subDepartment->id_sous_depart) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('sub_depart.edit', $subDepartment->id_sous_depart) }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                               
                                 <!-- Formulaire de suppression -->
-                               <!-- <form action="{{ route('subdepartement.delete', $subDepartment->id_sous_depart) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(event)">
+                                <form action="{{ route('subdepartement.delete', $subDepartment->id_sous_depart) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button>
-                                </form>-->
+                                     <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette sous direction ?')" href="#">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </form>
+                                
                             </td>
                         </tr>
                     @empty
@@ -67,9 +73,7 @@
                     @endforelse
                 </tbody>
             </table>
-            <nav class="app-pagination">
-                {{ $subDepartments->links() }}
-            </nav>
+            
         </div>
     </main>
 

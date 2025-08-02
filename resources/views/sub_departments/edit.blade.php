@@ -4,16 +4,14 @@
 @section('content')
 
 <body>
-    <!-- start section aside -->
-    @include('./navbar.sidebar')
-    <!-- end section aside -->
 
-    <h1 class="app-page-title">{{ __('lang.edit_sub_dir') }}</h1>
-    <hr class="mb-4">
-    <div class="row g-4 settings-section">
-        <div class="col-12 col-md-8 offset-md-2">
-            <div class="app-card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-                <div class="app-card-body">
+    <!-- main section start -->
+        <main>
+            <div class="recent_order2">
+                <div class="title">
+                    <h1> {{ __('lang.msg_modif_sous_direc') }}</h1>
+                </div>
+
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -34,7 +32,7 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="text-bg-light p-3">
+                        <div class=" p-3">
                             <label for="id_depart" class="fw-bold">{{ __('lang.nom_direc') }} <span class="text-danger">*</span></label>
                             <select class="form-control @error('id_depart') is-invalid @enderror" id="id_depart" name="id_depart" required>
                                 <option value="">{{ __('lang.select_department') }}</option>
@@ -53,7 +51,7 @@
                             @enderror
                         </div>
 
-                        <div class="text-bg-light p-3">
+                        <div class=" p-3">
                             <label for="Nom_sous_depart" class="fw-bold">{{ __('lang.nom_ss_direc') }} <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('Nom_sous_depart') is-invalid @enderror" id="Nom_sous_depart" name="Nom_sous_depart" value="{{ old('Nom_sous_depart', $subDepartment->Nom_sous_depart) }}" required>
                             @error('Nom_sous_depart')
@@ -61,7 +59,7 @@
                             @enderror
                         </div>
 
-                        <div class="text-bg-light p-3">
+                        <div class=" p-3">
                             <label for="Descriptif_sous_depart" class="fw-bold">{{ __('lang.discr_ss_direc') }}</label>
                             <input type="text" class="form-control @error('Descriptif_sous_depart') is-invalid @enderror" id="Descriptif_sous_depart" name="Descriptif_sous_depart" value="{{ old('Descriptif_sous_depart', $subDepartment->Descriptif_sous_depart) }}">
                             @error('Descriptif_sous_depart')
@@ -69,7 +67,7 @@
                             @enderror
                         </div>
 
-                        <div class="text-bg-light p-3">
+                        <div class=" p-3">
                             <label for="Nom_sous_depart_ar" class="fw-bold">{{ __('lang.nom_ss_direc_ar') }} <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('Nom_sous_depart_ar') is-invalid @enderror" id="Nom_sous_depart_ar" name="Nom_sous_depart_ar" value="{{ old('Nom_sous_depart_ar', $subDepartment->Nom_sous_depart_ar) }}" required>
                             @error('Nom_sous_depart_ar')
@@ -77,7 +75,7 @@
                             @enderror
                         </div>
 
-                        <div class="text-bg-light p-3">
+                        <div class=" p-3">
                             <label for="Descriptif_sous_depart_ar" class="fw-bold">{{ __('lang.discr_ss_direc_ar') }}</label>
                             <input type="text" class="form-control @error('Descriptif_sous_depart_ar') is-invalid @enderror" id="Descriptif_sous_depart_ar" name="Descriptif_sous_depart_ar" value="{{ old('Descriptif_sous_depart_ar', $subDepartment->Descriptif_sous_depart_ar) }}">
                             @error('Descriptif_sous_depart_ar')
@@ -85,11 +83,9 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">{{ __('lang.edit') }}</button>
-                        <a href="{{ route('app_liste_sub_dir') }}" class="btn btn-secondary">{{ __('lang.cancel') }}</a>
+                        <!-- <button type="submit" class="btn btn-primary">{{ __('lang.edit') }}</button> -->
+                         <button type="submit" class="btn btn-primary btn-group22">{{ __('lang.btn.enregistrer') }}</button>
+                        <!-- <a href="{{ route('app_liste_sub_dir') }}" class="btn btn-secondary">{{ __('lang.cancel') }}</a> -->
                     </form>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
