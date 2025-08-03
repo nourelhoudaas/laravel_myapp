@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Log;
+use App\Models\Dossier;
 use App\Models\Absence;
 use App\Models\Stocke;
 use App\Models\Conge;
@@ -369,7 +371,10 @@ class EmployeesController extends Controller
             array_push($postarr, $inter);
             $i++;
         }
-        // $carier=Travail::where('employes.id_nin',$id)
+        $carier=Employe::where('employes.id_nin',$id)->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
+                ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
+                ->orderBy('niveaux.id_niv', 'desc')
+                ->first();
         $detailemp = array();
         for ($i = 0; $i < count($postarr); $i++) {
             # code...
@@ -382,7 +387,7 @@ class EmployeesController extends Controller
         //  dd($detailemp);
         if ($nbr > 0) {
             $nbr = $nbr - 1;
-            return view('BioTemplate.index', compact('detailemp', 'nbr', 'empdepart', 'last', 'postarr'));
+            return view('BioTemplate.index', compact('detailemp', 'nbr', 'empdepart', 'last', 'postarr','carier'));
         } else {
             return view('404');
         }
@@ -1668,6 +1673,119 @@ class EmployeesController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    /** =================================== this controller use for update New Id_nin of employers  ===================================  */
+    function modif_nin(Request $request,$id_nin)
+    {
+        $id_nin_local= 1254953;
+        $related_list=[];   
+       
+        $related=Occupe::where('id_nin',$id_nin)->first();  
+       // dd($related);
+        if(isset($related))
+        {   
+            
+             array_push($related_list,["occupes"=>$related->id_occup]);
+             $related->id_nin=$id_nin_local;
+             $related->save();
+
+        }
+        /** ==========================================================*/
+            $related=Log::where('id_nin',$id_nin)->delete();
+       /* if(isset($related))
+        {
+            array_push($related_list,["logs"=>$related->id_log]);
+            $related->id_nin=$id_nin_local;
+             $related->save();
+        }*/
+        /** ===============================================================*/
+         $related=Dossier::where('ref_Dossier',"Em_".$id_nin)->first();
+       /* if(isset($related))
+        {
+            array_push($related_list,["dossiers"=>$related->ref_Dossier]);
+            $related->id_nin=$id_nin_local;
+             $related->save();
+        }*/
+
+        /**=================================================================== */
+          $related=appartient::where('id_nin',$id_nin)->first();
+        if(isset($related))
+        {
+            array_push($related_list,["appartients"=>$related->id_appar]);
+            $related->id_nin=$id_nin_local;
+            $related->save();
+        }
+        /**===================================================================== */
+                $related=Travail::where('id_nin',$id_nin)->first();
+        if(isset($related))
+        {
+            array_push($related_list,["travails"=>$related->id_travail]);
+            $related->id_nin=$id_nin_local;
+             $related->save();
+        }
+          $related=Absence::where('id_nin',$id_nin)->first();
+        if(isset($related))
+        {
+            array_push($related_list,["absences"=>$related->id_abs]);
+            $related->id_nin=$id_nin_local;
+             $related->save();
+        }
+            $related=Conge::where('id_nin',$id_nin)->first();
+        if(isset($related))
+        {
+            array_push($related_list,["conges"=>$related->id_cong]);
+            $related->id_nin=$id_nin_local;
+             $related->save();
+        }
+        if(count($related_list) > 0)
+        {
+            $related=Employe::where('id_nin',$id_nin)->first();
+            $related->id_nin=$request->input('id_nin_modif');
+            $related->save();
+        for ($i=0 ;$i<count($related_list);$i++)
+        {
+        foreach ($related_list[$i] as $key => $value) 
+        {
+            # code...
+                if( $key == 'conges')
+                {
+                    
+                    $related=Conge::where('id_cong',$value)->first();
+                    $related->id_nin=$request->input('id_nin_modif');
+                    $related->save();
+                }
+                  if( $key == 'absences')
+                {
+                    $related=Absence::where('id_abs',$value)->first();
+                    $related->id_nin=$request->input('id_nin_modif');
+                    $related->save();
+                }
+                  if( $key == 'travails')
+                {
+                    $related=Travail::where('id_travail',$value)->first();
+                    $related->id_nin=$request->input('id_nin_modif');
+                    $related->save();
+                }
+                  if( $key == 'occupes')
+                {
+                     $related=Occupe::where('id_occup',$value)->first();
+                     $related->id_nin=$request->input('id_nin_modif');
+                     $related->save();
+                }
+                    if( $key == 'appartients')
+                {
+                     $related=appartient::where('id_appar',$value)->first();
+                     $related->id_nin=$request->input('id_nin_modif');
+                     $related->save();
+                }
+                
+
+        }
+    }
+        }  
+        $nin=$request->input('id_nin_modif');
+        return response()->json(['success' => 'exist', 'status' => 200, 'data' =>$nin]);
     }
 
 }

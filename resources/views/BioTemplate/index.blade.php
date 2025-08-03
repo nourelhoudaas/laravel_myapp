@@ -73,7 +73,7 @@
                              <i class="fa fa-times" aria-hidden="true" id="btn-icon">...</i>
                           </div>
                         <div class="mt-3">
-                          <h4>{{__('lang.NIN')}} :<p id="ID_NIN">{{$last->id_nin}}</p></h4>
+                          <h4>{{__('lang.NIN')}} <button class="hidden-select" onclick="openDialog()" id='modif_nin' style="border: none;background: transparent;"><i class="fa fa-pencil" aria-hidden="true" ></i></button> :<p id="ID_NIN">{{$last->id_nin}}</p></h4>
                           <h4>{{$last->Nom_emp}} {{$last->Prenom_emp}}</h4>
                           <h4>{{$last->Nom_ar_emp}} {{$last->Prenom_ar_emp}}</h4>
 
@@ -138,22 +138,24 @@
                             <h6 class="mb-0"><i class="fa fa-child" aria-hidden="true" ></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
                         </div>
                         <div >
-                          <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}} </span>
+                        <div>  <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}}
+                             <i class="fa fa-pencil hidden-select" aria-hidden="true" id="niv_edit"></i></div>
+                          </span>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                             <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true" ></i> {{__('lang.nom_dipl')}} :
                             @if( app()->getLocale() == 'ar')
-                           {{$last->Nom_niv_ar}}
+                           {{$carier->Nom_niv_ar}}
                            @else
-                           {{$last->Nom_niv}}
+                           {{$carier->Nom_niv}}
                            @endif
                           </h6>
                           </div>
                           <div  class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true" ></i> {{__('lang.spec_dipl')}} :
                            @if( app()->getLocale() == 'ar')
-                           {{$last->Specialite_ar}}
+                           {{$carier->Specialite_ar}}
                            @else
-                           {{$last->Specialite}}
+                           {{$carier->Specialite}}
                            @endif
                           </h6>
                           </div>
@@ -406,6 +408,59 @@
 
 
 
+
+    <!-- Dialog Overlay -->
+  <div class="overlay-nin" id="dialogOverlay_nin">
+    <div class="dialog">
+      <label for="dialogInput">{{__('lang.NIN')}}</label>
+      <input type="text" id="id_nin_modif" />
+
+      <div style="text-align: right;">
+        <button class="btn-confirm" onclick="confirmDialog()">{{__('lang.btn.enregistrer')}}</button>
+        <button class="btn-cancel" onclick="closeDialog()">{{__('lang.cancel')}}</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var id = '{{ $last->id_nin }}';
+     const dialogOverlay = document.getElementById('dialogOverlay_nin');
+    const dialogInput = document.getElementById('id_nin_modif');
+
+    function openDialog() {
+      dialogInput.value = ''; // clear previous input
+      dialogOverlay.style.display = 'flex';
+    }
+
+    function closeDialog() {
+      dialogOverlay.style.display = 'none';
+    }
+
+    function confirmDialog() {
+      const value = dialogInput.value.trim();
+      if (value) {
+        $.ajax({
+        url: '/Employe/update/'+id, // make sure 'url' is defined
+        method: "POST",
+        data: { "id_nin_modif": value,
+        _token: $('meta[name="csrf-token"]').attr("content"),
+        _method: "POST", }, // send the actual value
+    dataType: "json",
+    success: function (response) {
+      console.log('success');
+      closeDialog();
+      window.location.href='/BioTemplate/search/'+response.data
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error:", textStatus, errorThrown);
+    },
+  });
+      } else {
+        alert("Input is empty.");
+      }
+    }
+  </script>
+
     <script src="{{ asset('assets/carousel.js')}}"></script>
     <script src="{{ asset('assets/app.js')}}"></script>
     <!--script src="../js/printPD.js"></script>
@@ -416,9 +471,12 @@
        var uid='{{$uid}}'
       var md=false;
       var chek='{{!isset($last->email_pro)}}'
+      var btn_nin=document.getElementById('modif_nin')
+      var btn_niv=document.getElementById('niv_edit')
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){
+
   if(chek == '1')
  {
  document.getElementById('pro-add').innerHTML='<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="mail_pro">'
@@ -457,6 +515,11 @@ else
 }
 icon.classList.remove('fa-times')
 icon.classList.add('fa-pencil');
+btn_nin.classList.remove('hidden-select')
+btn_niv.classList.remove('hidden-select')
+btn_niv.addEventListener('click',function(){
+  window.location.href='/Employe/IsTravaill/'+id
+})
 document.getElementById('Nom_P').disabled=false;
 document.getElementById('Nom_PAR').disabled=false;
 document.getElementById('Prenom_O').disabled=false;
@@ -488,6 +551,8 @@ if( lng == 'ar')
 
 icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
+btn_nin.classList.add('hidden-select')
+btn_niv.classList.add('hidden-select')
 document.getElementById('Nom_P').disabled=true;
 document.getElementById('Nom_PAR').disabled=true;
 document.getElementById('Prenom_O').disabled=true;

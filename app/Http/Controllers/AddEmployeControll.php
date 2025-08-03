@@ -224,16 +224,17 @@ public function existToAddApp(Request $Request)
     $postsup = new PostSup();
     $postsupp = $postsup->get();
     
-    $Appartient = Appartient::where('id_nin', $id)->get();
-    if ($Appartient->count() > 0) {
+    $Appartient = appartient::where('id_nin', $id)->get();
+    /*if ($Appartient->count() > 0) {
         //----------------- send To next $etp for Donnée Administration ----------------------
         $post    = new Post();
         $dbpost  = $post->get();
         $employe = Employe::where('id_nin', $id)->firstOrFail();
         $dbempdepart = new Departement();
         $empdepart   = $dbempdepart->get();
+  
         return view('addTemplate.admin', compact('employe', 'dbdirection', 'dbbureau', 'dbpost', 'dbsdirection', 'empdepart','postsupp', 'fct'));
-    }
+    }*/
 
     //---------------- this for add to Level Education and his Diploma -------------------------
     // 🔧 Validation des champs (tous facultatifs sauf ID_NIN)
@@ -267,8 +268,8 @@ public function existToAddApp(Request $Request)
         'Descriptif_niv'   => $Request->input('Descriptif_niv') ?? '', // 🔧 Déjà vide dans le code original
         'Descriptif_niv_ar'=> $Request->input('Descriptif_niv_ar') ?? '',
     ];
-
     // 🔧 Insertion dans la table `niveaux`
+
     $niv = DB::table('niveaux')->insert($niveauxData);
     $niv = Niveau::where('Nom_niv', $Request->input('Dip') ?? 'null')->firstOrFail();
     $idn = $niv->id_niv;
@@ -283,7 +284,16 @@ public function existToAddApp(Request $Request)
     ];
 
     // 🔧 Insertion dans la table `appartients`
-    $test = DB::table('appartients')->insert($appartientsData);
+    $apprt=appartient::where('id_appar', $Request->get('DipRef'))->first();
+    if(isset($apprt))
+    {
+    //  dd($apprt);
+      $apprt->id_niv=$idn;
+      $apprt->save();
+    }
+    else
+    {
+    $test = DB::table('appartients')->insert($appartientsData);}
 
     // Ajouter l'action dans la table log
     $this->logService->logAction(
@@ -295,7 +305,7 @@ public function existToAddApp(Request $Request)
 
     $dbempdepart = new Departement();
     $empdepart   = $dbempdepart->get();
-    return view('addTemplate.admin', compact('employe', 'dbbureau', 'dbsdirection', 'dbdirection', 'dbpost', 'empdepart'));
+    return view('addTemplate.admin', compact('employe', 'dbbureau', 'dbsdirection', 'dbdirection', 'dbpost', 'empdepart','postsupp', 'fct'));
 }
     /*function existApp($id)
   {
