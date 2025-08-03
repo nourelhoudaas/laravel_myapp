@@ -1344,6 +1344,27 @@ $("#btn-sv").click(function (e) {
 });
 //TRAVAIL
 $(document).ready(function () {
+    $('#DipRef').on('blur', function () {
+  $(this).removeClass("error-handle");
+  var value = $(this).val();
+
+  $.ajax({
+    url:'/Employe/educat/',
+    method: "POST",
+    data :{
+        'id_apper':value,
+         _token: $('meta[name="csrf-token"]').attr("content"),
+        _method: "POST",
+    },
+    dataType: "json",
+    success: function (response) {
+      console.log('success', response);
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error:", textStatus, errorThrown);
+    },
+  });
+});
     $("#DipRef").focus(function () {
         $(this).removeClass("error-handle");
     });

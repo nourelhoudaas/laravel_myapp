@@ -1788,4 +1788,20 @@ class EmployeesController extends Controller
         return response()->json(['success' => 'exist', 'status' => 200, 'data' =>$nin]);
     }
 
+
+    function check_app(Request $request)
+    {
+        $value=$request->input('id_apper');
+        $related=appartient::where('id_appar',$value)->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')->first();
+        if (isset($related))
+        {
+            return response()->json(['success' => 'exist', 'status' => 200, 'data' =>$related]);
+        }
+        else
+        {
+            return response()->json(['success' => 'exist pas', 'status' => 404, 'data' =>[]]);
+        }
+        
+    }
+
 }
