@@ -117,21 +117,46 @@
                     <input type="checkbox" id="sel_posup" class="col-md-2">
                     </div>
                     <div id="postsup-opt"  class="col-md-11" style="display: flex; align-items: center;">
+                    <select type="text" class="form-select  hidden-select" placeholder="Diplome" value="" id="postsup">
+                        <option value="0">{{__('lang.lst_post')}}</option>
+                        @foreach($postsupp  as $post)
+                        @if (app()->getLocale() == 'ar')
 
+                            <option value='{{$post->id_postsup }}'>{{$post->Nom_postsup_ar}}</option>
+                        @else
+
+                            <option value='{{$post->id_postsup }}'>{{$post->Nom_postsup}}</option>
+
+                        @endif
+                        @endforeach
+                    </select>
                     </div>
                     <!-- Hidden input to store the selected post_sup ID -->
-                    <input type="hidden" id="id_postsup" name="id_postsup" value="">
+                    <input class="hidden-select" id="id_postsup" name="id_postsup" value="">
                     <hr>
                     </div>
                     <div>
                        <label class="labels" for="sel_fonc">{{__('lang.fonc_check')}}</label>
+                     
                        <input type="checkbox" id="sel_fonc" class="col-md-2">
                     </div>
-                    <div id="fonc-opt"  class="col-md-11" style="display: flex; align-items: center;">
+                    <div id="fonc-opt"  class="col-md-11" style="display: flex; align-items: center; ">
+                    <select type="text" class="form-select hidden-select" placeholder="Diplome" value="" id="funtsup">
+                        <option value="0">{{__('lang.post_fnc')}}</option>
+                        @foreach($fct as $post)
+                        @if (app()->getLocale() == 'ar')
 
+                            <option value='{{$post->id_fonction}}'>{{$post->Nom_fonction_ar}}</option>
+                        @else
+
+                            <option value='{{$post->id_fonction}}'>{{$post->Nom_fonction}}</option>
+
+                        @endif
+                        @endforeach
+                    </select>
                     </div>
                       <!-- Hidden input to store the selected post_sup ID -->
-                      <input type="hidden" id="id_fonction" name="id_fonction" value="">
+                      <input class="hidden-select" id="id_fonction" name="id_fonction" value="">
                     <hr>
                     </div>
 
@@ -314,7 +339,13 @@ $(document).ready(function() {
     $('#sel_posup').on('change', function() {
         if ($(this).is(':checked')) {
             showPV_function();
-
+            if($('#postsup').hasClass('hidden-select'))
+            {
+            $('#postsup').removeClass('hidden-select')
+            $('#funtsup').removeClass('hidden-select')
+            $('#funtsup').addClass('hidden-select')
+            }
+            
             $.ajax({
                 url: '/Employe/PostSups',
                 type: "GET",
@@ -377,7 +408,14 @@ $(document).ready(function() {
     $('#sel_fonc').on('change', function() {
         if ($(this).is(':checked')) {
             showPV_function();
-
+            if($('#funtsup').hasClass('hidden-select'))
+            {
+            $('#funtsup').removeClass('hidden-select')
+            $('#postsup').removeClass('hidden-select')
+            $('#postsup').addClass('hidden-select')
+            }
+            else
+ 
             $.ajax({
                 url: '/Employe/PostSups',
                 type: "GET",

@@ -2364,3 +2364,15 @@ main .recent_order a:hover{
     border-color: red;
     background-color: #ffe6e6;
 }
+
+.hidden-select
+{
+    display: none;
+}
+
+.fa-edit{
+  font-size: 29px;
+}
+.fa-trash{
+  font-size: 29px;
+}

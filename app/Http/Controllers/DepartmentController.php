@@ -542,7 +542,7 @@ public function delete($id_depart)
     }*/
    public function indexSubDepart()
 {
-    $subDepartments = Sous_departement::with('departement')->paginate(10); // <= Pagination activée
+    $subDepartments = Sous_departement::with('departement')->get(); 
     $empdepart = Departement::all();
     return view('sub_departments.index', compact('subDepartments', 'empdepart'));
 }
