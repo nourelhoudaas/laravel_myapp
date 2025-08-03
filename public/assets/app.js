@@ -1283,7 +1283,7 @@ $("#btn-sv").click(function (e) {
             // Assuming you are searching by ID_NIN
             var dateinst = new Date($("#PVDate").val());
             var daterec = new Date($("#RecDate").val());
-            if (dateinst <= daterec && $("#pv_inst").text() != "") {
+            if ($("#pv_inst").text() != "") {
                 var formData = {
                     ID_NIN: id,
                     ID_P: idp,
