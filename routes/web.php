@@ -90,6 +90,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/Employe/list_abs/{id}', 'get_list_absemp')->name('emp_list_abs');
         Route::get('/Employe/read_just/{id}', 'read_just')->name('emp_read_justif');
         Route::post('/Employe/update/{id_nin}','modif_nin')->name('emp_modif_nin');
+        Route::post('/Employe/educat/','check_app')->name('emp_niv_update');
 
     });
 });

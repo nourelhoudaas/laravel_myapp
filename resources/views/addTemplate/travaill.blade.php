@@ -152,7 +152,26 @@
      var dir="Niveaux";
      var uid='{{$uid}}'
      var lang='{{app()->getLocale()}}'
-       var flang='{{__("lang.filnull")}}'
+       
+     var flang='{{__("lang.filnull")}}'
+
+const input = document.getElementById("DipRef");
+input.addEventListener("blur", () => {
+    console.log('blur')
+        var values=this.val()
+    $.ajax({
+        url: '/Employe/educat/'+values, // make sure 'url' is defined
+        method: "GET",
+        dataType: "json",
+    success: function (response) {
+      console.log('success');
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error:", textStatus, errorThrown);
+    },
+  });
+  });
+
        $('#file').on('change',function(){
     var label = $('#file-custm');
     var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
