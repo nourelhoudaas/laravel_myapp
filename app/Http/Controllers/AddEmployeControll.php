@@ -8,6 +8,8 @@ use App\Models\Employe;
 use App\Models\Niveau;
 use App\Models\Occupe;
 use App\Models\Post;
+use App\Models\PostSup;
+use App\Models\Fonction;
 use App\Models\Contient;
 use App\Models\Sous_departement;
 use App\Models\Travail;
@@ -216,7 +218,12 @@ public function existToAddApp(Request $Request)
     $dbpost       = $post->get();
     $id           = $Request->get('ID_NIN');
     $employe = Employe::where('id_nin', $id)->firstOrFail();
+    $fonction = new Fonction();
+    $fct = $fonction->get();
 
+    $postsup = new PostSup();
+    $postsupp = $postsup->get();
+    
     $Appartient = Appartient::where('id_nin', $id)->get();
     if ($Appartient->count() > 0) {
         //----------------- send To next $etp for Donnée Administration ----------------------
@@ -225,7 +232,7 @@ public function existToAddApp(Request $Request)
         $employe = Employe::where('id_nin', $id)->firstOrFail();
         $dbempdepart = new Departement();
         $empdepart   = $dbempdepart->get();
-        return view('addTemplate.admin', compact('employe', 'dbdirection', 'dbbureau', 'dbpost', 'dbsdirection', 'empdepart'));
+        return view('addTemplate.admin', compact('employe', 'dbdirection', 'dbbureau', 'dbpost', 'dbsdirection', 'empdepart','postsupp', 'fct'));
     }
 
     //---------------- this for add to Level Education and his Diploma -------------------------
@@ -312,6 +319,7 @@ public function existToAddApp(Request $Request)
     {
         // dd($request);
         $id_postsup = null;
+        $id_fonction = null;
         $request->validate([
             'ID_NIN'      => 'required|integer',
             'ID_P'        => 'required|integer|',
@@ -324,7 +332,7 @@ public function existToAddApp(Request $Request)
             'id_fonction' => 'string',
 
         ]);
-
+        //dd($request->all());
         $travaill = new Travail([
             'date_chang'        => Carbon::now(),
             'date_installation' => $request->get('PVDate'),
@@ -348,8 +356,15 @@ public function existToAddApp(Request $Request)
             } else {if (isset($pvf)) {
                 $pvi = $pvf;
             }}
-            if ($request->get('pv_postsup') > 0) {
-                $id_postsup = $request->get('pv_postsup');
+            if ($request->get('id_postsup') > 0) {
+                $id_postsup = $request->get('id_postsup');
+                $postsup=PostSup::where('id_postsup',$id_postsup)->first();
+                $id_postsup=$postsup->id_postsup;
+            }
+            if ($request->get('id_fonction') != "0") {
+                $id_fonction = $request->get('id_fonction');
+                $postsup=Fonction::where('id_fonction',$id_fonction)->first();
+                $id_fonction=$postsup->id_fonction;
             }
             if(isset($cfvisa) && isset($cfdate))
             {
@@ -358,6 +373,7 @@ public function existToAddApp(Request $Request)
             }
             //dd($id_postsup,$request->get('pv_func'));
             $postschekc=Post::where('id_post',$request->get('post'))->first();
+            
            // dd($postschekc->id_post);
             $ops=new Occupe([
                 'date_recrutement' => $request->get('RecDate'),
@@ -368,7 +384,7 @@ public function existToAddApp(Request $Request)
                 'ref_base'         => $request->get('PV_grad'),
                 'id_post'          => $postschekc->id_post,
                 'id_postsup'       => $id_postsup,
-                'id_fonction'      => $request->get('pv_func'),
+                'id_fonction'      => $id_fonction,
                 'visa_CF'          => $cfvisa,
                 'date_CF'          => $cfdate,
 
@@ -379,7 +395,7 @@ public function existToAddApp(Request $Request)
            $cont=new Contient([
             'id_post'=>$postschekc->id_post,
             'id_sous_depart'=>$request->get('SDic'),
-            'id_fonction'=>$request->get('pv_func'),
+            'id_fonction'=>$id_fonction,
             'id_postsup'=>$id_postsup,
            ]);
           // dd($cont);
