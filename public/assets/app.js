@@ -1352,13 +1352,18 @@ $(document).ready(function () {
     url:'/Employe/educat/',
     method: "POST",
     data :{
-        'id_apper':value,
-         _token: $('meta[name="csrf-token"]').attr("content"),
-        _method: "POST",
+    'id_apper':value,
+    _token: $('meta[name="csrf-token"]').attr("content"),
+    _method: "POST",
     },
     dataType: "json",
     success: function (response) {
       console.log('success', response);
+       $("#Spec").val(response.data.Specialite);
+       $("#Spec_ar").val(response.data.Specialite_ar);
+       $("#Dip").val(response.data.Nom_niv);
+        $("#Dip_ar").val(response.data.Nom_niv_ar);
+        $("#DipDate").val(response.data.Date_op);
     },
     error: function (jqXHR, textStatus, errorThrown) {
       console.error("Error:", textStatus, errorThrown);
