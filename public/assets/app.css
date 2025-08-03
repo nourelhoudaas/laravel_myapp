@@ -2376,3 +2376,41 @@ main .recent_order a:hover{
 .fa-trash{
   font-size: 29px;
 }
+
+
+
+/** ===============================*/
+    .overlay-nin {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .dialog {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      min-width: 300px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .dialog input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+    }
+
+    .dialog button {
+      padding: 8px 12px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
