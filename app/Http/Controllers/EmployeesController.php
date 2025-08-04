@@ -1680,7 +1680,7 @@ class EmployeesController extends Controller
     {
         $id_nin_local= 1254953;
         $related_list=[];   
-       
+       // dd($id_nin);
         $related=Occupe::where('id_nin',$id_nin)->first();  
        // dd($related);
         if(isset($related))
