@@ -1804,4 +1804,18 @@ class EmployeesController extends Controller
         
     }
 
+    function get_niv_nin($id_nin)
+    {
+
+        $related=appartient::where('id_nin',$id_nin)->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')->first();
+            if (isset($related))
+        {
+            return response()->json(['success' => 'exist', 'status' => 200, 'data' =>$related]);
+        }
+        else
+        {
+            return response()->json(['success' => 'exist pas', 'status' => 404, 'data' =>[]]);
+        }
+    }
+
 }

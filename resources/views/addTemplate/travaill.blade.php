@@ -147,13 +147,14 @@
 </body>
 
 <script>
+    
      var id = '{{ $employe->id_nin }}';
      var idp = '{{ $employe->id_p }}';
      var dir="Niveaux";
      var uid='{{$uid}}'
      var lang='{{app()->getLocale()}}'
-       
      var flang='{{__("lang.filnull")}}'
+     check_niv(id);
        $('#file').on('change',function(){
     var label = $('#file-custm');
     var fileName = this.files && this.files.length > 0 ? this.files[0].name : flang;
