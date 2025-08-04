@@ -2377,8 +2377,20 @@ main .recent_order a:hover{
   font-size: 29px;
 }
 
+#nin_edit_handler:hover
+{
+cursor: pointer;
+scale: 1.1;
+color: black;
+}
+.nin_handler
+{
 
-
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
 /** ===============================*/
     .overlay-nin {
       position: fixed;

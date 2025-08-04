@@ -48,15 +48,7 @@ public function add(Request $Request)
     $Direction = Sous_departement::all();
     $niv       = Niveau::all();
 
-    // Vérifie si l'employé existe déjà
-    if (isset($employees)) {
-        foreach ($employees as $em) {
-            if ($Request->get('ID_NIN') == $em->id_nin) {
-                return redirect()->route('Employe.istravaill', ["id" => $em->id_nin]);
-            }
-        }
-    }
-
+    
     // 🔧 Validation complète du formulaire (tous les champs sauf ID_NIN sont facultatifs)
     $Request->validate([
         'ID_NIN'      => 'required', // 🔧 Garde ID_NIN obligatoire
@@ -124,10 +116,9 @@ public function add(Request $Request)
         'Date_nais_pere'          => $Request->get('date_nais_per') ?? '1990-01-01', // 🔧 Non-NULLABLE : date par défaut
         'Date_nais_mere'          => $Request->get('date_nais_mer') ?? '1990-01-01', // 🔧 Non-NULLABLE : date par défaut
     ];
-
     // Création de l'employé
-    $employe = Employe::create($data);
-
+    $employe = Employe::updateOrCreate(['id_nin' => $Request->get('ID_NIN')], $data);
+    //dd($employe);
     if ($employe->save()) {
         // 🔧 Ajout de l'action dans le journal
         $this->logService->logAction(
@@ -271,7 +262,7 @@ public function existToAddApp(Request $Request)
     // 🔧 Insertion dans la table `niveaux`
 
     $niv = DB::table('niveaux')->insert($niveauxData);
-    $niv = Niveau::where('Nom_niv', $Request->input('Dip') ?? 'null')->orderBy('id_niv','desc')->first();
+    $niv = Niveau::where('Nom_niv', $Request->input('Specialite') ?? 'null')->orderBy('id_niv','desc')->first();
     $idn = $niv->id_niv;
     // 🔧$niv-> Préparation des données pour la table `appartients`
     $appartientsData = [

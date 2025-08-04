@@ -2244,7 +2244,6 @@ idinput.blur(function () {
     if (val.length === 18) {
         // ✅ Le NIN doit contenir exactement 20 chiffres
         $(this).removeClass("error-handle");
-
         $.ajax({
             url: "/Employe/check/" + val,
             type: "GET",
@@ -2270,6 +2269,7 @@ idinput.blur(function () {
                     $("#Prenom_mere").val(response.data.prenom_mere );
                     $("#Nom_mereAR").val(response.data.nom_mere_ar );
                     $("#Prenom_mereAR").val(response.data.prenom_mere_ar );
+                    $('#nin_edit_handler').removeClass('hidden-select');
                 }
             },
         });
