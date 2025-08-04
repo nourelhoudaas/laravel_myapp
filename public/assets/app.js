@@ -80,6 +80,32 @@ $(document).ready(function () {
     });
 });
 
+
+function check_niv(id_nin)
+{
+    $(document).ready(function () {
+        $.ajax({
+            url:'/Employe/'+id_nin+'/check/niv/',
+            type:"GET",
+            dataType: "json",
+            success:function(response)
+            {
+        $("#DipRef").val(response.data.id_appar)
+        $("#Spec").val(response.data.Specialite);
+       $("#Spec_ar").val(response.data.Specialite_ar);
+       $("#Dip").val(response.data.Nom_niv);
+        $("#Dip_ar").val(response.data.Nom_niv_ar);
+        $("#DipDate").val(response.data.Date_op);
+            },
+            error:function()
+            {
+                console.log('error')
+            }
+        })
+
+    })
+}
+
 /***
  *
  *

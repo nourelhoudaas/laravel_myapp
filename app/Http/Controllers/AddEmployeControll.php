@@ -293,7 +293,8 @@ public function existToAddApp(Request $Request)
     }
     else
     {
-    $test = DB::table('appartients')->insert($appartientsData);}
+    $test = DB::table('appartients')->insert($appartientsData);
+    }
 
     // Ajouter l'action dans la table log
     $this->logService->logAction(

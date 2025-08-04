@@ -91,6 +91,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/Employe/read_just/{id}', 'read_just')->name('emp_read_justif');
         Route::post('/Employe/update/{id_nin}','modif_nin')->name('emp_modif_nin');
         Route::post('/Employe/educat/','check_app')->name('emp_niv_update');
+        Route::get('/Employe/{id_nin}/check/niv/','get_niv_nin')->name('emp_niv_check');
 
     });
 });
