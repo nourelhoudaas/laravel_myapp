@@ -273,8 +273,12 @@ public function existToAddApp(Request $Request)
     $niv = DB::table('niveaux')->insert($niveauxData);
     $niv = Niveau::where('Nom_niv', $Request->input('Dip') ?? 'null')->firstOrFail();
     $idn = $niv->id_niv;
-
-    // 🔧 Préparation des données pour la table `appartients`
+    $niv->Nom_niv=$niveauxData['Nom_niv'];
+    $niv->Nom_niv_ar=$niveauxData['Nom_niv_ar'];
+    $niv->Specialite=$niveauxData['Specialite'];
+    $niv->Specialite_ar=$niveauxData['Specialite_ar'];
+    $niv->save();
+    // 🔧$niv-> Préparation des données pour la table `appartients`
     $appartientsData = [
         'id_nin'   => $Request->get('ID_NIN') ?? '', // 🔧 Non-NULLABLE : chaîne vide si non fourni
         'id_p'     => $Request->get('ID_P') ?? 0, // 🔧 Non-NULLABLE : 0 si vide
