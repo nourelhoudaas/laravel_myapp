@@ -11,7 +11,7 @@
     <style>
         /* Style pour le spinner */
         .spinner {
-            display: none; /* Masqué par défaut */
+            display: none;
             border: 4px solid #f3f3f3;
             border-top: 4px solid #3498db;
             border-radius: 50%;
@@ -48,65 +48,130 @@
         }
         .container {
             max-width: 100%;
-            margin: 40px auto;
-            padding: 20px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 15px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            box-sizing: border-box;
         }
         h1 {
             color: #2c3e50;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
+            margin-bottom: 15px;
+            font-size: 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .header img {
-            width: 200px;
-            margin-bottom: 10px;
+            max-width: 150px;
+            width: 100%;
+            margin-bottom: 8px;
         }
         .header p {
-            font-size: 14px;
+            font-size: 12px;
             color: #777;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 12px;
+            margin-top: 15px;
+            font-size: 10px;
+            table-layout: auto;
         }
         th, td {
-            padding: 10px;
+            padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ddd;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            vertical-align: top;
         }
         th {
             background-color: #138827;
             color: white;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 11px;
+            font-size: 9px;
         }
         tr:hover {
             background-color: #f1f1f1;
         }
         .footer {
             text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
+            margin-top: 20px;
+            font-size: 10px;
             color: #777;
         }
-
         .text-center {
             text-align: center;
         }
         .text-right {
             text-align: right;
+        }
+
+        /* Ajustements pour la responsivité */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+            h1 {
+                font-size: 18px;
+            }
+            table {
+                font-size: 9px;
+            }
+            th, td {
+                padding: 6px;
+            }
+            th {
+                font-size: 8px;
+            }
+        }
+
+        /* Styles pour l'impression (PDF) */
+        @media print {
+            body {
+                margin: 10mm;
+            }
+            .container {
+                margin: 0;
+                padding: 10mm;
+                box-shadow: none;
+                width: 100%;
+            }
+            table {
+                font-size: 8pt;
+                width: 100%;
+                max-width: 100%;
+            }
+            th, td {
+                padding: 5px;
+                font-size: 8pt;
+            }
+            th {
+                font-size: 7pt;
+            }
+            .header img {
+                max-width: 120px;
+            }
+            .footer {
+                font-size: 8pt;
+                position: running(footer);
+            }
+            @page {
+                margin: 10mm;
+                size: A4;
+                @bottom-center {
+                    content: element(footer);
+                }
+            }
         }
     </style>
 </head>
@@ -123,21 +188,21 @@
 
         <!-- Tableau des employés -->
         <table>
-            <thead>
+           <thead>
                 <tr>
-                    <th  style="width: 3%;">{{ __('lang.id') }}</th>
-                    <th >{{ __('lang.name') }}</th>
-                    <th >{{ __('lang.surname') }}</th>
-                    <th  style="width: 5%;">{{ __('lang.age') }}</th>
-                    <th  style="width: 11%;">{{ __('lang.date_rec') }}</th>
-                    <th>{{ __('lang.date_CF') }}</th>
-                    <th>{{ __('lang.visa_CF') }}</th>
-                    <th >{{ __('lang.post') }}</th>
-                    <th >{{ __('lang.postsup') }}</th>
-                    <th >{{ __('lang.fct') }}</th>
-                    <th >{{ __('lang.dept') }}</th>
-                    <th >{{ __('lang.sous_dept') }}</th>
-                    <th  style="width: 11%;">{{ __('lang.date_inst') }}</th>
+                    <th style="width: 5%">{{ __('lang.id') }}</th>
+                    <th style="width: 10%">{{ __('lang.name') }}</th>
+                    <th style="width: 10%">{{ __('lang.surname') }}</th>
+                    <th style="width: 5%">{{ __('lang.age') }}</th>
+                    <th style="width: 10%">{{ __('lang.date_recrutement') }}</th>
+                    <th style="width: 10%">{{ __('lang.date_CF') }}</th>
+                    <th style="width: 10%">{{ __('lang.visa_CF') }}</th>
+                    <th style="width: 10%">{{ __('lang.post') }}</th>
+                    <th style="width: 10%">{{ __('lang.postsup') }}</th>
+                    <th style="width: 10%">{{ __('lang.fct') }}</th>
+                    <th style="width: 10%">{{ __('lang.dept') }}</th>
+                    <th style="width: 10%">{{ __('lang.sous_dept') }}</th>
+                    <th style="width: 10%">{{ __('lang.date_inst') }}</th>
                 </tr>
             </thead>
             <tbody>
