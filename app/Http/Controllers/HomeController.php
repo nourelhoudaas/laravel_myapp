@@ -67,7 +67,7 @@ $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_famil
      // Définir les situations familiales possibles en fonction de la langue
      $situations = [
         'fr' => ['Célibataire', 'Marié(e)', 'Divorcé(e)', 'Veuf(ve)'],
-        'ar' => ['أعزب/عزباء', 'متزوج(ة)', '(ة)مطلق', '(ة)أرمل']
+        'ar' => ['أعزب/عزباء', 'متزوج(ة)', 'مطلق(ة)', 'ارمل(ة)']
     ];
 
     // Sélectionner les situations familiales en fonction de la langue
