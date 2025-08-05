@@ -1795,7 +1795,7 @@ class EmployeesController extends Controller
                      $related->save();
                 }
 
-                  if( $key == 'dossiers')
+               /*   if( $key == 'dossiers')
                 {
                     $related=Dossier::where('ref_Dossier',$value)->first();
                     $old=$related->ref_Dossier;
@@ -1805,7 +1805,7 @@ class EmployeesController extends Controller
                      if (Storage::exists($old)) {
                        
                         $disk = Storage::disk($directory); // or 'public' if you're using that
-                        dd($disk);
+                       // dd($disk);
                       // Get all files recursively from source folder
                         $files = $disk->allFiles($from);
 
@@ -1815,10 +1815,10 @@ class EmployeesController extends Controller
                     // Copy file to new location
                         $disk->put($newPath, $disk->get($file));
                         }
-                     }
+                     }*/
                   
                      
-                }
+               // }
                 
                 
 
