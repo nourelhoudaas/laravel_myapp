@@ -262,7 +262,7 @@ public function existToAddApp(Request $Request)
     // 🔧 Insertion dans la table `niveaux`
 
     $niv = DB::table('niveaux')->insert($niveauxData);
-    $niv = Niveau::where('Nom_niv', $Request->input('Specialite') ?? 'null')->orderBy('id_niv','desc')->first();
+    $niv = Niveau::orderBy('id_niv','desc')->first();
     $idn = $niv->id_niv;
     // 🔧$niv-> Préparation des données pour la table `appartients`
     $appartientsData = [

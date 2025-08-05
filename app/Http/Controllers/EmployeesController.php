@@ -1795,7 +1795,7 @@ class EmployeesController extends Controller
                      $related->save();
                 }
 
-               /*   if( $key == 'dossiers')
+                 if( $key == 'dossiers')
                 {
                     $related=Dossier::where('ref_Dossier',$value)->first();
                     $old=$related->ref_Dossier;
@@ -1815,10 +1815,10 @@ class EmployeesController extends Controller
                     // Copy file to new location
                         $disk->put($newPath, $disk->get($file));
                         }
-                     }*/
+                     }
                   
                      
-               // }
+               }
                 
                 
 
