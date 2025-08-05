@@ -22,6 +22,8 @@ use App\Models\Bureau;
 use App\Models\Post;
 use App\Models\appartient;
 use App\Models\type_cong;
+
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -1681,18 +1683,21 @@ class EmployeesController extends Controller
         $id_nin_local= 1254953;
         $related_list=[];   
        // dd($id_nin);
-        $related=Occupe::where('id_nin',$id_nin)->first();  
-       // dd($related);
+        $related=Occupe::where('id_nin',$id_nin)->get();  
+      
         if(isset($related))
         {   
+            foreach ($related as $key => $value) {
+                # code...
+             array_push($related_list,["occupes"=>$value->id_occup]);
+             $value->id_nin=$id_nin_local;
+             $value->save();
+            }
             
-             array_push($related_list,["occupes"=>$related->id_occup]);
-             $related->id_nin=$id_nin_local;
-             $related->save();
 
         }
         /** ==========================================================*/
-            $related=Log::where('id_nin',$id_nin)->delete();
+        $related=Log::where('id_nin',$id_nin)->delete();
        /* if(isset($related))
         {
             array_push($related_list,["logs"=>$related->id_log]);
@@ -1701,43 +1706,51 @@ class EmployeesController extends Controller
         }*/
         /** ===============================================================*/
          $related=Dossier::where('ref_Dossier',"Em_".$id_nin)->first();
-       /* if(isset($related))
+        if(isset($related))
         {
             array_push($related_list,["dossiers"=>$related->ref_Dossier]);
-            $related->id_nin=$id_nin_local;
-             $related->save();
-        }*/
+        }
 
         /**=================================================================== */
-          $related=appartient::where('id_nin',$id_nin)->first();
+          $related=appartient::where('id_nin',$id_nin)->get();
         if(isset($related))
         {
-            array_push($related_list,["appartients"=>$related->id_appar]);
-            $related->id_nin=$id_nin_local;
-            $related->save();
+            foreach ($related as $key => $value) {
+              array_push($related_list,["appartients"=>$value->id_appar]);
+                $value->id_nin=$id_nin_local;
+                $value->save();
+            }
+         
         }
         /**===================================================================== */
-                $related=Travail::where('id_nin',$id_nin)->first();
+                $related=Travail::where('id_nin',$id_nin)->get();
         if(isset($related))
         {
-            array_push($related_list,["travails"=>$related->id_travail]);
-            $related->id_nin=$id_nin_local;
-             $related->save();
+            foreach ($related as $key => $value) {
+                array_push($related_list,["travails"=>$value->id_travail]);
+                $value->id_nin=$id_nin_local;
+                $value->save();
+            }
         }
-          $related=Absence::where('id_nin',$id_nin)->first();
+          $related=Absence::where('id_nin',$id_nin)->get();
         if(isset($related))
         {
-            array_push($related_list,["absences"=>$related->id_abs]);
-            $related->id_nin=$id_nin_local;
-             $related->save();
+             foreach ($related as $key => $value) {
+                 array_push($related_list,["absences"=>$value->id_abs]);
+                $value->id_nin=$id_nin_local;
+                $value->save();
+            }
         }
-            $related=Conge::where('id_nin',$id_nin)->first();
+            $related=Conge::where('id_nin',$id_nin)->get();
         if(isset($related))
         {
-            array_push($related_list,["conges"=>$related->id_cong]);
-            $related->id_nin=$id_nin_local;
-             $related->save();
+                foreach ($related as $key => $value) {
+                array_push($related_list,["conges"=>$value->id_cong]);
+                $value->id_nin=$id_nin_local;
+                $value->save();
+            }
         }
+      //  dd($related_list);
         if(count($related_list) > 0)
         {
             $related=Employe::where('id_nin',$id_nin)->first();
@@ -1745,12 +1758,13 @@ class EmployeesController extends Controller
             $related->save();
         for ($i=0 ;$i<count($related_list);$i++)
         {
+                //dd($key,$value);
         foreach ($related_list[$i] as $key => $value) 
         {
             # code...
+          //  
                 if( $key == 'conges')
                 {
-                    
                     $related=Conge::where('id_cong',$value)->first();
                     $related->id_nin=$request->input('id_nin_modif');
                     $related->save();
@@ -1763,6 +1777,7 @@ class EmployeesController extends Controller
                 }
                   if( $key == 'travails')
                 {
+                    
                     $related=Travail::where('id_travail',$value)->first();
                     $related->id_nin=$request->input('id_nin_modif');
                     $related->save();
@@ -1779,6 +1794,24 @@ class EmployeesController extends Controller
                      $related->id_nin=$request->input('id_nin_modif');
                      $related->save();
                 }
+
+              /*    if( $key == 'dossiers')
+                {
+                     
+                    $old=$related->ref_Dossier;
+                   // dd($old);
+                     if (Storage::exists()) {
+                       
+                         $ref="Em_".$request->input('id_nin_modif');
+                         $related=Dossier::where('ref_Dossier',$value)->first();
+                         $related->ref_Dossier=$ref;
+                         $related->save();
+                         Storage::move($oldName, $ref);
+                     }
+                  
+                     
+                }*/
+                
                 
 
         }
