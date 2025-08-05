@@ -1795,22 +1795,30 @@ class EmployeesController extends Controller
                      $related->save();
                 }
 
-              /*    if( $key == 'dossiers')
+                  if( $key == 'dossiers')
                 {
-                     
+                    $related=Dossier::where('ref_Dossier',$value)->first();
                     $old=$related->ref_Dossier;
-                   // dd($old);
-                     if (Storage::exists()) {
+                    $new="public/employees/{$request->input('id_nin_modif')}";
+                    $directory = "public/employees/{$old}";
+                    $to =$new;
+                     if (Storage::exists($old)) {
                        
-                         $ref="Em_".$request->input('id_nin_modif');
-                         $related=Dossier::where('ref_Dossier',$value)->first();
-                         $related->ref_Dossier=$ref;
-                         $related->save();
-                         Storage::move($oldName, $ref);
+                        $disk = Storage::disk($directory); // or 'public' if you're using that
+                        dd($disk);
+                      // Get all files recursively from source folder
+                        $files = $disk->allFiles($from);
+
+                    foreach ($files as $file) {
+                    // Remove source folder prefix
+                        $newPath = str_replace($from, $to , $file);
+                    // Copy file to new location
+                        $disk->put($newPath, $disk->get($file));
+                        }
                      }
                   
                      
-                }*/
+                }
                 
                 
 
