@@ -531,4 +531,41 @@ ATTESTATION DE TRAVAIL
     {
         return redirect()->to('storage/employees/Em_'.$id.'/report.pdf');
     }
+
+
+
+    function delete_file_nin($filename)
+    {
+        $ups='Opération réussie';
+        $upsnot='Echec D` Opération';
+        if(app()->getLocale() == 'ar')
+        {
+            $ups=' تم بنجاح ';
+            $upsnot='خطا في العملية';
+        }
+        $id=explode('-',$filename);
+        $subd=$id[0];
+        $numid=intval($id[1]);
+        if($numid == 0)
+        {
+            return response()->json([
+                'message'=> $upsnot,
+                'code'=> 302
+            ]);
+        }
+     
+        $file=Fichier::where('id_fichier',$numid)->first();
+        if($file)
+        {
+            $chek_delete=Stocke::where('id_fichier',$file->id_fichier)->delete();
+            $file=Fichier::where('id_fichier',$numid)->delete();
+             return response()->json([
+                'message'=> $ups,
+                'code'=> 200
+            ]);
+        }
+
+    }
+
+
 }
