@@ -1723,7 +1723,7 @@ class EmployeesController extends Controller
          
         }
         /****************************************************************************** */
-                    $ref='Em_'.$id_nin;
+           /*         $ref='Em_'.$id_nin;
                     $ref_loco='Em_'.$id_nin_local;
                   $related=Stocke::where('ref_Dossier',$ref)->get();
                     if(isset($related))
@@ -1745,7 +1745,7 @@ class EmployeesController extends Controller
                             'id'=>1,
                             'mac'=>'notfound'
                         ]);
-                    }
+                    }*/
         /**===================================================================== */
                 $related=Travail::where('id_nin',$id_nin)->get();
         if(isset($related))
@@ -1819,15 +1819,15 @@ class EmployeesController extends Controller
                      $related->save();
                 }
 
-                    if( $key == 'stoke')
+               /*     if( $key == 'stoke')
                 {
                      $ref="Em_".$request->input('id_nin_modif');
                      $related=Stocke::where('id_stock',$value)->first();
                      $related->ref_Dossier=$ref;
                      $related->save();
-                }
+                }*/
 
-                 if( $key == 'dossiers')
+             /*    if( $key == 'dossiers')
                 {
                         $related=Dossier::where('ref_Dossier',$value)->first();
                         $old = $related->ref_Dossier; 
@@ -1862,7 +1862,7 @@ class EmployeesController extends Controller
                         $related->ref_Dossier="Em_" . $request->input('id_modif');
                         $related->save();
                       }
-                   }
+                   }*/
     }
 }
         }  
