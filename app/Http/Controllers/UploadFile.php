@@ -559,10 +559,7 @@ ATTESTATION DE TRAVAIL
         {
             $chek_delete=Stocke::where('id_fichier',$file->id_fichier)->delete();
             $file=Fichier::where('id_fichier',$numid)->delete();
-             return response()->json([
-                'message'=> $ups,
-                'code'=> 200
-            ]);
+             return redirect()->back();
         }
 
     }

@@ -44,10 +44,11 @@
                         </div>
                         <ul class="list-group list-group-flush" id="file-holder-{{$subDir}}">
                             @foreach($filesArray as $file)
+                              @if(isset($file))
                                 <li class="list-group-item" id='file-holder'>
                                         <a href="{{url('/live/read/'.$empdoss.'/'.$subDir.'-'.$file.'/')}}" target="_blank" id="{{$file}}">{{ $file }}</a>
                                         <p id='date-insert-{{$file}}'></p>
-                                        @if(isset($file))
+                                      
                                         <a href="/delete/file/{{$subDir}}-{{$file}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         @endif
                                  </li>
