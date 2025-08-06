@@ -107,7 +107,7 @@
                                                         $locale = app()->getLocale();
                                                     @endphp
                                                     <tr>
-                                                        <td>{{ $employe->id_emp }}</td>
+                                                        <td>{{ $loop->iteration }}</td>
                                                         <td>
                                                             <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
                                                                 @if ($locale == 'fr')
