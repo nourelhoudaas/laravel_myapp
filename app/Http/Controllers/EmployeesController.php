@@ -225,6 +225,45 @@ class EmployeesController extends Controller
 
     }
 
+//supprimer un employer
+    public function delete($id_nin)
+    {
+        try {
+            DB::beginTransaction();
+
+            // Trouver l'employé
+            $employe = Employe::where('id_nin', $id_nin)->firstOrFail();
+
+            // Supprimer les enregistrements liés
+            Absence::where('id_nin', $id_nin)->delete();
+            Absence::where('id_p', $employe->id_p)->delete();
+            
+            Appartient::where('id_nin', $id_nin)->delete();
+            Appartient::where('id_p', $employe->id_p)->delete();
+            
+            Conge::where('id_nin', $id_nin)->delete();
+            Conge::where('id_p', $employe->id_p)->delete();
+            
+            Travail::where('id_nin', $id_nin)->delete();
+            Travail::where('id_p', $employe->id_p)->delete();
+            
+            User::where('id_nin', $id_nin)->delete();
+            User::where('id_p', $employe->id_p)->delete();
+
+            // Supprimer le dossier lié
+            \App\Models\Dossier::where('ref_Dossier', "Em_{$id_nin}")->delete();
+
+            // Supprimer l'employé
+            $employe->delete();
+
+            DB::commit();
+            return redirect()->route('app_liste_emply')->with('success', __('lang.employee_deleted'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('app_liste_emply')->with('error', __('lang.delete_failed') . ': ' . $e->getMessage());
+        }
+    }
+
     public function AddEmply()
     {
         return view('employees.add');
