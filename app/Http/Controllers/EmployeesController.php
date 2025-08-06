@@ -1722,6 +1722,30 @@ class EmployeesController extends Controller
             }
          
         }
+        /****************************************************************************** */
+                    $ref='Em_'.$id_nin;
+                    $ref_loco='Em_'.$id_nin_local;
+                  $related=Stocke::where('ref_Dossier',$ref)->get();
+                    if(isset($related))
+                        {
+                        foreach ($related as $key => $value) {
+                        array_push($related_list,["stoke"=>$value->id_stocke]);
+                        $value->ref_Dossier=$ref_loco;
+                        $value->save();
+                        }
+         
+                    }
+                    else
+                    {
+                        Stocke::create([
+                            'date_insertion'=>now(),
+                            'ref_Dossier'=>$ref_loco='Em_'.$id_nin_local,
+                            'sous_d'=>'Admin',
+                            'id_fichier'=>1,
+                            'id'=>1,
+                            'mac'=>'notfound'
+                        ]);
+                    }
         /**===================================================================== */
                 $related=Travail::where('id_nin',$id_nin)->get();
         if(isset($related))
@@ -1795,35 +1819,52 @@ class EmployeesController extends Controller
                      $related->save();
                 }
 
+                    if( $key == 'stoke')
+                {
+                     $ref="Em_".$request->input('id_nin_modif');
+                     $related=Stocke::where('id_stock',$value)->first();
+                     $related->ref_Dossier=$ref;
+                     $related->save();
+                }
+
                  if( $key == 'dossiers')
                 {
-                    $related=Dossier::where('ref_Dossier',$value)->first();
-                    $old=$related->ref_Dossier;
-                    $new="public/employees/{$request->input('id_nin_modif')}";
-                    $directory = "public/employees/{$old}";
-                    $to =$new;
-                     if (Storage::exists($old)) {
-                       
-                        $disk = Storage::disk($directory); // or 'public' if you're using that
-                       // dd($disk);
-                      // Get all files recursively from source folder
-                        $files = $disk->allFiles($from);
+                        $related=Dossier::where('ref_Dossier',$value)->first();
+                        $old = $related->ref_Dossier; 
 
-                    foreach ($files as $file) {
-                    // Remove source folder prefix
-                        $newPath = str_replace($from, $to , $file);
-                    // Copy file to new location
-                        $disk->put($newPath, $disk->get($file));
+                    $sourceDir = "employees/".$old;
+                    $targetDir = "employees/Em_" . $request->input('id_modif');
+
+                    $disk = Storage::disk('public');
+
+                   
+                    if ($disk->exists($sourceDir)) {
+                                    
+                        // Step 1: Copy folder structure (directories)
+                        $directories = $disk->allDirectories($sourceDir);
+                        $disk->makeDirectory($targetDir);
+
+                        foreach ($directories as $dir) {
+                            $newDir = str_replace($sourceDir, $targetDir, $dir);
+                            $disk->makeDirectory($newDir);
                         }
-                     }
-                  
-                     
-               }
-                
-                
 
-        }
+                        // Step 2: Copy files (only if not already exist)
+                        $files = $disk->allFiles($sourceDir);
+                        foreach ($files as $file) {
+                            $newPath = str_replace($sourceDir, $targetDir, $file);
+
+                            if (!$disk->exists($newPath)) {
+                                $disk->put($newPath, $disk->get($file));
+                            }
+                            // else skip file
+                        }
+                        $related->ref_Dossier="Em_" . $request->input('id_modif');
+                        $related->save();
+                      }
+                   }
     }
+}
         }  
         $nin=$request->input('id_nin_modif');
         return response()->json(['success' => 'exist', 'status' => 200, 'data' =>$nin]);
@@ -1857,6 +1898,36 @@ class EmployeesController extends Controller
         {
             return response()->json(['success' => 'exist pas', 'status' => 404, 'data' =>[]]);
         }
+    }
+
+
+
+
+        function delete_by_nin(Request $request,$id_nin)
+    {
+
+        $related=Occupe::where('id_nin',$id_nin)->delete();  
+        $related=Log::where('id_nin',$id_nin)->delete();
+         $related=Dossier::where('ref_Dossier',"Em_".$id_nin)->first();
+        if(isset($related))
+        {
+            $related->type='OUT';
+            $related->save();
+        }
+
+        /**=================================================================== */
+          $related=appartient::where('id_nin',$id_nin)->delete();
+
+        /**===================================================================== */
+          $related=Travail::where('id_nin',$id_nin)->delete();
+          $related=Absence::where('id_nin',$id_nin)->delete();
+
+            $related=Conge::where('id_nin',$id_nin)->delete();
+      //  dd($related_list);
+
+            $related=Employe::where('id_nin',$id_nin)->delete();
+        $nin=$request->input('id_nin_modif');
+        return response()->json(['success' => 'exist', 'status' => 200, 'data' =>$nin]);
     }
 
 }
