@@ -147,7 +147,7 @@ class EmployeesController extends Controller
             'occupeIdNin.postsup',
             'travailByNin.sous_departement.departement',
 
-        ])
+        ])->whereNotIn('id_nin',[1254953,254896989])
             ->get();
         // dd( $employe);
 
