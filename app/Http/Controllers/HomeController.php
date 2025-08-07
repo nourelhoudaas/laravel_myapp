@@ -31,7 +31,7 @@ class HomeController extends Controller
         $employe=Employe::with([
     'occupeIdNin.post.contient.sous_departement.departement',
     'occupeIdP.post.contient.sous_departement.departement'
-        ])->get();
+        ])->whereNotIn('id_nin',[1254953,254896989])->get();
 
     //le nbr total des employés
     $totalEmployess=$employe->count();
@@ -44,7 +44,8 @@ class HomeController extends Controller
             $employes=Employe::with([
                 'occupeIdNin.post.contient.sous_departement.departement',
                 'occupeIdP.post.contient.sous_departement.departement'
-                    ])->get();
+                    ])->whereNotIn('id_nin',[1254953,254896989])
+                    ->get();
                     $empdep = $employes->filter(function($employe) use ($id_dprt) {
                         $post = $employe->occupeIdNin->last()->post ?? null;
                         $travail = $employe->travailByNin->last();

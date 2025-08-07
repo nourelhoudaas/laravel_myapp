@@ -174,13 +174,13 @@ return [
     'id_drec'=>'ID المديرية',
     'nom_sous_direct'=>'المديرية الفرعية',
     'title_list_direc'=>'قائمة المديريات والمديريات الفرعية',
-
+    'pos_fun'=>'منصب عمل',
     'nbr_page'=>'الصفحة',
     'Departementde'=>'مديرية ',
     'ats'=>'شهادة عمل',
     'update'=>'',
 
-        'cont_act'=> 'بالتعاقد',
+    'cont_act'=> 'بالتعاقد',
 
     'Changerlemotdepass'=>'تغيير كلمة المرور',
     'Ancienmotdepass'=>'كلمة المرور السابقة',
