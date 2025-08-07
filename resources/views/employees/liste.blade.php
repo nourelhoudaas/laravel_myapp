@@ -49,7 +49,7 @@ use Carbon\Carbon;
                             {{ __('lang.visa_CF') }}
                         </th>--}}
                         <th>
-                            {{ __('lang.post') }}
+                            {{ __('lang.post') }} / {{__('lang.pos_fun')}}
                         </th>
                         <th>{{ __('lang.postsup') }}
 
@@ -66,7 +66,7 @@ use Carbon\Carbon;
                         <th>
                             {{ __('lang.date_inst') }}
                         </th>
-                        <th>{{ __('lang.Action') }}</th>
+                       {{-- <th>{{ __('lang.Action') }}</th>--}}
 
 
                     </tr>
@@ -165,8 +165,13 @@ use Carbon\Carbon;
                             @endif
                         </td>
                         <td>{{ $travail->date_installation ?? '-' }}</td>
+<<<<<<< HEAD
                         <td>
                             <form action="{{ route('employees.delete', ['id_nin' => $employe->id_nin]) }}" method="POST" style="display:inline;">
+=======
+                        {{--<td>
+                            <form action="{{ route('employees.delete', $employe->id_nin) }}" method="POST" style="display:inline;">
+>>>>>>> 7bb5879dc485f9fffc2c3277cf52ed649a72dc46
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')"
@@ -174,7 +179,7 @@ use Carbon\Carbon;
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                             </form>
-                        </td>
+                        </td>--}}
                     </tr>
                     @endforeach
                     </>
