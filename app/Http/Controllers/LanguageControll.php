@@ -11,7 +11,7 @@ class LanguageControll extends Controller
     {
         // Set the locale
         App::setLocale($lang);
-        
+        dd("".$lang."");
         // Store the locale in session or cookie if needed
         session(['locale' => $lang]);
         

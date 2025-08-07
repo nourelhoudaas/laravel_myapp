@@ -5,6 +5,11 @@
 @section('content')
 @php
     $uid=auth()->id();
+        // Définir la langue depuis la session
+    App::setLocale(Session::get('locale', 'fr'));
+
+    // Récupérer la langue active
+    $locale = App::getLocale();
     @endphp
     <body>
     <div id="loadingSpinner" class="spinner-overlay">

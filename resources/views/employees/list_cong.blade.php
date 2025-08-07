@@ -1,6 +1,10 @@
 @php
     use Carbon\Carbon;
-    $locale = app()->getLocale();
+        // Définir la langue depuis la session
+    App::setLocale(Session::get('locale', 'fr'));
+
+    // Récupérer la langue active
+    $locale = App::getLocale();
 @endphp
 
 

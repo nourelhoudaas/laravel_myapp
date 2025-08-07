@@ -119,7 +119,7 @@ $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_famil
         if (in_array($locale, ['fr','ar'])) {
             Session::put('locale', $locale);
             App::setLocale($locale);
-            //dd(App::getLocale());
+          // dd(Session::get('locale'));
         }
         return back();
     }
