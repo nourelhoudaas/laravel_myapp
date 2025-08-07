@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -19,12 +20,12 @@ return new class extends Migration
             $table->integer('nbr_jours');
             $table->string('situation_AR');
             $table->string('ref_cong');
-            $table->decimal('id_nin', 18, 0)->unique();
+            $table->decimal('id_nin', 18, 0);
             $table->integer('id_sous_depart');
             $table->bigInteger('id_p');
             $table->integer('id_fichier')->default(1);
             $table->string('ref_cng')->nullable();
-            $table->foreign('id_nin')->references('id_nin')->on('employes');
+            $table->foreign('id_nin')->references('id_nin')->on('employes')->onDelete('cascade');   
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('ref_cong')->references('ref_cong')->on('type_congs');
             $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use App\Models\Absence;
 use App\Models\appartient;
 use App\Models\Bureau;
@@ -10,7 +11,6 @@ use App\Models\Departement;
 use App\Models\Dossier;
 use App\Models\Employe;
 use App\Models\Fonction;
-use App\Models\Log;
 use App\Models\Niveau;
 use App\Models\Occupe;
 use App\Models\Post;
@@ -27,6 +27,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
 // Add this line if logService exists in App\Services
 
 class EmployeesController extends Controller
@@ -221,49 +222,78 @@ class EmployeesController extends Controller
         return view('employees.liste', compact('employe', 'totalEmployes', 'empdepart', 'champs', 'direction'));
     }
 
-    // Supprimer un employé et ses enregistrements liés
+
+
     public function delete($id_nin)
     {
         try {
             DB::beginTransaction();
 
-            // Trouver l'employé
-            $employe = Employe::where('id_nin', $id_nin)->firstOrFail();
+            // 1. Trouver l'employé via id_nin
+            $employe = Employe::where('id_nin', $id_nin)->first();
 
-            // Supprimer les enregistrements liés
-            Absence::where('id_nin', $id_nin)->delete();
-            if ($employe->id_p) {
-                Absence::where('id_p', $employe->id_p)->delete();
+            if (!$employe) {
+                return redirect()->route('app_liste_emply')->with('error', 'Employé non trouvé.');
             }
 
-            Appartient::where('id_nin', $id_nin)->delete();
-            if ($employe->id_p) {
-                Appartient::where('id_p', $employe->id_p)->delete();
+            $id_emp = $employe->id_emp;
+            $id_p = $employe->id_p;
+
+            // 2. Supprimer tous les enregistrements liés via leurs clés primaires
+
+            // Absence
+            $absences = Absence::where('id_nin', $id_nin)->pluck('id_abs')->toArray();
+            if ($id_p) {
+                $absences_p = Absence::where('id_p', $id_p)->pluck('id_abs')->toArray();
+                $absences = array_merge($absences, $absences_p);
+            }
+            Absence::destroy($absences);
+
+            // Appartient
+            $appartients = Appartient::where('id_nin', $id_nin)->pluck('id_appar')->toArray();
+            if ($id_p) {
+                $appartients_p = Appartient::where('id_p', $id_p)->pluck('id_appar')->toArray();
+                $appartients = array_merge($appartients, $appartients_p);
+            }
+            $appartients = array_unique($appartients); // 👈 Ajoute cette ligne
+            Appartient::destroy($appartients);
+
+            dd($appartients);
+
+            // Occupe
+            $occupes = Occupe::where('id_nin', $id_nin)->pluck('id_occup')->toArray();
+            if ($id_p) {
+                $occupes_p = Occupe::where('id_p', $id_p)->pluck('id_occup')->toArray();
+                $occupes = array_merge($occupes, $occupes_p);
+            }
+            Occupe::destroy($occupes);
+
+            // Conge
+            $conges = Conge::where('id_nin', $id_nin)->pluck('id_cong')->toArray();
+            if ($id_p) {
+                $conges_p = Conge::where('id_p', $id_p)->pluck('id_cong')->toArray();
+                $conges = array_merge($conges, $conges_p);
+            }
+            Conge::destroy($conges);
+
+            // Travail
+            $travails = Travail::where('id_nin', $id_nin)->pluck('id_travail')->toArray();
+            if ($id_p) {
+                $travails_p = Travail::where('id_p', $id_p)->pluck('id_travail')->toArray();
+                $travails = array_merge($travails, $travails_p);
+            }
+            Travail::destroy($travails);
+
+            // Users
+            User::where('id_nin', $id_nin)->orWhere('id_p', $id_p)->delete();
+
+            // Dossier (clé primaire = ref_Dossier)
+            $ref = "Em_{$id_nin}";
+            if (Dossier::where('ref_Dossier', $ref)->exists()) {
+                Dossier::destroy($ref);
             }
 
-            Occupe::where('id_nin', $id_nin)->delete();
-            if ($employe->id_p) {
-                Occupe::where('id_p', $employe->id_p)->delete();
-            }
-
-            Conge::where('id_nin', $id_nin)->delete();
-            if ($employe->id_p) {
-                Conge::where('id_p', $employe->id_p)->delete();
-            }
-
-            Travail::where('id_nin', $id_nin)->delete();
-            if ($employe->id_p) {
-                Travail::where('id_p', $employe->id_p)->delete();
-            }
-
-            User::where('id_nin', $id_nin)->delete();
-            if ($employe->id_p) {
-                User::where('id_p', $employe->id_p)->delete();
-            }
-
-            Dossier::where('ref_Dossier', "Em_{$id_nin}")->delete();
-
-            // Enregistrer l'action dans le journal
+            // Log action
             $this->logService->logAction(
                 Auth::user()->id,
                 $employe->id_nin,
@@ -271,17 +301,21 @@ class EmployeesController extends Controller
                 $this->logService->getMacAddress()
             );
 
-            // Supprimer l'employé
-            $employe->delete();
+            // Supprimer employé
+            Employe::destroy($id_emp);
 
             DB::commit();
-            return redirect()->route('employees.liste')->with('success', __('lang.employee_deleted'));
+
+            return redirect()->route('app_liste_emply')->with('success', __('lang.employee_deleted'));
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::error('Erreur lors de la suppression de l\'employé ID_NIN: ' . $id_nin . ' - ' . $e->getMessage());
-            return redirect()->route('employees.liste')->with('error', __('lang.delete_failed') . ': ' . $e->getMessage());
+            Log::error('Erreur suppression employé : ' . $e->getMessage());
+            return redirect()->route('app_liste_emply')->with('error', __('lang.delete_failed'));
         }
     }
+
+
+
 
     public function AddEmply()
     {
