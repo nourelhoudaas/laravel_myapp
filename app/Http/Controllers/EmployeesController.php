@@ -22,7 +22,7 @@ use App\Models\Bureau;
 use App\Models\Post;
 use App\Models\appartient;
 use App\Models\type_cong;
-
+use App\Services\logService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -251,7 +251,15 @@ class EmployeesController extends Controller
             User::where('id_p', $employe->id_p)->delete();
 
             // Supprimer le dossier lié
-            \App\Models\Dossier::where('ref_Dossier', "Em_{$id_nin}")->delete();
+            Dossier::where('ref_Dossier', "Em_{$id_nin}")->delete();
+            
+            //
+            $this->logService->logAction(
+                Auth::user()->id,
+                $request->get('ID_NIN'),
+                'Générer La Décision Employé',
+                $this->logService->getMacAddress()
+            );
 
             // Supprimer l'employé
             $employe->delete();
