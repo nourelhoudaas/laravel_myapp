@@ -231,15 +231,14 @@ public function delete($id_nin)
         return redirect()->back()->with('error', 'Identifiant employé invalide.');
     }
 
-    // Rechercher l'employé par id_nin
-    $employe = Employe::where('id_nin', $id_nin)->first();
+// Rechercher l'employé par id_nin
+$employe = Employe::where('id_nin', $id_nin)->first();
+if (!$employe) {
+    return redirect()->back()->with('error', 'Employé non trouvé.');
+}
 
-    if (!$employe) {
-        return redirect()->back()->with('error', 'Employé non trouvé.');
-    }
-
-    // Commencer une transaction
-    DB::beginTransaction();
+// Commencer une transaction
+DB::beginTransaction();
 
     try {
         // Supprimer les enregistrements liés
@@ -269,7 +268,7 @@ public function delete($id_nin)
 
         // Valider la transaction
         DB::commit();
-//dd('$employe');
+
         return redirect()->route('employees.liste')->with('success', 'Employé et ses enregistrements associés supprimés avec succès.');
     } catch (\Exception $e) {
         // Annuler la transaction
