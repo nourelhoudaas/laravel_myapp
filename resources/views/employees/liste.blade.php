@@ -49,7 +49,7 @@ use Carbon\Carbon;
                             {{ __('lang.visa_CF') }}
                         </th>--}}
                         <th>
-                            {{ __('lang.post') }}
+                            {{ __('lang.post') }} / {{__('lang.pos_fun')}}
                         </th>
                         <th>{{ __('lang.postsup') }}
 
