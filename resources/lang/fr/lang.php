@@ -185,6 +185,7 @@ return [
     'nbr_page'=>'Numero de Page',
     'Departementde'=>' Direction de',
 
+    'pos_fun'=>'Poste Occupè',
 
     'Changerlemotdepass'=>'Changer le mot de pass',
     'Ancienmotdepass'=>'Ancien mot de pass',
