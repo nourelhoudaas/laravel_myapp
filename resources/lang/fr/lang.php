@@ -286,6 +286,6 @@ return [
     'delete_failed' => 'Échec de la suppression de l\'employé',
     'employee_deleted' => 'Employé supprimé avec succès.',
     'supprimer' => 'Supprimer',
-    'confirm_delete'=> 'Confirmer la suppression',
+    'confirm_delete'=> 'Êtes-vous sûr de vouloir supprimer cet employé ?',
 
 ];
