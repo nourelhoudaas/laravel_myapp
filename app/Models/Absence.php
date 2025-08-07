@@ -18,9 +18,9 @@ class Absence extends Model
       protected $fillable = ['id_abs','date_abs','heure_abs','statut','statut_ar','id_nin','id_p','id_sous_depart','id_fichier'];
 
       public function employe()
-      {
-          return $this-> belongsTo(Employe::class,['id_nin','id_p'],['id_nin','id_p']);
-      }
+{
+    return $this->belongsTo(Employe::class, 'id_nin', 'id_nin');
+}
 
       public function sous_departement()
       {

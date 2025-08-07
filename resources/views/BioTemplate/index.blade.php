@@ -486,7 +486,7 @@
       var chek='{{!isset($last->email_pro)}}'
       var btn_nin=document.getElementById('modif_nin')
       var btn_niv=document.getElementById('niv_edit')
-      var btn_car=document.getElementById('del_cariar')
+      var btn_car=document.querySelectorAll('[id="del_cariar')
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){
@@ -531,7 +531,9 @@ icon.classList.remove('fa-times')
 icon.classList.add('fa-pencil');
 btn_nin.classList.remove('hidden-select')
 btn_niv.classList.remove('hidden-select')
-btn_car.classList.remove('hidden-select')
+btn_car.forEach(el => {
+  el.classList.remove('hidden-select'); // remove all classes
+});
 btn_niv.addEventListener('click',function(){
   window.location.href='/Employe/IsTravaill/'+id
 })
@@ -568,7 +570,10 @@ icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
 btn_nin.classList.add('hidden-select')
 btn_niv.classList.add('hidden-select')
-btn_car.classList.add('hidden-select')
+
+btn_car.forEach(el => {
+  el.classList.add('hidden-select') 
+});
 document.getElementById('Nom_P').disabled=true;
 document.getElementById('Nom_PAR').disabled=true;
 document.getElementById('Prenom_O').disabled=true;

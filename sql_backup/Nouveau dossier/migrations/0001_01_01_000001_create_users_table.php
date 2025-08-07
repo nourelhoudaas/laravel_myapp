@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+
 return new class extends Migration
 {
     /**
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->decimal('id_nin', 18, 0)->unique();
             $table->foreign('id_nin')->references('id_nin')->on('employes');
             $table->bigInteger('id_p')->unique();
-            $table->foreign('id_p')->references('id_p')->on('employes');
+            $table->foreign('id_nin')->references('id_nin')->on('employes')->onDelete('cascade');
             $table->string('username', 191)->unique();
             //$table->string('email')->unique();
            // $table->timestamp('email_verified_at')->nullable();

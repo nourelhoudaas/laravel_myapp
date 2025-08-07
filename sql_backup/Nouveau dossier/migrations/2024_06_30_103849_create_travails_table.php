@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('id_sous_depart');
             $table->bigInteger('id_p');
             $table->integer('id_bureau');
-            $table->foreign('id_nin')->references('id_nin')->on('employes');
+            $table->foreign('id_nin')->references('id_nin')->on('employes')->onDelete('cascade');
             $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
             $table->foreign('id_p')->references('id_p')->on('employes');
             $table->foreign('id_bureau')->references('id_bureau')->on('bureaus');
