@@ -257,7 +257,7 @@ return [
 
 
 
-    'post_sup'=>'المنصب',
+    
     'grade_sup'=>'رمز المنصب',
 
     'fonction'=>'وظيفة العليا',
@@ -269,6 +269,8 @@ return [
     'AddSubDir'=>'اضافة مديرية فرعية',
     'ListSubDir'=>'قائمة المديريات الفرعية',
        
+    'employee_deleted'=> 'تم حذف الموظف بنجاح',
+    'delete_failed'=> 'فشل حذف الموظف',
 ];
 
 

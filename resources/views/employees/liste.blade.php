@@ -166,14 +166,13 @@ use Carbon\Carbon;
                         </td>
                         <td>{{ $travail->date_installation ?? '-' }}</td>
                         <td>
-                            <form action="{{ route('emp_delete', $employe->id_nin) }}" method="POST"
-                                style="display:inline;">
+                            <form action="{{ route('employees.delete', $employe->id_nin) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')"
-                                    href="#">
+                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')"
+                                    class="btn btn-danger">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a>
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -190,10 +189,10 @@ use Carbon\Carbon;
 
 
     <script>
-    $(document).ready(function() {
-        var ts = $(".small").text()
-        console.log('testing' + ts)
-    })
+        $(document).ready(function() {
+            var ts = $(".small").text()
+            console.log('testing' + ts)
+        })
     </script>
 
 

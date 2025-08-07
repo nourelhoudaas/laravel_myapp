@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Absence;
@@ -56,7 +57,7 @@ class EmployeesController extends Controller
                 'encoding' => 'UTF-8',
 
             ]);
-                                                  //return $pdf->download('Liste des employés.pdf');
+        //return $pdf->download('Liste des employés.pdf');
         return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
     }
 
@@ -157,12 +158,10 @@ class EmployeesController extends Controller
             $employe = $employe->sortBy(function ($emp) {
                 return Carbon::parse($emp->Date_nais)->age;
             }, SORT_REGULAR, $direction === 'desc');
-
         } elseif ($champs === 'Nom_post') {
             $employe = $employe->sortBy(function ($emp) {
                 return optional($emp->occupeIdNin->last())->post->Nom_post;
             }, SORT_REGULAR, $direction === 'desc');
-
         } elseif ($champs === 'id_p') {
             $employe = $employe->sortBy(function ($emp) {
                 return optional($emp->id_p);
@@ -171,17 +170,14 @@ class EmployeesController extends Controller
             $employe = $employe->sortBy(function ($emp) {
                 return optional(optional($emp->travailByNin->last())->sous_departement->departement)->Nom_depart;
             }, SORT_REGULAR, $direction === 'desc');
-
         } elseif ($champs === 'Nom_sous_depart') {
             $employe = $employe->sortBy(function ($emp) {
                 return optional($emp->travailByNin->last())->sous_departement->Nom_sous_depart;
             }, SORT_REGULAR, $direction === 'desc');
-
         } elseif ($champs === 'date_recrutement') {
             $employe = $employe->sortBy(function ($emp) {
                 return optional($emp->occupeIdNin->last())->date_recrutement;
             }, SORT_REGULAR, $direction === 'desc');
-
         } elseif ($champs === 'date_installation') {
             $employe = $employe->sortBy(function ($emp) {
                 return optional($emp->travailByNin->last())->date_installation;
@@ -198,7 +194,7 @@ class EmployeesController extends Controller
 
         //le nbr total des employe pour chaque depart
         $totalEmployes = $employe->count();
-/*
+        /*
         // Définir le nombre d'éléments par page
         $perPage = 5; // Par exemple, 2 éléments par page
         $page = 1; // Page actuelle
@@ -223,10 +219,9 @@ class EmployeesController extends Controller
             ]
         );*/
         return view('employees.liste', compact('employe', 'totalEmployes', 'empdepart', 'champs', 'direction'));
-
     }
 
-// Supprimer un employé et ses enregistrements liés
+    // Supprimer un employé et ses enregistrements liés
     public function delete($id_nin)
     {
         try {
@@ -237,27 +232,38 @@ class EmployeesController extends Controller
 
             // Supprimer les enregistrements liés
             Absence::where('id_nin', $id_nin)->delete();
-            Absence::where('id_p', $employe->id_p)->delete();
+            if ($employe->id_p) {
+                Absence::where('id_p', $employe->id_p)->delete();
+            }
 
             Appartient::where('id_nin', $id_nin)->delete();
-            Appartient::where('id_p', $employe->id_p)->delete();
+            if ($employe->id_p) {
+                Appartient::where('id_p', $employe->id_p)->delete();
+            }
 
             Occupe::where('id_nin', $id_nin)->delete();
-            Occupe::where('id_p', $employe->id_p)->delete();
+            if ($employe->id_p) {
+                Occupe::where('id_p', $employe->id_p)->delete();
+            }
 
             Conge::where('id_nin', $id_nin)->delete();
-            Conge::where('id_p', $employe->id_p)->delete();
+            if ($employe->id_p) {
+                Conge::where('id_p', $employe->id_p)->delete();
+            }
 
             Travail::where('id_nin', $id_nin)->delete();
-            Travail::where('id_p', $employe->id_p)->delete();
+            if ($employe->id_p) {
+                Travail::where('id_p', $employe->id_p)->delete();
+            }
 
             User::where('id_nin', $id_nin)->delete();
-            User::where('id_p', $employe->id_p)->delete();
+            if ($employe->id_p) {
+                User::where('id_p', $employe->id_p)->delete();
+            }
 
-            // Supprimer le dossier lié
             Dossier::where('ref_Dossier', "Em_{$id_nin}")->delete();
 
-            // 🔧 Ajout de l'action dans le journal
+            // Enregistrer l'action dans le journal
             $this->logService->logAction(
                 Auth::user()->id,
                 $employe->id_nin,
@@ -269,10 +275,11 @@ class EmployeesController extends Controller
             $employe->delete();
 
             DB::commit();
-            return redirect()->route('app_liste_emply')->with('success', __('lang.employee_deleted'));
+            return redirect()->route('employees.liste')->with('success', __('lang.employee_deleted'));
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('app_liste_emply')->with('error', __('lang.delete_failed') . ': ' . $e->getMessage());
+            \Log::error('Erreur lors de la suppression de l\'employé ID_NIN: ' . $id_nin . ' - ' . $e->getMessage());
+            return redirect()->route('employees.liste')->with('error', __('lang.delete_failed') . ': ' . $e->getMessage());
         }
     }
 
@@ -317,27 +324,25 @@ class EmployeesController extends Controller
             ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
             ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-            ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
-            ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+            ->join('post_sups', 'occupes.id_postsup', 'post_sups.id_postsup')
+            ->join('fonctions', 'occupes.id_fonction', '=', 'fonctions.id_fonction')
             ->where('employes.id_nin', $id)
             ->first();
-          //  dd($last);
-        if (!isset($last))
-        {
+        //  dd($last);
+        if (!isset($last)) {
             $last = Occupe::join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
-            ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
-            ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
-            ->join('travails', 'travails.id_nin', '=', 'employes.id_nin')
-            ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
-            ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
-            ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-            //->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
-            //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
-            ->where('employes.id_nin', $id)
-            ->first();
-            if(!isset($last))
-            {
-             return redirect('/Employe/IsTravaill/'.$id);
+                ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
+                ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
+                ->join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+                ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
+                ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+                ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
+                //->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+                ->where('employes.id_nin', $id)
+                ->first();
+            if (!isset($last)) {
+                return redirect('/Employe/IsTravaill/' . $id);
             }
         }
         $result = DB::table('employes')->distinct()
@@ -346,7 +351,7 @@ class EmployeesController extends Controller
             ->join('sous_departements', 'travails.id_sous_depart', "=", "sous_departements.id_sous_depart")
             ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-            
+
             ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
             ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
             ->where('employes.id_nin', $id)
@@ -359,7 +364,7 @@ class EmployeesController extends Controller
         $postwork = Occupe::where('occupes.id_nin', $id)->distinct()
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
             ->join('contients', 'contients.id_post', '=', 'posts.id_post')
-            
+
             ->select('id_occup', 'date_recrutement')->orderBy('date_recrutement')
             ->get();
         //dd($postwork);
@@ -377,7 +382,7 @@ class EmployeesController extends Controller
                 ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
                 ->join('contients', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-                
+
                 ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
                 ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
                 ->where('id_travail', $val)
@@ -400,16 +405,15 @@ class EmployeesController extends Controller
                     'travails.notation'
                 )
                 ->orderBy('travails.date_installation', 'desc')
-            //->orderBy('occupes.date_recrutement','desc')
+                //->orderBy('occupes.date_recrutement','desc')
                 ->first();
             array_push($allemp, $inter);
-
         }
         //dd($allemp);
         $postarr = [];
         $i       = 0;
         foreach ($postwork as $single) {
-            
+
             $inter = DB::table('contients')->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('travails', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('posts', 'posts.id_post', '=', 'contients.id_post')
@@ -435,7 +439,7 @@ class EmployeesController extends Controller
                     'occupes.id_occup',
                     'occupes.id_postsup',
                     'occupes.id_fonction',
-                 /* 'fonctions.Nom_fonction',
+                    /* 'fonctions.Nom_fonction',
                     'fonctions.Nom_fonction',
                     'post_sups.Nom_postsup',
                     'post_sups.Nom_postsup_ar',*/
@@ -446,7 +450,7 @@ class EmployeesController extends Controller
                 )
                 ->orderBy('occupes.date_recrutement', 'desc')
                 ->first();
-                //dd($inter);
+            //dd($inter);
             array_push($postarr, $inter);
             $i++;
         }
@@ -506,7 +510,6 @@ class EmployeesController extends Controller
             foreach ($id_post as $sas) {
                 array_push($post, $sas->id_contient);
             }
-
         }
         //--------------------------------------------------------------------------- success ---/////
         $allwor = [];
@@ -529,7 +532,7 @@ class EmployeesController extends Controller
                 ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
-            // ->where('departements.id_depart',$id_dep)
+                // ->where('departements.id_depart',$id_dep)
                 ->orderBy('date_installation', 'desc')
                 ->first();
             /* foreach($travs as $bind)
@@ -583,7 +586,7 @@ class EmployeesController extends Controller
 
         /*------------------ pagination----------------------------------------**/
 
-                      // Définir le nombre d'éléments par page
+        // Définir le nombre d'éléments par page
         $perPage = 4; // Par exemple, 2 éléments par page
         $total   = count($empdpart);
         $page    = 1; // Page actuelle
@@ -652,12 +655,10 @@ class EmployeesController extends Controller
         if ($request->get('justifier') == 'F2') {
             $justf   = "Non justier";
             $justfar = "غير مبرر";
-
         }
         if ($request->get('justifier') == 'F1') {
             $justf   = "justifier";
             $justfar = "مبرر";
-
         }
         $abs = new Absence([
             'id_nin'         => $id_nin,
@@ -681,7 +682,6 @@ class EmployeesController extends Controller
                 'status'  => 404,
             ]);
         }
-
     }
     public function list_cong()
     {
@@ -702,8 +702,8 @@ class EmployeesController extends Controller
             $query->where('date_fin_cong', '>=', $today)
                 ->orderBy('date_fin_cong', 'desc');
         })->get();
-                      //dd($emptypeconge);
-                      // Définir le nombre d'éléments par page
+        //dd($emptypeconge);
+        // Définir le nombre d'éléments par page
         $perPage = 5; // Par exemple, 2 éléments par page
         $page    = 1; // Page actuelle
         if (request()->get('page') != null) {
@@ -750,7 +750,6 @@ class EmployeesController extends Controller
         //array_push($empcng,$emptypeconge);
 
         return view('employees.list_cong', compact('paginator', 'emptypeconge', 'empdepart', 'typecon', 'today', 'count', 'countExceptionnel'));
-
     }
 
     public function filterByType($typeconge)
@@ -791,8 +790,8 @@ class EmployeesController extends Controller
             }
             // Convert array to collection for pagination
             $empcng = collect($empcng);
-                                                  //dd($empcngCollection);
-                                                  // Définir le nombre d'éléments par page
+            //dd($empcngCollection);
+            // Définir le nombre d'éléments par page
             $perPage = 1;                         // Par exemple, 4 éléments par page
             $page    = request()->get('page', 1); // Page actuelle, par défaut 1
             $offset  = ($page - 1) * $perPage;
@@ -887,7 +886,6 @@ class EmployeesController extends Controller
             foreach ($id_post as $sas) {
                 array_push($post, $sas->id_contient);
             }
-
         }
         //--------------------------------------------------------------------------- success ---/////
         $allwor = [];
@@ -909,7 +907,7 @@ class EmployeesController extends Controller
                 ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
-            // ->where('departements.id_depart',$id_dep)
+                // ->where('departements.id_depart',$id_dep)
                 ->orderBy('date_installation', 'desc')
                 ->first();
             /* foreach($travs as $bind)
@@ -1029,7 +1027,6 @@ class EmployeesController extends Controller
             foreach ($id_post as $sas) {
                 array_push($post, $sas->id_contient);
             }
-
         }
         //--------------------------------------------------------------------------- success ---/////
         $allwor = [];
@@ -1051,7 +1048,7 @@ class EmployeesController extends Controller
                 ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
-            // ->where('departements.id_depart',$id_dep)
+                // ->where('departements.id_depart',$id_dep)
                 ->orderBy('date_installation', 'desc')
                 ->first();
             /* foreach($travs as $bind)
@@ -1120,7 +1117,6 @@ class EmployeesController extends Controller
         $empdepart = Departement::get();
         //   dd($empdpartcng);
         return response()->json($empdpartcng);
-
     }
 
     public function check_cg($id_p)
@@ -1180,7 +1176,6 @@ class EmployeesController extends Controller
                     'date_congé'     => $cng[0]->date_fin_cong,
                 ]
             );
-
         } else {
             if (isset($cng[0]) && $cng[0]->ref_cong == 'RF002') {
                 //dd($cng);
@@ -1225,7 +1220,6 @@ class EmployeesController extends Controller
             $monthsDifference = $startDate->diffInMonths($endDate);
             if ($monthsDifference > 0) {
                 $totaljour = $monthsDifference * 2.5;
-
             }
             return response()->json(
                 [
@@ -1234,7 +1228,6 @@ class EmployeesController extends Controller
                 ]
             );
         }
-
     }
     public function add_cng(Request $request)
     {
@@ -1404,7 +1397,6 @@ class EmployeesController extends Controller
                                     'status'  => 404,
                                 ]);
                             }
-
                         } else {
                             return response()->json([
                                 'message' => $upsnot,
@@ -1478,10 +1470,8 @@ class EmployeesController extends Controller
                             'message' => $msgmald,
                             'status'  => 404,
                         ]);
-
                     }
                 }
-
             }
         }
 
@@ -1741,7 +1731,6 @@ class EmployeesController extends Controller
                 $value->id_nin = $id_nin_local;
                 $value->save();
             }
-
         }
         /** ==========================================================*/
         $related = Log::where('id_nin', $id_nin)->delete();
@@ -1765,7 +1754,6 @@ class EmployeesController extends Controller
                 $value->id_nin = $id_nin_local;
                 $value->save();
             }
-
         }
         /****************************************************************************** */
         /*         $ref='Em_'.$id_nin;
@@ -1912,7 +1900,6 @@ class EmployeesController extends Controller
         } else {
             return response()->json(['success' => 'exist pas', 'status' => 404, 'data' => []]);
         }
-
     }
 
     public function get_niv_nin($id_nin)
@@ -1951,5 +1938,4 @@ class EmployeesController extends Controller
         $nin     = $request->input('id_nin_modif');
         return response()->json(['success' => 'exist', 'status' => 200, 'data' => $nin]);
     }*/
-
 }
