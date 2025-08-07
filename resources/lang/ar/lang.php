@@ -180,6 +180,7 @@ return [
     'ats'=>'شهادة عمل',
     'update'=>'',
 
+        'cont_act'=> 'بالتعاقد',
 
     'Changerlemotdepass'=>'تغيير كلمة المرور',
     'Ancienmotdepass'=>'كلمة المرور السابقة',

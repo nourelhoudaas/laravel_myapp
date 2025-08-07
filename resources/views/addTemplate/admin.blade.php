@@ -105,6 +105,10 @@
                             <label class='labels'>{{__('lang.PV_inst')}}</label>
                             <p id='pv_inst'></p><!--<p id="csf_visa"></p><p>--:</p><p id="csf_date"></p> -->
                         </div>
+                        <div>
+                            <label class="labels">{{__('lang.cont_act')}}</label>
+                            <input type="checkbox" class="col-md-2" id="type_fon" />
+                        </div>
                     </div >
                     <div  style="
     width: 50%;

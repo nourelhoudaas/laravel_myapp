@@ -1280,7 +1280,8 @@ $("#btn-sv").click(function (e) {
 });
 
     //ADMIN
-    $(document).ready(function () {
+    $(document).ready(function () { 
+        var contre='Fonctinnaire';
         $("#SDic").focus(function () {
             $(this).removeClass("error-handle");
         });
@@ -1302,7 +1303,16 @@ $("#btn-sv").click(function (e) {
             $("#remq p").removeClass("error-handle");
             $("#remq").removeClass("remq");
         });
-
+        $('#type_fon').on('change',function(){
+            if ($(this).is(":checked")) {
+                    contre='CDI';
+           // $("#postsup-opt").empty();
+        }
+        else
+        {
+            contre='Fonctinnaire';
+        }
+        })
         $("#aft").click(function (e) {
             e.preventDefault();
 
@@ -1321,6 +1331,7 @@ $("#btn-sv").click(function (e) {
                     PV_grad: $("#pv_inst").text(),
                     pv_postsup: parseInt(id_postsup),
                     id_fonction:$('#funtsup').val(),
+                    type_font:contre,
                     id_postsup:parseInt($('#postsup').val()),
                     pv_func: id_func,
                     _token: $('meta[name="csrf-token"]').attr("content"),
