@@ -11,20 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('absences', function (Blueprint $table) {
-            $table->integer('id_abs')->primary()->autoIncrement();
-            $table->date('date_abs');
-            $table->time('heure_abs');
-            $table->string('statut');
-            $table->string('statut_ar');
+        Schema::create('feedback', function (Blueprint $table) {
+            $table->integer('id_feedback')->primary()->autoIncrement();
+            $table->string('type_feedback');
+            $table->string('Descriptif_feedback');
+            $table->string('type_feedback_ar');
+            $table->string('Descriptif_feedback_ar');
             $table->decimal('id_nin', 18, 0)->unique();
             $table->bigInteger('id_p');
-            $table->integer('id_sous_depart');
-            $table->integer('id_fichier');
+            $table->integer('id_post');
             $table->foreign('id_nin')->references('id_nin')->on('employes');
-            $table->foreign('id_sous_depart')->references('id_sous_depart')->on('sous_departements');
             $table->foreign('id_p')->references('id_p')->on('employes');
-            $table->foreign('id_fichier')->references('id_fichier')->on('fichiers');
+            $table->foreign('id_post')->references('id_post')->on('posts');
         });
     }
 
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('absences');
+        Schema::dropIfExists('feedback');
     }
 };
