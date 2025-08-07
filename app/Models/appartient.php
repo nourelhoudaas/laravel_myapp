@@ -24,9 +24,9 @@ class appartient extends Model
       }
 
       public function employe()
-      {
-        return $this->belongsTo(Employe::class,['id_nin','id_p'],['id_nin','id_p']);
-      }
+{
+    return $this->belongsTo(Employe::class, 'id_nin', 'id_nin');
+}
 
      
 
