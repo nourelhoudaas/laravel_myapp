@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\App;
 use App\Models\Absence;
 use App\Models\appartient;
 use App\Models\Bureau;
@@ -27,8 +26,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+
 // Add this line if logService exists in App\Services
 
 class EmployeesController extends Controller
@@ -226,94 +224,60 @@ class EmployeesController extends Controller
 
 
 
-    public function delete($id_nin)
-    {
-        try {
-            DB::beginTransaction();
-
-            // 1. Trouver l'employé via id_nin
-            $employe = Employe::where('id_nin', $id_nin)->first();
-
-            if (!$employe) {
-                return redirect()->route('app_liste_emply')->with('error', 'Employé non trouvé.');
-            }
-
-            $id_emp = $employe->id_emp;
-            $id_p = $employe->id_p;
-
-            // 2. Supprimer tous les enregistrements liés via leurs clés primaires
-
-            // Absence
-            $absences = Absence::where('id_nin', $id_nin)->pluck('id_abs')->toArray();
-            if ($id_p) {
-                $absences_p = Absence::where('id_p', $id_p)->pluck('id_abs')->toArray();
-                $absences = array_merge($absences, $absences_p);
-            }
-            Absence::destroy($absences);
-
-            // Appartient
-            $appartients = Appartient::where('id_nin', $id_nin)->pluck('id_appar')->toArray();
-            if ($id_p) {
-                $appartients_p = Appartient::where('id_p', $id_p)->pluck('id_appar')->toArray();
-                $appartients = array_merge($appartients, $appartients_p);
-            }
-            $appartients = array_unique($appartients); // 👈 Ajoute cette ligne
-            Appartient::destroy($appartients);
-
-            dd($appartients);
-
-            // Occupe
-            $occupes = Occupe::where('id_nin', $id_nin)->pluck('id_occup')->toArray();
-            if ($id_p) {
-                $occupes_p = Occupe::where('id_p', $id_p)->pluck('id_occup')->toArray();
-                $occupes = array_merge($occupes, $occupes_p);
-            }
-            Occupe::destroy($occupes);
-
-            // Conge
-            $conges = Conge::where('id_nin', $id_nin)->pluck('id_cong')->toArray();
-            if ($id_p) {
-                $conges_p = Conge::where('id_p', $id_p)->pluck('id_cong')->toArray();
-                $conges = array_merge($conges, $conges_p);
-            }
-            Conge::destroy($conges);
-
-            // Travail
-            $travails = Travail::where('id_nin', $id_nin)->pluck('id_travail')->toArray();
-            if ($id_p) {
-                $travails_p = Travail::where('id_p', $id_p)->pluck('id_travail')->toArray();
-                $travails = array_merge($travails, $travails_p);
-            }
-            Travail::destroy($travails);
-
-            // Users
-            User::where('id_nin', $id_nin)->orWhere('id_p', $id_p)->delete();
-
-            // Dossier (clé primaire = ref_Dossier)
-            $ref = "Em_{$id_nin}";
-            if (Dossier::where('ref_Dossier', $ref)->exists()) {
-                Dossier::destroy($ref);
-            }
-
-            // Log action
-            $this->logService->logAction(
-                Auth::user()->id,
-                $employe->id_nin,
-                'Suppression Employé',
-                $this->logService->getMacAddress()
-            );
-
-            // Supprimer employé
-            Employe::destroy($id_emp);
-
-            DB::commit();
-            return redirect()->route('app_liste_emply')->with('success', __('lang.employee_deleted'));
-        } catch (\Exception $e) {
-            DB::rollBack();
-            \Log::error('Erreur lors de la suppression de l\'employé ID_NIN: ' . $id_nin . ' - ' . $e->getMessage());
-            return redirect()->route('app_liste_emply')->with('error', __('lang.delete_failed') . ': ' . $e->getMessage());
-        }
+public function delete($id_nin)
+{
+    // Valider que id_nin est un nombre décimal de 18 chiffres
+    if (!preg_match('/^\d{18}$/', $id_nin)) {
+        return redirect()->back()->with('error', 'Identifiant employé invalide.');
     }
+
+    // Rechercher l'employé par id_nin
+    $employe = Employe::where('id_nin', $id_nin)->first();
+
+    if (!$employe) {
+        return redirect()->back()->with('error', 'Employé non trouvé.');
+    }
+
+    // Commencer une transaction
+    DB::beginTransaction();
+
+    try {
+        // Supprimer les enregistrements liés
+        Absence::where('id_nin', $employe->id_nin)->delete();
+        Absence::where('id_p', $employe->id_p)->delete();
+
+        Appartient::where('id_nin', $employe->id_nin)->delete();
+        Appartient::where('id_p', $employe->id_p)->delete();
+
+        Conge::where('id_nin', $employe->id_nin)->delete();
+        Conge::where('id_p', $employe->id_p)->delete();
+
+        Occupe::where('id_nin', $employe->id_nin)->delete();
+        Occupe::where('id_p', $employe->id_p)->delete();
+
+        Travail::where('id_nin', $employe->id_nin)->delete();
+        Travail::where('id_p', $employe->id_p)->delete();
+
+        User::where('id_nin', $employe->id_nin)->delete();
+        User::where('id_p', $employe->id_p)->delete();
+
+        // Supprimer les dossiers liés
+        Dossier::where('ref_Dossier', 'Em_' . $employe->id_nin)->delete();
+
+        // Supprimer l'employé
+        $employe->delete();
+
+        // Valider la transaction
+        DB::commit();
+//dd('$employe');
+        return redirect()->route('employees.liste')->with('success', 'Employé et ses enregistrements associés supprimés avec succès.');
+    } catch (\Exception $e) {
+        // Annuler la transaction
+        DB::rollBack();
+        Log::error('Erreur lors de la suppression de l\'employé : ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la suppression de l\'employé.');
+    }
+}
 
 
 
