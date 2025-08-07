@@ -308,8 +308,21 @@
 
                     <div class="col-sm-12 mb-3">
                         <div class="card h-100">
+                        
                           <div class="card-body">
-
+                              <div class="hidden-select" style="align-items: center;justify-content: flex-end;align-content: center;flex-wrap: wrap;" id="del_cariar"> 
+                              <a href='/Employe/carrier/{{$postarr[$j]->id_travail}}/{{$postarr[$j]->id_occup}}' >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash">
+                                  <polyline points="3 6 5 6 21 6"></polyline>
+                                  <path d="M19 6L17.5 20H6.5L5 6"></path>
+                                  <path d="M10 11V17"></path>
+                                  <path d="M14 11V17"></path>
+                                  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+                                </svg>
+                               </a>
+                              </div>
+                            <hr>
                             <p>{{__('lang.dept')}} :
                             
                             @if(app()->getLocale() == 'ar')
@@ -473,6 +486,7 @@
       var chek='{{!isset($last->email_pro)}}'
       var btn_nin=document.getElementById('modif_nin')
       var btn_niv=document.getElementById('niv_edit')
+      var btn_car=document.querySelectorAll('[id="del_cariar')
 document.getElementById('mod-but').addEventListener('click',function(){
 var icon= document.getElementById('btn-icon');
 if(md == false){
@@ -517,6 +531,9 @@ icon.classList.remove('fa-times')
 icon.classList.add('fa-pencil');
 btn_nin.classList.remove('hidden-select')
 btn_niv.classList.remove('hidden-select')
+btn_car.forEach(el => {
+  el.classList.remove('hidden-select'); // remove all classes
+});
 btn_niv.addEventListener('click',function(){
   window.location.href='/Employe/IsTravaill/'+id
 })
@@ -553,6 +570,10 @@ icon.classList.remove('fa-pencil')
 icon.classList.add('fa-times');
 btn_nin.classList.add('hidden-select')
 btn_niv.classList.add('hidden-select')
+
+btn_car.forEach(el => {
+  el.classList.add('hidden-select') 
+});
 document.getElementById('Nom_P').disabled=true;
 document.getElementById('Nom_PAR').disabled=true;
 document.getElementById('Prenom_O').disabled=true;

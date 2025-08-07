@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 use App\Models\Absence;
 use App\Models\appartient;
 use App\Models\Bureau;
@@ -27,7 +28,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Session;
 // Add this line if logService exists in App\Services
 
 class EmployeesController extends Controller
@@ -219,6 +220,7 @@ class EmployeesController extends Controller
                 'query' => request()->query() // Paramètres de la requête
             ]
         );*/
+        //dd($locale);
         return view('employees.liste', compact('employe', 'totalEmployes', 'empdepart', 'champs', 'direction'));
     }
 
@@ -460,6 +462,7 @@ class EmployeesController extends Controller
                 ->where('id_occup', $single->id_occup)
                 ->where('id_travail', $allemp[$i]->id_travail)
                 ->select(
+                    'travails.id_travail',
                     'niveaux.Nom_niv',
                     'niveaux.Nom_niv_ar',
                     'niveaux.Specialite',
@@ -1971,4 +1974,19 @@ class EmployeesController extends Controller
         $nin     = $request->input('id_nin_modif');
         return response()->json(['success' => 'exist', 'status' => 200, 'data' => $nin]);
     }*/
+
+
+    function delete_carier($id_travail,$id_occup)
+    {
+        $delet_tra=Travail::where('id_travail',$id_travail)->delete();
+        if( $delet_tra)
+        {
+            $delet_tra=Occupe::where('id_occup',$id_occup)->delete();
+            if($delet_tra)
+            {
+                return redirect()->back();
+            }
+        }
+        return redirect()->back();
+    }
 }

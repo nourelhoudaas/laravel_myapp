@@ -14,7 +14,18 @@ use Carbon\Carbon;
         </div> -->
 
 
+       @php
+   // Définir la langue depuis la session
+    App::setLocale(Session::get('locale', 'fr'));
 
+    // Récupérer la langue active
+    $locale = App::getLocale();
+
+    //dd($locale); // Affichera 'fr' ou 'ar' par exemple
+//     Session::get('locale');
+    
+   // dd($locale); // Devrait afficher 'ar'
+@endphp
     <!-- main section start -->
     <main>
         <div class="recent_order">
@@ -66,7 +77,7 @@ use Carbon\Carbon;
                         <th>
                             {{ __('lang.date_inst') }}
                         </th>
-                       {{-- <th>{{ __('lang.Action') }}</th>--}}
+                        {{--<th>{{ __('lang.Action') }}</th>--}}
 
 
                     </tr>
@@ -165,7 +176,7 @@ use Carbon\Carbon;
                             @endif
                         </td>
                         <td>{{ $travail->date_installation ?? '-' }}</td>
-                        {{--<td>
+                       {{-- <td>
                             <form action="{{ route('employees.delete', $employe->id_nin) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
@@ -174,7 +185,7 @@ use Carbon\Carbon;
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                             </form>
-                        </td>--}}
+                        </td> --}}
                     </tr>
                     @endforeach
                     </>
