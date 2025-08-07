@@ -268,12 +268,28 @@ class EmployeesController extends Controller
             ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
             ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
+            ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+            ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
             ->where('employes.id_nin', $id)
             ->first();
-        
+          //  dd($last);
         if (!isset($last))
         {
+            $last = Occupe::join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
+            ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
+            ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
+            ->join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+            ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
+            ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+            ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
+            //->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+            //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+            ->where('employes.id_nin', $id)
+            ->first();
+            if(!isset($last))
+            {
              return redirect('/Employe/IsTravaill/'.$id);
+            }
         }
         $result = DB::table('employes')->distinct()
             ->join('travails', 'travails.id_nin', '=', 'employes.id_nin')
@@ -281,6 +297,7 @@ class EmployeesController extends Controller
             ->join('sous_departements', 'travails.id_sous_depart', "=", "sous_departements.id_sous_depart")
             ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
+            
             ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
             ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
             ->where('employes.id_nin', $id)
@@ -293,6 +310,7 @@ class EmployeesController extends Controller
         $postwork = Occupe::where('occupes.id_nin', $id)->distinct()
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
             ->join('contients', 'contients.id_post', '=', 'posts.id_post')
+            
             ->select('id_occup', 'date_recrutement')->orderBy('date_recrutement')
             ->get();
        //dd($postwork);
@@ -311,6 +329,7 @@ class EmployeesController extends Controller
                 ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
                 ->join('contients', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
+                
                 ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
                 ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
                 ->where('id_travail', $val)
@@ -342,10 +361,13 @@ class EmployeesController extends Controller
         $postarr = array();
         $i = 0;
         foreach ($postwork as $single) {
+            
             $inter = DB::table('contients')->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('travails', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                 ->join('posts', 'posts.id_post', '=', 'contients.id_post')
                 ->join('occupes', 'occupes.id_post', '=', 'posts.id_post')
+                // ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                // ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
                 ->join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
                 ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
                 ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
@@ -363,6 +385,12 @@ class EmployeesController extends Controller
                     'occupes.date_recrutement',
                     'occupes.echellant',
                     'occupes.id_occup',
+                    'occupes.id_postsup',
+                    'occupes.id_fonction',
+                 /* 'fonctions.Nom_fonction',
+                    'fonctions.Nom_fonction',
+                    'post_sups.Nom_postsup',
+                    'post_sups.Nom_postsup_ar',*/
                     'departements.Nom_depart',
                     'departements.Nom_depart_ar',
                     'sous_departements.Nom_sous_depart',
@@ -370,6 +398,7 @@ class EmployeesController extends Controller
                 )
                 ->orderBy('occupes.date_recrutement', 'desc')
                 ->first();
+                //dd($inter);
             array_push($postarr, $inter);
             $i++;
         }

@@ -72,7 +72,7 @@ return [
     'post'=>'Grade',
     'post_fnc'=>'Fonction Supèrieur',
     'post_sup'=>'Poste Supèrieur',
-    'post_grad'=>'Grade',
+    'post_grad'=>'Categorie',
     'post_echl'=>'Echellant',
     'post_sup_check'=>"En cas d'obtention d'un poste supèrieur",
     'fonc_check'=>"En cas d'obtention d'une fonction",
