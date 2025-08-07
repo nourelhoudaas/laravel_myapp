@@ -77,7 +77,7 @@ use Carbon\Carbon;
                         <th>
                             {{ __('lang.date_inst') }}
                         </th>
-                        {{--<th>{{ __('lang.Action') }}</th>--}}
+                        <th>{{ __('lang.Action') }}</th>
 
 
                     </tr>
@@ -176,8 +176,8 @@ use Carbon\Carbon;
                             @endif
                         </td>
                         <td>{{ $travail->date_installation ?? '-' }}</td>
-                       {{-- <td>
-                            <form action="{{ route('employees.delete', $employe->id_nin) }}" method="POST" style="display:inline;">
+                       <td>
+                            <form action="{{ route('employes.delete', $employe->id_nin) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')"
@@ -185,7 +185,7 @@ use Carbon\Carbon;
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                             </form>
-                        </td> --}}
+                        </td> 
                     </tr>
                     @endforeach
                     </>
