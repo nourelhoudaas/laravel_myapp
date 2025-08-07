@@ -275,11 +275,11 @@ class EmployeesController extends Controller
             $employe->delete();
 
             DB::commit();
-            return redirect()->route('employees.liste')->with('success', __('lang.employee_deleted'));
+            return redirect()->route('app_liste_emply')->with('success', __('lang.employee_deleted'));
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Erreur lors de la suppression de l\'employé ID_NIN: ' . $id_nin . ' - ' . $e->getMessage());
-            return redirect()->route('employees.liste')->with('error', __('lang.delete_failed') . ': ' . $e->getMessage());
+            return redirect()->route('app_liste_emply')->with('error', __('lang.delete_failed') . ': ' . $e->getMessage());
         }
     }
 
