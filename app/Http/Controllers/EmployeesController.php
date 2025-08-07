@@ -26,15 +26,16 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 // Add this line if logService exists in App\Services
 
 class EmployeesController extends Controller
 {
+ protected $logService;
 
-    protected $logService;
-
-    public function __construct(logService $logService)
+    // Injecter logService via le constructeur si nécessaire
+    public function __construct(LogService $logService)
     {
         $this->logService = $logService;
     }
@@ -147,7 +148,7 @@ class EmployeesController extends Controller
             'occupeIdNin.postsup',
             'travailByNin.sous_departement.departement',
 
-        ])->whereNotIn('id_nin',[1254953,254896989])
+        ])->whereNotIn('id_nin', [1254953, 254896989])
             ->get();
         // dd( $employe);
 
@@ -224,59 +225,92 @@ class EmployeesController extends Controller
 
 
 
-public function delete($id_nin)
-{
-    // Valider que id_nin est un nombre décimal de 18 chiffres
-    if (!preg_match('/^\d{18}$/', $id_nin)) {
-        return redirect()->back()->with('error', 'Identifiant employé invalide.');
+public function delete(Request $request, $id_nin)
+    {
+        // Loguer l'entrée dans la méthode
+        Log::info('Appel de la méthode delete avec id_nin : ' . $id_nin);
+
+        // Valider que id_nin est un nombre décimal de 18 chiffres
+        if (!preg_match('/^\d{18}$/', $id_nin)) {
+            Log::error('Identifiant employé invalide : ' . $id_nin);
+            return redirect()->back()->with('error', 'Identifiant employé invalide.');
+        }
+
+        // Rechercher l'employé par id_nin
+        try {
+            $employe = Employe::where('id_nin', $id_nin)->first();
+
+            // Vérifier si l'employé est trouvé
+            if (!$employe) {
+                Log::error('Employé non trouvé pour id_nin : ' . $id_nin);
+                return redirect()->back()->with('error', 'Employé non trouvé.');
+            }
+
+            // Loguer l'employé trouvé
+            Log::info('Employé trouvé : ' . json_encode($employe->toArray()));
+
+            // Commencer une transaction
+            DB::beginTransaction();
+
+            try {
+                // Supprimer les enregistrements liés
+                Log::info('Suppression des absences pour id_nin : ' . $employe->id_nin);
+                Absence::where('id_nin', $employe->id_nin)->delete();
+                Absence::where('id_p', $employe->id_p)->delete();
+
+                Log::info('Suppression des appartenances pour id_nin : ' . $employe->id_nin);
+                Appartient::where('id_nin', $employe->id_nin)->delete();
+                Appartient::where('id_p', $employe->id_p)->delete();
+
+                Log::info('Suppression des congés pour id_nin : ' . $employe->id_nin);
+                Conge::where('id_nin', $employe->id_nin)->delete();
+                Conge::where('id_p', $employe->id_p)->delete();
+
+                Log::info('Suppression des occupations pour id_nin : ' . $employe->id_nin);
+                Occupe::where('id_nin', $employe->id_nin)->delete();
+                Occupe::where('id_p', $employe->id_p)->delete();
+
+                Log::info('Suppression des travails pour id_nin : ' . $employe->id_nin);
+                Travail::where('id_nin', $employe->id_nin)->delete();
+                Travail::where('id_p', $employe->id_p)->delete();
+
+                Log::info('Suppression des utilisateurs pour id_nin : ' . $employe->id_nin);
+                User::where('id_nin', $employe->id_nin)->delete();
+                User::where('id_p', $employe->id_p)->delete();
+
+                Log::info('Suppression des enregistrements stocke pour id_nin : ' . $employe->id_nin);
+                Stocke::where('ref_Dossier', 'Em_' . $employe->id_nin)->delete();
+
+                Log::info('Suppression des dossiers pour id_nin : ' . $employe->id_nin);
+                Dossier::where('ref_Dossier', 'Em_' . $employe->id_nin)->delete();
+
+                // Supprimer l'employé
+                Log::info('Suppression de l\'employé avec id_nin : ' . $employe->id_nin);
+                $employe->delete();
+
+                // Enregistrer l'action dans la table log APRÈS la suppression
+                $this->logService->logAction(
+                    Auth::user()->id,
+                    $id_nin, // Utiliser $id_nin directement
+                    'supprimer un employé',
+                    $this->logService->getMacAddress()
+                );
+
+                // Valider la transaction
+                DB::commit();
+                Log::info('Suppression réussie pour l\'employé avec id_nin : ' . $id_nin);
+
+                return redirect()->route('app_liste_emply')->with('success', 'Employé et ses enregistrements associés supprimés avec succès.');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('Erreur lors de la suppression des enregistrements liés pour id_nin : ' . $id_nin . ' - Message : ' . $e->getMessage());
+                return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la suppression de l\'employé : ' . $e->getMessage());
+            }
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la recherche de l\'employé avec id_nin : ' . $id_nin . ' - Message : ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Erreur lors de la recherche de l\'employé : ' . $e->getMessage());
+        }
     }
-
-// Rechercher l'employé par id_nin
-$employe = Employe::where('id_nin', $id_nin)->first();
-if (!$employe) {
-    return redirect()->back()->with('error', 'Employé non trouvé.');
-}
-
-// Commencer une transaction
-DB::beginTransaction();
-
-    try {
-        // Supprimer les enregistrements liés
-        Absence::where('id_nin', $employe->id_nin)->delete();
-        Absence::where('id_p', $employe->id_p)->delete();
-
-        Appartient::where('id_nin', $employe->id_nin)->delete();
-        Appartient::where('id_p', $employe->id_p)->delete();
-
-        Conge::where('id_nin', $employe->id_nin)->delete();
-        Conge::where('id_p', $employe->id_p)->delete();
-
-        Occupe::where('id_nin', $employe->id_nin)->delete();
-        Occupe::where('id_p', $employe->id_p)->delete();
-
-        Travail::where('id_nin', $employe->id_nin)->delete();
-        Travail::where('id_p', $employe->id_p)->delete();
-
-        User::where('id_nin', $employe->id_nin)->delete();
-        User::where('id_p', $employe->id_p)->delete();
-
-        // Supprimer les dossiers liés
-        Dossier::where('ref_Dossier', 'Em_' . $employe->id_nin)->delete();
-
-        // Supprimer l'employé
-        $employe->delete();
-
-        // Valider la transaction
-        DB::commit();
-
-        return redirect()->route('employees.liste')->with('success', 'Employé et ses enregistrements associés supprimés avec succès.');
-    } catch (\Exception $e) {
-        // Annuler la transaction
-        DB::rollBack();
-        Log::error('Erreur lors de la suppression de l\'employé : ' . $e->getMessage());
-        return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la suppression de l\'employé.');
-    }
-}
 
 
 
@@ -1939,14 +1973,12 @@ DB::beginTransaction();
     }*/
 
 
-    function delete_carier($id_travail,$id_occup)
+    function delete_carier($id_travail, $id_occup)
     {
-        $delet_tra=Travail::where('id_travail',$id_travail)->delete();
-        if( $delet_tra)
-        {
-            $delet_tra=Occupe::where('id_occup',$id_occup)->delete();
-            if($delet_tra)
-            {
+        $delet_tra = Travail::where('id_travail', $id_travail)->delete();
+        if ($delet_tra) {
+            $delet_tra = Occupe::where('id_occup', $id_occup)->delete();
+            if ($delet_tra) {
                 return redirect()->back();
             }
         }
