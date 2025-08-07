@@ -92,7 +92,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/Employe/update/{id_nin}','modif_nin')->name('emp_modif_nin');
         Route::post('/Employe/educat/','check_app')->name('emp_niv_update');
         Route::get('/Employe/{id_nin}/check/niv/','get_niv_nin')->name('emp_niv_check');
-       Route::delete('/Employe/delete/{id_nin}', 'delete')->name('employees.delete');
+        Route::delete('/Employe/delete/{id_nin}', 'delete')->name('employees.delete');
+        Route::get('/Employe/carrier/{id_travail}/{id_occup}','delete_carier')->name('employees.delete.carrier');
 
     });
 });
