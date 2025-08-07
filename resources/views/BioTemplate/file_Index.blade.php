@@ -7,9 +7,14 @@
 </head>
 @php
     $uid=auth()->id();
+      // Définir la langue depuis la session
+    App::setLocale(Session::get('locale', 'fr'));
+
+    // Récupérer la langue active
+    $locale = App::getLocale();
     $emp_name;
     $emp_sur;
-    if(app()->getLocale() == 'ar')
+    if($locale == 'ar')
     {
         $emp_name=$employe->Nom_ar_emp;
         $emp_sur=$employe->Prenom_ar_emp;
