@@ -283,7 +283,7 @@ $locale = App::getLocale();
                         <button class="btn btn-info i" id="btn-dir">{{ __('lang.files') }}</button>
 
                         <!-- Bouton supprimer avec redirection -->
-                        <a href="{{ route('employes.delete', $last->id_emp) }}"
+                        <a href="{{ route('employes.delete', $last->id_nin) }}"
                           class="btn btn-danger i"
                           onclick="return confirm('{{ __('lang.confirm_delete') }}');">
                           {{ __('lang.supprimer') }}
