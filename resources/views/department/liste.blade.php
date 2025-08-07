@@ -6,7 +6,10 @@
 @section('content')
 
 <body>
-
+ @php
+    $locale = app()->getLocale();
+   // dd($locale); 
+@endphp
     <main>
         <div class="recent_order">
             <div class="title">
@@ -24,7 +27,7 @@
     </thead>
     <tbody>
         @php
-        $locale = app()->getLocale();
+        $locale = app()->getLocale(); 
         @endphp
 
         @foreach ($departements as $index => $departement)

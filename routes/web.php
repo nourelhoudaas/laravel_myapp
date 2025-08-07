@@ -65,7 +65,6 @@ Route::controller(LoginController::class)->group(function () {
 Route::middleware('auth')->group(function () {
     Route::controller(EmployeesController::class)->group(function () {
         Route::get('\liste', 'ListeEmply')->name('app_liste_emply');
-        Route::delete('/Employe/delete/{id_nin}', 'delete')->name('employees.delete');
         Route::get('/exportPdfAttesList/{id_emp}', 'exportPdfAttesList')->name('app_export_attesList'); //impression attestation
         Route::get('/exportPdfAttes/{nom}', 'exportPdfAttes')->name('app_export_attes');                // Impression attestation par nom
         Route::get('/exportPdfCatg', 'exportPdfCatg')->name('app_export_catg'); //impression liste par categorie
@@ -92,6 +91,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/Employe/update/{id_nin}', 'modif_nin')->name('emp_modif_nin');
         Route::post('/Employe/educat/', 'check_app')->name('emp_niv_update');
         Route::get('/Employe/{id_nin}/check/niv/', 'get_niv_nin')->name('emp_niv_check');
+         Route::delete('/Employe/delete/{id_nin}', 'delete')->name('employees.delete');
     });
 });
 Route::middleware('auth')->group(function () {

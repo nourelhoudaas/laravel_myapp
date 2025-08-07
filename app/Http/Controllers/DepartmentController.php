@@ -15,7 +15,6 @@ use App\Http\Requests\saveDepartementRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
-
 class DepartmentController extends Controller
 {
     public function ListeDepart()

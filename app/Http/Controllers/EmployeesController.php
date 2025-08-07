@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 use App\Models\Absence;
 use App\Models\appartient;
 use App\Models\Bureau;
@@ -27,7 +28,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Session;
 // Add this line if logService exists in App\Services
 
 class EmployeesController extends Controller
@@ -219,6 +220,7 @@ class EmployeesController extends Controller
                 'query' => request()->query() // Paramètres de la requête
             ]
         );*/
+        //dd($locale);
         return view('employees.liste', compact('employe', 'totalEmployes', 'empdepart', 'champs', 'direction'));
     }
 
@@ -305,20 +307,11 @@ class EmployeesController extends Controller
             Employe::destroy($id_emp);
 
             DB::commit();
-<<<<<<< HEAD
-
             return redirect()->route('app_liste_emply')->with('success', __('lang.employee_deleted'));
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Erreur suppression employé : ' . $e->getMessage());
             return redirect()->route('app_liste_emply')->with('error', __('lang.delete_failed'));
-=======
-            return redirect()->route('app_liste_emply')->with('success', __('lang.employee_deleted'));
-        } catch (\Exception $e) {
-            DB::rollBack();
-            \Log::error('Erreur lors de la suppression de l\'employé ID_NIN: ' . $id_nin . ' - ' . $e->getMessage());
-            return redirect()->route('app_liste_emply')->with('error', __('lang.delete_failed') . ': ' . $e->getMessage());
->>>>>>> 7bb5879dc485f9fffc2c3277cf52ed649a72dc46
         }
     }
 

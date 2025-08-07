@@ -8,6 +8,11 @@
 @section('content')
     @php
         $uid = auth()->id();
+           // Définir la langue depuis la session
+    App::setLocale(Session::get('locale', 'fr'));
+
+    // Récupérer la langue active
+    $locale = App::getLocale();
     @endphp
     <style>
         .file-label {
@@ -302,7 +307,7 @@
 
     <script>
         var dir = "Personnel";
-        var uid = '{{ $uid }}'
+        var uid = '{{ $uid }}';
         var id;
         var flang = '{{ __('lang.filnull') }}'
        /* document.addEventListener('DOMContentLoaded', () => {
