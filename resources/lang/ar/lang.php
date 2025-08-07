@@ -269,8 +269,9 @@ return [
     'AddSubDir'=>'اضافة مديرية فرعية',
     'ListSubDir'=>'قائمة المديريات الفرعية',
        
-    'employee_deleted'=> 'تم حذف الموظف بنجاح',
-    'delete_failed'=> 'فشل حذف الموظف',
+    
+    'supprimer' => 'حذف',
+  'confirm_delete'=> 'حذف الموظف',
 ];
 
 
