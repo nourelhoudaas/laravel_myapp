@@ -180,7 +180,7 @@ use Carbon\Carbon;
                             <form action="{{ route('employes.delete', $employe->id_nin) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')"
+                                <button type="submit" onclick="return confirm('{{ __('lang.confirm_delete') }}')"
                                     class="btn btn-danger">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
