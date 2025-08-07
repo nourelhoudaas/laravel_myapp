@@ -270,7 +270,7 @@ return [
     'filier'=>'Nom de la filière en Latin',
     'filier_ar'=>'Nom de la filière en Arab',
 
-    'post_sup'=>'Post Superieur',
+    
     'grade_sup'=>'Code Du post Superieur',
 
     'fonction'=>'Nom du Fonction',
@@ -282,7 +282,8 @@ return [
     'AddSubDir'=>'Ajouter une sous Direction',
     'ListSubDir'=>'Liste des Sous-Directions',
 
-   
+    'delete_failed'=> 'Échec de la suppression de l\'employé',
+    'employee_deleted'=> 'Employé supprimé avec succès.',
     
    
 ];
