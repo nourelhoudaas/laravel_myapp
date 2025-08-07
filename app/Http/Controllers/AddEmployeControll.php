@@ -329,11 +329,12 @@ public function existToAddApp(Request $Request)
             'post'        => 'required|integer|',
             'PVDate'      => 'required|date',
             'PV_grad'     => 'required|string',
+            'type_font'   => 'string',
             'id_postsup'  => 'integer',
             'id_fonction' => 'string',
 
         ]);
-        //dd($request->all());
+       // dd($request->all());
         $travaill = new Travail([
             'date_chang'        => Carbon::now(),
             'date_installation' => $request->get('PVDate'),
@@ -383,6 +384,7 @@ public function existToAddApp(Request $Request)
                 'id_p'             => $request->get('ID_P'),
                 'ref_PV'           => $pv,
                 'ref_base'         => $request->get('PV_grad'),
+                'type_CTR'         => $request->get('type_font'),
                 'id_post'          => $postschekc->id_post,
                 'id_postsup'       => $id_postsup,
                 'id_fonction'      => $id_fonction,

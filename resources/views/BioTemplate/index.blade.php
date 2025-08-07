@@ -332,7 +332,7 @@
                               </p>
                               
                               <p>
-                              {{__('lang.post')}} : {{$postarr[$j]->Grade_post}}
+                              {{__('lang.post_grad')}} : {{$postarr[$j]->Grade_post}}
                               </p>
                               
                               <p>
