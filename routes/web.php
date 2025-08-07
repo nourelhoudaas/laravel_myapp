@@ -29,7 +29,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/lang/{locale}', 'switchLanguage');
     Route::get('/about', 'about')->name('app_about');
     Route::match(['get', 'post'], '/dashboard', 'dashboard')
-    //    ->middleware('auth') //pour acceder a cette page il faut s'authentifier
+        //    ->middleware('auth') //pour acceder a cette page il faut s'authentifier
         ->name('app_dashboard');
 });
 
@@ -37,7 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/updatePassword', function () {
         return view('auth.updatePassword');
     })->name('password_update');
-
 });
 Route::post('/updatePassword', [UpdatePasswordController::class, 'update'])->name('password_update');
 
@@ -65,9 +64,10 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::controller(EmployeesController::class)->group(function () {
+        Route::get('\liste', 'ListeEmply')->name('app_liste_emply');
+        Route::delete('/Employe/delete/{id_nin}', 'delete')->name('employees.delete');
         Route::get('/exportPdfAttesList/{id_emp}', 'exportPdfAttesList')->name('app_export_attesList'); //impression attestation
         Route::get('/exportPdfAttes/{nom}', 'exportPdfAttes')->name('app_export_attes');                // Impression attestation par nom
-        Route::get('\liste', 'ListeEmply')->name('app_liste_emply');
         Route::get('/exportPdfCatg', 'exportPdfCatg')->name('app_export_catg'); //impression liste par categorie
         Route::get('/exportPdfFnc', 'exportPdfFnc')->name('app_export_fnc');    //impression liste par fonction
         Route::get('/exportPdfCat', 'exportPdfCat')->name('app_export_cat');    //impression liste par contrat actuel
@@ -78,22 +78,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/abense_dates/{date}', 'absens_date')->name('list_abs_date');
         Route::get('/BioTemplate/search/{id}', 'getall')->name('BioTemplate.detail');
         Route::post('/add_absence', 'add_absence')->name('emp_add_absence');
-        Route::get('/conge', 'list_cong')->name('emp_list_conge');
         Route::get('/check_droitcg/{id_emp}', 'check_cg')->name('emp_conge_check');
         Route::post('/add_emp_holiday', 'add_cng')->name('add_emp_hol');
-        Route::get('/conge/filter/{typeconge} ', 'filterByType')->name('conge.filter');
-        Route::get('/conge/filterbydep/{department} ', 'filterbydep');
-        Route::get('/conge/filtercongdep/{typeconge}/{department} ', 'filtercongdep');
+        Route::get('/conge', 'list_cong')->name('emp_list_conge');
+        Route::get('/conge/filter/{typeconge}', 'filterByType')->name('conge.filter');
+        Route::get('/conge/filterbydep/{department}', 'filterbydep');
+        Route::get('/conge/filtercongdep/{typeconge}/{department}', 'filtercongdep');
         Route::get('/Employe/IsTravaill/{id}', 'existToAdd')->name('Employe.istravaill');
         Route::get('/Employe/IsEducat/{id}', 'existApp')->name('Employe.iseducat');
         Route::get('/Employe/check/{id}', 'find_emp')->name('find_by_nin');
         Route::get('/Employe/list_abs/{id}', 'get_list_absemp')->name('emp_list_abs');
         Route::get('/Employe/read_just/{id}', 'read_just')->name('emp_read_justif');
-        Route::post('/Employe/update/{id_nin}','modif_nin')->name('emp_modif_nin');
-        Route::post('/Employe/educat/','check_app')->name('emp_niv_update');
-        Route::get('/Employe/{id_nin}/check/niv/','get_niv_nin')->name('emp_niv_check');
-       Route::delete('/Employe/delete/{id_nin}', 'delete')->name('employees.delete');
-
+        Route::post('/Employe/update/{id_nin}', 'modif_nin')->name('emp_modif_nin');
+        Route::post('/Employe/educat/', 'check_app')->name('emp_niv_update');
+        Route::get('/Employe/{id_nin}/check/niv/', 'get_niv_nin')->name('emp_niv_check');
     });
 });
 Route::middleware('auth')->group(function () {
@@ -106,16 +104,16 @@ Route::middleware('auth')->group(function () {
         Route::put('/departmnet/editer/{departement}', 'update')->name('departement.update');
         //Route::get('/add_sous_depart','dashboard_sous')->name('app_store');
 
-        Route::get('/add-sub-depart','createSubDepart')->name('app_add_sub_depart');
+        Route::get('/add-sub-depart', 'createSubDepart')->name('app_add_sub_depart');
         Route::get('/liste-sub-dir',  'indexSubDepart')->name('app_liste_sub_dir');
         Route::post('/add-sub-depart',  'storeSubDepart')->name('app_store_sub_depart');
 
-// Modifier une sous-direction
+        // Modifier une sous-direction
         Route::get('/sub-depart/{id}/edit', 'edit')->name('sub_depart.edit');
-// Mettre à jour une sous-direction
+        // Mettre à jour une sous-direction
 
         Route::put('/sub-depart/{id}', 'updatesub')->name('sub_depart.updatesub'); // Mis à jour
-// Supprimer une sous-direction
+        // Supprimer une sous-direction
         Route::delete('/subdepartement/delete/{id}', [DepartmentController::class, 'destroySubDepart'])->name('subdepartement.delete');
         Route::get('/dashboard-sub-depart/{id}', [DepartmentController::class, 'dashboardSubDepart'])->name('app_dashboard_sub_depart');
 
@@ -132,7 +130,6 @@ Route::middleware('auth')->group(function () {
         Route::match(['get', 'post'], '/listcontient{ss_dep}', 'liste_contient')->name('app_liste_contient');
 
         Route::get('/depart/{departement}', 'delete')->name('department.delete');
-
     });
 });
 
@@ -158,7 +155,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/whoiam', [UploadFile::class, 'savedb'])->name('who_stocke');
     Route::get('/realwhoiam/{id}', [UploadFile::class, 'getname'])->name('who_name');
     Route::get('/live/read/{dir}/{subdir}/{file}', [UploadFile::class, 'live_File'])->name('read_file_emp');
-    Route::get('/delete/file/{file}',[UploadFile::class,'delete_file_nin'])->name('del_file_emp');
+    Route::get('/delete/file/{file}', [UploadFile::class, 'delete_file_nin'])->name('del_file_emp');
 });
 
 //postes

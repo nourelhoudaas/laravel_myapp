@@ -166,7 +166,7 @@ use Carbon\Carbon;
                         </td>
                         <td>{{ $travail->date_installation ?? '-' }}</td>
                         <td>
-                            <form action="{{ route('employees.delete', $employe->id_nin) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('employees.delete', ['id_nin' => $employe->id_nin]) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')"
