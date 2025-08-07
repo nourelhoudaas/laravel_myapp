@@ -88,10 +88,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/Employe/check/{id}', 'find_emp')->name('find_by_nin');
         Route::get('/Employe/list_abs/{id}', 'get_list_absemp')->name('emp_list_abs');
         Route::get('/Employe/read_just/{id}', 'read_just')->name('emp_read_justif');
-        Route::post('/Employe/update/{id_nin}', 'modif_nin')->name('emp_modif_nin');
-        Route::post('/Employe/educat/', 'check_app')->name('emp_niv_update');
-        Route::get('/Employe/{id_nin}/check/niv/', 'get_niv_nin')->name('emp_niv_check');
-         Route::delete('/Employe/delete/{id_nin}', 'delete')->name('employees.delete');
+        Route::post('/Employe/update/{id_nin}','modif_nin')->name('emp_modif_nin');
+        Route::post('/Employe/educat/','check_app')->name('emp_niv_update');
+        Route::get('/Employe/{id_nin}/check/niv/','get_niv_nin')->name('emp_niv_check');
+        Route::delete('/Employe/delete/{id_nin}', 'delete')->name('employees.delete');
+        Route::get('/Employe/carrier/{id_travail}/{id_occup}','delete_carier')->name('employees.delete.carrier');
     });
 });
 Route::middleware('auth')->group(function () {
