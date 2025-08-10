@@ -12,6 +12,7 @@ use \App\Models\Post;
 use \App\Models\Fichier;
 use \App\Models\Absence;
 use \App\Models\Occupe;
+use \App\Models\Travail;
 use Illuminate\Support\Facades\DB;
 use App\Services\logService;
 use Illuminate\Support\Facades\Auth;
@@ -215,6 +216,60 @@ class BioEmployeControl extends Controller
                                 'status'=>302,
                             ]);
                         }
+    }
+    
+
+    function edit_carrier(Request $request)
+    {
+        $request->validate([
+            'depart'=>'required',
+            'sous_depart'=>'integer',
+            'postsup'=>'integer',
+            'fonction'=>'string',
+            'date_recrutement'=>'required|date',
+            'Grade_post'=>'required|integer',
+            'ref_PV'=>'string',
+            'ref_Decision'=>'string',
+            'visa_CF'=>'string',
+            'type_CTR'=>'required|string',
+            'notation'=>'integer',
+            'date_installation'=>'required|string'
+        ]);
+        $idar=explode(' ',$request->get('idocp'));
+      //  dd($idar);
+        $idtr=intval($idar[0]);
+        $idocp=intval($idar[1]);
+
+            $ocup=Occupe::where('id_occup',$idocp)
+                        ->first();
+             $tra=Travail::where('id_travail',$idtr)
+                        ->first();
+                     //   dd($ocup,$tra);
+            if(isset($ocup))
+            {
+                $ocup->id_post=$request->get('Grade_post');
+                $ocup->visa_CF=$request->get('visa_CF');
+                $ocup->type_CTR=$request->get('type_CTR');
+                $ocup->ref_PV=$request->get('ref_PV');
+                $ocup->id_fonction=$request->get('fonction');
+                if($request->get('postsup') != "0" || $request->get('postsup') != 0)
+                {
+                $ocup->id_postsup=$request->get('postsup');
+                }
+                $ocup->date_recrutement=$request->get('date_recrutement');
+                $ocup->save();
+            }
+            if(isset($ocup))
+            {
+                $tra->id_sous_depart=$request->get('sous_depart');
+                $tra->date_installation=$request->get('date_installation');
+                $tra->notation=$request->get('notation');
+                $tra->save();
+            }
+            return response()->json([
+                                'message'=>__('lang.next'),
+                                'status'=>200,
+                            ]);
     }
 
 }
