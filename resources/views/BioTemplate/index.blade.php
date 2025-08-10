@@ -477,7 +477,7 @@ $locale = App::getLocale();
       <div class="row g-3">
         <!-- 16 inputs -->
         <div class="col-md-6">
-          <label class="form-label">{{__('lang.Direction')}}</label>
+          <label class="form-label">{{__('lang.nom_direct')}}</label>
          
           <select class="form-select" name="depart" id="depart">
               @foreach($dir as $d)
