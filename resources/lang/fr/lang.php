@@ -288,4 +288,5 @@ return [
     'supprimer' => 'Supprimer',
     'confirm_delete'=> 'Êtes-vous sûr de vouloir supprimer cet employé ?',
 
+    'Date_gener' => 'Date de génération',
 ];

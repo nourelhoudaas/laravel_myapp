@@ -180,7 +180,7 @@ return [
     'ats'=>'شهادة عمل',
     'update'=>'',
 
-    'cont_act'=> 'بالتعاقد',
+    
 
     'Changerlemotdepass'=>'تغيير كلمة المرور',
     'Ancienmotdepass'=>'كلمة المرور السابقة',
@@ -272,6 +272,13 @@ return [
     
     'supprimer' => 'حذف',
   'confirm_delete'=> 'حذف الموظف',
+
+  'Date_gener'=> 'تاريخ الاصدار',
+  'list_global' => 'حسب عامة للموظفين',
+  'par_cat' => 'حسب الفئة',
+  'par_fnc' => 'حسب الوظيفة',
+  'cont_act' => 'حسب التعاقد',
+  
 ];
 
 
