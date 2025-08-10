@@ -356,7 +356,7 @@ public function delete(Request $request, $id_nin)
             ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
             ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-            ->join('post_sups', 'occupes.id_postsup', 'post_sups.id_postsup')
+           // ->join('post_sups', 'occupes.id_postsup', 'post_sups.id_postsup')
             ->join('fonctions', 'occupes.id_fonction', '=', 'fonctions.id_fonction')
             ->where('employes.id_nin', $id)
             ->first();
@@ -369,12 +369,27 @@ public function delete(Request $request, $id_nin)
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
                 ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-                //->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
                 //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
                 ->where('employes.id_nin', $id)
                 ->first();
             if (!isset($last)) {
-                return redirect('/Employe/IsTravaill/' . $id);
+
+                     $last = Occupe::join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
+                ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
+                ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
+                ->join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+                ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
+                ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+                ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
+                //->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+                ->where('employes.id_nin', $id)
+                ->first();
+                if(!isset($last))
+                {
+                    return redirect('/Employe/IsTravaill/' . $id);
+                }
             }
         }
         $result = DB::table('employes')->distinct()
@@ -451,7 +466,7 @@ public function delete(Request $request, $id_nin)
                 ->join('posts', 'posts.id_post', '=', 'contients.id_post')
                 ->join('occupes', 'occupes.id_post', '=', 'posts.id_post')
                 // ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
-                // ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+                 ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
                 ->join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
                 ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
                 ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
@@ -472,9 +487,9 @@ public function delete(Request $request, $id_nin)
                     'occupes.id_occup',
                     'occupes.id_postsup',
                     'occupes.id_fonction',
-                    /* 'fonctions.Nom_fonction',
                     'fonctions.Nom_fonction',
-                    'post_sups.Nom_postsup',
+                    'fonctions.Nom_fonction_ar',
+                   /*  'post_sups.Nom_postsup',
                     'post_sups.Nom_postsup_ar',*/
                     'departements.Nom_depart',
                     'departements.Nom_depart_ar',
@@ -483,6 +498,86 @@ public function delete(Request $request, $id_nin)
                 )
                 ->orderBy('occupes.date_recrutement', 'desc')
                 ->first();
+                if(!isset($inter))
+                {
+                    $inter = DB::table('contients')->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                    ->join('travails', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                    ->join('posts', 'posts.id_post', '=', 'contients.id_post')
+                    ->join('occupes', 'occupes.id_post', '=', 'posts.id_post')
+                     ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                    // ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+                    ->join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
+                    ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+                    ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
+                    ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
+                    ->where('id_occup', $single->id_occup)
+                    ->where('id_travail', $allemp[$i]->id_travail)
+                    ->select(
+                        'travails.id_travail',
+                        'niveaux.Nom_niv',
+                        'niveaux.Nom_niv_ar',
+                        'niveaux.Specialite',
+                        'niveaux.Specialite_ar',
+                        'posts.Grade_post',
+                        'posts.Nom_post',
+                        'posts.Nom_post_ar',
+                        'occupes.date_recrutement',
+                        'occupes.echellant',
+                        'occupes.id_occup',
+                        'occupes.id_postsup',
+                        'occupes.id_fonction',
+                        /* 'fonctions.Nom_fonction',
+                        'fonctions.Nom_fonction',*/
+                        'post_sups.Nom_postsup',
+                        'post_sups.Nom_postsup_ar',
+                        'departements.Nom_depart',
+                        'departements.Nom_depart_ar',
+                        'sous_departements.Nom_sous_depart',
+                        'sous_departements.Nom_sous_depart_ar',
+                    )
+                    ->orderBy('occupes.date_recrutement', 'desc')
+                    ->first();
+                 if(!isset($inter))
+                 {
+                                            $inter = DB::table('contients')->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                    ->join('travails', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                    ->join('posts', 'posts.id_post', '=', 'contients.id_post')
+                    ->join('occupes', 'occupes.id_post', '=', 'posts.id_post')
+                    // ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                    // ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+                    ->join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
+                    ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+                    ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
+                    ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
+                    ->where('id_occup', $single->id_occup)
+                    ->where('id_travail', $allemp[$i]->id_travail)
+                    ->select(
+                        'travails.id_travail',
+                        'niveaux.Nom_niv',
+                        'niveaux.Nom_niv_ar',
+                        'niveaux.Specialite',
+                        'niveaux.Specialite_ar',
+                        'posts.Grade_post',
+                        'posts.Nom_post',
+                        'posts.Nom_post_ar',
+                        'occupes.date_recrutement',
+                        'occupes.echellant',
+                        'occupes.id_occup',
+                        'occupes.id_postsup',
+                        'occupes.id_fonction',
+                        /* 'fonctions.Nom_fonction',
+                        'fonctions.Nom_fonction',
+                        'post_sups.Nom_postsup',
+                        'post_sups.Nom_postsup_ar',*/
+                        'departements.Nom_depart',
+                        'departements.Nom_depart_ar',
+                        'sous_departements.Nom_sous_depart',
+                        'sous_departements.Nom_sous_depart_ar',
+                    )
+                    ->orderBy('occupes.date_recrutement', 'desc')
+                    ->first();
+                 }
+                }
             //dd($inter);
             array_push($postarr, $inter);
             $i++;
@@ -498,12 +593,18 @@ public function delete(Request $request, $id_nin)
             //dd($detailemp[$i]);
         }
 
-        //  dd($postarr);
+         // dd($postarr);
         $detailemp = $allemp;
         //  dd($detailemp);
+        $sdir=Sous_departement::all();
+        $dir=Departement::all();
+       $post         = Post::join('secteurs', 'secteurs.id_secteur', '=', 'posts.id_secteur')
+            ->join('filieres', 'filieres.id_filiere', '=', 'secteurs.id_filiere')->get();
+        $postsup=PostSup::all();
+        $fonction=Fonction::all();
         if ($nbr > 0) {
             $nbr = $nbr - 1;
-            return view('BioTemplate.index', compact('detailemp', 'nbr', 'empdepart', 'last', 'postarr', 'carier'));
+            return view('BioTemplate.index', compact('detailemp', 'nbr', 'empdepart', 'last', 'postarr', 'carier','dir','sdir','post','postsup','fonction'));
         } else {
             return view('404');
         }
