@@ -2,41 +2,95 @@
     use Carbon\Carbon;
 @endphp
 <!DOCTYPE html>
-<html lang="fr">
-
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Employés par Grade</title>
     <style>
-        /* Définir la taille de la page en format portrait */
-        @page {
-            size: A4 portrait;
-            margin: 20mm;
-            /* Marges de 20mm */
+        /* Style pour le spinner (non utilisé dans le PDF) */
+        .spinner {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Style pour le bouton (non utilisé dans le PDF) */
+        #generate-pdf-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #generate-pdf-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'DejaVuSans', sans-serif;
             color: #333;
-            background-color: #fff;
+            background-color: #f9f9f9;
             margin: 0;
             padding: 0;
         }
 
+        body[dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body[dir="rtl"] table th,
+        body[dir="rtl"] table td {
+            text-align: right;
+        }
+
+        body[dir="rtl"] .text-center {
+            text-align: center;
+        }
+
+        body[dir="rtl"] .text-right {
+            text-align: left;
+        }
+
         .container {
             max-width: 100%;
-            margin: 0 auto;
-            padding: 20px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-sizing: border-box;
         }
 
         h1 {
             color: #2c3e50;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-size: 20px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            font-size: 14px;
+            margin-top: 15px;
+            margin-bottom: 10px;
         }
 
         .header {
@@ -45,9 +99,9 @@
         }
 
         .header img {
-            width: 150px;
-            /* Taille réduite du logo */
-            margin-bottom: 10px;
+            max-width: 150px;
+            width: 100%;
+            margin-bottom: 8px;
         }
 
         .header p {
@@ -58,18 +112,18 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 15px;
             font-size: 10px;
-            /* Taille de police réduite */
-            page-break-inside: avoid;
-            /* Éviter de couper les tableaux */
+            table-layout: auto;
         }
 
-        th,
-        td {
+        th, td {
             padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ddd;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            vertical-align: top;
         }
 
         th {
@@ -78,7 +132,6 @@
             font-weight: bold;
             text-transform: uppercase;
             font-size: 9px;
-            /* Taille de police réduite pour les en-têtes */
         }
 
         tr:hover {
@@ -100,14 +153,83 @@
             text-align: right;
         }
 
-        /* Gestion des sauts de page */
-        .page-break {
-            page-break-before: always;
+        /* Ajustements pour la responsivité (non utilisé dans le PDF) */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            table {
+                font-size: 9px;
+            }
+
+            th, td {
+                padding: 6px;
+            }
+
+            th {
+                font-size: 8px;
+            }
+        }
+
+        /* Styles pour l'impression (PDF) */
+        @media print {
+            body {
+                margin: 10mm;
+            }
+
+            .container {
+                margin: 0;
+                padding: 10mm;
+                box-shadow: none;
+                width: 100%;
+            }
+
+            table {
+                font-size: 8pt;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            th, td {
+                padding: 5px;
+                font-size: 8pt;
+            }
+
+            th {
+                font-size: 7pt;
+            }
+
+            .header img {
+                max-width: 120px;
+            }
+
+            .footer {
+                font-size: 8pt;
+                position: running(footer);
+            }
+
+            @page {
+                margin: 10mm;
+                size: A4;
+
+                @bottom-center {
+                    content: element(footer);
+                }
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
         }
     </style>
 </head>
-
-<body>
+<body dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
     <div class="container">
         <!-- En-tête -->
         <div class="header">
@@ -118,9 +240,18 @@
         </div>
 
         <!-- Tableau des employés par grade -->
-        @foreach(range(1, 16) as $grade)
-                <div class="{{ $loop->first ? '' : 'page-break' }}"> <!-- Saut de page sauf pour le premier grade -->
-                    <h3>Grade {{ $grade }}</h3>
+        @foreach(range(6, 16) as $grade)
+            @php
+                // Filtrer les employés par grade
+                $employeesByGrade = $employe->filter(function ($employee) use ($grade) {
+                    $lastPost = $employee->occupeIdNin->last()->post ?? null;
+                    return $lastPost && $lastPost->Grade_post === $grade;
+                });
+            @endphp
+
+            @if($employeesByGrade->isNotEmpty()) <!-- Vérifie si le grade a des employés -->
+                <div class="{{ $loop->first ? '' : 'page-break' }}"> <!-- Pas de saut de page pour le premier grade -->
+                    <h3>{{ __('lang.grade') }} {{ $grade }}</h3>
                     <table>
                         <thead>
                             <tr>
@@ -128,8 +259,6 @@
                                 <th style="width: 15%;">{{ __('lang.name') }}</th>
                                 <th style="width: 15%;">{{ __('lang.surname') }}</th>
                                 <th style="width: 10%;">{{ __('lang.date_rec') }}</th>
-                                <th style="width: 10%;">{{ __('lang.date_CF') }}</th>
-                                <th style="width: 10%;">{{ __('lang.visa_CF') }}</th>
                                 <th style="width: 15%;">{{ __('lang.post') }}</th>
                                 <th style="width: 10%;">{{ __('lang.dept') }}</th>
                                 <th style="width: 10%;">{{ __('lang.sous_dept') }}</th>
@@ -137,60 +266,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                                // Filtrer les employés par grade
-                                $employeesByGrade = $employe->filter(function ($employee) use ($grade) {
-                                    $lastPost = $employee->occupeIdNin->last()->post ?? null;
-                                    return $lastPost && $lastPost->grade === $grade;
-                                });
-                            @endphp
+                            @foreach($employeesByGrade as $employee)
+                                @php
+                                    // Récupérer le dernier poste occupé par l'employé
+                                    $post = $employee->occupeIdNin->last()->post ?? null;
 
-                            @forelse ($employeesByGrade as $employee)
-                                            @php
-                                                // Récupérer le dernier poste occupé par l'employé
-                                                $post = $employee->occupeIdNin->last()->post ?? null;
+                                    // Récupérer le dernier travail de l'employé
+                                    $travail = $employee->travailByNin->last();
 
-                                                // Récupérer le dernier travail de l'employé
-                                                $travail = $employee->travailByNin->last();
+                                    // Récupérer le sous-département et le département
+                                    $sousDepartement = $travail->sous_departement ?? null;
+                                    $departement = $sousDepartement->departement ?? null;
 
-                                                // Récupérer le sous-département et le département
-                                                $sousDepartement = $travail->sous_departement ?? null;
-                                                $departement = $sousDepartement->departement ?? null;
-
-                                                // Récupérer la locale
-                                                $locale = app()->getLocale();
-                                            @endphp
-
-                                            <tr>
-                                                <td>{{ $employee->id_emp }}</td>
-                                                <td>
-                                                    {{ $locale == 'fr' ? $employee->Nom_emp : $employee->Nom_ar_emp }}
-                                                </td>
-                                                <td>
-                                                    {{ $locale == 'fr' ? $employee->Prenom_emp : $employee->Prenom_ar_emp }}
-                                                </td>
-                                                <td>{{ $employee->occupeIdNin->last()->date_recrutement ?? '' }}</td>
-                                                <td>{{ $employee->date_CF }}</td>
-                                                <td>{{ $employee->visa_CF }}</td>
-                                                <td>
-                                                    {{ $locale == 'fr' ? ($post->Nom_post ?? '') : ($post->Nom_post_ar ?? '') }}
-                                                </td>
-                                                <td>
-                                                    {{ $locale == 'fr' ? ($sousDepartement->Nom_sous_depart ?? '') : ($sousDepartement->Nom_sous_depart_ar ?? '') }}
-                                                </td>
-                                                <td>
-                                                    {{ $locale == 'fr' ? ($departement->Nom_depart ?? '') : ($departement->Nom_depart_ar ?? '') }}
-                                                </td>
-                                                <td>{{ $travail->date_installation ?? '' }}</td>
-                                            </tr>
-                            @empty
+                                    // Récupérer la locale
+                                    $locale = app()->getLocale();
+                                @endphp
                                 <tr>
-                                    <td colspan="10" class="text-center">{{ __('lang.no_employees') }}</td>
+                                    <td>{{ $employee->id_emp }}</td>
+                                    <td>{{ $locale == 'fr' ? $employee->Nom_emp : $employee->Nom_ar_emp }}</td>
+                                    <td>{{ $locale == 'fr' ? $employee->Prenom_emp : $employee->Prenom_ar_emp }}</td>
+                                    <td>{{ $employee->occupeIdNin->last()->date_recrutement ?? '' }}</td>
+                                    <td>{{ $locale == 'fr' ? ($post->Nom_post ?? '') : ($post->Nom_post_ar ?? '') }}</td>
+                                    <td>{{ $locale == 'fr' ? ($departement->Nom_depart ?? '') : ($departement->Nom_depart_ar ?? '') }}</td>
+                                    <td>{{ $locale == 'fr' ? ($sousDepartement->Nom_sous_depart ?? '') : ($sousDepartement->Nom_sous_depart_ar ?? '') }}</td>
+                                    <td>{{ $travail->date_installation ?? '' }}</td>
                                 </tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
+            @endif
         @endforeach
 
         <!-- Pied de page -->

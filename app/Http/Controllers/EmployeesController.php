@@ -63,32 +63,35 @@ class EmployeesController extends Controller
     }
 
     //! IMPRESSION CATEGORIE
-    public function exportPdfCatg()
+public function exportPdfCatg()
     {
+        // Récupérer les employés avec les données associées, filtrés par grade 6-16
         $employe = Employe::with([
             'occupeIdNin.post' => function ($query) {
-                $query->whereBetween('Grade_post', [1, 16]); // Filtrer par grade
+                $query->whereBetween('Grade_post', [6, 16]);
             },
-            'occupeIdNin.fonctions',                     // Inclure la relation "fonctions"
-            'occupeIdNin.postSups',                      // Inclure la relation "postsup"
-            'travailByNin.sous_departement.departement', // Inclure le département via travail et sous-département
+            'travailByNin.sous_departement.departement'
         ])
-            ->whereHas('occupeIdNin.post', function ($query) {
-                $query->whereBetween('Grade_post', [1, 16]) // Filtrer par grade
-                    ->whereDoesntHave('fonctions')              // Exclure les postes liés à une fonction
-                    ->whereDoesntHave('postSups');              // Exclure les postes liés à un postsup
-            })
-            ->get();
+        ->whereHas('occupeIdNin.post', function ($query) {
+            $query->whereBetween('Grade_post', [6, 16])
+                  ->whereDoesntHave('fonctions')
+                  ->whereDoesntHave('postSups');
+        })
+        ->get();
 
-        $empdepart = Departement::get();
+        // Récupérer tous les départements
+        $empdepart = Departement::all();
 
-        $pdf = PDF::loadView('impression/liste_par_catg', compact('employe', 'empdepart'))
-            ->setPaper('a4', 'landscape')
+        // Générer le PDF
+        $pdf = Pdf::loadView('impression.liste_par_catg', compact('employe', 'empdepart'))
+            ->setPaper('a4', 'landscape') // Changé en landscape pour correspondre à la vue
             ->setOptions([
                 'encoding' => 'UTF-8',
-
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true
             ]);
-        return $pdf->stream('Liste des employés_catégorie_.pdf');
+
+        return $pdf->stream('Liste_employes_par_categorie.pdf');
     }
 
     //! IMPRESSION FONCTION
