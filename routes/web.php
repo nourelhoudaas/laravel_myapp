@@ -149,6 +149,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/BioTemplate/add_justFile', [BioEmployeControl::class, 'update_just'])->name('emp_abs_justfile');
     Route::put('/BioTemplate/add_titreFile', [BioEmployeControl::class, 'update_cng'])->name('emp_cng_titrefile');
     Route::post('/BioTemplate/carrier/', [BioEmployeControl::class, 'getcarrier'])->name('emp_more_info');
+    Route::post('/Employe/carrier/update/', [BioEmployeControl::class, 'edit_carrier'])->name('emp_update_info');
     Route::post('/upload/numdossiers', [UploadFile::class, 'uploadFile'])->name('uploadFile');
     Route::post('/upload/creedossier', [UploadFile::class, 'cree_dos_sous'])->name('cree_doss_emp');
     Route::get('/upload/getFiles/{id}', [UploadFile::class, 'getFiles'])->name('getfile_all_emp');

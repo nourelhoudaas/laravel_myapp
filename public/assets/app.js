@@ -68,16 +68,74 @@ $(document).ready(function () {
         var genform = {
             ID_NIN: id,
             idocp: idocp,
-            _token: $('meta[name="csrf-token"]').attr("content"),
+           _token: $('meta[name="csrf-token"]').attr("content"),
             _method: "POST",
         };
+
         console.log("id is" + idocp);
         $.ajax({
             url: "/BioTemplate/carrier/",
             data: genform,
             type: "post",
+            success:function(response)
+            {
+                if(response.status == 200)
+                {   
+                    console.log('click')
+                    $('#carrier_handle').removeClass('hidden-select')
+                    $('#depart').val(response.emp.id_depart)
+                    $('#sous_depart').val(response.emp.id_sous_depart)
+                    $('#postsup').val(response.emp.id_postsup)
+                    $('#fonction').val(response.emp.id_fonction)
+                    $('#date_recrutement').val(response.emp.date_recrutement)
+                    $('#Grade_post').val(response.emp.id_post)
+                    $('#ref_PV').val(response.emp.ref_PV)
+                    $('#ref_Decision').val(response.emp.ref_Decision)
+                    $('#visa_CF').val(response.emp.visa_CF)
+                    $('#type_CTR').val(response.emp.type_CTR)
+                    $('#notation').val(response.emp.notation)
+                    $('#date_installation').val(response.emp.date_installation)
+                    $('#carrier_btn_up').on('click',function(){
+                        var posts=$('#postsup').val();
+                        if($('#postsup').val() == "0" || $('#postsup').val() == null || $('#postsup').val() == undefined)
+                        {
+                            posts = 0
+                        }
+                        var updateform ={
+                        ID_NIN: id,
+                        idocp: idocp,        
+                        depart:$('#depart').val(),
+                        sous_depart:$('#sous_depart').val(),
+                        postsup:posts,
+                        fonction:$('#fonction').val(),
+                        date_recrutement:$('#date_recrutement').val(),
+                        Grade_post:$('#Grade_post').val(),
+                        ref_PV:$('#ref_PV').val(),
+                        ref_Decision:$('#ref_Decision').val(),
+                        visa_CF:$('#visa_CF').val(),
+                        type_CTR:$('#type_CTR').val(),
+                        notation:$('#notation').val(),
+                        date_installation:$('#date_installation').val(),
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                        _method: "POST",
+                        }
+                            $.ajax({
+                                url: "/Employe/carrier/update/",
+                                data: updateform,
+                                type: "POST",
+                                success: function (response) {
+                                    alert("success");
+                                    window.location.reload();
+                                },
+                            });
+                    })
+                }
+            }
         });
     });
+    $('#carrier_close').on('click',function(){
+        $('#carrier_handle').addClass('hidden-select')
+    })
 });
 
 

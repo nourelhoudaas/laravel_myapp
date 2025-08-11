@@ -103,11 +103,23 @@ $locale = App::getLocale();
                           </h6>
                           <div class="row">
                             @if(app()->getLocale() == 'ar')
+                              @if(isset($last->Nom_postsup_ar))
+                              <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p>
+                              @endif
+                              @if(isset($last->Nom_fonction_ar))
+                              <p class="text-secondary mb-1">{{$last->Nom_fonction_ar}}</p>
+                              @endif
                             <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p>
                             <p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p>
                           </div>
                           <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}}, {{__('lang.mnc')}}</p>
                           @else
+                           @if(isset($last->Nom_postsup))
+                              <p class="text-secondary mb-1">{{$last->Nom_post}}</p>
+                              @endif
+                              @if(isset($last->Nom_fonction))
+                              <p class="text-secondary mb-1">{{$last->Nom_fonction}}</p>
+                              @endif
                           <p class="text-secondary mb-1">{{$last->Nom_post}}</p>
                           <p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p>
                         </div>
@@ -368,7 +380,12 @@ $locale = App::getLocale();
                               @endif
 
                             </p>
-
+                                @if(isset($postarr[$j]->Nom_postsup_ar))
+                              <p class="text-secondary mb-1">{{__('lang.post_sup')}} : {{$postarr[$j]->Nom_post_ar}}</p>
+                              @endif
+                              @if(isset($postarr[$j]->Nom_fonction_ar))
+                              <p class="text-secondary mb-1">{{__('lang.post_fnc')}} : {{$postarr[$j]->Nom_fonction_ar}}</p>
+                              @endif
                             <p>
                               {{__('lang.post_grad')}} : {{$postarr[$j]->Grade_post}}
                             </p>
@@ -446,7 +463,111 @@ $locale = App::getLocale();
   </div>
 
 
+  <div class="carrier_handle hidden-select" id="carrier_handle">
+    <form id="myForm" class="card p-4 shadow-sm" style="
+    left: 7%;
+    width: 75%;
+    position: absolute;
+    top: 1%;
+">
 
+      <h4 class="btn btn-info" id="carrier_close">X</h4>
+      <h4 class="mb-3">Carrier Modifier</h4>
+
+      <div class="row g-3">
+        <!-- 16 inputs -->
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.nom_direct')}}</label>
+         
+          <select class="form-select" name="depart" id="depart">
+              @foreach($dir as $d)
+                
+                <option value="{{ $d->id_depart }}">
+                  @if(app()->getLocale() == 'fr'){{ $d->Nom_depart }}@else{{ $d->Nom_depart_ar }}@endif</option>
+                
+
+            @endforeach
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.sous_dept')}}</label>
+          <select class="form-select" name="sous_depart" id="sous_depart">
+            <option value=""></option>
+            @foreach($sdir as $sd)
+                <option value="{{ $sd->id_sous_depart }}">@if(app()->getLocale() == 'fr'){{ $sd->Nom_sous_depart }}@else{{ $sd->Nom_sous_depart_ar }}@endif</option>
+            @endforeach
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.post_sup')}}</label>
+          <select  class="form-select" name="postsup" id="postsup">
+            <option value="0"></option>
+             @foreach($postsup as $ps)
+                <option value="{{ $ps->id_postsup }}">@if(app()->getLocale() == 'fr'){{ $ps->Nom_postsup }}@else{{ $ps->Nom_postsup_ar }}@endif</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.post_fnc')}}</label>
+          <select  class="form-select" name="fonction" id="fonction">
+            <option value=""></option>
+            @foreach($fonction as $ps)
+                <option value="{{ $ps->id_fonction }}">@if(app()->getLocale() == 'fr'){{ $ps->Nom_fonction }}@else{{ $ps->Nom_fonction_ar }}@endif</option>
+            @endforeach
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.date_rec')}}</label>
+          <input type="date" class="form-control" name="date_recrutement" id="date_recrutement">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.post')}}</label>
+          <select class="form-select" name="Grade_post" id="Grade_post">
+            @foreach($post as $ps)
+                <option value="{{ $ps->id_post }}">@if(app()->getLocale() == 'fr'){{ $ps->Nom_post }} / {{$ps->Nom_filiere}}@else{{ $ps->Nom_filiere_ar }}@endif</option>
+            @endforeach
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.PV_inst')}}</label>
+          <input type="text" class="form-control" name="ref_PV" id="ref_PV">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.inst_dicsio')}}</label>
+          <input type="text" class="form-control" name="ref_Decision" id="ref_Decision">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.visa_CF')}}</label>
+          <input type="text" class="form-control" name="visa_CF" id="visa_CF">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Contract</label>
+          <select type="text" class="form-select" name="type_CTR" id="type_CTR">
+            <option value=""></option>
+            <option value="Fonctinnaire">{{__('lang.foncts')}} </option>
+            <option value="CDI">{{__('lang.cntr')}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.note')}}</label>
+          <input type="url" class="form-control" name="notation" id="notation">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{{__('lang.date_inst')}}</label>
+          <input type="date" class="form-control" name="date_installation" id="date_installation"></textarea>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <button type="submit" class="btn btn-info" id="carrier_btn_up">{{__('lang.edit')}}</button>
+      </div>
+    </form>
+
+  </div>
 
   <!-- Dialog Overlay -->
   <div class="overlay-nin" id="dialogOverlay_nin">
