@@ -51,6 +51,9 @@ use Carbon\Carbon;
                             {{ __('lang.age') }}
                         </th>
                         <th>
+                            {{ __('lang.date_naiss') }}
+                        </th>
+                        <th>
                             {{ __('lang.date_rec') }}
                         </th>
                         {{--<th>
@@ -137,6 +140,7 @@ use Carbon\Carbon;
                             @endif
                         </td>
                         <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
+                        <td>{{ $employe->Date_nais }}</td>
                         <td>{{ $occupe->date_recrutement ?? '-' }}</td>
                         {{-- <td>{{ $occupe->date_CF ?? '-' }}</td>
                         <td>{{ $occupe->visa_CF ?? '-' }}</td>--}}

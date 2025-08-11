@@ -29,7 +29,7 @@
 
                     @forelse ($subDepartments as $index => $subDepartment)
                         <tr>
-                            <td>{{ $subDepartment->id_sous_depart }}</td>
+                           <td>{{ $loop->iteration }}</td>
                             <td>
                                 @if ($locale == 'fr')
                                    <a href="#" onclick="return false;">
