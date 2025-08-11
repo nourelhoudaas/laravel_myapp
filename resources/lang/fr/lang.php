@@ -219,7 +219,8 @@ return [
 
 
     'postsup' => 'Poste Supèrieur',
-
+    'foncts'=>'Fonctionnaire',
+    'cntr'=>'Contra',
     'ats' => 'Attestation Du Traivlle',
     'ter_insta' => '',
     'fct' => 'Fonction ',
