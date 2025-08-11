@@ -32,7 +32,7 @@
 
         @foreach ($departements as $index => $departement)
         <tr>
-            <td>{{ $index + 1 }}</td>
+            <td>{{ $loop->iteration }}</td>
             <td>
                 @if ($locale == 'fr')
                 <a href="{{ route('app_dashboard_depart', $departement->id_depart) }}">

@@ -287,6 +287,6 @@ return [
     'employee_deleted' => 'Employé supprimé avec succès.',
     'supprimer' => 'Supprimer',
     'confirm_delete'=> 'Êtes-vous sûr de vouloir supprimer cet employé ?',
-
+    'date_naiss' => 'Date de Naissance',
     'Date_gener' => 'Date de génération',
 ];

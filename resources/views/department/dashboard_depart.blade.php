@@ -79,7 +79,9 @@
                 <table  class="styled-table" id='myTable'>
                     <thead>
                         <tr>
-
+                            <th>
+                                {{ __('lang.num_p') }}
+                            </th>
                             <th>
                                 {{-- <a href="{{ route('app_dashboard_depart', ['dep_id' => $dep_id, 'champs' => 'Nom_emp', 'direction' => ($champs == 'Nom_emp' && $direction == 'asc') ? 'desc' : 'asc']) }}">
              {{ __('lang.name') }}
@@ -156,6 +158,7 @@
                                 $locale = app()->getLocale();
                             @endphp
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>
                                     <a href="{{ route('BioTemplate.detail', ['id' => $employe->id_nin]) }}">
                                         @if ($locale == 'fr')
