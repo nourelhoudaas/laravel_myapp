@@ -47,7 +47,7 @@ return view('department.edit', compact('departement'));
             $employes = Employe::with([
                 'occupeIdNin.post',
                 'travailByNin.sous_departement.departement'
-            ])
+            ])->whereNotIn('id_nin',[1254953,254896989])
 
             ->get();
             //dd( $empdep);
@@ -153,6 +153,7 @@ return view('department.edit', compact('departement'));
                 join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
                 ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
                 ->where('posts.Grade_post', '>', 11)
+                ->whereNotIn('employes.id_nin',[1254953,254896989])
                 ->whereRaw('occupes.date_recrutement = (
                     SELECT MAX(o2.date_recrutement)
                     FROM occupes o2
@@ -164,6 +165,7 @@ return view('department.edit', compact('departement'));
                ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
                ->whereBetween('posts.Grade_post', [7, 11])
+               ->whereNotIn('employes.id_nin',[1254953,254896989])
                ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
@@ -175,6 +177,7 @@ return view('department.edit', compact('departement'));
                ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
                ->where('posts.Grade_post', '<', 7)
+               ->whereNotIn('employes.id_nin',[1254953,254896989])
                ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
@@ -345,7 +348,7 @@ public function get_emp_dep($id)
     $employes = Employe::with([
         'occupeIdNin.post',
         'travailByNin.sous_departement.departement'
-    ])
+    ])->whereNotIn('employes.id_nin',[1254953,254896989])
     ->get();
     //dd( $empdep);
     //filter fct de laravel
@@ -404,7 +407,7 @@ public function delete($id_depart)
             $employes = Employe::with([
                 'occupeIdNin.post',
                 'travailByNin.sous_departement.departement'
-            ])
+            ])->whereNotIn('employes.id_nin',[1254953,254896989])
 
             ->get();
             //dd( $empdep);
@@ -494,6 +497,7 @@ public function delete($id_depart)
                 join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
                 ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
                 ->where('posts.Grade_post', '>', 11)
+                ->whereNotIn('employes.id_nin',[1254953,254896989])
                 ->whereRaw('occupes.date_recrutement = (
                     SELECT MAX(o2.date_recrutement)
                     FROM occupes o2
@@ -505,6 +509,7 @@ public function delete($id_depart)
                ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
                ->whereBetween('posts.Grade_post', [7, 11])
+               ->whereNotIn('employes.id_nin',[1254953,254896989])
                ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
@@ -516,6 +521,7 @@ public function delete($id_depart)
                ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
                ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
                ->where('posts.Grade_post', '<', 7)
+               ->whereNotIn('employes.id_nin',[1254953,254896989])
                ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2

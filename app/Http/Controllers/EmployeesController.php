@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use App\Models\Absence;
+//use App\Models\Log;
 use App\Models\appartient;
 use App\Models\Bureau;
 use App\Models\Conge;
@@ -1870,7 +1871,7 @@ public function delete(Request $request, $id_nin)
             }
         }
         /** ==========================================================*/
-        $related = Log::where('id_nin', $id_nin)->delete();
+        $related = DB::table('logs')->where('id_nin', $id_nin)->delete();
         /* if(isset($related))
         {
             array_push($related_list,["logs"=>$related->id_log]);
