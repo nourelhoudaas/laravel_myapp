@@ -362,6 +362,7 @@ public function delete(Request $request, $id_nin)
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
            // ->join('post_sups', 'occupes.id_postsup', 'post_sups.id_postsup')
             ->join('fonctions', 'occupes.id_fonction', '=', 'fonctions.id_fonction')
+            ->orderBy('travails.date_chang', 'desc')
             ->where('employes.id_nin', $id)
             ->first();
         //  dd($last);
@@ -376,6 +377,7 @@ public function delete(Request $request, $id_nin)
                 ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
                 //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
                 ->where('employes.id_nin', $id)
+                ->orderBy('travails.date_chang', 'desc')
                 ->first();
             if (!isset($last)) {
 
@@ -389,9 +391,11 @@ public function delete(Request $request, $id_nin)
                 //->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
                 //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
                 ->where('employes.id_nin', $id)
+                ->orderBy('travails.date_chang', 'desc')
                 ->first();
                 if(!isset($last))
                 {
+                   // dd($last);
                     return redirect('/Employe/IsTravaill/' . $id);
                 }
             }
@@ -599,7 +603,7 @@ public function delete(Request $request, $id_nin)
 
          // dd($postarr);
         $detailemp = $allemp;
-        //  dd($detailemp);
+         // dd($postarr);
         $sdir=Sous_departement::all();
         $dir=Departement::all();
        $post         = Post::join('secteurs', 'secteurs.id_secteur', '=', 'posts.id_secteur')

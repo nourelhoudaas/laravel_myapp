@@ -363,9 +363,9 @@ $locale = App::getLocale();
                           <p>{{__('lang.dept')}} :
 
                             @if(app()->getLocale() == 'ar')
-                            {{$postarr[$j]->Nom_sous_depart_ar}}
+                            {{$postarr[$i]->Nom_sous_depart_ar}}
                             @else
-                            {{$postarr[$j]->Nom_sous_depart}}
+                            {{$postarr[$i]->Nom_sous_depart}}
                             @endif
 
                           </p>
