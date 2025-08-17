@@ -94,6 +94,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/employes/delete/{id_nin}', 'delete')->name('employes.delete');// supprimer un employé action
         Route::get('/employes/delete/{id_nin}', 'delete')->name('employees.delete');// supprimer un employé bouton
         Route::get('/Employe/carrier/{id_travail}/{id_occup}','delete_carier')->name('employees.delete.carrier');
+        Route::get('/Employe/mails/update','update_mail')->name('employees.delete.carrier');
     });
 });
 Route::middleware('auth')->group(function () {
