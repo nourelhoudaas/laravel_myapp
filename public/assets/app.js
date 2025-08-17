@@ -2678,9 +2678,9 @@ $(document).ready(function () {
             // Assuming you are searching by ID_NIN
             var formData = {
                 Nom_P: $("#Nom_P").val(),
+                Nom_PAR: $("#Nom_PAR").val(),
                 Prenom_O: $("#Prenom_O").val(),
                 Prenom_OAR: $("#Prenom_OAR").val(),
-                Nom_PAR: $("#Nom_PAR").val(),
                 Email: $("#Email").val(),
                 phone_pn: $("#phone_pn").val(),
                 dateN: $("#dateN").val(),
