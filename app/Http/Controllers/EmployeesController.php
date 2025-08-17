@@ -2093,4 +2093,58 @@ public function delete(Request $request, $id_nin)
         }
         return redirect()->back();
     }
+
+    function update_mail()
+    {
+                // Load JSON
+        $jsonPath = storage_path('app/public/mails_local/mails.json');
+        if (!file_exists($jsonPath)) {
+            $this->error("JSON file not found!");
+            return;
+        }
+
+        $data = json_decode(file_get_contents($jsonPath), true);
+
+        if (!$data) {
+            $this->error("Invalid JSON format.");
+            return;
+        }
+
+        foreach ($data as $mails) {
+            # code...
+
+              $name = strtolower($mails['name']);
+               $name = str_replace(' ', '', $name);    
+                $emp=Employe::all();
+                foreach($emp as $e)
+                {
+                    $ename=$e->Nom_emp.$e->Prenom_emp;
+                    $ename=  strtolower($ename);
+                    $ename = str_replace(' ', '', $ename);
+                    if($name == $ename)
+                    {
+                       // print('1 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
+                        $e->email=$mails['mail'];
+                        $e->save();
+                    }
+                    else
+                    {
+                    $ename=$e->Prenom_emp.$e->Nom_emp;
+                    $ename=  strtolower($ename);
+                    $ename = str_replace(' ', '', $ename);
+                        if($name == $ename)
+                        {
+                          //  print('2 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
+                            $e->email=$mails['mail'];
+                            $e->save();
+                        }
+                    }
+                  
+                }
+// Remove all spaces
+           
+             
+            
+        } 
+    }
 }
