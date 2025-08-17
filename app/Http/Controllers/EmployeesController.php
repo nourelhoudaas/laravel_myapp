@@ -2123,7 +2123,7 @@ public function delete(Request $request, $id_nin)
                     $ename = str_replace(' ', '', $ename);
                     if($name == $ename)
                     {
-                       // print('1 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
+                        print('1 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
                         $e->email=$mails['mail'];
                         $e->save();
                     }
@@ -2134,7 +2134,7 @@ public function delete(Request $request, $id_nin)
                     $ename = str_replace(' ', '', $ename);
                         if($name == $ename)
                         {
-                          //  print('2 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
+                            print('2 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
                             $e->email=$mails['mail'];
                             $e->save();
                         }
