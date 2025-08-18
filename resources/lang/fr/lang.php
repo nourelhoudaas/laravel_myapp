@@ -250,7 +250,7 @@ return [
     'encadrement' => 'Fonction supérieur',
     'maîtrise' => 'Corps Commun',
     'executif' => 'Contractuel',
-    'nbr_emp_depart' => 'Répartition des employés pour chaque département',
+    'nbr_emp_depart' => 'Répartition des personnels par structure',
     'nbr_emp' => 'Nombre d\'employer',
     'slct_post_sup' => 'Séléctionner le poste supèrieur',
     'slct_fonc' => 'Séléctionner la fonction',
