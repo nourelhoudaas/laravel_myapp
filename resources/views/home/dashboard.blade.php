@@ -107,7 +107,7 @@
         nbr_emp_depart = 'Répartition des personnels par sturcture';
         nbr_emp = 'Nombre de personnels';
         situ_emp = 'Répartition des personnels par Situation Familiale';
-        sexe='Répartition des Employés par Sexe';
+        sexe='Répartition des personnels par Sexe';
 
     }
 
