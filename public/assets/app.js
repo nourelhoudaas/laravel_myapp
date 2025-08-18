@@ -2686,6 +2686,7 @@ $(document).ready(function () {
                 dateN: $("#dateN").val(),
                 adr: $("#adr").val(),
                 adrAR: $("#adrAR").val(),
+                email_pro: $("#email_pro").val(),
                 _token: $('meta[name="csrf-token"]').attr("content"),
                 _method: "PUT",
             };
