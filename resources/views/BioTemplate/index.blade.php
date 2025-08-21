@@ -104,7 +104,7 @@ $locale = App::getLocale();
                           <div class="row">
                             @if(app()->getLocale() == 'ar')
                               @if(isset($last->Nom_postsup_ar))
-                              <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p>
+                              <p class="text-secondary mb-1">{{$last->Nom_postsup_ar}}</p>
                               @endif
                               @if(isset($last->Nom_fonction_ar))
                               <p class="text-secondary mb-1">{{$last->Nom_fonction_ar}}</p>
@@ -115,7 +115,7 @@ $locale = App::getLocale();
                           <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}}, {{__('lang.mnc')}}</p>
                           @else
                            @if(isset($last->Nom_postsup))
-                              <p class="text-secondary mb-1">{{$last->Nom_post}}</p>
+                              <p class="text-secondary mb-1">{{$last->Nom_postsup}}</p>
                               @endif
                               @if(isset($last->Nom_fonction))
                               <p class="text-secondary mb-1">{{$last->Nom_fonction}}</p>
@@ -381,7 +381,7 @@ $locale = App::getLocale();
 
                             </p>
                                 @if(isset($postarr[$j]->Nom_postsup_ar))
-                              <p class="text-secondary mb-1">{{__('lang.post_sup')}} : {{$postarr[$j]->Nom_post_ar}}</p>
+                              <p class="text-secondary mb-1">{{__('lang.post_sup')}} : {{$postarr[$j]->Nom_postsup_ar}}</p>
                               @endif
                               @if(isset($postarr[$j]->Nom_fonction_ar))
                               <p class="text-secondary mb-1">{{__('lang.post_fnc')}} : {{$postarr[$j]->Nom_fonction_ar}}</p>
