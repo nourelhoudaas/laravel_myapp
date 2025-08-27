@@ -247,9 +247,11 @@ return [
 
 
 
-    'encadrement' => 'Fonction supérieur',
-    'maîtrise' => 'Corps Commun',
-    'executif' => 'Contractuel',
+    'FonctionSUP' => 'Fonction supérieur',
+    'PostSUP' => 'Post supérieur',
+    'CorpsCOMM' => 'Corps Commun',
+    'ContraACT' => 'Contrat actuel',
+    
     'nbr_emp_depart' => 'Répartition des personnels par structure',
     'nbr_emp' => 'Nombre d\'employer',
     'slct_post_sup' => 'Séléctionner le poste supèrieur',

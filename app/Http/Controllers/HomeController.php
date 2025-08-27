@@ -111,7 +111,70 @@ $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_famil
          }
      }
      //dd($dataGender);
-        return view('home.dashboard',compact('employe','totalEmployess','empdepart','empdep','empdept','data','dataGender','lang'));
+
+             /************************encadrement_maitris_executif*************** */
+/***********************************************Employe $fonction superieur***********************************************/
+/********************************************************************************************************************************* */
+                $fs = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                 ->where('occupes.type_CTR', '=', 'Fonctinnaire')
+                ->whereNotNull('occupes.id_fonction')
+                ->whereNull('occupes.id_postsup')
+                ->whereNotIn('employes.id_nin', [1254953, 254896989])
+                ->whereRaw('occupes.date_recrutement = (
+                    SELECT MAX(o2.date_recrutement)
+                    FROM occupes o2
+                    WHERE o2.id_nin = employes.id_nin
+                )')
+                ->count();
+                //dd( $fs);
+/***********************************************Employe $post superieur***********************************************/
+/********************************************************************************************************************************* */
+             $ps = DB::table('employes')
+               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+                ->where('occupes.type_CTR', '=', 'Fonctinnaire')
+               ->whereNotNull('occupes.id_postsup')
+               ->whereNull('occupes.id_fonction')
+               ->whereNotIn('employes.id_nin', [1254953, 254896989])
+               ->whereRaw('occupes.date_recrutement = (
+                   SELECT MAX(o2.date_recrutement)
+                   FROM occupes o2
+                   WHERE o2.id_nin = employes.id_nin
+               )')
+               ->count();
+                //dd( $ps);
+/***********************************************Employe $contrat actuel (CDI)***********************************************/
+/********************************************************************************************************************************* */
+               $ca = DB::table('employes')
+               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+               ->where('occupes.type_CTR', '=', 'CDI')
+               ->whereNull('occupes.id_postsup')
+               ->whereNull('occupes.id_fonction')
+               ->whereNotIn('employes.id_nin', [1254953, 254896989])
+               ->whereRaw('occupes.date_recrutement = (
+                   SELECT MAX(o2.date_recrutement)
+                   FROM occupes o2
+                   WHERE o2.id_nin = employes.id_nin
+               )')
+                ->count();
+             //dd( $ca);
+
+/***********************************************Employe $corps commun (fonctionnaire)***********************************************/
+/********************************************************************************************************************************* */
+              $cc = DB::table('employes')
+               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+               ->where('occupes.type_CTR', '=', 'Fonctinnaire')
+               ->whereNull('occupes.id_postsup')
+               ->whereNull('occupes.id_fonction')
+               ->whereNotIn('employes.id_nin', [1254953, 254896989])
+               ->whereRaw('occupes.date_recrutement = (
+                   SELECT MAX(o2.date_recrutement)
+                   FROM occupes o2
+                   WHERE o2.id_nin = employes.id_nin
+               )')
+               ->count();
+             //dd( $cc);
+
+        return view('home.dashboard',compact('employe','totalEmployess','empdepart','empdep','empdept','data','dataGender','lang','fs','ps','ca','cc'));
     }
 
     public function switchLanguage($locale)

@@ -41,6 +41,52 @@
                     </div>
                     <!-- end Employees -->
                 </div>
+                <div class="insights">
+                <!-- fonction superieur -->
+                <div class="sales">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>{{ __('lang.FonctionSUP') }}</h3>
+                            <h1>{{ $fs }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Employees -->
+
+                <!-- post superieur -->
+                <div class="income">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>{{ __('lang.PostSUP') }}</h3>
+                            <h1>{{ $ps }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Absence -->
+
+                <!-- corps commun -->
+                <div class="expenses">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>{{ __('lang.CorpsCOMM') }}</h3>
+                            <h1>{{ $cc }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- contrat actuel  -->
+                <div class="contrat">
+                    <span class="material-symbols-outlined">supervised_user_circle</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>{{ __('lang.ContraACT') }}</h3>
+                            <h1>{{ $ca }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
