@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use App\Models\Absence;
+//use App\Models\Log;
 use App\Models\appartient;
 use App\Models\Bureau;
 use App\Models\Conge;
@@ -361,6 +362,7 @@ public function delete(Request $request, $id_nin)
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
            // ->join('post_sups', 'occupes.id_postsup', 'post_sups.id_postsup')
             ->join('fonctions', 'occupes.id_fonction', '=', 'fonctions.id_fonction')
+            ->orderBy('travails.date_chang', 'desc')
             ->where('employes.id_nin', $id)
             ->first();
         //  dd($last);
@@ -375,6 +377,7 @@ public function delete(Request $request, $id_nin)
                 ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
                 //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
                 ->where('employes.id_nin', $id)
+                ->orderBy('travails.date_chang', 'desc')
                 ->first();
             if (!isset($last)) {
 
@@ -388,9 +391,11 @@ public function delete(Request $request, $id_nin)
                 //->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
                 //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
                 ->where('employes.id_nin', $id)
+                ->orderBy('travails.date_chang', 'desc')
                 ->first();
                 if(!isset($last))
                 {
+                   // dd($last);
                     return redirect('/Employe/IsTravaill/' . $id);
                 }
             }
@@ -598,7 +603,7 @@ public function delete(Request $request, $id_nin)
 
          // dd($postarr);
         $detailemp = $allemp;
-        //  dd($detailemp);
+         // dd($postarr);
         $sdir=Sous_departement::all();
         $dir=Departement::all();
        $post         = Post::join('secteurs', 'secteurs.id_secteur', '=', 'posts.id_secteur')
@@ -1870,7 +1875,7 @@ public function delete(Request $request, $id_nin)
             }
         }
         /** ==========================================================*/
-        $related = Log::where('id_nin', $id_nin)->delete();
+        $related = DB::table('logs')->where('id_nin', $id_nin)->delete();
         /* if(isset($related))
         {
             array_push($related_list,["logs"=>$related->id_log]);
@@ -2087,5 +2092,59 @@ public function delete(Request $request, $id_nin)
             }
         }
         return redirect()->back();
+    }
+
+    function update_mail()
+    {
+                // Load JSON
+        $jsonPath = storage_path('app/public/mails_local/mails.json');
+        if (!file_exists($jsonPath)) {
+            $this->error("JSON file not found!");
+            return;
+        }
+
+        $data = json_decode(file_get_contents($jsonPath), true);
+
+        if (!$data) {
+            $this->error("Invalid JSON format.");
+            return;
+        }
+
+        foreach ($data as $mails) {
+            # code...
+
+              $name = strtolower($mails['name']);
+               $name = str_replace(' ', '', $name);    
+                $emp=Employe::all();
+                foreach($emp as $e)
+                {
+                    $ename=$e->Nom_emp.$e->Prenom_emp;
+                    $ename=  strtolower($ename);
+                    $ename = str_replace(' ', '', $ename);
+                    if($name == $ename)
+                    {
+                        print('1 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
+                        $e->email=$mails['mail'];
+                        $e->save();
+                    }
+                    else
+                    {
+                    $ename=$e->Prenom_emp.$e->Nom_emp;
+                    $ename=  strtolower($ename);
+                    $ename = str_replace(' ', '', $ename);
+                        if($name == $ename)
+                        {
+                            print('2 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
+                            $e->email=$mails['mail'];
+                            $e->save();
+                        }
+                    }
+                  
+                }
+// Remove all spaces
+           
+             
+            
+        } 
     }
 }

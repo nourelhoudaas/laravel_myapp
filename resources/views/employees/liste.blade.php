@@ -54,6 +54,9 @@ use Carbon\Carbon;
                             {{ __('lang.date_naiss') }}
                         </th>
                         <th>
+                            {{ __('lang.sx') }}
+                        </th>
+                        <th>
                             {{ __('lang.date_rec') }}
                         </th>
                         {{--<th>
@@ -141,6 +144,15 @@ use Carbon\Carbon;
                         </td>
                         <td>{{ Carbon::parse($employe->Date_nais)->age }}</td>
                         <td>{{ $employe->Date_nais }}</td>
+                        <td>  @if ($locale == 'fr')
+                            {{ $employe->sexe }}
+                            @elseif ($locale == 'ar')
+                            @if( $employe->sexe == 'Femme')
+                              {{__('lang.sx_fm')}}
+                              @else 
+                              {{__('lang.sx_ma')}}
+                              @endif
+                            @endif  </td>
                         <td>{{ $occupe->date_recrutement ?? '-' }}</td>
                         {{-- <td>{{ $occupe->date_CF ?? '-' }}</td>
                         <td>{{ $occupe->visa_CF ?? '-' }}</td>--}}

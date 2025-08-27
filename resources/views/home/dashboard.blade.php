@@ -104,10 +104,10 @@
 
 
     } else {
-        nbr_emp_depart = 'Répartition des employés pour chaque département';
-        nbr_emp = 'Nombre d\'employés';
-        situ_emp = 'Répartition des Employés par Situation Familiale';
-        sexe='Répartition des Employés par Sexe';
+        nbr_emp_depart = 'Répartition des personnels par sturcture';
+        nbr_emp = 'Nombre de personnels';
+        situ_emp = 'Répartition des personnels par Situation Familiale';
+        sexe='Répartition des personnels par Sexe';
 
     }
 
