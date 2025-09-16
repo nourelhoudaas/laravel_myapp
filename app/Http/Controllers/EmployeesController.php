@@ -28,12 +28,14 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 // Add this line if logService exists in App\Services
 
 class EmployeesController extends Controller
 {
- protected $logService;
+    protected $logService;
 
     // Injecter logService via le constructeur si nécessaire
     public function __construct(LogService $logService)
@@ -42,7 +44,7 @@ class EmployeesController extends Controller
     }
 
     //! IMPRESSION LISTE GLOBALE
-public function exportPdf()
+    public function exportPdf()
     {
         $employe = Employe::with([
             'occupeIdNin.post',
@@ -54,20 +56,28 @@ public function exportPdf()
         Log::info('Liste globale des employés pour impression PDF');
 
         $empdepart = Departement::get();
+        App::setLocale(Session::get('locale', 'fr'));
+        // Récupérer la locale (comme dans votre Blade)
+        $locale = App::getLocale();
+
+        // Choisir la police par défaut en fonction de la locale
+        $defaultFont = ($locale == 'ar') ? 'Noto Sans Arabic' : 'DejaVuSans';
 
         $pdf = PDF::loadView('impression.liste_globale', compact('employe', 'empdepart'))
-        ->setPaper('a4', 'landscape')
+            ->setPaper('a4', 'landscape')
             ->setOptions([
-               'encoding' => 'UTF-8',
-            'defaultFont' => 'DejaVuSans', // Définit DejaVuSans comme police par défaut
+                'encoding' => 'UTF-8',
+            'defaultFont' => $defaultFont, // Police adaptée à la locale
             'isFontSubsettingEnabled' => true,
-            'isRemoteEnabled' => true, // Nécessaire si le fichier est dans public/
+            'isRemoteEnabled' => true,
+            'isHtml5ParserEnabled' => true, // Ajouté pour mieux gérer le HTML moderne
+            'dpi' => 150, // Améliore la qualité du rendu
             ]);
-            return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
-            //return view('impression.liste_globale', compact('employe', 'empdepart'));
+        return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
+        //return view('impression.liste_globale', compact('employe', 'empdepart'));
     }
     //! IMPRESSION CATEGORIE
-public function exportPdfCatg()
+    public function exportPdfCatg()
     {
         // Récupérer les employés avec les données associées, filtrés par grade 6-16
         $employe = Employe::with([
@@ -76,12 +86,12 @@ public function exportPdfCatg()
             },
             'travailByNin.sous_departement.departement'
         ])
-        ->whereHas('occupeIdNin.post', function ($query) {
-            $query->whereBetween('Grade_post', [6, 16])
-                  ->whereDoesntHave('fonctions')
-                  ->whereDoesntHave('postSups');
-        })
-        ->get();
+            ->whereHas('occupeIdNin.post', function ($query) {
+                $query->whereBetween('Grade_post', [6, 16])
+                    ->whereDoesntHave('fonctions')
+                    ->whereDoesntHave('postSups');
+            })
+            ->get();
 
         // Récupérer tous les départements
         $empdepart = Departement::all();
@@ -101,15 +111,15 @@ public function exportPdfCatg()
     //! IMPRESSION FONCTION
     public function exportPdfFnc()
     {
-       $employe = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+        $employe = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
             ->where('occupes.type_CTR', '=', 'Fonctinnaire')
             ->where(function ($query) {
                 $query->whereNotNull('occupes.id_postsup')
-                      ->whereNull('occupes.id_fonction')
-                      ->orWhere(function ($subQuery) {
-                          $subQuery->whereNotNull('occupes.id_fonction')
-                                   ->whereNull('occupes.id_postsup');
-                      });
+                    ->whereNull('occupes.id_fonction')
+                    ->orWhere(function ($subQuery) {
+                        $subQuery->whereNotNull('occupes.id_fonction')
+                            ->whereNull('occupes.id_postsup');
+                    });
             })
             ->whereNotIn('employes.id_nin', [1254953, 254896989])
             ->whereRaw('occupes.date_recrutement = (
@@ -160,7 +170,7 @@ public function exportPdfCatg()
     }
 
     //! IMPRESSION HORS CATEGORIE [0,5]
-     public function exportPdfHorsGrade()
+    public function exportPdfHorsGrade()
     {
         $employe = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
             ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
@@ -193,7 +203,7 @@ public function exportPdfCatg()
     public function ListeEmply(Request $request)
     {
 
-        $champs    = $request->input('champs', 'Nom_emp'); // Champ par défaut pour le tri
+        $champs = $request->input('champs', 'Nom_emp'); // Champ par défaut pour le tri
         $direction = $request->input('direction', 'asc');  // Ordre par défaut ascendant
         /* $fct = Fonction::select('id_fonction', 'Nom_fonction')
          ->with(['occupeIdNin:id_occup,id_fonction,date_recrutement']) // Sélectionner les colonnes de la relation
@@ -283,7 +293,7 @@ public function exportPdfCatg()
 
 
 
-public function delete(Request $request, $id_nin)
+    public function delete(Request $request, $id_nin)
     {
         // Loguer l'entrée dans la méthode
         Log::info('Appel de la méthode delete avec id_nin : ' . $id_nin);
@@ -397,7 +407,7 @@ public function delete(Request $request, $id_nin)
     public function createF()
     {
         $dbempdepart = new Departement();
-        $empdepart   = $dbempdepart->get();
+        $empdepart = $dbempdepart->get();
         return view('addTemplate.add', compact('empdepart'));
     }
 
@@ -405,7 +415,7 @@ public function delete(Request $request, $id_nin)
     {
         // dd($id);
         $dbempdepart = new Departement();
-        $empdepart   = $dbempdepart->get();
+        $empdepart = $dbempdepart->get();
         //dd($id);
         $last = Occupe::join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
             ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
@@ -414,7 +424,7 @@ public function delete(Request $request, $id_nin)
             ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
             ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
             ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-           // ->join('post_sups', 'occupes.id_postsup', 'post_sups.id_postsup')
+            // ->join('post_sups', 'occupes.id_postsup', 'post_sups.id_postsup')
             ->join('fonctions', 'occupes.id_fonction', '=', 'fonctions.id_fonction')
             ->orderBy('travails.date_chang', 'desc')
             ->where('employes.id_nin', $id)
@@ -428,28 +438,27 @@ public function delete(Request $request, $id_nin)
                 ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
                 ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
                 ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-                ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                ->join('post_sups', 'occupes.id_postsup', 'post_sups.id_postsup')
                 //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
                 ->where('employes.id_nin', $id)
                 ->orderBy('travails.date_chang', 'desc')
                 ->first();
             if (!isset($last)) {
 
-                     $last = Occupe::join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
-                ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
-                ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
-                ->join('travails', 'travails.id_nin', '=', 'employes.id_nin')
-                ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
-                ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
-                ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
-                //->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
-                //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
-                ->where('employes.id_nin', $id)
-                ->orderBy('travails.date_chang', 'desc')
-                ->first();
-                if(!isset($last))
-                {
-                   // dd($last);
+                $last = Occupe::join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
+                    ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
+                    ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
+                    ->join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+                    ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
+                    ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+                    ->join('posts', 'posts.id_post', '=', 'occupes.id_post')
+                    //->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                    //->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+                    ->where('employes.id_nin', $id)
+                    ->orderBy('travails.date_chang', 'desc')
+                    ->first();
+                if (!isset($last)) {
+                    // dd($last);
                     return redirect('/Employe/IsTravaill/' . $id);
                 }
             }
@@ -480,10 +489,10 @@ public function delete(Request $request, $id_nin)
         if (count($postwork) == 0 && count($result)) {
             return redirect('/Employe/IsEducat/' . $id);
         }
-        $nbr    = $result->count();
+        $nbr = $result->count();
         $allemp = [];
         foreach ($result as $res) {
-            $val   = $res->id_travail;
+            $val = $res->id_travail;
             $inter = DB::table('employes')->distinct()
                 ->join('travails', 'travails.id_nin', '=', 'employes.id_nin')
                 ->join('occupes', 'employes.id_nin', "=", 'occupes.id_nin')
@@ -520,7 +529,7 @@ public function delete(Request $request, $id_nin)
         }
         //dd($allemp);
         $postarr = [];
-        $i       = 0;
+        $i = 0;
         foreach ($postwork as $single) {
 
             $inter = DB::table('contients')->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
@@ -528,7 +537,7 @@ public function delete(Request $request, $id_nin)
                 ->join('posts', 'posts.id_post', '=', 'contients.id_post')
                 ->join('occupes', 'occupes.id_post', '=', 'posts.id_post')
                 // ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
-                 ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+                ->join('fonctions', 'occupes.id_fonction', '=', 'fonctions.id_fonction')
                 ->join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
                 ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
                 ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
@@ -551,8 +560,8 @@ public function delete(Request $request, $id_nin)
                     'occupes.id_fonction',
                     'fonctions.Nom_fonction',
                     'fonctions.Nom_fonction_ar',
-                   /*  'post_sups.Nom_postsup',
-                    'post_sups.Nom_postsup_ar',*/
+                    /*  'post_sups.Nom_postsup',
+                     'post_sups.Nom_postsup_ar',*/
                     'departements.Nom_depart',
                     'departements.Nom_depart_ar',
                     'sous_departements.Nom_sous_depart',
@@ -560,13 +569,12 @@ public function delete(Request $request, $id_nin)
                 )
                 ->orderBy('occupes.date_recrutement', 'desc')
                 ->first();
-                if(!isset($inter))
-                {
-                    $inter = DB::table('contients')->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+            if (!isset($inter)) {
+                $inter = DB::table('contients')->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                     ->join('travails', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
                     ->join('posts', 'posts.id_post', '=', 'contients.id_post')
                     ->join('occupes', 'occupes.id_post', '=', 'posts.id_post')
-                     ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                    ->join('post_sups', 'occupes.id_postsup', 'post_sups.id_postsup')
                     // ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
                     ->join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
                     ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
@@ -599,47 +607,46 @@ public function delete(Request $request, $id_nin)
                     )
                     ->orderBy('occupes.date_recrutement', 'desc')
                     ->first();
-                 if(!isset($inter))
-                 {
-                                            $inter = DB::table('contients')->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-                    ->join('travails', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
-                    ->join('posts', 'posts.id_post', '=', 'contients.id_post')
-                    ->join('occupes', 'occupes.id_post', '=', 'posts.id_post')
-                    // ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
-                    // ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
-                    ->join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
-                    ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
-                    ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
-                    ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
-                    ->where('id_occup', $single->id_occup)
-                    ->where('id_travail', $allemp[$i]->id_travail)
-                    ->select(
-                        'travails.id_travail',
-                        'niveaux.Nom_niv',
-                        'niveaux.Nom_niv_ar',
-                        'niveaux.Specialite',
-                        'niveaux.Specialite_ar',
-                        'posts.Grade_post',
-                        'posts.Nom_post',
-                        'posts.Nom_post_ar',
-                        'occupes.date_recrutement',
-                        'occupes.echellant',
-                        'occupes.id_occup',
-                        'occupes.id_postsup',
-                        'occupes.id_fonction',
-                        /* 'fonctions.Nom_fonction',
-                        'fonctions.Nom_fonction',
-                        'post_sups.Nom_postsup',
-                        'post_sups.Nom_postsup_ar',*/
-                        'departements.Nom_depart',
-                        'departements.Nom_depart_ar',
-                        'sous_departements.Nom_sous_depart',
-                        'sous_departements.Nom_sous_depart_ar',
-                    )
-                    ->orderBy('occupes.date_recrutement', 'desc')
-                    ->first();
-                 }
+                if (!isset($inter)) {
+                    $inter = DB::table('contients')->join('sous_departements', 'contients.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                        ->join('travails', 'travails.id_sous_depart', '=', 'sous_departements.id_sous_depart')
+                        ->join('posts', 'posts.id_post', '=', 'contients.id_post')
+                        ->join('occupes', 'occupes.id_post', '=', 'posts.id_post')
+                        // ->join('post_sups','occupes.id_postsup','post_sups.id_postsup')
+                        // ->join('fonctions','occupes.id_fonction','=','fonctions.id_fonction')
+                        ->join('employes', 'employes.id_nin', '=', 'occupes.id_nin')
+                        ->join('departements', 'departements.id_depart', '=', 'sous_departements.id_depart')
+                        ->join('appartients', 'appartients.id_nin', '=', 'employes.id_nin')
+                        ->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')
+                        ->where('id_occup', $single->id_occup)
+                        ->where('id_travail', $allemp[$i]->id_travail)
+                        ->select(
+                            'travails.id_travail',
+                            'niveaux.Nom_niv',
+                            'niveaux.Nom_niv_ar',
+                            'niveaux.Specialite',
+                            'niveaux.Specialite_ar',
+                            'posts.Grade_post',
+                            'posts.Nom_post',
+                            'posts.Nom_post_ar',
+                            'occupes.date_recrutement',
+                            'occupes.echellant',
+                            'occupes.id_occup',
+                            'occupes.id_postsup',
+                            'occupes.id_fonction',
+                            /* 'fonctions.Nom_fonction',
+                            'fonctions.Nom_fonction',
+                            'post_sups.Nom_postsup',
+                            'post_sups.Nom_postsup_ar',*/
+                            'departements.Nom_depart',
+                            'departements.Nom_depart_ar',
+                            'sous_departements.Nom_sous_depart',
+                            'sous_departements.Nom_sous_depart_ar',
+                        )
+                        ->orderBy('occupes.date_recrutement', 'desc')
+                        ->first();
                 }
+            }
             //dd($inter);
             array_push($postarr, $inter);
             $i++;
@@ -655,18 +662,18 @@ public function delete(Request $request, $id_nin)
             //dd($detailemp[$i]);
         }
 
-         // dd($postarr);
+        // dd($postarr);
         $detailemp = $allemp;
-         // dd($postarr);
-        $sdir=Sous_departement::all();
-        $dir=Departement::all();
-       $post         = Post::join('secteurs', 'secteurs.id_secteur', '=', 'posts.id_secteur')
+        // dd($postarr);
+        $sdir = Sous_departement::all();
+        $dir = Departement::all();
+        $post = Post::join('secteurs', 'secteurs.id_secteur', '=', 'posts.id_secteur')
             ->join('filieres', 'filieres.id_filiere', '=', 'secteurs.id_filiere')->get();
-        $postsup=PostSup::all();
-        $fonction=Fonction::all();
+        $postsup = PostSup::all();
+        $fonction = Fonction::all();
         if ($nbr > 0) {
             $nbr = $nbr - 1;
-            return view('BioTemplate.index', compact('detailemp', 'nbr', 'empdepart', 'last', 'postarr', 'carier','dir','sdir','post','postsup','fonction'));
+            return view('BioTemplate.index', compact('detailemp', 'nbr', 'empdepart', 'last', 'postarr', 'carier', 'dir', 'sdir', 'post', 'postsup', 'fonction'));
         } else {
             return view('404');
         }
@@ -693,8 +700,8 @@ public function delete(Request $request, $id_nin)
 
     public function listabs_depart($id_dep)
     {
-        $result  = [];
-        $post    = [];
+        $result = [];
+        $post = [];
         $id_sous = Sous_departement::where('id_depart', $id_dep)->get();
 
         foreach ($id_sous as $sous_dep) {
@@ -709,7 +716,7 @@ public function delete(Request $request, $id_nin)
         }
         //--------------------------------------------------------------------------- success ---/////
         $allwor = [];
-        $emps   = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+        $emps = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
             ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
             ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
             ->where('departements.id_depart', $id_dep)
@@ -722,7 +729,7 @@ public function delete(Request $request, $id_nin)
         // dd($allwor);
 
         $empdpart = [];
-        $fis      = [];
+        $fis = [];
         foreach ($allwor as $workig) {
             $travs = Travail::where('travails.id_nin', $workig->id_nin)
                 ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
@@ -784,8 +791,8 @@ public function delete(Request $request, $id_nin)
 
         // Définir le nombre d'éléments par page
         $perPage = 4; // Par exemple, 2 éléments par page
-        $total   = count($empdpart);
-        $page    = 1; // Page actuelle
+        $total = count($empdpart);
+        $page = 1; // Page actuelle
         if (request()->get('page') != null) {
             $page = request()->get('page');
         }
@@ -802,12 +809,12 @@ public function delete(Request $request, $id_nin)
             $perPage, // Nombre d'éléments par page
             $page,    // Page actuelle
             [
-                'path'  => request()->url(),   // URL actuel
+                'path' => request()->url(),   // URL actuel
                 'query' => request()->query(), // Paramètres de la requête
             ]
         );
         $empdepart = Departement::get();
-        $nom_d     = Departement::where('id_depart', $id_dep)->value('Nom_depart');
+        $nom_d = Departement::where('id_depart', $id_dep)->value('Nom_depart');
 
         return response()->json(['paginator' => $paginator, 'employe' => $empdpart]);
         // return response()->json($empdpart);
@@ -828,18 +835,18 @@ public function delete(Request $request, $id_nin)
     {
         $request->validate([
             'Date_ABS' => 'required|date',
-            'jour'     => 'required|string',
+            'jour' => 'required|string',
         ]);
         $soud_dic = Sous_departement::where('id_depart', $request->get('Dic'))->value('id_sous_depart');
-        $id_nin   = explode('n', $request->get('ID_NIN'));
+        $id_nin = explode('n', $request->get('ID_NIN'));
         // dd(intval($id_nin[1]));
         //  $id_p=explode('n',$request->get('ID_P'));
-        $id_p   = intval($request->get('ID_P'));
+        $id_p = intval($request->get('ID_P'));
         $id_nin = intval($id_nin[1]);
         //   dd(intval($request->get('ID_P')));
         // dd($request);
-        $heur    = '13:00:00';
-        $justf   = "justifier";
+        $heur = '13:00:00';
+        $justf = "justifier";
         $justfar = "مبرر";
 
         if ($request->get('jour') == '21') {
@@ -849,33 +856,33 @@ public function delete(Request $request, $id_nin)
             $heur = '16:30:00';
         }
         if ($request->get('justifier') == 'F2') {
-            $justf   = "Non justier";
+            $justf = "Non justier";
             $justfar = "غير مبرر";
         }
         if ($request->get('justifier') == 'F1') {
-            $justf   = "justifier";
+            $justf = "justifier";
             $justfar = "مبرر";
         }
         $abs = new Absence([
-            'id_nin'         => $id_nin,
-            'id_p'           => $id_p,
+            'id_nin' => $id_nin,
+            'id_p' => $id_p,
             'id_sous_depart' => $soud_dic,
-            'statut'         => $justf,
-            'statut_ar'      => $justfar,
-            'heure_abs'      => $heur,
-            'id_fichier'     => 1,
-            'date_abs'       => $request->get('Date_ABS'),
+            'statut' => $justf,
+            'statut_ar' => $justfar,
+            'heure_abs' => $heur,
+            'id_fichier' => 1,
+            'date_abs' => $request->get('Date_ABS'),
         ]);
         // dd($abs);
         if ($abs->save()) {
             return response()->json([
                 'message' => 'success',
-                'status'  => 200,
+                'status' => 200,
             ]);
         } else {
             return response()->json([
                 'message' => 'unsuccess',
-                'status'  => 404,
+                'status' => 404,
             ]);
         }
     }
@@ -901,7 +908,7 @@ public function delete(Request $request, $id_nin)
         //dd($emptypeconge);
         // Définir le nombre d'éléments par page
         $perPage = 5; // Par exemple, 2 éléments par page
-        $page    = 1; // Page actuelle
+        $page = 1; // Page actuelle
         if (request()->get('page') != null) {
             $page = request()->get('page');
         }
@@ -918,7 +925,7 @@ public function delete(Request $request, $id_nin)
             $perPage,               // Nombre d'éléments par page
             $page,                  // Page actuelle
             [
-                'path'  => request()->url(),   // URL actuel
+                'path' => request()->url(),   // URL actuel
                 'query' => request()->query(), // Paramètres de la requête
             ]
         );
@@ -951,8 +958,8 @@ public function delete(Request $request, $id_nin)
     public function filterByType($typeconge)
     {
         //dd($typeconge);
-        $empcng    = [];
-        $today     = Carbon::now()->format('Y-m-d');
+        $empcng = [];
+        $today = Carbon::now()->format('Y-m-d');
         $conge_nin = Conge::distinct()->select('id_nin', 'date_fin_cong', 'id_cong')->orderBy('date_fin_cong', 'desc')->get();
         //dd($conge_nin);
         foreach ($conge_nin as $cong_emp) {
@@ -989,8 +996,8 @@ public function delete(Request $request, $id_nin)
             //dd($empcngCollection);
             // Définir le nombre d'éléments par page
             $perPage = 1;                         // Par exemple, 4 éléments par page
-            $page    = request()->get('page', 1); // Page actuelle, par défaut 1
-            $offset  = ($page - 1) * $perPage;
+            $page = request()->get('page', 1); // Page actuelle, par défaut 1
+            $offset = ($page - 1) * $perPage;
 
             // Extraire les éléments pour la page actuelle
             $items = $empcng->slice($offset, $perPage)->values();
@@ -1002,7 +1009,7 @@ public function delete(Request $request, $id_nin)
                 $perPage,         // Nombre d'éléments par page
                 $page,            // Page actuelle
                 [
-                    'path'  => request()->url(),   // URL actuel
+                    'path' => request()->url(),   // URL actuel
                     'query' => request()->query(), // Paramètres de la requête
                 ]
             );
@@ -1068,9 +1075,9 @@ public function delete(Request $request, $id_nin)
         /** ----------------------- jusqu'a la et Original Terminer pas de supperssion ---------------------------------- */
 
         /** ------------------------- Modification --------------------------------- */
-        $today   = Carbon::now()->format('Y-m-d');
-        $result  = [];
-        $post    = [];
+        $today = Carbon::now()->format('Y-m-d');
+        $result = [];
+        $post = [];
         $id_sous = Sous_departement::where('id_depart', $department)->get();
 
         foreach ($id_sous as $sous_dep) {
@@ -1085,7 +1092,7 @@ public function delete(Request $request, $id_nin)
         }
         //--------------------------------------------------------------------------- success ---/////
         $allwor = [];
-        $emps   = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+        $emps = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
             ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
             ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
             ->where('departements.id_depart', $department)
@@ -1097,7 +1104,7 @@ public function delete(Request $request, $id_nin)
         // dd($allwor);
 
         $empdpartcng = [];
-        $fis         = [];
+        $fis = [];
         foreach ($allwor as $workig) {
             $travs = Travail::where('travails.id_nin', $workig->id_nin)
                 ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
@@ -1209,9 +1216,9 @@ public function delete(Request $request, $id_nin)
 
         /**  -------------------------------- Original Termin ici ------------------------------------ */
 
-        $today   = Carbon::now()->format('Y-m-d');
-        $result  = [];
-        $post    = [];
+        $today = Carbon::now()->format('Y-m-d');
+        $result = [];
+        $post = [];
         $id_sous = Sous_departement::where('id_depart', $department)->get();
 
         foreach ($id_sous as $sous_dep) {
@@ -1226,7 +1233,7 @@ public function delete(Request $request, $id_nin)
         }
         //--------------------------------------------------------------------------- success ---/////
         $allwor = [];
-        $emps   = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
+        $emps = Employe::join('travails', 'travails.id_nin', '=', 'employes.id_nin')
             ->join('sous_departements', 'sous_departements.id_sous_depart', '=', 'travails.id_sous_depart')
             ->join('departements', 'sous_departements.id_depart', '=', 'departements.id_depart')
             ->where('departements.id_depart', $department)
@@ -1238,7 +1245,7 @@ public function delete(Request $request, $id_nin)
         // dd($allwor);
 
         $empdpartcng = [];
-        $fis         = [];
+        $fis = [];
         foreach ($allwor as $workig) {
             $travs = Travail::where('travails.id_nin', $workig->id_nin)
                 ->join('employes', 'employes.id_nin', '=', 'travails.id_nin')
@@ -1318,7 +1325,7 @@ public function delete(Request $request, $id_nin)
     public function check_cg($id_p)
     {
         $totaljour = 0;
-        $emp       = Employe::where('employes.id_emp', '=', $id_p)
+        $emp = Employe::where('employes.id_emp', '=', $id_p)
             ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
             ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
             ->join('contients', 'posts.id_post', '=', 'contients.id_post')
@@ -1336,7 +1343,7 @@ public function delete(Request $request, $id_nin)
         } else {
             return response()->json([
                 'message' => $empstat,
-                'status'  => 302,
+                'status' => 302,
             ]);
         }
         if ($cng->count() > 0 && $cng[0]->ref_cong == 'RF001') {
@@ -1346,7 +1353,7 @@ public function delete(Request $request, $id_nin)
                 $totaljour += $cg->nbr_jours;
             }
             $nbrMal = 0;
-            $nbrsn  = 0;
+            $nbrsn = 0;
             $cngMal = Conge::select('nbr_jours')
                 ->where('ref_cong', 'RF002')
                 ->where('id_nin', $emp->id_nin)
@@ -1365,19 +1372,19 @@ public function delete(Request $request, $id_nin)
             }
             return response()->json(
                 [
-                    'employe'        => $emp,
-                    'Jour_congé_an'  => $cng[0]->nbr_jours,
+                    'employe' => $emp,
+                    'Jour_congé_an' => $cng[0]->nbr_jours,
                     'Jour_congé_mal' => $nbrMal,
-                    'Jour_congé_sn'  => $nbrsn,
-                    'date_congé'     => $cng[0]->date_fin_cong,
+                    'Jour_congé_sn' => $nbrsn,
+                    'date_congé' => $cng[0]->date_fin_cong,
                 ]
             );
         } else {
             if (isset($cng[0]) && $cng[0]->ref_cong == 'RF002') {
                 //dd($cng);
                 $nbrAnu = 0;
-                $nbrsn  = 0;
-                $cngAn  = Conge::select('nbr_jours')
+                $nbrsn = 0;
+                $cngAn = Conge::select('nbr_jours')
                     ->where('ref_cong', 'RF001')
                     ->orderBy('date_fin_cong')
                     ->first();
@@ -1392,17 +1399,17 @@ public function delete(Request $request, $id_nin)
                 if (isset($cngSan)) {
                     $nbrsn = $cngAn->nbr_jours;
                 }
-                $current  = Carbon::parse($cng[0]->date_debut_cong);
+                $current = Carbon::parse($cng[0]->date_debut_cong);
                 $mald_deb = Carbon::parse($cng[0]->date_fin_cong);
-                $diff     = $current->diffInDays($mald_deb);
+                $diff = $current->diffInDays($mald_deb);
                 return response()->json(
                     [
-                        'employe'        => $emp,
+                        'employe' => $emp,
                         'Jour_congé_mal' => $diff,
-                        'date_congé'     => $cng[0]->date_fin_cong,
-                        'Jour_congé_an'  => $nbrAnu,
-                        'Jour_congé_sn'  => $nbrsn,
-                        'type'           => 'Maladie',
+                        'date_congé' => $cng[0]->date_fin_cong,
+                        'Jour_congé_an' => $nbrAnu,
+                        'Jour_congé_sn' => $nbrsn,
+                        'type' => 'Maladie',
                     ]
                 );
             }
@@ -1419,7 +1426,7 @@ public function delete(Request $request, $id_nin)
             }
             return response()->json(
                 [
-                    'employe'       => $emp,
+                    'employe' => $emp,
                     'Jour_congé_an' => round($totaljour),
                 ]
             );
@@ -1430,14 +1437,14 @@ public function delete(Request $request, $id_nin)
 
         $request->validate(
             [
-                'ID_NIN'    => 'required|integer',
-                'ID_P'      => 'required|integer',
-                'Dic'       => 'required|integer',
-                'date_dcg'  => 'required|date',
-                'date_fcg'  => 'required|date',
-                'type_cg'   => 'required|string',
+                'ID_NIN' => 'required|integer',
+                'ID_P' => 'required|integer',
+                'Dic' => 'required|integer',
+                'date_dcg' => 'required|date',
+                'date_fcg' => 'required|date',
+                'type_cg' => 'required|string',
                 'situation' => 'required|string',
-                'ref_cng'   => 'required||string',
+                'ref_cng' => 'required||string',
             ]
         );
 
@@ -1446,62 +1453,63 @@ public function delete(Request $request, $id_nin)
         } else {
             $situation_ar = 'خارج التراب';
         }
-        $msgmald    = 'Vérifier la date de congé maladie';
-        $msgdatein  = 'Vérifier la date de congé';
+        $msgmald = 'Vérifier la date de congé maladie';
+        $msgdatein = 'Vérifier la date de congé';
         $msgdateout = 'Vérifier le delai de congé';
         $msgdateins = 'Opération échouée d`insertion';
-        $msgsuc     = 'Opération réussie';
-        $msgunsc    = 'opération échoué';
-        $ups        = 'mise à jour';
-        $upsnot     = 'n`est pas mise à jour';
+        $msgsuc = 'Opération réussie';
+        $msgunsc = 'opération échoué';
+        $ups = 'mise à jour';
+        $upsnot = 'n`est pas mise à jour';
         if (app()->getLocale() == 'ar') {
-            $msgmald    = 'التحقق من تاريخ الإجازة المرضية';
-            $msgdatein  = 'التحقق من تاريخ الإجازة';
+            $msgmald = 'التحقق من تاريخ الإجازة المرضية';
+            $msgdatein = 'التحقق من تاريخ الإجازة';
             $msgdateout = 'التحقق من مدة الإجازة';
-            $msgsuc     = 'تم العملية';
-            $msgunsc    = 'فشلت العملية';
+            $msgsuc = 'تم العملية';
+            $msgunsc = 'فشلت العملية';
             $msgdateins = ' فشلت عملية الإضافة';
-            $ups        = ' تم التحديث ';
-            $upsnot     = 'خطا في التحديث';
+            $ups = ' تم التحديث ';
+            $upsnot = 'خطا في التحديث';
         }
         $cng = Conge::where('id_nin', $request->get('ID_NIN'))
             ->select('id_nin', 'ref_cong', 'nbr_jours', 'date_debut_cong', 'id_cong', 'date_fin_cong', DB::raw('YEAR(date_debut_cong) as annee'))
             ->orderBy('date_debut_cong', 'desc')
             ->get();
-        $delai  = 0;
-        $right  = false;
+        $delai = 0;
+        $right = false;
         $allday = '';
         if (gettype($request->get('total_cgj')) == 'string') {
             $allday = explode(',', $request->get('total_cgj'));
             //dd(intval($allday[0]));
-        };
+        }
+        ;
         //  dd($cng);
         if (count($cng) == 0) {
 
             if ($request->get('type_cg') == 'RF001' && intval($allday[0]) > 0) {
-                $start          = Carbon::parse($request->get('date_dcg'));
-                $end            = Carbon::parse($request->get('date_fcg'));
+                $start = Carbon::parse($request->get('date_dcg'));
+                $end = Carbon::parse($request->get('date_fcg'));
                 $daysDifference = $start->diffInDays($end);
-                $res            = $request->get('total_cgj') - $daysDifference;
+                $res = $request->get('total_cgj') - $daysDifference;
                 dd(intval($res));
                 $cong = new Conge([
-                    'id_nin'          => $request->get('ID_NIN'),
-                    'id_p'            => $request->get('ID_P'),
+                    'id_nin' => $request->get('ID_NIN'),
+                    'id_p' => $request->get('ID_P'),
                     'date_debut_cong' => $request->get('date_dcg'),
-                    'date_fin_cong'   => $request->get('date_fcg'),
-                    'nbr_jours'       => $res,
-                    'ref_cong'        => $request->get('type_cg'),
-                    'ref_cng'         => $request->get('ref_cng'),
-                    'situation'       => $request->get('situation'),
-                    'situation_AR'    => $situation_ar,
-                    'id_sous_depart'  => $request->get('SDic'),
+                    'date_fin_cong' => $request->get('date_fcg'),
+                    'nbr_jours' => $res,
+                    'ref_cong' => $request->get('type_cg'),
+                    'ref_cng' => $request->get('ref_cng'),
+                    'situation' => $request->get('situation'),
+                    'situation_AR' => $situation_ar,
+                    'id_sous_depart' => $request->get('SDic'),
                 ]);
                 if ($cong->save()) {
                     return response()->json(['message' => $msgsuc, 'status' => 200]);
                 } else {
                     return response()->json([
                         'message' => $msgdateins,
-                        'status'  => 404,
+                        'status' => 404,
                     ]);
                 }
             }
@@ -1513,37 +1521,37 @@ public function delete(Request $request, $id_nin)
                 if ($request->get('date_dcg') < $cg->date_fin_cong && $request->get('type_cg') == 'RF001') {
 
                     return response()->json([
-                        'type'    => $cg->type_cg,
+                        'type' => $cg->type_cg,
                         'message' => $msgdatein,
-                        'status'  => 404,
+                        'status' => 404,
                     ]);
                 }
                 if ($request->get('type_cg') == 'RF002') {
-                    $current  = Carbon::now();
+                    $current = Carbon::now();
                     $mald_deb = Carbon::parse($request->get('date_dcg'));
-                    $diff     = $current->diffInDays($mald_deb);
+                    $diff = $current->diffInDays($mald_deb);
                     // dd($diff);
-                    if (! $mald_deb->between($current->copy()->subDays(2), $current)) {
-                        $startcng  = Carbon::parse($cg->date_debut_cng);
-                        $endcng    = Carbon::parse($cg->date_fin_cong);
-                        $cngall    = $startcng->diffInDays($endcng);
-                        $end       = Carbon::parse($request->get('date_fcg'));
-                        $consume   = $startcng->diffInDays($mald_deb);
+                    if (!$mald_deb->between($current->copy()->subDays(2), $current)) {
+                        $startcng = Carbon::parse($cg->date_debut_cng);
+                        $endcng = Carbon::parse($cg->date_fin_cong);
+                        $cngall = $startcng->diffInDays($endcng);
+                        $end = Carbon::parse($request->get('date_fcg'));
+                        $consume = $startcng->diffInDays($mald_deb);
                         $nbrcngbef = $cg->nbr_jours;
                         // dd($nbrcngbef);
                         $daysDifference = $mald_deb->diffInDays($end);
-                        $difdays        = $mald_deb->diffInDays($endcng);
+                        $difdays = $mald_deb->diffInDays($endcng);
                         // dd($daysDifference);
                         $nbrcg = $nbrcngbef + $daysDifference;
                         //dd($nbrcg);
                         if ($endcng < $end) {
-                            $dff   = $mald_deb->diffInDays($endcng);
+                            $dff = $mald_deb->diffInDays($endcng);
                             $nbrcg = $nbrcngbef + $dff;
                         } else {
                             if ($endcng > $mald_deb) {
                                 $dff = $mald_deb->diffInDays($end);
                                 //  $diff=$startcng->diffInDays($mald_deb);
-                                $rest  = $nbrcngbef + $dff;
+                                $rest = $nbrcngbef + $dff;
                                 $nbrcg = $rest;
                             }
                         }
@@ -1552,57 +1560,57 @@ public function delete(Request $request, $id_nin)
                             $cg->update(['date_fin_cong' => $request->get('date_dcg'), 'nbr_jours' => $nbrcg]);
                         } else {
                             $cong = new Conge([
-                                'id_nin'          => $request->get('ID_NIN'),
-                                'id_p'            => $request->get('ID_P'),
+                                'id_nin' => $request->get('ID_NIN'),
+                                'id_p' => $request->get('ID_P'),
                                 'date_debut_cong' => $request->get('date_dcg'),
-                                'date_fin_cong'   => $request->get('date_fcg'),
-                                'nbr_jours'       => $daysDifference,
-                                'ref_cong'        => $request->get('type_cg'),
-                                'ref_cng'         => $request->get('ref_cng'),
-                                'situation'       => $request->get('situation'),
-                                'situation_AR'    => $situation_ar,
-                                'id_sous_depart'  => $request->get('SDic'),
+                                'date_fin_cong' => $request->get('date_fcg'),
+                                'nbr_jours' => $daysDifference,
+                                'ref_cong' => $request->get('type_cg'),
+                                'ref_cng' => $request->get('ref_cng'),
+                                'situation' => $request->get('situation'),
+                                'situation_AR' => $situation_ar,
+                                'id_sous_depart' => $request->get('SDic'),
                             ]);
                             if ($cong->save()) {
                                 return response()->json(['message' => $msgsuc, 'status' => 200]);
                             } else {
                                 return response()->json([
                                     'message' => $msgdateins,
-                                    'status'  => 404,
+                                    'status' => 404,
                                 ]);
                             }
                         }
                         if ($cg) {
                             $cong = new Conge([
-                                'id_nin'          => $request->get('ID_NIN'),
-                                'id_p'            => $request->get('ID_P'),
+                                'id_nin' => $request->get('ID_NIN'),
+                                'id_p' => $request->get('ID_P'),
                                 'date_debut_cong' => $request->get('date_dcg'),
-                                'date_fin_cong'   => $request->get('date_fcg'),
-                                'nbr_jours'       => $daysDifference,
-                                'ref_cong'        => $request->get('type_cg'),
-                                'ref_cng'         => $request->get('ref_cng'),
-                                'situation'       => $request->get('situation'),
-                                'situation_AR'    => $situation_ar,
-                                'id_sous_depart'  => $request->get('SDic'),
+                                'date_fin_cong' => $request->get('date_fcg'),
+                                'nbr_jours' => $daysDifference,
+                                'ref_cong' => $request->get('type_cg'),
+                                'ref_cng' => $request->get('ref_cng'),
+                                'situation' => $request->get('situation'),
+                                'situation_AR' => $situation_ar,
+                                'id_sous_depart' => $request->get('SDic'),
                             ]);
                             if ($cong->save()) {
                                 return response()->json(['message' => $msgsuc, 'status' => 200]);
                             } else {
                                 return response()->json([
                                     'message' => $msgdateins,
-                                    'status'  => 404,
+                                    'status' => 404,
                                 ]);
                             }
                         } else {
                             return response()->json([
                                 'message' => $upsnot,
-                                'status'  => 404,
+                                'status' => 404,
                             ]);
                         }
                     } else {
                         return response()->json([
                             'message' => $msgmald,
-                            'status'  => 404,
+                            'status' => 404,
                         ]);
                     }
                 }
@@ -1613,15 +1621,15 @@ public function delete(Request $request, $id_nin)
 
                 // Calculate the number of months between the two dates
                 $monthsDifference = $startDate->diffInMonths($endDate);
-                $len              = $cng->count() - 1;
-                $all              = $request->get('total_cgj');
-                $newcngs          = 0;
-                $all              = intval($all);
+                $len = $cng->count() - 1;
+                $all = $request->get('total_cgj');
+                $newcngs = 0;
+                $all = intval($all);
 
                 $date = intval($monthsDifference * 30);
 
                 if ($all > $date) {
-                    $nbrcng  = $all - $date;
+                    $nbrcng = $all - $date;
                     $newcngs = $nbrcng;
                 } else {
                     $nbrcng = -1;
@@ -1631,7 +1639,7 @@ public function delete(Request $request, $id_nin)
                 if ($nbrcng <= 0 && $request->get('type_cg') == 'RF001' && $cg->ref_cong != 'RF002') {
                     return response()->json([
                         'message' => $msgdateout . ' ' . $nbrcng,
-                        'status'  => 404,
+                        'status' => 404,
                     ]);
                 } else {
                     $dat = Conge::select('nbr_jours')
@@ -1647,24 +1655,24 @@ public function delete(Request $request, $id_nin)
                     // dd($newcngs);
                     // dd(intval($newcngs));
                     $cong = new Conge([
-                        'id_nin'          => $request->get('ID_NIN'),
-                        'id_p'            => $request->get('ID_P'),
+                        'id_nin' => $request->get('ID_NIN'),
+                        'id_p' => $request->get('ID_P'),
                         'date_debut_cong' => $request->get('date_dcg'),
-                        'date_fin_cong'   => $request->get('date_fcg'),
-                        'nbr_jours'       => intval($newcngs),
-                        'ref_cng'         => $request->get('ref_cng'),
-                        'ref_cong'        => $request->get('type_cg'),
-                        'situation'       => $request->get('situation'),
-                        'situation_AR'    => $situation_ar,
+                        'date_fin_cong' => $request->get('date_fcg'),
+                        'nbr_jours' => intval($newcngs),
+                        'ref_cng' => $request->get('ref_cng'),
+                        'ref_cong' => $request->get('type_cg'),
+                        'situation' => $request->get('situation'),
+                        'situation_AR' => $situation_ar,
 
-                        'id_sous_depart'  => $request->get('SDic'),
+                        'id_sous_depart' => $request->get('SDic'),
                     ]);
                     if ($cong->save()) {
                         return response()->json(['message' => $msgsuc, 'status' => 200]);
                     } else {
                         return response()->json([
                             'message' => $msgmald,
-                            'status'  => 404,
+                            'status' => 404,
                         ]);
                     }
                 }
@@ -1694,10 +1702,10 @@ public function delete(Request $request, $id_nin)
 
             // Calculate the number of months between the two dates
             $monthsDifference = $startDate->diffInMonths($endDate);
-            $len              = $cng->count() - 1;
-            $all              = $request->get('total_cgj');
-            $all              = intval($all);
-            $date             = intval($monthsDifference * 30);
+            $len = $cng->count() - 1;
+            $all = $request->get('total_cgj');
+            $all = intval($all);
+            $date = intval($monthsDifference * 30);
 
             if ($all > $date) {
                 $nbrcng = $all - $date;
@@ -1708,21 +1716,21 @@ public function delete(Request $request, $id_nin)
             if ($nbrcng <= 0 && $right == false) {
                 return response()->json([
                     'message' => $msgdateout . '' . $nbrcng,
-                    'status'  => 404,
+                    'status' => 404,
                 ]);
             } else {
                 // dd(intval($nbrcng));
                 $cong = new Conge([
-                    'id_nin'          => $request->get('ID_NIN'),
-                    'id_p'            => $request->get('ID_P'),
+                    'id_nin' => $request->get('ID_NIN'),
+                    'id_p' => $request->get('ID_P'),
                     'date_debut_cong' => $request->get('date_dcg'),
-                    'date_fin_cong'   => $request->get('date_fcg'),
-                    'nbr_jours'       => intval($nbrcng),
-                    'ref_cng'         => $request->get('ref_cng'),
-                    'ref_cong'        => $request->get('type_cg'),
-                    'situation'       => $request->get('situation'),
-                    'situation_AR'    => $situation_ar,
-                    'id_sous_depart'  => $request->get('SDic'),
+                    'date_fin_cong' => $request->get('date_fcg'),
+                    'nbr_jours' => intval($nbrcng),
+                    'ref_cng' => $request->get('ref_cng'),
+                    'ref_cong' => $request->get('type_cg'),
+                    'situation' => $request->get('situation'),
+                    'situation_AR' => $situation_ar,
+                    'id_sous_depart' => $request->get('SDic'),
                 ]);
             }
 
@@ -1731,12 +1739,12 @@ public function delete(Request $request, $id_nin)
                 if ($cong->save()) {
                     return response()->json([
                         'message' => $msgsuc,
-                        'status'  => 200,
+                        'status' => 200,
                     ]);
                 } else {
                     return response()->json([
                         'message' => $msgunsc,
-                        'status'  => 404,
+                        'status' => 404,
                     ]);
                 }
             } else {
@@ -1744,19 +1752,19 @@ public function delete(Request $request, $id_nin)
                     if ($cong->save()) {
                         return response()->json([
                             'message' => $msgsuc,
-                            'status'  => 200,
+                            'status' => 200,
                         ]);
                     } else {
                         return response()->json([
                             'message' => $msgunsc,
-                            'status'  => 404,
+                            'status' => 404,
                         ]);
                     }
                 } else {
                     return response()->json([
                         'message' => $msgdateout,
-                        'status'  => 404,
-                        'type'    => 'Situation',
+                        'status' => 404,
+                        'type' => 'Situation',
                     ]);
                 }
             }
@@ -1767,27 +1775,27 @@ public function delete(Request $request, $id_nin)
 
             // Calculate the number of months between the two dates
             $monthsDifference = $startDate->diffInMonths($endDate);
-            $cong             = new Conge([
-                'id_nin'          => $request->get('ID_NIN'),
-                'id_p'            => $request->get('ID_P'),
+            $cong = new Conge([
+                'id_nin' => $request->get('ID_NIN'),
+                'id_p' => $request->get('ID_P'),
                 'date_debut_cong' => $request->get('date_dcg'),
-                'date_fin_cong'   => $request->get('date_fcg'),
-                'nbr_jours'       => intval($monthsDifference * 30),
-                'ref_cong'        => $request->get('type_cg'),
-                'ref_cng'         => $request->get('ref_cng'),
-                'situation'       => $request->get('situation'),
-                'situation_AR'    => $situation_ar,
-                'id_sous_depart'  => $request->get('SDic'),
+                'date_fin_cong' => $request->get('date_fcg'),
+                'nbr_jours' => intval($monthsDifference * 30),
+                'ref_cong' => $request->get('type_cg'),
+                'ref_cng' => $request->get('ref_cng'),
+                'situation' => $request->get('situation'),
+                'situation_AR' => $situation_ar,
+                'id_sous_depart' => $request->get('SDic'),
             ]);
             if ($cong->save()) {
                 return response()->json([
                     'message' => $msgsuc,
-                    'status'  => 200,
+                    'status' => 200,
                 ]);
             } else {
                 return response()->json([
                     'message' => $msgunsc,
-                    'status'  => 404,
+                    'status' => 404,
                 ]);
             }
         }
@@ -1795,12 +1803,12 @@ public function delete(Request $request, $id_nin)
 
     public function existToAdd($id)
     {
-        $employe     = Employe::where('id_nin', $id)->firstOrFail();
-        $niv         = new Niveau();
-        $dbniv       = $niv->SELECT('Nom_niv', 'Nom_niv_ar')->distinct()->get();
-        $dbn         = $niv->SELECT('Specialite', 'Specialite_ar')->distinct()->get();
+        $employe = Employe::where('id_nin', $id)->firstOrFail();
+        $niv = new Niveau();
+        $dbniv = $niv->SELECT('Nom_niv', 'Nom_niv_ar')->distinct()->get();
+        $dbn = $niv->SELECT('Specialite', 'Specialite_ar')->distinct()->get();
         $dbempdepart = new Departement();
-        $empdepart   = $dbempdepart->get();
+        $empdepart = $dbempdepart->get();
         if (app()->getLocale() == 'ar') {
             //   dd(app()->getLocale());
         }
@@ -1809,26 +1817,26 @@ public function delete(Request $request, $id_nin)
     }
     public function existApp($id)
     {
-        $employe      = Employe::where('id_nin', $id)->firstOrFail();
-        $bureau       = new Bureau();
-        $Direction    = new Departement();
-        $SDirection   = new Sous_departement();
+        $employe = Employe::where('id_nin', $id)->firstOrFail();
+        $bureau = new Bureau();
+        $Direction = new Departement();
+        $SDirection = new Sous_departement();
         $dbsdirection = $SDirection->get();
-        $dbdirection  = $Direction->get();
-        $dbbureau     = $bureau->get();
-        $dbdirection  = $Direction->get();
-        $Appartient   = appartient::where('id_nin', $id)->get();
-        $post         = Post::join('secteurs', 'secteurs.id_secteur', '=', 'posts.id_secteur')
+        $dbdirection = $Direction->get();
+        $dbbureau = $bureau->get();
+        $dbdirection = $Direction->get();
+        $Appartient = appartient::where('id_nin', $id)->get();
+        $post = Post::join('secteurs', 'secteurs.id_secteur', '=', 'posts.id_secteur')
             ->join('filieres', 'filieres.id_filiere', '=', 'secteurs.id_filiere');
         $dbpost = $post->get();
         //dd($dbpost);
         $dbempdepart = new Departement();
-        $empdepart   = $dbempdepart->get();
+        $empdepart = $dbempdepart->get();
 
         $fonction = new Fonction();
-        $fct      = $fonction->get();
+        $fct = $fonction->get();
 
-        $postsup  = new PostSup();
+        $postsup = new PostSup();
         $postsupp = $postsup->get();
         //dd(app()->getLocale());
         //dd($postsupp);
@@ -1836,13 +1844,13 @@ public function delete(Request $request, $id_nin)
     }
     public function getPostSups()
     {
-        $postsup  = PostSup::all();
+        $postsup = PostSup::all();
         $fonction = Fonction::all();
         //dd( $fonction);
 
         return response()->json([
             'post_sups' => $postsup,
-            'fonction'  => $fonction,
+            'fonction' => $fonction,
 
         ]);
     }
@@ -1873,7 +1881,7 @@ public function delete(Request $request, $id_nin)
         }
 
         $perPage = 5; // Par exemple, 2 éléments par page
-        $page    = 1; // Page actuelle
+        $page = 1; // Page actuelle
         if (request()->get('page') != null) {
             $page = request()->get('page');
         }
@@ -1889,12 +1897,12 @@ public function delete(Request $request, $id_nin)
             $perPage,           // Nombre d'éléments par page
             $page,              // Page actuelle
             [
-                'path'  => request()->url(),   // URL actuelle
+                'path' => request()->url(),   // URL actuelle
                 'query' => request()->query(), // Paramètres de la requête
             ]
         );
         return response()->json([
-            'emp'      => $emp,
+            'emp' => $emp,
             'list_abs' => $list_abs,
         ]);
     }
@@ -1903,7 +1911,7 @@ public function delete(Request $request, $id_nin)
         if ($id != 0) {
             $file = Stocke::where('id_fichier', $id)->first();
             //    dd($file);
-            $subdir  = $file->ref_Dossier;
+            $subdir = $file->ref_Dossier;
             $fichier = $file->sous_d . '-' . $id;
 
             return redirect()->route('read_file_emp', ['dir' => 'employees', 'subdir' => $subdir, 'file' => $fichier]);
@@ -2002,7 +2010,7 @@ public function delete(Request $request, $id_nin)
         }
         //  dd($related_list);
         if (count($related_list) > 0) {
-            $related         = Employe::where('id_nin', $id_nin)->first();
+            $related = Employe::where('id_nin', $id_nin)->first();
             $related->id_nin = $request->input('id_nin_modif');
             $related->save();
             for ($i = 0; $i < count($related_list); $i++) {
@@ -2011,28 +2019,28 @@ public function delete(Request $request, $id_nin)
                     # code...
                     //
                     if ($key == 'conges') {
-                        $related         = Conge::where('id_cong', $value)->first();
+                        $related = Conge::where('id_cong', $value)->first();
                         $related->id_nin = $request->input('id_nin_modif');
                         $related->save();
                     }
                     if ($key == 'absences') {
-                        $related         = Absence::where('id_abs', $value)->first();
+                        $related = Absence::where('id_abs', $value)->first();
                         $related->id_nin = $request->input('id_nin_modif');
                         $related->save();
                     }
                     if ($key == 'travails') {
 
-                        $related         = Travail::where('id_travail', $value)->first();
+                        $related = Travail::where('id_travail', $value)->first();
                         $related->id_nin = $request->input('id_nin_modif');
                         $related->save();
                     }
                     if ($key == 'occupes') {
-                        $related         = Occupe::where('id_occup', $value)->first();
+                        $related = Occupe::where('id_occup', $value)->first();
                         $related->id_nin = $request->input('id_nin_modif');
                         $related->save();
                     }
                     if ($key == 'appartients') {
-                        $related         = appartient::where('id_appar', $value)->first();
+                        $related = appartient::where('id_appar', $value)->first();
                         $related->id_nin = $request->input('id_nin_modif');
                         $related->save();
                     }
@@ -2089,7 +2097,7 @@ public function delete(Request $request, $id_nin)
 
     public function check_app(Request $request)
     {
-        $value   = $request->input('id_apper');
+        $value = $request->input('id_apper');
         $related = appartient::where('id_appar', $value)->join('niveaux', 'niveaux.id_niv', '=', 'appartients.id_niv')->first();
         if (isset($related)) {
             return response()->json(['success' => 'exist', 'status' => 200, 'data' => $related]);
@@ -2150,7 +2158,7 @@ public function delete(Request $request, $id_nin)
 
     function update_mail()
     {
-                // Load JSON
+        // Load JSON
         $jsonPath = storage_path('app/public/mails_local/mails.json');
         if (!file_exists($jsonPath)) {
             $this->error("JSON file not found!");
@@ -2167,38 +2175,33 @@ public function delete(Request $request, $id_nin)
         foreach ($data as $mails) {
             # code...
 
-              $name = strtolower($mails['name']);
-               $name = str_replace(' ', '', $name);    
-                $emp=Employe::all();
-                foreach($emp as $e)
-                {
-                    $ename=$e->Nom_emp.$e->Prenom_emp;
-                    $ename=  strtolower($ename);
+            $name = strtolower($mails['name']);
+            $name = str_replace(' ', '', $name);
+            $emp = Employe::all();
+            foreach ($emp as $e) {
+                $ename = $e->Nom_emp . $e->Prenom_emp;
+                $ename = strtolower($ename);
+                $ename = str_replace(' ', '', $ename);
+                if ($name == $ename) {
+                    print ('1 - names are :' . $name . ' emp : ' . $ename . ' his mail' . $mails['mail']);
+                    $e->email = $mails['mail'];
+                    $e->save();
+                } else {
+                    $ename = $e->Prenom_emp . $e->Nom_emp;
+                    $ename = strtolower($ename);
                     $ename = str_replace(' ', '', $ename);
-                    if($name == $ename)
-                    {
-                        print('1 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
-                        $e->email=$mails['mail'];
+                    if ($name == $ename) {
+                        print ('2 - names are :' . $name . ' emp : ' . $ename . ' his mail' . $mails['mail']);
+                        $e->email = $mails['mail'];
                         $e->save();
                     }
-                    else
-                    {
-                    $ename=$e->Prenom_emp.$e->Nom_emp;
-                    $ename=  strtolower($ename);
-                    $ename = str_replace(' ', '', $ename);
-                        if($name == $ename)
-                        {
-                            print('2 - names are :'.$name.' emp : '.$ename.' his mail'.$mails['mail']);
-                            $e->email=$mails['mail'];
-                            $e->save();
-                        }
-                    }
-                  
                 }
-// Remove all spaces
-           
-             
-            
-        } 
+
+            }
+            // Remove all spaces
+
+
+
+        }
     }
 }

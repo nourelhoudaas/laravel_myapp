@@ -20,8 +20,14 @@ use Carbon\Carbon;
         font-weight: normal;
         src: url("{{ asset('fonts/DejaVuSans.ttf') }}") format('truetype');
     }
+    @font-face {
+        font-family: 'Noto Sans Arabic';
+        font-style: normal;
+        font-weight: normal;
+        src: url("{{ asset('fonts/NotoSansArabic-Regular.ttf') }}") format('truetype');
+    }
     body {
-        font-family: {{ $locale == 'ar' ? '"Noto Sans Arabic", Arial, sans-serif' : '"DejaVuSans", sans-serif' }};
+       font-family: {{ $locale == 'ar' ? '"Noto Sans Arabic", Arial, sans-serif' : '"DejaVuSans", sans-serif' }};
         color: #333;
         background-color: #f9f9f9;
         margin: 0;
