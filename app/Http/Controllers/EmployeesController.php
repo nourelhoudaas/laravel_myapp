@@ -59,7 +59,10 @@ public function exportPdf()
         ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
-
+            'defaultFont' => 'DejaVuSans', // Or 'Amiri' if using custom
+            'isFontSubsettingEnabled' => true,
+            'isRemoteEnabled' => true, // If loading external fonts/CSS
+            'isHtml5ParserEnabled' => true,
             ]);
             return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
             //return view('impression.liste_globale', compact('employe', 'empdepart'));
