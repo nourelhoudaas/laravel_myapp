@@ -61,17 +61,17 @@ class EmployeesController extends Controller
         $locale = App::getLocale();
 
         // Choisir la police par défaut en fonction de la locale
-        $defaultFont = ($locale == 'ar') ? 'Noto Sans Arabic' : 'DejaVuSans';
+        $defaultFont = ($locale == 'ar') ? 'noto_sans_arabic' : 'dejavusans';
 
         $pdf = PDF::loadView('impression.liste_globale', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
-            'defaultFont' => $defaultFont, // Police adaptée à la locale
-            'isFontSubsettingEnabled' => true,
-            'isRemoteEnabled' => true,
-            'isHtml5ParserEnabled' => true, // Ajouté pour mieux gérer le HTML moderne
-            'dpi' => 150, // Améliore la qualité du rendu
+                'defaultFont' => $defaultFont,
+                'isFontSubsettingEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isHtml5ParserEnabled' => true,
+                'dpi' => 150,
             ]);
         return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
         //return view('impression.liste_globale', compact('employe', 'empdepart'));
