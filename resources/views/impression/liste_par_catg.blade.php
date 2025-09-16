@@ -282,7 +282,8 @@
                                     $locale = app()->getLocale();
                                 @endphp
                                 <tr>
-                                    <td>{{ $employee->id_emp }}</td>
+                                    <!-- <td>{{ $employee->id_emp }}</td> -->
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $locale == 'fr' ? $employee->Nom_emp : $employee->Nom_ar_emp }}</td>
                                     <td>{{ $locale == 'fr' ? $employee->Prenom_emp : $employee->Prenom_ar_emp }}</td>
                                     <td>{{ $employee->occupeIdNin->last()->date_recrutement ?? '' }}</td>

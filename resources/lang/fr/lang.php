@@ -292,4 +292,8 @@ return [
     'confirm_delete'=> 'Êtes-vous sûr de vouloir supprimer cet employé ?',
     'date_naiss' => 'Date de Naissance',
     'Date_gener' => 'Date de génération',
+    'hors_grade' => 'Hors grade',
+
+    'ministry_communication' => 'Ministère de la communication',
+'all_rights_reserved' => 'Tous droits réservés',
 ];

@@ -42,7 +42,7 @@ class EmployeesController extends Controller
     }
 
     //! IMPRESSION LISTE GLOBALE
-    public function exportPdf()
+public function exportPdf()
     {
         $employe = Employe::with([
             'occupeIdNin.post',
@@ -50,11 +50,14 @@ class EmployeesController extends Controller
             'occupeIdNin.postsup',
             'travailByNin.sous_departement.departement',
         ])->get();
+        log::info($employe);
+        Log::info('Liste globale des employés pour impression PDF');
 
         $empdepart = Departement::get();
 
-        $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
-            ->setPaper('a4', 'landscape')
+        $pdf = PDF::loadView('impression.liste_globale', compact('employe', 'empdepart'))
+        
+        ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
 
@@ -62,7 +65,6 @@ class EmployeesController extends Controller
         //return $pdf->download('Liste des employés.pdf');
         return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
     }
-
     //! IMPRESSION CATEGORIE
 public function exportPdfCatg()
     {
@@ -98,16 +100,35 @@ public function exportPdfCatg()
     //! IMPRESSION FONCTION
     public function exportPdfFnc()
     {
-        $employe = Employe::with([
-            'occupeIdNin.post',
-            'occupeIdNin.fonction',
-            'occupeIdNin.postsup',
-            'travailByNin.sous_departement.departement',
-        ])->get();
+       $employe = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+            ->where('occupes.type_CTR', '=', 'Fonctinnaire')
+            ->where(function ($query) {
+                $query->whereNotNull('occupes.id_postsup')
+                      ->whereNull('occupes.id_fonction')
+                      ->orWhere(function ($subQuery) {
+                          $subQuery->whereNotNull('occupes.id_fonction')
+                                   ->whereNull('occupes.id_postsup');
+                      });
+            })
+            ->whereNotIn('employes.id_nin', [1254953, 254896989])
+            ->whereRaw('occupes.date_recrutement = (
+                SELECT MAX(o2.date_recrutement)
+                FROM occupes o2
+                WHERE o2.id_nin = employes.id_nin
+            )')
+            ->with([
+                'occupeIdNin.post',
+                'occupeIdNin.fonction',
+                'occupeIdNin.postsup',
+                'travailByNin.sous_departement.departement',
+            ])
+            ->select('employes.*')
+            ->get();
+
 
         $empdepart = Departement::get();
 
-        $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
+        $pdf = PDF::loadView('impression/liste_par_fnc', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
@@ -128,7 +149,7 @@ public function exportPdfCatg()
 
         $empdepart = Departement::get();
 
-        $pdf = PDF::loadView('impression/liste_globale', compact('employe', 'empdepart'))
+        $pdf = PDF::loadView('impression/liste_catg', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
@@ -136,6 +157,38 @@ public function exportPdfCatg()
             ]);
         return $pdf->stream('Liste des employés.pdf');
     }
+
+    //! IMPRESSION HORS CATEGORIE [0,5]
+     public function exportPdfHorsGrade()
+    {
+        $employe = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+            ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
+            ->whereBetween('posts.Grade_post', [0, 5])
+            ->whereRaw('occupes.date_recrutement = (
+                SELECT MAX(o2.date_recrutement)
+                FROM occupes o2
+                WHERE o2.id_nin = employes.id_nin
+            )')
+            ->with([
+                'occupeIdNin.post',
+                'occupeIdNin.fonction',
+                'occupeIdNin.postsup',
+                'travailByNin.sous_departement.departement',
+            ])
+            ->select('employes.*')
+            ->get();
+
+        $empdepart = Departement::get();
+
+        $pdf = PDF::loadView('impression/liste_par_hors_grade', compact('employe', 'empdepart'))
+            ->setPaper('a4', 'landscape')
+            ->setOptions([
+                'encoding' => 'UTF-8',
+            ]);
+
+        return $pdf->stream('Liste des employés par grade 0-5.pdf');
+    }
+
     public function ListeEmply(Request $request)
     {
 

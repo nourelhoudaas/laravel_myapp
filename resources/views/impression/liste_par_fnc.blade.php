@@ -152,7 +152,8 @@
                         $locale = app()->getLocale();
                     @endphp
                     <tr>
-                        <td>{{ $employee->id_emp ?? '-' }}</td>
+                    <td>{{ $loop->iteration }}</td>    
+                    <!-- <td>{{ $employee->id_emp ?? '-' }}</td> -->
                         <td>
                             @if ($locale == 'fr')
                                 {{ $employee->Nom_emp ?? '-' }}

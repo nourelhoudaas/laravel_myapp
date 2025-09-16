@@ -205,6 +205,14 @@
                                 </button>
                                 <div id="spinner-cat" class="spinner" style="display: none; margin-left: 10px;"></div>
 
+                                <!-- Bouton pour exporter par hors grade -->
+                                 <button id="export-hors-grade-btn" class="nav__link"
+                                    style="background: none; border: none; cursor: pointer;">
+                                    <i class='bx bxs-user-check nav__icon'></i>
+                                    <span class="nav__name">{{ __('lang.hors_grade') }}</span>
+                                </button>
+                                <div id="spinner-hors-grade" class="spinner" style="display: none; margin-left: 10px;"></div>
+
                                 <!-- <a href="{{route('app_export_catg')}}" class="nav__link">
                                     <i class='bx bxs-category-alt nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.par_cat') }}</span>
@@ -217,6 +225,10 @@
                                     <i class='bx bxs-notepad nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.cont_act') }}</span>
                                 </a> -->
+                                <!-- <a href="{{route('app_export_hors_grade')}}" class="nav__link">
+                                    <i class='bx bxs-category-alt nav__icon'></i>
+                                    <span class="nav__name">{{ __('lang.par_cat') }}</span>
+                                </a>  -->
 
                             </div>
                         </div>
@@ -236,7 +248,7 @@
 
 <!-- JavaScript pour gérer la génération du PDF -->
 <script>
-    // Fonction générique pour gérer la génération du PDF
+  // Fonction générique pour gérer la génération du PDF
     function handleExport(route, spinnerId, buttonId, fileName) {
         // Afficher le spinner
         document.getElementById(spinnerId).style.display = 'inline-block';
@@ -285,5 +297,10 @@
 
     document.getElementById('export-cat-btn').addEventListener('click', function() {
         handleExport("{{ route('app_export_cat') }}", 'spinner-cat', 'export-cat-btn', 'contrats_actifs.pdf');
+    });
+
+    document.getElementById('export-hors-grade-btn').addEventListener('click', function() {
+        console.log('Clic sur export-hors-grade-btn');
+        handleExport("{{ route('app_export_hors_grade') }}", 'spinner-hors-grade', 'export-hors-grade-btn', 'liste_grade.pdf');
     });
 </script>

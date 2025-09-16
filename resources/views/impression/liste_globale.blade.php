@@ -344,7 +344,7 @@ use Carbon\Carbon;
         </div>
     </div>
     <!-- JavaScript pour gérer le spinner et la génération du PDF -->
-    <script>
+    <!-- <script>
     function generatePdf() {
         // Afficher le spinner
         document.getElementById('spinner').style.display = 'inline-block';
@@ -377,7 +377,7 @@ use Carbon\Carbon;
                 document.getElementById('generate-pdf-btn').disabled = false;
             });
     }
-    </script>
+    </script> -->
 </body>
 
 </html>

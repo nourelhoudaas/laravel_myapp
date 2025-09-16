@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const exportCatgBtn = document.getElementById('export-catg-btn');
     const exportFncBtn = document.getElementById('export-fnc-btn');
     const exportCatBtn = document.getElementById('export-cat-btn');
+     const exportHorsGradeBtn = document.getElementById('export-hors-grade-btn');
 
     if (exportEmplyBtn) {
         exportEmplyBtn.addEventListener('click', function() {
@@ -69,5 +70,15 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Clic sur export-cat-btn');
             handleExport("{{ route('app_export_cat') }}", 'spinner-cat', 'export-cat-btn', 'Liste_des_employes_contrat_actuel.pdf');
         });
+    }
+           
+
+    if (exportHorsGradeBtn) {
+        exportHorsGradeBtn.addEventListener('click', function() {
+            console.log('Clic sur export-hors-grade-btn');
+            handleExport("{{ route('app_export_hors_grade') }}", 'spinner-hors-grade', 'export-hors-grade-btn', 'Liste des employés par grade 0-5.pdf');
+        });
+    } else {
+        console.log('Bouton export-hors-grade-btn non trouvé');
     }
 });

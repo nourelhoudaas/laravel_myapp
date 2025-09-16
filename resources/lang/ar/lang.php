@@ -284,6 +284,9 @@ return [
   'par_fnc' => 'حسب الوظيفة',
   'cont_act' => 'حسب التعاقد',
   'date_naiss' => 'تاريخ الميلاد',
+  'hors_grade' => 'حسب خارج الصنف',
+  'ministry_communication' => 'وزارة الاتصال',
+'all_rights_reserved' => 'جميع الحقوق محفوظة',
 ];
 
 

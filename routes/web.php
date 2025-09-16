@@ -25,8 +25,8 @@ et la soumission des formulaires ou d'autres interactions nécessitant à la foi
 */
 
 Route::controller(HomeController::class)->group(function () {
-    Route::get('/', 'home')->name('app_home');
     Route::get('/lang/{locale}', 'switchLanguage');
+    Route::get('/', 'home')->name('app_home');
     Route::get('/about', 'about')->name('app_about');
     Route::match(['get', 'post'], '/dashboard', 'dashboard')
         //    ->middleware('auth') //pour acceder a cette page il faut s'authentifier
@@ -64,13 +64,14 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::controller(EmployeesController::class)->group(function () {
+        Route::get('/exportPdf', 'exportPdf')->name('app_export_emply');        //impression liste globale
+        Route::get('/exportPdfHorsGrade', 'exportPdfHorsGrade')->name('app_export_hors_grade'); //impression liste hors grade
+        Route::get('/exportPdfCatg', 'exportPdfCatg')->name('app_export_catg'); //impression liste par categorie
         Route::get('\liste', 'ListeEmply')->name('app_liste_emply');
         Route::get('/exportPdfAttesList/{id_emp}', 'exportPdfAttesList')->name('app_export_attesList'); //impression attestation
         Route::get('/exportPdfAttes/{nom}', 'exportPdfAttes')->name('app_export_attes');                // Impression attestation par nom
-        Route::get('/exportPdfCatg', 'exportPdfCatg')->name('app_export_catg'); //impression liste par categorie
         Route::get('/exportPdfFnc', 'exportPdfFnc')->name('app_export_fnc');    //impression liste par fonction
         Route::get('/exportPdfCat', 'exportPdfCat')->name('app_export_cat');    //impression liste par contrat actuel
-        Route::get('/exportPdf', 'exportPdf')->name('app_export_emply');        //impression liste globale
         Route::get('/liste_abs', 'AbsenceEmply')->name('app_abs_emply');
         Route::get('/addTemplate/formulaire', 'createF')->name('app_add_emply');
         Route::get('/liste_abs_deprt/{id_dep}', 'listabs_depart')->name('list_abs_emply');
