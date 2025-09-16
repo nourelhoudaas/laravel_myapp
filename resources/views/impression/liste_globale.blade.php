@@ -14,7 +14,12 @@ use Carbon\Carbon;
     <title>Liste des Employés</title>
 
     <style>
-
+@font-face {
+        font-family: 'DejaVuSans';
+        font-style: normal;
+        font-weight: normal;
+        src: url("{{ asset('fonts/DejaVuSans.ttf') }}") format('truetype');
+    }
     body {
         font-family: {{ $locale == 'ar' ? '"Noto Sans Arabic", Arial, sans-serif' : '"DejaVuSans", sans-serif' }};
         color: #333;

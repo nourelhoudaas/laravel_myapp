@@ -58,11 +58,10 @@ public function exportPdf()
         $pdf = PDF::loadView('impression.liste_globale', compact('employe', 'empdepart'))
         ->setPaper('a4', 'landscape')
             ->setOptions([
-                'encoding' => 'UTF-8',
-            'defaultFont' => 'DejaVuSans', // Or 'Amiri' if using custom
+               'encoding' => 'UTF-8',
+            'defaultFont' => 'DejaVuSans', // Définit DejaVuSans comme police par défaut
             'isFontSubsettingEnabled' => true,
-            'isRemoteEnabled' => true, // If loading external fonts/CSS
-            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true, // Nécessaire si le fichier est dans public/
             ]);
             return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
             //return view('impression.liste_globale', compact('employe', 'empdepart'));
