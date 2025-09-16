@@ -59,10 +59,10 @@ class EmployeesController extends Controller
         App::setLocale(Session::get('locale', 'fr'));
         // Récupérer la locale (comme dans votre Blade)
         $locale = App::getLocale();
-
+log::info($locale);
         // Choisir la police par défaut en fonction de la locale
         $defaultFont = ($locale == 'ar') ? 'noto_sans_arabic' : 'dejavusans';
-
+        log::info('font choisie : ' . $defaultFont);
         $pdf = PDF::loadView('impression.liste_globale', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
             ->setOptions([
