@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
-use KhaledAlShamaa\ArPhp\I18N_Arabic; // Importez la classe
+
 // Add this line if logService exists in App\Services
 
 class EmployeesController extends Controller
@@ -73,8 +73,8 @@ class EmployeesController extends Controller
             'isHtml5ParserEnabled' => true, // Ajouté pour mieux gérer le HTML moderne
             'dpi' => 150, // Améliore la qualité du rendu
             ]);
-        //return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
-        return view('impression.liste_globale', compact('employe', 'empdepart'));
+        return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
+        //return view('impression.liste_globale', compact('employe', 'empdepart'));
     }
     //! IMPRESSION CATEGORIE
     public function exportPdfCatg()
