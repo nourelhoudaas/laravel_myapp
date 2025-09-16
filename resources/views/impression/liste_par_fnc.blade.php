@@ -25,20 +25,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Style pour le bouton */
-        #generate-pdf-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #generate-pdf-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #333;
@@ -102,12 +88,6 @@
             color: #777;
         }
 
-        .text-center {
-            text-align: center;
-        }
-        .text-right {
-            text-align: right;
-        }
     </style>
 </head>
 <body>

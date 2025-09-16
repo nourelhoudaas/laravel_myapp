@@ -1,81 +1,27 @@
 @php
 use Carbon\Carbon;
+ App::setLocale(Session::get('locale', 'fr'));
+
+                // Récupérer la langue active
+                $locale = App::getLocale();
 @endphp
 
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-
+<html dir="{{ $locale == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Employés</title>
 
     <style>
-    /* Style pour le spinner */
-    .spinner {
-        display: none;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #3498db;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        animation: spin 1s linear infinite;
-        margin-left: 10px;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    /* Style pour le bouton */
-    #generate-pdf-btn {
-        background-color: #3498db;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    #generate-pdf-btn:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-    }
 
     body {
-        font-family: 'DejaVuSans', sans-serif;
+        font-family: {{ $locale == 'ar' ? '"Noto Sans Arabic", Arial, sans-serif' : '"DejaVuSans", sans-serif' }};
         color: #333;
         background-color: #f9f9f9;
         margin: 0;
         padding: 0;
     }
-
-    body[dir="rtl"] {
-        direction: rtl;
-        text-align: right;
-    }
-
-    body[dir="rtl"] table th,
-    body[dir="rtl"] table td {
-        text-align: right;
-    }
-
-    body[dir="rtl"] .text-center {
-        text-align: center;
-        /* Garder le centre pour les éléments centrés */
-    }
-
-    body[dir="rtl"] .text-right {
-        text-align: left;
-        /* Inverser pour RTL */
-    }
-
     .container {
         max-width: 100%;
         width: 90%;
@@ -116,14 +62,15 @@ use Carbon\Carbon;
         width: 100%;
         border-collapse: collapse;
         margin-top: 15px;
-        font-size: 10px;
+        font-size: 15px;
+        /* font-size: 10px; */
         table-layout: auto;
     }
 
     th,
     td {
         padding: 8px;
-        text-align: left;
+text-align: {{ $locale == 'ar' ? 'right' : 'left' }};
         border-bottom: 1px solid #ddd;
         word-wrap: break-word;
         overflow-wrap: break-word;
@@ -135,7 +82,7 @@ use Carbon\Carbon;
         color: white;
         font-weight: bold;
         text-transform: uppercase;
-        font-size: 9px;
+        font-size: 15px;
     }
 
     tr:hover {
@@ -147,14 +94,6 @@ use Carbon\Carbon;
         margin-top: 20px;
         font-size: 10px;
         color: #777;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .text-right {
-        text-align: right;
     }
 
     /* Ajustements pour la responsivité */
@@ -175,6 +114,7 @@ use Carbon\Carbon;
         th,
         td {
             padding: 6px;
+            text-align: {{ $locale == 'ar' ? 'right' : 'left' }};
         }
 
         th {
@@ -182,57 +122,10 @@ use Carbon\Carbon;
         }
     }
 
-    /* Styles pour l'impression (PDF) */
-    @media print {
-        body {
-            margin: 10mm;
-        }
-
-        .container {
-            margin: 0;
-            padding: 10mm;
-            box-shadow: none;
-            width: 100%;
-        }
-
-        table {
-            font-size: 8pt;
-            width: 100%;
-            max-width: 100%;
-        }
-
-        th,
-        td {
-            padding: 5px;
-            font-size: 8pt;
-        }
-
-        th {
-            font-size: 7pt;
-        }
-
-        .header img {
-            max-width: 120px;
-        }
-
-        .footer {
-            font-size: 8pt;
-            position: running(footer);
-        }
-
-        @page {
-            margin: 10mm;
-            size: A4;
-
-            @bottom-center {
-                content: element(footer);
-            }
-        }
-    }
     </style>
 </head>
 
-<body dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+<body>
     <div class="container">
         <!-- En-tête -->
         <div class="header">
@@ -241,7 +134,7 @@ use Carbon\Carbon;
                 alt="Logo de l'entreprise">
 
             <h1>{{ __('lang.lst_emp') }}</h1>
-            <p>Date de génération : {{ now()->format('d/m/Y H:i') }}</p>
+            <p style="direction: {{ $locale == 'ar' ? 'rtl' : 'ltr' }};">{{ __('lang.Date_gener') }} : {{ now()->format('d/m/Y H:i') }}</p>
         </div>
 
         <!-- Tableau des employés -->
@@ -252,9 +145,9 @@ use Carbon\Carbon;
                     <th style="width: 10%">{{ __('lang.name') }}</th>
                     <th style="width: 10%">{{ __('lang.surname') }}</th>
                     <th style="width: 5%">{{ __('lang.age') }}</th>
-                    <th style="width: 10%">{{ __('lang.date_recrutement') }}</th>
-                    <th style="width: 10%">{{ __('lang.date_CF') }}</th>
-                    <th style="width: 10%">{{ __('lang.visa_CF') }}</th>
+                    <th style="width: 10%">{{ __('lang.date_rec') }}</th>
+                    <!-- <th style="width: 10%">{{ __('lang.date_CF') }}</th>
+                    <th style="width: 10%">{{ __('lang.visa_CF') }}</th> -->
                     <th style="width: 10%">{{ __('lang.post') }}</th>
                     <th style="width: 10%">{{ __('lang.postsup') }}</th>
                     <th style="width: 10%">{{ __('lang.fct') }}</th>
@@ -275,10 +168,11 @@ use Carbon\Carbon;
                 $travail = $employee->travailByNin->last();
                 $sousDepartement = $travail ? $travail->sous_departement : null;
                 $departement = $sousDepartement ? $sousDepartement->departement : null;
-                $locale = app()->getLocale();
+                
+
                 @endphp
                 <tr>
-                    <td>{{ $employee->id_emp ?? '-' }}</td>
+                    <td>{{$loop->iteration }}</td>
                     <td>
                         @if ($locale == 'fr')
                         {{ $employee->Nom_emp ?? '-' }}
@@ -295,8 +189,8 @@ use Carbon\Carbon;
                     </td>
                     <td>{{ Carbon::parse($employee->Date_nais)->age ?? '-' }}</td>
                     <td>{{ $employee->occupeIdNin->last()->date_recrutement ?? '-' }}</td>
-                    <td>{{ $employee->date_CF ?? '-' }}</td>
-                    <td>{{ $employee->visa_CF ?? '-' }}</td>
+                    <!-- <td>{{ $employee->date_CF ?? '-' }}</td>
+                    <td>{{ $employee->visa_CF ?? '-' }}</td> -->
                     <td>
                         @if ($locale == 'fr')
                         {{ $post->Nom_post ?? '-' }}
@@ -340,44 +234,10 @@ use Carbon\Carbon;
 
         <!-- Pied de page -->
         <div class="footer">
-            <p>&copy; {{ date('Y') }} Ministère de la communication. Tous droits réservés.</p>
+            <p>&copy; {{ date('Y') }} {{ __('lang.ministry_communication') }}. {{ __('lang.all_rights_reserved') }}.
         </div>
     </div>
-    <!-- JavaScript pour gérer le spinner et la génération du PDF -->
-    <!-- <script>
-    function generatePdf() {
-        // Afficher le spinner
-        document.getElementById('spinner').style.display = 'inline-block';
-        // Désactiver le bouton
-        document.getElementById('generate-pdf-btn').disabled = true;
-
-        // Envoyer une requête au serveur pour générer le PDF
-        fetch('/generate-pdf', {
-                method: 'GET',
-            })
-            .then(response => response.blob())
-            .then(blob => {
-                // Créer un lien pour télécharger le PDF
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'document.pdf';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-
-                // Masquer le spinner et réactiver le bouton
-                document.getElementById('spinner').style.display = 'none';
-                document.getElementById('generate-pdf-btn').disabled = false;
-            })
-            .catch(error => {
-                console.error('Erreur lors de la génération du PDF :', error);
-                // Masquer le spinner et réactiver le bouton en cas d'erreur
-                document.getElementById('spinner').style.display = 'none';
-                document.getElementById('generate-pdf-btn').disabled = false;
-            });
-    }
-    </script> -->
+   
 </body>
 
 </html>

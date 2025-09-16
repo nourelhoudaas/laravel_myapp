@@ -56,14 +56,13 @@ public function exportPdf()
         $empdepart = Departement::get();
 
         $pdf = PDF::loadView('impression.liste_globale', compact('employe', 'empdepart'))
-        
         ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
 
             ]);
-        //return $pdf->download('Liste des employés.pdf');
-        return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
+            return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
+            //return view('impression.liste_globale', compact('employe', 'empdepart'));
     }
     //! IMPRESSION CATEGORIE
 public function exportPdfCatg()
