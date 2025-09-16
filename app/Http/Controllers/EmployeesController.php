@@ -52,7 +52,6 @@ class EmployeesController extends Controller
             'occupeIdNin.postsup',
             'travailByNin.sous_departement.departement',
         ])->get();
-        log::info($employe);
         Log::info('Liste globale des employés pour impression PDF');
 
         $empdepart = Departement::get();
