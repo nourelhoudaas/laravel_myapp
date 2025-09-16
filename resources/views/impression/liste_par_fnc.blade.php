@@ -1,92 +1,141 @@
 @php
-    use Carbon\Carbon;
+use Carbon\Carbon;
+ App::setLocale(Session::get('locale', 'fr'));
+
+                // Récupérer la langue active
+                $locale = App::getLocale();
 @endphp
 
 <!DOCTYPE html>
-<html lang="fr">
+<html dir="{{ $locale == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Employés par fonction</title>
+    <title>Liste des Employés</title>
+
     <style>
-        /* Style pour le spinner */
-        .spinner {
-            display: none; /* Masqué par défaut */
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+@font-face {
+        font-family: 'DejaVuSans';
+        font-style: normal;
+        font-weight: normal;
+        src: url("{{ asset('fonts/DejaVuSans.ttf') }}") format('truetype');
+    }
+    @font-face {
+        font-family: 'Noto Sans Arabic';
+        font-style: normal;
+        font-weight: normal;
+        src: url("{{ asset('fonts/NotoSansArabic-Regular.ttf') }}") format('truetype');
+    }
+    td, th, p, h1 {
+    direction: {{ $locale == 'ar' ? 'rtl' : 'ltr' }};
+    unicode-bidi: bidi-override; /* Force le RTL pour les textes mixtes */
+}
+    body {
+       font-family: {{ $locale == 'ar' ? '"Noto Sans Arabic", Arial, sans-serif' : '"DejaVuSans", sans-serif' }};
+        color: #333;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 100%;
+        width: 90%;
+        margin: 20px auto;
+        padding: 15px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .header img {
+        max-width: 150px;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .header p {
+        font-size: 12px;
+        color: #777;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        font-size: 15px;
+        /* font-size: 10px; */
+        table-layout: auto;
+    }
+
+    th,
+    td {
+        padding: 8px;
+text-align: {{ $locale == 'ar' ? 'right' : 'left' }};
+        border-bottom: 1px solid #ddd;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        vertical-align: top;
+    }
+
+    th {
+        background-color: #138827;
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 15px;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 10px;
+        color: #777;
+    }
+
+    /* Ajustements pour la responsivité */
+    @media screen and (max-width: 768px) {
+        .container {
+            width: 95%;
+            padding: 10px;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 100%;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
         h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 18px;
         }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .header img {
-            width: 200px;
-            margin-bottom: 10px;
-        }
-        .header p {
-            font-size: 14px;
-            color: #777;
-        }
+
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 12px;
+            font-size: 9px;
         }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+
+        th,
+        td {
+            padding: 6px;
+            text-align: {{ $locale == 'ar' ? 'right' : 'left' }};
         }
+
         th {
-            background-color: #138827;
-            color: white;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 11px;
+            font-size: 8px;
         }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #777;
-        }
+    }
 
     </style>
 </head>
@@ -129,7 +178,7 @@
                         $travail = $employee->travailByNin->last();
                         $sousDepartement = $travail ? $travail->sous_departement : null;
                         $departement = $sousDepartement ? $sousDepartement->departement : null;
-                        $locale = app()->getLocale();
+                       
                     @endphp
                     <tr>
                     <td>{{ $loop->iteration }}</td>    

@@ -26,6 +26,10 @@ use Carbon\Carbon;
         font-weight: normal;
         src: url("{{ asset('fonts/NotoSansArabic-Regular.ttf') }}") format('truetype');
     }
+    td, th, p, h1 {
+    direction: {{ $locale == 'ar' ? 'rtl' : 'ltr' }};
+    unicode-bidi: bidi-override; /* Force le RTL pour les textes mixtes */
+}
     body {
        font-family: {{ $locale == 'ar' ? '"Noto Sans Arabic", Arial, sans-serif' : '"DejaVuSans", sans-serif' }};
         color: #333;

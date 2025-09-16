@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
 // Add this line if logService exists in App\Services
+use I18N_Arabic;
 
 class EmployeesController extends Controller
 {
@@ -59,22 +60,48 @@ class EmployeesController extends Controller
         App::setLocale(Session::get('locale', 'fr'));
         // Récupérer la locale (comme dans votre Blade)
         $locale = App::getLocale();
+        // Si locale arabe, reshapez les textes arabes
+        if ($locale == 'ar') {
+            $arabic = new I18N_Arabic('Glyphs'); // Instanciez le module Glyphs pour reshaping
 
-        // Choisir la police par défaut en fonction de la locale
-        $defaultFont = ($locale == 'ar') ? 'Noto Sans Arabic' : 'DejaVuSans';
+            $employe = $employe->map(function ($employee) use ($arabic) {
+                // Reshapez les champs de l'employé
+                $employee->Nom_ar_emp = $arabic->utf8Glyphs($employee->Nom_ar_emp ?? '-');
+                $employee->Prenom_ar_emp = $arabic->utf8Glyphs($employee->Prenom_ar_emp ?? '-');
+
+                // Pour les relations (post, postsup, fonction, departement, sous_departement)
+                $occupeIdNin = $employee->occupeIdNin->last();
+                if ($occupeIdNin) {
+                    $occupeIdNin->post->Nom_post_ar = $arabic->utf8Glyphs($occupeIdNin->post->Nom_post_ar ?? '-');
+                    $occupeIdNin->postsup->Nom_postsup_ar = $arabic->utf8Glyphs($occupeIdNin->postsup->Nom_postsup_ar ?? '-');
+                    $occupeIdNin->fonction->Nom_fonction_ar = $arabic->utf8Glyphs($occupeIdNin->fonction->Nom_fonction_ar ?? '-');
+                }
+
+                $travail = $employee->travailByNin->last();
+                if ($travail && $travail->sous_departement && $travail->sous_departement->departement) {
+                    $travail->sous_departement->departement->Nom_depart_ar = $arabic->utf8Glyphs($travail->sous_departement->departement->Nom_depart_ar ?? '-');
+                    $travail->sous_departement->Nom_sous_depart_ar = $arabic->utf8Glyphs($travail->sous_departement->Nom_sous_depart_ar ?? '-');
+                }
+
+                return $employee;
+            });
+        }
+
+            // Choisir la police par défaut
+            $defaultFont = ($locale == 'ar') ? 'Noto Sans Arabic' : 'DejaVuSans';
 
         $pdf = PDF::loadView('impression.liste_globale', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
-            'defaultFont' => $defaultFont, // Police adaptée à la locale
-            'isFontSubsettingEnabled' => true,
-            'isRemoteEnabled' => true,
-            'isHtml5ParserEnabled' => true, // Ajouté pour mieux gérer le HTML moderne
-            'dpi' => 150, // Améliore la qualité du rendu
+                'defaultFont' => $defaultFont, // Police adaptée à la locale
+                'isFontSubsettingEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isHtml5ParserEnabled' => true, // Ajouté pour mieux gérer le HTML moderne
+                'dpi' => 150, // Améliore la qualité du rendu
             ]);
-        return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
-        //return view('impression.liste_globale', compact('employe', 'empdepart'));
+        //return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
+        return view('impression.liste_globale', compact('employe', 'empdepart'));
     }
     //! IMPRESSION CATEGORIE
     public function exportPdfCatg()
@@ -138,14 +165,25 @@ class EmployeesController extends Controller
 
 
         $empdepart = Departement::get();
+ App::setLocale(Session::get('locale', 'fr'));
+        // Récupérer la locale (comme dans votre Blade)
+        $locale = App::getLocale();
+         // Choisir la police par défaut
+        $defaultFont = ($locale == 'ar') ? 'Noto Sans Arabic' : 'DejaVuSans';
 
         $pdf = PDF::loadView('impression/liste_par_fnc', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
             ->setOptions([
-                'encoding' => 'UTF-8',
+               'encoding' => 'UTF-8',
+                'defaultFont' => $defaultFont, // Police adaptée à la locale
+                'isFontSubsettingEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isHtml5ParserEnabled' => true, // Ajouté pour mieux gérer le HTML moderne
+                'dpi' => 150, // Améliore la qualité du rendu
 
             ]);
-        return $pdf->stream('Liste des employés.pdf');
+       return $pdf->stream('Liste des employés.pdf');
+        //return view('impression.liste_par_fnc', compact('employe', 'empdepart'));
     }
 
     //! IMPRESSION CONTRAT ACTUEL
