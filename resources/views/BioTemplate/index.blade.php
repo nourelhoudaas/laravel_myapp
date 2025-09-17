@@ -554,7 +554,7 @@ $locale = App::getLocale();
         </div>
         <div class="col-md-6">
           <label class="form-label">{{__('lang.note')}}</label>
-          <input type="url" class="form-control" name="notation" id="notation">
+          <input type="text" class="form-control" name="notation" id="notation">
         </div>
         <div class="col-md-6">
           <label class="form-label">{{__('lang.date_inst')}}</label>
