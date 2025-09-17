@@ -464,12 +464,13 @@ $locale = App::getLocale();
 
 
   <div class="carrier_handle hidden-select" id="carrier_handle">
-    <form id="myForm" class="card p-4 shadow-sm" style="
+    <div class="card p-4 shadow-sm" style="
     left: 7%;
     width: 75%;
     position: absolute;
     top: 1%;
 ">
+    <form id="myForm" >
 
       <h4 class="btn btn-info" id="carrier_close">X</h4>
       <h4 class="mb-3">Carrier Modifier</h4>
@@ -562,11 +563,12 @@ $locale = App::getLocale();
         </div>
       </div>
 
-      <div class="mt-3">
-        <button type="submit" class="btn btn-info" id="carrier_btn_up">{{__('lang.edit')}}</button>
-      </div>
+      
     </form>
-
+  <div class="mt-3">
+        <button class="btn btn-info" id="carrier_btn_up">{{__('lang.edit')}}</button>
+  </div>
+    </div>
   </div>
 
   <!-- Dialog Overlay -->

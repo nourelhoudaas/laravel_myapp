@@ -97,17 +97,19 @@ $(document).ready(function () {
                     $('#date_installation').val(response.emp.date_installation)
                     $('#carrier_btn_up').on('click',function(){
                         var posts=$('#postsup').val();
+                        
                         if($('#postsup').val() == "0" || $('#postsup').val() == null || $('#postsup').val() == undefined)
                         {
                             posts = 0
                         }
+
                         var updateform ={
                         ID_NIN: id,
                         idocp: idocp,        
                         depart:$('#depart').val(),
                         sous_depart:$('#sous_depart').val(),
                         postsup:posts,
-                        fonction:$('#fonction').val(),
+                        fonction:$('#fonction').val() ?? '',
                         date_recrutement:$('#date_recrutement').val(),
                         Grade_post:$('#Grade_post').val(),
                         ref_PV:$('#ref_PV').val(),
@@ -125,7 +127,7 @@ $(document).ready(function () {
                                 type: "POST",
                                 success: function (response) {
                                     alert("success");
-                                    window.location.reload();
+                                  //  window.location.reload();
                                 },
                             });
                     })
