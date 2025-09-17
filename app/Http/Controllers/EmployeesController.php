@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Support\Facades\Log;
 use App\Models\Absence;
 //use App\Models\Log;
@@ -22,7 +22,7 @@ use App\Models\Travail;
 use App\Models\type_cong;
 use App\Models\User;
 use App\Services\logService;
-use Barryvdh\DomPDF\Facade\Pdf;
+//use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -30,7 +30,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
-
 // Add this line if logService exists in App\Services
 
 class EmployeesController extends Controller
@@ -46,6 +45,7 @@ class EmployeesController extends Controller
     //! IMPRESSION LISTE GLOBALE
     public function exportPdf()
     {
+        try {
         $employe = Employe::with([
             'occupeIdNin.post',
             'occupeIdNin.fonction',
@@ -58,7 +58,8 @@ class EmployeesController extends Controller
         App::setLocale(Session::get('locale', 'fr'));
         // Récupérer la locale (comme dans votre Blade)
         $locale = App::getLocale();
-log::info($locale);
+        log::info($locale);
+        /*
         // Choisir la police par défaut en fonction de la locale
         $defaultFont = ($locale == 'ar') ? 'noto_sans_arabic' : 'dejavusans';
         log::info('font choisie : ' . $defaultFont);
@@ -73,11 +74,25 @@ log::info($locale);
                 'dpi' => 150,
             ]);
         return $pdf->stream('liste_globale.pdf'); // Nom du fichier PDF
+        //return view('impression.liste_globale', compact('employe', 'empdepart'));*/
+         $pdf = PDF::loadView('impression.liste_globale', compact('employe', 'empdepart'))
+            ->setPaper('a4')
+            ->setOrientation('landscape')
+            ->setOption('encoding', 'utf-8')
+            ->setOption('enable-local-file-access', true) // Si besoin pour les polices locales
+            ->setOption('disable-smart-shrinking', false); // Options supplémentaires si nécessaire
+
+        return $pdf->stream('Liste des employés - globale.pdf');
         //return view('impression.liste_globale', compact('employe', 'empdepart'));
+    } catch (\Exception $e) {
+        Log::error('Échec de la génération PDF : ' . $e->getMessage());
+        return response()->json(['error' => 'Échec de la génération du PDF'], 500);
+    }
     }
     //! IMPRESSION CATEGORIE
     public function exportPdfCatg()
     {
+        try {
         // Récupérer les employés avec les données associées, filtrés par grade 6-16
         $employe = Employe::with([
             'occupeIdNin.post' => function ($query) {
@@ -95,7 +110,7 @@ log::info($locale);
         // Récupérer tous les départements
         $empdepart = Departement::all();
 
-        // Générer le PDF
+      /*  // Générer le PDF
         $pdf = Pdf::loadView('impression.liste_par_catg', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape') // Changé en landscape pour correspondre à la vue
             ->setOptions([
@@ -104,12 +119,26 @@ log::info($locale);
                 'isRemoteEnabled' => true
             ]);
 
-        return $pdf->stream('Liste_employes_par_categorie.pdf');
+        return $pdf->stream('Liste_employes_par_categorie.pdf');*/
+                 $pdf = PDF::loadView('impression.liste_par_catg', compact('employe', 'empdepart'))
+            ->setPaper('a4')
+            ->setOrientation('landscape')
+            ->setOption('encoding', 'utf-8')
+            ->setOption('enable-local-file-access', true) // Si besoin pour les polices locales
+            ->setOption('disable-smart-shrinking', false); // Options supplémentaires si nécessaire
+
+        return $pdf->stream('Liste_employes -par categorie.pdf');
+        //return view('impression.liste_par_catg', compact('employe', 'empdepart'));
+    } catch (\Exception $e) {
+        Log::error('Échec de la génération PDF : ' . $e->getMessage());
+        return response()->json(['error' => 'Échec de la génération du PDF'], 500);
+    }
     }
 
     //! IMPRESSION FONCTION
     public function exportPdfFnc()
     {
+        try {
         $employe = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
             ->where('occupes.type_CTR', '=', 'Fonctinnaire')
             ->where(function ($query) {
@@ -138,39 +167,104 @@ log::info($locale);
 
         $empdepart = Departement::get();
 
+        Log::info('Données des employés : ', $employe->toArray());
+
+        App::setLocale(Session::get('locale', 'fr'));
+        // Récupérer la locale (comme dans votre Blade)
+        $locale = App::getLocale();
+        log::info($locale);
+
+        /*// Dans votre fonction exportPdfFnc
+        $fontDir = storage_path('fonts/NotoSansArabic-Regular.ttf');
+        if (!is_dir($fontDir) || !is_readable($fontDir)) {
+            Log::error("Le dossier des polices n'est pas accessible : " . $fontDir);
+        }else{
+            Log::info("Le dossier des polices est accessible : " . $fontDir);
+        }
+        // Choisir la police par défaut en fonction de la locale
+       $defaultFont = ($locale === 'ar') ? 'Amiri' : 'dejavusans';
         $pdf = PDF::loadView('impression/liste_par_fnc', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
-
+                'defaultFont' => $defaultFont,
+                'isFontSubsettingEnabled' => true,
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => false,
+                'dpi' => 96,
+                'isPhpEnabled' => true,
             ]);
-        return $pdf->stream('Liste des employés.pdf');
+        return view('impression.liste_par_fnc', compact('employe', 'empdepart'));
+        //return $pdf->stream('Liste des employés.pdf');*/
+        Log::info('WKHTMLTOPDF Binary Path: ' . config('snappy.pdf.binary'));
+        $pdf = PDF::loadView('impression.liste_par_fnc', compact('employe', 'empdepart'))
+            ->setPaper('a4')
+            ->setOrientation('landscape')
+            ->setOption('encoding', 'utf-8')
+            ->setOption('enable-local-file-access', true) // Si besoin pour les polices locales
+            ->setOption('disable-smart-shrinking', false); // Options supplémentaires si nécessaire
+
+        return $pdf->stream('Liste des employés - par fonction.pdf');
+    } catch (\Exception $e) {
+        Log::error('Échec de la génération PDF : ' . $e->getMessage());
+        return response()->json(['error' => 'Échec de la génération du PDF'], 500);
+    }
     }
 
     //! IMPRESSION CONTRAT ACTUEL
     public function exportPdfCat()
     {
-        $employe = Employe::with([
-            'occupeIdNin.post',
-            'occupeIdNin.fonction',
-            'occupeIdNin.postsup',
-            'travailByNin.sous_departement.departement',
-        ])->get();
+        try {
+         $employe = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+            ->where('occupes.type_CTR', '=', 'CDI')
+            ->where(function ($query) {
+                $query->whereNull('occupes.id_postsup')
+                    ->whereNull('occupes.id_fonction');
+                    })
+            ->whereNotIn('employes.id_nin', [1254953, 254896989])
+            ->whereRaw('occupes.date_recrutement = (
+                SELECT MAX(o2.date_recrutement)
+                FROM occupes o2
+                WHERE o2.id_nin = employes.id_nin
+            )')
+            ->with([
+                'occupeIdNin.post',
+                'occupeIdNin.fonction',
+                'occupeIdNin.postsup',
+                'travailByNin.sous_departement.departement',
+            ])
+            ->select('employes.*')
+            ->get();
+
 
         $empdepart = Departement::get();
 
-        $pdf = PDF::loadView('impression/liste_catg', compact('employe', 'empdepart'))
+        /*$pdf = PDF::loadView('impression/liste_catg', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
 
             ]);
-        return $pdf->stream('Liste des employés.pdf');
+        return $pdf->stream('Liste des employés.pdf');*/
+        $pdf = PDF::loadView('impression.liste_par_contrat_act', compact('employe', 'empdepart'))
+            ->setPaper('a4')
+            ->setOrientation('landscape')
+            ->setOption('encoding', 'utf-8')
+            ->setOption('enable-local-file-access', true) // Si besoin pour les polices locales
+            ->setOption('disable-smart-shrinking', false); // Options supplémentaires si nécessaire
+
+        return $pdf->stream('Liste des employés - par contrat.pdf');
+        //return view('impression.liste_par_contrat_act', compact('employe', 'empdepart'));
+    } catch (\Exception $e) {
+        Log::error('Échec de la génération PDF : ' . $e->getMessage());
+        return response()->json(['error' => 'Échec de la génération du PDF'], 500);
+    }
     }
 
     //! IMPRESSION HORS CATEGORIE [0,5]
     public function exportPdfHorsGrade()
     {
+        try {
         $employe = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
             ->join('posts', 'occupes.id_post', '=', 'posts.id_post')
             ->whereBetween('posts.Grade_post', [0, 5])
@@ -190,13 +284,26 @@ log::info($locale);
 
         $empdepart = Departement::get();
 
-        $pdf = PDF::loadView('impression/liste_par_hors_grade', compact('employe', 'empdepart'))
+       /* $pdf = PDF::loadView('impression/liste_par_hors_grade', compact('employe', 'empdepart'))
             ->setPaper('a4', 'landscape')
             ->setOptions([
                 'encoding' => 'UTF-8',
             ]);
 
-        return $pdf->stream('Liste des employés par grade 0-5.pdf');
+        return $pdf->stream('Liste des employés par grade 0-5.pdf');*/
+          $pdf = PDF::loadView('impression.liste_par_hors_grade', compact('employe', 'empdepart'))
+            ->setPaper('a4')
+            ->setOrientation('landscape')
+            ->setOption('encoding', 'utf-8')
+            ->setOption('enable-local-file-access', true) // Si besoin pour les polices locales
+            ->setOption('disable-smart-shrinking', false); // Options supplémentaires si nécessaire
+
+        return $pdf->stream('Liste des employés - par grade.pdf');
+        //return view('impression.liste_par_hors_grade', compact('employe', 'empdepart'));
+    } catch (\Exception $e) {
+        Log::error('Échec de la génération PDF : ' . $e->getMessage());
+        return response()->json(['error' => 'Échec de la génération du PDF'], 500);
+    }
     }
 
     public function ListeEmply(Request $request)

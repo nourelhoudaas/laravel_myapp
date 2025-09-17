@@ -1,142 +1,191 @@
 @php
-use Carbon\Carbon;
- App::setLocale(Session::get('locale', 'fr'));
+    use Carbon\Carbon;
+    App::setLocale(Session::get('locale', 'fr'));
 
-                // Récupérer la langue active
-                $locale = App::getLocale();
+    // Récupérer la langue active
+    $locale = App::getLocale();
 @endphp
 
 <!DOCTYPE html>
 <html dir="{{ $locale == 'ar' ? 'rtl' : 'ltr' }}">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Employés</title>
 
     <style>
-@font-face {
-        font-family: 'DejaVuSans';
-        font-style: normal;
-        font-weight: normal;
-        src: url("{{ asset('fonts/DejaVuSans.ttf') }}") format('truetype');
-    }
-    @font-face {
-        font-family: 'Noto Sans Arabic';
-        font-style: normal;
-        font-weight: normal;
-        src: url("{{ asset('fonts/NotoSansArabic-Regular.ttf') }}") format('truetype');
-    }
-    td, th, p, h1 {
-    direction: {{ $locale == 'ar' ? 'rtl' : 'ltr' }};
-    unicode-bidi: bidi-override; /* Force le RTL pour les textes mixtes */
-}
-    body {
-       font-family: {{ $locale == 'ar' ? '"Noto Sans Arabic", Arial, sans-serif' : '"DejaVuSans", sans-serif' }};
-        color: #333;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-    }
-    .container {
-        max-width: 100%;
-        width: 90%;
-        margin: 20px auto;
-        padding: 15px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        box-sizing: border-box;
-    }
+        td,
+        th,
+        p,
+        h1 {
+            direction:
+                {{ $locale == 'ar' ? 'rtl' : 'ltr' }}
+            ;
+            unicode-bidi: bidi-override;
+            /* Force le RTL pour les textes mixtes */
+        }
 
-    h1 {
-        color: #2c3e50;
-        text-align: center;
-        margin-bottom: 15px;
-        font-size: 20px;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-    }
+        body {
+            {{ $locale == 'ar' ? '"Noto Sans Arabic", Arial, sans-serif' : '"DejaVuSans", sans-serif' }}
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
 
-    .header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .header img {
-        max-width: 150px;
-        width: 100%;
-        margin-bottom: 8px;
-    }
-
-    .header p {
-        font-size: 12px;
-        color: #777;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-        font-size: 15px;
-        /* font-size: 10px; */
-        table-layout: auto;
-    }
-
-    th,
-    td {
-        padding: 8px;
-text-align: {{ $locale == 'ar' ? 'right' : 'left' }};
-        border-bottom: 1px solid #ddd;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        vertical-align: top;
-    }
-
-    th {
-        background-color: #138827;
-        color: white;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 15px;
-    }
-
-    tr:hover {
-        background-color: #f1f1f1;
-    }
-
-    .footer {
-        text-align: center;
-        margin-top: 20px;
-        font-size: 10px;
-        color: #777;
-    }
-
-    /* Ajustements pour la responsivité */
-    @media screen and (max-width: 768px) {
         .container {
-            width: 95%;
-            padding: 10px;
+            max-width: 100%;
+            width: 90%;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-sizing: border-box;
         }
 
         h1 {
-            font-size: 18px;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            max-width: 150px;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 12px;
+            color: #777;
         }
 
         table {
-            font-size: 9px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 20px;
+            /* font-size: 10px; */
+            table-layout: auto;
         }
 
         th,
         td {
-            padding: 6px;
-            text-align: {{ $locale == 'ar' ? 'right' : 'left' }};
+            padding: 8px;
+            text-align:
+                {{ $locale == 'ar' ? 'right' : 'left' }}
+            ;
+            border-bottom: 1px solid #ddd;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            vertical-align: top;
         }
 
         th {
-            font-size: 8px;
+            background-color: #138827;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 20px;
         }
-    }
 
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 10px;
+            color: #777;
+        }
+
+        /* Ajustements pour la responsivité */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 5px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            table {
+                font-size: 20px;
+            }
+
+            th,
+            td {
+                padding: 6px;
+                text-align:
+                    {{ $locale == 'ar' ? 'right' : 'left' }}
+                ;
+            }
+
+            th {
+                font-size: 20px;
+            }
+        }
+         /* Styles pour l'impression (PDF) */
+        @media print {
+            body {
+                margin: 10mm;
+            }
+
+            .container {
+                margin: 0;
+                padding: 10mm;
+                box-shadow: none;
+                width: 100%;
+            }
+
+            table {
+                font-size: 8pt;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            th, td {
+                padding: 5px;
+                font-size: 8pt;
+            }
+
+            th {
+                font-size: 7pt;
+            }
+
+            .header img {
+                max-width: 120px;
+            }
+
+            .footer {
+                font-size: 8pt;
+                position: running(footer);
+            }
+
+            @page {
+                margin: 10mm;
+                size: A4;
+
+                @bottom-center {
+                    content: element(footer);
+                }
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+        }
     </style>
 </head>
 
@@ -149,7 +198,14 @@ text-align: {{ $locale == 'ar' ? 'right' : 'left' }};
                 alt="Logo de l'entreprise">
 
             <h1>{{ __('lang.lst_emp') }}</h1>
-            <p style="direction: {{ $locale == 'ar' ? 'rtl' : 'ltr' }};">{{ __('lang.Date_gener') }} : {{ now()->format('d/m/Y H:i') }}</p>
+            <p style="direction: {{ $locale == 'ar' ? 'rtl' : 'ltr' }};">
+                {{ __('lang.Date_gener') }} :
+                @if ($locale == 'ar')
+                    <span dir="ltr">{{ now()->format('d/m/Y H:i') }}</span>
+                @else
+                    {{ now()->format('d/m/Y H:i') }}
+                @endif
+            </p>
         </div>
 
         <!-- Tableau des employés -->
@@ -173,86 +229,137 @@ text-align: {{ $locale == 'ar' ? 'right' : 'left' }};
             </thead>
             <tbody>
                 @foreach ($employe as $employee)
-                @php
-                // Vérifier si occupeIdNin existe et n'est pas vide
-                $occupeIdNin = $employee->occupeIdNin->last();
-                $post = $occupeIdNin ? $occupeIdNin->post : null;
-                $postsup = $occupeIdNin ? $occupeIdNin->postsup : null;
-                $fonction = $occupeIdNin ? $occupeIdNin->fonction : null;
-                // Vérifier si travailByNin existe et n'est pas vide
-                $travail = $employee->travailByNin->last();
-                $sousDepartement = $travail ? $travail->sous_departement : null;
-                $departement = $sousDepartement ? $sousDepartement->departement : null;
-                
+                    @php
+                        // Vérifier si occupeIdNin existe et n'est pas vide
+                        $occupeIdNin = $employee->occupeIdNin->last();
+                        $post = $occupeIdNin ? $occupeIdNin->post : null;
+                        $postsup = $occupeIdNin ? $occupeIdNin->postsup : null;
+                        $fonction = $occupeIdNin ? $occupeIdNin->fonction : null;
+                        // Vérifier si travailByNin existe et n'est pas vide
+                        $travail = $employee->travailByNin->last();
+                        $sousDepartement = $travail ? $travail->sous_departement : null;
+                        $departement = $sousDepartement ? $sousDepartement->departement : null;
 
-                @endphp
-                <tr>
-                    <td>{{$loop->iteration }}</td>
-                    <td>
-                        @if ($locale == 'fr')
-                        {{ $employee->Nom_emp ?? '-' }}
-                        @elseif ($locale == 'ar')
-                        {{ $employee->Nom_ar_emp ?? '-' }}
-                        @endif
-                    </td>
-                    <td>
-                        @if ($locale == 'fr')
-                        {{ $employee->Prenom_emp ?? '-' }}
-                        @elseif ($locale == 'ar')
-                        {{ $employee->Prenom_ar_emp ?? '-' }}
-                        @endif
-                    </td>
-                    <td>{{ Carbon::parse($employee->Date_nais)->age ?? '-' }}</td>
-                    <td>{{ $employee->occupeIdNin->last()->date_recrutement ?? '-' }}</td>
-                    <!-- <td>{{ $employee->date_CF ?? '-' }}</td>
-                    <td>{{ $employee->visa_CF ?? '-' }}</td> -->
-                    <td>
-                        @if ($locale == 'fr')
-                        {{ $post->Nom_post ?? '-' }}
-                        @elseif ($locale == 'ar')
-                        {{ $post->Nom_post_ar ?? '-' }}
-                        @endif
-                    </td>
-                    <td>
-                        @if ($locale == 'fr')
-                        {{ $postsup->Nom_postsup ?? '-' }}
-                        @elseif ($locale == 'ar')
-                        {{ $postsup->Nom_postsup_ar ?? '-' }}
-                        @endif
-                    </td>
-                    <td>
-                        @if ($locale == 'fr')
-                        {{ $fonction->Nom_fonction ?? '-' }}
-                        @elseif ($locale == 'ar')
-                        {{ $fonction->Nom_fonction_ar ?? '-' }}
-                        @endif
-                    </td>
-                    <td>
-                        @if ($locale == 'fr')
-                        {{ $departement->Nom_depart ?? '-' }}
-                        @elseif ($locale == 'ar')
-                        {{ $departement->Nom_depart_ar ?? '-' }}
-                        @endif
-                    </td>
-                    <td>
-                        @if ($locale == 'fr')
-                        {{ $sousDepartement->Nom_sous_depart ?? '-' }}
-                        @elseif ($locale == 'ar')
-                        {{ $sousDepartement->Nom_sous_depart_ar ?? '-' }}
-                        @endif
-                    </td>
-                    <td>{{ $travail->date_installation ?? '-' }}</td>
-                </tr>
+
+                    @endphp
+                    @if ($employee->id_emp != 1 && $employee->id_emp != 2)
+                        <tr>
+                            <!-- <td>{{$loop->iteration -2}}</td> -->
+                            <td>@if ($locale == 'ar')
+                                <span dir="ltr">{{ $loop->iteration - 2 }}</span>
+                            @else
+                                    {{$loop->iteration - 2 }}
+                                @endif
+                            </td>
+                            <!-- <td>{{ $employee->id_emp ?? '-' }}</td> -->
+                            <td>
+                                @if ($locale == 'fr')
+                                    {{ $employee->Nom_emp ?? '-' }}
+                                @elseif ($locale == 'ar')
+                                    {{ $employee->Nom_ar_emp ?? '-' }}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($locale == 'fr')
+                                    {{ $employee->Prenom_emp ?? '-' }}
+                                @elseif ($locale == 'ar')
+                                    {{ $employee->Prenom_ar_emp ?? '-' }}
+                                @endif
+                            </td>
+                            <td>@if ($employee->occupeIdNin->last()?->date_recrutement)
+                                @php
+                                    $formattedDate = Carbon::parse($employee->Date_nais)->age ?? '-';
+                                @endphp
+                                @if ($locale == 'ar')
+                                    <span dir="ltr">{{ $formattedDate }}</span>
+                                @else
+                                    {{ $formattedDate }}
+                                @endif
+                            @else
+                                    -
+                                @endif
+                            </td>
+                            <td>@if ($employee->occupeIdNin->last()?->date_recrutement)
+                                @php
+                                    $formattedDate = Carbon::parse($employee->occupeIdNin->last()->date_recrutement)->format('d-m-Y');
+                                @endphp
+                                @if ($locale == 'ar')
+                                    <span dir="ltr">{{ $formattedDate }}</span>
+                                @else
+                                    {{ $formattedDate }}
+                                @endif
+                            @else
+                                    -
+                                @endif
+                            </td>
+                            <!-- <td>{{ $employee->date_CF ?? '-' }}</td>
+                                <td>{{ $employee->visa_CF ?? '-' }}</td> -->
+                            <td>
+                                @if ($locale == 'fr')
+                                    {{ $post->Nom_post ?? '-' }}
+                                @elseif ($locale == 'ar')
+                                    {{ $post->Nom_post_ar ?? '-' }}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($locale == 'fr')
+                                    {{ $postsup->Nom_postsup ?? '-' }}
+                                @elseif ($locale == 'ar')
+                                    {{ $postsup->Nom_postsup_ar ?? '-' }}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($locale == 'fr')
+                                    {{ $fonction->Nom_fonction ?? '-' }}
+                                @elseif ($locale == 'ar')
+                                    {{ $fonction->Nom_fonction_ar ?? '-' }}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($locale == 'fr')
+                                    {{ $departement->Nom_depart ?? '-' }}
+                                @elseif ($locale == 'ar')
+                                    {{ $departement->Nom_depart_ar ?? '-' }}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($locale == 'fr')
+                                    {{ $sousDepartement->Nom_sous_depart ?? '-' }}
+                                @elseif ($locale == 'ar')
+                                    {{ $sousDepartement->Nom_sous_depart_ar ?? '-' }}
+                                @endif
+                            </td>
+                            <td>@if ($travail?->date_installation)
+                                @php
+                                    $formattedInstall = Carbon::parse($travail->date_installation)->format('d-m-Y');
+                                @endphp
+                                @if ($locale == 'ar')
+                                    <span dir="ltr">{{ $formattedInstall }}</span>
+                                @else
+                                    {{ $formattedInstall }}
+                                @endif
+                            @else
+                                    -
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
 
         <!-- Pied de page -->
         <div class="footer">
-            <p>&copy; {{ date('Y') }} {{ __('lang.ministry_communication') }}. {{ __('lang.all_rights_reserved') }}.
+            <p>&copy; 
+                @if ($locale == 'ar')
+                    <span dir="ltr">{{ date('Y') }}</span>
+                @else
+                    {{ date('Y') }}
+                
+                @endif {{ __('lang.ministry_communication') }}. {{ __('lang.all_rights_reserved') }}.
         </div>
     </div>
-   
+
 </body>
 
 </html>
