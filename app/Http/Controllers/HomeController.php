@@ -27,162 +27,164 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        $lang=App::getLocale();
-        $employe=Employe::with([
-    'occupeIdNin.post.contient.sous_departement.departement',
-    'occupeIdP.post.contient.sous_departement.departement'
-        ])->whereNotIn('id_nin',[1254953,254896989])->get();
+        $lang = App::getLocale();
+        $employe = Employe::with([
+            'occupeIdNin.post.contient.sous_departement.departement',
+            'occupeIdP.post.contient.sous_departement.departement'
+        ])->whereNotIn('id_nin', [1254953, 254896989])->get();
 
-    //le nbr total des employés
-    $totalEmployess=$employe->count();
-//dd($totalEmployess);
-   $empdept=array();
-        $empdepart=Departement::get();
-        foreach($empdepart as $deprt)
-        {
-            $id_dprt=$deprt->id_depart;
-            $employes=Employe::with([
+        //le nbr total des employés
+        $totalEmployess = $employe->count();
+        //dd($totalEmployess);
+        $empdept = array();
+        $empdepart = Departement::get();
+        
+        foreach ($empdepart as $deprt) {
+            $id_dprt = $deprt->id_depart;
+            $employes = Employe::with([
                 'occupeIdNin.post.contient.sous_departement.departement',
                 'occupeIdP.post.contient.sous_departement.departement'
-                    ])->whereNotIn('id_nin',[1254953,254896989])
-                    ->get();
-                    $empdep = $employes->filter(function($employe) use ($id_dprt) {
-                        $post = $employe->occupeIdNin->last()->post ?? null;
-                        $travail = $employe->travailByNin->last();
-                        $sousDepartement = $travail->sous_departement ?? null;
-                        $departement = $sousDepartement->departement ?? null;
+            ])->whereNotIn('id_nin', [1254953, 254896989])
+                ->get();
+            $empdep = $employes->filter(function ($employe) use ($id_dprt) {
+                $post = $employe->occupeIdNin->last()->post ?? null;
+                $travail = $employe->travailByNin->last();
+                $sousDepartement = $travail->sous_departement ?? null;
+                $departement = $sousDepartement->departement ?? null;
 
-                        // Vérifiez si le département de l'employé correspond à l'ID du département
-                        return $departement && $departement->id_depart == $id_dprt;
-                    });
-                    $totalEmployes=$empdep->count();
-                    array_push($empdept,['id_depart'=>$id_dprt,
-                                         'Nom_depart'=>$deprt->Nom_depart,
-                                         'Nom_depart_ar'=>$deprt->Nom_depart_ar,
-                                         'nbremp'=>$totalEmployes]);
+                // Vérifiez si le département de l'employé correspond à l'ID du département
+                return $departement && $departement->id_depart == $id_dprt;
+            });
+            $totalEmployes = $empdep->count();
+            array_push($empdept, [
+                'id_depart' => $id_dprt,
+                'Nom_depart' => $deprt->Nom_depart,
+                'Nom_depart_ar' => $deprt->Nom_depart_ar,
+                'nbremp' => $totalEmployes
+            ]);
         }
         //dd($empdept);
 // Sélectionner la colonne de situation en fonction de la langue
-$situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_familliale';
+        $situationColumn = $lang === 'ar' ? 'situation_familliale_ar' : 'situation_familliale';
 
-     // Définir les situations familiales possibles en fonction de la langue
-     $situations = [
-        'fr' => ['Célibataire', 'Marié(e)', 'Divorcé(e)', 'Veuf(ve)'],
-        'ar' => ['أعزب/عزباء', 'متزوج(ة)', 'مطلق(ة)', 'ارمل(ة)']
-    ];
+        // Définir les situations familiales possibles en fonction de la langue
+        $situations = [
+            'fr' => ['Célibataire', 'Marié(e)', 'Divorcé(e)', 'Veuf(ve)'],
+            'ar' => ['أعزب/عزباء', 'متزوج(ة)', 'مطلق(ة)', 'ارمل(ة)']
+        ];
 
-    // Sélectionner les situations familiales en fonction de la langue
-    $situationList = $situations[$lang];
-    //dd($situationList);
+        // Sélectionner les situations familiales en fonction de la langue
+        $situationList = $situations[$lang];
+        //dd($situationList);
 
 
-    // Compter le nombre d'employés pour chaque situation familiale
-    $situationCounts = Employe::select($situationColumn)
-        ->selectRaw('COUNT(*) as count')
-        ->groupBy($situationColumn)
-        ->pluck('count', $situationColumn)
-        ->toArray();
-    
-    // Assurer que toutes les situations sont présentes dans les résultats
-    $data = array_fill_keys($situationList, 0); // Initialise tous les éléments avec 0
-    foreach ($situationCounts as $key => $count) {
-        if (array_key_exists($key, $data)) {
-            $data[$key] = $count;
+        // Compter le nombre d'employés pour chaque situation familiale
+        $situationCounts = Employe::select($situationColumn)
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy($situationColumn)
+            ->pluck('count', $situationColumn)
+            ->toArray();
+
+        // Assurer que toutes les situations sont présentes dans les résultats
+        $data = array_fill_keys($situationList, 0); // Initialise tous les éléments avec 0
+        foreach ($situationCounts as $key => $count) {
+            if (array_key_exists($key, $data)) {
+                $data[$key] = $count;
+            }
         }
-    }
 
-   // dd($data);
+        // dd($data);
 
-     // Définir les libellés en français
-     $genders = ['Homme', 'Femme'];
+        // Définir les libellés en français
+        $genders = ['Homme', 'Femme'];
 
-     // Compter le nombre d'employés pour chaque sexe
-     $genderCounts = Employe::select('sexe')
-         ->selectRaw('COUNT(*) as count')
-         ->groupBy('sexe')
-         ->pluck('count', 'sexe')
-         ->toArray();
+        // Compter le nombre d'employés pour chaque sexe
+        $genderCounts = Employe::select('sexe')
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy('sexe')
+            ->pluck('count', 'sexe')
+            ->toArray();
 
-     // Assurer que toutes les situations sont présentes dans les résultats
-     $dataGender = array_fill_keys($genders, 0); // Initialise tous les éléments avec 0
-     foreach ($genderCounts as $key => $count) {
-         if (array_key_exists($key, $dataGender)) {
-             $dataGender[$key] = $count;
-         }
-     }
-     //dd($dataGender);
+        // Assurer que toutes les situations sont présentes dans les résultats
+        $dataGender = array_fill_keys($genders, 0); // Initialise tous les éléments avec 0
+        foreach ($genderCounts as $key => $count) {
+            if (array_key_exists($key, $dataGender)) {
+                $dataGender[$key] = $count;
+            }
+        }
+        //dd($dataGender);
 
-             /************************encadrement_maitris_executif*************** */
-/***********************************************Employe $fonction superieur***********************************************/
-/********************************************************************************************************************************* */
-                $fs = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-                 ->where('occupes.type_CTR', '=', 'Fonctinnaire')
-                ->whereNotNull('occupes.id_fonction')
-                ->whereNull('occupes.id_postsup')
-                ->whereNotIn('employes.id_nin', [1254953, 254896989])
-                ->whereRaw('occupes.date_recrutement = (
+        /************************encadrement_maitris_executif*************** */
+        /***********************************************Employe $fonction superieur***********************************************/
+        /********************************************************************************************************************************* */
+        $fs = Employe::join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+            ->where('occupes.type_CTR', '=', 'Fonctinnaire')
+            ->whereNotNull('occupes.id_fonction')
+            ->whereNull('occupes.id_postsup')
+            ->whereNotIn('employes.id_nin', [1254953, 254896989])
+            ->whereRaw('occupes.date_recrutement = (
                     SELECT MAX(o2.date_recrutement)
                     FROM occupes o2
                     WHERE o2.id_nin = employes.id_nin
                 )')
-                ->count();
-                //dd( $fs);
+            ->count();
+        //dd( $fs);
 /***********************************************Employe $post superieur***********************************************/
-/********************************************************************************************************************************* */
-             $ps = DB::table('employes')
-               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-                ->where('occupes.type_CTR', '=', 'Fonctinnaire')
-               ->whereNotNull('occupes.id_postsup')
-               ->whereNull('occupes.id_fonction')
-               ->whereNotIn('employes.id_nin', [1254953, 254896989])
-               ->whereRaw('occupes.date_recrutement = (
+        /********************************************************************************************************************************* */
+        $ps = DB::table('employes')
+            ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+            ->where('occupes.type_CTR', '=', 'Fonctinnaire')
+            ->whereNotNull('occupes.id_postsup')
+            ->whereNull('occupes.id_fonction')
+            ->whereNotIn('employes.id_nin', [1254953, 254896989])
+            ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
                    WHERE o2.id_nin = employes.id_nin
                )')
-               ->count();
-                //dd( $ps);
+            ->count();
+        //dd( $ps);
 /***********************************************Employe $contrat actuel (CDI)***********************************************/
-/********************************************************************************************************************************* */
-               $ca = DB::table('employes')
-               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-               ->where('occupes.type_CTR', '=', 'CDI')
-               ->whereNull('occupes.id_postsup')
-               ->whereNull('occupes.id_fonction')
-               ->whereNotIn('employes.id_nin', [1254953, 254896989])
-               ->whereRaw('occupes.date_recrutement = (
+        /********************************************************************************************************************************* */
+        $ca = DB::table('employes')
+            ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+            ->where('occupes.type_CTR', '=', 'CDI')
+            ->whereNull('occupes.id_postsup')
+            ->whereNull('occupes.id_fonction')
+            ->whereNotIn('employes.id_nin', [1254953, 254896989])
+            ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
                    WHERE o2.id_nin = employes.id_nin
                )')
-                ->count();
-             //dd( $ca);
+            ->count();
+        //dd( $ca);
 
-/***********************************************Employe $corps commun (fonctionnaire)***********************************************/
-/********************************************************************************************************************************* */
-              $cc = DB::table('employes')
-               ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
-               ->where('occupes.type_CTR', '=', 'Fonctinnaire')
-               ->whereNull('occupes.id_postsup')
-               ->whereNull('occupes.id_fonction')
-               ->whereNotIn('employes.id_nin', [1254953, 254896989])
-               ->whereRaw('occupes.date_recrutement = (
+        /***********************************************Employe $corps commun (fonctionnaire)***********************************************/
+        /********************************************************************************************************************************* */
+        $cc = DB::table('employes')
+            ->join('occupes', 'employes.id_nin', '=', 'occupes.id_nin')
+            ->where('occupes.type_CTR', '=', 'Fonctinnaire')
+            ->whereNull('occupes.id_postsup')
+            ->whereNull('occupes.id_fonction')
+            ->whereNotIn('employes.id_nin', [1254953, 254896989])
+            ->whereRaw('occupes.date_recrutement = (
                    SELECT MAX(o2.date_recrutement)
                    FROM occupes o2
                    WHERE o2.id_nin = employes.id_nin
                )')
-               ->count();
-             //dd( $cc);
+            ->count();
+        //dd( $cc);
 
-        return view('home.dashboard',compact('employe','totalEmployess','empdepart','empdep','empdept','data','dataGender','lang','fs','ps','ca','cc'));
+        return view('home.dashboard', compact('employe', 'totalEmployess', 'empdepart', 'empdep', 'empdept', 'data', 'dataGender', 'lang', 'fs', 'ps', 'ca', 'cc'));
     }
 
     public function switchLanguage($locale)
     {
-        if (in_array($locale, ['fr','ar'])) {
+        if (in_array($locale, ['fr', 'ar'])) {
             Session::put('locale', $locale);
             App::setLocale($locale);
-          // dd(Session::get('locale'));
+            // dd(Session::get('locale'));
         }
         return back();
     }

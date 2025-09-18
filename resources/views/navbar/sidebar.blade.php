@@ -1,3 +1,82 @@
+<!-- CSS pour la modale -->
+<style>
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal.show {
+        display: flex;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 95%;
+        max-width: 562px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+    }
+
+    .department-list {
+        margin-top: 20px;
+        color: var(--text-color);
+    }
+
+    .department-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        margin: 5px 0;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .department-item:hover {
+        background-color: #e0f7fa;
+    }
+
+    .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-left-color: #09f;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+        display: none;
+        margin-left: 10px;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
 <!--========== HEADER ==========-->
 <header class="header">
     <div class="header__container">
@@ -73,18 +152,18 @@
                             <div class="nav__dropdown-content">
 
                                 @foreach($empdepart as $empdepart)
-                                                                @php
-
-                                                                    $locale = app()->getLocale();
-                                                                @endphp
-                                                                <a href="{{ route('app_dashboard_depart', ['dep_id' => $empdepart->id_depart]) }}"
-                                                                    class="nav__dropdown-item">
-                                                                    @if ($locale == 'fr')
-                                                                        {{ $empdepart->Nom_depart }}
-                                                                    @elseif ($locale == 'ar')
-                                                                        {{ $empdepart->Nom_depart_ar }}
-                                                                    @endif
-                                                                </a>
+                                    @php
+                                        //dd($empdepart);
+                                        $locale = app()->getLocale();
+                                    @endphp
+                                    <a href="{{ route('app_dashboard_depart', ['dep_id' => $empdepart->id_depart]) }}"
+                                        class="nav__dropdown-item">
+                                        @if ($locale == 'fr')
+                                            {{ $empdepart->Nom_depart }}
+                                        @elseif ($locale == 'ar')
+                                            {{ $empdepart->Nom_depart_ar }}
+                                        @endif
+                                    </a>
                                 @endforeach
                             </div>
                             <a href="{{route('app_add_depart', ['dep_id' => $empdepart->id_depart])}}"
@@ -100,7 +179,7 @@
                             </a>
                         </div>
                     </div>
-                  <div class="nav__dropdown">
+                    <div class="nav__dropdown">
                         <a href="#" class="nav__link">
                             <i class='bx bxs-layer nav__icon'></i>
                             <span class="nav__name">{{ __('lang.sous_dept') }}</span>
@@ -119,7 +198,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
                     <div class="nav__dropdown">
                         <a href="#" class="nav__link">
@@ -206,49 +285,50 @@
                                 <div id="spinner-cat" class="spinner" style="display: none; margin-left: 10px;"></div>
 
                                 <!-- Bouton pour exporter par hors grade -->
-                                 <button id="export-hors-grade-btn" class="nav__link"
+                                <button id="export-hors-grade-btn" class="nav__link"
                                     style="background: none; border: none; cursor: pointer;">
                                     <i class='bx bxs-user-check nav__icon'></i>
                                     <span class="nav__name">{{ __('lang.hors_grade') }}</span>
                                 </button>
-                                <div id="spinner-hors-grade" class="spinner" style="display: none; margin-left: 10px;"></div>
+                                <div id="spinner-hors-grade" class="spinner" style="display: none; margin-left: 10px;">
+                                </div>
 
-                                <!-- <a href="{{route('app_export_catg')}}" class="nav__link">
-                                    <i class='bx bxs-category-alt nav__icon'></i>
-                                    <span class="nav__name">{{ __('lang.par_cat') }}</span>
-                                </a> -->
-                                <!-- <a href="{{route('app_export_fnc')}}" class="nav__link">
-                                    <i class='bx bxs-graduation nav__icon'></i>
-                                    <span class="nav__name">{{ __('lang.par_fnc') }}</span>
-                                </a> -->
-                                <!-- <a href="{{route('app_export_cat')}}" class="nav__link">
-                                    <i class='bx bxs-notepad nav__icon'></i>
-                                    <span class="nav__name">{{ __('lang.cont_act') }}</span>
-                                </a> -->
-                                <!-- <a href="{{route('app_export_hors_grade')}}" class="nav__link">
-                                    <i class='bx bxs-category-alt nav__icon'></i>
-                                    <span class="nav__name">{{ __('lang.par_cat') }}</span>
-                                </a>  -->
+                                <!-- Bouton pour afficher liste direction (modifié pour modale) -->
+                                <button id="show-departments-btn" class="nav__link"
+                                    style="background: none; border: none; cursor: pointer;">
+                                    <i class='bx bxs-directions nav__icon'></i>
+                                    <span class="nav__name">{{ __('lang.parDepratement') }}</span>
+                                </button>
+                                <div id="spinner-departments" class="spinner" style="display: none; margin-left: 10px;">
+                                </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
                 <a href="{{route('logout')}}" class="nav__link nav__logout">
                     <i class='bx bx-log-out nav__icon'></i>
                     <span class="nav__name">{{ __('lang.logout') }}</span>
                 </a>
             </div>
+        </div>
     </nav>
 </div>
+
+<!-- Modale pour afficher la liste des départements -->
+<div id="departments-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" id="close-departments-modal">&times;</span>
+        <h2>{{ __('lang.ListDir') }}</h2>
+        <div id="departments-content" class="department-list">
+            <!-- Le contenu sera chargé ici via AJAX -->
+        </div>
+    </div>
 </div>
 
 <!-- JavaScript pour gérer la génération du PDF -->
 <script>
-  // Fonction générique pour gérer la génération du PDF
+    // Fonction générique pour gérer la génération du PDF
     function handleExport(route, spinnerId, buttonId, fileName) {
         // Afficher le spinner
         document.getElementById(spinnerId).style.display = 'inline-block';
@@ -259,48 +339,174 @@
         fetch(route, {
             method: 'GET',
         })
-        .then(response => response.blob())
-        .then(blob => {
-            // Créer un lien pour télécharger le PDF
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = fileName; // Utiliser le nom de fichier personnalisé
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            .then(response => response.blob())
+            .then(blob => {
+                // Créer un lien pour télécharger le PDF
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName; // Utiliser le nom de fichier personnalisé
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
 
-            // Masquer le spinner et réactiver le bouton
-            document.getElementById(spinnerId).style.display = 'none';
-            document.getElementById(buttonId).disabled = false;
-        })
-        .catch(error => {
-            console.error('Erreur lors de la génération du PDF :', error);
-            // Masquer le spinner et réactiver le bouton en cas d'erreur
-            document.getElementById(spinnerId).style.display = 'none';
-            document.getElementById(buttonId).disabled = false;
-        });
+                // Masquer le spinner et réactiver le bouton
+                document.getElementById(spinnerId).style.display = 'none';
+                document.getElementById(buttonId).disabled = false;
+            })
+            .catch(error => {
+                console.error('Erreur lors de la génération du PDF :', error);
+                // Masquer le spinner et réactiver le bouton en cas d'erreur
+                document.getElementById(spinnerId).style.display = 'none';
+                document.getElementById(buttonId).disabled = false;
+            });
     }
 
     // Associer les boutons à leurs routes respectives avec des noms de fichiers personnalisés
-    document.getElementById('export-emply-btn').addEventListener('click', function() {
+    document.getElementById('export-emply-btn').addEventListener('click', function () {
         handleExport("{{ route('app_export_emply') }}", 'spinner-emply', 'export-emply-btn', 'liste_globale.pdf');
+
     });
 
-    document.getElementById('export-catg-btn').addEventListener('click', function() {
+    document.getElementById('export-catg-btn').addEventListener('click', function () {
         handleExport("{{ route('app_export_catg') }}", 'spinner-catg', 'export-catg-btn', 'par_categorie.pdf');
     });
 
-    document.getElementById('export-fnc-btn').addEventListener('click', function() {
+    document.getElementById('export-fnc-btn').addEventListener('click', function () {
         handleExport("{{ route('app_export_fnc') }}", 'spinner-fnc', 'export-fnc-btn', 'par_fonction.pdf');
     });
 
-    document.getElementById('export-cat-btn').addEventListener('click', function() {
+    document.getElementById('export-cat-btn').addEventListener('click', function () {
         handleExport("{{ route('app_export_cat') }}", 'spinner-cat', 'export-cat-btn', 'contrats_actifs.pdf');
     });
 
-    document.getElementById('export-hors-grade-btn').addEventListener('click', function() {
+    document.getElementById('export-hors-grade-btn').addEventListener('click', function () {
         console.log('Clic sur export-hors-grade-btn');
         handleExport("{{ route('app_export_hors_grade') }}", 'spinner-hors-grade', 'export-hors-grade-btn', 'liste_grade.pdf');
     });
+
+    // JavaScript pour afficher la modale des départements
+   //JavaScript pour la modale et l'exportation PDF 
+    document.addEventListener('DOMContentLoaded', function () {
+        const showBtn = document.getElementById('show-departments-btn');
+        const modal = document.getElementById('departments-modal');
+        const closeBtn = document.getElementById('close-departments-modal');
+        const contentDiv = document.getElementById('departments-content');
+        const spinner = document.getElementById('spinner-departments');
+
+        if (!showBtn || !modal || !closeBtn || !contentDiv || !spinner) {
+            console.error('Éléments DOM manquants :', {
+                showBtn: !!showBtn,
+                modal: !!modal,
+                closeBtn: !!closeBtn,
+                contentDiv: !!contentDiv,
+                spinner: !!spinner
+            });
+            return;
+        }
+
+        // Charger la liste des départements via AJAX
+        showBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            spinner.style.display = 'inline-block';
+            showBtn.disabled = true;
+
+            console.log('Chargement des départements depuis :', "{{ route('app_list_departments') }}");
+
+            fetch("{{ route('app_list_departments') }}", {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'text/html',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                }
+            })
+                .then(response => {
+                    console.log('Statut de la réponse :', response.status);
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(`Erreur HTTP ${response.status}: ${text}`);
+                        });
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    contentDiv.innerHTML = data;
+                    modal.classList.add('show');
+                    spinner.style.display = 'none';
+                    showBtn.disabled = false;
+
+                    // Ajouter des écouteurs d'événements aux éléments de département
+                    document.querySelectorAll('.department-item').forEach(item => {
+                        item.addEventListener('click', function () {
+                            const depId = this.getAttribute('data-dep-id');
+                            const exportUrl = "{{ route('app_export_department_employees', ['dep_id' => ':dep_id']) }}".replace(':dep_id', depId);
+                            console.log('Exportation PDF pour le département :', depId);
+
+                            // Afficher un spinner dans l'élément
+                            this.style.opacity = '0.7';
+                            const itemSpinner = document.createElement('span');
+                            itemSpinner.className = 'spinner';
+                            itemSpinner.style.display = 'inline-block';
+                            itemSpinner.style.marginLeft = '10px';
+                            this.appendChild(itemSpinner);
+
+                            fetch(exportUrl, {
+                                method: 'GET',
+                                headers: {
+                                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                                }
+                            })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        return response.text().then(text => {
+                                            throw new Error(`Erreur HTTP ${response.status}: ${text}`);
+                                        });
+                                    }
+                                    return response.blob();
+                                })
+                                .then(blob => {
+                                    const url = window.URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = `employees_department_${depId}.pdf`;
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    document.body.removeChild(a);
+                                    window.URL.revokeObjectURL(url);
+
+                                    this.style.opacity = '1';
+                                    itemSpinner.remove();
+                                })
+                                .catch(error => {
+                                    console.error('Erreur d\'exportation PDF :', error);
+                                    contentDiv.innerHTML = '<p>Erreur lors de l\'exportation PDF : ' + error.message + '</p>';
+                                    this.style.opacity = '1';
+                                    itemSpinner.remove();
+                                });
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur AJAX :', error);
+                    contentDiv.innerHTML = '<p>Erreur lors du chargement : ' + error.message + '</p>';
+                    modal.classList.add('show');
+                    spinner.style.display = 'none';
+                    showBtn.disabled = false;
+                });
+        });
+
+        closeBtn.addEventListener('click', function () {
+            modal.classList.remove('show');
+            contentDiv.innerHTML = '';
+        });
+
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                contentDiv.innerHTML = '';
+            }
+        });
+    });
+
 </script>

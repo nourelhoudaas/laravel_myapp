@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use App\Models\Departement;
 use App\Models\Employe;
 use App\Models\Post;
@@ -8,9 +8,83 @@ use App\Models\Sous_departement;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Response\render;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\App;
 
 class DepartmentController extends Controller
 {
+
+//la page qui affiche la liste des départements avec ajax
+    public function listDepartments(Request $request)
+    {
+       try {
+            $empdepart = Departement::all();
+            if ($request->ajax()) {
+                // Correctly render the view's HTML for AJAX
+                return view('department.list_departments', compact('empdepart'))->render();
+            }
+            // For non-AJAX requests
+            return view('department.list_departments', compact('empdepart'));
+        } catch (\Exception $e) {
+            \Log::error('Error in listDepartments: ' . $e->getMessage());
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+            }
+            throw $e;
+        }
+    }
+
+    // Exporter la liste des employés d'un département en PDF
+    public function exportDepartmentEmployees(Request $request, $dep_id)
+    {
+        try {
+            // Récupérer le département avec la clé primaire correcte
+            $department = Departement::where('id_depart', $dep_id)->firstOrFail();
+
+            // Définir la locale
+            $locale = Session::get('locale', 'fr');
+            App::setLocale($locale);
+
+            // Récupérer les sous-départements associés au département
+            $sousDepartements = Sous_departement::where('id_depart', $dep_id)->pluck('id_sous_depart');
+
+            // Récupérer les employés liés au département via la table travails
+            $employe = Employe::with([
+                'occupeIdNin' => function ($query) {
+                    $query->with(['post', 'postsup', 'fonction']);
+                },
+                'travail' => function ($query) use ($sousDepartements) {
+                    $query->whereIn('id_sous_depart', $sousDepartements)
+                          ->with('sous_departement');
+                }
+            ])->whereHas('travail', function ($query) use ($sousDepartements) {
+                $query->whereIn('id_sous_depart', $sousDepartements);
+            })->get();
+
+            Log::info('Employees fetched for department ID ' . $dep_id . ': ' . $employe->count());
+
+            // Générer le PDF avec la vue liste_globale
+            $pdf = PDF::loadView('impression.departement_liste', [
+                'employe' => $employe,
+                'locale' => $locale,
+                'department' => $department
+            ])->setPaper('a4')
+              ->setOrientation('landscape')
+              ->setOption('encoding', 'utf-8')
+              ->setOption('enable-local-file-access', true)
+              ->setOption('disable-smart-shrinking', false);
+
+              return $pdf->stream('Liste des employés - globale_depart.pdf');
+            //return view('impression.departement_liste', compact('employe', 'department'));
+            
+        } catch (\Exception $e) {
+        Log::error('Échec de la génération PDF : ' . $e->getMessage());
+        return response()->json(['error' => 'Échec de la génération du PDF'], 500);
+    }
+    }
+    
     public function ListeDepart()
     {
         $departements = Departement::get();
