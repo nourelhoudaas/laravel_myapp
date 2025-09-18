@@ -224,12 +224,10 @@ class BioEmployeControl extends Controller
             'depart'=>'required',
             'sous_depart'=>'integer',
             'postsup'=>'integer',
-            'fonction'=>'string',
             'date_recrutement'=>'required|date',
             'Grade_post'=>'required|integer',
             'ref_PV'=>'string',
             'ref_Decision'=>'string',
-            'visa_CF'=>'string',
             'type_CTR'=>'required|string',
             'notation'=>'integer',
             'date_installation'=>'required|string'
