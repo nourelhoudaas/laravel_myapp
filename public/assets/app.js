@@ -986,6 +986,7 @@ function upload_profilio(id,idfile) {
     formDataF.append("sous", dir);
     console.log("button of" + this.id);
     console.log("button of" + this.dir);
+    showLoadingSpinner();
     $.ajax({
         url: "/upload/numdossiers",
         type: "POST",
@@ -1034,8 +1035,10 @@ function upload_profilio(id,idfile) {
                             $("#progressBar").width("0%");
                             alert(response.message);
                             
+                            hideLoadingSpinner();
                         } else {
                             console.log("error");
+                            hideLoadingSpinner();
                         }
                     },
                 });
@@ -1049,6 +1052,7 @@ function upload_profilio(id,idfile) {
         },
         error: function () {
             alert(response.message);
+            hideLoadingSpinner();
         },
 
     });
@@ -2761,12 +2765,6 @@ $(document).ready(function () {
         e.preventDefault();
         console.log("testing " + md);
         showLoadingSpinner();
-        if(file !== undefined)
-        {
-
-            console.log('use profilio'+idfiles);
-
-        }
         if (md) {
             // Assuming you are searching by ID_NIN
 
