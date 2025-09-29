@@ -4,7 +4,9 @@
 @section('title', 'liste Directions')
 
 @section('content')
+<style>
 
+</style>
 <body>
  @php
     $locale = app()->getLocale();
@@ -19,9 +21,9 @@
 <table class="styled-table" id='myTable_depart'>
     <thead>
         <tr>
-            <th>{{ __('lang.id_drec') }} </th>
-            <th>{{ __('lang.nom_direct') }} </th>
-            <th>{{ __('lang.nom_sous_direct') }} </th>
+            <th style="text-align: left;">{{ __('lang.id_drec') }} </th>
+            <th style="width: 10%;">{{ __('lang.nom_direct') }} </th>
+            <th style="width: 30%;">{{ __('lang.nom_sous_direct') }} </th>
             <th>{{ __('lang.Action') }}</th> 
         </tr>
     </thead>
@@ -32,7 +34,7 @@
 
         @foreach ($departements as $index => $departement)
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td  style="text-align: center;">{{ $loop->iteration }}</td>
             <td>
                 @if ($locale == 'fr')
                 <a href="{{ route('app_dashboard_depart', $departement->id_depart) }}">

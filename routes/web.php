@@ -100,9 +100,10 @@ Route::middleware('auth')->group(function () {
 });
 Route::middleware('auth')->group(function () {
     Route::controller(DepartmentController::class)->group(function () {
-
+        Route::get('/list-departments', 'listDepartments')->name('app_list_departments'); // liste  direction
+        Route::get('/export-department-employees/{dep_id}', 'exportDepartmentEmployees')->name('app_export_department_employees'); //Impression par direction
         Route::get('\add_depart/{dep_id}', 'AddDepart')->name('app_add_depart');
-
+       // Route::get('/export/department/{dep_id}', 'exportDepartment')->name('app_export_dir '); //Impression par direction
         Route::get('/liste', 'ListeDepart')->name('app_liste_dir');
         Route::get('/departmnet/editer/{departement}', 'editer')->name('departement.editer');
         Route::put('/departmnet/editer/{departement}', 'update')->name('departement.update');

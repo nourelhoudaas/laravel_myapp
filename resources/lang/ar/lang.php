@@ -287,6 +287,7 @@ return [
   'hors_grade' => 'حسب خارج الصنف',
   'ministry_communication' => 'وزارة الاتصال',
 'all_rights_reserved' => 'جميع الحقوق محفوظة',
+'parDepratement'=>'قائمة المديرية',
 ];
 
 

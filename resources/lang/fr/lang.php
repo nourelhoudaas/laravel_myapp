@@ -296,4 +296,5 @@ return [
 
     'ministry_communication' => 'Ministère de la communication',
 'all_rights_reserved' => 'Tous droits réservés',
+    'parDepratement'=>'Par direction',
 ];
