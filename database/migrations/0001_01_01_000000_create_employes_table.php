@@ -40,7 +40,8 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('email_pro')->nullable();;
             $table->string('Phone_num', 100)->nullable();
-
+            $table->integer('id_fichier')->nullable();
+            $table->foreign('id_fichier')->references('id_fichier')->on('fichiers');
 
 
         });

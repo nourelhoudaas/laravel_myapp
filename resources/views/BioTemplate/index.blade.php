@@ -67,13 +67,15 @@ $locale = App::getLocale();
                             <button id='gen_ats'>{{__('lang.ats')}}</button>
                           </div>
                         </div>
-                        <div class='img-holder'>
-                          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                        <div class='img-holder' id="img-holders">
+                          <img src="{{$path}}" alt="Admin" id="preview" class="rounded-circle" width="150">
                           @if(app()->getLocale() == 'ar')
-                          <div class='profil-uploadar'><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                          <div class='profil-uploadar hidden-select' id="uploadBtn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
                           @else
-                          <div class='profil-uploadfr'><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                          <div class='profil-uploadfr hidden-select' id="uploadBtn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
                           @endif
+
+                          <input type="file" id="fileInput" accept="image/*" disabled/>
                         </div>
                         </br>
                         <div class="mod-but" id="mod-but">
@@ -633,6 +635,8 @@ $locale = App::getLocale();
     var id = '{{ $last->id_nin }}';
     var uid = '{{$uid}}'
     var md = false;
+    var idfiles;
+    const fileInput_profilo = document.getElementById("fileInput");
     var chek = '{{!isset($last->email_pro)}}'
     var btn_nin = document.getElementById('modif_nin')
     var btn_niv = document.getElementById('niv_edit')
@@ -677,6 +681,7 @@ $locale = App::getLocale();
         icon.classList.add('fa-pencil');
         btn_nin.classList.remove('hidden-select')
         btn_niv.classList.remove('hidden-select')
+        document.getElementById('uploadBtn').classList.remove('hidden-select')
         btn_car.forEach(el => {
           el.classList.remove('hidden-select'); // remove all classes
         });
@@ -690,6 +695,8 @@ $locale = App::getLocale();
         document.getElementById('Email').disabled = false;
         document.getElementById('phone_pn').disabled = false;
         document.getElementById('dateN').disabled = false;
+        document.getElementById('fileInput').disabled = false;
+        document.getElementById('uploadBtn').disabled = false;
         if (lng == 'ar') {
           $('#adrAR').prop('disabled', false);
         } else {
@@ -710,6 +717,7 @@ $locale = App::getLocale();
         icon.classList.add('fa-times');
         btn_nin.classList.add('hidden-select')
         btn_niv.classList.add('hidden-select')
+        document.getElementById('uploadBtn').classList.add('hidden-select')
 
         btn_car.forEach(el => {
           el.classList.add('hidden-select')
@@ -721,6 +729,8 @@ $locale = App::getLocale();
         document.getElementById('Email').disabled = true;
         document.getElementById('phone_pn').disabled = true;
         document.getElementById('dateN').disabled = true;
+        document.getElementById('fileInput').disabled = true;
+        document.getElementById('uploadBtn').disabled = true;
         //document.getElementById('adr').disabled=true;
         //document.getElementById('adrAR').disabled=true;
         md = false;
@@ -949,5 +959,33 @@ $locale = App::getLocale();
 
   }
 </script>
+
+<script>
+
+
+const preview = document.getElementById("preview");
+const uploadBtn = document.getElementById("uploadBtn");
+
+// Open file dialog when clicking the image or button
+preview.addEventListener("click", () => fileInput_profilo.click());
+uploadBtn.addEventListener("click", () => fileInput_profilo.click());
+
+// Preview image immediately after selecting
+fileInput_profilo.addEventListener("change", (e) => {
+  file = e.target.files[0];
+  if (file && file.type.startsWith("image/")) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      preview.src = event.target.result; // preview image immediately
+    };
+    reader.readAsDataURL(file);
+    idfiles=upload_profilio(id,idfiles);
+  } else {
+    alert("Please select a valid image file.");
+  }
+});
+
+</script>
+
 
 </html>

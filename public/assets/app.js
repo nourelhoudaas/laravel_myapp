@@ -514,6 +514,7 @@ $(document).ready(function () {
     }
 });
 
+
 function uploadFile_space() {
     var formDataF = new FormData();
     var file = document.getElementById("file").files[0];
@@ -972,6 +973,87 @@ function uploadFile() {
         },
     });
 }
+
+
+
+function upload_profilio(id,idfile) {
+    var formDataF = new FormData();
+    var dir = 'Admin';
+    var file = fileInput_profilo.files[0];
+    formDataF.append("file", file);
+    formDataF.append("_token", $('meta[name="csrf-token"]').attr("content"));
+    formDataF.append("id_nin", id);
+    formDataF.append("sous", dir);
+    console.log("button of" + this.id);
+    console.log("button of" + this.dir);
+    $.ajax({
+        url: "/upload/numdossiers",
+        type: "POST",
+        data: formDataF,
+        contentType: false,
+        processData: false,
+        xhr: function () {
+            var xhr = new window.XMLHttpRequest();
+            xhr.upload.addEventListener(
+                "progress",
+                function (e) {
+                    if (e.lengthComputable) {
+                        var percentComplete = (e.loaded / e.total) * 100;
+                        $("#progressWrapper").show();
+                        $("#progressBar").width(percentComplete + "%");
+                    }
+                },
+                false
+            );
+            return xhr;
+        },
+        success: function (response) {
+            if (uid && response.status == 200) {
+                console.log("messsage " + JSON.stringify(response.data) +"file is "+response.file);
+                var stockForm = {
+                    id_nin: id,
+                    id: uid,
+                    file:response.file,
+                    ref_d: response.data.ref_d,
+                    sous_d: response.data.sous_d,
+                    fichierext: response.data.filenext,
+                    fichier: response.data.filename,
+                    Tfichier: response.data.filesize,
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "POST",
+                };
+                idfiles=response.file
+                $.ajax({
+                    url: "/whoiam",
+                    type: "POST",
+                    data: stockForm,
+                    success: function (responses) {
+                        if (responses.code == 200) {
+                            $("#successMessage").show();
+                            $("#progressWrapper").hide();
+                            $("#progressBar").width("0%");
+                            alert(response.message);
+                            
+                        } else {
+                            console.log("error");
+                        }
+                    },
+                });
+            } else {
+                console.log("no log");
+            }
+            $("#successMessage").show();
+            $("#progressWrapper").hide();
+            $("#progressBar").width("0%");
+            return idfile;
+        },
+        error: function () {
+            alert(response.message);
+        },
+
+    });
+}
+
 function uploadjust(id, date, file, dir) {
     showLoadingSpinner();
     console.log("file name" + JSON.stringify(file));
@@ -2672,12 +2754,23 @@ idinput.blur(function () {
 
 //------------------------ Bio Template js Button *-----------------------------
 $(document).ready(function () {
+
+    
+
     $("#btn-ch").click(function (e) {
         e.preventDefault();
         console.log("testing " + md);
         showLoadingSpinner();
+        if(file !== undefined)
+        {
+
+            console.log('use profilio'+idfiles);
+
+        }
         if (md) {
             // Assuming you are searching by ID_NIN
+
+            
             var formData = {
                 Nom_P: $("#Nom_P").val(),
                 Nom_PAR: $("#Nom_PAR").val(),
@@ -2689,6 +2782,7 @@ $(document).ready(function () {
                 adr: $("#adr").val(),
                 adrAR: $("#adrAR").val(),
                 email_pro: $("#email_pro").val(),
+                profilio:idfiles,
                 _token: $('meta[name="csrf-token"]').attr("content"),
                 _method: "PUT",
             };

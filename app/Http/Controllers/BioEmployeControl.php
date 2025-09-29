@@ -42,7 +42,7 @@ class BioEmployeControl extends Controller
             'Nom_P' => 'string',
             'Prenom_O_ar'=> 'string',
             'Nom_P_ar'=> 'string' ,
-            'Email' => 'string',
+            'Email' => 'nullable|string',
             'phone_pn' => 'string',
             'Date_Nais_P' => 'date',
             'Address' => 'string',
@@ -60,9 +60,10 @@ class BioEmployeControl extends Controller
                         'Date_nais'=>$request->input('dateN'),
                         'adress' => $request->input('adr'),
                         'adress_ar' => $request->input('adrAR'),
-                        'email' => $request->get('Email'),
+                        'email' => $request->input('Email') ?? " ",
                         'Phone_num' => $request->input('phone_pn'),
-                        'email_pro'=>$request->input('email_pro')
+                        'email_pro'=>$request->input('email_pro'),
+                        'id_fichier'=>$request->input('profilio')
                             ]);
                             $ups='mise à jour';
                             $upsnot='n`est pas mise à jour';
@@ -74,6 +75,7 @@ class BioEmployeControl extends Controller
         if ($updated) {
 
              //ajouter l'action dans table log
+             
           $log= $this->logService->logAction(
             Auth::user()->id,
             $id,

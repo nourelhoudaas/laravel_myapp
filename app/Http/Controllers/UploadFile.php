@@ -129,7 +129,8 @@ $fich=Fichier::select('id_fichier')->where('nom_fichier',$request->get('nom_fich
                      'filename'=>$fielname,
                      'filenext'=>$ext,
                      'filesize'=>$sizeR
-                    ]
+            ],
+            'file'=>$save->id_fichier
         ]);
     }
     public function cree_dos_sous(Request $request)

@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }); 
     }); 
 }); 
-$(document).ready(function(){
+/*$(document).ready(function(){
     $('#btn-ch').click(function(e){
         e.preventDefault();
  // Assuming you are searching by ID_NIN
@@ -120,4 +120,4 @@ $(document).ready(function(){
                     }
                 });
     });
-});
+});*/
