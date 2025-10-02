@@ -20,6 +20,7 @@ use App\Models\Sous_departement;
 use App\Models\Stocke;
 use App\Models\Travail;
 use App\Models\type_cong;
+use App\Models\Fichier;
 use App\Models\User;
 use App\Services\logService;
 //use Barryvdh\DomPDF\Facade\Pdf;
@@ -817,9 +818,19 @@ class EmployeesController extends Controller
             ->join('filieres', 'filieres.id_filiere', '=', 'secteurs.id_filiere')->get();
         $postsup = PostSup::all();
         $fonction = Fonction::all();
+        $file_emp=Employe::where('id_nin', $id)->select('id_fichier')->first();
+        $file=Fichier::where('id_fichier',$file_emp->id_fichier)->select('hash_fichier')->first();
+        $path="https://bootdey.com/img/Content/avatar/avatar7.png";
+        if(isset($file))
+        {
+            $subdir="Em_".$id;
+            $subd="Admin";
+             $path ="/storage/employees" .'/'.$subdir. '/' .$subd.'/'.$file->hash_fichier;
+        }
+
         if ($nbr > 0) {
             $nbr = $nbr - 1;
-            return view('BioTemplate.index', compact('detailemp', 'nbr', 'empdepart', 'last', 'postarr', 'carier', 'dir', 'sdir', 'post', 'postsup', 'fonction'));
+            return view('BioTemplate.index', compact('detailemp', 'nbr', 'empdepart', 'last', 'postarr', 'carier', 'dir', 'sdir', 'post', 'postsup', 'fonction','path'));
         } else {
             return view('404');
         }
