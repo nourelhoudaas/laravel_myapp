@@ -169,7 +169,7 @@
     $responsable_nomAR = ($employe2->Nom_ar_emp ?? '') . ' ' . ($employe2->Prenom_ar_emp ?? '');
 @endphp
     <div class="signature">
-        <p>{{ $locale == 'ar' ? 'مسؤول الموارد البشرية' : 'Le Responsable des Ressources Humaines' }}</p>
+        <p>{{ $locale == 'ar' ? 'المدير الفرعي للمستخدمين' : 'le sous-directeur du personnel' }}</p>
         <p>{{ $locale == 'fr' ? $responsable_nom : $responsable_nomAR}}</p>
     </div>
 
