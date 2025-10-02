@@ -384,7 +384,7 @@
             });
     }
 
-    function generateAttestation(event, linkElement) {
+   function generateAttestation(event, linkElement) {
         event.preventDefault();
         console.log('generateAttestation déclenché par clic sur:', linkElement);
 

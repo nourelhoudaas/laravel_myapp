@@ -68,8 +68,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/exportPdfHorsGrade', 'exportPdfHorsGrade')->name('app_export_hors_grade'); //impression liste hors grade
         Route::get('/exportPdfCatg', 'exportPdfCatg')->name('app_export_catg'); //impression liste par categorie
         Route::get('\liste', 'ListeEmply')->name('app_liste_emply');
-        Route::get('/exportPdfAttesList/{id_emp}', 'exportPdfAttesList')->name('app_export_attesList'); //impression attestation
-        Route::get('/exportPdfAttes/{nom}', 'exportPdfAttes')->name('app_export_attes');                // Impression attestation par nom
+        //Route::get('/exportPdfAttesList/{id_emp}', 'exportPdfAttesList')->name('app_export_attesList'); //impression attestation
+        Route::get('/exportPdfAttes/{id_emp}', 'exportPdfAttes')->name('app_export_attes');                // Impression attestation par nom
         Route::get('/exportPdfFnc', 'exportPdfFnc')->name('app_export_fnc');    //impression liste par fonction
         Route::get('/exportPdfCat', 'exportPdfCat')->name('app_export_cat');    //impression liste par contrat actuel
         Route::get('/liste_abs', 'AbsenceEmply')->name('app_abs_emply');

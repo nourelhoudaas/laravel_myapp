@@ -102,7 +102,7 @@ return [
     'repr'=>'الإستئناف',
 
     'niv_edu'=>'المستوى التعليمي',
-    'ref_dipl'=>'رقم الشهادة',
+    'imprimer_attestation'=>'طباعة شهادة العمل',
     'slct_ref_dipl'=>'إدخال رقم الشهادة',
     'spec_dipl'=>'التخصص',
     'slct_spec_dipl'=>'تحديد نوع التخصص',

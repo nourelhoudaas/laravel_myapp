@@ -1,10 +1,10 @@
 @php
-$uid=auth()->id();
-// Définir la langue depuis la session
-App::setLocale(Session::get('locale', 'fr'));
+  $uid = auth()->id();
+  // Définir la langue depuis la session
+  App::setLocale(Session::get('locale', 'fr'));
 
-// Récupérer la langue active
-$locale = App::getLocale();
+  // Récupérer la langue active
+  $locale = App::getLocale();
 @endphp
 @extends('base')
 <meta charset="utf-8">
@@ -18,8 +18,11 @@ $locale = App::getLocale();
 <title>Personnel</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+  type="text/css">
 <link href="../css/main.css" rel="stylesheet" type="text/css">
 
 
@@ -64,15 +67,20 @@ $locale = App::getLocale();
                         <div class='gen-file-handle'>
                           <p class='gen-list-handl'>...</p>
                           <div class="dropdown-opt">
-                            <button id='gen_ats'>{{__('lang.ats')}}</button>
+                            <!-- Remplacer le bouton par un lien vers la route -->
+                            <a href="{{ route('app_export_attes', ['id_emp'=>$last->id_emp]) }}"
+                              class="btn btn-primary">
+                              {{ __('lang.ats') }}
+                            </a>
                           </div>
                         </div>
                         <div class='img-holder'>
-                          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                            class="rounded-circle" width="150">
                           @if(app()->getLocale() == 'ar')
-                          <div class='profil-uploadar'><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                            <div class='profil-uploadar'><i class="fa fa-pencil" aria-hidden="true"></i></div>
                           @else
-                          <div class='profil-uploadfr'><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                            <div class='profil-uploadfr'><i class="fa fa-pencil" aria-hidden="true"></i></div>
                           @endif
                         </div>
                         </br>
@@ -80,51 +88,55 @@ $locale = App::getLocale();
                           <i class="fa fa-times" aria-hidden="true" id="btn-icon">...</i>
                         </div>
                         <div class="mt-3">
-                          <h4>{{__('lang.NIN')}} <button class="hidden-select" onclick="openDialog()" id='modif_nin' style="border: none;background: transparent;"><i class="fa fa-pencil" aria-hidden="true"></i></button> :<p id="ID_NIN">{{$last->id_nin}}</p>
+                          <h4>{{__('lang.NIN')}} <button class="hidden-select" onclick="openDialog()" id='modif_nin'
+                              style="border: none;background: transparent;"><i class="fa fa-pencil"
+                                aria-hidden="true"></i></button> :<p id="ID_NIN">{{$last->id_nin}}</p>
                           </h4>
                           <h4>{{$last->Nom_emp}} {{$last->Prenom_emp}}</h4>
                           <h4>{{$last->Nom_ar_emp}} {{$last->Prenom_ar_emp}}</h4>
 
                           <h6>
                             @if(app()->getLocale() == 'ar')
-                            @if($last->sexe == 'Femme')
-                            {{ __('lang.sx_fm') }}
+                              @if($last->sexe == 'Femme')
+                                {{ __('lang.sx_fm') }}
+                              @else
+                                {{ __('lang.sx_ma') }}
+                              @endif
                             @else
-                            {{ __('lang.sx_ma') }}
-                            @endif
-                            @else
-                            @if($last->sexe == 'Femme')
-                            {{ __('lang.sx_fm') }}
-                            @else
-                            {{ __('lang.sx_ma') }}
-                            @endif
+                              @if($last->sexe == 'Femme')
+                                {{ __('lang.sx_fm') }}
+                              @else
+                                {{ __('lang.sx_ma') }}
+                              @endif
                             @endif
 
                           </h6>
                           <div class="row">
                             @if(app()->getLocale() == 'ar')
-                              @if(isset($last->Nom_postsup_ar))
-                              <p class="text-secondary mb-1">{{$last->Nom_postsup_ar}}</p>
-                              @endif
-                              @if(isset($last->Nom_fonction_ar))
-                              <p class="text-secondary mb-1">{{$last->Nom_fonction_ar}}</p>
-                              @endif
-                            <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p>
-                            <p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p>
-                          </div>
-                          <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}}, {{__('lang.mnc')}}</p>
-                          @else
-                           @if(isset($last->Nom_postsup))
-                              <p class="text-secondary mb-1">{{$last->Nom_postsup}}</p>
+                                @if(isset($last->Nom_postsup_ar))
+                                  <p class="text-secondary mb-1">{{$last->Nom_postsup_ar}}</p>
+                                @endif
+                                @if(isset($last->Nom_fonction_ar))
+                                  <p class="text-secondary mb-1">{{$last->Nom_fonction_ar}}</p>
+                                @endif
+                                <p class="text-secondary mb-1">{{$last->Nom_post_ar}}</p>
+                                <p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p>
+                              </div>
+                              <p class="text-muted font-size-sm">{{$last->Nom_sous_depart_ar}},{{$last->Nom_depart_ar}},
+                                {{__('lang.mnc')}}</p>
+                            @else
+                              @if(isset($last->Nom_postsup))
+                                <p class="text-secondary mb-1">{{$last->Nom_postsup}}</p>
                               @endif
                               @if(isset($last->Nom_fonction))
-                              <p class="text-secondary mb-1">{{$last->Nom_fonction}}</p>
+                                <p class="text-secondary mb-1">{{$last->Nom_fonction}}</p>
                               @endif
-                          <p class="text-secondary mb-1">{{$last->Nom_post}}</p>
-                          <p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p>
-                        </div>
-                        <p class="text-muted font-size-sm">{{$last->Nom_sous_depart}},{{$last->Nom_depart}}, {{__('lang.mnc')}}</p>
-                        @endif
+                              <p class="text-secondary mb-1">{{$last->Nom_post}}</p>
+                              <p class="text-secondary mb-1">{{__('lang.post_grad')}} : {{$last->Grade_post}}</p>
+                            </div>
+                            <p class="text-muted font-size-sm">{{$last->Nom_sous_depart}},{{$last->Nom_depart}},
+                              {{__('lang.mnc')}}</p>
+                          @endif
 
                       </div>
                     </div>
@@ -133,61 +145,78 @@ $locale = App::getLocale();
                 <div class="card mt-3">
                   <ul class="list-group list-group-flush">
                     @if(isset($last->email_pro) && $last->email_pro != null)
-                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="mail_pro">
-                      <h6 class="mb-0">
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                        id="mail_pro">
+                        <h6 class="mb-0">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <line x1="2" y1="12" x2="22" y2="12"></line>
-                          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                        </svg>
-                        {{__('lang.pro_mail')}}
-                      </h6>
-                      <span class="text-secondary">{{$last->email_pro}}</span>
-                    </li>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-globe mr-2 icon-inline">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path
+                              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                            </path>
+                          </svg>
+                          {{__('lang.pro_mail')}}
+                        </h6>
+                        <span class="text-secondary">{{$last->email_pro}}</span>
+                      </li>
                     @else
-                    <div id="pro-add">
+                      <div id="pro-add">
 
-                    </div>
+                      </div>
                     @endif
                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                       <div>
-                        <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.stitua_fam')}}</span>
-                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+                        <span class="text-secondary" style="border-bottom: 1px solid darkgrey;">
+                          {{__('lang.stitua_fam')}}</span>
+                        <div
+                          class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
                           <h6 class="mb-0"><i class="fa fa-users" aria-hidden="true"></i> {{__('lang.famill')}}:
                             @if(app()->getLocale() == 'ar')
-                            {{$last->situation_familliale_ar}}
+                              {{$last->situation_familliale_ar}}
                             @else
-                            {{$last->situation_familliale}}
+                              {{$last->situation_familliale}}
                             @endif
                           </h6>
                         </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
-                          <h6 class="mb-0"><i class="fa fa-child" aria-hidden="true"></i> {{__('lang.children')}} : {{$last->nbr_enfants}}</h6>
+                        <div
+                          class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+                          <h6 class="mb-0"><i class="fa fa-child" aria-hidden="true"></i> {{__('lang.children')}} :
+                            {{$last->nbr_enfants}}</h6>
                         </div>
                         <div>
-                          <div> <span class="text-secondary" style="border-bottom: 1px solid darkgrey;"> {{__('lang.niv_edu')}}
-                              <i class="fa fa-pencil hidden-select" aria-hidden="true" id="niv_edit"></i></div>
+                          <div>
+                            <span class="text-secondary" style="border-bottom: 1px solid darkgrey;">
+                              {{__('lang.niv_edu')}}
+                              <i class="fa fa-pencil hidden-select" aria-hidden="true" id="niv_edit"></i>
+                          </div>
                           </span>
-                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
-                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true"></i> {{__('lang.nom_dipl')}} :
-                              @if( app()->getLocale() == 'ar')
-                              {{$carier->Nom_niv_ar}}
+                          <div
+                            class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+                            <h6 class="mb-0"><i class="fa fa-university" aria-hidden="true"></i> {{__('lang.nom_dipl')}}
+                              :
+                              @if(app()->getLocale() == 'ar')
+                                {{$carier->Nom_niv_ar}}
                               @else
-                              {{$carier->Nom_niv}}
+                                {{$carier->Nom_niv}}
                               @endif
                             </h6>
                           </div>
-                          <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
-                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true"></i> {{__('lang.spec_dipl')}} :
-                              @if( app()->getLocale() == 'ar')
-                              {{$carier->Specialite_ar}}
+                          <div
+                            class="list-group-item d-flex justify-content-between align-items-center flex-wrap info-bord">
+                            <h6 class="mb-0"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                              {{__('lang.spec_dipl')}} :
+                              @if(app()->getLocale() == 'ar')
+                                {{$carier->Specialite_ar}}
                               @else
-                              {{$carier->Specialite}}
+                                {{$carier->Specialite}}
                               @endif
                             </h6>
                           </div>
                         </div>
+                      </div>
                     </li>
                   </ul>
                 </div>
@@ -201,13 +230,15 @@ $locale = App::getLocale();
                         <div class="col-sm-3">
                           <h6 class="mb-0 ">Nom</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" id='Nom_P' value='{{$last->Nom_emp}}' style="border: hidden;background-color: transparent;" disabled>
+                        <input class="col-sm-9 text-secondary" id='Nom_P' value='{{$last->Nom_emp}}'
+                          style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       <div class="field-holderAR">
                         <div class="col-sm-3">
                           <h6 class="mb-0 staticent">اللقب</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" id='Nom_PAR' value='{{$last->Nom_ar_emp}}' style="border: hidden;background-color: transparent;" disabled>
+                        <input class="col-sm-9 text-secondary" id='Nom_PAR' value='{{$last->Nom_ar_emp}}'
+                          style="border: hidden;background-color: transparent;" disabled>
                       </div>
                     </div>
                     <hr>
@@ -216,13 +247,15 @@ $locale = App::getLocale();
                         <div class="col-sm-4">
                           <h6 class="mb-0">Prénom</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" id='Prenom_O' value=' {{$last->Prenom_emp}}' style="border: hidden;background-color: transparent;" disabled>
+                        <input class="col-sm-9 text-secondary" id='Prenom_O' value=' {{$last->Prenom_emp}}'
+                          style="border: hidden;background-color: transparent;" disabled>
                       </div>
                       <div class="field-holderAR">
                         <div class="col-sm-3">
                           <h6 class="mb-0 staticent">الإسم</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary" id='Prenom_OAR' value=' {{$last->Prenom_ar_emp}}' style="border: hidden;background-color: transparent;" disabled>
+                        <input class="col-sm-9 text-secondary" id='Prenom_OAR' value=' {{$last->Prenom_ar_emp}}'
+                          style="border: hidden;background-color: transparent;" disabled>
                       </div>
                     </div>
                     <hr>
@@ -230,9 +263,7 @@ $locale = App::getLocale();
                       <div class="col-sm-3">
                         <h6 class="mb-0">{{__('lang.mail')}}</h6>
                       </div>
-                      <input class="col-sm-9 text-secondary"
-                        id='Email'
-                        value='{{$last->email}}'
+                      <input class="col-sm-9 text-secondary" id='Email' value='{{$last->email}}'
                         style="border: hidden;background-color: transparent;" disabled>
                     </div>
                     <hr>
@@ -240,9 +271,7 @@ $locale = App::getLocale();
                       <div class="col-sm-3">
                         <h6 class="mb-0">{{__('lang.num_tel')}}</h6>
                       </div>
-                      <input class="col-sm-9 text-secondary"
-                        id='phone_pn'
-                        value='0{{$last->Phone_num}}'
+                      <input class="col-sm-9 text-secondary" id='phone_pn' value='0{{$last->Phone_num}}'
                         style="border: hidden;background-color: transparent;" disabled>
                     </div>
                     <hr>
@@ -250,16 +279,12 @@ $locale = App::getLocale();
                       <div class="col-sm-3">
                         <h6 class="mb-0">{{__('lang.birtday')}}</h6>
                       </div>
-                      <input class="col-sm-3 text-secondary" type='date'
-                        id='dateN'
-                        value='{{$last->Date_nais}}'
+                      <input class="col-sm-3 text-secondary" type='date' id='dateN' value='{{$last->Date_nais}}'
                         style="border: hidden;background-color: transparent; text-align: center;" disabled>
                       <div class="col-sm-6">
                         <div class="field-holder">
                           <h6 class="mb-0">{{ __('lang.Lieunaiss') }}</h6>
-                          <input class="text-secondary"
-                            type="text"
-                            id="lieuN"
+                          <input class="text-secondary" type="text" id="lieuN"
                             value="@if(app()->getLocale() == 'ar') {{ $last->Lieu_nais_ar }} @else {{ $last->Lieu_nais }} @endif"
                             style="border: hidden; background-color: transparent; text-align: center;" disabled>
 
@@ -278,8 +303,7 @@ $locale = App::getLocale();
                         <div class="col-sm-3">
                           <h6 class="mb-0">{{__('lang.adresse')}}</h6>
                         </div>
-                        <input class="col-sm-9 text-secondary"
-                          id='adr'
+                        <input class="col-sm-9 text-secondary" id='adr'
                           value="@if(app()->getLocale() == 'ar') {{ $last->adress_ar }} @else {{ $last->adress }} @endif"
                           style="border: hidden;background-color: transparent;" disabled>
                       </div>
@@ -289,14 +313,14 @@ $locale = App::getLocale();
 
                     <hr>
                     <div class="row">
-                      <div class="col-sm-12" style="display: flex; flex-direction: row; justify-content: space-between;">
+                      <div class="col-sm-12"
+                        style="display: flex; flex-direction: row; justify-content: space-between;">
                         <button class="btn btn-info i" id="btn-ch">{{ __('lang.edit') }}</button>
                         <button class="btn btn-info i" id="btn-tr">{{ __('lang.tran') }}</button>
                         <button class="btn btn-info i" id="btn-dir">{{ __('lang.files') }}</button>
 
                         <!-- Bouton supprimer avec redirection -->
-                        <a href="{{ route('employees.delete', $last->id_nin) }}"
-                          class="btn btn-danger i"
+                        <a href="{{ route('employees.delete', $last->id_nin) }}" class="btn btn-danger i"
                           onclick="return confirm('{{ __('lang.confirm_delete') }}');">
                           {{ __('lang.supprimer') }}
                         </a>
@@ -338,92 +362,96 @@ $locale = App::getLocale();
                       </div>
                     </div-->
                     @php
-                    $count=1;
-                    $j=0
+                      $count = 1;
+                      $j = 0
                     @endphp
-                    @for($i=0;$i<count($detailemp);$i++)
+                    @for($i = 0; $i < count($detailemp); $i++)
 
                       <div class="col-sm-12 mb-3">
-                      <div class="card h-100">
+                        <div class="card h-100">
 
-                        <div class="card-body">
-                          <div class="hidden-select" style="align-items: center;justify-content: flex-end;align-content: center;flex-wrap: wrap;" id="del_cariar">
-                            <a href='/Employe/carrier/{{$postarr[$j]->id_travail}}/{{$postarr[$j]->id_occup}}'>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash">
-                                <polyline points="3 6 5 6 21 6"></polyline>
-                                <path d="M19 6L17.5 20H6.5L5 6"></path>
-                                <path d="M10 11V17"></path>
-                                <path d="M14 11V17"></path>
-                                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
-                              </svg>
-                            </a>
-                          </div>
-                          <hr>
-                          <p>{{__('lang.dept')}} :
+                          <div class="card-body">
+                            <div class="hidden-select"
+                              style="align-items: center;justify-content: flex-end;align-content: center;flex-wrap: wrap;"
+                              id="del_cariar">
+                              <a href='/Employe/carrier/{{$postarr[$j]->id_travail}}/{{$postarr[$j]->id_occup}}'>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                  class="feather feather-trash">
+                                  <polyline points="3 6 5 6 21 6"></polyline>
+                                  <path d="M19 6L17.5 20H6.5L5 6"></path>
+                                  <path d="M10 11V17"></path>
+                                  <path d="M14 11V17"></path>
+                                  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+                                </svg>
+                              </a>
+                            </div>
+                            <hr>
+                            <p>{{__('lang.dept')}} :
 
-                            @if(app()->getLocale() == 'ar')
-                            {{$postarr[$i]->Nom_sous_depart_ar}}
-                            @else
-                            {{$postarr[$i]->Nom_sous_depart}}
-                            @endif
-
-                          </p>
-                          <div class="card-info">
-                            <p>
-                              {{__('lang.post')}} :
-
-                              @if(app()->getLocale() == 'ar' )
-                              {{$postarr[$j]->Nom_post_ar}}
+                              @if(app()->getLocale() == 'ar')
+                                {{$postarr[$i]->Nom_sous_depart_ar}}
                               @else
-                              {{$postarr[$j]->Nom_post}}
+                                {{$postarr[$i]->Nom_sous_depart}}
                               @endif
 
                             </p>
-                                @if(isset($postarr[$j]->Nom_postsup_ar))
-                              <p class="text-secondary mb-1">{{__('lang.post_sup')}} : {{$postarr[$j]->Nom_postsup_ar}}</p>
+                            <div class="card-info">
+                              <p>
+                                {{__('lang.post')}} :
+
+                                @if(app()->getLocale() == 'ar')
+                                  {{$postarr[$j]->Nom_post_ar}}
+                                @else
+                                  {{$postarr[$j]->Nom_post}}
+                                @endif
+
+                              </p>
+                              @if(isset($postarr[$j]->Nom_postsup_ar))
+                                <p class="text-secondary mb-1">{{__('lang.post_sup')}} : {{$postarr[$j]->Nom_postsup_ar}}
+                                </p>
                               @endif
                               @if(isset($postarr[$j]->Nom_fonction_ar))
-                              <p class="text-secondary mb-1">{{__('lang.post_fnc')}} : {{$postarr[$j]->Nom_fonction_ar}}</p>
+                                <p class="text-secondary mb-1">{{__('lang.post_fnc')}} : {{$postarr[$j]->Nom_fonction_ar}}
+                                </p>
                               @endif
-                            <p>
-                              {{__('lang.post_grad')}} : {{$postarr[$j]->Grade_post}}
-                            </p>
+                              <p>
+                                {{__('lang.post_grad')}} : {{$postarr[$j]->Grade_post}}
+                              </p>
 
-                            <p>
-                              {{__('lang.note')}} : {{$detailemp[$i]->notation}}
-                            </p>
+                              <p>
+                                {{__('lang.note')}} : {{$detailemp[$i]->notation}}
+                              </p>
 
-                            <p>
-                              {{__('lang.post_echl')}} : {{$postarr[$j]->echellant}}
-                            </p>
+                              <p>
+                                {{__('lang.post_echl')}} : {{$postarr[$j]->echellant}}
+                              </p>
+
+                            </div>
+                            <p>{{__('lang.obs')}}</p>
+                            <div>
+                              <p>{{__('lang.obs_dic')}}</p>
+                            </div>
+                            <p id="{{$detailemp[$i]->id_nin}}{{$count}}"></p>
+                            <div class="card-info">
+                              <p>{{__('lang.start')}} : {{$detailemp[$i]->date_installation}}</p>
+                            </div>
+
+                            <p class="more-info" id='{{$detailemp[$i]->id_travail}} {{$postarr[$j]->id_occup}}'> ...</p>
 
                           </div>
-                          <p>{{__('lang.obs')}}</p>
-                          <div>
-                            <p>{{__('lang.obs_dic')}}</p>
-                          </div>
-                          <p id="{{$detailemp[$i]->id_nin}}{{$count}}"></p>
-                          <div class="card-info">
-                            <p>{{__('lang.start')}} : {{$detailemp[$i]->date_installation}}</p>
-                          </div>
-
-                          <p class="more-info" id='{{$detailemp[$i]->id_travail}} {{$postarr[$j]->id_occup}}'> ...</p>
-
                         </div>
                       </div>
-                  </div>
-                  @php
-                  $count++;
-                  if(count($postarr) < $j)
-                    {
-                    $j++;
-                    }
-                    @endphp
+                      @php
+                        $count++;
+                        if (count($postarr) < $j) {
+                          $j++;
+                        }
+                      @endphp
                     @endfor
 
-                    </div>
-                    <i id="right" class="fas fa-angle-right"></i>
+                  </div>
+                  <i id="right" class="fas fa-angle-right"></i>
                 </div>
               </div>
             </div>
@@ -470,103 +498,109 @@ $locale = App::getLocale();
     position: absolute;
     top: 1%;
 ">
-    <form id="myForm" >
-      <div style="display: flex; justify-content: flex-end; align-content: center;align-items: center">
-      <h4 class="btn btn-info" id="carrier_close">X</h4>
-      </div>  
-      <div class="row g-3">
-        <!-- 16 inputs -->
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.nom_direct')}}</label>
-         
-          <select class="form-select" name="depart" id="depart">
+      <form id="myForm">
+        <div style="display: flex; justify-content: flex-end; align-content: center;align-items: center">
+          <h4 class="btn btn-info" id="carrier_close">X</h4>
+        </div>
+        <div class="row g-3">
+          <!-- 16 inputs -->
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.nom_direct')}}</label>
+
+            <select class="form-select" name="depart" id="depart">
               @foreach($dir as $d)
-                
+
                 <option value="{{ $d->id_depart }}">
-                  @if(app()->getLocale() == 'fr'){{ $d->Nom_depart }}@else{{ $d->Nom_depart_ar }}@endif</option>
-                
+                  @if(app()->getLocale() == 'fr'){{ $d->Nom_depart }}@else{{ $d->Nom_depart_ar }}@endif
+                </option>
 
-            @endforeach
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.sous_dept')}}</label>
-          <select class="form-select" name="sous_depart" id="sous_depart">
-            <option value=""></option>
-            @foreach($sdir as $sd)
-                <option value="{{ $sd->id_sous_depart }}">@if(app()->getLocale() == 'fr'){{ $sd->Nom_sous_depart }}@else{{ $sd->Nom_sous_depart_ar }}@endif</option>
-            @endforeach
-          </select>
+
+              @endforeach
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.sous_dept')}}</label>
+            <select class="form-select" name="sous_depart" id="sous_depart">
+              <option value=""></option>
+              @foreach($sdir as $sd)
+                <option value="{{ $sd->id_sous_depart }}">
+                  @if(app()->getLocale() == 'fr'){{ $sd->Nom_sous_depart }}@else{{ $sd->Nom_sous_depart_ar }}@endif
+                </option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.post_sup')}}</label>
+            <select class="form-select" name="postsup" id="postsup">
+              <option value="0"></option>
+              @foreach($postsup as $ps)
+                <option value="{{ $ps->id_postsup }}">
+                  @if(app()->getLocale() == 'fr'){{ $ps->Nom_postsup }}@else{{ $ps->Nom_postsup_ar }}@endif</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.post_fnc')}}</label>
+            <select class="form-select" name="fonction" id="fonction">
+              <option value=""></option>
+              @foreach($fonction as $ps)
+                <option value="{{ $ps->id_fonction }}">
+                  @if(app()->getLocale() == 'fr'){{ $ps->Nom_fonction }}@else{{ $ps->Nom_fonction_ar }}@endif</option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.date_rec')}}</label>
+            <input type="date" class="form-control" name="date_recrutement" id="date_recrutement">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.post')}}</label>
+            <select class="form-select" name="Grade_post" id="Grade_post">
+              @foreach($post as $ps)
+                <option value="{{ $ps->id_post }}">@if(app()->getLocale() == 'fr'){{ $ps->Nom_post }} /
+                {{$ps->Nom_filiere}}@else{{ $ps->Nom_filiere_ar }}@endif</option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.PV_inst')}}</label>
+            <input type="text" class="form-control" name="ref_PV" id="ref_PV">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.inst_dicsio')}}</label>
+            <input type="text" class="form-control" name="ref_Decision" id="ref_Decision">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.visa_CF')}}</label>
+            <input type="text" class="form-control" name="visa_CF" id="visa_CF">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Contract</label>
+            <select type="text" class="form-select" name="type_CTR" id="type_CTR">
+              <option value=""></option>
+              <option value="Fonctinnaire">{{__('lang.foncts')}} </option>
+              <option value="CDI">{{__('lang.cntr')}}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.note')}}</label>
+            <input type="text" class="form-control" name="notation" id="notation">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">{{__('lang.date_inst')}}</label>
+            <input type="date" class="form-control" name="date_installation" id="date_installation"></textarea>
+          </div>
         </div>
 
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.post_sup')}}</label>
-          <select  class="form-select" name="postsup" id="postsup">
-            <option value="0"></option>
-             @foreach($postsup as $ps)
-                <option value="{{ $ps->id_postsup }}">@if(app()->getLocale() == 'fr'){{ $ps->Nom_postsup }}@else{{ $ps->Nom_postsup_ar }}@endif</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.post_fnc')}}</label>
-          <select  class="form-select" name="fonction" id="fonction">
-            <option value=""></option>
-            @foreach($fonction as $ps)
-                <option value="{{ $ps->id_fonction }}">@if(app()->getLocale() == 'fr'){{ $ps->Nom_fonction }}@else{{ $ps->Nom_fonction_ar }}@endif</option>
-            @endforeach
-          </select>
-        </div>
 
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.date_rec')}}</label>
-          <input type="date" class="form-control" name="date_recrutement" id="date_recrutement">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.post')}}</label>
-          <select class="form-select" name="Grade_post" id="Grade_post">
-            @foreach($post as $ps)
-                <option value="{{ $ps->id_post }}">@if(app()->getLocale() == 'fr'){{ $ps->Nom_post }} / {{$ps->Nom_filiere}}@else{{ $ps->Nom_filiere_ar }}@endif</option>
-            @endforeach
-          </select>
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.PV_inst')}}</label>
-          <input type="text" class="form-control" name="ref_PV" id="ref_PV">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.inst_dicsio')}}</label>
-          <input type="text" class="form-control" name="ref_Decision" id="ref_Decision">
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.visa_CF')}}</label>
-          <input type="text" class="form-control" name="visa_CF" id="visa_CF">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Contract</label>
-          <select type="text" class="form-select" name="type_CTR" id="type_CTR">
-            <option value=""></option>
-            <option value="Fonctinnaire">{{__('lang.foncts')}} </option>
-            <option value="CDI">{{__('lang.cntr')}}</option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.note')}}</label>
-          <input type="text" class="form-control" name="notation" id="notation">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">{{__('lang.date_inst')}}</label>
-          <input type="date" class="form-control" name="date_installation" id="date_installation"></textarea>
-        </div>
-      </div>
-
-      
-    </form>
-  <div class="mt-3">
+      </form>
+      <div class="mt-3">
         <button class="btn btn-info" id="carrier_btn_up">{{__('lang.edit')}}</button>
-  </div>
+      </div>
     </div>
   </div>
 
@@ -609,12 +643,12 @@ $locale = App::getLocale();
             _method: "POST",
           }, // send the actual value
           dataType: "json",
-          success: function(response) {
+          success: function (response) {
             console.log('success');
             closeDialog();
             window.location.href = '/BioTemplate/search/' + response.data
           },
-          error: function(jqXHR, textStatus, errorThrown) {
+          error: function (jqXHR, textStatus, errorThrown) {
             console.error("Error:", textStatus, errorThrown);
           },
         });
@@ -637,7 +671,7 @@ $locale = App::getLocale();
     var btn_nin = document.getElementById('modif_nin')
     var btn_niv = document.getElementById('niv_edit')
     var btn_car = document.querySelectorAll('[id="del_cariar')
-    document.getElementById('mod-but').addEventListener('click', function() {
+    document.getElementById('mod-but').addEventListener('click', function () {
       var icon = document.getElementById('btn-icon');
       if (md == false) {
 
@@ -650,7 +684,7 @@ $locale = App::getLocale();
             '<span class="text-secondary" id="pro-mail-add"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>' +
             '</li>'
         }
-        $('#pro-mail-add').on('click', function() {
+        $('#pro-mail-add').on('click', function () {
           $("#inp-pro").html('<input class="col-sm-9 text-secondary" id="email_pro" style="height: 35px;width: 100%;border-style: ridge;background-color: transparent;"></input>')
         })
         if (lng == 'ar') {
@@ -680,7 +714,7 @@ $locale = App::getLocale();
         btn_car.forEach(el => {
           el.classList.remove('hidden-select'); // remove all classes
         });
-        btn_niv.addEventListener('click', function() {
+        btn_niv.addEventListener('click', function () {
           window.location.href = '/Employe/IsTravaill/' + id
         })
         document.getElementById('Nom_P').disabled = false;
@@ -726,7 +760,7 @@ $locale = App::getLocale();
         md = false;
       }
     })
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       const carousel = document.querySelector(".carousel");
       const arrowBtns = document.querySelectorAll(".wrapper i");
       const wrapper = document.querySelector(".wrapper");
@@ -928,19 +962,19 @@ $locale = App::getLocale();
           }
 
         } else
-        if (all.months != 0) {
-          if (lang == 'ar') {
-            document.getElementById(data[i].id_nin + '' + i).innerText = " لمدة : " + all.days + '' + jour + ' و ' + all.months + '' + mois;
+          if (all.months != 0) {
+            if (lang == 'ar') {
+              document.getElementById(data[i].id_nin + '' + i).innerText = " لمدة : " + all.days + '' + jour + ' و ' + all.months + '' + mois;
+            } else {
+              document.getElementById(data[i].id_nin + '' + i).innerText = " La Duree : " + all.days + 'Jour(s) et ' + all.months + ' Moi(s)';
+            }
           } else {
-            document.getElementById(data[i].id_nin + '' + i).innerText = " La Duree : " + all.days + 'Jour(s) et ' + all.months + ' Moi(s)';
+            if (lang == 'ar') {
+              document.getElementById(data[i].id_nin + '' + i).innerText = " La Duree : " + all.days + 'Jour(s) '
+            } else {
+              document.getElementById(data[i].id_nin + '' + i).innerText = " لمدة: " + all.days + '' + jour
+            }
           }
-        } else {
-          if (lang == 'ar') {
-            document.getElementById(data[i].id_nin + '' + i).innerText = " La Duree : " + all.days + 'Jour(s) '
-          } else {
-            document.getElementById(data[i].id_nin + '' + i).innerText = " لمدة: " + all.days + '' + jour
-          }
-        }
         console.log(`Number of days from ${startDate} to today: ${daysElapsed}`)
 
       }
