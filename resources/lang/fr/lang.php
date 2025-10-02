@@ -221,7 +221,7 @@ return [
     'postsup' => 'Poste Supèrieur',
     'foncts'=>'Fonctionnaire',
     'cntr'=>'Contra',
-    'ats' => 'Attestation Du Traivlle',
+    'ats' => 'Attestation de Travail',
     'ter_insta' => '',
     'fct' => 'Fonction ',
     'refinst' => 'Date et numéro du visa financier',
