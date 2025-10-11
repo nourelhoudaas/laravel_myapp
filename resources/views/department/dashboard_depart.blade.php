@@ -86,7 +86,7 @@
 
             <div class="recent_order">
                 <div class="title">{{ __('lang.lst_emp') }}</div>
-                <table  class="styled-table" id='myTable'>
+                <table  class="styled-table" id='departTable'>
                     <thead>
                         <tr>
                             <th>

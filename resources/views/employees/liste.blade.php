@@ -32,7 +32,7 @@ use Carbon\Carbon;
             <div class="title">
                 <h1> {{ __('lang.lst_emp') }}</h1>
             </div>
-            <table class="styled-table" id='myTable'>
+            <table class="styled-table" id='globalTable'>
 
                 <thead>
 

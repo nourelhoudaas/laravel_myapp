@@ -12,7 +12,7 @@
             <div class="title">
                 <h1>{{__('lang.list_pts')}}</h1>
             </div>
-            <table id='myTable' class="styled-table">
+            <table id='postTable' class="styled-table">
             <thead>
 
             <tr>

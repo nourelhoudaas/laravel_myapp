@@ -2422,3 +2422,19 @@ main .recent_order a:hover {
             transform: rotate(360deg);
         }
     }
+
+/*---------------------------------------------------*/
+/* Style pour le bouton Excel */
+.dt-button.buttons-excel {
+    background-color: #138827; /* Couleur de fond demandée */
+    color: white; /* Couleur de l'icône */
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dt-button.buttons-excel:hover {
+    background-color: #0f6b1f; /* Couleur légèrement plus foncée pour le survol */
+}
