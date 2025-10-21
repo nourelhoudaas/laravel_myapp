@@ -180,7 +180,7 @@ return [
     'ats'=>'شهادة عمل',
     'update'=>'',
 
-    
+    'exp' => "تصدير إلى Excel",
 
     'Changerlemotdepass'=>'تغيير كلمة المرور',
     'Ancienmotdepass'=>'كلمة المرور السابقة',
@@ -288,6 +288,10 @@ return [
   'ministry_communication' => 'وزارة الاتصال',
 'all_rights_reserved' => 'جميع الحقوق محفوظة',
 'parDepratement'=>'قائمة المديرية',
+
+'rep_familiale'=>'توزيع الموظفين حسب الحالة العائلية',
+'rep_sexe'=>'توزيع الموظفين حسب الجنس',
+'rep_structure'=>'توزيع الموظفين في كل مديرية',
 ];
 
 

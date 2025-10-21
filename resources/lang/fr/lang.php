@@ -217,7 +217,7 @@ return [
     'etatcivil' => 'Etat Civil',
     'nbr_restant' => 'Nombre de jours Restants',
 
-
+    'exp' => 'Exporter en Excel',
     'postsup' => 'Poste Supèrieur',
     'foncts'=>'Fonctionnaire',
     'cntr'=>'Contra',
@@ -298,4 +298,9 @@ return [
 'all_rights_reserved' => 'Tous droits réservés',
     'parDepratement'=>'Par direction',
     'imprimer_attestation'=>'Imprimer Attestation de Travail',
+
+    'rep_familiale'=>'Répartition des personnels par Situation Familiale',
+    'rep_sexe'=>'Répartition des personnels par Sexe',
+    'rep_structure'=>'Répartition des personnels par Structure',
+    
 ];

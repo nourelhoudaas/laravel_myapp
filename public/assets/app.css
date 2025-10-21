@@ -892,7 +892,7 @@ html:lang(ar) .stepper-item::after {
 }
 
 /* chart */
-.graphBox {
+/*.graphBox {
     margin-top: 2rem;
     position: relative;
     width: 100%;
@@ -910,7 +910,7 @@ html:lang(ar) .stepper-item::after {
     width: 800px;
     box-shadow: 0 7px 25 rgba(0, 0, 0, 0.8);
     border-radius: 20px;
-    max-height: 300px;
+    max-height: 500px;
 }
 .graphBox .box2 {
     position: relative;
@@ -920,10 +920,10 @@ html:lang(ar) .stepper-item::after {
     width: 800px;
     box-shadow: 0 7px 25 rgba(0, 0, 0, 0.8);
     border-radius: 20px;
-    height: 400px;
+    height: 500px;
     margin-left: -6rem;
     margin-right: -6rem;
-    max-height: 300px;
+    max-height: 500px;
 }
 .graphBox .box3 {
     position: absolute;
@@ -934,9 +934,45 @@ html:lang(ar) .stepper-item::after {
     width: 400px;
     height: 400px;
     left: 41rem;
-    top: 27rem;
+    top: 36rem;
+}
+*/
+.graphBox {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
+.box, .box2, .box3 {
+    background: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    position: relative;
+    
+    /* HAUTEUR FIXE + SCROLL */
+    max-height: 450px;           /* Hauteur maximale */
+    overflow-y: auto;            /* Scroll si trop de données */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Conteneur du canvas */
+.chart-container {
+    flex: 1;
+    min-height: 0;               /* Permet au canvas de rétrécir */
+    position: relative;
+}
+
+/* Canvas lui-même */
+canvas {
+    width: 100% !important;
+    height: 350px !important;    /* Hauteur fixe du graphique */
+    display: block;
+    border-radius: 8px;
+}
 /* ****************************************************************************************************
 ************************ADD EMPLOYE******************************************************************** */
 .main-body {
@@ -1901,14 +1937,6 @@ thead {
     font-weight: bold !important;
 }
 /* Pour la langue française */
-
-/* Conteneur au-dessus du tableau */
-html:lang(fr) .top {
-    display: flex;
-    justify-content: flex-end; /* Aligner à droite */
-    margin-bottom: 10px;
-}
-
 /* Conteneur sous le tableau */
 html:lang(fr) .bottom {
     display: flex;
@@ -1928,14 +1956,6 @@ html:lang(fr) .bottom .dataTables_paginate {
 }
 
 /* Pour la langue arabe */
-
-/* Conteneur au-dessus du tableau */
-html:lang(ar) .top {
-    display: flex;
-    justify-content: flex-end; /* Aligner à gauche */
-    margin-bottom: 10px;
-}
-
 /* Conteneur sous le tableau */
 html:lang(ar) .bottom {
     display: flex;
@@ -2043,7 +2063,7 @@ html:lang(fr) main .recent_order {
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     margin-right: -5rem;
-    width: 1800px;
+    width: 1773px;
     max-width: 1930px;
 }
 
@@ -2055,7 +2075,7 @@ html:lang(ar) main .recent_order {
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     margin-left: -5rem;
-    width: 1800px;
+    width: 1773px;
     max-width: 1800px;
 }
 
@@ -2085,6 +2105,7 @@ html:lang(ar) main .recent_order2 {
     max-width: 1800px;
     margin-right: 19rem;
 }
+
 
 /* Trait décoratif pour la langue française */
 .title2 {
@@ -2425,9 +2446,89 @@ main .recent_order a:hover {
 
 /*---------------------------------------------------*/
 /* Style pour le bouton Excel */
-.dt-button.buttons-excel {
-    background-color: #138827; /* Couleur de fond demandée */
+
+/* Conteneur .top pour aligner bouton à gauche et recherche à droite */
+html:lang(fr) .top {
+    display: flex;
+    justify-content: space-between; /* Bouton à gauche, recherche à droite */
+    align-items: center; /* Centre verticalement */
+    margin-bottom: 10px;
+    margin-left: 0; /* Pas de marge à gauche pour coller le bouton à l'extrême gauche */
+    padding-left: 0; /* Supprime tout padding à gauche */
+}
+
+/* Style pour le conteneur des boutons DataTables */
+ .dt-buttons {
+    margin-left: 6px;
+    padding-left: 13px;
+    margin-top: 17px;
+    display: flex;
+}
+
+/* Style pour la barre de recherche */
+html:lang(fr) .dt-search {
+    margin-right: 10px; /* Optionnel : espace à droite pour la recherche */
+}
+
+/* Pour la langue arabe (RTL) */
+html:lang(ar) .top {
+    display: flex;
+    justify-content: space-between; /* Bouton à droite (naturel en RTL), recherche à gauche */
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 0; /* Pas de marge à droite pour coller le bouton à l'extrême droite */
+    padding-right: 0; /* Pas de padding à droite */
+    flex-direction: row-reverse;
+}
+
+/* Si vous voulez forcer le bouton VISUELLEMENT à gauche en arabe (optionnel) */
+html:lang(ar) .top {
+    flex-direction: row-reverse; /* Inverse l'ordre visuel : bouton à gauche, recherche à droite */
+}
+
+/* Style pour le conteneur des boutons en RTL */
+/*html:lang(ar) .dt-buttons {
+    margin-right: 0; 
+    padding-right: 13px;
+    margin-top: 17px;
+}*/
+
+/* Style pour la barre de recherche en RTL */
+html:lang(ar) .dt-search {
+    margin-left: 10px; /* Optionnel : espace à gauche pour la recherche */
+}
+
+/* Style du bouton Excel pour cohérence */
+html:lang(fr) .dt-button.buttons-excel {
+    background-color: #138827; /* Couleur de fond */
     color: white; /* Couleur de l'icône */
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 0; /* Assure qu'il n'y a pas de marge à gauche en LTR */
+}
+
+html:lang(ar) .dt-button.buttons-excel {
+    background-color: #138827; /* Couleur de fond */
+    color: white; /* Couleur de l'icône */
+    border: none;
+    padding: 8px 12px;
+    /* border-radius: 4px; */
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 0; /* Assure qu'il n'y a pas de marge à gauche en LTR */
+}
+
+.dt-button.buttons-excel:hover {
+    background-color: #0f6b1f; /* Couleur au survol */
+}
+
+/* Style pour le bouton PDF */
+html:lang(fr) .dt-button.buttons-pdf {
+    background-color: #c0392b; /* Rouge pour différencier du bouton Excel */
+    color: white;
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
@@ -2435,6 +2536,98 @@ main .recent_order a:hover {
     cursor: pointer;
 }
 
-.dt-button.buttons-excel:hover {
-    background-color: #0f6b1f; /* Couleur légèrement plus foncée pour le survol */
+html:lang(ar) .dt-button.buttons-pdf {
+    background-color: #c0392b; /* Rouge pour différencier du bouton Excel */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    /* border-radius: 4px; */
+    font-size: 16px;
+    cursor: pointer;
+    
 }
+
+.dt-button.buttons-pdf:hover {
+    background-color: #a93226; /* Rouge plus foncé au survol */
+}
+
+/*=================BTN GROUP RTL/LTR=================*/
+html:lang(ar) .btn-group > .btn:not(:last-child):not(.dropdown-toggle){
+    border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+html:lang(ar) .btn-group > :not(.btn-check) + .btn{
+    border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Français : recherche à gauche, décalée à droite */
+html:lang(fr) .dt-search-depart {
+    margin-left: 1220px;
+}
+
+/* Arabe : recherche à droite, décalée à gauche */
+html:lang(ar) .dt-search-depart {
+    margin-right: 1220px;
+}
+
+/* impression des charts  */
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.chart-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.print-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.print-btn:hover {
+    background-color: #45a049;
+}
+
+/* === BOUTON TÉLÉCHARGEMENT === */
+    .download-btn {
+        background: var(--first-color);
+        color: white;
+        border: none;
+        padding: 7px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: var(--font-semi-bold);
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .download-btn:hover {
+        background:var(--first-color);
+    }
+
+    .download-btn::before {
+        content: "↓";
+        font-weight: bold;
+    }
+/* *************IMPRESSION-CHARTS****************** */

@@ -50,13 +50,15 @@
                 @if($departement->sous_departement->isNotEmpty())
                     @foreach ($departement->sous_departement as $sous_departement)
                         @if ($locale == 'fr')
-                        <a href="/listcontient{{ $sous_departement->Nom_sous_depart }}">
+                        <!-- <a href="/listcontient{{ $sous_departement->Nom_sous_depart }}">
                             {{ $sous_departement->Nom_sous_depart }}<br>
-                        </a>
+                        </a> -->
+                        {{ $sous_departement->Nom_sous_depart }}<br>
                         @elseif ($locale == 'ar')
-                        <a href="/listcontient/{{ $sous_departement->Nom_sous_depart_ar }}">
+                        <!-- <a href="/listcontient/{{ $sous_departement->Nom_sous_depart_ar }}">
                             {{ $sous_departement->Nom_sous_depart_ar }}<br>
-                        </a>
+                        </a> -->
+                        {{ $sous_departement->Nom_sous_depart_ar }}<br>
                         @endif
                     @endforeach
                 @else

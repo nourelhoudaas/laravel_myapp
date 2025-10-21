@@ -24,6 +24,10 @@
 <script src="{{ asset('assets/main/user/user.js') }}"></script>
 <script src="{{ asset('assets/app.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Ajout des scripts pour l'export PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js"></script>
+
 <script
     src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js"></script>
@@ -38,6 +42,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- Ajouter Font Awesome si ce n'est pas déjà inclus -->
+<script src="{{ asset('assets/js/amiri-font.js') }}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -201,6 +206,7 @@
 
         let lang = "{{ app()->getLocale() }}";
         let oLanguage = {};
+        let domConfig = '<"top"Bf>rt<"bottom"lp><"clear">'; // Par défaut pour LTR (français)
 
         if (lang === 'ar') {
             oLanguage = {
@@ -216,9 +222,11 @@
                     sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
                 },
                 buttons: {
+                    // pdf: 'تصدير إلى PDF', // Texte pour accessibilité
                     excel: 'تصدير إلى Excel' // Toujours nécessaire pour l'accessibilité, mais ne sera pas affiché
                 }
             };
+            domConfig = '<"top"fB>rt<"bottom"lp><"clear">'; // Inverser pour RTL : recherche d'abord, boutons ensuite
         } else if (lang === 'fr') {
             oLanguage = {
                 info: 'Affichage de la page _PAGE_ sur _PAGES_',
@@ -233,24 +241,69 @@
                     sPrevious: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
                 },
                 buttons: {
+                    // pdf: 'Exporter en PDF', // Texte pour accessibilité
                     excel: 'Exporter en Excel' // Toujours nécessaire pour l'accessibilité, mais ne sera pas affiché
                 }
             };
+            domConfig = '<"top"Bf>rt<"bottom"lp><"clear">'; // Ordre standard pour LTR
         }
 
         $('#globalTable').DataTable({
-            dom: '<"top"fB>rt<"bottom"lp><"clear">',
+            dom: domConfig,
+            //dom: '<"top"fB>rt<"bottom"lp><"clear">',
             pagingType: "simple",
             language: oLanguage,
             buttons: [
-                {
-                    className: 'dt-buttons buttons-excel', // Classe personnalisée pour le style
-                    extend: 'excelHtml5',
-                    text: '<i class="fas fa-table" aria-hidden="true"></i>', // Icône Font Awesome pour Excel
-                    titleAttr: lang === 'ar' ? 'تصدير إلى Excel' : 'Exporter en Excel', // Texte de survol pour accessibilité
-                    title: 'Liste_globale',
+                /* {
+                    className: 'dt-button buttons-pdf',
+                    extend: 'pdfHtml5',
+                    text: '<i class="fas fa-file-pdf" aria-hidden="true"></i>',
+                    titleAttr: lang === 'ar' ? 'تصدير إلى PDF' : 'Exporter en PDF',
+                    title: lang === 'ar' ? 'قائمة_حسب_القسم' : 'Liste_par_departement',
                     exportOptions: {
-                        columns: ':not(:last-child)' // Exclut la dernière colonne (Actions)
+                        columns: ':not(:last-child)' // Exclut la dernière colonne
+                    },
+                    customize: function (doc) {
+                        if (lang === 'ar') {
+                            // Configurer la police arabe et RTL
+                            doc.defaultStyle = {
+                                font: 'Amiri',
+                                alignment: 'right',
+                                direction: 'rtl'
+                            };
+                            doc.styles.tableHeader = {
+                                font: 'Amiri',
+                                alignment: 'right',
+                                direction: 'rtl',
+                                bold: true
+                            };
+                            // Inverser l'ordre des colonnes pour refléter RTL
+                            doc.content[1].table.widths = ['*', '*', '*', '*', '*', '*', '*'];
+                            doc.content[1].table.body.forEach(function (row) {
+                                row.reverse(); // Inverser les cellules de chaque ligne
+                            });
+                        } else {
+                            // Style par défaut pour français (LTR)
+                            doc.defaultStyle = {
+                                font: 'Roboto',
+                                alignment: 'left'
+                            };
+                            doc.styles.tableHeader = {
+                                font: 'Roboto',
+                                alignment: 'left',
+                                bold: true
+                            };
+                        }
+                    }
+                },*/
+                {
+                    className: 'dt-button buttons-excel',
+                    extend: 'excelHtml5',
+                    text: '<i class="fas fa-table" aria-hidden="true"></i>',
+                    titleAttr: lang === 'ar' ? 'تصدير إلى Excel' : 'Exporter en Excel',
+                    title: lang === 'ar' ? 'قائمة_حسب_القسم' : 'Liste_par_departement',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclut la dernière colonne
                     }
                 }
             ]
@@ -265,9 +318,9 @@
         if ($.fn.DataTable.isDataTable('#departTable')) {
             $('#departTable').DataTable().destroy();
         }
-
         let lang = "{{ app()->getLocale() }}";
         let oLanguage = {};
+        let domConfig = '<"top"Bf>rt<"bottom"lp><"clear">'; // Par défaut pour LTR (français)
 
         if (lang === 'ar') {
             oLanguage = {
@@ -283,9 +336,11 @@
                     sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
                 },
                 buttons: {
-                    excel: 'تصدير إلى Excel' // Toujours nécessaire pour l'accessibilité, mais ne sera pas affiché
+                    // pdf: 'تصدير إلى PDF', // Texte pour accessibilité
+                    excel: 'تصدير إلى Excel',
                 }
             };
+            domConfig = '<"top"fB>rt<"bottom"lp><"clear">'; // Inverser pour RTL : recherche d'abord, boutons ensuite
         } else if (lang === 'fr') {
             oLanguage = {
                 info: 'Affichage de la page _PAGE_ sur _PAGES_',
@@ -300,24 +355,67 @@
                     sPrevious: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
                 },
                 buttons: {
-                    excel: 'Exporter en Excel' // Toujours nécessaire pour l'accessibilité, mais ne sera pas affiché
+                    // pdf: 'Exporter en PDF', // Texte pour accessibilité
+                    excel: 'Exporter en Excel',
                 }
             };
+            domConfig = '<"top"Bf>rt<"bottom"lp><"clear">'; // Ordre standard pour LTR
         }
-
         $('#departTable').DataTable({
-            dom: '<"top"fB>rt<"bottom"lp><"clear">',
+            dom: domConfig,
             pagingType: "simple",
             language: oLanguage,
             buttons: [
+                /* {
+                     className: 'dt-button buttons-pdf',
+                     extend: 'pdfHtml5',
+                     text: '<i class="fas fa-file-pdf" aria-hidden="true"></i>',
+                     titleAttr: lang === 'ar' ? 'تصدير إلى PDF' : 'Exporter en PDF',
+                     title: lang === 'ar' ? 'قائمة_حسب_القسم' : 'Liste_par_departement',
+                     exportOptions: {
+                         columns: ':not(:last-child)' // Exclut la dernière colonne
+                     },
+                     customize: function (doc) {
+                         if (lang === 'ar') {
+                             // Configurer la police arabe et RTL
+                             doc.defaultStyle = {
+                                 font: 'Amiri',
+                                 alignment: 'right',
+                                 direction: 'rtl'
+                             };
+                             doc.styles.tableHeader = {
+                                 font: 'Amiri',
+                                 alignment: 'right',
+                                 direction: 'rtl',
+                                 bold: true
+                             };
+                             // Inverser l'ordre des colonnes pour refléter RTL
+                             doc.content[1].table.widths = ['*', '*', '*', '*', '*', '*', '*'];
+                             doc.content[1].table.body.forEach(function (row) {
+                                 row.reverse(); // Inverser les cellules de chaque ligne
+                             });
+                         } else {
+                             // Style par défaut pour français (LTR)
+                             doc.defaultStyle = {
+                                 font: 'Roboto',
+                                 alignment: 'left'
+                             };
+                             doc.styles.tableHeader = {
+                                 font: 'Roboto',
+                                 alignment: 'left',
+                                 bold: true
+                             };
+                         }
+                     }
+                 },*/
                 {
-                    className: 'dt-buttons buttons-excel', // Classe personnalisée pour le style
+                    className: 'dt-button buttons-excel',
                     extend: 'excelHtml5',
-                    text: '<i class="fas fa-table" aria-hidden="true"></i>', // Icône Font Awesome pour Excel
-                    titleAttr: lang === 'ar' ? 'تصدير إلى Excel' : 'Exporter en Excel', // Texte de survol pour accessibilité
-                    title: 'Liste_par_departement',
+                    text: '<i class="fas fa-table" aria-hidden="true"></i>',
+                    titleAttr: lang === 'ar' ? 'تصدير إلى Excel' : 'Exporter en Excel',
+                    title: lang === 'ar' ? 'قائمة_حسب_القسم' : 'Liste_par_departement',
                     exportOptions: {
-                        columns: ':not(:last-child)' // Exclut la dernière colonne (Actions)
+                        columns: ':not(:last-child)' // Exclut la dernière colonne
                     }
                 }
             ]
@@ -336,6 +434,7 @@
 
         let lang = "{{ app()->getLocale() }}";
         let oLanguage = {};
+        let domConfig = '<"top"Bf>rt<"bottom"lp><"clear">'; // Par défaut pour LTR (français)
 
         if (lang === 'ar') {
             oLanguage = {
@@ -351,9 +450,12 @@
                     sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
                 },
                 buttons: {
+                    // pdf: 'تصدير إلى PDF', // Texte pour accessibilité
                     excel: 'تصدير إلى Excel' // Toujours nécessaire pour l'accessibilité, mais ne sera pas affiché
                 }
             };
+            domConfig = '<"top"fB>rt<"bottom"lp><"clear">'; // Inverser pour RTL : recherche d'abord, boutons ensuite
+
         } else if (lang === 'fr') {
             oLanguage = {
                 info: 'Affichage de la page _PAGE_ sur _PAGES_',
@@ -368,24 +470,68 @@
                     sPrevious: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left"></i></span>'
                 },
                 buttons: {
+                    // pdf: 'Exporter en PDF', // Texte pour accessibilité
                     excel: 'Exporter en Excel' // Toujours nécessaire pour l'accessibilité, mais ne sera pas affiché
                 }
             };
+            domConfig = '<"top"Bf>rt<"bottom"lp><"clear">'; // Ordre standard pour LTR
         }
 
         $('#postTable').DataTable({
-            dom: '<"top"fB>rt<"bottom"lp><"clear">',
+            dom: domConfig,
             pagingType: "simple",
             language: oLanguage,
             buttons: [
+                /* {
+                   className: 'dt-button buttons-pdf',
+                   extend: 'pdfHtml5',
+                   text: '<i class="fas fa-file-pdf" aria-hidden="true"></i>',
+                   titleAttr: lang === 'ar' ? 'تصدير إلى PDF' : 'Exporter en PDF',
+                   title: lang === 'ar' ? 'قائمة_حسب_القسم' : 'Liste_par_departement',
+                   exportOptions: {
+                       columns: ':not(:last-child)' // Exclut la dernière colonne
+                   },
+                   customize: function (doc) {
+                       if (lang === 'ar') {
+                           // Configurer la police arabe et RTL
+                           doc.defaultStyle = {
+                               font: 'Amiri',
+                               alignment: 'right',
+                               direction: 'rtl'
+                           };
+                           doc.styles.tableHeader = {
+                               font: 'Amiri',
+                               alignment: 'right',
+                               direction: 'rtl',
+                               bold: true
+                           };
+                           // Inverser l'ordre des colonnes pour refléter RTL
+                           doc.content[1].table.widths = ['*', '*', '*', '*', '*', '*', '*'];
+                           doc.content[1].table.body.forEach(function (row) {
+                               row.reverse(); // Inverser les cellules de chaque ligne
+                           });
+                       } else {
+                           // Style par défaut pour français (LTR)
+                           doc.defaultStyle = {
+                               font: 'Roboto',
+                               alignment: 'left'
+                           };
+                           doc.styles.tableHeader = {
+                               font: 'Roboto',
+                               alignment: 'left',
+                               bold: true
+                           };
+                       }
+                   }
+               },*/
                 {
-                    className: 'dt-buttons buttons-excel', // Classe personnalisée pour le style
+                    className: 'dt-button buttons-excel',
                     extend: 'excelHtml5',
-                    text: '<i class="fas fa-table" aria-hidden="true"></i>', // Icône Font Awesome pour Excel
-                    titleAttr: lang === 'ar' ? 'تصدير إلى Excel' : 'Exporter en Excel', // Texte de survol pour accessibilité
-                    title: 'Liste_des_postes',
+                    text: '<i class="fas fa-table" aria-hidden="true"></i>',
+                    titleAttr: lang === 'ar' ? 'تصدير إلى Excel' : 'Exporter en Excel',
+                    title: lang === 'ar' ? 'قائمة_حسب_القسم' : 'Liste_par_departement',
                     exportOptions: {
-                        columns: ':not(:last-child)' // Exclut la dernière colonne (Actions)
+                        columns: ':not(:last-child)' // Exclut la dernière colonne
                     }
                 }
             ]
@@ -394,7 +540,7 @@
 </script>
 <!-- *************************** POST_TABLE *********************************************** -->
 
-
+<!-- *************************** ABS_TABLE *********************************************** -->
 <script>
 
     $(document).ready(function () {
@@ -404,6 +550,7 @@
 
         let lang = "{{ app()->getLocale() }}";
         let oLanguage = {};
+        let domConfig = '<"top"f>rt<"bottom"lp><"clear">'; // Par défaut pour LTR (français)
 
         if (lang === 'ar') {
             oLanguage = {
@@ -419,6 +566,7 @@
                     sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
                 }
             };
+            domConfig = '<"top"f>rt<"bottom"lp><"clear">'; // Inverser pour RTL : recherche d'abord, boutons ensuite
         } else if (lang === 'fr') {
             oLanguage = {
                 info: 'Affichage de la page _PAGE_ sur _PAGES_',
@@ -433,11 +581,12 @@
                     sPrevious: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'
                 }
             };
+            domConfig =  '<"top"f>rt<"bottom"lp><"clear">'; // Ordre standard pour LTR
         }
 
 
         $('#AbsTable').DataTable({
-            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            dom: domConfig,
             pagingType: "simple",
             language: oLanguage,
 
@@ -455,6 +604,7 @@
 
             let lang = "{{ app()->getLocale() }}";
             let oLanguage = {};
+        let domConfig = '<"top"f>rt<"bottom"lp><"clear">'; // Par défaut pour LTR (français)
             if (lang === 'ar') {
                 columnshead = [{ 'data': 'id_nin' }, { 'data': 'date_abs' }, { 'data': 'heure_abs' }, { 'data': 'statut_ar' }]
                 // columnshead =[{'data':'رقم'},{'data':'date_abs'},{'data':'heure_abs'},{'data':'statut'}]
@@ -471,6 +621,7 @@
                         sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
                     }
                 };
+            domConfig = '<"top"B>rt<"bottom"lp><"clear">'; // Inverser pour RTL : recherche d'abord, boutons ensuite
             } else if (lang === 'fr') {
                 columnshead = [{ 'data': 'id_nin' }, { 'data': 'date_abs' }, { 'data': 'heure_abs' }, { 'data': 'statut' }]
 
@@ -488,11 +639,12 @@
                         sPrevious: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'
                     }
                 };
+            domConfig = '<"top"f>rt<"bottom"lp><"clear">'; // Ordre standard pour LTR
             }
 
 
             $('#AbsempTable').DataTable({
-                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                dom: domConfig,
                 pagingType: "simple",
                 data: reponse,
                 columns: columnshead,
@@ -522,6 +674,8 @@
         });
     }
 </script>
+<!-- ********************************** ABS-TABLE************************************************ -->
+
 <!-- base -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -668,6 +822,7 @@
 
         let lang = "{{ app()->getLocale() }}";
         let oLanguage = {};
+        let domConfig = '<"top"f>rt<"bottom"lp><"clear">'; // Par défaut pour LTR (français)
 
         if (lang === 'ar') {
             oLanguage = {
@@ -683,6 +838,7 @@
                     sPrevious: '<span class="pagination-fa"><i class="fa fa-chevron-right"></i></span><span class="pagination-default"></span>'
                 }
             };
+            domConfig = '<"top"f>rt<"bottom"lp><"clear">'; // Inverser pour RTL : recherche d'abord, boutons ensuite
         } else if (lang === 'fr') {
             oLanguage = {
                 info: 'Affichage de la page _PAGE_ sur _PAGES_',
@@ -697,6 +853,7 @@
                     sPrevious: '<span class="pagination-default"></span><span class="pagination-fa"><i class="fa fa-chevron-left" ></i></span>'
                 }
             };
+            domConfig = '<"top"f>rt<"bottom"lp><"clear">'; // Ordre standard pour LTR
         }
 
 
